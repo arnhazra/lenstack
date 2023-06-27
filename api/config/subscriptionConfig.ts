@@ -1,12 +1,12 @@
 export const subscriptionConfig = {
     standardSubscriptionConfig: {
-        price: 0,
+        price: 0.19,
         requestLimit: {
-            evolake: 2,
-            airlake: 30,
-            icelake: 1,
-            frostlake: 100,
-            snowlake: 5
+            evolake: 10,
+            airlake: 300,
+            icelake: 5,
+            frostlake: 1000,
+            snowlake: 40
         }
     },
     premiumSubscriptionConfig: {
