@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const AnalyticsSchema = new mongoose.Schema({
+const EvolakeSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
@@ -27,6 +27,6 @@ const AnalyticsSchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const AnalyticsModel = mongoose.model('analytics', AnalyticsSchema)
+const EvolakeModel = mongoose.model('evolake', EvolakeSchema)
 
-export default AnalyticsModel
+export default EvolakeModel

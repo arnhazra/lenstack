@@ -2,24 +2,21 @@ import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import otptool from 'otp-without-db'
 import { validationResult } from 'express-validator'
-import statusMessages from '../../constants/statusMessages'
+import statusMessages from '../constants/statusMessages'
 import { v4 as uuidv4 } from 'uuid'
-import UserModel from './UserModel'
-import sendmail from '../../utils/mailer'
-import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/redisHelper'
-import otherConstants from '../../constants/otherConstants'
-import { envConfig } from '../../../config/envConfig'
-import AnalyticsController from '../analytics/AnalyticsController'
+import UserModel from '../models/UserModel'
+import sendmail from '../utils/mailer'
+import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../utils/redisHelper'
+import otherConstants from '../constants/otherConstants'
+import { envConfig } from '../../config/envConfig'
 
 export default class UserController {
     public otpKey: string
     public authPrivateKey: string
-    public analyticsController: AnalyticsController
 
     constructor() {
         this.otpKey = envConfig.otpKey
         this.authPrivateKey = envConfig.authPrivateKey
-        this.analyticsController = new AnalyticsController()
     }
 
     async requestAuthCode(req: Request, res: Response) {
@@ -109,19 +106,8 @@ export default class UserController {
     async userDetails(req: Request, res: Response) {
         try {
             const user = await UserModel.findById(req.headers.id).select('-date')
-            const { standardSubscriptionPrice, premiumSubscriptionPrice, standardSubscriptionReqLimit, premiumSubscriptionReqLimit } = envConfig
-            const subscriptionCharges = { standardSubscriptionPrice, premiumSubscriptionPrice }
-            const subscriptionReqLimit = { standardSubscriptionReqLimit, premiumSubscriptionReqLimit }
-            let subscriptionKeyUsage = 0
             if (user) {
-                try {
-                    if (user.subscriptionKey.length) {
-                        subscriptionKeyUsage = await this.analyticsController.countAnalyticsBySubKey(user.subscriptionKey)
-                    }
-                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage, subscriptionReqLimit })
-                } catch (error) {
-                    return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage, subscriptionReqLimit })
-                }
+                return res.status(200).json({ user })
             }
 
             else {

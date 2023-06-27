@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
-import UserController from './UserController'
-import { requestAuthCodeValidators, verifyAuthCodeValidators } from '../../validations/authValidators'
-import authorize from '../../middlewares/authorize'
+import UserController from '../controllers/UserController'
+import { requestAuthCodeValidators, verifyAuthCodeValidators } from '../validations/authValidators'
+import authorize from '../middlewares/authorize'
 
 export default class UserRouter {
     public router: Router

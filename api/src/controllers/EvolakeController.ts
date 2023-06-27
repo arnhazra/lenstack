@@ -1,26 +1,18 @@
 import { Request, Response } from 'express'
 import { Configuration, OpenAIApi } from 'openai'
-import { envConfig } from '../../../config/envConfig'
-import AnalyticsController from '../analytics/AnalyticsController'
-import statusMessages from '../../constants/statusMessages'
+import { envConfig } from '../../config/envConfig'
+import statusMessages from '../constants/statusMessages'
+import EvolakeModel from '../models/EvolakeModel'
 
-export default class QueryController {
-    public analyticsController: AnalyticsController
-
-    constructor() {
-        this.analyticsController = new AnalyticsController()
-    }
-
+export default class EvolakeController {
     async generateQuery(req: Request, res: Response) {
         try {
             const { selectedDb, userQuery, subscriptionKey } = req.body
             const finalQuery = `Create a ${selectedDb} request to ${userQuery.charAt(0).toLowerCase() + userQuery.slice(1)}`
-
-            const dbResponse = await this.analyticsController.getAnalyticsByQuery(finalQuery)
+            const dbResponse = await EvolakeModel.find({ query: finalQuery })
 
             if (dbResponse.length > 0) {
                 const dbGeneratedQuery = dbResponse[0].response
-                this.analyticsController.createAnalytics(req.headers.id as string, finalQuery, dbGeneratedQuery, subscriptionKey)
                 return res.status(200).json({ msg: dbGeneratedQuery, from: 'DB' })
             }
 
@@ -38,12 +30,23 @@ export default class QueryController {
                     presence_penalty: 0.0,
                 })
                 const aiGeneratedQuery = response.data.choices[0].text
-                this.analyticsController.createAnalytics(req.headers.id as string, finalQuery, aiGeneratedQuery, subscriptionKey)
+                const evolakeDbReq = new EvolakeModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, subscriptionKey })
+                await evolakeDbReq.save()
                 return res.status(200).json({ msg: aiGeneratedQuery, from: 'AI' })
             }
         }
 
         catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async getQueryHistoryByUser(req: Request, res: Response) {
+        try {
+            const userId = req.headers.id as string
+            const queryHistory = await EvolakeModel.find({ owner: userId }).sort({ date: -1 })
+            return res.status(200).json({ queryHistory })
+        } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }

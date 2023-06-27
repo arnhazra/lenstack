@@ -5,7 +5,7 @@ An open source application that uses OpenAI Davinci model to generate DB queries
 ### Tech Stack
 
 * OpenAI Davinci model for generating queries
-* Mongo DB For Users, Transactions & Analytics Management
+* Mongo DB For Users, Transactions Management
 * Ethereum Blockchain for decentralized transactions - ERC-20 token for payment & ERC-721 token for subscription ownership representation
 * Web3 JS for Ethereum blockchain for Web3 transactions
 * Redis for Managing user authentication, access tokens

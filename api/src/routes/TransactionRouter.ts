@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import authorize from '../../middlewares/authorize'
-import TransactionController from './TransactionController'
+import authorize from '../middlewares/authorize'
+import TransactionController from '../controllers/TransactionController'
 
 export default class TransactionRouter {
     public router: Router
@@ -14,7 +14,7 @@ export default class TransactionRouter {
 
     registerRoutes() {
         this.router.post('/create', authorize, this.transactionController.createTransaction.bind(this.transactionController))
-        this.router.post('/getlistbyuser', authorize, this.transactionController.getTransactions.bind(this.transactionController))
+        this.router.post('/gettxbyuser', authorize, this.transactionController.getTransactions.bind(this.transactionController))
     }
 
     getRouter() {

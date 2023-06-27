@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import statusMessages from '../../constants/statusMessages'
-import TransactionModel from './TransactionModel'
+import statusMessages from '../constants/statusMessages'
+import TransactionModel from '../models/TransactionModel'
 
 export default class TransactionController {
     async createTransaction(req: Request, res: Response) {
@@ -28,7 +28,7 @@ export default class TransactionController {
 
     async getTransactions(req: Request, res: Response) {
         try {
-            const transactions = await TransactionModel.find({ owner: req.headers.id }).sort({ date: -1 })
+            const transactions = await TransactionModel.find({ owner: req.headers.id }).sort({ date: -1 }).limit(3)
             return res.status(200).json({ transactions })
         }
 
