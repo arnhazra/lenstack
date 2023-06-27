@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { statusMessages } from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
-import EvolakeQueryModel from '../models/EvolakeQueryModel'
+import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
 
 async function icelakeApiAuthorizer(req: Request, res: Response, next: NextFunction) {
     const { subscriptionKey } = req.body
@@ -16,11 +16,11 @@ async function icelakeApiAuthorizer(req: Request, res: Response, next: NextFunct
             const user = await UserModel.findOne({ subscriptionKey })
 
             if (user) {
-                const queryCount = await EvolakeQueryModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
+                const documentCount = await IcelakeDocumentModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
                 req.headers.id = user.id
 
                 if (subscriptionKey.includes('Standard')) {
-                    if (queryCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.icelake) {
                         next()
                     }
 
@@ -30,7 +30,7 @@ async function icelakeApiAuthorizer(req: Request, res: Response, next: NextFunct
                 }
 
                 else if (subscriptionKey.includes('Premium')) {
-                    if (queryCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.icelake) {
                         next()
                     }
 
