@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const EvolakeSchema = new mongoose.Schema({
+const EvolakeQuerySchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
@@ -27,6 +27,6 @@ const EvolakeSchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const EvolakeModel = mongoose.model('evolake', EvolakeSchema)
+const EvolakeQueryModel = mongoose.model('evolake-query', EvolakeQuerySchema)
 
-export default EvolakeModel
+export default EvolakeQueryModel

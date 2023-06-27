@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { statusMessages } from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
-import EvolakeModel from '../models/EvolakeModel'
+import EvolakeQueryModel from '../models/EvolakeQueryModel'
 
 async function evolakeAuthorizer(req: Request, res: Response, next: NextFunction) {
     const { subscriptionKey } = req.body
@@ -16,7 +16,7 @@ async function evolakeAuthorizer(req: Request, res: Response, next: NextFunction
             const user = await UserModel.findOne({ subscriptionKey })
 
             if (user) {
-                const queryCount = await EvolakeModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
+                const queryCount = await EvolakeQueryModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
                 req.headers.id = user.id
 
                 if (subscriptionKey.includes('Standard')) {
