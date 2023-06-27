@@ -6,7 +6,7 @@ import { envConfig } from '../../config/envConfig'
 
 const authPublicKey = envConfig.authPublicKey
 
-async function authorize(req: Request, res: Response, next: NextFunction) {
+async function tokenAuthorizer(req: Request, res: Response, next: NextFunction) {
     const accessToken = req.headers['authorization']?.split(' ')[1]
 
     if (!accessToken) {
@@ -34,4 +34,4 @@ async function authorize(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export default authorize
+export { tokenAuthorizer }

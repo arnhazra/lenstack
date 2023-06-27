@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
 import UserController from '../controllers/UserController'
 import { requestAuthCodeValidators, verifyAuthCodeValidators } from '../validations/authValidators'
-import authorize from '../middlewares/authorize'
+import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
 
 export default class UserRouter {
     public router: Router
@@ -16,10 +16,10 @@ export default class UserRouter {
     registerRoutes() {
         this.router.post('/requestAuthCode', requestAuthCodeValidators, this.userController.requestAuthCode.bind(this.userController))
         this.router.post('/verifyauthcode', verifyAuthCodeValidators, this.userController.verifyAuthCode.bind(this.userController))
-        this.router.post('/user', authorize, this.userController.userDetails.bind(this.userController))
-        this.router.post('/signout', authorize, this.userController.signOut.bind(this.userController))
-        this.router.post('/subscribe', authorize, this.userController.subscribe.bind(this.userController))
-        this.router.post('/unsubscribe', authorize, this.userController.unsubscribe.bind(this.userController))
+        this.router.post('/user', tokenAuthorizer, this.userController.userDetails.bind(this.userController))
+        this.router.post('/signout', tokenAuthorizer, this.userController.signOut.bind(this.userController))
+        this.router.post('/subscribe', tokenAuthorizer, this.userController.subscribe.bind(this.userController))
+        this.router.post('/unsubscribe', tokenAuthorizer, this.userController.unsubscribe.bind(this.userController))
     }
 
     getRouter() {

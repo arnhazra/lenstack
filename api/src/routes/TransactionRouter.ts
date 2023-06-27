@@ -1,5 +1,5 @@
 import express, { Router } from 'express'
-import authorize from '../middlewares/authorize'
+import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
 import TransactionController from '../controllers/TransactionController'
 
 export default class TransactionRouter {
@@ -13,8 +13,8 @@ export default class TransactionRouter {
     }
 
     registerRoutes() {
-        this.router.post('/create', authorize, this.transactionController.createTransaction.bind(this.transactionController))
-        this.router.post('/gettxbyuser', authorize, this.transactionController.getTransactions.bind(this.transactionController))
+        this.router.post('/create', tokenAuthorizer, this.transactionController.createTransaction.bind(this.transactionController))
+        this.router.post('/gettxbyuser', tokenAuthorizer, this.transactionController.getTransactions.bind(this.transactionController))
     }
 
     getRouter() {

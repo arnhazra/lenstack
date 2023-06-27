@@ -5,7 +5,7 @@ import { validationResult } from 'express-validator'
 import { statusMessages } from '../constants/statusMessages'
 import { v4 as uuidv4 } from 'uuid'
 import UserModel from '../models/UserModel'
-import sendmail from '../utils/mailer'
+import { sendEmail } from '../utils/sendEmail'
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../utils/redisHelper'
 import { otherConstants } from '../constants/otherConstants'
 import { envConfig } from '../../config/envConfig'
@@ -33,7 +33,7 @@ export default class UserController {
                 let user = await UserModel.findOne({ email })
                 const otp = Math.floor(100000 + Math.random() * 900000)
                 const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, 'sha256')
-                await sendmail(email, otp)
+                await sendEmail(email, otp)
                 if (user) {
                     return res.status(200).json({ hash, newuser: false, msg: statusMessages.authCodeEmail })
                 }
