@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from 'express'
 import { statusMessages } from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
-import EvolakeQueryModel from '../models/EvolakeQueryModel'
+import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
 
 async function airlakeApiAuthorizer(req: Request, res: Response, next: NextFunction) {
-    const { subscriptionKey } = req.body
+    const { subscriptionKey } = req.params
 
     if (!subscriptionKey) {
         return res.status(403).json({ msg: statusMessages.unauthorized })
@@ -16,11 +16,11 @@ async function airlakeApiAuthorizer(req: Request, res: Response, next: NextFunct
             const user = await UserModel.findOne({ subscriptionKey })
 
             if (user) {
-                const queryCount = await EvolakeQueryModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
+                const documentCount = await AirlakeHistoryModel.find({ subscriptionKey }).countDocuments()
                 req.headers.id = user.id
 
                 if (subscriptionKey.includes('Standard')) {
-                    if (queryCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.airlake) {
                         next()
                     }
 
@@ -30,7 +30,7 @@ async function airlakeApiAuthorizer(req: Request, res: Response, next: NextFunct
                 }
 
                 else if (subscriptionKey.includes('Premium')) {
-                    if (queryCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.airlake) {
                         next()
                     }
 

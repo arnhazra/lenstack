@@ -16,11 +16,11 @@ async function evolakeApiAuthorizer(req: Request, res: Response, next: NextFunct
             const user = await UserModel.findOne({ subscriptionKey })
 
             if (user) {
-                const queryCount = await EvolakeQueryModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
+                const documentCount = await EvolakeQueryModel.find({ subscriptionKey }).countDocuments()
                 req.headers.id = user.id
 
                 if (subscriptionKey.includes('Standard')) {
-                    if (queryCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.evolake) {
                         next()
                     }
 
@@ -30,7 +30,7 @@ async function evolakeApiAuthorizer(req: Request, res: Response, next: NextFunct
                 }
 
                 else if (subscriptionKey.includes('Premium')) {
-                    if (queryCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.evolake) {
                         next()
                     }
 
