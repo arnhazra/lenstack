@@ -4,7 +4,7 @@ import UserModel from '../models/UserModel'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
 import EvolakeQueryModel from '../models/EvolakeQueryModel'
 
-async function evolakeAuthorizer(req: Request, res: Response, next: NextFunction) {
+async function icelakeApiAuthorizer(req: Request, res: Response, next: NextFunction) {
     const { subscriptionKey } = req.body
 
     if (!subscriptionKey) {
@@ -55,4 +55,4 @@ async function evolakeAuthorizer(req: Request, res: Response, next: NextFunction
     }
 }
 
-export default evolakeAuthorizer
+export { icelakeApiAuthorizer } 
