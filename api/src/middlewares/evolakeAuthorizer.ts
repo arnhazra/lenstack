@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
-import statusMessages from '../constants/statusMessages'
+import { statusMessages } from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
 import EvolakeModel from '../models/EvolakeModel'
 
-async function queryAuthorizer(req: Request, res: Response, next: NextFunction) {
-    const { selectedDb, userQuery, subscriptionKey } = req.body
+async function evolakeAuthorizer(req: Request, res: Response, next: NextFunction) {
+    const { subscriptionKey } = req.body
 
-    if (!subscriptionKey || !userQuery || !selectedDb) {
+    if (!subscriptionKey) {
         return res.status(403).json({ msg: statusMessages.unauthorized })
     }
 
@@ -55,4 +55,4 @@ async function queryAuthorizer(req: Request, res: Response, next: NextFunction) 
     }
 }
 
-export default queryAuthorizer
+export default evolakeAuthorizer

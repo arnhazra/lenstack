@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import statusMessages from '../constants/statusMessages'
+import { statusMessages } from '../constants/statusMessages'
 import { envConfig } from '../../config/envConfig'
 
 const dbConnect = async () => {
@@ -14,4 +14,4 @@ const dbConnect = async () => {
     })
 }
 
-export default dbConnect
+export { dbConnect }

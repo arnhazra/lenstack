@@ -12,7 +12,8 @@ enum statusMessages {
     mongoDbConnectionErr = 'Mongo DB Connection Error',
     redisConnected = 'Redis Connected',
     apiKeyLimitReached = 'API Key Limit Reached',
-    invalidApiKey = 'Invalid API Key'
+    invalidApiKey = 'Invalid API Key',
+    evolakeErrorMessage = 'Query String & Selected DB cannot be empty'
 }
 
-export default statusMessages
+export { statusMessages }

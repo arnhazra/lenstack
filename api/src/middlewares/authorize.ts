@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
-import statusMessages from '../constants/statusMessages'
+import { statusMessages } from '../constants/statusMessages'
 import { getTokenFromRedis } from '../utils/redisHelper'
 import { envConfig } from '../../config/envConfig'
 

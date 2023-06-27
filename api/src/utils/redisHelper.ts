@@ -1,5 +1,5 @@
 import { createClient } from 'redis'
-import statusMessages from '../constants/statusMessages'
+import { statusMessages } from '../constants/statusMessages'
 import { envConfig } from '../../config/envConfig'
 
 const redis = createClient({ url: envConfig.redisUri })

@@ -31,6 +31,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.3.1",
     "@types/nodemailer": "^6.4.8",
+    "@types/uuid": "^9.0.2",
     "concurrently": "^8.2.0",
     "nodemon": "^2.0.22",
     "typescript": "^5.1.3"

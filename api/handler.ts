@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import path from 'path'
 import { envConfig } from './config/envConfig'
-import connectMongo from './src/utils/dbConnect'
+import { dbConnect } from './src/utils/dbConnect'
 import { connectRedis } from './src/utils/redisHelper'
 import UserRouter from './src/routes/UserRouter'
 import TransactionRouter from './src/routes/TransactionRouter'
@@ -16,7 +16,7 @@ const app = express()
 app.listen(envConfig.apiPort)
 app.use(cors())
 app.use(express.json({ limit: '2mb' }))
-connectMongo()
+dbConnect()
 connectRedis()
 
 app.use('/api/user', userRouter.getRouter())

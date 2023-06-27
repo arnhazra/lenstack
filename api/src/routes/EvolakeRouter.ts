@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
 import EvolakeController from '../controllers/EvolakeController'
-import queryAuthorizer from '../middlewares/evolakeAuthorizer'
+import evolakeAuthorizer from '../middlewares/evolakeAuthorizer'
 import authorize from '../middlewares/authorize'
 
 export default class EvolakeRouter {
@@ -14,7 +14,7 @@ export default class EvolakeRouter {
     }
 
     registerRoutes() {
-        this.router.post('/generatequery', queryAuthorizer, this.evolakeController.generateQuery.bind(this.evolakeController))
+        this.router.post('/generatequery', evolakeAuthorizer, this.evolakeController.generateQuery.bind(this.evolakeController))
         this.router.post('/getqueryhistory', authorize, this.evolakeController.getQueryHistoryByUser.bind(this.evolakeController))
     }
 

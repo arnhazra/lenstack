@@ -3,4 +3,4 @@ enum otherConstants {
     tokenIssuer = 'https://lenstack.vercel.app'
 }
 
-export default otherConstants
+export { otherConstants }
