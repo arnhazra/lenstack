@@ -1,0 +1,15 @@
+{
+  "name": "lenstack",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix api\" \"npm run dev --prefix views\"",
+    "deploy": "git add . && git commit -m ProdDeploy && git push"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "description": ""
+}

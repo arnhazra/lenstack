@@ -1,0 +1,148 @@
+$mainColor: #1a1a1a
+$white: #ffffff
+$textBoxColor: #f6f6f6
+
+html
+    scrollbar-width: none
+
+::-webkit-scrollbar
+    width: 0
+
+body
+    background: linear-gradient(to right, #4849499e, #4849499e), url(../assets/landing.jpg)
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    background-attachment: fixed
+    font-family: 'Tilt Neon', cursive
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
+
+.cover
+    width: 100vw
+    height: 85vh
+    color: $white
+    vertical-align: middle
+    display: table-cell
+    text-align: left
+    letter-spacing: 0.05rem
+    animation: transitionIn 0.4s forwards
+
+.jumbotron
+    zoom: 0.95
+    padding: 1.5rem 2.2rem 0.7rem 2.2rem
+    margin-bottom: 1rem
+    background: $white
+    color: $mainColor
+    border-radius: 0.25rem
+    min-height: 14.5rem
+    backdrop-filter: blur(0.4rem)
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+    word-break: break-all
+
+.lead
+    font-size: 110%
+
+.lead-link
+    cursor: pointer
+
+.nameContainer
+    white-space: nowrap
+    overflow: hidden
+
+.smalltext
+    font-size: 100%
+
+.category
+    font-size: 80%
+    color: #3f8caf
+
+.container
+    min-width: 92%
+
+.loading-container
+    top: 54%
+    left: 50%
+    position: absolute
+    transform: translate(-50%,-50%)
+    box-sizing: border-box
+    background: transparent
+    color: $white
+    width: 20rem
+    text-align: center
+
+table tr:first-child th:first-child
+    border-top-left-radius: 1rem
+
+table tr:first-child th:last-child
+    border-top-right-radius: 1rem
+
+table tr:last-child td:first-child
+    border-bottom-left-radius: 1rem
+
+table tr:last-child td:last-child
+    border-bottom-right-radius: 1rem
+
+th,td,tr
+    background: $white !important
+    height: 3.75rem
+    border: none
+    vertical-align: middle
+    text-align: center
+
+.link-table,
+.link-table:hover
+    color: $mainColor
+
+.toaster
+    font-family: inherit
+
+.user-link
+    display: none
+
+@keyframes transitionIn
+    from
+        opacity: 0
+        transform: rotateX(5deg)
+
+    to
+        opacity: 1
+        transform: rotateX(0)
+
+h4
+    padding-bottom: 0.5rem
+
+.modal-footer,
+.modal-header
+    border: none
+
+.modal-footer
+    padding: 0
+
+.answer
+    width: 100%
+    min-height: 8rem
+    margin-bottom: 1rem
+    background: $white
+    border: 2px solid $textBoxColor
+    border-radius: 0.5rem
+    color: $mainColor
+    font-weight: bold
+    font-family: monospace
+    font-size: 0.7rem
+
+.copy-btn
+    display: flex
+    float: right
+    margin-right: 0.5rem
+    margin-top: -1rem
+    padding: 0.5rem
+
+@media only screen and (max-width: 61.95rem)
+    .lead
+        font-size: 75%
+
+    .container
+        min-width: 90%

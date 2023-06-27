@@ -1,0 +1,86 @@
+$mainColor: #1a1a1a
+$white: #ffffff
+
+.card
+    background: $white !important
+    color: $mainColor
+    border-radius: 0.7rem !important
+    border: none
+    animation: transitionIn 0.4s forwards
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+
+.card-header
+    background: $white !important
+    border-radius: 0.7rem 0.7rem 0 0 !important
+    border: none !important
+    text-align: center
+    padding: 1rem 1rem 0 1rem !important
+
+.card-footer
+    background: $white !important
+    border-radius: 0 0 0.7rem 0.7rem !important
+    border: none !important
+
+.card-body
+    background: $white !important
+    border: none !important
+
+@mixin categoryContainer
+    height: 4.5rem
+    width: 100%
+    border-radius: 0.7rem
+    transition: transform 0.75s ease
+    background-size: contain
+    background-position: center
+    background-repeat: no-repeat
+
+.scienceContainer
+    @include categoryContainer
+
+.scienceBtn
+    background: #00c3f5 !important
+
+.musicContainer
+    @include categoryContainer
+
+.musicBtn
+    background: #f50057 !important
+
+.financeContainer
+    @include categoryContainer
+
+.financeBtn
+    background: #00bfa6 !important
+
+.entertainmentContainer
+    @include categoryContainer
+
+.entertainmentBtn
+    background: #8cc32c !important
+
+.genericContainer
+    @include categoryContainer
+
+.genericBtn
+    background: #00b0ff !important
+
+.usersContainer
+    @include categoryContainer
+
+.usersBtn
+    background: #575a89 !important
+
+.booksContainer
+    @include categoryContainer
+
+.booksBtn
+    background: #f9a826 !important
+
+.sportsContainer
+    @include categoryContainer
+
+.sportsBtn
+    background: #226ec1 !important
+
+.card-rating
+    margin-bottom: 1rem

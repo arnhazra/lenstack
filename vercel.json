@@ -1,0 +1,23 @@
+{
+    "builds": [
+        {
+            "src": "dist/handler.js",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": [
+                    "dist/**"
+                ]
+            }
+        },
+        {
+            "src": "./dist/views",
+            "use": "@vercel/static"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "dist/handler.js"
+        }
+    ]
+}
