@@ -7,9 +7,11 @@ import { connectRedis } from './src/utils/redisHelper'
 import UserRouter from './src/routes/UserRouter'
 import TransactionRouter from './src/routes/TransactionRouter'
 import EvolakeRouter from './src/routes/EvolakeRouter'
+import AirlakeRouter from './src/routes/AirlakeRouter'
 
 const userRouter = new UserRouter()
 const transactionRouter = new TransactionRouter()
+const airlakeRouter = new AirlakeRouter()
 const evolakeRouter = new EvolakeRouter()
 
 const app = express()
@@ -21,6 +23,7 @@ connectRedis()
 
 app.use('/api/user', userRouter.getRouter())
 app.use('/api/transaction', transactionRouter.getRouter())
+app.use('/api/airlake', airlakeRouter.getRouter())
 app.use('/api/evolake', evolakeRouter.getRouter())
 
 if (envConfig.nodeEnv === 'production') {
