@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { statusMessages } from '../constants/statusMessages'
 import UserModel from '../models/UserModel'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
-import EvolakeQueryModel from '../models/EvolakeQueryModel'
+import SnowlakePrototypeModel from '../models/SnowlakePrototypeModel'
 
 async function snowlakeApiAuthorizer(req: Request, res: Response, next: NextFunction) {
     const { subscriptionKey } = req.body
@@ -16,11 +16,11 @@ async function snowlakeApiAuthorizer(req: Request, res: Response, next: NextFunc
             const user = await UserModel.findOne({ subscriptionKey })
 
             if (user) {
-                const queryCount = await EvolakeQueryModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
+                const documentCount = await SnowlakePrototypeModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
                 req.headers.id = user.id
 
                 if (subscriptionKey.startsWith('sk')) {
-                    if (queryCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.snowlake) {
                         next()
                     }
 
@@ -30,7 +30,7 @@ async function snowlakeApiAuthorizer(req: Request, res: Response, next: NextFunc
                 }
 
                 else if (subscriptionKey.startsWith('pk')) {
-                    if (queryCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.evolake) {
+                    if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.snowlake) {
                         next()
                     }
 
