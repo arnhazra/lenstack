@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
 import otptool from 'otp-without-db'
 import { validationResult } from 'express-validator'
 import { statusMessages } from '../constants/statusMessages'
-import { v4 as uuidv4 } from 'uuid'
 import UserModel from '../models/UserModel'
 import { sendEmail } from '../utils/sendEmail'
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../utils/redisHelper'
@@ -135,14 +135,14 @@ export default class UserController {
         const { tokenId, selectedPlan } = req.body
 
         try {
-            const uniqueId = uuidv4()
-            const subscriptionKey = selectedPlan + '_' + uniqueId + '_' + tokenId
+            const uniqueId = crypto.randomBytes(16).toString("hex")
+            const subscriptionKey = selectedPlan.charAt(0).toLowerCase() + 'k' + '-' + uniqueId + '-' + tokenId
             await UserModel.findByIdAndUpdate(req.headers.id, { subscriptionKey })
-            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+            return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
         }
 
         catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
+            return res.status(500).json({ msg: statusMessages.subscriptionFailure })
         }
     }
 
@@ -152,11 +152,11 @@ export default class UserController {
         try {
             const subscriptionKey = ''
             await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
-            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+            return res.status(200).json({ msg: statusMessages.unsubscribeSuccess })
         }
 
         catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
+            return res.status(500).json({ msg: statusMessages.unsubscribeFailure })
         }
     }
 }

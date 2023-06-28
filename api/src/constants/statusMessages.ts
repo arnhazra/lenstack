@@ -2,7 +2,7 @@ enum statusMessages {
     connectionError = 'Connection Error',
     transactionCreationSuccess = 'New Transaction Created',
     transactionCreationError = 'Error Creating ERC20 Transaction',
-    signOutSuccess = 'You are now signed out. Thanks for using the app',
+    signOutSuccess = 'You are now signed out',
     unauthorized = 'Unauthorized',
     invalidAuthCode = 'Invalid Auth Code',
     authCodeEmail = 'Check Auth Code in Email',
@@ -13,7 +13,11 @@ enum statusMessages {
     redisConnected = 'Redis Connected',
     apiKeyLimitReached = 'API Key Limit Reached',
     invalidApiKey = 'Invalid API Key',
-    evolakeErrorMessage = 'Query String & Selected DB cannot be empty'
+    evolakeErrorMessage = 'Query String & Selected DB cannot be empty',
+    subscriptionSuccess = 'You are subscribed now',
+    subscriptionFailure = 'Subscription failed',
+    unsubscribeSuccess = 'Successfully unsubscribed',
+    unsubscribeFailure = 'Unsubscribe failed'
 }
 
 export { statusMessages }
