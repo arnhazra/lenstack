@@ -3,8 +3,8 @@ import { Fragment, useContext, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { AppContext } from '@/context/appStateProvider'
 import Show from '@/components/Show'
-import SubscribeModal from '@/utils/SubscribeModal'
-import UnsubscribeModal from '@/utils/UnsubscribeModal'
+import SubscribeModal from '@/components/SubscribeModal'
+import UnsubscribeModal from '@/components/UnsubscribeModal'
 import { SubPlanState } from '@/types/Types'
 
 const PricingPage: NextPage = () => {

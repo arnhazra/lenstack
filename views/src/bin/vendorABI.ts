@@ -1,4 +1,4 @@
-export const tokenVendorABI = [
+export const vendorABI = [
     {
         "inputs": [
             {

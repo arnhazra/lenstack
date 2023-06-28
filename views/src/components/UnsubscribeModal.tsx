@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState, useContext } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Show from '@/components/Show'
-import { tokenABI } from '@/bin/lftABI'
+import { tokenABI } from '@/bin/tokenABI'
 import Web3 from 'web3'
 import axios from 'axios'
 import contractAddress from '@/constants/contractAddress'
@@ -11,8 +11,8 @@ import { toast } from 'react-hot-toast'
 import Constants from '@/constants/appConstants'
 import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
-import { anftABI } from '@/bin/lnftABI'
-import { tokenVendorABI } from '@/bin/vendorABI'
+import { nftABI } from '@/bin/nftABI'
+import { vendorABI } from '@/bin/vendorABI'
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
@@ -56,7 +56,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                 await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
             }
 
-            const vendor = new web3Provider.eth.Contract(tokenVendorABI as any, contractAddress.vendorContractAddress)
+            const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
             const sellData = vendor.methods.sellTokens(web3Provider.utils.toWei(refundAmount.toString(), 'ether')).encodeABI()
             const sellTx = {
                 from: walletAddress,
@@ -95,7 +95,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
             const { privateKey } = userState
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
 
-            const nftcontract = new web3Provider.eth.Contract(anftABI as any, contractAddress.nftContractAddress)
+            const nftcontract = new web3Provider.eth.Contract(nftABI as any, contractAddress.nftContractAddress)
             const sellNFTData = nftcontract.methods.sellNFT(tokenId).encodeABI()
 
             const sellNFTTx = {

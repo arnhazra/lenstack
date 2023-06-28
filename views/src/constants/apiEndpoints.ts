@@ -1,18 +1,33 @@
 const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://lenstack.vercel.app'
 
 const endPoints = {
-    getAnalyticsByUserEndpoint: `${apiHost}/api/analytics/getbyuser`,
-    generateQueryEndpoint: `${apiHost}/api/query/generate`,
-    createTransactionEndpoint: `${apiHost}/api/transaction/create`,
-    getTransactionsEndpoint: `${apiHost}/api/transaction/getlistbyuser`,
-    requestAuthCodeEndpoint: `${apiHost}/api/user/requestAuthCode`,
+    polygonScanEndpoint: `https://mumbai.polygonscan.com/tx`,
+    infuraEndpoint: `https://polygon-mumbai.infura.io/v3/fcb2c26ca13f46a591ed0822c3565c50`,
+    requestAuthCodeEndpoint: `${apiHost}/api/user/requestauthcode`,
     verifyAuthCodeEndpoint: `${apiHost}/api/user/verifyauthcode`,
-    userDetailsEndpoint: `${apiHost}/api/user/user`,
+    userDetailsEndpoint: `${apiHost}/api/user/userdetails`,
     signOutEndpoint: `${apiHost}/api/user/signout`,
     subscribeEndpoint: `${apiHost}/api/user/subscribe`,
     unsubscribeEndpoint: `${apiHost}/api/user/unsubscribe`,
-    polygonScanEndpoint: `https://mumbai.polygonscan.com/tx`,
-    infuraEndpoint: `https://polygon-mumbai.infura.io/v3/fcb2c26ca13f46a591ed0822c3565c50`
+    createTransactionEndpoint: `${apiHost}/api/transaction/create`,
+    getTransactionsEndpoint: `${apiHost}/api/transaction/gettxbyuser`,
+    airlakeFiltersEndpoint: `${apiHost}/api/products/airlake/filters`,
+    airlakeFindDatasetsEndpoint: `${apiHost}/api/products/airlake/finddatasets`,
+    airlakeViewDatasetsEndpoint: `${apiHost}/api/products/airlake/viewdataset`,
+    airlakeFindSimilarDatasetsEndpoint: `${apiHost}/api/products/airlake/findsimilardatasets`,
+    airlakeGetDatasetHistoryByUserEndpoint: `${apiHost}/api/products/airlake/getdatasethistorybyuser`,
+    airlakeMetadataApiEndpoint: `${apiHost}/api/products/airlake/metadataapi`,
+    airlakeDataApiEndpoint: `${apiHost}/api/products/airlake/dataapi`,
+    evolakeGenerateQueryEndpint: `${apiHost}/api/products/evolake/generatequery`,
+    evolakeGetQueryHistoryEndpoint: `${apiHost}/api/products/evolake/getqueryhistory`,
+    icelakeCreateDocEndpoint: `${apiHost}/api/products/icelake/createdoc`,
+    icelakeGetAllDocEndpoint: `${apiHost}/api/products/icelake/getalldoc`,
+    icelakeSaveDocEndpoint: `${apiHost}/api/products/icelake/savedoc`,
+    icelakeDeleteDocEndpoint: `${apiHost}/api/products/icelake/deletedoc`,
+    snowlakeCreatePrototypeEndpoint: `${apiHost}/api/products/snowlake/createprototype`,
+    snowlakeGetAllPrototypesEndpoint: `${apiHost}/api/products/snowlake/getallprototypes`,
+    snowlakeViewPrototypeEndpoint: `${apiHost}/api/products/snowlake/viewprototype`,
+    snowlakeDeletePrototypeEndpoint: `${apiHost}/api/products/snowlake/deleteprototype`,
 }
 
 export default endPoints

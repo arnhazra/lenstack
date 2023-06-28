@@ -1,4 +1,4 @@
-export const anftABI = [
+export const nftABI = [
     {
         "inputs": [
             {
