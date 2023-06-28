@@ -15,9 +15,9 @@ export default class IcelakeRouter {
 
     registerRoutes() {
         this.router.post('/createdoc', icelakeApiAuthorizer, this.icelakeController.createDocument.bind(this.icelakeController))
-        this.router.post('/getalldoc', tokenAuthorizer, this.icelakeController.getAllDocuments.bind(this.icelakeController))
-        this.router.post('/savedoc/:docId', tokenAuthorizer, this.icelakeController.saveDocument.bind(this.icelakeController))
-        this.router.delete('/deletedoc/:docId', tokenAuthorizer, this.icelakeController.deleteDocument.bind(this.icelakeController))
+        this.router.post('/getalldoc', icelakeApiAuthorizer, this.icelakeController.getAllDocuments.bind(this.icelakeController))
+        this.router.post('/savedoc/:docId', icelakeApiAuthorizer, this.icelakeController.saveDocument.bind(this.icelakeController))
+        this.router.delete('/deletedoc/:docId', icelakeApiAuthorizer, this.icelakeController.deleteDocument.bind(this.icelakeController))
     }
 
     getRouter() {

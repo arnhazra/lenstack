@@ -16,11 +16,16 @@ const IcelakeDocumentSchema = new mongoose.Schema({
         required: true
     },
 
+    subscriptionKey: {
+        type: String,
+        required: true
+    },
+
     date: {
         type: Date,
         default: Date.now
     }
-})
+}, { versionKey: false })
 
 const IcelakeDocumentModel = mongoose.model('icelake-document', IcelakeDocumentSchema)
 

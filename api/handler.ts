@@ -25,9 +25,9 @@ connectRedis()
 
 app.use('/api/user', userRouter.getRouter())
 app.use('/api/transaction', transactionRouter.getRouter())
-app.use('/api/airlake', airlakeRouter.getRouter())
-app.use('/api/evolake', evolakeRouter.getRouter())
-app.use('/api/icelake', icelakeRouter.getRouter())
+app.use('/api/products/airlake', airlakeRouter.getRouter())
+app.use('/api/products/evolake', evolakeRouter.getRouter())
+app.use('/api/products/icelake', icelakeRouter.getRouter())
 
 if (envConfig.nodeEnv === 'production') {
     const cacheControl = 'public, max-age=31536000'
