@@ -27,10 +27,10 @@ const SnowlakePrototypeSchema = new mongoose.Schema({
     },
 
     date: {
-        type: String,
-        default: Date()
+        type: Date,
+        default: Date.now
     }
-})
+}, { versionKey: false })
 
 const SnowlakePrototypeModel = mongoose.model('snowlake-prototype', SnowlakePrototypeSchema)
 

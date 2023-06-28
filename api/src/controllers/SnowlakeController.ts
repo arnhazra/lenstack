@@ -21,7 +21,7 @@ export default class SnowlakeController {
         try {
             const userId = req.headers.id as string
             const prototypes = await SnowlakePrototypeModel.find({ owner: userId }).sort({ date: -1 })
-            return res.status(200).json(prototypes)
+            return res.status(200).json({ prototypes })
         }
 
         catch (error) {
