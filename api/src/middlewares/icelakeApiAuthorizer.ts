@@ -19,7 +19,7 @@ async function icelakeApiAuthorizer(req: Request, res: Response, next: NextFunct
                 const documentCount = await IcelakeDocumentModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
                 req.headers.id = user.id
 
-                if (subscriptionKey.includes('Standard')) {
+                if (subscriptionKey.startsWith('sk')) {
                     if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.icelake) {
                         next()
                     }
@@ -29,7 +29,7 @@ async function icelakeApiAuthorizer(req: Request, res: Response, next: NextFunct
                     }
                 }
 
-                else if (subscriptionKey.includes('Premium')) {
+                else if (subscriptionKey.startsWith('pk')) {
                     if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.icelake) {
                         next()
                     }

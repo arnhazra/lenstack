@@ -19,7 +19,7 @@ async function frostlakeApiAuthorizer(req: Request, res: Response, next: NextFun
                 const queryCount = await EvolakeQueryModel.find({ subscriptionKey: subscriptionKey }).countDocuments()
                 req.headers.id = user.id
 
-                if (subscriptionKey.includes('Standard')) {
+                if (subscriptionKey.startsWith('sk')) {
                     if (queryCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.evolake) {
                         next()
                     }
@@ -29,7 +29,7 @@ async function frostlakeApiAuthorizer(req: Request, res: Response, next: NextFun
                     }
                 }
 
-                else if (subscriptionKey.includes('Premium')) {
+                else if (subscriptionKey.startsWith('pk')) {
                     if (queryCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.evolake) {
                         next()
                     }
