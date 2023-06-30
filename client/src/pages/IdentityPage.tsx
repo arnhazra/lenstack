@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState } from 'react'
 import axios from 'axios'
 import Web3 from 'web3'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
@@ -16,12 +16,6 @@ const IdentityPage: FC = () => {
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
     const navigate = useNavigate()
-
-    useEffect(() => {
-        if (localStorage.hasOwnProperty('accessToken')) {
-            navigate('/dashboard')
-        }
-    }, [])
 
     const requestAuthCode = async (event: any) => {
         event.preventDefault()

@@ -6,6 +6,7 @@ import AppStateProvider from '../context/appStateProvider'
 import Layout from '../layouts/Layout'
 import SuspenseLoading from '../components/SuspenseLoading'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import UnprotectedRoute from './UnprotectedRoute'
 const HomePage = lazy(() => import('../pages/HomePage'))
 const IdentityPage = lazy(() => import('../pages/IdentityPage'))
 const AccountPage = lazy(() => import('../pages/AccountPage'))
@@ -29,9 +30,11 @@ const AppRouter: FC = () => {
                         <Suspense fallback={<SuspenseLoading />}>
                             <Routes>
                                 <Route element={<Layout />}>
-                                    <Route path='/' element={<HomePage />} />
-                                    <Route path='/identity' element={<IdentityPage />} />
-                                    <Route path='/plans' element={<PlansPage />} />
+                                    <Route element={<UnprotectedRoute />}>
+                                        <Route path='/' element={<HomePage />} />
+                                        <Route path='/identity' element={<IdentityPage />} />
+                                        <Route path='/plans' element={<PlansPage />} />
+                                    </Route>
                                     <Route element={<ProtectedRoute />}>
                                         <Route path='/dashboard' element={<DashboardPage />} />
                                         <Route path='/transactions' element={<TransactionsPage />} />
