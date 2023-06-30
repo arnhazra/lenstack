@@ -39,12 +39,12 @@ const AppRouter: FC = () => {
                                         <Route path='/wallet' element={<WalletPage />} />
                                         <Route path='/usage' element={<UsagePage />} />
                                         <Route path='/pricing' element={<PricingPage />} />
-                                        <Route path='/airlake/datasets' element={<AirlakeDatasetsPage />} />
-                                        <Route path='/airlake/viewdataset/:id' element={<AirlakeViewDatasetPage />} />
-                                        <Route path='/evolake/queryengine' element={<HomePage />} />
-                                        <Route path='/evolake/queryhistory' element={<HomePage />} />
-                                        <Route path='/icelake' element={<HomePage />} />
-                                        <Route path='/snowlake' element={<HomePage />} />
+                                        <Route path='/products/airlake/datasets' element={<AirlakeDatasetsPage />} />
+                                        <Route path='/products/airlake/viewdataset/:id' element={<AirlakeViewDatasetPage />} />
+                                        <Route path='/products/evolake/queryengine' element={<HomePage />} />
+                                        <Route path='/products/evolake/queryhistory' element={<HomePage />} />
+                                        <Route path='/products/icelake' element={<HomePage />} />
+                                        <Route path='/products/snowlake' element={<HomePage />} />
                                     </Route>
                                     <Route path='*' element={<Error />} />
                                 </Route>

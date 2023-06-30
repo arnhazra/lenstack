@@ -34,7 +34,7 @@ app.use('/api/products/snowlake', snowlakeRouter.getRouter())
 
 if (envConfig.nodeEnv === 'production') {
     const cacheControl = 'public, max-age=31536000'
-    function setCustomCacheControl(res, path) {
+    function setCustomCacheControl(res: Response, path: string) {
         if (express.static.mime.lookup(path) === 'text/html') {
             res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
         } else {
@@ -42,8 +42,8 @@ if (envConfig.nodeEnv === 'production') {
         }
     }
 
-    app.use(express.static(path.join(__dirname, 'views', 'build'), { maxAge: 60000, setHeaders: setCustomCacheControl }))
+    app.use(express.static(path.join(__dirname, 'client', 'build'), { maxAge: 60000, setHeaders: setCustomCacheControl }))
     app.get('/*', (req: Request, res: Response) => {
-        res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'))
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
     })
 }
