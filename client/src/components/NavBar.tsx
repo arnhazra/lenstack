@@ -26,7 +26,6 @@ const NavBar: FC = () => {
                                 <Link to='/pricing'><Navbar.Brand>Pricing</Navbar.Brand></Link>
                                 <Link to='/usage'><Navbar.Brand>Usage</Navbar.Brand></Link>
                                 <Link to='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
-                                <Link to='/analytics'><Navbar.Brand>Analytics</Navbar.Brand></Link>
                                 <Link to='/transactions'><Navbar.Brand>Transactions</Navbar.Brand></Link>
                                 <Link to='/account'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>
