@@ -42,8 +42,8 @@ if (envConfig.nodeEnv === 'production') {
         }
     }
 
-    app.use(express.static(path.join(__dirname, 'client'), { maxAge: '1y', setHeaders: setCustomCacheControl }))
-    app.use('/*', (req: Request, res: Response) => {
-        res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
+    app.use(express.static(path.join(__dirname, 'views', 'build'), { maxAge: 60000, setHeaders: setCustomCacheControl }))
+    app.get('/*', (req: Request, res: Response) => {
+        res.sendFile(path.join(__dirname, 'views', 'build', 'index.html'))
     })
 }
