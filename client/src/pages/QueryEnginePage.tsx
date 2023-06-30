@@ -1,7 +1,6 @@
 import Show from '../components/Show'
 import endPoints from '../constants/apiEndpoints'
 import { AppContext } from '../context/appStateProvider'
-import { dbOptions } from '../utils/dbOptions'
 import axios from 'axios'
 import { FC } from 'react'
 import React, { useContext, useState } from 'react'

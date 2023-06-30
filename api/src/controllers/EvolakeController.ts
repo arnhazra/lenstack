@@ -5,6 +5,27 @@ import { statusMessages } from '../constants/statusMessages'
 import EvolakeQueryModel from '../models/EvolakeQueryModel'
 
 export default class EvolakeController {
+    async getDatabaseList(req: Request, res: Response) {
+        try {
+            const dbOptions = [
+                { value: 'SQL', label: 'SQL' },
+                { value: 'MongoDB', label: 'Mongo DB' },
+                { value: 'PostgreSQL', label: 'Postgre SQL' },
+                { value: 'MariaDB', label: 'Maria DB' },
+                { value: 'Firebase', label: 'Firebase' },
+                { value: 'Prisma', label: 'Prisma' },
+                { value: 'GraphQL', label: 'GraphQL' },
+                { value: 'DynamoDB', label: 'Dynamo DB' },
+            ]
+
+            return res.status(200).json({ dbOptions })
+        }
+
+        catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
     async generateQuery(req: Request, res: Response) {
         try {
             const { selectedDb, userQuery, subscriptionKey } = req.body

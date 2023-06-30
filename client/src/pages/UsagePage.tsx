@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { AppContext } from '../context/appStateProvider'
 import { SubReqLimitState } from '../types/Types'
 import Show from '../components/Show'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import contractAddress from '../constants/contractAddress'
 import { toast } from 'react-hot-toast'
 
@@ -61,7 +61,7 @@ const UsagePage: FC = () => {
                 <h4>
                     Plan - {selectedPlan}
                     <Show when={userState.subscriptionKey.length > 0}>
-                        <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
+                        <Link title='Access NFT' target='_blank' to={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
                             <i className='fa-solid fa-shield'></i>
                         </Link>
                     </Show>

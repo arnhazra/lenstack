@@ -2,7 +2,7 @@ import { Fragment, useContext } from 'react'
 import { Button } from 'react-bootstrap'
 import endPoints from '../constants/apiEndpoints'
 import { FC } from 'react'
-import { useRouter } from 'next/router'
+import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/appStateProvider'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
@@ -10,18 +10,18 @@ import Constants from '../constants/appConstants'
 
 const AccountPage: FC = () => {
     const [{ userState }] = useContext(AppContext)
-    const router = useRouter()
+    const navigate = useNavigate()
 
     const signOutFromThisDevice = () => {
         localStorage.removeItem('accessToken')
-        router.push('/')
+        navigate('/')
     }
 
     const signOut = async () => {
         try {
             await axios.post(endPoints.signOutEndpoint)
             localStorage.removeItem('accessToken')
-            router.push('/')
+            navigate('/')
         } catch (error) {
             toast.error(Constants.ToastError)
         }

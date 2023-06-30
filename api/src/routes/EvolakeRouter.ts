@@ -14,6 +14,7 @@ export default class EvolakeRouter {
     }
 
     registerRoutes() {
+        this.router.post('/getdblist', tokenAuthorizer, this.evolakeController.getDatabaseList.bind(this.evolakeController))
         this.router.post('/generatequery', evolakeApiAuthorizer, this.evolakeController.generateQuery.bind(this.evolakeController))
         this.router.post('/getqueryhistory', tokenAuthorizer, this.evolakeController.getQueryHistoryByUser.bind(this.evolakeController))
     }

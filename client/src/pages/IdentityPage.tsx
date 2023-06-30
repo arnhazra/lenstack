@@ -6,7 +6,7 @@ import Constants from '../constants/appConstants'
 import Show from '../components/Show'
 import endPoints from '../constants/apiEndpoints'
 import { FC } from 'react'
-import { useRouter } from 'next/router'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 
 const IdentityPage: FC = () => {
@@ -15,11 +15,11 @@ const IdentityPage: FC = () => {
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
-    const router = useRouter()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (localStorage.hasOwnProperty('accessToken')) {
-            router.push('/queryengine')
+            navigate('/queryengine')
         }
     }, [])
 
@@ -60,7 +60,7 @@ const IdentityPage: FC = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
-            router.push('/queryengine')
+            navigate('/queryengine')
         }
 
         catch (error: any) {
