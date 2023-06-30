@@ -14,16 +14,16 @@ const QueryEnginePage: FC = () => {
     const [{ userState }] = useContext(AppContext)
     const [isFetching, setFetching] = useState(false)
 
-    const dbToDisplay = dbOptions.map((db) => {
-        return <option className='options' key={db.value} value={db.value}>{db.label}</option>
-    })
+    // const dbToDisplay = [].map((db) => {
+    //     return <option className='options' key={db.value} value={db.value}>{db.label}</option>
+    // })
 
     const fetchData = async (e: any) => {
         e.preventDefault()
         try {
             setFetching(true)
             const subscriptionKey = userState.subscriptionKey
-            const response = await axios.post(endPoints.generateQueryEndpoint, { selectedDb, userQuery, subscriptionKey })
+            const response = await axios.post(endPoints.airlakeDataApiEndpoint, { selectedDb, userQuery, subscriptionKey })
             setDbQuery(response.data.msg)
             setFetching(false)
         } catch (error: any) {
@@ -43,7 +43,7 @@ const QueryEnginePage: FC = () => {
                 <p className='branding'>Query Engine</p>
                 <FloatingLabel controlId='floatingSelectGrid' label='Select Database'>
                     <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
-                        {dbToDisplay}
+                        {/* {dbToDisplay} */}
                     </Form.Select>
                 </FloatingLabel><br />
                 <FloatingLabel controlId='floatingQuery' label='Ask Your Query'>

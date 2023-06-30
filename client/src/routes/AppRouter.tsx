@@ -6,14 +6,16 @@ import AppStateProvider from '../context/appStateProvider'
 import Layout from '../layouts/Layout'
 import SuspenseLoading from '../components/SuspenseLoading'
 const HomePage = lazy(() => import('../pages/HomePage'))
-const AuthPage = lazy(() => import('../pages/AuthPage'))
+const IdentityPage = lazy(() => import('../pages/IdentityPage'))
 const AccountPage = lazy(() => import('../pages/AccountPage'))
-const WalletTransactionsPage = lazy(() => import('../pages/WalletTransactionsPage'))
-const BuyCoinPage = lazy(() => import('../pages/BuyCoinPage'))
-const SellCoinPage = lazy(() => import('../pages/SellCoinPage'))
-const DatasetLibraryPage = lazy(() => import('../pages/DatasetLibraryPage'))
-const ViewOneDatasetPage = lazy(() => import('../pages/ViewOneDatasetPage'))
-const ViewSubscriptionsPage = lazy(() => import('../pages/ViewSubscriptionsPage'))
+const PlansPage = lazy(() => import('../pages/PlansPage'))
+const TransactionsPage = lazy(() => import('../pages/TransactionsPage'))
+const UsagePage = lazy(() => import('../pages/UsagePage'))
+const PricingPage = lazy(() => import('../pages/PricingPage'))
+const AirlakeDatasetsPage = lazy(() => import('../pages/AirlakeDatasetsPage'))
+const AirlakeViewDatasetPage = lazy(() => import('../pages/AirlakeViewDatasetPage'))
+const WalletPage = lazy(() => import('../pages/WalletPage'))
+const DashboardPage = lazy(() => import('../pages/DashboardPage'))
 
 const AppRouter: FC = () => {
     return (
@@ -24,15 +26,21 @@ const AppRouter: FC = () => {
                         <Routes>
                             <Route element={<Layout />}>
                                 <Route path='/' element={<HomePage />} />
-                                <Route path='/auth' element={<AuthPage />} />
+                                <Route path='/identity' element={<IdentityPage />} />
+                                <Route path='/plans' element={<PlansPage />} />
                                 <Route element={<ProtectedRoute />}>
-                                    <Route path='/dataset/library' element={<DatasetLibraryPage />} />
-                                    <Route path='/dataset/subscriptions' element={<ViewSubscriptionsPage />} />
-                                    <Route path='/dataset/viewone/:datasetId' element={<ViewOneDatasetPage />} />
-                                    <Route path='/wallet/transactions' element={<WalletTransactionsPage />} />
-                                    <Route path='/wallet/buy' element={<BuyCoinPage />} />
-                                    <Route path='/wallet/sell' element={<SellCoinPage />} />
+                                    <Route path='/dashboard' element={<DashboardPage />} />
+                                    <Route path='/transactions' element={<TransactionsPage />} />
                                     <Route path='/account' element={<AccountPage />} />
+                                    <Route path='/wallet' element={<WalletPage />} />
+                                    <Route path='/usage' element={<UsagePage />} />
+                                    <Route path='/pricing' element={<PricingPage />} />
+                                    <Route path='/airlake/datasets' element={<AirlakeDatasetsPage />} />
+                                    <Route path='/airlake/viewdataset/:id' element={<AirlakeViewDatasetPage />} />
+                                    <Route path='/evolake/queryengine' element={<HomePage />} />
+                                    <Route path='/evolake/queryhistory' element={<HomePage />} />
+                                    <Route path='/icelake' element={<HomePage />} />
+                                    <Route path='/snowlake' element={<HomePage />} />
                                 </Route>
                                 <Route path='*' element={<Error />} />
                             </Route>

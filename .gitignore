@@ -1,9 +1,8 @@
 node_modules
 .env
-views/.next
-views/.vercel
-views/*.tsbuildinfo
-views/out
+client/build
+client/.vercel
+client/*.tsbuildinfo
 .vercel
 dist
 api/build

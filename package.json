@@ -2,7 +2,7 @@
   "name": "lenstack",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix api\" \"npm run dev --prefix views\"",
+    "dev": "concurrently \"npm run dev --prefix api\" \"npm start --prefix client\"",
     "deploy": "git add . && git commit -m ProdDeploy && git push"
   },
   "keywords": [],

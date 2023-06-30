@@ -16,7 +16,8 @@ const ProtectedRoute: FC = () => {
         (async () => {
             try {
                 const response = await axios.post(endPoints.userDetailsEndpoint)
-                dispatch('setUserState', { userid: response.data.user._id, name: response.data.user.name, isLoaded: true })
+                const { name, privateKey, email, role, subscriptionKey } = response.data.user
+                dispatch('setUserState', { userid: response.data.user._id, name, privateKey, email, role, subscriptionKey })
             }
 
             catch (error: any) {
@@ -45,10 +46,10 @@ const ProtectedRoute: FC = () => {
 
     return (
         <Fragment>
-            <Show when={userState.isLoaded}>
+            <Show when={!!userState.userid}>
                 <Outlet />
             </Show>
-            <Show when={!userState.isLoaded}>
+            <Show when={!userState.userid}>
                 <Loading />
             </Show>
         </Fragment>

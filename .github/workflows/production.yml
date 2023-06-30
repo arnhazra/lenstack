@@ -20,8 +20,8 @@ jobs:
           npm install
           npm run build
 
-      - name: Build views application
-        working-directory: views
+      - name: Build client application
+        working-directory: client
         run: |
           npm install
           npm run build
@@ -34,9 +34,9 @@ jobs:
         run: |
           mv api/build dist
 
-      - name: Move views build output to server dist directory
+      - name: Move client build output to server dist directory
         run: |
-          mv views/out dist/views
+          mv client/build dist/client
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
