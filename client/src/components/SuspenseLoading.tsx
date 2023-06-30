@@ -6,7 +6,7 @@ const SuspenseLoading: FC = () => {
         <Fragment>
             <NavBar />
             <div className='cover text-center'>
-                <i className='fas fa-spinner fa-pulse fa-6x'></i>
+                <i className='fas fa-spinner fa-pulse fa-3x'></i>
             </div>
         </Fragment>
     )

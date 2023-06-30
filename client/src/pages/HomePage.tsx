@@ -10,7 +10,7 @@ const HomePage: FC = () => {
 
 	useEffect(() => {
 		if (localStorage.hasOwnProperty('accessToken')) {
-			navigate('/queryengine')
+			navigate('/dashboard')
 		}
 	}, [])
 

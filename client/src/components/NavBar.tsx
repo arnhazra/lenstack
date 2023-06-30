@@ -1,16 +1,24 @@
-import { FC, Fragment } from 'react'
+import { FC, Fragment, useEffect, useState } from 'react'
 import { Container, Navbar, Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Show from './Show'
 
 const NavBar: FC = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const location = useLocation()
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken')
+        setIsLoggedIn(accessToken !== null)
+    }, [location.pathname])
+
     return (
         <Fragment>
-            <Show when={Object.hasOwn(localStorage, 'accessToken')}>
+            <Show when={isLoggedIn}>
                 <Navbar variant='dark' className='navbar' expand='lg' fixed='top'>
                     <Container>
-                        <Link to='/queryengine'>
-                            <Navbar.Brand>Lenstack</Navbar.Brand>
+                        <Link to='/dashboard'>
+                            <Navbar.Brand>Dashboard</Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
@@ -26,7 +34,7 @@ const NavBar: FC = () => {
                     </Container>
                 </Navbar>
             </Show>
-            <Show when={!Object.hasOwn(localStorage, 'accessToken')}>
+            <Show when={!isLoggedIn}>
                 <Navbar variant='dark' className='navbar' expand='lg' fixed='top'>
                     <Container>
                         <Link to='/'>

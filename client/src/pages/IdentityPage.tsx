@@ -19,7 +19,7 @@ const IdentityPage: FC = () => {
 
     useEffect(() => {
         if (localStorage.hasOwnProperty('accessToken')) {
-            navigate('/queryengine')
+            navigate('/dashboard')
         }
     }, [])
 
@@ -60,7 +60,7 @@ const IdentityPage: FC = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
-            navigate('/queryengine')
+            navigate('/dashboard')
         }
 
         catch (error: any) {
