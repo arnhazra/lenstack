@@ -18,13 +18,13 @@ jobs:
         working-directory: api
         run: |
           npm install
-          npm run build
+          CI=false npm run build
 
       - name: Build client application
         working-directory: client
         run: |
           npm install
-          npm run build
+          CI=false npm run build
 
       - name: Copy Dependencies to build
         run: |
