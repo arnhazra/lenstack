@@ -9,6 +9,7 @@ import Show from '@/components/Show'
 import Loading from '@/components/Loading'
 import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
+import appConstants from '@/constants/appConstants'
 
 const WalletPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -41,7 +42,7 @@ const WalletPage: NextPage = () => {
 
     const copyWalletAddress = (): void => {
         navigator.clipboard.writeText(`${accountAddress}`)
-        toast.success('Copied to Clipboard')
+        toast.success(appConstants.CopiedToClipBoard)
     }
 
     return (

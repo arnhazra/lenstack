@@ -6,12 +6,20 @@ import contractAddress from '@/constants/contractAddress'
 import { toast } from 'react-hot-toast'
 import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
+import useFetchRealtime from '@/hooks/useFetchRealtime'
+import endPoints from '@/constants/apiEndpoints'
+import HTTPMethods from '@/constants/httpMethods'
+import useFetch from '@/hooks/useFetch'
+import Loading from '@/components/Loading'
+import appConstants from '@/constants/appConstants'
 
 const UsagePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const [tokenId, setTokenId] = useState('')
-    const [maxLimit, setMaxLimit] = useState('0')
     const [selectedPlan, setSelectedPlan] = useState('No Subscription')
+    const usageDetails = useFetchRealtime('usage', endPoints.getUsageBySubscriptionKeyEndpoint, HTTPMethods.POST, {})
+    const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST, {})
+    console.log(usageDetails)
 
     useEffect(() => {
         try {
@@ -37,28 +45,47 @@ const UsagePage: NextPage = () => {
 
     const copySubscriptionKey = (): void => {
         navigator.clipboard.writeText(`${userState.subscriptionKey}`)
-        toast.success('Copied to Clipboard')
+        toast.success(appConstants.CopiedToClipBoard)
     }
 
     return (
         <Fragment>
-            <div className='box'>
-                <p className='branding'>Usage<i className='fa-solid fa-code-pull-request'></i></p>
-                <Show when={userState.subscriptionKey.length > 0}>
-                    <p className='smalltext' title={userState.subscriptionKey}>Subscription Key - {showSubscriptionKey(userState.subscriptionKey)}<i className='fa-solid fa-copy' onClick={copySubscriptionKey}></i></p>
-                </Show>
-                <h4>
-                    Plan - {selectedPlan}
+            <Show when={!usageDetails.isLoading && !pricingDetails.isLoading}>
+                <div className='bigbox'>
+                    <p className='branding'>Usage<i className='fa-solid fa-code-pull-request'></i></p>
                     <Show when={userState.subscriptionKey.length > 0}>
-                        <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
-                            <i className='fa-solid fa-shield'></i>
-                        </Link>
+                        <p className='smalltext' title={userState.subscriptionKey}>Subscription Key - {showSubscriptionKey(userState.subscriptionKey)}<i className='fa-solid fa-copy' onClick={copySubscriptionKey}></i></p>
                     </Show>
-                </h4>
-                <Show when={userState.subscriptionKey.length > 0}>
-                    hello
-                </Show>
-            </div>
+                    <h4>
+                        Plan - {selectedPlan}
+                        <Show when={userState.subscriptionKey.length > 0}>
+                            <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
+                                <i className='fa-solid fa-shield'></i>
+                            </Link>
+                        </Show>
+                    </h4>
+                    <Show when={userState.subscriptionKey.length > 0}>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>
+                            {usageDetails.data?.airlakeApiRequestCount} / {pricingDetails.data?.[`${selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.airlake} Airlake API Requests used
+                        </p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>
+                            {usageDetails.data?.evolakeQueryCount} / {pricingDetails.data?.[`${selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.evolake} Evolake API Requests used
+                        </p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>
+                            {usageDetails.data?.frostlakeAnalyticsCount} / {pricingDetails.data?.[`${selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.frostlake} Frostlake API Requests used
+                        </p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>
+                            {usageDetails.data?.icelakeDocumentCount} / {pricingDetails.data?.[`${selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.icelake} Icelake API Requests used
+                        </p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>
+                            {usageDetails.data?.snowlakePrototypeCount} /{pricingDetails.data?.[`${selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.snowlake} Snowlake API Requests used
+                        </p>
+                    </Show>
+                </div>
+            </Show>
+            <Show when={usageDetails.isLoading || pricingDetails.isLoading}>
+                <Loading />
+            </Show>
         </Fragment >
     )
 }

@@ -1,5 +1,6 @@
 import express, { Router } from 'express'
 import GeneralController from '../controllers/GeneralController'
+import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
 
 export default class GeneralRouter {
     public router: Router
@@ -14,6 +15,7 @@ export default class GeneralRouter {
     registerRoutes() {
         this.router.post('/getproductconfig', this.generalController.getProductDetails.bind(this.generalController))
         this.router.post('/getsubscriptionconfig', this.generalController.getProductSubscriptionConfig.bind(this.generalController))
+        this.router.post('/getusagebysubscriptionkey', tokenAuthorizer, this.generalController.getUsageBySubscriptionKey.bind(this.generalController))
     }
 
     getRouter() {

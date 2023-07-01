@@ -13,6 +13,7 @@ import { AppContext } from '@/context/appStateProvider'
 import { useRouter } from 'next/router'
 import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
+import appConstants from '@/constants/appConstants'
 
 const AirlakeViewDatasetPage: NextPage = () => {
     const router = useRouter()
@@ -34,12 +35,12 @@ const AirlakeViewDatasetPage: NextPage = () => {
 
     const copyMetadataAPI = (): void => {
         navigator.clipboard.writeText(`${endPoints.airlakeMetadataApiEndpoint}/${datasetId}`)
-        toast.success('Copied to Clipboard')
+        toast.success(appConstants.CopiedToClipBoard)
     }
 
     const copyDataAPI = (): void => {
         navigator.clipboard.writeText(`${endPoints.airlakeDataApiEndpoint}/${datasetId}/${userState.subscriptionKey}`)
-        toast.success('Copied to Clipboard')
+        toast.success(appConstants.CopiedToClipBoard)
     }
 
     return (

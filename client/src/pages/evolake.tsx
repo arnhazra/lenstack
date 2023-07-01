@@ -10,6 +10,7 @@ import { NextPage } from 'next'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/httpMethods'
 import Link from 'next/link'
+import appConstants from '@/constants/appConstants'
 
 const EvolakeQueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState('SQL')
@@ -44,12 +45,12 @@ const EvolakeQueryEnginePage: NextPage = () => {
 
     const copyDBQuery = () => {
         navigator.clipboard.writeText(`${dbQuery}`)
-        toast.success('Copied to Clipboard')
+        toast.success(appConstants.CopiedToClipBoard)
     }
 
     const copyAPIDetails = () => {
         navigator.clipboard.writeText(`${apiDetails}`)
-        toast.success('Copied to Clipboard')
+        toast.success(appConstants.CopiedToClipBoard)
     }
 
     return (

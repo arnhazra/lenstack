@@ -14,7 +14,7 @@ enum Constants {
     TokenPurchaseFailure = 'Error purchasing AFT',
     TokenSellSuccess = 'You have successfully sold AFT tokens',
     TokenSellFailure = 'Error selling AFT tokens',
-    OpenAIAPIKey = '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'
+    CopiedToClipBoard = 'Copied to Clipboard'
 }
 
 export default Constants

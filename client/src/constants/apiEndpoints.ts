@@ -13,6 +13,7 @@ const endPoints = {
     getTransactionsEndpoint: `${apiHost}/api/transaction/gettxbyuser`,
     getProductConfigEndpoint: `${apiHost}/api/general/getproductconfig`,
     getSubscriptionConfigEndpoint: `${apiHost}/api/general/getsubscriptionconfig`,
+    getUsageBySubscriptionKeyEndpoint: `${apiHost}/api/general/getusagebysubscriptionkey`,
     airlakeFiltersEndpoint: `${apiHost}/api/products/airlake/filters`,
     airlakeFindDatasetsEndpoint: `${apiHost}/api/products/airlake/finddatasets`,
     airlakeViewDatasetsEndpoint: `${apiHost}/api/products/airlake/viewdataset`,
