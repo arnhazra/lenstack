@@ -34,3 +34,17 @@ export type SubReqLimitState = {
     standardSubscriptionReqLimit: string,
     premiumSubscriptionReqLimit: string
 }
+
+export type DatasetCardProps = {
+    id: string
+    category: string,
+    name: string,
+    rating: number
+}
+
+export type DatasetRequestState = {
+    searchQuery: string,
+    selectedFilter: string,
+    selectedSortOption: string
+    offset: number
+}

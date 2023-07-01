@@ -1,6 +1,6 @@
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import { createRoot } from 'react-dom/client'
-import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
+import axios from 'axios'
 import AppRouter from './routes/AppRouter'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global.sass'

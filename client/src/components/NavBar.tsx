@@ -15,7 +15,7 @@ const NavBar: FC = () => {
     return (
         <Fragment>
             <Show when={isLoggedIn}>
-                <Navbar variant='dark' className='navbar' expand='lg' fixed='top'>
+                <Navbar variant='dark' className='navbar' expand='lg'>
                     <Container>
                         <Link to='/dashboard'>
                             <Navbar.Brand>Dashboard</Navbar.Brand>
@@ -34,7 +34,7 @@ const NavBar: FC = () => {
                 </Navbar>
             </Show>
             <Show when={!isLoggedIn}>
-                <Navbar variant='dark' className='navbar' expand='lg' fixed='top'>
+                <Navbar variant='dark' className='navbar' expand='lg'>
                     <Container>
                         <Link to='/'>
                             <Navbar.Brand>Lenstack</Navbar.Brand>

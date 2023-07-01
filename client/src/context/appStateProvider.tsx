@@ -23,6 +23,13 @@ const initialState = {
         premiumSubscriptionPrice: '',
     },
 
+    datasetRequestState: {
+        searchQuery: '',
+        selectedFilter: 'All',
+        selectedSortOption: 'name',
+        offset: 0
+    },
+
     subReqLimitState: {
         basicSubscriptionReqLimit: '',
         standardSubscriptionReqLimit: '',

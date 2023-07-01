@@ -3,11 +3,8 @@ import { Fragment } from 'react'
 import { FC } from 'react'
 import Constants from '../constants/appConstants'
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
 
 const HomePage: FC = () => {
-	const navigate = useNavigate()
-
 	return (
 		<Fragment>
 			<Container>
