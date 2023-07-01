@@ -10,6 +10,7 @@ import AirlakeRouter from './src/routes/AirlakeRouter'
 import EvolakeRouter from './src/routes/EvolakeRouter'
 import IcelakeRouter from './src/routes/IcelakeRouter'
 import SnowlakeRouter from './src/routes/SnowlakeRouter'
+import GeneralRouter from './src/routes/GeneralRouter'
 
 const userRouter = new UserRouter()
 const transactionRouter = new TransactionRouter()
@@ -17,6 +18,7 @@ const airlakeRouter = new AirlakeRouter()
 const evolakeRouter = new EvolakeRouter()
 const icelakeRouter = new IcelakeRouter()
 const snowlakeRouter = new SnowlakeRouter()
+const generalRouter = new GeneralRouter()
 
 const app = express()
 app.listen(envConfig.apiPort)
@@ -27,6 +29,7 @@ connectRedis()
 
 app.use('/api/user', userRouter.getRouter())
 app.use('/api/transaction', transactionRouter.getRouter())
+app.use('/api/general', generalRouter.getRouter())
 app.use('/api/products/airlake', airlakeRouter.getRouter())
 app.use('/api/products/evolake', evolakeRouter.getRouter())
 app.use('/api/products/icelake', icelakeRouter.getRouter())

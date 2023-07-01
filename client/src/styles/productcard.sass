@@ -1,0 +1,67 @@
+$mainColor: #1c2b33
+$white: #ffffff
+
+.card
+    background: transparent
+    color: $white
+    border-radius: 1rem !important
+    border: none
+    animation: transitionIn 0.4s forwards
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+    cursor: pointer
+
+.card-header
+    border-radius: 1rem 1rem 0 0 !important
+    border: none !important
+    text-align: center
+    padding: 0 !important
+
+.card-footer
+    border-radius: 0 0 1rem 1rem !important
+    border: none !important
+
+.card-body
+    border: none !important
+
+@mixin categoryContainer
+    height: 8rem
+    width: 100%
+    border-radius: 1rem 1rem 0 0
+    transition: transform 0.5s ease
+    background-size: cover
+    background-position: center
+
+.airlakeContainer
+    background: linear-gradient(to top, #091326ff, #09132600), url(../assets/images/airlake.jpg)
+    @include categoryContainer
+
+.airlakeColor
+    background: #091326 !important
+
+.evolakeContainer
+    background: linear-gradient(to top, #deddd8ff, #deddd800), url(../assets/images/evolake.jpg)
+    @include categoryContainer
+
+.evolakeColor
+    background: #deddd8 !important
+
+.frostlakeContainer
+    background: linear-gradient(to top, #2c5990ff, #2c599000), url(../assets/images/frostlake.jpg)
+    @include categoryContainer
+
+.frostlakeColor
+    background: #2c5990 !important
+
+.icelakeContainer
+    background: linear-gradient(to top, #122432ff, #12243200), url(../assets/images/icelake.jpg)
+    @include categoryContainer
+
+.icelakeColor
+    background: #122432 !important
+
+.snowlakeContainer
+    background: linear-gradient(to top, #98b4b9ff, #98b4b900), url(../assets/images/snowlake.jpg)
+    @include categoryContainer
+
+.snowlakeColor
+    background: #98b4b9 !important

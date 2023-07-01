@@ -48,3 +48,10 @@ export type DatasetRequestState = {
     selectedSortOption: string
     offset: number
 }
+
+export type ProductCardProps = {
+    productName: string,
+    description: string,
+    url: string,
+    productAvailable: boolean
+}

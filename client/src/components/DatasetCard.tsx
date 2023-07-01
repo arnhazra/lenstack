@@ -3,6 +3,7 @@ import { Card, Col } from 'react-bootstrap'
 import { DatasetCardProps } from '../types/Types'
 import { Link } from 'react-router-dom'
 import { Rating } from 'react-simple-star-rating'
+import '../styles/datasetcard.sass'
 
 const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, rating }) => {
     return (

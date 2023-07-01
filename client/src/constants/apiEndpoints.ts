@@ -9,6 +9,8 @@ const endPoints = {
     unsubscribeEndpoint: `/api/user/unsubscribe`,
     createTransactionEndpoint: `/api/transaction/create`,
     getTransactionsEndpoint: `/api/transaction/gettxbyuser`,
+    getProductConfigEndpoint: `/api/general/getproductconfig`,
+    getSubscriptionConfigEndpoint: '/api/general/getsubscriptionconfig',
     airlakeFiltersEndpoint: `/api/products/airlake/filters`,
     airlakeFindDatasetsEndpoint: `/api/products/airlake/finddatasets`,
     airlakeViewDatasetsEndpoint: `/api/products/airlake/viewdataset`,
