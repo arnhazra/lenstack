@@ -1,19 +1,18 @@
 import { FC } from 'react'
 import { Card, Col } from 'react-bootstrap'
-import { DatasetCardProps } from '../types/Types'
-import { Link } from 'react-router-dom'
+import { DatasetCardProps } from '@/types/Types'
 import { Rating } from 'react-simple-star-rating'
-import '../styles/datasetcard.sass'
+import Link from 'next/link'
 
 const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, rating }) => {
     return (
         <Col xs={6} sm={6} md={4} lg={4} xl={2} className='mb-4'>
-            <Link to={`/products/airlake/viewdataset/${id}`}>
-                <Card>
-                    <Card.Header className='pt-3'>
+            <Link href={`/products/airlake/viewdataset/${id}`}>
+                <Card className='dataset-card'>
+                    <Card.Header className='pt-3 dataset-card-header'>
                         <div className={`${category.toLowerCase()}Container pt-4`} />
                     </Card.Header>
-                    <Card.Footer className={`pt-4 pb-2 ps-4 ${category.toLowerCase()}Color`}>
+                    <Card.Footer className={`pt-4 pb-2 ps-4 ${category.toLowerCase()}Color dataset-card-footer`}>
                         <div className='nameContainer'>
                             <p>{name}</p>
                         </div>

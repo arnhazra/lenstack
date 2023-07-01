@@ -47,6 +47,6 @@ if (envConfig.nodeEnv === 'production') {
 
     app.use(express.static(path.join(__dirname, 'client'), { maxAge: 60000, setHeaders: setCustomCacheControl }))
     app.get('/*', (req: Request, res: Response) => {
-        res.sendFile(path.join(__dirname, 'client', 'index.html'))
+        res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
     })
 }

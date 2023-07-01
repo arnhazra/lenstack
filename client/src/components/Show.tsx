@@ -1,4 +1,4 @@
-import { ShowProps } from '../types/Types'
+import { ShowProps } from '@/types/Types'
 import { FC, Fragment } from 'react'
 
 const Show: FC<ShowProps> = ({ when, children }) => {

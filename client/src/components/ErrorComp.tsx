@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import Constants from '../constants/appConstants'
-import { ErrorProps } from '../types/Types'
+import Constants from '@/constants/appConstants'
+import { ErrorProps } from '@/types/Types'
 import { Button } from 'react-bootstrap'
 
 const Error: FC<ErrorProps> = ({ customMessage }) => {

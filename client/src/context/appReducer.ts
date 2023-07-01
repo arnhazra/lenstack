@@ -1,4 +1,4 @@
-import { UserState, SubPlanState, SubReqLimitState, DatasetRequestState } from '../types/Types'
+import { UserState, SubPlanState, SubReqLimitState, DatasetRequestState } from '@/types/Types'
 
 export type AppState = {
     userState: UserState

@@ -1,7 +1,7 @@
-import { FC } from 'react'
-import Constants from '../constants/appConstants'
+import { NextPage } from 'next'
+import Constants from '@/constants/appConstants'
 
-const ErrorPage: FC = () => {
+const ErrorPage: NextPage = () => {
     return (
         <div className='box text-center'>
             <p className='branding mb-4'>{Constants.ErrorMessage}</p>

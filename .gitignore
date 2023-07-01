@@ -1,8 +1,9 @@
 node_modules
 .env
-client/build
+client/.next
 client/.vercel
 client/*.tsbuildinfo
+client/out
 .vercel
 dist
 api/build

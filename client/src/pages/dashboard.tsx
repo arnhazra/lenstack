@@ -18,7 +18,7 @@ const DashboardPage = () => {
         <Fragment>
             <Show when={!products.isLoading}>
                 <Container>
-                    <Row className='mt-4 mb-4'>
+                    <Row className='mb-4'>
                         {productsToDisplay}
                     </Row>
                 </Container>

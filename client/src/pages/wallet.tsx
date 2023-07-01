@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { AppContext } from '../context/appStateProvider'
 import { toast } from 'react-hot-toast'
 import Constants from '../constants/appConstants'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import Web3 from 'web3'
 import Show from '../components/Show'
 import Loading from '../components/Loading'
@@ -55,7 +55,7 @@ const WalletPage: FC = () => {
                     <h4>
                         <i className='fa-brands fa-ethereum'></i>{Number(maticBalance).toFixed(3)} MATIC
                     </h4>
-                    <Link className='btn btn-block' to={'https://faucet.polygon.technology/'} target='_blank'>Fund my wallet<i className="fa-solid fa-square-arrow-up-right"></i></Link>
+                    <Link className='btn btn-block' passHref href={'https://faucet.polygon.technology/'} target='_blank'>Fund my wallet<i className="fa-solid fa-square-arrow-up-right"></i></Link>
                 </div>
             </Show>
 

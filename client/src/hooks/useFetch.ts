@@ -1,11 +1,11 @@
 import axios, { Method } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
-import Constants from '../constants/appConstants'
-import { useNavigate } from 'react-router-dom'
+import Constants from '@/constants/appConstants'
+import { useRouter } from 'next/router'
 
 function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object, eventId?: string) {
-    const navigate = useNavigate()
+    const router = useRouter()
 
     const fetchDataFunction = async () => {
         const { data } = await axios({ method, url: queryUrl, data: requestBody })
@@ -23,7 +23,7 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
             onError(err: any) {
                 if (err.response && err.response.status === 401) {
                     localStorage.removeItem('accessToken')
-                    navigate('/')
+                    router.push('/')
                 }
 
                 toast.error(`${Constants.ToastError} fetching ${queryKey}`)

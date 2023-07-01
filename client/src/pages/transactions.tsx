@@ -27,8 +27,8 @@ const TransactionsPage: FC = () => {
             <Show when={!transactions.isLoading}>
                 <Container>
                     <Show when={transactions?.data?.transactions?.length > 0}>
-                        <p className='lead text-center text-white mb-4 mt-4'>Transactions</p>
-                        <Table className='mt-4' responsive hover variant='light'>
+                        <p className='lead text-center text-white'>Transactions</p>
+                        <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
                                     <th>Event</th>

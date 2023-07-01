@@ -1,11 +1,11 @@
 import axios, { Method } from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
-import Constants from '../constants/appConstants'
+import Constants from '@/constants/appConstants'
+import { useRouter } from 'next/router'
 
 function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, requestBody?: object, eventId?: string) {
-    const navigate = useNavigate()
+    const router = useRouter()
 
     const fetchDataFunction = async () => {
         const { data } = await axios({ method, url: queryUrl, data: requestBody })
@@ -24,7 +24,7 @@ function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, re
             onError(err: any) {
                 if (err.response && err.response.status === 401) {
                     localStorage.removeItem('accessToken')
-                    navigate('/', { replace: true })
+                    router.push('/')
                 }
 
                 toast.error(`${Constants.ToastError} fetching ${queryKey}`)

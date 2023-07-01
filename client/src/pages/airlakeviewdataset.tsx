@@ -11,11 +11,11 @@ import HTTPMethods from '../constants/httpMethods'
 import Error from '../components/ErrorComp'
 import { AppContext } from '../context/appStateProvider'
 import { Rating } from 'react-simple-star-rating'
-import { useParams } from 'react-router-dom'
+import { useRouter } from 'next/router'
 
 const AirlakeViewDatasetPage: FC = () => {
-    const params = useParams()
-    const { id: datasetId } = params
+    const router = useRouter()
+    const { id: datasetId } = router.query
     const [{ userState }] = useContext(AppContext)
     const dataset = useFetch('view dataset', endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.airlakeFindSimilarDatasetsEndpoint, HTTPMethods.POST, { datasetId })

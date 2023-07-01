@@ -6,8 +6,8 @@ import Constants from '../constants/appConstants'
 import Show from '../components/Show'
 import endPoints from '../constants/apiEndpoints'
 import { FC } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/router'
 
 const IdentityPage: FC = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -15,7 +15,7 @@ const IdentityPage: FC = () => {
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
-    const navigate = useNavigate()
+    const router = useRouter()
 
     const requestAuthCode = async (event: any) => {
         event.preventDefault()
@@ -54,7 +54,7 @@ const IdentityPage: FC = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
-            navigate('/dashboard')
+            router.push('/dashboard')
         }
 
         catch (error: any) {
