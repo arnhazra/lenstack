@@ -3,7 +3,7 @@ import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
 import { AppContext } from '@/context/appStateProvider'
 import axios from 'axios'
-import React, { useContext, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { Button, Container, FloatingLabel, Form } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 import { NextPage } from 'next'
@@ -18,6 +18,11 @@ const EvolakeQueryEnginePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const [isFetching, setFetching] = useState(false)
     const dbList = useFetch('database list', endPoints.evolakeGetDatabaseListEndpoint, HTTPMethods.POST, {})
+    const apiDetails = `const response = await axios.post(${endPoints.evolakeGenerateQueryEndpint},{
+            "selectedDb": "SQL",
+            "userQuery": "create a table named user with fields userId, name, age, password, gender",
+            "subscriptionKey": "Your Subscription Key"
+        })`
 
     const dbToDisplay = dbList?.data?.dbOptions.map((db: any) => {
         return <option className='options' key={db.value} value={db.value}>{db.label}</option>
@@ -42,32 +47,39 @@ const EvolakeQueryEnginePage: NextPage = () => {
         toast.success('Copied to Clipboard')
     }
 
+    const copyAPIDetails = () => {
+        navigator.clipboard.writeText(`${apiDetails}`)
+        toast.success('Copied to Clipboard')
+    }
+
     return (
-        <Container>
-            <form className='bigbox' onSubmit={fetchData}>
-                <p className='branding'>Query Engine</p>
-                <FloatingLabel controlId='floatingSelectGrid' label='Select Database'>
-                    <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
-                        {dbToDisplay}
-                    </Form.Select>
-                </FloatingLabel><br />
-                <FloatingLabel controlId='floatingQuery' label='Ask Your Query'>
-                    <Form.Control type='text' disabled={isFetching} placeholder='Ask Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} required />
-                </FloatingLabel><br />
-                <Button type='submit' disabled={isFetching} className='btn-block'>
-                    <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
-                    <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
-                </Button>
-                <Show when={dbQuery.length > 0}>
-                    <div className='answer ps-4 pt-4'>
-                        <div className='copy-btn'><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
-                        {dbQuery}
-                    </div>
-                </Show>
-                <Link className="lead-link" href={'/evolake-queryhistory'}>My Query History</Link>
-                <p className="lead-link">View Query Engine API</p>
-            </form>
-        </Container>
+        <Fragment>
+            <Container>
+                <form className='bigbox' onSubmit={fetchData}>
+                    <p className='branding'>Query Engine</p>
+                    <FloatingLabel controlId='floatingSelectGrid' label='Select Database'>
+                        <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
+                            {dbToDisplay}
+                        </Form.Select>
+                    </FloatingLabel><br />
+                    <FloatingLabel controlId='floatingQuery' label='Ask Your Query'>
+                        <Form.Control type='text' disabled={isFetching} placeholder='Ask Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} required />
+                    </FloatingLabel><br />
+                    <Button type='submit' disabled={isFetching} className='btn-block'>
+                        <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
+                        <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
+                    </Button>
+                    <Show when={dbQuery.length > 0}>
+                        <div className='answer ps-4 pt-4'>
+                            <div className='copy-btn'><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
+                            {dbQuery}
+                        </div>
+                    </Show>
+                    <Link className="lead-link" href={'/evolake-queryhistory'}>My Query History</Link>
+                    <p className="lead-link" onClick={copyAPIDetails}>Copy Example Query Engine API</p>
+                </form>
+            </Container>
+        </Fragment >
     )
 }
 
