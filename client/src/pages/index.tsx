@@ -1,7 +1,6 @@
 import { Container } from 'react-bootstrap'
 import { Fragment } from 'react'
-import { FC } from 'react'
-import Constants from '../constants/appConstants'
+import Constants from '@/constants/appConstants'
 import Link from 'next/link'
 import { NextPage } from 'next'
 

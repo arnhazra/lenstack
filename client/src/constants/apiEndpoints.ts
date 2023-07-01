@@ -19,6 +19,7 @@ const endPoints = {
     airlakeFindSimilarDatasetsEndpoint: `${apiHost}/api/products/airlake/findsimilardatasets`,
     airlakeGetDatasetHistoryByUserEndpoint: `${apiHost}/api/products/airlake/getdatasethistorybyuser`,
     airlakeDataApiEndpoint: `${apiHost}/api/products/airlake/dataapi`,
+    evolakeGetDatabaseListEndpoint: `${apiHost}/api/products/evolake/getdblist`,
     evolakeGenerateQueryEndpint: `${apiHost}/api/products/evolake/generatequery`,
     evolakeGetQueryHistoryEndpoint: `${apiHost}/api/products/evolake/getqueryhistory`,
     icelakeCreateDocEndpoint: `${apiHost}/api/products/icelake/createdoc`,

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import type { AppProps } from 'next/app'
 import AppStateProvider from '@/context/appStateProvider'
 import AppLayout from '@/layouts/AppLayout'
@@ -18,11 +18,6 @@ axios.interceptors.request.use((request) => {
         request.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
     }
     return request
-})
-
-axios.interceptors.request.use((response) => {
-    console.log(response)
-    return response
 })
 
 export default function App({ Component, pageProps }: AppProps) {

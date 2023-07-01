@@ -12,11 +12,11 @@ const AppLayout: FC<LayoutProps> = ({ children }) => {
 			<nav className={`${tiltNeon.className} header`}>
 				<NavBar />
 			</nav>
-			<main className={`${tiltNeon.className}`}>
+			<main className={`${tiltNeon.className} mt-4`}>
 				{children}
 				<Toaster position='bottom-right' containerClassName='toaster' />
 			</main>
-		</Fragment>
+		</Fragment >
 	)
 }
 

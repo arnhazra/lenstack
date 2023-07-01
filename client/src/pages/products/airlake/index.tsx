@@ -1,14 +1,14 @@
 import { useContext } from 'react'
 import { Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
-import Loading from '../components/Loading'
-import Show from '../components/Show'
-import { AppContext } from '../context/appStateProvider'
-import DatasetCard from '../components/DatasetCard'
-import useFetch from '../hooks/useFetch'
-import endPoints from '../constants/apiEndpoints'
-import HTTPMethods from '../constants/httpMethods'
-import Error from '../components/ErrorComp'
+import Loading from '@/components/Loading'
+import Show from '@/components/Show'
+import { AppContext } from '@/context/appStateProvider'
+import DatasetCard from '@/components/DatasetCard'
+import useFetch from '@/hooks/useFetch'
+import endPoints from '@/constants/apiEndpoints'
+import HTTPMethods from '@/constants/httpMethods'
+import Error from '@/components/ErrorComp'
 import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
 
@@ -43,7 +43,7 @@ const AirlakeDatasetsPage: NextPage = () => {
         <Fragment>
             <Show when={!dataLibrary.isLoading && !filters.isLoading}>
                 <Container>
-                    <Row className='g-2 mt-4'>
+                    <Row className='g-2'>
                         <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                             <FloatingLabel controlId='floatingSelectGrid' label='Select Filter Category'>
                                 <Form.Select defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value, offset: 0 })}>

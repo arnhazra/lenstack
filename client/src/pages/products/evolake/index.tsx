@@ -1,30 +1,34 @@
 import withAuth from '@/utils/withAuth'
-import Show from '../components/Show'
-import endPoints from '../constants/apiEndpoints'
-import { AppContext } from '../context/appStateProvider'
+import Show from '@/components/Show'
+import endPoints from '@/constants/apiEndpoints'
+import { AppContext } from '@/context/appStateProvider'
 import axios from 'axios'
 import React, { useContext, useState } from 'react'
 import { Button, Container, FloatingLabel, Form } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 import { NextPage } from 'next'
+import useFetch from '@/hooks/useFetch'
+import HTTPMethods from '@/constants/httpMethods'
+import Link from 'next/link'
 
-const QueryEnginePage: NextPage = () => {
+const EvolakeQueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState('SQL')
     const [userQuery, setUserQuery] = useState('')
     const [dbQuery, setDbQuery] = useState('')
     const [{ userState }] = useContext(AppContext)
     const [isFetching, setFetching] = useState(false)
+    const dbList = useFetch('database list', endPoints.evolakeGetDatabaseListEndpoint, HTTPMethods.POST, {})
 
-    // const dbToDisplay = [].map((db) => {
-    //     return <option className='options' key={db.value} value={db.value}>{db.label}</option>
-    // })
+    const dbToDisplay = dbList?.data?.dbOptions.map((db: any) => {
+        return <option className='options' key={db.value} value={db.value}>{db.label}</option>
+    })
 
     const fetchData = async (e: any) => {
         e.preventDefault()
         try {
             setFetching(true)
             const subscriptionKey = userState.subscriptionKey
-            const response = await axios.post(endPoints.airlakeDataApiEndpoint, { selectedDb, userQuery, subscriptionKey })
+            const response = await axios.post(endPoints.evolakeGenerateQueryEndpint, { selectedDb, userQuery, subscriptionKey })
             setDbQuery(response.data.msg)
             setFetching(false)
         } catch (error: any) {
@@ -44,7 +48,7 @@ const QueryEnginePage: NextPage = () => {
                 <p className='branding'>Query Engine</p>
                 <FloatingLabel controlId='floatingSelectGrid' label='Select Database'>
                     <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
-                        {/* {dbToDisplay} */}
+                        {dbToDisplay}
                     </Form.Select>
                 </FloatingLabel><br />
                 <FloatingLabel controlId='floatingQuery' label='Ask Your Query'>
@@ -60,9 +64,10 @@ const QueryEnginePage: NextPage = () => {
                         {dbQuery}
                     </div>
                 </Show>
+                <Link className="lead-link" href={'/products/evolake/queryhistory'}>My Query History</Link>
             </form>
         </Container>
     )
 }
 
-export default withAuth(QueryEnginePage)
+export default withAuth(EvolakeQueryEnginePage)

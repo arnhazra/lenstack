@@ -1,6 +1,6 @@
 import { Button, ButtonGroup } from 'react-bootstrap'
 import { Fragment, useState } from 'react'
-import Show from '../components/Show'
+import Show from '@/components/Show'
 import { NextPage } from 'next'
 
 const PlansPage: NextPage = () => {

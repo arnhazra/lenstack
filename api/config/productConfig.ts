@@ -2,7 +2,7 @@ export const productConfig = [
     {
         productName: 'airlake',
         description: 'An open-source application for easily discovering, subscribing to, and utilizing third-party cloud data.',
-        url: '/products/airlake/datasets',
+        url: '/products/airlake',
         productAvailable: true
     },
     {

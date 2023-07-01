@@ -1,15 +1,15 @@
 import { useContext } from 'react'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
-import Loading from '../components/Loading'
-import Show from '../components/Show'
-import endPoints from '../constants/apiEndpoints'
+import Loading from '@/components/Loading'
+import Show from '@/components/Show'
+import endPoints from '@/constants/apiEndpoints'
 import { toast } from 'react-hot-toast'
-import DatasetCard from '../components/DatasetCard'
-import useFetch from '../hooks/useFetch'
-import HTTPMethods from '../constants/httpMethods'
-import Error from '../components/ErrorComp'
-import { AppContext } from '../context/appStateProvider'
+import DatasetCard from '@/components/DatasetCard'
+import useFetch from '@/hooks/useFetch'
+import HTTPMethods from '@/constants/httpMethods'
+import Error from '@/components/ErrorComp'
+import { AppContext } from '@/context/appStateProvider'
 import { Rating } from 'react-simple-star-rating'
 import { useRouter } from 'next/router'
 import withAuth from '@/utils/withAuth'
@@ -41,8 +41,8 @@ const AirlakeViewDatasetPage: NextPage = () => {
         <Fragment>
             <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
                 <Show when={!dataset.error}>
-                    <Container className='mt-4'>
-                        <div className='jumbotron mt-4'>
+                    <Container>
+                        <div className='jumbotron'>
                             <Row>
                                 <Col xs={12} sm={12} md={4} lg={3} xl={2} className='mb-4'>
                                     <Card>
