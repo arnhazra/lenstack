@@ -76,8 +76,8 @@ const EvolakeQueryEnginePage: NextPage = () => {
                             {dbQuery}
                         </div>
                     </Show>
-                    <Link className="lead-link" href={'/evolake-queryhistory'}>My Query History</Link>
-                    <p className="lead-link" onClick={copyAPIDetails}>Copy Example Query Engine API</p>
+                    <Link className='lead-link' href={'/evolake-queryhistory'}>My Query History</Link>
+                    <p className='lead-link' onClick={copyAPIDetails}>Copy Example Query Engine API</p>
                 </form>
             </Container>
         </Fragment >

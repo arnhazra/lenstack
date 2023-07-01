@@ -12,21 +12,21 @@ export const productConfig = [
         productAvailable: true
     },
     {
-        productName: 'frostlake',
-        description: 'An open-source analytics provider for web applications, enabling you to make informed decisions.',
-        url: '/products/frostlake',
-        productAvailable: false
-    },
-    {
         productName: 'icelake',
         description: 'An open-souce application that offers users a secure and scalable storage solution for files and data.',
-        url: '/products/icelake',
+        url: '/icelake',
+        productAvailable: true
+    },
+    {
+        productName: 'frostlake',
+        description: 'An open-source analytics provider for web applications, enabling you to make informed decisions.',
+        url: '/frostlake',
         productAvailable: false
     },
     {
         productName: 'snowlake',
         description: 'An open-source prototype management application that manages prototypes for various products and services.',
-        url: '/products/snowlake',
+        url: '/snowlake',
         productAvailable: false
     }
 ]

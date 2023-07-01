@@ -21,7 +21,7 @@ export default class IcelakeController {
         try {
             const userId = req.headers.id as string
             const documents = await IcelakeDocumentModel.find({ owner: userId }).select('-content').sort({ date: -1 })
-            return res.status(200).json(documents)
+            return res.status(200).json({ documents })
         }
 
         catch (error) {
