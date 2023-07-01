@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from 'react'
+import { FC, useContext } from 'react'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '../components/Loading'
@@ -11,21 +11,14 @@ import HTTPMethods from '../constants/httpMethods'
 import Error from '../components/ErrorComp'
 import { AppContext } from '../context/appStateProvider'
 import { Rating } from 'react-simple-star-rating'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const AirlakeViewDatasetPage: FC = () => {
     const params = useParams()
-    const navigate = useNavigate()
     const { id: datasetId } = params
     const [{ userState }] = useContext(AppContext)
     const dataset = useFetch('view dataset', endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.airlakeFindSimilarDatasetsEndpoint, HTTPMethods.POST, { datasetId })
-
-    useEffect(() => {
-        if (!datasetId) {
-            navigate('/datasets')
-        }
-    }, [])
 
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset?.name} rating={dataset?.rating} />
