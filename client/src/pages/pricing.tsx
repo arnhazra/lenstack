@@ -28,6 +28,16 @@ const PricingPage: NextPage = () => {
         }
     }, [userState.subscriptionKey])
 
+    useEffect(() => {
+        if (selectedPlan === 'Standard') {
+            setPlanPrice(pricingDetails.data?.standardSubscriptionConfig?.price)
+        }
+
+        if (selectedPlan === 'Premium') {
+            setPlanPrice(pricingDetails.data?.premiumSubscriptionConfig?.price)
+        }
+    }, [selectedPlan, pricingDetails.data])
+
     const hideSubscribeModal = () => {
         setSubscribeModalOpened(false)
     }
