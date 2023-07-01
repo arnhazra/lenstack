@@ -2,13 +2,13 @@ export const productConfig = [
     {
         productName: 'airlake',
         description: 'An open-source application for easily discovering, subscribing to, and utilizing third-party cloud data.',
-        url: '/products/airlake',
+        url: '/airlake',
         productAvailable: true
     },
     {
         productName: 'evolake',
         description: 'An open-source application that utilizes the OpenAI Davinci model to generate database queries.',
-        url: '/products/evolake',
+        url: '/evolake',
         productAvailable: true
     },
     {
@@ -21,12 +21,12 @@ export const productConfig = [
         productName: 'icelake',
         description: 'An open-souce application that offers users a secure and scalable storage solution for files and data.',
         url: '/products/icelake',
-        productAvailable: true
+        productAvailable: false
     },
     {
         productName: 'snowlake',
         description: 'An open-source prototype management application that manages prototypes for various products and services.',
         url: '/products/snowlake',
-        productAvailable: true
+        productAvailable: false
     }
 ]
