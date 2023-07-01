@@ -1,6 +1,7 @@
-import { useContext } from 'react'
+import { ChangeEvent, useContext, useMemo } from 'react'
 import { Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
+import debounce from 'lodash.debounce'
 import Loading from '@/components/Loading'
 import Show from '@/components/Show'
 import { AppContext } from '@/context/appStateProvider'
@@ -39,11 +40,22 @@ const AirlakeDatasetsPage: NextPage = () => {
         window.scrollTo(0, 0)
     }
 
+    const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+        dispatch('setDatasetRequestState', { searchQuery: event.target.value, offset: 0 })
+    }
+
+    const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])
+
     return (
         <Fragment>
             <Show when={!dataLibrary.isLoading && !filters.isLoading}>
                 <Container>
                     <Row className='g-2'>
+                        <Col xs={12} sm={12} md={6} lg={4} xl={6}>
+                            <FloatingLabel controlId='floatingSearch' label='Search Datasets'>
+                                <Form.Control autoFocus type='Search' onChange={debouncedChangeHandler} placeholder='Search Datasets' required autoComplete={'off'} minLength={4} maxLength={40} />
+                            </FloatingLabel>
+                        </Col>
                         <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                             <FloatingLabel controlId='floatingSelectGrid' label='Select Filter Category'>
                                 <Form.Select defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value, offset: 0 })}>
