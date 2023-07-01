@@ -159,7 +159,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
     }
 
     return (
-        <>
+        <Fragment>
             <Modal backdrop='static' centered show={isOpened} onHide={hideModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Subscribe</Modal.Title>
@@ -192,7 +192,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                     </Fragment >
                 </Modal.Body>
             </Modal>
-        </>
+        </Fragment>
     )
 }
 

@@ -65,6 +65,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                     </div>
                 </Show>
                 <Link className="lead-link" href={'/evolake-queryhistory'}>My Query History</Link>
+                <p className="lead-link">View Query Engine API</p>
             </form>
         </Container>
     )

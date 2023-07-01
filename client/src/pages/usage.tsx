@@ -55,6 +55,9 @@ const UsagePage: NextPage = () => {
                         </Link>
                     </Show>
                 </h4>
+                <Show when={userState.subscriptionKey.length > 0}>
+                    hello
+                </Show>
             </div>
         </Fragment >
     )

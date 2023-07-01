@@ -143,7 +143,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
     }
 
     return (
-        <>
+        <Fragment>
             <Modal backdrop='static' centered show={isOpened} onHide={hideModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Unsubscribe</Modal.Title>
@@ -176,7 +176,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                     </Fragment >
                 </Modal.Body>
             </Modal>
-        </>
+        </Fragment>
     )
 }
 
