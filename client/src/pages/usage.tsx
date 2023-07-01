@@ -1,13 +1,14 @@
 import { Fragment, useContext, useState, useEffect } from 'react'
-import { FC } from 'react'
 import { AppContext } from '../context/appStateProvider'
 import { SubReqLimitState } from '../types/Types'
 import Show from '../components/Show'
 import Link from 'next/link'
 import contractAddress from '../constants/contractAddress'
 import { toast } from 'react-hot-toast'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const UsagePage: FC = () => {
+const UsagePage: NextPage = () => {
     const [{ userState, subReqLimitState }] = useContext(AppContext)
     const [tokenId, setTokenId] = useState('')
     const [maxLimit, setMaxLimit] = useState('0')
@@ -74,4 +75,4 @@ const UsagePage: FC = () => {
     )
 }
 
-export default UsagePage
+export default withAuth(UsagePage)

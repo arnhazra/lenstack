@@ -5,11 +5,11 @@ import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import Constants from '../constants/appConstants'
 import Show from '../components/Show'
 import endPoints from '../constants/apiEndpoints'
-import { FC } from 'react'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/router'
+import { NextPage } from 'next'
 
-const IdentityPage: FC = () => {
+const IdentityPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [identityStep, setidentityStep] = useState(1)
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })

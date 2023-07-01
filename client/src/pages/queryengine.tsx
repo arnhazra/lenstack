@@ -1,13 +1,14 @@
+import withAuth from '@/utils/withAuth'
 import Show from '../components/Show'
 import endPoints from '../constants/apiEndpoints'
 import { AppContext } from '../context/appStateProvider'
 import axios from 'axios'
-import { FC } from 'react'
 import React, { useContext, useState } from 'react'
 import { Button, Container, FloatingLabel, Form } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
+import { NextPage } from 'next'
 
-const QueryEnginePage: FC = () => {
+const QueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState('SQL')
     const [userQuery, setUserQuery] = useState('')
     const [dbQuery, setDbQuery] = useState('')
@@ -64,4 +65,4 @@ const QueryEnginePage: FC = () => {
     )
 }
 
-export default QueryEnginePage
+export default withAuth(QueryEnginePage)

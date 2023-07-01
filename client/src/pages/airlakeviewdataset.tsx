@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '../components/Loading'
@@ -12,8 +12,10 @@ import Error from '../components/ErrorComp'
 import { AppContext } from '../context/appStateProvider'
 import { Rating } from 'react-simple-star-rating'
 import { useRouter } from 'next/router'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const AirlakeViewDatasetPage: FC = () => {
+const AirlakeViewDatasetPage: NextPage = () => {
     const router = useRouter()
     const { id: datasetId } = router.query
     const [{ userState }] = useContext(AppContext)
@@ -84,4 +86,4 @@ const AirlakeViewDatasetPage: FC = () => {
     )
 }
 
-export default AirlakeViewDatasetPage
+export default withAuth(AirlakeViewDatasetPage)

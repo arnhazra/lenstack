@@ -1,6 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import endPoints from '../constants/apiEndpoints'
-import { FC } from 'react'
 import { AppContext } from '../context/appStateProvider'
 import { toast } from 'react-hot-toast'
 import Constants from '../constants/appConstants'
@@ -8,8 +7,10 @@ import Link from 'next/link'
 import Web3 from 'web3'
 import Show from '../components/Show'
 import Loading from '../components/Loading'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const WalletPage: FC = () => {
+const WalletPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [walletLoading, setWalletLoading] = useState(true)
     const [accountAddress, setAccountAddress] = useState('')
@@ -63,4 +64,4 @@ const WalletPage: FC = () => {
     )
 }
 
-export default WalletPage
+export default withAuth(WalletPage)

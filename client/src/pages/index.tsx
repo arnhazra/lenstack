@@ -3,8 +3,9 @@ import { Fragment } from 'react'
 import { FC } from 'react'
 import Constants from '../constants/appConstants'
 import Link from 'next/link'
+import { NextPage } from 'next'
 
-const HomePage: FC = () => {
+const HomePage: NextPage = () => {
     return (
         <Fragment>
             <Container>

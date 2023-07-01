@@ -1,14 +1,15 @@
 import { Fragment, useContext } from 'react'
 import { Button } from 'react-bootstrap'
 import endPoints from '../constants/apiEndpoints'
-import { FC } from 'react'
 import { useRouter } from 'next/router'
 import { AppContext } from '../context/appStateProvider'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import Constants from '../constants/appConstants'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const AccountPage: FC = () => {
+const AccountPage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const router = useRouter()
 
@@ -40,4 +41,4 @@ const AccountPage: FC = () => {
     )
 }
 
-export default AccountPage
+export default withAuth(AccountPage)

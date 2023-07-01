@@ -6,8 +6,10 @@ import { Fragment } from 'react'
 import Show from '../components/Show'
 import Loading from '../components/Loading'
 import { Container, Row } from 'react-bootstrap'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const DashboardPage = () => {
+const DashboardPage: NextPage = () => {
     const products = useFetch('get products', endPoints.getProductConfigEndpoint, HTTPMethods.POST, {})
 
     const productsToDisplay = products?.data?.map((product: any) => {
@@ -30,4 +32,4 @@ const DashboardPage = () => {
     )
 }
 
-export default DashboardPage
+export default withAuth(DashboardPage)

@@ -1,13 +1,14 @@
 import { Button, ButtonGroup } from 'react-bootstrap'
 import { Fragment, useContext, useEffect, useState } from 'react'
-import { FC } from 'react'
 import { AppContext } from '../context/appStateProvider'
 import Show from '../components/Show'
 import SubscribeModal from '../components/SubscribeModal'
 import UnsubscribeModal from '../components/UnsubscribeModal'
 import { SubPlanState } from '../types/Types'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const PricingPage: FC = () => {
+const PricingPage: NextPage = () => {
     const [{ userState, subPlanState, subReqLimitState }] = useContext(AppContext)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
@@ -71,4 +72,4 @@ const PricingPage: FC = () => {
     )
 }
 
-export default PricingPage
+export default withAuth(PricingPage)

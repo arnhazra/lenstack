@@ -1,9 +1,9 @@
 import { Button, ButtonGroup } from 'react-bootstrap'
 import { Fragment, useState } from 'react'
-import { FC } from 'react'
 import Show from '../components/Show'
+import { NextPage } from 'next'
 
-const PlansPage: FC = () => {
+const PlansPage: NextPage = () => {
     const [selectedPlan, setSelectedPlan] = useState('Standard')
 
     return (

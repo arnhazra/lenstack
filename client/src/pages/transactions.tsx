@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import { FC } from 'react'
 import endPoints from '../constants/apiEndpoints'
 import Show from '../components/Show'
 import { Container, Table } from 'react-bootstrap'
@@ -7,8 +6,10 @@ import Loading from '../components/Loading'
 import useFetchRealtime from '../hooks/useFetchRealtime'
 import HTTPMethods from '../constants/httpMethods'
 import moment from 'moment'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const TransactionsPage: FC = () => {
+const TransactionsPage: NextPage = () => {
     const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, HTTPMethods.POST)
 
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
@@ -57,4 +58,4 @@ const TransactionsPage: FC = () => {
     )
 }
 
-export default TransactionsPage
+export default withAuth(TransactionsPage)

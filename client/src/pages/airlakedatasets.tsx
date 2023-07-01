@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import { Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Fragment } from 'react'
 import Loading from '../components/Loading'
@@ -9,8 +9,10 @@ import useFetch from '../hooks/useFetch'
 import endPoints from '../constants/apiEndpoints'
 import HTTPMethods from '../constants/httpMethods'
 import Error from '../components/ErrorComp'
+import withAuth from '@/utils/withAuth'
+import { NextPage } from 'next'
 
-const AirlakeDatasetsPage: FC = () => {
+const AirlakeDatasetsPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(AppContext)
     const filters = useFetch('filters', endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
     const dataLibrary = useFetch('data platform', endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
@@ -74,4 +76,4 @@ const AirlakeDatasetsPage: FC = () => {
     )
 }
 
-export default AirlakeDatasetsPage
+export default withAuth(AirlakeDatasetsPage)
