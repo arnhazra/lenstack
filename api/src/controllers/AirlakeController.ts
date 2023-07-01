@@ -70,18 +70,6 @@ export default class DatasetController {
         }
     }
 
-    async getMetadata(req: Request, res: Response) {
-        try {
-            const data = await AirlakeDatasetModel.findById(req.params.datasetId).select('data')
-            const previewdata = data.data.slice(-10)
-            return res.status(200).json({ previewdata })
-        }
-
-        catch (error) {
-            return res.status(404).json({ msg: statusMessages.connectionError })
-        }
-    }
-
     async getData(req: Request, res: Response) {
         try {
             const { datasetId, subscriptionKey } = req.params

@@ -11,12 +11,11 @@ import HTTPMethods from '../constants/httpMethods'
 import Error from '../components/ErrorComp'
 import { AppContext } from '../context/appStateProvider'
 import { Rating } from 'react-simple-star-rating'
-import { useNavigate, useParams, useLocation } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const AirlakeViewDatasetPage: FC = () => {
     const params = useParams()
     const navigate = useNavigate()
-    const location = useLocation()
     const { id: datasetId } = params
     const [{ userState }] = useContext(AppContext)
     const dataset = useFetch('view dataset', endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
@@ -38,13 +37,8 @@ const AirlakeViewDatasetPage: FC = () => {
         }
     })
 
-    const copyMetadataAPI = (): void => {
-        navigator.clipboard.writeText(`${location.pathname}/metadataapi/${datasetId}`)
-        toast.success('Copied to Clipboard')
-    }
-
     const copyDataAPI = (): void => {
-        navigator.clipboard.writeText(`${location.pathname}/dataapi/${datasetId}/${userState.subscriptionKey}`)
+        navigator.clipboard.writeText(`${endPoints.airlakeDataApiEndpoint}/${datasetId}/${userState.subscriptionKey}`)
         toast.success('Copied to Clipboard')
     }
 
@@ -74,9 +68,6 @@ const AirlakeViewDatasetPage: FC = () => {
                                     <p className='lead'>{dataset?.data?.category}</p>
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
-                                    <Show when={userState.subscriptionKey.length === 0}>
-                                        <Button onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></Button>
-                                    </Show>
                                     <Show when={userState.subscriptionKey.length > 0}>
                                         <Button onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></Button>
                                     </Show>
