@@ -4,6 +4,7 @@ enum statusMessages {
     transactionCreationError = 'Error Creating ERC20 Transaction',
     signOutSuccess = 'You are now signed out',
     unauthorized = 'Unauthorized',
+    subscribeToContinue = 'Subscribe to continue',
     invalidAuthCode = 'Invalid Auth Code',
     authCodeEmail = 'Check Auth Code in Email',
     invalidToken = 'Invalid Token',

@@ -8,7 +8,7 @@ async function airlakeApiAuthorizer(req: Request, res: Response, next: NextFunct
     const { subscriptionKey } = req.params
 
     if (!subscriptionKey) {
-        return res.status(403).json({ msg: statusMessages.unauthorized })
+        return res.status(403).json({ msg: statusMessages.subscribeToContinue })
     }
 
     else {

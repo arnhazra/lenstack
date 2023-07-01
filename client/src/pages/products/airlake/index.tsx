@@ -50,28 +50,31 @@ const AirlakeDatasetsPage: NextPage = () => {
         <Fragment>
             <Show when={!dataLibrary.isLoading && !filters.isLoading}>
                 <Container>
-                    <Row className='g-2'>
-                        <Col xs={12} sm={12} md={6} lg={4} xl={6}>
-                            <FloatingLabel controlId='floatingSearch' label='Search Datasets'>
-                                <Form.Control autoFocus type='Search' onChange={debouncedChangeHandler} placeholder='Search Datasets' required autoComplete={'off'} minLength={4} maxLength={40} />
-                            </FloatingLabel>
-                        </Col>
-                        <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                            <FloatingLabel controlId='floatingSelectGrid' label='Select Filter Category'>
-                                <Form.Select defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value, offset: 0 })}>
-                                    {filterCategoriesToDisplay}
-                                </Form.Select>
-                            </FloatingLabel>
-                        </Col>
-                        <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                            <FloatingLabel controlId='floatingSelectGrid' label='Sort By'>
-                                <Form.Select defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
-                                    <option className='options' key={'nameAscending'} value={'name'}>Name Ascending</option>
-                                    <option className='options' key={'nameDescending'} value={'-name'}>Name Descending</option>
-                                </Form.Select>
-                            </FloatingLabel>
-                        </Col>
-                    </Row>
+                    <div className='jumbotron p-4'>
+                        <Row className='g-2'>
+                            <Col xs={12} sm={12} md={6} lg={4} xl={6}>
+                                <FloatingLabel controlId='floatingSearch' label='What are you looking for today?'>
+                                    <Form.Control autoFocus type='Search' defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder='What are you looking for today?' required autoComplete={'off'} minLength={4} maxLength={40} />
+                                </FloatingLabel>
+                            </Col>
+                            <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+                                <FloatingLabel controlId='floatingSelectGrid' label='Select Filter Category'>
+                                    <Form.Select defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => dispatch('setDatasetRequestState', { selectedFilter: e.target.value, offset: 0 })}>
+                                        {filterCategoriesToDisplay}
+                                    </Form.Select>
+                                </FloatingLabel>
+                            </Col>
+                            <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+                                <FloatingLabel controlId='floatingSelectGrid' label='Sort By'>
+                                    <Form.Select defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => dispatch('setDatasetRequestState', { selectedSortOption: e.target.value })}>
+                                        <option className='options' key={'nameAscending'} value={'name'}>Name Ascending</option>
+                                        <option className='options' key={'nameDescending'} value={'-name'}>Name Descending</option>
+                                    </Form.Select>
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+                    </div>
+
                     <Row className='mt-4 mb-4'>
                         {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
                     </Row>

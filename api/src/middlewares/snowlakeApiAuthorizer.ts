@@ -8,7 +8,7 @@ async function snowlakeApiAuthorizer(req: Request, res: Response, next: NextFunc
     const { subscriptionKey } = req.body
 
     if (!subscriptionKey) {
-        return res.status(403).json({ msg: statusMessages.unauthorized })
+        return res.status(403).json({ msg: statusMessages.subscribeToContinue })
     }
 
     else {

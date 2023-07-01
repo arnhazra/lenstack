@@ -11,7 +11,7 @@ const UsagePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const [tokenId, setTokenId] = useState('')
     const [maxLimit, setMaxLimit] = useState('0')
-    const [selectedPlan, setSelectedPlan] = useState('Free')
+    const [selectedPlan, setSelectedPlan] = useState('No Subscription')
 
     useEffect(() => {
         try {
@@ -21,11 +21,11 @@ const UsagePage: NextPage = () => {
             }
 
             else {
-                setSelectedPlan('Free')
+                setSelectedPlan('No Subscription')
                 setTokenId('')
             }
         } catch (error) {
-            setSelectedPlan('Free')
+            setSelectedPlan('No Subscription')
             setTokenId('')
         }
     }, [userState.subscriptionKey])
