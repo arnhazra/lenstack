@@ -2,9 +2,7 @@ import { UserState, SubPlanState, SubReqLimitState, DatasetRequestState } from '
 
 export type AppState = {
     userState: UserState
-    subPlanState: SubPlanState,
     datasetRequestState: DatasetRequestState,
-    subReqLimitState: SubReqLimitState
 }
 
 export type ActionsMap = {
@@ -28,19 +26,9 @@ export const AppReducer = (state: AppState, action: Actions): AppState => {
                 ...state, userState: { ...state.userState, ...action.payload }
             }
 
-        case 'setSubPlanState':
-            return {
-                ...state, subPlanState: { ...state.subPlanState, ...action.payload }
-            }
-
         case 'setDatasetRequestState':
             return {
                 ...state, datasetRequestState: { ...state.datasetRequestState, ...action.payload }
-            }
-
-        case 'setSubReqLimitState':
-            return {
-                ...state, subReqLimitState: { ...state.subReqLimitState, ...action.payload }
             }
 
         default:

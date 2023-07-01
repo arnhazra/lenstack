@@ -20,19 +20,6 @@ export type UserState = {
     email: string,
     role: string,
     subscriptionKey: string
-    subscriptionKeyUsage: number
-}
-
-export type SubPlanState = {
-    basicSubscriptionPrice: string,
-    standardSubscriptionPrice: string,
-    premiumSubscriptionPrice: string,
-}
-
-export type SubReqLimitState = {
-    basicSubscriptionReqLimit: string,
-    standardSubscriptionReqLimit: string,
-    premiumSubscriptionReqLimit: string
 }
 
 export type DatasetCardProps = {

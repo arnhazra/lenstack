@@ -14,13 +14,6 @@ const initialState = {
         email: '',
         role: '',
         subscriptionKey: '',
-        subscriptionKeyUsage: 0
-    },
-
-    subPlanState: {
-        basicSubscriptionPrice: '',
-        standardSubscriptionPrice: '',
-        premiumSubscriptionPrice: '',
     },
 
     datasetRequestState: {
@@ -28,12 +21,6 @@ const initialState = {
         selectedFilter: 'All',
         selectedSortOption: 'name',
         offset: 0
-    },
-
-    subReqLimitState: {
-        basicSubscriptionReqLimit: '',
-        standardSubscriptionReqLimit: '',
-        premiumSubscriptionReqLimit: ''
     }
 }
 

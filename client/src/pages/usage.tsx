@@ -1,6 +1,5 @@
 import { Fragment, useContext, useState, useEffect } from 'react'
 import { AppContext } from '@/context/appStateProvider'
-import { SubReqLimitState } from '@/types/Types'
 import Show from '@/components/Show'
 import Link from 'next/link'
 import contractAddress from '@/constants/contractAddress'
@@ -9,7 +8,7 @@ import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
 
 const UsagePage: NextPage = () => {
-    const [{ userState, subReqLimitState }] = useContext(AppContext)
+    const [{ userState }] = useContext(AppContext)
     const [tokenId, setTokenId] = useState('')
     const [maxLimit, setMaxLimit] = useState('0')
     const [selectedPlan, setSelectedPlan] = useState('Free')
@@ -17,8 +16,8 @@ const UsagePage: NextPage = () => {
     useEffect(() => {
         try {
             if (userState.subscriptionKey.length > 0) {
-                setSelectedPlan(userState.subscriptionKey.split('_')[0])
-                setTokenId(userState.subscriptionKey.split('_')[2])
+                setSelectedPlan(userState.subscriptionKey.startsWith('sk') ? 'Standard' : 'Premium')
+                setTokenId(userState.subscriptionKey.split('-')[2])
             }
 
             else {
@@ -30,17 +29,6 @@ const UsagePage: NextPage = () => {
             setTokenId('')
         }
     }, [userState.subscriptionKey])
-
-    useEffect(() => {
-        if (selectedPlan === 'Free') {
-            setMaxLimit('0')
-        }
-
-        else {
-            const subReqLimitStateKey = `${selectedPlan.toLowerCase()}SubscriptionReqLimit`
-            setMaxLimit(subReqLimitState[subReqLimitStateKey as keyof SubReqLimitState])
-        }
-    }, [selectedPlan])
 
     const showSubscriptionKey = (subscriptionKey: string) => {
         const displaySubscriptionKey = `(${subscriptionKey.substring(0, 3)}...${subscriptionKey.substring(subscriptionKey.length - 3)})`
@@ -66,9 +54,6 @@ const UsagePage: NextPage = () => {
                             <i className='fa-solid fa-shield'></i>
                         </Link>
                     </Show>
-                </h4>
-                <h4>
-                    {userState.subscriptionKeyUsage} / {maxLimit} API REQ USED
                 </h4>
             </div>
         </Fragment >
