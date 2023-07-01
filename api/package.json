@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node build/handler.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/handler.js\""
+    "dev": "tsnd --respawn handler.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,8 @@
     "nodemailer": "^6.9.3",
     "openai": "^3.3.0",
     "otp-without-db": "^1.0.5",
-    "redis": "^4.6.7"
+    "redis": "^4.6.7",
+    "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
@@ -33,7 +34,6 @@
     "@types/nodemailer": "^6.4.8",
     "@types/uuid": "^9.0.2",
     "concurrently": "^8.2.0",
-    "nodemon": "^2.0.22",
     "typescript": "^5.1.3"
   }
 }
