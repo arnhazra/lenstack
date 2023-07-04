@@ -12,7 +12,7 @@ import Loading from '@/components/Loading'
 import withoutAuth from '@/utils/withoutAuth'
 
 const PlansPage: NextPage = () => {
-    const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST, {})
+    const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
 
     return (

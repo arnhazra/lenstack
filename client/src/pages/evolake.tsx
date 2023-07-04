@@ -18,7 +18,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
     const [dbQuery, setDbQuery] = useState('')
     const [{ userState }] = useContext(AppContext)
     const [isFetching, setFetching] = useState(false)
-    const dbList = useFetch('database list', endPoints.evolakeGetDatabaseListEndpoint, HTTPMethods.POST, {})
+    const dbList = useFetch('database list', endPoints.evolakeGetDatabaseListEndpoint, HTTPMethods.POST)
     const apiDetails = `const response = await axios.post(${endPoints.evolakeGenerateQueryEndpint},{
             "selectedDb": "SQL",
             "userQuery": "create a table named user with fields userId, name, age, password, gender",

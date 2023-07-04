@@ -5,18 +5,18 @@ import HTTPMethods from '@/constants/httpMethods'
 import { AppContext } from '@/context/appStateProvider'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import withAuth from '@/utils/withAuth'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import moment from 'moment'
 import { NextPage } from 'next'
-import Link from 'next/link'
 import { ChangeEvent, Fragment, useContext, useState } from 'react'
 import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 
 const IcelakeHomePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
-    const [eventId, setEventId] = useState(Math.random().toString())
-    const documentList = useFetchRealtime('list docs', endPoints.icelakeGetAllDocEndpoint, HTTPMethods.POST, {}, eventId)
+    const queryClient = useQueryClient()
+    const documentList = useFetchRealtime('list-docs', endPoints.icelakeGetAllDocEndpoint, HTTPMethods.POST)
     const [state, setState] = useState({ title: '', content: '', apiKey: userState.apiKey })
 
     const documentsToDisplay = documentList?.data?.documents?.map((doc: any) => {
@@ -25,7 +25,7 @@ const IcelakeHomePage: NextPage = () => {
                 <td>{doc.title}</td>
                 <td>{moment(doc.date).format('MMM, Do YYYY, h:mm a')}</td>
                 <td onClick={() => saveDocument(doc._id)}>Save</td>
-                <td><i className='fa-solid fa-trash' onClick={() => deleteFile(doc._id)}></i></td>
+                <td><i className='fa-solid fa-trash' onClick={() => deleteItemMutation.mutate(doc._id)}></i></td>
             </tr>
         )
     })
@@ -65,18 +65,16 @@ const IcelakeHomePage: NextPage = () => {
         try {
             await axios.post(endPoints.icelakeCreateDocEndpoint, state)
             toast.success('Document Uploaded')
-            setEventId(Math.random().toString())
         }
 
         catch (error: any) {
-            if (error.response) {
-                toast.error('File Size Too Large')
+            if (error.response && error.response.data.msg) {
+                toast.error(error.response.data.msg)
             }
 
             else {
-                toast.error('File Size Too Large')
+                toast.error('Unknown error, please try again')
             }
-            setEventId(Math.random().toString())
         }
     }
 
@@ -84,12 +82,10 @@ const IcelakeHomePage: NextPage = () => {
         try {
             await axios.delete(`${endPoints.icelakeDeleteDocEndpoint}/${docId}`)
             toast.success('Document Deleted')
-            setEventId(Math.random().toString())
         }
 
         catch (error: any) {
             toast.error('Unable to delete the document')
-            setEventId(Math.random().toString())
         }
     }
 
@@ -113,6 +109,18 @@ const IcelakeHomePage: NextPage = () => {
         }
     }
 
+    const deleteItemMutation = useMutation(deleteFile, {
+        onSuccess: () => {
+            queryClient.invalidateQueries()
+        },
+    })
+
+    const uploadFileMutation = useMutation(uploadFile, {
+        onSuccess: () => {
+            queryClient.invalidateQueries()
+        },
+    })
+
     return (
         <Fragment>
             <Show when={!documentList.isLoading}>
@@ -124,7 +132,7 @@ const IcelakeHomePage: NextPage = () => {
                                 <Form.Group controlId='formFileLg' className='mb-3'>
                                     <Form.Control type='file' size='lg' onChange={readFile} />
                                 </Form.Group>
-                                <Button onClick={uploadFile}>Upload<i className='fa-solid fa-circle-arrow-up'></i></Button>
+                                <Button onClick={(e) => uploadFileMutation.mutate(e)}>Upload<i className='fa-solid fa-circle-arrow-up'></i></Button>
                             </Col>
                         </Row>
                     </div>
