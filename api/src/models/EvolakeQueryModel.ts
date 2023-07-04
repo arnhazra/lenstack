@@ -16,7 +16,7 @@ const EvolakeQuerySchema = new mongoose.Schema({
         required: true
     },
 
-    subscriptionKey: {
+    apiKey: {
         type: String,
         required: true
     },

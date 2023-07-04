@@ -13,7 +13,9 @@ const initialState = {
         privateKey: '',
         email: '',
         role: '',
-        subscriptionKey: '',
+        selectedPlan: 'No Subscription',
+        apiKey: '',
+        tokenId: ''
     },
 
     datasetRequestState: {

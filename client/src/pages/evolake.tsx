@@ -22,7 +22,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
     const apiDetails = `const response = await axios.post(${endPoints.evolakeGenerateQueryEndpint},{
             "selectedDb": "SQL",
             "userQuery": "create a table named user with fields userId, name, age, password, gender",
-            "subscriptionKey": "Your Subscription Key"
+            "apiKey": "Your API Key"
         })`
 
     const dbToDisplay = dbList?.data?.dbOptions.map((db: any) => {
@@ -33,8 +33,8 @@ const EvolakeQueryEnginePage: NextPage = () => {
         e.preventDefault()
         try {
             setFetching(true)
-            const subscriptionKey = userState.subscriptionKey
-            const response = await axios.post(endPoints.evolakeGenerateQueryEndpint, { selectedDb, userQuery, subscriptionKey })
+            const apiKey = userState.apiKey
+            const response = await axios.post(endPoints.evolakeGenerateQueryEndpint, { selectedDb, userQuery, apiKey })
             setDbQuery(response.data.msg)
             setFetching(false)
         } catch (error: any) {
@@ -76,7 +76,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                             {dbQuery}
                         </div>
                     </Show>
-                    <Link className='lead-link' href={'/evolake-queryhistory'}>My Query History</Link>
+                    <Link className='lead-link' href={'/evolakequeryhistory'}>My Query History</Link>
                     <p className='lead-link' onClick={copyAPIDetails}>Copy Example Query Engine API</p>
                 </form>
             </Container>

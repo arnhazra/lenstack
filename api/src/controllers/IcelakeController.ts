@@ -4,11 +4,11 @@ import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
 
 export default class IcelakeController {
     async createDocument(req: Request, res: Response) {
-        const { title, content, subscriptionKey } = req.body
+        const { title, content, apiKey } = req.body
 
         try {
             const userId = req.headers.id
-            let document = new IcelakeDocumentModel({ owner: userId, title, content, subscriptionKey })
+            let document = new IcelakeDocumentModel({ owner: userId, title, content, apiKey })
             await document.save()
             return res.status(200).json({ msg: 'Document created' })
         }

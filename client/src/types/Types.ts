@@ -19,7 +19,9 @@ export type UserState = {
     privateKey: string,
     email: string,
     role: string,
-    subscriptionKey: string
+    selectedPlan: string,
+    apiKey: string,
+    tokenId: string
 }
 
 export type DatasetCardProps = {

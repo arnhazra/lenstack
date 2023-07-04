@@ -13,8 +13,8 @@ const ProductCard: FC<ProductCardProps> = ({ productName, description, url, prod
     }
 
     return (
-        <Col xs={12} sm={12} md={6} lg={4} xl={4} className='mb-4'>
-            <Card onClick={redirectToProduct} className='product-card'>
+        <Col xs={12} sm={12} md={6} lg={4} xl={4} className='mb-4' key={productName}>
+            <Card onClick={redirectToProduct} className='product-card' key={productName}>
                 <Card.Header className='pt-3 product-card-header'>
                     <div className={`${productName.toLowerCase()}Container pt-4`} />
                 </Card.Header>

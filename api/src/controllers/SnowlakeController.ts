@@ -4,11 +4,11 @@ import SnowlakePrototypeModel from '../models/SnowlakePrototypeModel'
 
 export default class SnowlakeController {
     async createPrototype(req: Request, res: Response) {
-        const { title, description, link, subscriptionKey } = req.body
+        const { title, description, link, apiKey } = req.body
 
         try {
             const userId = req.headers.id
-            let prototype = new SnowlakePrototypeModel({ owner: userId, title, description, link, subscriptionKey })
+            let prototype = new SnowlakePrototypeModel({ owner: userId, title, description, link, apiKey })
             await prototype.save()
             return res.status(200).json({ msg: 'Prototype created' })
         }

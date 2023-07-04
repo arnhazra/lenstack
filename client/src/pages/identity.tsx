@@ -8,6 +8,7 @@ import endPoints from '@/constants/apiEndpoints'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
+import withoutAuth from '@/utils/withoutAuth'
 
 const IdentityPage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -107,4 +108,4 @@ const IdentityPage: NextPage = () => {
     )
 }
 
-export default IdentityPage
+export default withoutAuth(IdentityPage)

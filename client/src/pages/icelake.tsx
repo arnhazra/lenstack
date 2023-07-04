@@ -17,7 +17,7 @@ const IcelakeHomePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const [eventId, setEventId] = useState(Math.random().toString())
     const documentList = useFetchRealtime('list docs', endPoints.icelakeGetAllDocEndpoint, HTTPMethods.POST, {}, eventId)
-    const [state, setState] = useState({ title: '', content: '', subscriptionKey: userState.subscriptionKey })
+    const [state, setState] = useState({ title: '', content: '', apiKey: userState.apiKey })
 
     const documentsToDisplay = documentList?.data?.documents?.map((doc: any) => {
         return (

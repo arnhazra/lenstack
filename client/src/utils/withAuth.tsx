@@ -18,8 +18,14 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
                 try {
                     const response = await axios.post(endPoints.userDetailsEndpoint)
                     const userid = response.data.user._id
-                    const { name, email, privateKey, role, subscriptionKey } = response.data.user
-                    dispatch('setUserState', { userid, name, email, privateKey, role, subscriptionKey })
+                    const { name, email, privateKey, role } = response.data.user
+
+                    if (response.data.subscription) {
+                        const { selectedPlan, apiKey, tokenId } = response.data.subscription
+                        dispatch('setUserState', { selectedPlan, apiKey, tokenId })
+                    }
+
+                    dispatch('setUserState', { userid, name, email, privateKey, role })
                     setAuthenticated(true)
                 }
 

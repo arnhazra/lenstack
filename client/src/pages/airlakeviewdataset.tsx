@@ -39,7 +39,7 @@ const AirlakeViewDatasetPage: NextPage = () => {
     }
 
     const copyDataAPI = (): void => {
-        navigator.clipboard.writeText(`${endPoints.airlakeDataApiEndpoint}/${datasetId}/${userState.subscriptionKey}`)
+        navigator.clipboard.writeText(`${endPoints.airlakeDataApiEndpoint}/${datasetId}/${userState.apiKey}`)
         toast.success(appConstants.CopiedToClipBoard)
     }
 
@@ -57,7 +57,7 @@ const AirlakeViewDatasetPage: NextPage = () => {
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
                                     <Button onClick={copyMetadataAPI}>Metadata API <i className='fa-solid fa-copy'></i></Button>
-                                    <Show when={userState.subscriptionKey.length > 0}>
+                                    <Show when={userState.apiKey.length > 0}>
                                         <Button onClick={copyDataAPI}>Data API <i className='fa-solid fa-copy'></i></Button>
                                     </Show>
                                 </Col>

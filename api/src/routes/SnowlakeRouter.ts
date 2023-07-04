@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
 import SnowlakeController from '../controllers/SnowlakeController'
-import { snowlakeApiAuthorizer } from '../middlewares/snowlakeApiAuthorizer'
 import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
+import { apiKeyAuthorizer } from '../middlewares/apiKeyAuthorizer'
 
 export default class SnowlakeRouter {
     public router: Router
@@ -14,7 +14,7 @@ export default class SnowlakeRouter {
     }
 
     registerRoutes() {
-        this.router.post('/createprototype', snowlakeApiAuthorizer, this.snowlakeController.createPrototype.bind(this.snowlakeController))
+        this.router.post('/createprototype', apiKeyAuthorizer, this.snowlakeController.createPrototype.bind(this.snowlakeController))
         this.router.post('/getallprototypes', tokenAuthorizer, this.snowlakeController.getAllPrototypes.bind(this.snowlakeController))
         this.router.post('/viewprototype/:prototypeId', tokenAuthorizer, this.snowlakeController.viewPrototypeById.bind(this.snowlakeController))
         this.router.delete('/deleteprototype/:prototypeId', tokenAuthorizer, this.snowlakeController.deletePrototype.bind(this.snowlakeController))

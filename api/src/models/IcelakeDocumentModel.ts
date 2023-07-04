@@ -16,7 +16,7 @@ const IcelakeDocumentSchema = new mongoose.Schema({
         required: true
     },
 
-    subscriptionKey: {
+    apiKey: {
         type: String,
         required: true
     },

@@ -14,6 +14,7 @@ enum statusMessages {
     redisConnected = 'Redis Connected',
     apiKeyLimitReached = 'API Key Limit Reached',
     invalidApiKey = 'Invalid API Key',
+    apiKeyExpired = 'API Key Expired',
     evolakeErrorMessage = 'Query String & Selected DB cannot be empty',
     subscriptionSuccess = 'You are subscribed now',
     subscriptionFailure = 'Subscription failed',

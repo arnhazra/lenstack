@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import Constants from '@/constants/appConstants'
 import Link from 'next/link'
 import { NextPage } from 'next'
+import withoutAuth from '@/utils/withoutAuth'
 
 const HomePage: NextPage = () => {
     return (
@@ -25,4 +26,4 @@ const HomePage: NextPage = () => {
     )
 }
 
-export default HomePage
+export default withoutAuth(HomePage)

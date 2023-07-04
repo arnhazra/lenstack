@@ -7,6 +7,7 @@ import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
 import EvolakeQueryModel from '../models/EvolakeQueryModel'
 import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
 import SnowlakePrototypeModel from '../models/SnowlakePrototypeModel'
+import SubscriptionModel from '../models/SubscriptionModel'
 
 export default class GeneralController {
     async getProductDetails(req: Request, res: Response) {
@@ -27,18 +28,25 @@ export default class GeneralController {
         }
     }
 
-    async getUsageBySubscriptionKey(req: Request, res: Response) {
+    async getUsageByApiKey(req: Request, res: Response) {
         try {
             const userId = req.headers.id
-            const { subscriptionKey } = await UserModel.findById(userId)
-            const airlakeApiRequestCount = await AirlakeHistoryModel.find({ subscriptionKey }).countDocuments()
-            const evolakeQueryCount = await EvolakeQueryModel.find({ subscriptionKey }).countDocuments()
-            const icelakeDocumentCount = await IcelakeDocumentModel.find({ subscriptionKey }).countDocuments()
-            const snowlakePrototypeCount = await SnowlakePrototypeModel.find({ subscriptionKey }).countDocuments()
-            const frostlakeAnalyticsCount = 0
-            return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount, frostlakeAnalyticsCount })
+            const subscription = await SubscriptionModel.findOne({ owner: userId })
+
+            if (subscription) {
+                const { apiKey } = subscription
+                const airlakeApiRequestCount = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
+                const evolakeQueryCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
+                const icelakeDocumentCount = await IcelakeDocumentModel.find({ apiKey }).countDocuments()
+                const snowlakePrototypeCount = await SnowlakePrototypeModel.find({ apiKey }).countDocuments()
+                const frostlakeAnalyticsCount = 0
+                return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount, frostlakeAnalyticsCount })
+            }
+
+            else {
+                return res.status(200).json({ msg: 'No Active Subscription Found' })
+            }
         } catch (error) {
-            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError, error })
         }
     }

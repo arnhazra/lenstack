@@ -14,19 +14,10 @@ import Loading from '@/components/Loading'
 const PricingPage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST, {})
-    const [selectedPlan, setSelectedPlan] = useState('Standard')
+    const [selectedPlan, setSelectedPlan] = useState('Premium')
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
     const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
     const [planPrice, setPlanPrice] = useState('')
-    const [tokenId, setTokenId] = useState(userState.subscriptionKey.split('-')[2] || '')
-
-    useEffect(() => {
-        try {
-            setTokenId(userState.subscriptionKey.split('-')[2])
-        } catch (error) {
-            setTokenId('')
-        }
-    }, [userState.subscriptionKey])
 
     useEffect(() => {
         if (selectedPlan === 'Standard') {
@@ -57,7 +48,7 @@ const PricingPage: NextPage = () => {
                     </ButtonGroup>
                     <div className='plans mt-2'>
                         <Show when={selectedPlan === 'Standard'}>
-                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC</p>
+                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
@@ -66,7 +57,7 @@ const PricingPage: NextPage = () => {
                             <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                         <Show when={selectedPlan === 'Premium'}>
-                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC</p>
+                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
@@ -75,12 +66,12 @@ const PricingPage: NextPage = () => {
                             <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                     </div>
-                    <Show when={tokenId?.length > 0}>
+                    <Show when={userState.tokenId?.length > 0}>
                         <p className="lead-link" onClick={() => setUnsubscribeModalOpened(true)}>Unsubscribe & Refund</p>
                     </Show>
                 </div>
                 <SubscribeModal price={Number(planPrice) * 10000} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} selectedPlan={selectedPlan} />
-                <UnsubscribeModal tokenId={tokenId} refundAmount={Number(0.2) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
+                <UnsubscribeModal tokenId={userState.tokenId} refundAmount={Number(0.2) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
             </Show>
             <Show when={pricingDetails.isLoading}>
                 <Loading />

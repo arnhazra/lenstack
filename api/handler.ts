@@ -23,7 +23,7 @@ const generalRouter = new GeneralRouter()
 const app = express()
 app.listen(envConfig.apiPort)
 app.use(cors())
-app.use(express.json({ limit: '2mb' }))
+app.use(express.json({ limit: '3mb' }))
 dbConnect()
 connectRedis()
 

@@ -2,7 +2,7 @@ export const subscriptionConfig = {
     standardSubscriptionConfig: {
         price: 0.19,
         requestLimit: {
-            airlake: 300,
+            airlake: 10000,
             evolake: 10,
             frostlake: 1000,
             icelake: 10,
@@ -12,10 +12,10 @@ export const subscriptionConfig = {
     premiumSubscriptionConfig: {
         price: 0.49,
         requestLimit: {
-            airlake: 1000,
+            airlake: 30000,
             evolake: 30,
             frostlake: 4000,
-            icelake: 20,
+            icelake: 30,
             snowlake: 100
         }
     }

@@ -15,7 +15,7 @@ export default class GeneralRouter {
     registerRoutes() {
         this.router.post('/getproductconfig', this.generalController.getProductDetails.bind(this.generalController))
         this.router.post('/getsubscriptionconfig', this.generalController.getProductSubscriptionConfig.bind(this.generalController))
-        this.router.post('/getusagebysubscriptionkey', tokenAuthorizer, this.generalController.getUsageBySubscriptionKey.bind(this.generalController))
+        this.router.post('/getusagebyapikey', tokenAuthorizer, this.generalController.getUsageByApiKey.bind(this.generalController))
     }
 
     getRouter() {

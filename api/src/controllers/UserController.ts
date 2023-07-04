@@ -9,6 +9,7 @@ import { sendEmail } from '../utils/sendEmail'
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../utils/redisHelper'
 import { otherConstants } from '../constants/otherConstants'
 import { envConfig } from '../../config/envConfig'
+import SubscriptionModel from '../models/SubscriptionModel'
 
 export default class UserController {
     public otpKey: string
@@ -107,7 +108,24 @@ export default class UserController {
         try {
             const user = await UserModel.findById(req.headers.id).select('-date')
             if (user) {
-                return res.status(200).json({ user })
+                const userId = user.id
+                const subscription = await SubscriptionModel.findOne({ owner: userId })
+                if (subscription) {
+                    const currentDate = new Date()
+                    const expiryDate = subscription.expiresAt
+
+                    if (currentDate > expiryDate) {
+                        await SubscriptionModel.findOneAndDelete({ owner: userId })
+                        return res.status(200).json({ user })
+                    }
+
+                    else {
+                        return res.status(200).json({ user, subscription })
+                    }
+                }
+                else {
+                    return res.status(200).json({ user })
+                }
             }
 
             else {
@@ -116,6 +134,7 @@ export default class UserController {
         }
 
         catch (error) {
+            console.log(error)
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
@@ -133,15 +152,17 @@ export default class UserController {
 
     async subscribe(req: Request, res: Response) {
         const { tokenId, selectedPlan } = req.body
+        const owner = req.headers.id
 
         try {
-            const uniqueId = crypto.randomBytes(16).toString("hex")
-            const subscriptionKey = selectedPlan.charAt(0).toLowerCase() + 'k' + '-' + uniqueId + '-' + tokenId
-            await UserModel.findByIdAndUpdate(req.headers.id, { subscriptionKey })
+            const apiKey = 'ak-' + crypto.randomBytes(16).toString("hex")
+            const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+            await subscription.save()
             return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
         }
 
         catch (error) {
+            console.log(error)
             return res.status(500).json({ msg: statusMessages.subscriptionFailure })
         }
     }
@@ -150,8 +171,7 @@ export default class UserController {
         const userId = req.headers.id
 
         try {
-            const subscriptionKey = ''
-            await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
+            await SubscriptionModel.findOneAndDelete({ owner: userId })
             return res.status(200).json({ msg: statusMessages.unsubscribeSuccess })
         }
 

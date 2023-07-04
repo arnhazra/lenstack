@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
 import AirlakeController from '../controllers/AirlakeController'
-import { airlakeApiAuthorizer } from '../middlewares/airlakeApiAuthorizer'
 import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
+import { apiKeyAuthorizer } from '../middlewares/apiKeyAuthorizer'
 
 export default class AirlakeRouter {
     public router: Router
@@ -19,7 +19,7 @@ export default class AirlakeRouter {
         this.router.post('/viewdataset', tokenAuthorizer, this.airlakeController.viewDataset.bind(this.airlakeController))
         this.router.post('/findsimilardatasets', tokenAuthorizer, this.airlakeController.findSimilarDatasets.bind(this.airlakeController))
         this.router.get('/metadataapi/:datasetId', this.airlakeController.getMetadata.bind(this.airlakeController))
-        this.router.get('/dataapi/:datasetId/:subscriptionKey', airlakeApiAuthorizer, this.airlakeController.getData.bind(this.airlakeController))
+        this.router.get('/dataapi/:datasetId/:apiKey', apiKeyAuthorizer, this.airlakeController.getData.bind(this.airlakeController))
     }
 
     getRouter() {

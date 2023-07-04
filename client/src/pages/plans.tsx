@@ -9,6 +9,7 @@ import useFetch from '@/hooks/useFetch'
 import endPoints from '@/constants/apiEndpoints'
 import HTTPMethods from '@/constants/httpMethods'
 import Loading from '@/components/Loading'
+import withoutAuth from '@/utils/withoutAuth'
 
 const PlansPage: NextPage = () => {
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST, {})
@@ -25,7 +26,7 @@ const PlansPage: NextPage = () => {
                     </ButtonGroup>
                     <div className='plans mt-2'>
                         <Show when={selectedPlan === 'Standard'}>
-                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC</p>
+                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
@@ -33,7 +34,7 @@ const PlansPage: NextPage = () => {
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
                         </Show>
                         <Show when={selectedPlan === 'Premium'}>
-                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC</p>
+                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
@@ -50,4 +51,4 @@ const PlansPage: NextPage = () => {
     )
 }
 
-export default PlansPage
+export default withoutAuth(PlansPage)

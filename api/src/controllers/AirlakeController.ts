@@ -84,9 +84,9 @@ export default class DatasetController {
 
     async getData(req: Request, res: Response) {
         try {
-            const { datasetId, subscriptionKey } = req.params
+            const { datasetId, apiKey } = req.params
             const data = await AirlakeDatasetModel.findById(datasetId).select('data')
-            const airlakeHistoryReq = new AirlakeHistoryModel({ owner: req.headers.id as string, datasetId, subscriptionKey })
+            const airlakeHistoryReq = new AirlakeHistoryModel({ owner: req.headers.id as string, datasetId, apiKey })
             await airlakeHistoryReq.save()
             return res.status(200).json({ data })
         }
