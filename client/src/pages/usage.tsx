@@ -31,7 +31,7 @@ const UsagePage: NextPage = () => {
     return (
         <Fragment>
             <Show when={!usageDetails.isLoading && !pricingDetails.isLoading}>
-                <div className='bigbox'>
+                <div className='box'>
                     <p className='branding'>Usage<i className='fa-solid fa-code-pull-request'></i></p>
                     <Show when={userState.apiKey.length > 0}>
                         <p className='smalltext' title={userState.apiKey}>API Key - {showapiKey(userState.apiKey)}<i className='fa-solid fa-copy' onClick={copyapiKey}></i></p>
