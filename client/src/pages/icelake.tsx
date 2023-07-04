@@ -132,18 +132,14 @@ const IcelakeHomePage: NextPage = () => {
         <Fragment>
             <Show when={!documentList.isLoading}>
                 <Container>
-                    <div className='jumbotron ps-4 pt-4 pb-2'>
-                        <h4>Upload & access your documents from here</h4>
-                        <Row>
-                            <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                                <Form.Group controlId='formFileLg' className='mb-3'>
-                                    <Form.Control type='file' size='lg' onChange={readFile} multiple />
-                                </Form.Group>
-                            </Col>
-                        </Row>
+                    <div>
+                        <label htmlFor="file-upload" className="file-button">Upload<i className='fa-solid fa-circle-arrow-up'></i></label>
+                        <input id="file-upload" className="file-input" type="file" multiple onChange={readFile} />
                     </div>
                     <Show when={documentList?.data?.documents?.length > 0}>
-                        <p className='lead text-center text-white'>My Documents</p>
+                        <div className="text-center">
+                            <Button className='tag-chip'>My Documents</Button>
+                        </div>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>

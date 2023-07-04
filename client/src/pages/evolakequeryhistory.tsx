@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { NextPage } from 'next'
 import endPoints from '@/constants/apiEndpoints'
 import Show from '@/components/Show'
-import { Container, Table } from 'react-bootstrap'
+import { Button, Container, Table } from 'react-bootstrap'
 import Loading from '@/components/Loading'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import HTTPMethods from '@/constants/httpMethods'
@@ -27,7 +27,9 @@ const QueryHistoryPage: NextPage = () => {
             <Show when={!queryHistory.isLoading}>
                 <Container>
                     <Show when={queryHistory?.data?.queryHistory?.length > 0}>
-                        <p className='lead text-center text-white mb-4 mt-4'>Query History</p>
+                        <div className="text-center">
+                            <Button className='tag-chip'>Query History</Button>
+                        </div>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>

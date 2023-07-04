@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import endPoints from '@/constants/apiEndpoints'
 import Show from '@/components/Show'
-import { Container, Table } from 'react-bootstrap'
+import { Button, Container, Table } from 'react-bootstrap'
 import Loading from '@/components/Loading'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import HTTPMethods from '@/constants/httpMethods'
@@ -28,7 +28,9 @@ const TransactionsPage: NextPage = () => {
             <Show when={!transactions.isLoading}>
                 <Container>
                     <Show when={transactions?.data?.transactions?.length > 0}>
-                        <p className='lead text-center text-white'>Transactions</p>
+                        <div className="text-center">
+                            <Button className='tag-chip'>Transactions</Button>
+                        </div>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
