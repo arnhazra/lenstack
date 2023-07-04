@@ -4,6 +4,7 @@ import endPoints from '@/constants/apiEndpoints'
 import HTTPMethods from '@/constants/httpMethods'
 import { AppContext } from '@/context/appStateProvider'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
+import { DocDetails } from '@/types/Types'
 import withAuth from '@/utils/withAuth'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
@@ -17,7 +18,6 @@ const IcelakeHomePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const queryClient = useQueryClient()
     const documentList = useFetchRealtime('list-docs', endPoints.icelakeGetAllDocEndpoint, HTTPMethods.POST)
-    const [state, setState] = useState({ title: '', content: '', apiKey: userState.apiKey })
 
     const documentsToDisplay = documentList?.data?.documents?.map((doc: any) => {
         return (
@@ -33,24 +33,32 @@ const IcelakeHomePage: NextPage = () => {
     const readFile = (e: ChangeEvent<HTMLInputElement>) => {
         try {
             e.preventDefault()
-            const file = e.target.files?.[0]
+            const files = e.target.files
+            const fileCount = files?.length || 0
 
-            if (file && file.size < 1000000) {
-                const reader = new FileReader()
-                reader.readAsDataURL(file)
+            for (let index = 0; index < fileCount; index++) {
+                const file = files && files[index]
 
-                reader.onload = () => {
-                    const content = reader.result?.toString() || ''
-                    setState({ ...state, title: file.name, content: content })
+                if (file && file.size < 1000000) {
+                    const reader = new FileReader()
+                    reader.readAsDataURL(file)
+
+                    reader.onload = () => {
+                        const content = reader.result?.toString() || ''
+                        const title = file.name
+                        const apiKey = userState.apiKey
+                        const docDetails: DocDetails = { title, content, apiKey }
+                        uploadFileMutation.mutate(docDetails)
+                    }
+
+                    reader.onerror = () => {
+                        toast.error('File Size Too Large')
+                    }
                 }
 
-                reader.onerror = () => {
+                else {
                     toast.error('File Size Too Large')
                 }
-            }
-
-            else {
-                toast.error('File Size Too Large')
             }
         }
 
@@ -59,11 +67,10 @@ const IcelakeHomePage: NextPage = () => {
         }
     }
 
-    let uploadFile = async (e: any) => {
-        e.preventDefault()
-
+    let uploadFile = async (docDetails: DocDetails) => {
         try {
-            await axios.post(endPoints.icelakeCreateDocEndpoint, state)
+            const { title, content, apiKey } = docDetails
+            await axios.post(endPoints.icelakeCreateDocEndpoint, { title, content, apiKey })
             toast.success('Document Uploaded')
         }
 
@@ -130,9 +137,8 @@ const IcelakeHomePage: NextPage = () => {
                         <Row>
                             <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                                 <Form.Group controlId='formFileLg' className='mb-3'>
-                                    <Form.Control type='file' size='lg' onChange={readFile} />
+                                    <Form.Control type='file' size='lg' onChange={readFile} multiple />
                                 </Form.Group>
-                                <Button onClick={(e) => uploadFileMutation.mutate(e)}>Upload<i className='fa-solid fa-circle-arrow-up'></i></Button>
                             </Col>
                         </Row>
                     </div>

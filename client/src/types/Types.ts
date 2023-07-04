@@ -44,3 +44,9 @@ export type ProductCardProps = {
     url: string,
     productAvailable: boolean
 }
+
+export type DocDetails = {
+    title: string,
+    content: string,
+    apiKey: string
+}
