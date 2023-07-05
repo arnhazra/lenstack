@@ -1,4 +1,4 @@
-export const productConfig = [
+export const platformConfig = [
     {
         productName: 'airlake',
         description: 'An open-source application for easily discovering, subscribing to, and utilizing third-party cloud data.',
@@ -18,15 +18,15 @@ export const productConfig = [
         productAvailable: true
     },
     {
+        productName: 'snowlake',
+        description: 'An open-source prototype management application that manages prototypes for various products and services.',
+        url: '/snowlake',
+        productAvailable: true
+    },
+    {
         productName: 'frostlake',
         description: 'An open-source analytics provider for web applications, enabling you to make informed decisions.',
         url: '/frostlake',
         productAvailable: false
     },
-    {
-        productName: 'snowlake',
-        description: 'An open-source prototype management application that manages prototypes for various products and services.',
-        url: '/snowlake',
-        productAvailable: false
-    }
 ]

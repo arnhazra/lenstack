@@ -54,7 +54,7 @@ const AirlakeDatasetsPage: NextPage = () => {
                         <Row className='g-2'>
                             <Col xs={12} sm={12} md={6} lg={4} xl={6}>
                                 <FloatingLabel controlId='floatingSearch' label='What are you looking for today?'>
-                                    <Form.Control autoFocus type='Search' defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder='What are you looking for today?' required autoComplete={'off'} minLength={4} maxLength={40} />
+                                    <Form.Control type='Search' defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder='What are you looking for today?' required autoComplete={'off'} minLength={4} maxLength={40} />
                                 </FloatingLabel>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={4} xl={3}>

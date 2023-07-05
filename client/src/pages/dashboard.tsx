@@ -11,7 +11,7 @@ import { NextPage } from 'next'
 import { AppContext } from '@/context/appStateProvider'
 
 const DashboardPage: NextPage = () => {
-    const products = useFetch('get products', endPoints.getProductConfigEndpoint, HTTPMethods.POST)
+    const products = useFetch('get-products', endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
     const [{ userState }] = useContext(AppContext)
     console.log(userState)
 

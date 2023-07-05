@@ -1,18 +1,17 @@
 import { Request, Response } from 'express'
 import { statusMessages } from '../constants/statusMessages'
-import { productConfig } from '../../config/productConfig'
+import { platformConfig } from '../../config/platformConfig'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
-import UserModel from '../models/UserModel'
 import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
 import EvolakeQueryModel from '../models/EvolakeQueryModel'
 import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
 import SnowlakePrototypeModel from '../models/SnowlakePrototypeModel'
 import SubscriptionModel from '../models/SubscriptionModel'
 
-export default class GeneralController {
-    async getProductDetails(req: Request, res: Response) {
+export default class CommonController {
+    async getPlatformConfig(req: Request, res: Response) {
         try {
-            return res.status(200).json(productConfig)
+            return res.status(200).json(platformConfig)
         }
 
         catch (error) {
@@ -20,7 +19,7 @@ export default class GeneralController {
         }
     }
 
-    async getProductSubscriptionConfig(req: Request, res: Response) {
+    async getSubscriptionConfig(req: Request, res: Response) {
         try {
             return res.status(200).json(subscriptionConfig)
         } catch (error) {

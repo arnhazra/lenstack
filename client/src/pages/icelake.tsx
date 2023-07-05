@@ -22,7 +22,7 @@ const IcelakeHomePage: NextPage = () => {
     const documentsToDisplay = documentList?.data?.documents?.map((doc: any) => {
         return (
             <tr key={doc._id}>
-                <td><i className='fa-solid fa-file'></i> {doc.title}</td>
+                <td><i className='fa-solid fa-folder'></i> {doc.title}</td>
                 <td>{moment(doc.date).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><i className="fa-solid fa-download" onClick={() => saveDocument(doc._id)}></i></td>
                 <td><i className='fa-solid fa-trash' onClick={() => deleteItemMutation.mutate(doc._id)}></i></td>
@@ -67,7 +67,7 @@ const IcelakeHomePage: NextPage = () => {
         }
     }
 
-    let uploadFile = async (docDetails: DocDetails) => {
+    const uploadFile = async (docDetails: DocDetails) => {
         try {
             const { title, content, apiKey } = docDetails
             await axios.post(endPoints.icelakeCreateDocEndpoint, { title, content, apiKey })
@@ -156,7 +156,7 @@ const IcelakeHomePage: NextPage = () => {
                     </Show>
                     <Show when={documentList?.data?.documents?.length === 0}>
                         <div className='box'>
-                            <p className='branding'>Documents <i className='fa-solid fa-file'></i></p>
+                            <p className='branding'>Documents <i className='fa-solid fa-folder'></i></p>
                             <p className='lead'>No Docs to display</p>
                         </div>
                     </Show>
