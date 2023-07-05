@@ -15,7 +15,8 @@ const initialState = {
         role: '',
         selectedPlan: 'No Subscription',
         apiKey: '',
-        tokenId: ''
+        tokenId: '',
+        subscriptionValidUpto: ''
     },
 
     datasetRequestState: {

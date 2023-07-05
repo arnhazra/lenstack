@@ -21,7 +21,8 @@ export type UserState = {
     role: string,
     selectedPlan: string,
     apiKey: string,
-    tokenId: string
+    tokenId: string,
+    subscriptionValidUpto: string
 }
 
 export type DatasetCardProps = {

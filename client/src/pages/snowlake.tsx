@@ -54,9 +54,7 @@ const SnowlakeHomePage: NextPage = () => {
                         <Link className='btn' href={'/snowlakecreateprototype'}>Create Prototype<i className='fa-solid fa-circle-arrow-right'></i></Link>
                     </div>
                     <Show when={prototypeList?.data?.prototypes?.length > 0}>
-                        <div className="text-center">
-                            <Button className='tag-chip'>My Prototypes</Button>
-                        </div>
+                        <Button className='tag-chip'>My Prototypes</Button>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>

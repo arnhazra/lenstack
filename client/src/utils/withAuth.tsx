@@ -21,8 +21,8 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
                     const { name, email, privateKey, role } = response.data.user
 
                     if (response.data.subscription) {
-                        const { selectedPlan, apiKey, tokenId } = response.data.subscription
-                        dispatch('setUserState', { selectedPlan, apiKey, tokenId })
+                        const { selectedPlan, apiKey, tokenId, expiresAt } = response.data.subscription
+                        dispatch('setUserState', { selectedPlan, apiKey, tokenId, subscriptionValidUpto: expiresAt })
                     }
 
                     dispatch('setUserState', { userid, name, email, privateKey, role })
