@@ -20,13 +20,13 @@ const APIDocPage: NextPage = () => {
                 </FloatingLabel>
                 <SourceCode>
                     <p className="lead">Request Body</p>
-                    <p>&#123;</p>
                     <p>
-                        &nbsp;&nbsp;"selectedDb": "YOUR_DB_TYPE",<br />
-                        &nbsp;&nbsp;"userQuery": "YOUR_QUERY_IN_GENERAL",<br />
-                        &nbsp;&nbsp;"apiKey": "YOUR_API_KEY"
+                        &#123;<br />
+                        &nbsp;&nbsp;&nbsp;"selectedDb": "YOUR_DB_TYPE",<br />
+                        &nbsp;&nbsp;&nbsp;"userQuery": "YOUR_QUERY_IN_GENERAL",<br />
+                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
+                        &#125;
                     </p>
-                    <p>&#125;</p>
                 </SourceCode>
             </div>
             <div className="jumbotron mt-4">
@@ -36,13 +36,13 @@ const APIDocPage: NextPage = () => {
                 </FloatingLabel>
                 <SourceCode>
                     <p className="lead">Request Body</p>
-                    <p>&#123;</p>
                     <p>
+                        &#123;<br />
                         &nbsp;&nbsp;"title": "YOUR_DOCUMENT_NAME",<br />
                         &nbsp;&nbsp;"content": "YOUR_DOC_CONVERTED_IN_BASE64_FORMAT",<br />
-                        &nbsp;&nbsp;"apiKey": "YOUR_API_KEY"
+                        &nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
+                        &#125;
                     </p>
-                    <p>&#125;</p>
                 </SourceCode>
             </div>
             <div className="jumbotron mt-4">
@@ -52,14 +52,14 @@ const APIDocPage: NextPage = () => {
                 </FloatingLabel>
                 <SourceCode>
                     <p className="lead">Request Body</p>
-                    <p>&#123;</p>
                     <p>
+                        &#123;<br />
                         &nbsp;&nbsp;"title": "YOUR_PROTOTYPE_NAME",<br />
                         &nbsp;&nbsp;"description": "YOUR_PROTOTYPE_SHORT_DESCRIPTION",<br />
                         &nbsp;&nbsp;"link": "YOUR_PROTOTYPE_LINK",<br />
-                        &nbsp;&nbsp;"apiKey": "YOUR_API_KEY"
+                        &nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
+                        &#125;
                     </p>
-                    <p>&#125;</p>
                 </SourceCode>
             </div>
         </Container >
