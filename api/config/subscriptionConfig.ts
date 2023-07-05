@@ -3,20 +3,20 @@ export const subscriptionConfig = {
         price: 0.19,
         requestLimit: {
             airlake: 10000,
-            evolake: 10,
-            frostlake: 1000,
-            icelake: 10,
-            snowlake: 40
+            evolake: 20,
+            frostlake: 1500,
+            icelake: 20,
+            snowlake: 400
         }
     },
     premiumSubscriptionConfig: {
         price: 0.49,
         requestLimit: {
             airlake: 30000,
-            evolake: 30,
-            frostlake: 4000,
-            icelake: 30,
-            snowlake: 100
+            evolake: 60,
+            frostlake: 5000,
+            icelake: 50,
+            snowlake: 1200
         }
     }
 }

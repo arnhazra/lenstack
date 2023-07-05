@@ -11,6 +11,7 @@ import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/httpMethods'
 import Link from 'next/link'
 import appConstants from '@/constants/appConstants'
+import SourceCode from '@/components/SourceCode'
 
 const EvolakeQueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState('SQL')
@@ -19,11 +20,6 @@ const EvolakeQueryEnginePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const [isFetching, setFetching] = useState(false)
     const dbList = useFetch('database list', endPoints.evolakeGetDatabaseListEndpoint, HTTPMethods.POST)
-    const apiDetails = `const response = await axios.post(${endPoints.evolakeGenerateQueryEndpint},{
-            "selectedDb": "SQL",
-            "userQuery": "create a table named user with fields userId, name, age, password, gender",
-            "apiKey": "Your API Key"
-        })`
 
     const dbToDisplay = dbList?.data?.dbOptions.map((db: any) => {
         return <option className='options' key={db.value} value={db.value}>{db.label}</option>
@@ -48,11 +44,6 @@ const EvolakeQueryEnginePage: NextPage = () => {
         toast.success(appConstants.CopiedToClipBoard)
     }
 
-    const copyAPIDetails = () => {
-        navigator.clipboard.writeText(`${apiDetails}`)
-        toast.success(appConstants.CopiedToClipBoard)
-    }
-
     return (
         <Fragment>
             <Container>
@@ -71,13 +62,11 @@ const EvolakeQueryEnginePage: NextPage = () => {
                         <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
                     </Button>
                     <Show when={dbQuery.length > 0}>
-                        <div className='answer ps-4 pt-4'>
-                            <div className='copy-btn'><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
+                        <SourceCode>
                             {dbQuery}
-                        </div>
+                        </SourceCode>
                     </Show>
                     <Link className='lead-link' href={'/evolakequeryhistory'}>My Query History</Link>
-                    <p className='lead-link' onClick={copyAPIDetails}>Copy Example Query Engine API</p>
                 </form>
             </Container>
         </Fragment >

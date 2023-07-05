@@ -57,7 +57,6 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
                     }
 
                     if (req.originalUrl.includes('evolake')) {
-                        console.log('here')
                         const documentCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
                         req.headers.id = subscription.owner.toString()
 

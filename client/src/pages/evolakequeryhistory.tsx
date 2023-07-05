@@ -20,8 +20,6 @@ const QueryHistoryPage: NextPage = () => {
         )
     })
 
-    console.log(queryHistoryToDisplay)
-
     return (
         <Fragment>
             <Show when={!queryHistory.isLoading}>

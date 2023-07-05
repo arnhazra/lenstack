@@ -24,6 +24,7 @@ const NavBar: FC = () => {
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
                             <Nav className='ms-auto'>
+                                <Link href='/apidoc'><Navbar.Brand>API Doc</Navbar.Brand></Link>
                                 <Link href='/pricing'><Navbar.Brand>Pricing</Navbar.Brand></Link>
                                 <Link href='/usage'><Navbar.Brand>Usage</Navbar.Brand></Link>
                                 <Link href='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
