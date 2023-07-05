@@ -6,10 +6,11 @@ import Constants from '@/constants/appConstants'
 const firaCode = Fira_Code({ subsets: ['latin'] })
 
 interface SourceCodeProps {
-    children: ReactNode
+    children: ReactNode,
+    copyBtn?: boolean
 }
 
-const SourceCode: FC<SourceCodeProps> = ({ children }) => {
+const SourceCode: FC<SourceCodeProps> = ({ children, copyBtn }) => {
     const copyText = () => {
         navigator.clipboard.writeText(`${children?.toString()}`)
         toast.success(Constants.CopiedToClipBoard)
@@ -17,7 +18,7 @@ const SourceCode: FC<SourceCodeProps> = ({ children }) => {
 
     return (
         <div className={`${firaCode.className} source-code mt-4 ps-4 pt-4`}>
-            <div className='copy-btn' title='copy' onClick={copyText}><i className='fa-solid fa-copy'></i></div>
+            {copyBtn && <div className='copy-btn' title='copy' onClick={copyText}><i className='fa-solid fa-copy'></i></div>}
             {children}
         </div >
     )
