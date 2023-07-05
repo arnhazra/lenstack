@@ -1,6 +1,7 @@
 import { FC, useEffect, useState, useContext } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'
+import { Tilt_Neon } from 'next/font/google'
 import Web3 from 'web3'
 import axios from 'axios'
 import Show from '@/components/Show'
@@ -20,6 +21,8 @@ interface SubscribeModalProps {
     closeModal: () => void,
     selectedPlan: string
 }
+
+const tiltNeon = Tilt_Neon({ subsets: ['latin'] })
 
 const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, selectedPlan }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -160,7 +163,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
 
     return (
         <Fragment>
-            <Modal backdrop='static' centered show={isOpened} onHide={hideModal}>
+            <Modal backdrop='static' centered show={isOpened} onHide={hideModal} className={tiltNeon.className}>
                 <Modal.Header closeButton>
                     <Modal.Title>Subscribe</Modal.Title>
                 </Modal.Header>
@@ -192,7 +195,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                     </Fragment >
                 </Modal.Body>
             </Modal>
-        </Fragment>
+        </Fragment >
     )
 }
 

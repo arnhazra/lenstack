@@ -40,7 +40,7 @@ const PricingPage: NextPage = () => {
     return (
         <Fragment>
             <Show when={!pricingDetails.isLoading}>
-                <div className='bigbox'>
+                <div className='box'>
                     <p className='branding'>Pricing<i className="fa-solid fa-money-check-dollar"></i></p>
                     <ButtonGroup className='btn-group-card'>
                         <Button className={selectedPlan === 'Standard' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Standard')}>STANDARD</Button>
@@ -54,7 +54,7 @@ const PricingPage: NextPage = () => {
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
-                            <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
+                            <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                         <Show when={selectedPlan === 'Premium'}>
                             <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
@@ -63,10 +63,10 @@ const PricingPage: NextPage = () => {
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-circle-check'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
-                            <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
+                            <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                     </div>
-                    <Show when={userState.tokenId?.length > 0}>
+                    <Show when={!!userState.apiKey}>
                         <p className="lead-link" onClick={() => setUnsubscribeModalOpened(true)}>Unsubscribe & Refund</p>
                     </Show>
                 </div>

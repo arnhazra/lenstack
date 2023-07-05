@@ -13,6 +13,7 @@ import { AppContext } from '@/context/appStateProvider'
 import { Modal } from 'react-bootstrap'
 import { nftABI } from '@/bin/nftABI'
 import { vendorABI } from '@/bin/vendorABI'
+import { Tilt_Neon } from 'next/font/google'
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
@@ -20,6 +21,8 @@ interface UnsubscribeModalProps {
     tokenId: any
     closeModal: () => void
 }
+
+const tiltNeon = Tilt_Neon({ subsets: ['latin'] })
 
 const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, refundAmount, tokenId }) => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -144,7 +147,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
 
     return (
         <Fragment>
-            <Modal backdrop='static' centered show={isOpened} onHide={hideModal}>
+            <Modal backdrop='static' centered show={isOpened} onHide={hideModal} className={tiltNeon.className}>
                 <Modal.Header closeButton>
                     <Modal.Title>Unsubscribe</Modal.Title>
                 </Modal.Header>
