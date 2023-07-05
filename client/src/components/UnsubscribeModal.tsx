@@ -44,7 +44,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const gasPrice = await web3Provider.eth.getGasPrice()
 
-            const tokenContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+            const tokenContract: any = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
             const approvalData = tokenContract.methods.approve(contractAddress.vendorContractAddress, web3Provider.utils.toWei(refundAmount.toString(), 'ether')).encodeABI()
             const approvalTx = {
                 from: walletAddress,
@@ -59,7 +59,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                 await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
             }
 
-            const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
+            const vendor: any = new web3Provider.eth.Contract(vendorABI as any, contractAddress.vendorContractAddress)
             const sellData = vendor.methods.sellTokens(web3Provider.utils.toWei(refundAmount.toString(), 'ether')).encodeABI()
             const sellTx = {
                 from: walletAddress,
@@ -98,7 +98,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
             const { privateKey } = userState
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
 
-            const nftcontract = new web3Provider.eth.Contract(nftABI as any, contractAddress.nftContractAddress)
+            const nftcontract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress.nftContractAddress)
             const sellNFTData = nftcontract.methods.sellNFT(tokenId).encodeABI()
 
             const sellNFTTx = {
@@ -114,7 +114,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                 await web3Provider.eth.sendSignedTransaction(signedsellNFTTx.rawTransaction)
             }
 
-            const tokenContract = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+            const tokenContract: any = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
             const mintCustomAmountData = tokenContract.methods.mintCustomAmount(web3Provider.utils.toWei(refundAmount.toString(), 'ether')).encodeABI()
 
             const mintCustomAmountTx = {

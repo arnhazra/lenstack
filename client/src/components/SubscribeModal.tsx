@@ -49,14 +49,8 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const tokenId = Math.floor(1000000 + Math.random() * 9000000)
 
-            const tokenContract = new web3Provider.eth.Contract(
-                tokenABI as any,
-                contractAddress.tokenContractAddress
-            )
-            const approvalData = tokenContract.methods.approve(
-                contractAddress.nftContractAddress,
-                web3Provider.utils.toWei(price.toString(), 'ether')
-            ).encodeABI()
+            const tokenContract: any = new web3Provider.eth.Contract(tokenABI as any, contractAddress.tokenContractAddress)
+            const approvalData = tokenContract.methods.approve(contractAddress.nftContractAddress, web3Provider.utils.toWei(price.toString(), 'ether')).encodeABI()
 
             const approvalTx = {
                 from: walletAddress,
@@ -73,7 +67,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                 await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
             }
 
-            const nftcontract = new web3Provider.eth.Contract(nftABI as any, contractAddress.nftContractAddress)
+            const nftcontract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress.nftContractAddress)
             const mintNFTData = nftcontract.methods.mintNFT(tokenId).encodeABI()
             const purchaseNFTData = nftcontract.methods.purchaseNFT(tokenId, web3Provider.utils.toWei(price.toString(), 'ether')).encodeABI()
 

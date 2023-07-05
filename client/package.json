@@ -25,7 +25,7 @@
     "react-simple-star-rating": "^5.1.7",
     "sass": "^1.63.6",
     "typescript": "5.1.6",
-    "web3": "^1.10.0"
+    "web3": "^4.0.2"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.7"

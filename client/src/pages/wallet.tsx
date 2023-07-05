@@ -24,9 +24,9 @@ const WalletPage: NextPage = () => {
                 const { privateKey } = userState
                 const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
                 setAccountAddress(walletAddress)
-                const ethBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
-                const ethBalance = web3Provider.utils.fromWei(ethBalanceInWei, 'ether')
-                setMaticBalance(ethBalance)
+                const maticBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
+                const maticBalance = web3Provider.utils.fromWei(maticBalanceInWei, 'ether')
+                setMaticBalance(maticBalance)
                 setWalletLoading(false)
             } catch (error) {
                 setWalletLoading(false)
