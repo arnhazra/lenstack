@@ -19,7 +19,7 @@ export const platformConfig = [
     },
     {
         productName: 'snowlake',
-        description: 'An open-source prototype management application that manages prototypes for various products and services.',
+        description: 'An open-source prototype management application that manages prototypes for products.',
         url: '/snowlake',
         productAvailable: true
     },
