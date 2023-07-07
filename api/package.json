@@ -23,7 +23,8 @@
     "nodemailer": "^6.9.3",
     "openai": "^3.3.0",
     "otp-without-db": "^1.0.5",
-    "redis": "^4.6.7"
+    "redis": "^4.6.7",
+    "web3": "^4.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

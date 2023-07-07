@@ -44,7 +44,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
 
         catch (error: any) {
             setState({ ...state, isLoading: false })
-            toast.error('Could not create a prototype')
+            toast.error('Fund your wallet & try again')
         }
     }
 

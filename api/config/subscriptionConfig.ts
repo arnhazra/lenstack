@@ -6,7 +6,7 @@ export const subscriptionConfig = {
             evolake: 20,
             frostlake: 1500,
             icelake: 20,
-            snowlake: 400
+            snowlake: 100
         }
     },
     premiumSubscriptionConfig: {
@@ -16,7 +16,7 @@ export const subscriptionConfig = {
             evolake: 60,
             frostlake: 5000,
             icelake: 50,
-            snowlake: 1200
+            snowlake: 300
         }
     }
 }

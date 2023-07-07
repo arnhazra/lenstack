@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { Fragment, useContext } from 'react'
 import { AppContext } from '@/context/appStateProvider'
 import Show from '@/components/Show'
 import Link from 'next/link'
@@ -13,28 +13,11 @@ import useFetch from '@/hooks/useFetch'
 import Loading from '@/components/Loading'
 import appConstants from '@/constants/appConstants'
 import moment from 'moment'
-import Web3 from 'web3'
-import { prototypeABI } from '@/bin/prototypeABI'
-import Constants from '@/constants/appConstants'
 
 const UsagePage: NextPage = () => {
-    const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [{ userState }] = useContext(AppContext)
     const usageDetails = useFetchRealtime('usage', endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
-    const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
-    const [snowlakeUsage, setSnowlakeUsage] = useState<number>(0)
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const snowlakePrototypeCount = await prototypeContract.methods.getPrototypeCountByAPIKey(userState.apiKey).call()
-                setSnowlakeUsage(Number(snowlakePrototypeCount))
-            } catch (error) {
-                toast.error(Constants.ToastError)
-            }
-        })()
-    }, [])
 
     const showapiKey = (apiKey: string) => {
         const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
@@ -77,7 +60,7 @@ const UsagePage: NextPage = () => {
                             {usageDetails.data?.icelakeDocumentCount} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.icelake} Icelake API Requests used
                         </p>
                         <p className='lead'><i className='fa-solid fa-star'></i>
-                            {snowlakeUsage} /{pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.snowlake} Snowlake API Requests used
+                            {usageDetails.data?.snowlakePrototypeCount} /{pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.snowlake} Snowlake API Requests used
                         </p>
                     </Show>
                 </div>

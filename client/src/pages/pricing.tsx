@@ -14,7 +14,7 @@ import Loading from '@/components/Loading'
 const PricingPage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
-    const [selectedPlan, setSelectedPlan] = useState('Premium')
+    const [selectedPlan, setSelectedPlan] = useState('Standard')
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
     const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
     const [planPrice, setPlanPrice] = useState('')
@@ -67,7 +67,7 @@ const PricingPage: NextPage = () => {
                         </Show>
                     </div>
                     <Show when={!!userState.apiKey}>
-                        <p className="lead-link" onClick={() => setUnsubscribeModalOpened(true)}>Unsubscribe & Refund</p>
+                        <p className="lead-link" onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription</p>
                     </Show>
                 </div>
                 <SubscribeModal price={Number(planPrice) * 10000} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} selectedPlan={selectedPlan} />

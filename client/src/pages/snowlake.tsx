@@ -28,7 +28,6 @@ const SnowlakeHomePage: NextPage = () => {
 
             try {
                 const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner(owner).call()
-                console.log(getPrototypesByOwnerData)
                 setPrototypeList(getPrototypesByOwnerData)
                 setLoading(false)
             }
