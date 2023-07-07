@@ -1,46 +1,58 @@
+import { prototypeABI } from '@/bin/prototypeABI'
 import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
+import contractAddress from '@/constants/contractAddress'
 import { AppContext } from '@/context/appStateProvider'
 import withAuth from '@/utils/withAuth'
-import axios from 'axios'
 import { NextPage } from 'next'
 import { useContext, useState } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
+import Web3 from 'web3'
 
 const SnowlakeCreatePrototypePage: NextPage = () => {
+    const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [{ userState }] = useContext(AppContext)
-    const [state, setState] = useState({ title: '', description: '', link: '', isLoading: false, apiKey: userState.apiKey })
+    const [state, setState] = useState({ name: '', description: '', link: '', isLoading: false, apiKey: userState.apiKey })
 
-    const handleSubmit = async (e: any) => {
+    const createPrototype = async (e: any) => {
         e.preventDefault()
         setState({ ...state, isLoading: true })
-        axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token')
+        const { privateKey } = userState
+        const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+        const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
 
         try {
-            const response = await axios.post(endPoints.snowlakeCreatePrototypeEndpoint, state)
-            toast.success(response.data.msg)
-            setState({ ...state, isLoading: false })
+            const { name, description, link } = state
+            const newPrototypeData = prototypeContract.methods.createPrototypeItem(name, description, link, owner).encodeABI()
+
+            const newPrototypeTx = {
+                from: owner,
+                to: contractAddress.prototypeContractAddress,
+                data: newPrototypeData,
+                gasPrice: await web3Provider.eth.getGasPrice(),
+                gas: 500000,
+            }
+
+            const signedNewPrototypeTx = await web3Provider.eth.accounts.signTransaction(newPrototypeTx, privateKey)
+            if (signedNewPrototypeTx.rawTransaction) {
+                await web3Provider.eth.sendSignedTransaction(signedNewPrototypeTx.rawTransaction)
+                toast.success('Prototype Created')
+                setState({ ...state, isLoading: false })
+            }
         }
 
         catch (error: any) {
             setState({ ...state, isLoading: false })
-
-            if (error.response && error.response.data.msg) {
-                toast.error(error.response.data.msg)
-            }
-
-            else {
-                toast.error('Unknown error, please try again')
-            }
+            toast.error('Could not create a prototype')
         }
     }
 
     return (
-        <form className='box' onSubmit={handleSubmit}>
+        <form className='box' onSubmit={createPrototype}>
             <p className='branding'>Create Prototype</p>
             <FloatingLabel controlId='floatingtext' label='Prototype Name'>
-                <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Name' onChange={(e) => setState({ ...state, title: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={10} />
+                <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={10} />
             </FloatingLabel><br />
             <FloatingLabel controlId='floatingtext' label='Prototype Description'>
                 <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Description' onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />

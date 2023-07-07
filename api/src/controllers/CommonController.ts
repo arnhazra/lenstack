@@ -5,7 +5,6 @@ import { subscriptionConfig } from '../../config/subscriptionConfig'
 import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
 import EvolakeQueryModel from '../models/EvolakeQueryModel'
 import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
-import SnowlakePrototypeModel from '../models/SnowlakePrototypeModel'
 import SubscriptionModel from '../models/SubscriptionModel'
 
 export default class CommonController {
@@ -37,7 +36,7 @@ export default class CommonController {
                 const airlakeApiRequestCount = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
                 const evolakeQueryCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
                 const icelakeDocumentCount = await IcelakeDocumentModel.find({ apiKey }).countDocuments()
-                const snowlakePrototypeCount = await SnowlakePrototypeModel.find({ apiKey }).countDocuments()
+                const snowlakePrototypeCount = 0
                 const frostlakeAnalyticsCount = 0
                 return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount, frostlakeAnalyticsCount })
             }

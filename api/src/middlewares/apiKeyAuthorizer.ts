@@ -5,7 +5,6 @@ import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
 import SubscriptionModel from '../models/SubscriptionModel'
 import EvolakeQueryModel from '../models/EvolakeQueryModel'
 import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
-import SnowlakePrototypeModel from '../models/SnowlakePrototypeModel'
 
 async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction) {
     const apiKeyFromParams = req.params.apiKey
@@ -97,31 +96,6 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
 
                         if (subscription.selectedPlan === 'Premium') {
                             if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.icelake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
-                        }
-                    }
-
-                    if (req.originalUrl.includes('snowlake')) {
-                        const documentCount = await SnowlakePrototypeModel.find({ apiKey }).countDocuments()
-                        req.headers.id = subscription.owner.toString()
-
-                        if (subscription.selectedPlan === 'Standard') {
-                            if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.snowlake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
-                        }
-
-                        if (subscription.selectedPlan === 'Premium') {
-                            if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.snowlake) {
                                 next()
                             }
 

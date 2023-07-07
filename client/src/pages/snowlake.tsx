@@ -1,68 +1,71 @@
 import Loading from '@/components/Loading'
 import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
-import HTTPMethods from '@/constants/httpMethods'
-import useFetchRealtime from '@/hooks/useFetchRealtime'
 import withAuth from '@/utils/withAuth'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
-import moment from 'moment'
+import Web3 from 'web3'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Button, Container, Table } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
+import { AppContext } from '@/context/appStateProvider'
+import { prototypeABI } from '@/bin/prototypeABI'
+import contractAddress from '@/constants/contractAddress'
 
 const SnowlakeHomePage: NextPage = () => {
-    const queryClient = useQueryClient()
-    const prototypeList = useFetchRealtime('list-prototypes', endPoints.snowlakeGetAllPrototypesEndpoint, HTTPMethods.POST)
+    const web3Provider = new Web3(endPoints.infuraEndpoint)
+    const [{ userState }] = useContext(AppContext)
+    const [prototypeList, setPrototypeList] = useState([])
+    const [isLoading, setLoading] = useState(false)
 
-    const prototypesToDisplay = prototypeList?.data?.prototypes?.map((prototype: any) => {
+    useEffect(() => {
+        const getAllPrototypesForUser = async () => {
+            setLoading(true)
+            const { privateKey } = userState
+            const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
+
+            try {
+                const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner(owner).call()
+                console.log(getPrototypesByOwnerData)
+                setPrototypeList(getPrototypesByOwnerData)
+                setLoading(false)
+            }
+
+            catch (error: any) {
+                toast.error('Could not get the list')
+                setLoading(false)
+            }
+        }
+
+        getAllPrototypesForUser()
+    }, [])
+
+    const prototypesToDisplay = prototypeList?.map((prototype: any) => {
         return (
-            <tr key={prototype._id}>
-                <td><i className='fa-solid fa-file'></i> {prototype.title}</td>
+            <tr key={prototype.id}>
+                <td><i className='fa-solid fa-file'></i> {prototype.name}</td>
                 <td>{prototype.description}</td>
-                <td>{moment(prototype.date).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><Link href={`${prototype.link}`} passHref target='_blank'><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
-                <td><i className='fa-solid fa-trash' onClick={() => deleteItemMutation.mutate(prototype._id)}></i></td>
             </tr>
         )
     })
 
-    const deletePrototype = async (prototypeId: string) => {
-        try {
-            await axios.delete(`${endPoints.snowlakeDeletePrototypeEndpoint}/${prototypeId}`)
-            toast.success('Document Deleted')
-        }
-
-        catch (error: any) {
-            toast.error('Unable to delete the document')
-        }
-    }
-
-    const deleteItemMutation = useMutation(deletePrototype, {
-        onSuccess: () => {
-            queryClient.invalidateQueries()
-        },
-    })
-
     return (
         <Fragment>
-            <Show when={!prototypeList.isLoading}>
+            <Show when={!isLoading}>
                 <Container>
                     <div>
                         <Link className='btn' href={'/snowlakecreateprototype'}>Create Prototype<i className='fa-solid fa-circle-arrow-right'></i></Link>
                     </div>
-                    <Show when={prototypeList?.data?.prototypes?.length > 0}>
+                    <Show when={prototypeList.length > 0}>
                         <Button className='tag-chip'>My Prototypes</Button>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
-                                    <th>Prototype Title</th>
+                                    <th>Prototype Name</th>
                                     <th>Description</th>
-                                    <th>Created On</th>
                                     <th>View Link</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,7 +73,7 @@ const SnowlakeHomePage: NextPage = () => {
                             </tbody>
                         </Table>
                     </Show>
-                    <Show when={prototypeList?.data?.prototypes?.length === 0}>
+                    <Show when={prototypeList.length === 0}>
                         <div className='box'>
                             <p className='branding'>Prototypes<i className='fa-solid fa-file'></i></p>
                             <p className='lead'>No Prototypes to display</p>
@@ -78,7 +81,7 @@ const SnowlakeHomePage: NextPage = () => {
                     </Show>
                 </Container>
             </Show>
-            <Show when={prototypeList.isLoading}>
+            <Show when={isLoading}>
                 <Loading />
             </Show>
         </Fragment>

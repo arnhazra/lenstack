@@ -10,9 +10,9 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, rating }) => {
             <Link href={`/airlakeviewdataset?id=${id}`}>
                 <Card className='dataset-card'>
                     <Card.Header className='pt-3 dataset-card-header'>
-                        <div className={`${category.toLowerCase()}Container pt-4`} />
+                        <div className={`${category?.toLowerCase()}Container pt-4`} />
                     </Card.Header>
-                    <Card.Footer className={`pt-4 pb-2 ps-4 ${category.toLowerCase()}Color dataset-card-footer`}>
+                    <Card.Footer className={`pt-4 pb-2 ps-4 ${category?.toLowerCase()}Color dataset-card-footer`}>
                         <div className='nameContainer'>
                             <p>{name}</p>
                         </div>
