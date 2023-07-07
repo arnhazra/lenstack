@@ -14,7 +14,7 @@ An open-source application that harnesses the capabilities of the OpenAI GPT-4 D
 An open-souce application that offers secure and scalable storage solution for files and data, designed to meet your storage needs.
 
 #### Snowlake
-An open-source prototype management application that efficiently organizes and manages prototypes for a wide range of products and services.
+An open-source prototype management application that that efficiently organizes and manages prototypes and uses Ethereum Blockchain to store prototypes.
 
 #### Frostlake
 An open-source analytics provider for web applications. It empowers you to make informed decisions by offering valuable insights and data analysis.
