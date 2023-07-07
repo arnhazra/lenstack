@@ -38,9 +38,9 @@ const APIDocPage: NextPage = () => {
                     <p className="lead">Request Body</p>
                     <p>
                         &#123;<br />
-                        &nbsp;&nbsp;"title": "YOUR_DOCUMENT_NAME",<br />
-                        &nbsp;&nbsp;"content": "YOUR_DOC_CONVERTED_IN_BASE64_FORMAT",<br />
-                        &nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
+                        &nbsp;&nbsp;&nbsp;"title": "YOUR_DOCUMENT_NAME",<br />
+                        &nbsp;&nbsp;&nbsp;"content": "YOUR_DOC_CONVERTED_IN_BASE64_FORMAT",<br />
+                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
                         &#125;
                     </p>
                 </SourceCode>

@@ -42,8 +42,7 @@ export default class CommonController {
                 const evolakeQueryCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
                 const icelakeDocumentCount = await IcelakeDocumentModel.find({ apiKey }).countDocuments()
                 const snowlakePrototypeCount = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call())
-                const frostlakeAnalyticsCount = 0
-                return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount, frostlakeAnalyticsCount })
+                return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount })
             }
 
             else {

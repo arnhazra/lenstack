@@ -4,7 +4,6 @@ export const subscriptionConfig = {
         requestLimit: {
             airlake: 10000,
             evolake: 20,
-            frostlake: 1500,
             icelake: 20,
             snowlake: 100
         }
@@ -14,7 +13,6 @@ export const subscriptionConfig = {
         requestLimit: {
             airlake: 30000,
             evolake: 60,
-            frostlake: 5000,
             icelake: 50,
             snowlake: 300
         }

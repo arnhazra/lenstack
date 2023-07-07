@@ -23,10 +23,4 @@ export const platformConfig = [
         url: '/snowlake',
         productAvailable: true
     },
-    {
-        productName: 'frostlake',
-        description: 'An open-source analytics provider for web applications, enabling you to make informed decisions.',
-        url: '/frostlake',
-        productAvailable: false
-    },
 ]

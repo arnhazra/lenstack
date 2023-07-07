@@ -54,9 +54,6 @@ const UsagePage: NextPage = () => {
                             {usageDetails.data?.evolakeQueryCount} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.evolake} Evolake API Requests used
                         </p>
                         <p className='lead'><i className='fa-solid fa-star'></i>
-                            {usageDetails.data?.frostlakeAnalyticsCount} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.frostlake} Frostlake API Requests used
-                        </p>
-                        <p className='lead'><i className='fa-solid fa-star'></i>
                             {usageDetails.data?.icelakeDocumentCount} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.icelake} Icelake API Requests used
                         </p>
                         <p className='lead'><i className='fa-solid fa-star'></i>

@@ -26,7 +26,6 @@ const PlansPage: NextPage = () => {
                             <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
                         </Show>
@@ -34,7 +33,6 @@ const PlansPage: NextPage = () => {
                             <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
                         </Show>
