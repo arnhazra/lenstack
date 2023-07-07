@@ -11,6 +11,7 @@ import { toast } from 'react-hot-toast'
 import { AppContext } from '@/context/appStateProvider'
 import { prototypeABI } from '@/bin/prototypeABI'
 import contractAddress from '@/constants/contractAddress'
+import moment from 'moment'
 
 const SnowlakeHomePage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -44,6 +45,7 @@ const SnowlakeHomePage: NextPage = () => {
             <tr key={prototype.id}>
                 <td><i className='fa-solid fa-file'></i> {prototype.name}</td>
                 <td>{prototype.description}</td>
+                <td>{moment(Number(prototype.createdAt) * 1000).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><Link href={`${prototype.link}`} passHref target='_blank'><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
             </tr>
         )
@@ -63,6 +65,7 @@ const SnowlakeHomePage: NextPage = () => {
                                 <tr>
                                     <th>Prototype Name</th>
                                     <th>Description</th>
+                                    <th>Created At</th>
                                     <th>View Link</th>
                                 </tr>
                             </thead>

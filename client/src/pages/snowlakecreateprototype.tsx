@@ -52,11 +52,9 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
         <form className='box' onSubmit={createPrototype}>
             <p className='branding'>Create Prototype</p>
             <FloatingLabel controlId='floatingtext' label='Prototype Name'>
-                <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={10} />
+                <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
             </FloatingLabel><br />
-            <FloatingLabel controlId='floatingtext' label='Prototype Description'>
-                <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Description' onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
-            </FloatingLabel><br />
+            <Form.Control disabled={state.isLoading} as='textarea' rows={3} placeholder='Prototype Description' onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={400} /><br />
             <FloatingLabel controlId='floatingtext' label='Prototype Link'>
                 <Form.Control disabled={state.isLoading} type='url' placeholder='Prototype Link' onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={100} />
             </FloatingLabel><br />
