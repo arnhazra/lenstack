@@ -13,7 +13,7 @@ const DashboardPage: NextPage = () => {
     const products = useFetch('get-products', endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
 
     const productsToDisplay = products?.data?.map((product: any) => {
-        return <ProductCard key={product.name} productName={product.productName} url={product.url} productAvailable={product.productAvailable} description={product.description} />
+        return <ProductCard key={product.productName} productName={product.productName} url={product.url} productAvailable={product.productAvailable} description={product.description} />
     })
 
     return (

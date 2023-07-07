@@ -23,8 +23,8 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
         const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
 
         try {
-            const { name, description, link } = state
-            const newPrototypeData = prototypeContract.methods.createPrototypeItem(name, description, link, owner).encodeABI()
+            const { name, description, link, apiKey } = state
+            const newPrototypeData = prototypeContract.methods.createPrototypeItem(name, description, link, apiKey).encodeABI()
 
             const newPrototypeTx = {
                 from: owner,

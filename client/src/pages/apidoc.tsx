@@ -45,23 +45,6 @@ const APIDocPage: NextPage = () => {
                     </p>
                 </SourceCode>
             </div>
-            <div className="jumbotron mt-4">
-                <p className="display-6">Snowlake</p>
-                <FloatingLabel controlId='floatingtext' label='Snowlake Create Prototype API - Method : POST'>
-                    <Form.Control disabled type='text' defaultValue={`${endPoints.snowlakeCreatePrototypeEndpoint}`} />
-                </FloatingLabel>
-                <SourceCode>
-                    <p className="lead">Request Body</p>
-                    <p>
-                        &#123;<br />
-                        &nbsp;&nbsp;"title": "YOUR_PROTOTYPE_NAME",<br />
-                        &nbsp;&nbsp;"description": "YOUR_PROTOTYPE_SHORT_DESCRIPTION",<br />
-                        &nbsp;&nbsp;"link": "YOUR_PROTOTYPE_LINK",<br />
-                        &nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
-                        &#125;
-                    </p>
-                </SourceCode>
-            </div>
         </Container >
     )
 }

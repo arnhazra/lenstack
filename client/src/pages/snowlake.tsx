@@ -19,7 +19,7 @@ const SnowlakeHomePage: NextPage = () => {
     const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
-        const getAllPrototypesForUser = async () => {
+        (async () => {
             setLoading(true)
             const { privateKey } = userState
             const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
@@ -36,9 +36,7 @@ const SnowlakeHomePage: NextPage = () => {
                 toast.error('Could not get the list')
                 setLoading(false)
             }
-        }
-
-        getAllPrototypesForUser()
+        })()
     }, [])
 
     const prototypesToDisplay = prototypeList?.map((prototype: any) => {

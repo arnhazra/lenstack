@@ -31,6 +31,18 @@ export const prototypeABI = [
                 "internalType": "address",
                 "name": "owner",
                 "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "apiKey",
+                "type": "string"
             }
         ],
         "name": "PrototypeCreated",
@@ -52,11 +64,35 @@ export const prototypeABI = [
                 "internalType": "string",
                 "name": "_link",
                 "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_apiKey",
+                "type": "string"
             }
         ],
         "name": "createPrototypeItem",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_apiKey",
+                "type": "string"
+            }
+        ],
+        "name": "getPrototypeCountByAPIKey",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -93,6 +129,16 @@ export const prototypeABI = [
                 "internalType": "address",
                 "name": "",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
             }
         ],
         "stateMutability": "view",
@@ -134,6 +180,16 @@ export const prototypeABI = [
                         "internalType": "address",
                         "name": "owner",
                         "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "createdAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "apiKey",
+                        "type": "string"
                     }
                 ],
                 "internalType": "struct PrototypeContract.Prototype[]",
@@ -204,6 +260,16 @@ export const prototypeABI = [
                 "internalType": "address",
                 "name": "owner",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "apiKey",
+                "type": "string"
             }
         ],
         "stateMutability": "view",
@@ -248,6 +314,16 @@ export const prototypeABI = [
                 "internalType": "address",
                 "name": "owner",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "apiKey",
+                "type": "string"
             }
         ],
         "stateMutability": "view",
