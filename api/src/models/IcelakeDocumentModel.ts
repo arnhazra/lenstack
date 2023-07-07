@@ -21,12 +21,12 @@ const IcelakeDocumentSchema = new mongoose.Schema({
         required: true
     },
 
-    date: {
+    createdAt: {
         type: Date,
         default: Date.now
     }
 }, { versionKey: false })
 
-const IcelakeDocumentModel = mongoose.model('icelake-document', IcelakeDocumentSchema)
+const IcelakeDocumentModel = mongoose.model('icelakedocument', IcelakeDocumentSchema)
 
 export default IcelakeDocumentModel

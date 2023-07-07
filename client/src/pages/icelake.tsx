@@ -23,7 +23,7 @@ const IcelakeHomePage: NextPage = () => {
         return (
             <tr key={doc._id}>
                 <td><i className='fa-solid fa-folder'></i> {doc.title}</td>
-                <td>{moment(doc.date).format('MMM, Do YYYY, h:mm a')}</td>
+                <td>{moment(doc.createdAt).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><i className="fa-solid fa-download" onClick={() => saveDocument(doc._id)}></i></td>
                 <td><i className='fa-solid fa-trash' onClick={() => deleteItemMutation.mutate(doc._id)}></i></td>
             </tr>
@@ -138,11 +138,11 @@ const IcelakeHomePage: NextPage = () => {
                     </div>
                     <Show when={documentList?.data?.documents?.length > 0}>
                         <Button className='tag-chip'>My Documents</Button>
-                        <Table responsive hover variant='light'>
+                        <Table responsive hover variant='dark'>
                             <thead>
                                 <tr>
                                     <th>Doc Name</th>
-                                    <th>Last Modified Date</th>
+                                    <th>Created At</th>
                                     <th>Save Doc</th>
                                     <th>Action</th>
                                 </tr>

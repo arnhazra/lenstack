@@ -106,7 +106,7 @@ export default class UserController {
 
     async userDetails(req: Request, res: Response) {
         try {
-            const user = await UserModel.findById(req.headers.id).select('-date')
+            const user = await UserModel.findById(req.headers.id)
             if (user) {
                 const userId = user.id
                 const subscription = await SubscriptionModel.findOne({ owner: userId })

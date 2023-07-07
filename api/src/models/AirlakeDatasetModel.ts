@@ -27,6 +27,6 @@ const AirlakeDatasetSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const AirlakeDatasetModel = mongoose.model('airlake-dataset', AirlakeDatasetSchema)
+const AirlakeDatasetModel = mongoose.model('airlakedataset', AirlakeDatasetSchema)
 
 export default AirlakeDatasetModel

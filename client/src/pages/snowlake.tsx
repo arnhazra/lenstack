@@ -59,7 +59,7 @@ const SnowlakeHomePage: NextPage = () => {
                     </div>
                     <Show when={prototypeList.length > 0}>
                         <Button className='tag-chip'>My Prototypes</Button>
-                        <Table responsive hover variant='light'>
+                        <Table responsive hover variant='dark'>
                             <thead>
                                 <tr>
                                     <th>Prototype Name</th>

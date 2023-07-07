@@ -21,12 +21,12 @@ const EvolakeQuerySchema = new mongoose.Schema({
         required: true
     },
 
-    date: {
+    createdAt: {
         type: Date,
         default: Date.now
     },
 }, { versionKey: false })
 
-const EvolakeQueryModel = mongoose.model('evolake-query', EvolakeQuerySchema)
+const EvolakeQueryModel = mongoose.model('evolakequery', EvolakeQuerySchema)
 
 export default EvolakeQueryModel

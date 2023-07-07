@@ -17,7 +17,7 @@ const TransactionsPage: NextPage = () => {
             <tr key={tx._id}>
                 <td>{tx.transactionType}</td>
                 <td>{tx.ethAmount} MATIC</td>
-                <td>{moment(tx.date).format('MMM, Do YYYY, h:mm a')}</td>
+                <td>{moment(tx.createdAt).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><a href={`${endPoints.polygonScanEndpoint}/${tx.txHash}`} target='_blank' rel='noopener noreferrer' className='link-table'>View on Polygonscan</a></td>
             </tr>
         )
@@ -29,7 +29,7 @@ const TransactionsPage: NextPage = () => {
                 <Container>
                     <Show when={transactions?.data?.transactions?.length > 0}>
                         <Button className='tag-chip'>Transactions</Button>
-                        <Table responsive hover variant='light'>
+                        <Table responsive hover variant='dark'>
                             <thead>
                                 <tr>
                                     <th>Event</th>

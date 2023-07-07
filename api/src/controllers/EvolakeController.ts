@@ -72,7 +72,7 @@ export default class EvolakeController {
     async getQueryHistoryByUser(req: Request, res: Response) {
         try {
             const userId = req.headers.id as string
-            const queryHistory = await EvolakeQueryModel.find({ owner: userId }).sort({ date: -1 }).limit(10)
+            const queryHistory = await EvolakeQueryModel.find({ owner: userId }).sort({ createdAt: -1 }).limit(10)
             return res.status(200).json({ queryHistory })
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })

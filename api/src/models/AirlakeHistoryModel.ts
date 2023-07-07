@@ -16,12 +16,12 @@ const AirlakeHistorySchema = new mongoose.Schema({
         required: true
     },
 
-    date: {
+    createdAt: {
         type: Date,
         default: Date.now
     },
 }, { versionKey: false })
 
-const AirlakeHistoryModel = mongoose.model('airlake-history', AirlakeHistorySchema)
+const AirlakeHistoryModel = mongoose.model('airlakehistory', AirlakeHistorySchema)
 
 export default AirlakeHistoryModel
