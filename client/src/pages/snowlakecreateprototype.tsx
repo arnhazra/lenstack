@@ -24,7 +24,8 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
 
         try {
             const { name, description, link, apiKey } = state
-            const newPrototypeData = prototypeContract.methods.createPrototypeItem(name, description, link, apiKey).encodeABI()
+            const isArchived = false
+            const newPrototypeData = prototypeContract.methods.createPrototype(name, description, link, apiKey, isArchived).encodeABI()
 
             const newPrototypeTx = {
                 from: owner,

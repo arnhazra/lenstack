@@ -10,22 +10,17 @@ export const prototypeABI = [
             },
             {
                 "indexed": false,
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "description",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "link",
-                "type": "string"
-            },
+                "internalType": "bool",
+                "name": "isArchived",
+                "type": "bool"
+            }
+        ],
+        "name": "ArchivePrototype",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
             {
                 "indexed": false,
                 "internalType": "address",
@@ -35,18 +30,25 @@ export const prototypeABI = [
             {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "createdAt",
+                "name": "id",
                 "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "apiKey",
-                "type": "string"
             }
         ],
-        "name": "PrototypeCreated",
+        "name": "CreatePrototype",
         "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "archivePrototype",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "inputs": [
@@ -69,9 +71,14 @@ export const prototypeABI = [
                 "internalType": "string",
                 "name": "_apiKey",
                 "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "_isArchived",
+                "type": "bool"
             }
         ],
-        "name": "createPrototypeItem",
+        "name": "createPrototype",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -96,62 +103,7 @@ export const prototypeABI = [
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_id",
-                "type": "uint256"
-            }
-        ],
-        "name": "getPrototypeItem",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_owner",
-                "type": "address"
-            }
-        ],
+        "inputs": [],
         "name": "getPrototypesByOwner",
         "outputs": [
             {
@@ -190,37 +142,16 @@ export const prototypeABI = [
                         "internalType": "string",
                         "name": "apiKey",
                         "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isArchived",
+                        "type": "bool"
                     }
                 ],
                 "internalType": "struct PrototypeContract.Prototype[]",
                 "name": "",
                 "type": "tuple[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getTotalPrototypeCount",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "prototypeCount",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -270,60 +201,11 @@ export const prototypeABI = [
                 "internalType": "string",
                 "name": "apiKey",
                 "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
             },
             {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "prototypesByOwner",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "id",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "description",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "link",
-                "type": "string"
-            },
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "createdAt",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "apiKey",
-                "type": "string"
+                "internalType": "bool",
+                "name": "isArchived",
+                "type": "bool"
             }
         ],
         "stateMutability": "view",

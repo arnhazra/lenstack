@@ -15,6 +15,7 @@ import moment from 'moment'
 
 const SnowlakeHomePage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
+    const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
     const [{ userState }] = useContext(AppContext)
     const [prototypeList, setPrototypeList] = useState([])
     const [isLoading, setLoading] = useState(false)
@@ -24,10 +25,10 @@ const SnowlakeHomePage: NextPage = () => {
             setLoading(true)
             const { privateKey } = userState
             const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-            const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
 
             try {
-                const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner(owner).call()
+                const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner().call({ from: owner })
+                console.log(getPrototypesByOwnerData)
                 setPrototypeList(getPrototypesByOwnerData)
                 setLoading(false)
             }
@@ -39,6 +40,30 @@ const SnowlakeHomePage: NextPage = () => {
         })()
     }, [])
 
+    const archivePrototype = async (id: any) => {
+        try {
+            const { privateKey } = userState
+            const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            const archiveTxData = await prototypeContract.methods.archivePrototype(id).encodeABI()
+            const archiveTx = {
+                from: owner,
+                to: contractAddress.prototypeContractAddress,
+                data: archiveTxData,
+                gasPrice: await web3Provider.eth.getGasPrice(),
+                gas: 500000,
+            }
+            const signedArchiveTx = await web3Provider.eth.accounts.signTransaction(archiveTx, privateKey)
+
+            if (signedArchiveTx.rawTransaction) {
+                await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
+            }
+            toast.success('Prototype archived')
+        } catch (error) {
+            console.log(error)
+            toast.error('Could not archive this prototype')
+        }
+    }
+
     const prototypesToDisplay = prototypeList?.map((prototype: any) => {
         return (
             <tr key={prototype.id}>
@@ -46,6 +71,7 @@ const SnowlakeHomePage: NextPage = () => {
                 <td>{prototype.description}</td>
                 <td>{moment(Number(prototype.createdAt) * 1000).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><Link href={`${prototype.link}`} passHref target='_blank'><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
+                <td><i className='fa-solid fa-archive' onClick={() => archivePrototype(prototype.id)}></i></td>
             </tr>
         )
     })
@@ -66,6 +92,7 @@ const SnowlakeHomePage: NextPage = () => {
                                     <th>Description</th>
                                     <th>Created At</th>
                                     <th>View Link</th>
+                                    <th>Archive</th>
                                 </tr>
                             </thead>
                             <tbody>

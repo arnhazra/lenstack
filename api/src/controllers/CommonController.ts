@@ -32,7 +32,7 @@ export default class CommonController {
     async getUsageByApiKey(req: Request, res: Response) {
         try {
             const web3Provider = new Web3(otherConstants.infuraEndpoint)
-            const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, '0xe1c28a27DEAf93f8efa804391f50169FAEf63591')
+            const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, otherConstants.prototypeContractAddress)
             const userId = req.headers.id
             const subscription = await SubscriptionModel.findOne({ owner: userId })
 
