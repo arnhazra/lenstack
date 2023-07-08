@@ -59,6 +59,9 @@ const UsagePage: NextPage = () => {
                         <p className='lead'><i className='fa-solid fa-star'></i>
                             {usageDetails.data?.snowlakePrototypeCount} /{pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.snowlake} Snowlake API Requests used
                         </p>
+                        <p className='lead'><i className='fa-solid fa-star'></i>
+                            {usageDetails.data?.frostlakeAnalyticsCount} /{pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.frostlake} Frostlake API Requests used
+                        </p>
                     </Show>
                 </div>
             </Show>

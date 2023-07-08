@@ -53,6 +53,7 @@ const PricingPage: NextPage = () => {
                             <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
                             <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
+                            <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                         <Show when={selectedPlan === 'Premium'}>
@@ -61,6 +62,7 @@ const PricingPage: NextPage = () => {
                             <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
                             <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
+                            <p className='lead'><i className="fa-solid fa-star"></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                         </Show>
                     </div>

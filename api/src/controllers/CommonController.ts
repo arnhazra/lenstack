@@ -9,6 +9,7 @@ import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
 import SubscriptionModel from '../models/SubscriptionModel'
 import { otherConstants } from '../constants/otherConstants'
 import { prototypeABI } from '../bin/prototypeABI'
+import FrostlakeAnalyticsModel from '../models/FrostlakeAnalyticsModel'
 
 export default class CommonController {
     async getPlatformConfig(req: Request, res: Response) {
@@ -41,8 +42,9 @@ export default class CommonController {
                 const airlakeApiRequestCount = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
                 const evolakeQueryCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
                 const icelakeDocumentCount = await IcelakeDocumentModel.find({ apiKey }).countDocuments()
+                const frostlakeAnalyticsCount = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments()
                 const snowlakePrototypeCount = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call())
-                return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount })
+                return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount, frostlakeAnalyticsCount })
             }
 
             else {

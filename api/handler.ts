@@ -10,12 +10,14 @@ import AirlakeRouter from './src/routes/AirlakeRouter'
 import EvolakeRouter from './src/routes/EvolakeRouter'
 import IcelakeRouter from './src/routes/IcelakeRouter'
 import CommonRouter from './src/routes/CommonRouter'
+import FrostlakeRouter from './src/routes/FrostlakeRouter'
 
 const userRouter = new UserRouter()
 const transactionRouter = new TransactionRouter()
 const airlakeRouter = new AirlakeRouter()
 const evolakeRouter = new EvolakeRouter()
 const icelakeRouter = new IcelakeRouter()
+const frostlakeRouter = new FrostlakeRouter()
 const commonRouter = new CommonRouter()
 
 const app = express()
@@ -31,6 +33,8 @@ app.use('/api/common', commonRouter.getRouter())
 app.use('/api/products/airlake', airlakeRouter.getRouter())
 app.use('/api/products/evolake', evolakeRouter.getRouter())
 app.use('/api/products/icelake', icelakeRouter.getRouter())
+app.use('/api/products/frostlake', frostlakeRouter.getRouter())
+
 
 if (envConfig.nodeEnv === 'production') {
     const cacheControl = 'public, max-age=31536000'
