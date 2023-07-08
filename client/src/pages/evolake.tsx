@@ -53,11 +53,11 @@ const EvolakeQueryEnginePage: NextPage = () => {
                         <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
                             {dbToDisplay}
                         </Form.Select>
-                    </FloatingLabel><br />
-                    <FloatingLabel controlId='floatingQuery' label='Ask Your Query'>
+                    </FloatingLabel>
+                    <FloatingLabel controlId='floatingQuery' label='Ask Your Query' className='mt-3'>
                         <Form.Control type='text' disabled={isFetching} placeholder='Ask Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} required />
-                    </FloatingLabel><br />
-                    <Button type='submit' disabled={isFetching} className='btn-block'>
+                    </FloatingLabel>
+                    <Button type='submit' disabled={isFetching} className='btn-block mt-4'>
                         <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
                         <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
                     </Button>

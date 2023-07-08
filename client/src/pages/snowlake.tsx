@@ -55,14 +55,14 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
             <p className='branding'>Create Prototype</p>
             <FloatingLabel controlId='floatingtext' label='Prototype Name'>
                 <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={20} />
-            </FloatingLabel><br />
-            <FloatingLabel controlId='floatingtext' label='Short Description'>
+            </FloatingLabel>
+            <FloatingLabel controlId='floatingtext' label='Short Description' className='mt-3'>
                 <Form.Control disabled={state.isLoading} type='text' placeholder='Short Description' onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={20} />
-            </FloatingLabel><br />
-            <FloatingLabel controlId='floatingtext' label='Prototype Link'>
+            </FloatingLabel>
+            <FloatingLabel controlId='floatingtext' label='Prototype Link' className='mt-3'>
                 <Form.Control disabled={state.isLoading} type='url' placeholder='Prototype Link' onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={30} />
-            </FloatingLabel><br />
-            <Button type='submit' disabled={state.isLoading} className='mt-2 btn-block'>
+            </FloatingLabel>
+            <Button type='submit' disabled={state.isLoading} className='mt-3 btn-block'>
                 <Show when={!state.isLoading}>Create Prototype <i className='fa-solid fa-circle-arrow-right'></i></Show>
                 <Show when={state.isLoading}><i className='fas fa-circle-notch fa-spin'></i> Creating Prototype</Show>
             </Button>

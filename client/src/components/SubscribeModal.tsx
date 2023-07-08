@@ -166,8 +166,8 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                         <Show when={step === 1}>
                             <FloatingLabel controlId='floatingAmount' label={`${price / 10000} MATIC`}>
                                 <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={'off'} type='number' placeholder={`${price / 10000} MATIC`} />
-                            </FloatingLabel><br />
-                            <Button className='btn-block' type='submit' disabled={isTxProcessing} onClick={buyToken}>
+                            </FloatingLabel>
+                            <Button className='btn-block mt-4' type='submit' disabled={isTxProcessing} onClick={buyToken}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<i className='fa-solid fa-circle-arrow-right'></i></Show>
                                 <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
                             </Button>

@@ -79,8 +79,8 @@ const IdentityPage: NextPage = () => {
                     <p className='boxtext'>Enter the email address, it will be used for as your identity.</p>
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
-                    </FloatingLabel><br />
-                    <Button type='submit' disabled={isLoading} className='mt-2 btn-block'>
+                    </FloatingLabel>
+                    <Button type='submit' disabled={isLoading} className='mt-4 btn-block'>
                         <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
                         <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
                     </Button>
@@ -94,11 +94,11 @@ const IdentityPage: NextPage = () => {
                         <FloatingLabel controlId='floatingName' label='Your Name'>
                             <Form.Control type='text' disabled={isLoading} placeholder='Your Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />
                         </FloatingLabel>
-                    </Show><br />
-                    <FloatingLabel controlId='floatingPassword' label='Enter Verification Code'>
+                    </Show>
+                    <FloatingLabel controlId='floatingPassword' label='Enter Verification Code' className='mt-3'>
                         <Form.Control type='password' disabled={isLoading} name='otp' placeholder='Enter Verification Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
-                    </FloatingLabel><br />
-                    <Button type='submit' disabled={isLoading} className='mt-2 btn-block'>
+                    </FloatingLabel>
+                    <Button type='submit' disabled={isLoading} className='mt-4 btn-block'>
                         <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
                         <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
                     </Button>

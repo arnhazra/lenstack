@@ -156,8 +156,8 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                         <Show when={step === 1}>
                             <FloatingLabel controlId='floatingAmount' label={`${refundAmount / 10000} MATIC`}>
                                 <Form.Control disabled defaultValue={`${refundAmount / 10000} MATIC`} autoComplete={'off'} type='number' placeholder={`${refundAmount / 10000} MATIC`} />
-                            </FloatingLabel><br />
-                            <Button className='btn-block' type='submit' disabled={isTxProcessing} onClick={unsubscribe}>
+                            </FloatingLabel>
+                            <Button className='btn-block mt-4' type='submit' disabled={isTxProcessing} onClick={unsubscribe}>
                                 <Show when={!isTxProcessing}>Get Refund<i className='fa-solid fa-circle-arrow-right'></i></Show>
                                 <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
                             </Button>
