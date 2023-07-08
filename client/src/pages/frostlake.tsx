@@ -30,7 +30,7 @@ const FrostlakeAnalyticsPage: NextPage = () => {
             <Show when={!analytics.isLoading}>
                 <Container>
                     <Show when={analytics?.data?.analyticsArray?.length > 0}>
-                        <Button className='tag-chip'>Analytics</Button>
+                        <h4 className='text-white text-center'>Analytics</h4>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>

@@ -32,7 +32,8 @@ const endPoints = {
     snowlakeGetAllPrototypesEndpoint: `${apiHost}/api/products/snowlake/getallprototypes`,
     snowlakeViewPrototypeEndpoint: `${apiHost}/api/products/snowlake/viewprototype`,
     snowlakeDeletePrototypeEndpoint: `${apiHost}/api/products/snowlake/deleteprototype`,
-    frostlakeGetAnalyticsEndpoint: `${apiHost}/api/products/frostlake/getanalytics`
+    frostlakeGetAnalyticsEndpoint: `${apiHost}/api/products/frostlake/getanalytics`,
+    frostlakeCreateAnalyticsEndpoint: `${apiHost}/api/products/frostlake/createanalytics`
 }
 
 export default endPoints

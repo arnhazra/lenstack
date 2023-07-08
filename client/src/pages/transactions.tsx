@@ -28,7 +28,7 @@ const TransactionsPage: NextPage = () => {
             <Show when={!transactions.isLoading}>
                 <Container>
                     <Show when={transactions?.data?.transactions?.length > 0}>
-                        <Button className='tag-chip'>Transactions</Button>
+                        <h4 className='text-white text-center'>Transactions</h4>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
@@ -50,11 +50,11 @@ const TransactionsPage: NextPage = () => {
                         </div>
                     </Show>
                 </Container>
-            </Show>
+            </Show >
             <Show when={transactions.isLoading}>
                 <Loading />
             </Show>
-        </Fragment>
+        </Fragment >
     )
 }
 

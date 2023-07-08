@@ -137,7 +137,7 @@ const IcelakeHomePage: NextPage = () => {
                         <input id="file-upload" className="file-input" type="file" multiple onChange={readFile} />
                     </div>
                     <Show when={documentList?.data?.documents?.length > 0}>
-                        <Button className='tag-chip'>My Documents</Button>
+                        <h4 className='text-white text-center'>Documents</h4>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>

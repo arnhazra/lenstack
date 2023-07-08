@@ -52,7 +52,7 @@ const AirlakeViewDatasetPage: NextPage = () => {
                             <Row>
                                 <DatasetCard category={dataset?.data?.category} id={datasetIdForCard} name={dataset?.data?.name} rating={dataset?.data?.rating} key={datasetIdForCard} />
                                 <Col xs={12} sm={12} md={8} lg={9} xl={10}>
-                                    <p className='display-6 text-capitalize'>{dataset?.data?.name}</p>
+                                    <p className='branding text-capitalize'>{dataset?.data?.name}</p>
                                     <p className='lead'>{dataset?.data?.category}</p>
                                     <p className='lead mt-3'>{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>

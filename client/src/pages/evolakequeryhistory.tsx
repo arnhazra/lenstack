@@ -25,7 +25,7 @@ const QueryHistoryPage: NextPage = () => {
             <Show when={!queryHistory.isLoading}>
                 <Container>
                     <Show when={queryHistory?.data?.queryHistory?.length > 0}>
-                        <Button className='tag-chip'>Query History</Button>
+                        <h4 className='text-white text-center'>Query History</h4>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>

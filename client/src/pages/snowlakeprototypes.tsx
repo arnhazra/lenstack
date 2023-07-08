@@ -96,7 +96,7 @@ const SnowlakePrototypes: NextPage = () => {
             <Show when={!isLoading}>
                 <Container>
                     <Show when={prototypeList.length > 0}>
-                        <Button className='tag-chip'>My Prototypes</Button>
+                        <h4 className='text-white text-center'>Prototypes</h4>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
