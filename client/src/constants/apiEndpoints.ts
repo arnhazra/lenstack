@@ -27,7 +27,7 @@ const endPoints = {
     icelakeCreateDocEndpoint: `${apiHost}/api/products/icelake/createdoc`,
     icelakeGetAllDocEndpoint: `${apiHost}/api/products/icelake/getalldoc`,
     icelakeSaveDocEndpoint: `${apiHost}/api/products/icelake/savedoc`,
-    icelakeDeleteDocEndpoint: `${apiHost}/api/products/icelake/deletedoc`,
+    icelakeArchiveDocEndpoint: `${apiHost}/api/products/icelake/archivedoc`,
     snowlakeCreatePrototypeEndpoint: `${apiHost}/api/products/snowlake/createprototype`,
     snowlakeGetAllPrototypesEndpoint: `${apiHost}/api/products/snowlake/getallprototypes`,
     snowlakeViewPrototypeEndpoint: `${apiHost}/api/products/snowlake/viewprototype`,

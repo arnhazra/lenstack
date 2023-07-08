@@ -41,11 +41,11 @@ export default class IcelakeController {
         }
     }
 
-    async deleteDocument(req: Request, res: Response) {
+    async archiveDocument(req: Request, res: Response) {
         try {
             const { docId } = req.params
             await IcelakeDocumentModel.findByIdAndDelete(docId)
-            return res.status(200).json({ msg: 'Document deleted' })
+            return res.status(200).json({ msg: 'Document archived' })
         }
 
         catch (error) {

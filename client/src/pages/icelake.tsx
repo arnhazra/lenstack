@@ -10,8 +10,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import moment from 'moment'
 import { NextPage } from 'next'
-import { ChangeEvent, Fragment, useContext, useState } from 'react'
-import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap'
+import { ChangeEvent, Fragment, useContext } from 'react'
+import { Button, Container, Table } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 
 const IcelakeHomePage: NextPage = () => {
@@ -24,8 +24,8 @@ const IcelakeHomePage: NextPage = () => {
             <tr key={doc._id}>
                 <td><i className='fa-solid fa-folder'></i> {doc.title}</td>
                 <td>{moment(doc.createdAt).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><i className="fa-solid fa-download" onClick={() => saveDocument(doc._id)}></i></td>
-                <td><i className='fa-solid fa-trash' onClick={() => deleteItemMutation.mutate(doc._id)}></i></td>
+                <td><i className="fa-solid fa-circle-arrow-down" onClick={() => saveDocument(doc._id)}></i></td>
+                <td><i className='fa-solid fa-archive' onClick={() => archiveItemMutation.mutate(doc._id)}></i></td>
             </tr>
         )
     })
@@ -85,14 +85,14 @@ const IcelakeHomePage: NextPage = () => {
         }
     }
 
-    const deleteFile = async (docId: string) => {
+    const archiveFile = async (docId: string) => {
         try {
-            await axios.delete(`${endPoints.icelakeDeleteDocEndpoint}/${docId}`)
-            toast.success('Document Deleted')
+            await axios.delete(`${endPoints.icelakeArchiveDocEndpoint}/${docId}`)
+            toast.success('Document Archived')
         }
 
         catch (error: any) {
-            toast.error('Unable to delete the document')
+            toast.error('Unable to archive the document')
         }
     }
 
@@ -116,7 +116,7 @@ const IcelakeHomePage: NextPage = () => {
         }
     }
 
-    const deleteItemMutation = useMutation(deleteFile, {
+    const archiveItemMutation = useMutation(archiveFile, {
         onSuccess: () => {
             queryClient.invalidateQueries()
         },
@@ -144,7 +144,7 @@ const IcelakeHomePage: NextPage = () => {
                                     <th>Doc Name</th>
                                     <th>Created At</th>
                                     <th>Save Doc</th>
-                                    <th>Action</th>
+                                    <th>Archive</th>
                                 </tr>
                             </thead>
                             <tbody>

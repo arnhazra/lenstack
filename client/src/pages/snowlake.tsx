@@ -12,6 +12,7 @@ import { AppContext } from '@/context/appStateProvider'
 import { prototypeABI } from '@/bin/prototypeABI'
 import contractAddress from '@/constants/contractAddress'
 import moment from 'moment'
+import ArchiveModal from '@/components/ArchiveModal'
 
 const SnowlakeHomePage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
@@ -19,6 +20,10 @@ const SnowlakeHomePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const [prototypeList, setPrototypeList] = useState([])
     const [isLoading, setLoading] = useState(false)
+    const [isArchiveModalOpened, setArchiveModalOpened] = useState(false)
+    const [isArchiveProcessing, setArchiveProcessing] = useState(false)
+    const [archiveId, setArchiveId] = useState(0)
+    const [refreshId, setRefreshId] = useState('')
 
     useEffect(() => {
         (async () => {
@@ -30,18 +35,21 @@ const SnowlakeHomePage: NextPage = () => {
                 const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner().call({ from: owner })
                 console.log(getPrototypesByOwnerData)
                 setPrototypeList(getPrototypesByOwnerData)
-                setLoading(false)
             }
 
             catch (error: any) {
                 toast.error('Could not get the list')
+            }
+
+            finally {
                 setLoading(false)
             }
         })()
-    }, [])
+    }, [refreshId])
 
     const archivePrototype = async (id: any) => {
         try {
+            setArchiveProcessing(true)
             const { privateKey } = userState
             const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const archiveTxData = await prototypeContract.methods.archivePrototype(id).encodeABI()
@@ -58,9 +66,16 @@ const SnowlakeHomePage: NextPage = () => {
                 await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
             }
             toast.success('Prototype archived')
-        } catch (error) {
-            console.log(error)
+            setRefreshId(Math.random().toString())
+        }
+
+        catch (error) {
             toast.error('Could not archive this prototype')
+        }
+
+        finally {
+            setArchiveProcessing(false)
+            setArchiveModalOpened(false)
         }
     }
 
@@ -71,7 +86,7 @@ const SnowlakeHomePage: NextPage = () => {
                 <td>{prototype.description}</td>
                 <td>{moment(Number(prototype.createdAt) * 1000).format('MMM, Do YYYY, h:mm a')}</td>
                 <td><Link href={`${prototype.link}`} passHref target='_blank'><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
-                <td><i className='fa-solid fa-archive' onClick={() => archivePrototype(prototype.id)}></i></td>
+                <td><i className='fa-solid fa-archive' onClick={() => { setArchiveModalOpened(true); setArchiveId(prototype.id) }}></i></td>
             </tr>
         )
     })
@@ -111,6 +126,7 @@ const SnowlakeHomePage: NextPage = () => {
             <Show when={isLoading}>
                 <Loading />
             </Show>
+            <ArchiveModal isOpened={isArchiveModalOpened} closeModal={() => setArchiveModalOpened(false)} isTxProcessing={isArchiveProcessing} doAction={() => archivePrototype(archiveId)} />
         </Fragment>
     )
 }
