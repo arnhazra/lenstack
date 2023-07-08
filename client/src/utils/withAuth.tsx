@@ -34,7 +34,7 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
                         if (error.response.status === 401) {
                             localStorage.removeItem('accessToken')
                             setAuthenticated(false)
-                            router.push('/identity')
+                            router.push(`/identity?nextRedirect=${router.pathname.slice(1)}`)
                         }
 
                         else {

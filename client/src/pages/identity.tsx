@@ -17,6 +17,7 @@ const IdentityPage: NextPage = () => {
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
+    const { nextRedirect } = router.query
 
     const requestAuthCode = async (event: any) => {
         event.preventDefault()
@@ -55,7 +56,12 @@ const IdentityPage: NextPage = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
-            router.push('/dashboard')
+            if (nextRedirect) {
+                router.push(`/${nextRedirect.toString()}`)
+            }
+            else {
+                router.push('/dashboard')
+            }
         }
 
         catch (error: any) {
