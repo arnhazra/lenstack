@@ -1,134 +1,74 @@
-import Loading from '@/components/Loading'
+import { prototypeABI } from '@/bin/prototypeABI'
 import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
+import contractAddress from '@/constants/contractAddress'
+import { AppContext } from '@/context/appStateProvider'
 import withAuth from '@/utils/withAuth'
-import Web3 from 'web3'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { Fragment, useContext, useEffect, useState } from 'react'
-import { Button, Container, Table } from 'react-bootstrap'
+import { useContext, useState } from 'react'
+import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
-import { AppContext } from '@/context/appStateProvider'
-import { prototypeABI } from '@/bin/prototypeABI'
-import contractAddress from '@/constants/contractAddress'
-import moment from 'moment'
-import ArchiveModal from '@/components/ArchiveModal'
+import Web3 from 'web3'
 
-const SnowlakeHomePage: NextPage = () => {
+const SnowlakeCreatePrototypePage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
-    const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
     const [{ userState }] = useContext(AppContext)
-    const [prototypeList, setPrototypeList] = useState([])
-    const [isLoading, setLoading] = useState(false)
-    const [isArchiveModalOpened, setArchiveModalOpened] = useState(false)
-    const [isArchiveProcessing, setArchiveProcessing] = useState(false)
-    const [archiveId, setArchiveId] = useState(0)
-    const [refreshId, setRefreshId] = useState('')
+    const [state, setState] = useState({ name: '', description: '', link: '', isLoading: false, apiKey: userState.apiKey })
 
-    useEffect(() => {
-        (async () => {
-            setLoading(true)
-            const { privateKey } = userState
-            const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+    const createPrototype = async (e: any) => {
+        e.preventDefault()
+        setState({ ...state, isLoading: true })
+        const { privateKey } = userState
+        const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+        const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
 
-            try {
-                const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner().call({ from: owner })
-                console.log(getPrototypesByOwnerData)
-                setPrototypeList(getPrototypesByOwnerData)
-            }
-
-            catch (error: any) {
-                toast.error('Could not get the list')
-            }
-
-            finally {
-                setLoading(false)
-            }
-        })()
-    }, [refreshId])
-
-    const archivePrototype = async (id: any) => {
         try {
-            setArchiveProcessing(true)
-            const { privateKey } = userState
-            const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-            const archiveTxData = await prototypeContract.methods.archivePrototype(id).encodeABI()
-            const archiveTx = {
+            const { name, description, link, apiKey } = state
+            const isArchived = false
+            const newPrototypeData = prototypeContract.methods.createPrototype(name, description, link, apiKey, isArchived).encodeABI()
+
+            const newPrototypeTx = {
                 from: owner,
                 to: contractAddress.prototypeContractAddress,
-                data: archiveTxData,
+                data: newPrototypeData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: 500000,
             }
-            const signedArchiveTx = await web3Provider.eth.accounts.signTransaction(archiveTx, privateKey)
 
-            if (signedArchiveTx.rawTransaction) {
-                await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
+            const signedNewPrototypeTx = await web3Provider.eth.accounts.signTransaction(newPrototypeTx, privateKey)
+            if (signedNewPrototypeTx.rawTransaction) {
+                await web3Provider.eth.sendSignedTransaction(signedNewPrototypeTx.rawTransaction)
+                toast.success('Prototype Created')
+                setState({ ...state, isLoading: false })
             }
-            toast.success('Prototype archived')
-            setRefreshId(Math.random().toString())
         }
 
-        catch (error) {
-            toast.error('Could not archive this prototype')
-        }
-
-        finally {
-            setArchiveProcessing(false)
-            setArchiveModalOpened(false)
+        catch (error: any) {
+            setState({ ...state, isLoading: false })
+            toast.error('Fund your wallet & try again')
         }
     }
 
-    const prototypesToDisplay = prototypeList?.map((prototype: any) => {
-        return (
-            <tr key={prototype.id}>
-                <td><i className='fa-solid fa-file'></i> {prototype.name}</td>
-                <td>{prototype.description}</td>
-                <td>{moment(Number(prototype.createdAt) * 1000).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><Link href={`${prototype.link}`} passHref target='_blank'><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
-                <td><i className='fa-solid fa-archive' onClick={() => { setArchiveModalOpened(true); setArchiveId(prototype.id) }}></i></td>
-            </tr>
-        )
-    })
-
     return (
-        <Fragment>
-            <Show when={!isLoading}>
-                <Container>
-                    <div>
-                        <Link className='btn' href={'/snowlakecreateprototype'}>Create Prototype<i className='fa-solid fa-circle-arrow-right'></i></Link>
-                    </div>
-                    <Show when={prototypeList.length > 0}>
-                        <Button className='tag-chip'>My Prototypes</Button>
-                        <Table responsive hover variant='dark'>
-                            <thead>
-                                <tr>
-                                    <th>Prototype Name</th>
-                                    <th>Description</th>
-                                    <th>Created At</th>
-                                    <th>View Link</th>
-                                    <th>Archive</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {prototypesToDisplay}
-                            </tbody>
-                        </Table>
-                    </Show>
-                    <Show when={prototypeList.length === 0}>
-                        <div className='box'>
-                            <p className='branding'>Prototypes<i className='fa-solid fa-file'></i></p>
-                            <p className='lead'>No Prototypes to display</p>
-                        </div>
-                    </Show>
-                </Container>
-            </Show>
-            <Show when={isLoading}>
-                <Loading />
-            </Show>
-            <ArchiveModal isOpened={isArchiveModalOpened} closeModal={() => setArchiveModalOpened(false)} isTxProcessing={isArchiveProcessing} doAction={() => archivePrototype(archiveId)} />
-        </Fragment>
+        <form className='box' onSubmit={createPrototype}>
+            <p className='branding'>Create Prototype</p>
+            <FloatingLabel controlId='floatingtext' label='Prototype Name'>
+                <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={20} />
+            </FloatingLabel><br />
+            <FloatingLabel controlId='floatingtext' label='Short Description'>
+                <Form.Control disabled={state.isLoading} type='text' placeholder='Short Description' onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={20} />
+            </FloatingLabel><br />
+            <FloatingLabel controlId='floatingtext' label='Prototype Link'>
+                <Form.Control disabled={state.isLoading} type='url' placeholder='Prototype Link' onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={30} />
+            </FloatingLabel><br />
+            <Button type='submit' disabled={state.isLoading} className='mt-2 btn-block'>
+                <Show when={!state.isLoading}>Create Prototype <i className='fa-solid fa-circle-arrow-right'></i></Show>
+                <Show when={state.isLoading}><i className='fas fa-circle-notch fa-spin'></i> Creating Prototype</Show>
+            </Button>
+            <Link href={'/snowlakeprototypes'} className="lead-link">View My Prototypes</Link>
+        </form>
     )
 }
 
-export default withAuth(SnowlakeHomePage)
+export default withAuth(SnowlakeCreatePrototypePage)

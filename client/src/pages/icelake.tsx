@@ -133,12 +133,12 @@ const IcelakeHomePage: NextPage = () => {
             <Show when={!documentList.isLoading}>
                 <Container>
                     <div className='mb-3'>
-                        <label htmlFor="file-upload" className="file-button">Upload<i className='fa-solid fa-circle-arrow-up'></i></label>
+                        <label htmlFor="file-upload" className="file-button">Upload</label>
                         <input id="file-upload" className="file-input" type="file" multiple onChange={readFile} />
                     </div>
                     <Show when={documentList?.data?.documents?.length > 0}>
                         <Button className='tag-chip'>My Documents</Button>
-                        <Table responsive hover variant='dark'>
+                        <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
                                     <th>Doc Name</th>

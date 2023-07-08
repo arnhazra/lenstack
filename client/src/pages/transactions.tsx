@@ -29,7 +29,7 @@ const TransactionsPage: NextPage = () => {
                 <Container>
                     <Show when={transactions?.data?.transactions?.length > 0}>
                         <Button className='tag-chip'>Transactions</Button>
-                        <Table responsive hover variant='dark'>
+                        <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
                                     <th>Event</th>
