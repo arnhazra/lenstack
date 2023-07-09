@@ -39,11 +39,6 @@ const EvolakeQueryEnginePage: NextPage = () => {
         }
     }
 
-    const copyDBQuery = () => {
-        navigator.clipboard.writeText(`${dbQuery}`)
-        toast.success(appConstants.CopiedToClipBoard)
-    }
-
     return (
         <Fragment>
             <Container>

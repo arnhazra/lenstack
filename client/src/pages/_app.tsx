@@ -12,6 +12,7 @@ import '@/styles/form.sass'
 import '@/styles/icons.sass'
 import '@/styles/productcard.sass'
 import '@/styles/datasetcard.sass'
+import '@/styles/sourcecode.sass'
 
 axios.interceptors.request.use((request) => {
     if (localStorage.hasOwnProperty('accessToken')) {

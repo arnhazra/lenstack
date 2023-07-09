@@ -17,9 +17,9 @@ const SourceCode: FC<SourceCodeProps> = ({ children, copyBtn }) => {
     }
 
     return (
-        <div className={`${firaCode.className} source-code mt-4 ps-4 pt-4 pb-4`}>
+        <div className={`${firaCode.className} source-code mt-4 ps-4 pt-4 pb-2`}>
             {copyBtn && <div className='copy-btn' title='copy' onClick={copyText}><i className='fa-solid fa-copy'></i></div>}
-            {children}
+            <div className='source-code-text'>{children}</div>
         </div >
     )
 }
