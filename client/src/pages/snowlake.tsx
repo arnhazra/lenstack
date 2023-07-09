@@ -2,11 +2,13 @@ import { prototypeABI } from '@/bin/prototypeABI'
 import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
 import contractAddress from '@/constants/contractAddress'
+import HTTPMethods from '@/constants/httpMethods'
 import { AppContext } from '@/context/appStateProvider'
+import useFetch from '@/hooks/useFetch'
 import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 import Web3 from 'web3'
@@ -15,6 +17,23 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [{ userState }] = useContext(AppContext)
     const [state, setState] = useState({ name: '', description: '', link: '', isLoading: false, apiKey: userState.apiKey })
+    const usageDetails = useFetch('usage', endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
+    const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
+    const [isUserEligible, setUserEligible] = useState(false)
+
+    useEffect(() => {
+        try {
+            const remainingCount = pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.snowlake - usageDetails.data?.snowlakePrototypeCount
+            if (remainingCount > 0) {
+                setUserEligible(true)
+            }
+            else {
+                setUserEligible(false)
+            }
+        } catch (error) {
+            setUserEligible(false)
+        }
+    }, [userState, usageDetails, pricingDetails])
 
     const createPrototype = async (e: any) => {
         e.preventDefault()
@@ -62,7 +81,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
             <FloatingLabel controlId='floatingtext' label='Prototype Link' className='mt-3'>
                 <Form.Control disabled={state.isLoading} type='url' placeholder='Prototype Link' onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={30} />
             </FloatingLabel>
-            <Button type='submit' disabled={state.isLoading} className='mt-3 btn-block'>
+            <Button type='submit' disabled={state.isLoading || !isUserEligible} className='mt-3 btn-block'>
                 <Show when={!state.isLoading}>Create Prototype <i className='fa-solid fa-circle-arrow-right'></i></Show>
                 <Show when={state.isLoading}><i className='fas fa-circle-notch fa-spin'></i> Creating Prototype</Show>
             </Button>
