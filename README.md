@@ -26,11 +26,11 @@ Upon successfully creating an account on the application, an Ethereum wallet wil
 
 ### Tech Stack
 
-* OpenAI Davinci model for generating queries
-* Mongo DB For Users, Transactions Management
-* Ethereum Blockchain for decentralized transactions - ERC-20 token for payment & ERC-721 token for subscription ownership representation
+* OpenAI Davinci model
+* Mongo DB
+* Ethereum Blockchain - Polygon PoS Chain
 * Web3 JS for Ethereum blockchain for Web3 transactions
 * Redis for Managing user authentication, access tokens
 * Express JS as a framework on top of Node JS for API - Microservices
 * Next JS as a framework on top of React as a UI library
-* Google OAuth2 with nodemailer for 2 factor authentication (OTP based)
+* Google OAuth2

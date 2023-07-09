@@ -70,7 +70,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
     }
 
     return (
-        <form className='box' onSubmit={createPrototype}>
+        <form className='bigbox' onSubmit={createPrototype}>
             <p className='branding'>Create Prototype</p>
             <FloatingLabel controlId='floatingtext' label='Prototype Name'>
                 <Form.Control disabled={state.isLoading} type='text' placeholder='Prototype Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={20} />

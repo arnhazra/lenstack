@@ -6,14 +6,13 @@ import { Container, FloatingLabel, Form } from 'react-bootstrap'
 
 const APIDocPage: NextPage = () => {
     return (
-        <Container>
+        <Container style={{ minWidth: '60%' }}>
             <div className="jumbotron mt-4 p-4">
                 <p className="branding">Airlake</p>
-                <FloatingLabel controlId='floatingtext' label='Airlake Data API - Method : GET'>
+                <FloatingLabel controlId='floatingtext' label='Airlake Data API - Method : GET' className='mb-3'>
                     <Form.Control disabled type='text' defaultValue={`${endPoints.airlakeDataApiEndpoint}/<DATASET_ID>/<YOUR_API_KEY>`} />
                 </FloatingLabel>
-            </div>
-            <div className="jumbotron mt-4">
+
                 <p className="branding">Evolake</p>
                 <FloatingLabel controlId='floatingtext' label='Evolake Query Engine API - Method : POST'>
                     <Form.Control disabled type='text' defaultValue={`${endPoints.evolakeGenerateQueryEndpint}`} />
@@ -28,8 +27,7 @@ const APIDocPage: NextPage = () => {
                         &#125;
                     </p>
                 </SourceCode>
-            </div>
-            <div className="jumbotron mt-4">
+
                 <p className="branding">Icelake</p>
                 <FloatingLabel controlId='floatingtext' label='Icelake Create Document API - Method : POST'>
                     <Form.Control disabled type='text' defaultValue={`${endPoints.icelakeCreateDocEndpoint}`} />
@@ -44,8 +42,7 @@ const APIDocPage: NextPage = () => {
                         &#125;
                     </p>
                 </SourceCode>
-            </div>
-            <div className="jumbotron mt-4">
+
                 <p className="branding">Frostlake</p>
                 <FloatingLabel controlId='floatingtext' label='Frostlake Create Analytics API - Method : POST'>
                     <Form.Control disabled type='text' defaultValue={`${endPoints.frostlakeCreateAnalyticsEndpoint}`} />
