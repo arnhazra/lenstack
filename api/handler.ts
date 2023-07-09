@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import path from 'path'
+import fs from 'fs'
 import { envConfig } from './config/envConfig'
 import { dbConnect } from './src/utils/dbConnect'
 import { connectRedis } from './src/utils/redisHelper'
@@ -48,6 +49,15 @@ if (envConfig.nodeEnv === 'production') {
 
     app.use(express.static(path.join(__dirname, 'client'), { maxAge: 60000, setHeaders: setCustomCacheControl }))
     app.get('/*', (req: Request, res: Response) => {
-        res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
+        const filePath = path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`)
+        fs.access(filePath, fs.constants.F_OK, (err) => {
+            if (err) {
+                // File does not exist, render error page
+                res.sendFile(path.join(__dirname, 'client', '_error.html'))
+            } else {
+                // File exists, send the requested file
+                res.sendFile(filePath)
+            }
+        })
     })
 }
