@@ -10,11 +10,11 @@ import { NextPage } from 'next'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/httpMethods'
 import Link from 'next/link'
-import appConstants from '@/constants/appConstants'
 import SourceCode from '@/components/SourceCode'
 
 const EvolakeQueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState('SQL')
+    const [model, setModel] = useState('text-davinci-003')
     const [userQuery, setUserQuery] = useState('')
     const [dbQuery, setDbQuery] = useState('')
     const [{ userState }] = useContext(AppContext)
@@ -30,7 +30,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
         try {
             setFetching(true)
             const apiKey = userState.apiKey
-            const response = await axios.post(endPoints.evolakeGenerateQueryEndpint, { selectedDb, userQuery, apiKey })
+            const response = await axios.post(endPoints.evolakeGenerateQueryEndpint, { selectedDb, userQuery, apiKey, model })
             setDbQuery(response.data.msg)
             setFetching(false)
         } catch (error: any) {
@@ -44,7 +44,13 @@ const EvolakeQueryEnginePage: NextPage = () => {
             <Container>
                 <form className='bigbox' onSubmit={fetchData}>
                     <p className='branding'>Query Engine</p>
-                    <FloatingLabel controlId='floatingSelectGrid' label='Select Database'>
+                    <FloatingLabel controlId='floatingSelectGrid' label='Select OpenAI Model'>
+                        <Form.Select onChange={(e): void => setModel(e.target.value)}>
+                            <option className='options' key={'text-davinci-003'} value={'text-davinci-003'}>{'text-davinci-003'}</option>
+                            <option className='options' key={'text-davinci-002'} value={'text-davinci-002'}>{'text-davinci-002'}</option>
+                        </Form.Select>
+                    </FloatingLabel>
+                    <FloatingLabel controlId='floatingSelectGrid' label='Select Database' className='mt-3'>
                         <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
                             {dbToDisplay}
                         </Form.Select>

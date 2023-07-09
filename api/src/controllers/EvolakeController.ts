@@ -28,7 +28,7 @@ export default class EvolakeController {
 
     async generateQuery(req: Request, res: Response) {
         try {
-            const { selectedDb, userQuery, apiKey } = req.body
+            const { selectedDb, userQuery, apiKey, model } = req.body
 
             if (selectedDb.length > 0 && userQuery.length > 0) {
                 const finalQuery = `Create a ${selectedDb} request to ${userQuery.charAt(0).toLowerCase() + userQuery.slice(1)}`
@@ -44,7 +44,7 @@ export default class EvolakeController {
                     const openai = new OpenAIApi(configuration)
 
                     const response = await openai.createCompletion({
-                        model: 'text-davinci-003',
+                        model: 'text-davinci-003' || model,
                         prompt: finalQuery,
                         temperature: 0.3,
                         max_tokens: 120,
@@ -55,7 +55,7 @@ export default class EvolakeController {
                     const aiGeneratedQuery = response.data.choices[0].text
                     const evolakeDbReq = new EvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
                     await evolakeDbReq.save()
-                    return res.status(200).json({ msg: aiGeneratedQuery, from: 'AI' })
+                    return res.status(200).json({ msg: aiGeneratedQuery, from: 'AI', model })
                 }
             }
 
