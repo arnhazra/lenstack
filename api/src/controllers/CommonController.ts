@@ -10,6 +10,7 @@ import SubscriptionModel from '../models/SubscriptionModel'
 import { otherConstants } from '../constants/otherConstants'
 import { prototypeABI } from '../bin/prototypeABI'
 import FrostlakeAnalyticsModel from '../models/FrostlakeAnalyticsModel'
+import { envConfig } from '../../config/envConfig'
 
 export default class CommonController {
     async getPlatformConfig(req: Request, res: Response) {
@@ -52,6 +53,15 @@ export default class CommonController {
             }
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError, error })
+        }
+    }
+
+    async getContractAddresses(req: Request, res: Response) {
+        try {
+            const { tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress } = envConfig
+            return res.status(200).json({ tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress })
+        } catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 }

@@ -10,13 +10,14 @@ import { Button, Container, Table } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 import { AppContext } from '@/context/appStateProvider'
 import { prototypeABI } from '@/bin/prototypeABI'
-import { contractAddress } from '@/constants/contractAddress'
 import moment from 'moment'
 import ArchiveModal from '@/components/ArchiveModal'
+import HTTPMethods from '@/constants/httpMethods'
+import useFetch from '@/hooks/useFetch'
 
 const SnowlakePrototypes: NextPage = () => {
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(endPoints.infuraEndpoint)
-    const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
     const [{ userState }] = useContext(AppContext)
     const [prototypeList, setPrototypeList] = useState([])
     const [isLoading, setLoading] = useState(false)
@@ -27,35 +28,39 @@ const SnowlakePrototypes: NextPage = () => {
 
     useEffect(() => {
         (async () => {
-            setLoading(true)
-            const { privateKey } = userState
-            const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            if (!contractAddress.isLoading) {
+                const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress?.data?.prototypeContractAddress)
+                setLoading(true)
+                const { privateKey } = userState
+                const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
 
-            try {
-                const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner().call({ from: owner })
-                console.log(getPrototypesByOwnerData)
-                setPrototypeList(getPrototypesByOwnerData)
-            }
+                try {
+                    const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner().call({ from: owner })
+                    console.log(getPrototypesByOwnerData)
+                    setPrototypeList(getPrototypesByOwnerData)
+                }
 
-            catch (error: any) {
-                toast.error('Could not get the list')
-            }
+                catch (error: any) {
+                    toast.error('Could not get the list')
+                }
 
-            finally {
-                setLoading(false)
+                finally {
+                    setLoading(false)
+                }
             }
         })()
-    }, [refreshId])
+    }, [refreshId, contractAddress?.data])
 
     const archivePrototype = async (id: any) => {
         try {
+            const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress?.data?.prototypeContractAddress)
             setArchiveProcessing(true)
             const { privateKey } = userState
             const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const archiveTxData = await prototypeContract.methods.archivePrototype(id).encodeABI()
             const archiveTx = {
                 from: owner,
-                to: contractAddress.prototypeContractAddress,
+                to: contractAddress?.data?.prototypeContractAddress,
                 data: archiveTxData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: 500000,
@@ -93,7 +98,7 @@ const SnowlakePrototypes: NextPage = () => {
 
     return (
         <Fragment>
-            <Show when={!isLoading}>
+            <Show when={!isLoading && !contractAddress.isLoading}>
                 <Container>
                     <Show when={prototypeList.length > 0}>
                         <h4 className='text-white text-center'>Prototypes</h4>
@@ -120,7 +125,7 @@ const SnowlakePrototypes: NextPage = () => {
                     </Show>
                 </Container>
             </Show>
-            <Show when={isLoading}>
+            <Show when={isLoading || contractAddress.isLoading}>
                 <Loading />
             </Show>
             <ArchiveModal isOpened={isArchiveModalOpened} closeModal={() => setArchiveModalOpened(false)} isTxProcessing={isArchiveProcessing} doAction={() => archivePrototype(archiveId)} />

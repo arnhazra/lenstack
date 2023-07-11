@@ -2,7 +2,6 @@ import { Fragment, useContext } from 'react'
 import { AppContext } from '@/context/appStateProvider'
 import Show from '@/components/Show'
 import Link from 'next/link'
-import { contractAddress } from '@/constants/contractAddress'
 import { toast } from 'react-hot-toast'
 import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
@@ -15,6 +14,7 @@ import appConstants from '@/constants/appConstants'
 import moment from 'moment'
 
 const UsagePage: NextPage = () => {
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
     const [{ userState }] = useContext(AppContext)
     const usageDetails = useFetchRealtime('usage', endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
@@ -31,7 +31,7 @@ const UsagePage: NextPage = () => {
 
     return (
         <Fragment>
-            <Show when={!usageDetails.isLoading && !pricingDetails.isLoading}>
+            <Show when={!usageDetails.isLoading && !pricingDetails.isLoading && !contractAddress.isLoading}>
                 <div className='box'>
                     <p className='branding'>Usage<i className='fa-solid fa-code-pull-request'></i></p>
                     <Show when={userState.apiKey.length > 0}>
@@ -41,7 +41,7 @@ const UsagePage: NextPage = () => {
                     <h4>
                         Plan - {userState.selectedPlan}
                         <Show when={userState.apiKey.length > 0}>
-                            <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${userState.tokenId}`}>
+                            <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress?.data?.nftContractAddress}?a=${userState.tokenId}`}>
                                 <img src='https://cdn-icons-png.flaticon.com/128/6298/6298900.png' height={40} width={40}></img>
                             </Link>
                         </Show>
@@ -65,7 +65,7 @@ const UsagePage: NextPage = () => {
                     </Show>
                 </div>
             </Show>
-            <Show when={usageDetails.isLoading || pricingDetails.isLoading}>
+            <Show when={usageDetails.isLoading || pricingDetails.isLoading || contractAddress.isLoading}>
                 <Loading />
             </Show>
         </Fragment >

@@ -1,7 +1,6 @@
 import { prototypeABI } from '@/bin/prototypeABI'
 import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
-import { contractAddress } from '@/constants/contractAddress'
 import HTTPMethods from '@/constants/httpMethods'
 import { AppContext } from '@/context/appStateProvider'
 import useFetch from '@/hooks/useFetch'
@@ -14,6 +13,7 @@ import { toast } from 'react-hot-toast'
 import Web3 from 'web3'
 
 const SnowlakeCreatePrototypePage: NextPage = () => {
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(endPoints.infuraEndpoint)
     const [{ userState }] = useContext(AppContext)
     const [state, setState] = useState({ name: '', description: '', link: '', isLoading: false, apiKey: userState.apiKey })
@@ -40,7 +40,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
         setState({ ...state, isLoading: true })
         const { privateKey } = userState
         const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-        const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress.prototypeContractAddress)
+        const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress?.data?.prototypeContractAddress)
 
         try {
             const { name, description, link, apiKey } = state
@@ -49,7 +49,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
 
             const newPrototypeTx = {
                 from: owner,
-                to: contractAddress.prototypeContractAddress,
+                to: contractAddress?.data?.prototypeContractAddress,
                 data: newPrototypeData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: 500000,

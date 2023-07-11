@@ -14,5 +14,9 @@ export const envConfig = {
     mailerEmail: process.env.MAILER_EMAIL,
     authPrivateKey: process.env.AUTH_RSA_PRIVATE_KEY,
     authPublicKey: process.env.AUTH_RSA_PUBLIC_KEY,
-    nodeEnv: process.env.NODE_ENV
+    tokenContractAddress: process.env.TOKEN_CONTRACT_ADDRESS,
+    vendorContractAddress: process.env.VENDOR_CONTRACT_ADDRESS,
+    nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,
+    prototypeContractAddress: process.env.PROTOTYPE_CONTRACT_ADDRESS,
+    nodeEnv: process.env.NODE_ENV,
 }

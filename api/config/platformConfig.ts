@@ -13,7 +13,7 @@ export const platformConfig = [
     },
     {
         productName: 'icelake',
-        description: 'An open-souce application that offers users a secure and scalable storage solution for files and data.',
+        description: 'An open-souce application that offers users a secure storage solution for files and data.',
         url: '/icelake',
         productAvailable: true
     },

@@ -14,6 +14,7 @@ const endPoints = {
     getPlatformConfigEndpoint: `${apiHost}/api/common/getplatformconfig`,
     getSubscriptionConfigEndpoint: `${apiHost}/api/common/getsubscriptionconfig`,
     getUsageByApiKeyEndpoint: `${apiHost}/api/common/getusagebyapikey`,
+    getContractAddressList: `${apiHost}/api/common/getcontractaddresses`,
     airlakeFiltersEndpoint: `${apiHost}/api/products/airlake/filters`,
     airlakeFindDatasetsEndpoint: `${apiHost}/api/products/airlake/finddatasets`,
     airlakeViewDatasetsEndpoint: `${apiHost}/api/products/airlake/viewdataset`,
