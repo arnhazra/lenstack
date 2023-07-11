@@ -82,7 +82,7 @@ const IdentityPage: NextPage = () => {
             <Show when={identityStep === 1}>
                 <form className='box' onSubmit={requestAuthCode}>
                     <p className='branding'>Identity</p>
-                    <p className='boxtext'>Enter the email address, it will be used for as your identity.</p>
+                    <p className='boxtext'>Enter the email address, it will be used as your identity.</p>
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel>

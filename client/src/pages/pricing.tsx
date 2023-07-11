@@ -8,7 +8,7 @@ import HTTPMethods from '@/constants/httpMethods'
 import Loading from '@/components/Loading'
 import withoutAuth from '@/utils/withoutAuth'
 
-const PlansPage: NextPage = () => {
+const PricingPage: NextPage = () => {
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
 
@@ -48,4 +48,4 @@ const PlansPage: NextPage = () => {
     )
 }
 
-export default withoutAuth(PlansPage)
+export default withoutAuth(PricingPage)

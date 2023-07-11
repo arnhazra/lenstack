@@ -1,6 +1,6 @@
 import SourceCode from '@/components/SourceCode'
 import endPoints from '@/constants/apiEndpoints'
-import withoutAuth from '@/utils/withoutAuth'
+import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
 import { Container, FloatingLabel, Form } from 'react-bootstrap'
 
@@ -65,4 +65,4 @@ const APIReferencePage: NextPage = () => {
     )
 }
 
-export default withoutAuth(APIReferencePage)
+export default withAuth(APIReferencePage)
