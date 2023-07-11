@@ -1,10 +1,10 @@
 import SourceCode from '@/components/SourceCode'
 import endPoints from '@/constants/apiEndpoints'
-import withAuth from '@/utils/withAuth'
+import withoutAuth from '@/utils/withoutAuth'
 import { NextPage } from 'next'
 import { Container, FloatingLabel, Form } from 'react-bootstrap'
 
-const APIDocPage: NextPage = () => {
+const APIReferencePage: NextPage = () => {
     return (
         <Container style={{ minWidth: '60%' }}>
             <div className='jumbotron mt-4 p-4'>
@@ -65,4 +65,4 @@ const APIDocPage: NextPage = () => {
     )
 }
 
-export default withAuth(APIDocPage)
+export default withoutAuth(APIReferencePage)

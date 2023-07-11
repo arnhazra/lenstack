@@ -15,26 +15,33 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
 
         useEffect(() => {
             (async () => {
-                try {
-                    const response = await axios.post(endPoints.userDetailsEndpoint)
-                    const userid = response.data.user._id
-                    const { name, email, privateKey, role } = response.data.user
+                if (localStorage.getItem('accessToken')) {
+                    try {
+                        const response = await axios.post(endPoints.userDetailsEndpoint)
+                        const userid = response.data.user._id
+                        const { name, email, privateKey, role } = response.data.user
 
-                    if (response.data.subscription) {
-                        const { selectedPlan, apiKey, tokenId, expiresAt } = response.data.subscription
-                        dispatch('setUserState', { selectedPlan, apiKey, tokenId, subscriptionValidUpto: expiresAt })
+                        if (response.data.subscription) {
+                            const { selectedPlan, apiKey, tokenId, expiresAt } = response.data.subscription
+                            dispatch('setUserState', { selectedPlan, apiKey, tokenId, subscriptionValidUpto: expiresAt })
+                        }
+
+                        dispatch('setUserState', { userid, name, email, privateKey, role })
+                        setAuthenticated(true)
                     }
 
-                    dispatch('setUserState', { userid, name, email, privateKey, role })
-                    setAuthenticated(true)
-                }
+                    catch (error: any) {
+                        if (error.response) {
+                            if (error.response.status === 401) {
+                                localStorage.removeItem('accessToken')
+                                setAuthenticated(false)
+                                router.push(`/identity?nextRedirect=${router.pathname.slice(1)}`)
+                            }
 
-                catch (error: any) {
-                    if (error.response) {
-                        if (error.response.status === 401) {
-                            localStorage.removeItem('accessToken')
-                            setAuthenticated(false)
-                            router.push(`/identity?nextRedirect=${router.pathname.slice(1)}`)
+                            else {
+                                setAuthenticated(false)
+                                toast.error(Constants.ToastError)
+                            }
                         }
 
                         else {
@@ -42,11 +49,10 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
                             toast.error(Constants.ToastError)
                         }
                     }
+                }
 
-                    else {
-                        setAuthenticated(false)
-                        toast.error(Constants.ToastError)
-                    }
+                else {
+                    router.push(`/identity?nextRedirect=${router.pathname.slice(1)}`)
                 }
             })()
         }, [router.pathname])

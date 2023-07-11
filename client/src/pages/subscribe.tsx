@@ -11,7 +11,7 @@ import endPoints from '@/constants/apiEndpoints'
 import HTTPMethods from '@/constants/httpMethods'
 import Loading from '@/components/Loading'
 
-const PricingPage: NextPage = () => {
+const SubscribePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
@@ -41,7 +41,7 @@ const PricingPage: NextPage = () => {
         <Fragment>
             <Show when={!pricingDetails.isLoading}>
                 <div className='box'>
-                    <p className='branding'>Pricing<i className='fa-solid fa-money-check-dollar'></i></p>
+                    <p className='branding'>Subscribe<i className='fa-solid fa-money-check-dollar'></i></p>
                     <ButtonGroup className='btn-group-card'>
                         <Button className={selectedPlan === 'Standard' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Standard')}>STANDARD</Button>
                         <Button className={selectedPlan === 'Premium' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Premium')}>PREMIUM</Button>
@@ -80,4 +80,4 @@ const PricingPage: NextPage = () => {
     )
 }
 
-export default withAuth(PricingPage)
+export default withAuth(SubscribePage)

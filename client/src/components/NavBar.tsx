@@ -24,8 +24,8 @@ const NavBar: FC = () => {
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
                             <Nav className='ms-auto'>
-                                <Link href='/apidoc'><Navbar.Brand>API Doc</Navbar.Brand></Link>
-                                <Link href='/pricing'><Navbar.Brand>Pricing</Navbar.Brand></Link>
+                                <Link href='/apireference'><Navbar.Brand>API Reference</Navbar.Brand></Link>
+                                <Link href='/subscribe'><Navbar.Brand>Subscribe</Navbar.Brand></Link>
                                 <Link href='/usage'><Navbar.Brand>Usage</Navbar.Brand></Link>
                                 <Link href='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
                                 <Link href='/transactions'><Navbar.Brand>Transactions</Navbar.Brand></Link>
@@ -44,6 +44,8 @@ const NavBar: FC = () => {
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
                             <Nav className='ms-auto'>
+                                <Link href='/products'><Navbar.Brand>Products</Navbar.Brand></Link>
+                                <Link href='/apireference'><Navbar.Brand>API Reference</Navbar.Brand></Link>
                                 <Link href='/plans'><Navbar.Brand>Plans</Navbar.Brand></Link>
                                 <Link target='_blank' passHref rel='noopener noreferrer' href='https://www.linkedin.com/in/arnhazra/'><Navbar.Brand>Developer</Navbar.Brand></Link>
                                 <Link href='/identity'><Navbar.Brand>Get Started</Navbar.Brand></Link>
