@@ -1,7 +1,7 @@
 import { prototypeABI } from '@/bin/prototypeABI'
 import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
-import contractAddress from '@/constants/contractAddress'
+import { contractAddress } from '@/constants/contractAddress'
 import HTTPMethods from '@/constants/httpMethods'
 import { AppContext } from '@/context/appStateProvider'
 import useFetch from '@/hooks/useFetch'

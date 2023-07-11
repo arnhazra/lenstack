@@ -10,7 +10,7 @@ import { Button, Container, Table } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 import { AppContext } from '@/context/appStateProvider'
 import { prototypeABI } from '@/bin/prototypeABI'
-import contractAddress from '@/constants/contractAddress'
+import { contractAddress } from '@/constants/contractAddress'
 import moment from 'moment'
 import ArchiveModal from '@/components/ArchiveModal'
 
