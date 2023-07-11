@@ -36,7 +36,7 @@ const UsagePage: NextPage = () => {
                     <p className='branding'>Usage<i className='fa-solid fa-code-pull-request'></i></p>
                     <Show when={userState.apiKey.length > 0}>
                         <p className='smalltext' title={userState.apiKey}>API Key - {showapiKey(userState.apiKey)}<i className='fa-solid fa-copy' onClick={copyapiKey}></i></p>
-                        <p className="smalltext">Valid upto {moment(userState.subscriptionValidUpto).format('MMM, Do YYYY')}</p>
+                        <p className='smalltext'>Valid upto {moment(userState.subscriptionValidUpto).format('MMM, Do YYYY')}</p>
                     </Show>
                     <h4>
                         Plan - {userState.selectedPlan}

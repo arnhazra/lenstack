@@ -57,7 +57,7 @@ const WalletPage: NextPage = () => {
                     <h4>
                         <i className='fa-brands fa-ethereum'></i>{Number(maticBalance).toFixed(2)} MATIC
                     </h4>
-                    <Link className='btn btn-block' passHref href={'https://faucet.polygon.technology/'} target='_blank'>Fund my wallet<i className="fa-solid fa-square-arrow-up-right"></i></Link>
+                    <Link className='btn btn-block' passHref href={'https://faucet.polygon.technology/'} target='_blank'>Fund my wallet<i className='fa-solid fa-square-arrow-up-right'></i></Link>
                 </div>
             </Show>
 

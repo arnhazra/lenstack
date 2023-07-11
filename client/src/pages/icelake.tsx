@@ -24,7 +24,7 @@ const IcelakeHomePage: NextPage = () => {
             <tr key={doc._id}>
                 <td><i className='fa-solid fa-folder'></i> {doc.title}</td>
                 <td>{moment(doc.createdAt).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><i className="fa-solid fa-circle-arrow-down" onClick={() => saveDocument(doc._id)}></i></td>
+                <td><i className='fa-solid fa-circle-arrow-down' onClick={() => saveDocument(doc._id)}></i></td>
                 <td><i className='fa-solid fa-archive' onClick={() => archiveItemMutation.mutate(doc._id)}></i></td>
             </tr>
         )
@@ -133,8 +133,8 @@ const IcelakeHomePage: NextPage = () => {
             <Show when={!documentList.isLoading}>
                 <Container>
                     <div className='mb-3'>
-                        <label htmlFor="file-upload" className="file-button">Upload</label>
-                        <input id="file-upload" className="file-input" type="file" multiple onChange={readFile} />
+                        <label htmlFor='file-upload' className='file-button'>Upload</label>
+                        <input id='file-upload' className='file-input' type='file' multiple onChange={readFile} />
                     </div>
                     <Show when={documentList?.data?.documents?.length > 0}>
                         <h4 className='text-white text-center'>Documents</h4>

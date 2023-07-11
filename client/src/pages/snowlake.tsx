@@ -85,7 +85,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
                 <Show when={!state.isLoading}>Create Prototype <i className='fa-solid fa-circle-arrow-right'></i></Show>
                 <Show when={state.isLoading}><i className='fas fa-circle-notch fa-spin'></i> Creating Prototype</Show>
             </Button>
-            <Link href={'/snowlakeprototypes'} className="lead-link">View My Prototypes</Link>
+            <Link href={'/snowlakeprototypes'} className='lead-link'>View My Prototypes</Link>
         </form>
     )
 }

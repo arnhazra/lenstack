@@ -85,7 +85,7 @@ const SnowlakePrototypes: NextPage = () => {
                 <td><i className='fa-solid fa-file'></i> {prototype.name}</td>
                 <td>{prototype.description}</td>
                 <td>{moment(Number(prototype.createdAt) * 1000).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><Link href={`${prototype.link}`} passHref target='_blank'><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
+                <td><Link href={`${prototype.link}`} passHref target='_blank'><i className='fa-solid fa-square-arrow-up-right'></i></Link></td>
                 <td><i className='fa-solid fa-archive' onClick={() => { setArchiveModalOpened(true); setArchiveId(prototype.id) }}></i></td>
             </tr>
         )
