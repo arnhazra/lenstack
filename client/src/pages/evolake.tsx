@@ -42,7 +42,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
     return (
         <Fragment>
             <Container>
-                <form className='bigbox' onSubmit={fetchData}>
+                <form className='box' onSubmit={fetchData}>
                     <p className='branding'>Query Engine</p>
                     <FloatingLabel controlId='floatingSelectGrid' label='Select OpenAI Model'>
                         <Form.Select onChange={(e): void => setModel(e.target.value)}>
