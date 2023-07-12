@@ -1,3 +1,4 @@
+"use client"
 import { FC, useEffect, useState, useContext } from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { Fragment } from 'react'

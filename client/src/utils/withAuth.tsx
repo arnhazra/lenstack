@@ -1,9 +1,10 @@
+"use client"
 import Loading from '@/components/Loading'
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import endPoints from '@/constants/apiEndpoints'
 import toast from 'react-hot-toast'
-import { useRouter } from 'next/router'
+import { useRouter, usePathname } from 'next/navigation'
 import { AppContext } from '@/context/appStateProvider'
 import Constants from '@/constants/appConstants'
 
@@ -11,6 +12,7 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
     return function WithAuth(props: any) {
         const [, dispatch] = useContext(AppContext)
         const router = useRouter()
+        const pathname = usePathname()
         const [isAuthenticated, setAuthenticated] = useState(false)
 
         useEffect(() => {
@@ -35,7 +37,7 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
                             if (error.response.status === 401) {
                                 localStorage.removeItem('accessToken')
                                 setAuthenticated(false)
-                                router.push(`/identity?nextRedirect=${router.pathname.slice(1)}`)
+                                router.push(`/identity?nextRedirect=${pathname.slice(1)}`)
                             }
 
                             else {
@@ -52,10 +54,10 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
                 }
 
                 else {
-                    router.push(`/identity?nextRedirect=${router.pathname.slice(1)}`)
+                    router.push(`/identity?nextRedirect=${pathname.slice(1)}`)
                 }
             })()
-        }, [router.pathname])
+        }, [pathname])
 
         if (isAuthenticated) {
             return <WrappedComponent {...props} />

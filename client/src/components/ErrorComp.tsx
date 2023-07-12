@@ -1,3 +1,4 @@
+"use client"
 import { FC } from 'react'
 import Constants from '@/constants/appConstants'
 import { ErrorProps } from '@/types/Types'

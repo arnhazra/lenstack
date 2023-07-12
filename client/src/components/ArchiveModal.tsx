@@ -1,3 +1,4 @@
+"use client"
 import { FC, Fragment } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { Tilt_Neon } from 'next/font/google'

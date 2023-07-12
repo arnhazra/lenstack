@@ -1,5 +1,6 @@
+"use client"
 import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export default function withoutAuth<T>(WrappedComponent: React.ComponentType<T>) {
     return function WithoutAuth(props: any) {
@@ -9,7 +10,7 @@ export default function withoutAuth<T>(WrappedComponent: React.ComponentType<T>)
             if (localStorage.getItem('accessToken')) {
                 router.push('/dashboard')
             }
-        }, [router.pathname])
+        }, [])
 
         return <WrappedComponent {...props} />
     }

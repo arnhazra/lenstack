@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "lenstack-new",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,14 +10,13 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.19",
-    "@types/node": "20.3.3",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.29.4",
-    "next": "13.4.7",
+    "next": "13.4.9",
     "react": "18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
@@ -25,9 +24,10 @@
     "react-simple-star-rating": "^5.1.7",
     "sass": "^1.63.6",
     "typescript": "5.1.6",
-    "web3": "^4.0.2"
+    "web3": "^4.0.3"
   },
   "devDependencies": {
-    "@types/lodash.debounce": "^4.0.7"
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/node": "^20.4.1"
   }
 }

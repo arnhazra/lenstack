@@ -1,8 +1,9 @@
+"use client"
 import axios, { Method } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 import Constants from '@/constants/appConstants'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object) {
     const router = useRouter()

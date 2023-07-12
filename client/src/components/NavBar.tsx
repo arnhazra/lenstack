@@ -1,17 +1,18 @@
+"use client"
 import { FC, Fragment, useEffect, useState } from 'react'
 import { Container, Navbar, Nav } from 'react-bootstrap'
 import Show from './Show'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 const NavBar: FC = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const router = useRouter()
+    const pathname = usePathname()
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken')
         setIsLoggedIn(accessToken !== null)
-    }, [router.pathname])
+    }, [pathname])
 
     return (
         <Fragment>

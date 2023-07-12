@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Button, Card, Col } from 'react-bootstrap'
 import { ProductCardProps } from '@/types/Types'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 const ProductCard: FC<ProductCardProps> = ({ productName, description, url, productAvailable }) => {
     const router = useRouter()

@@ -1,3 +1,4 @@
+"use client"
 import { FC, ReactNode, createContext, useCallback, useMemo, useReducer } from 'react'
 import { AppState, Actions, ActionsMap, AppReducer } from './appReducer'
 

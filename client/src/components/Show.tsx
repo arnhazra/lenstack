@@ -1,3 +1,4 @@
+"use client"
 import { ShowProps } from '@/types/Types'
 import { FC, Fragment } from 'react'
 
