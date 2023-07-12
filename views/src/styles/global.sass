@@ -1,0 +1,129 @@
+$mainColor: #09091a
+$white: #ffffff
+$textBoxColor: #f6f6f6
+$black: #000000
+
+html
+    scrollbar-width: none
+
+::-webkit-scrollbar
+    width: 0
+
+body
+    background: linear-gradient(to right, #5454549e, #5454549e), url(../assets/landing.jpg)
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    background-attachment: fixed
+    font-family: 'Tilt Neon', cursive
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
+
+.cover
+    width: 100vw
+    height: 80vh
+    color: $white
+    vertical-align: middle
+    display: table-cell
+    text-align: left
+    letter-spacing: 0.05rem
+    animation: transitionIn 0.4s forwards
+
+.jumbotron
+    zoom: 0.95
+    margin-bottom: 1rem
+    background: $white
+    color: $mainColor
+    border-radius: 1rem
+    word-break: break-all
+
+.lead
+    font-size: 90%
+
+.lead-link
+    cursor: pointer
+
+.nameContainer
+    white-space: nowrap
+    overflow: hidden
+
+.smalltext
+    font-size: 80%
+
+.category
+    font-size: 80%
+    color: #3f8caf
+
+.container
+    min-width: 90%
+
+.loading-container
+    top: 54%
+    left: 50%
+    position: absolute
+    transform: translate(-50%,-50%)
+    box-sizing: border-box
+    background: transparent
+    color: $white
+    width: 20rem
+    text-align: center
+
+table tr:first-child th:first-child
+    border-top-left-radius: 1rem
+
+table tr:first-child th:last-child
+    border-top-right-radius: 1rem
+
+table tr:last-child td:first-child
+    border-bottom-left-radius: 1rem
+
+table tr:last-child td:last-child
+    border-bottom-right-radius: 1rem
+
+th,td,tr
+    background: $white !important
+    height: 3.75rem
+    border: none
+    vertical-align: middle
+    text-align: center
+    cursor: pointer
+
+.link-table,
+.link-table:hover,
+.link-table:focus,
+.link-table:active
+    color: $mainColor
+
+.toaster
+    font-family: inherit
+
+.user-link
+    display: none
+
+@keyframes transitionIn
+    from
+        opacity: 0
+        transform: rotateX(5deg)
+
+    to
+        opacity: 1
+        transform: rotateX(0)
+
+h4
+    padding-bottom: 0.5rem
+
+.modal-footer,
+.modal-header
+    border: none
+
+.modal-footer
+    padding: 0
+
+@media only screen and (max-width: 61.95rem)
+    .lead
+        font-size: 75%
+
+    .container
+        min-width: 90%

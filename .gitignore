@@ -4,6 +4,10 @@ client/.next
 client/.vercel
 client/*.tsbuildinfo
 client/out
+views/.next
+views/.vercel
+views/*.tsbuildinfo
+views/out
 .vercel
 dist
 api/build
