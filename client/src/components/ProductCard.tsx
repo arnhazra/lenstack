@@ -21,6 +21,7 @@ const ProductCard: FC<ProductCardProps> = ({ productName, description, url, prod
                 <Card.Footer className={`pt-4 pb-2 ps-4 ${productName.toLowerCase()}Color product-card-footer`}>
                     <p className='branding product-name'>{productName}</p>
                     <p className='smalltext'>{description}</p>
+                    <Button className='tag-chip mb-3'>{productAvailable ? 'Available' : 'Under Maintenance'}</Button>
                 </Card.Footer>
             </Card>
         </Col>

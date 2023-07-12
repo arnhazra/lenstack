@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						<nav className={`header`}>
 							<NavBar />
 						</nav>
-						<main className='mt-4'>
+						<main className='mt-2'>
 							{children}
 							<Toaster position='bottom-right' containerClassName='toaster' />
 						</main>
