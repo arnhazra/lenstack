@@ -2,7 +2,7 @@ const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:8000'
 
 const endPoints = {
     polygonScanEndpoint: `https://mumbai.polygonscan.com/tx`,
-    infuraEndpoint: `https://polygon-mumbai.infura.io/v3/fcb2c26ca13f46a591ed0822c3565c50`,
+    infuraEndpoint: `https://polygon-mumbai.infura.io/v3`,
     requestAuthCodeEndpoint: `${apiHost}/api/user/requestauthcode`,
     verifyAuthCodeEndpoint: `${apiHost}/api/user/verifyauthcode`,
     userDetailsEndpoint: `${apiHost}/api/user/userdetails`,

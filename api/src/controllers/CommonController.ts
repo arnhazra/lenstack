@@ -33,7 +33,8 @@ export default class CommonController {
 
     async getUsageByApiKey(req: Request, res: Response) {
         try {
-            const web3Provider = new Web3(otherConstants.infuraEndpoint)
+            const infuraEndpoint = otherConstants.infuraEndpoint + '/' + envConfig.infuraApiKey
+            const web3Provider = new Web3(infuraEndpoint)
             const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
             const userId = req.headers.id
             const subscription = await SubscriptionModel.findOne({ owner: userId })
@@ -58,8 +59,8 @@ export default class CommonController {
 
     async getContractAddresses(req: Request, res: Response) {
         try {
-            const { tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress } = envConfig
-            return res.status(200).json({ tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress })
+            const { tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress, infuraApiKey } = envConfig
+            return res.status(200).json({ tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress, infuraApiKey })
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
         }

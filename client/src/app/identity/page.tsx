@@ -10,9 +10,12 @@ import { toast } from 'react-hot-toast'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { NextPage } from 'next'
 import withoutAuth from '@/utils/withoutAuth'
+import useFetch from '@/hooks/useFetch'
+import HTTPMethods from '@/constants/httpMethods'
 
 const IdentityPage: NextPage = () => {
-    const web3Provider = new Web3(endPoints.infuraEndpoint)
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
+    const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [identityStep, setidentityStep] = useState(1)
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })
     const [alert, setAlert] = useState('')

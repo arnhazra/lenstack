@@ -13,10 +13,13 @@ import Web3 from 'web3'
 import Show from '@/components/Show'
 import Loading from '@/components/Loading'
 import Link from 'next/link'
+import useFetch from '@/hooks/useFetch'
+import HTTPMethods from '@/constants/httpMethods'
 
 const AccountPage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
-    const web3Provider = new Web3(endPoints.infuraEndpoint)
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
+    const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [walletLoading, setWalletLoading] = useState(true)
     const [accountAddress, setAccountAddress] = useState('')
     const [maticBalance, setMaticBalance] = useState('0')

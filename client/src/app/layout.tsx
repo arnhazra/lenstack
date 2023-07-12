@@ -1,6 +1,7 @@
 "use client"
 import axios from 'axios'
 import AppStateProvider from '@/context/appStateProvider'
+import ReactQueryProvider from '@/utils/ReactQueryProvider'
 import { Toaster } from 'react-hot-toast'
 import { Tilt_Neon } from 'next/font/google'
 import NavBar from '@/components/NavBar'
@@ -13,7 +14,6 @@ import '@/styles/icons.sass'
 import '@/styles/productcard.sass'
 import '@/styles/datasetcard.sass'
 import '@/styles/sourcecode.sass'
-import ReactQueryProvider from '@/utils/ReactQueryProvider'
 
 const tiltNeon = Tilt_Neon({ subsets: ['latin'] })
 

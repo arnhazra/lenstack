@@ -28,7 +28,7 @@ const tiltNeon = Tilt_Neon({ subsets: ['latin'] })
 
 const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, refundAmount, tokenId }) => {
     const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
-    const web3Provider = new Web3(endPoints.infuraEndpoint)
+    const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [step, setStep] = useState(1)
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
