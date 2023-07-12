@@ -1,7 +1,6 @@
 "use client"
 import axios from 'axios'
 import AppStateProvider from '@/context/appStateProvider'
-import { Metadata } from 'next'
 import { Toaster } from 'react-hot-toast'
 import { Tilt_Neon } from 'next/font/google'
 import NavBar from '@/components/NavBar'
@@ -17,11 +16,6 @@ import '@/styles/sourcecode.sass'
 import ReactQueryProvider from '@/utils/ReactQueryProvider'
 
 const tiltNeon = Tilt_Neon({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-	title: 'Lenstack',
-	description: 'Lenstack',
-}
 
 axios.interceptors.request.use((request) => {
 	if (localStorage.hasOwnProperty('accessToken')) {
