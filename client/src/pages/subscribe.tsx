@@ -54,7 +54,7 @@ const SubscribePage: NextPage = () => {
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
-                            <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className='fa-solid fa-lock'></i></Button>
+                            <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className='fa-solid fa-circle-plus'></i></Button>
                         </Show>
                         <Show when={selectedPlan === 'Premium'}>
                             <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
@@ -63,7 +63,7 @@ const SubscribePage: NextPage = () => {
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
                             <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
-                            <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className='fa-solid fa-lock'></i></Button>
+                            <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className='fa-solid fa-circle-plus'></i></Button>
                         </Show>
                     </div>
                     <Show when={!!userState.apiKey}>

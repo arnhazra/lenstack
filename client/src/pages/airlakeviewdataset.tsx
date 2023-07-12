@@ -48,7 +48,7 @@ const AirlakeViewDatasetPage: NextPage = () => {
             <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
                 <Show when={!dataset.error}>
                     <Container>
-                        <div className='jumbotron'>
+                        <div className='jumbotron p-4'>
                             <Row>
                                 <DatasetCard category={dataset?.data?.category} id={datasetIdForCard} name={dataset?.data?.name} rating={dataset?.data?.rating} key={datasetIdForCard} />
                                 <Col xs={12} sm={12} md={8} lg={9} xl={10}>
