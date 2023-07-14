@@ -15,10 +15,9 @@ import appConstants from '@/constants/appConstants'
 import moment from 'moment'
 
 const UsagePage: NextPage = () => {
-    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
+    const contractAddress = useFetch('getsecrets', endPoints.getSecrets, HTTPMethods.POST)
     const [{ userState }] = useContext(AppContext)
     const usageDetails = useFetchRealtime('usage', endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
-    const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
 
     const showapiKey = (apiKey: string) => {
         const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
@@ -32,7 +31,7 @@ const UsagePage: NextPage = () => {
 
     return (
         <Fragment>
-            <Show when={!usageDetails.isLoading && !pricingDetails.isLoading && !contractAddress.isLoading}>
+            <Show when={!usageDetails.isLoading && !contractAddress.isLoading}>
                 <div className='box'>
                     <p className='branding'>Usage<i className='fa-solid fa-chart-pie'></i></p>
                     <Show when={userState.apiKey.length > 0}>
@@ -49,24 +48,12 @@ const UsagePage: NextPage = () => {
                     </h4>
                     <Show when={userState.apiKey.length > 0}>
                         <p className='lead'><i className='fa-solid fa-star'></i>
-                            {usageDetails.data?.airlakeApiRequestCount} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.airlake} Airlake API Requests used
-                        </p>
-                        <p className='lead'><i className='fa-solid fa-star'></i>
-                            {usageDetails.data?.evolakeQueryCount} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.evolake} Evolake API Requests used
-                        </p>
-                        <p className='lead'><i className='fa-solid fa-star'></i>
-                            {usageDetails.data?.icelakeDocumentCount} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.icelake} Icelake API Requests used
-                        </p>
-                        <p className='lead'><i className='fa-solid fa-star'></i>
-                            {usageDetails.data?.snowlakePrototypeCount} /{pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.snowlake} Snowlake API Requests used
-                        </p>
-                        <p className='lead'><i className='fa-solid fa-star'></i>
-                            {usageDetails.data?.frostlakeAnalyticsCount} /{pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.frostlake} Frostlake API Requests used
+                            {usageDetails.data?.availableCredits}
                         </p>
                     </Show>
                 </div>
             </Show>
-            <Show when={usageDetails.isLoading || pricingDetails.isLoading || contractAddress.isLoading}>
+            <Show when={usageDetails.isLoading || contractAddress.isLoading}>
                 <Loading />
             </Show>
         </Fragment >

@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast'
 import Web3 from 'web3'
 
 const SnowlakeCreatePrototypePage: NextPage = () => {
-    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
+    const contractAddress = useFetch('getsecrets', endPoints.getSecrets, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [{ userState }] = useContext(AppContext)
     const [state, setState] = useState({ name: '', description: '', link: '', isLoading: false, apiKey: userState.apiKey })
