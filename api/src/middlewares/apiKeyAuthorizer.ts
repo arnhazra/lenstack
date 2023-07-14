@@ -1,11 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { statusMessages } from '../constants/statusMessages'
-import { subscriptionConfig } from '../../config/subscriptionConfig'
-import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
 import SubscriptionModel from '../models/SubscriptionModel'
-import EvolakeQueryModel from '../models/EvolakeQueryModel'
-import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
-import FrostlakeAnalyticsModel from '../models/FrostlakeAnalyticsModel'
+import { creditsCostConfig } from '../../config/creditsCostConfig'
 
 async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction) {
     const apiKeyFromParams = req.params.apiKey
@@ -32,102 +28,58 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
 
                 else {
                     if (req.originalUrl.includes('airlake')) {
-                        const documentCount = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
+                        const { availableCredits } = subscription
                         req.headers.id = subscription.owner.toString()
 
-                        if (subscription.selectedPlan === 'Standard') {
-                            if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.airlake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        if (availableCredits > creditsCostConfig.airlake) {
+                            await SubscriptionModel.findOneAndUpdate({ apiKey }, { availableCredits: availableCredits - creditsCostConfig.airlake })
+                            next()
                         }
 
-                        if (subscription.selectedPlan === 'Premium') {
-                            if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.airlake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        else {
+                            return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
                         }
                     }
 
                     if (req.originalUrl.includes('evolake')) {
-                        const documentCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
+                        const { availableCredits } = subscription
                         req.headers.id = subscription.owner.toString()
 
-                        if (subscription.selectedPlan === 'Standard') {
-                            if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.evolake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        if (availableCredits > creditsCostConfig.evolake) {
+                            await SubscriptionModel.findOneAndUpdate({ apiKey }, { availableCredits: availableCredits - creditsCostConfig.evolake })
+                            next()
                         }
 
-                        if (subscription.selectedPlan === 'Premium') {
-                            if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.evolake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        else {
+                            return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
                         }
                     }
 
                     if (req.originalUrl.includes('icelake')) {
-                        const documentCount = await IcelakeDocumentModel.find({ apiKey }).countDocuments()
+                        const { availableCredits } = subscription
                         req.headers.id = subscription.owner.toString()
 
-                        if (subscription.selectedPlan === 'Standard') {
-                            if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.icelake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        if (availableCredits > creditsCostConfig.icelake) {
+                            await SubscriptionModel.findOneAndUpdate({ apiKey }, { availableCredits: availableCredits - creditsCostConfig.icelake })
+                            next()
                         }
 
-                        if (subscription.selectedPlan === 'Premium') {
-                            if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.icelake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        else {
+                            return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
                         }
                     }
 
                     if (req.originalUrl.includes('frostlake')) {
-                        const documentCount = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments()
+                        const { availableCredits } = subscription
                         req.headers.id = subscription.owner.toString()
 
-                        if (subscription.selectedPlan === 'Standard') {
-                            if (documentCount < subscriptionConfig.standardSubscriptionConfig.requestLimit.frostlake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        if (availableCredits > creditsCostConfig.frostlake) {
+                            await SubscriptionModel.findOneAndUpdate({ apiKey }, { availableCredits: availableCredits - creditsCostConfig.frostlake })
+                            next()
                         }
 
-                        if (subscription.selectedPlan === 'Premium') {
-                            if (documentCount < subscriptionConfig.premiumSubscriptionConfig.requestLimit.frostlake) {
-                                next()
-                            }
-
-                            else {
-                                return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
-                            }
+                        else {
+                            return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
                         }
                     }
                 }

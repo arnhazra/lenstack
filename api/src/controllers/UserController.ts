@@ -154,8 +154,9 @@ export default class UserController {
         const owner = req.headers.id
 
         try {
+            const availableCredits = selectedPlan === 'Standard' ? 2000 : 6000
             const apiKey = 'ak-' + crypto.randomBytes(16).toString('hex')
-            const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+            const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId, availableCredits })
             await subscription.save()
             return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
         }
