@@ -2,11 +2,11 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "handler.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node build/main.js",
-    "dev": "npx ts-node-dev --respawn --transpile-only main.ts"
+    "start": "node build/handler.js",
+    "dev": "npx ts-node-dev --respawn --transpile-only handler.ts"
   },
   "keywords": [],
   "author": "",

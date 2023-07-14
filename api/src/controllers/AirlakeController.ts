@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import arraySort from 'array-sort'
 import { statusMessages } from '../constants/statusMessages'
 import AirlakeDatasetModel from '../models/AirlakeDatasetModel'
+import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
 
 export default class DatasetController {
     async getDatasetFilters(req: Request, res: Response) {
@@ -85,10 +86,22 @@ export default class DatasetController {
         try {
             const { datasetId, apiKey } = req.params
             const data = await AirlakeDatasetModel.findById(datasetId).select('data')
+            const airlakeHistoryReq = new AirlakeHistoryModel({ owner: req.headers.id as string, datasetId, apiKey })
+            await airlakeHistoryReq.save()
             return res.status(200).json({ data })
         }
 
         catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async getDatasetHistoryByUser(req: Request, res: Response) {
+        try {
+            const userId = req.headers.id as string
+            const datasetHistory = await AirlakeHistoryModel.find({ owner: userId }).sort({ crearedAt: -1 }).limit(10)
+            return res.status(200).json({ datasetHistory })
+        } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }

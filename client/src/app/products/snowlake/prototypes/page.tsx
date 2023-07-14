@@ -17,7 +17,7 @@ import HTTPMethods from '@/constants/httpMethods'
 import useFetch from '@/hooks/useFetch'
 
 const SnowlakePrototypes: NextPage = () => {
-    const contractAddress = useFetch('getsecrets', endPoints.getSecrets, HTTPMethods.POST)
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [{ userState }] = useContext(AppContext)
     const [prototypeList, setPrototypeList] = useState([])

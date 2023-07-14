@@ -14,7 +14,7 @@ import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/httpMethods'
 
 const IdentityPage: NextPage = () => {
-    const contractAddress = useFetch('getsecrets', endPoints.getSecrets, HTTPMethods.POST)
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [identityStep, setidentityStep] = useState(1)
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })
@@ -27,9 +27,9 @@ const IdentityPage: NextPage = () => {
     const requestAuthCode = async (event: any) => {
         event.preventDefault()
         setAlert(Constants.AuthMessage)
+        setLoading(true)
 
         try {
-            setLoading(true)
             const response = await axios.post(endPoints.requestAuthCodeEndpoint, state)
             if (response.data.newuser) {
                 const { privateKey } = web3Provider.eth.accounts.create()
@@ -42,13 +42,11 @@ const IdentityPage: NextPage = () => {
 
             toast.success(response.data.msg)
             setidentityStep(2)
+            setLoading(false)
         }
 
         catch (error) {
             toast.error(Constants.ConnectionErrorMessage)
-        }
-
-        finally {
             setLoading(false)
         }
     }
@@ -56,12 +54,13 @@ const IdentityPage: NextPage = () => {
     const verifyAuthcode = async (event: any) => {
         event.preventDefault()
         setAlert(Constants.AuthMessage)
+        setLoading(true)
 
         try {
-            setLoading(true)
             const response = await axios.post(endPoints.verifyAuthCodeEndpoint, state)
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
+            setLoading(false)
             if (nextRedirect) {
                 router.push(`/${nextRedirect.toString()}`)
             }
@@ -73,15 +72,13 @@ const IdentityPage: NextPage = () => {
         catch (error: any) {
             if (error.response) {
                 toast.error(error.response.data.msg)
+                setLoading(false)
             }
 
             else {
                 toast.error(Constants.ConnectionErrorMessage)
+                setLoading(false)
             }
-        }
-
-        finally {
-            setLoading(false)
         }
     }
 
@@ -90,7 +87,7 @@ const IdentityPage: NextPage = () => {
             <Show when={identityStep === 1}>
                 <form className='box' onSubmit={requestAuthCode}>
                     <p className='branding'>Identity</p>
-                    <p className='boxtext'>Enter your email address, it will be used as identity.</p>
+                    <p className='boxtext'>Enter the email address, it will be used as your identity.</p>
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel>

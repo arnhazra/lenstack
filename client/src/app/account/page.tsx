@@ -18,7 +18,7 @@ import HTTPMethods from '@/constants/httpMethods'
 
 const AccountPage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
-    const contractAddress = useFetch('getsecrets', endPoints.getSecrets, HTTPMethods.POST)
+    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [walletLoading, setWalletLoading] = useState(true)
     const [accountAddress, setAccountAddress] = useState('')

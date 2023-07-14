@@ -15,16 +15,11 @@ const SubscriptionSchema = new mongoose.Schema({
 
     apiKey: {
         type: String,
-        required: true
+        required: true,
     },
 
     tokenId: {
         type: String,
-        required: true
-    },
-
-    availableCredits: {
-        type: Number,
         required: true
     },
 

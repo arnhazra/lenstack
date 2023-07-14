@@ -1,9 +1,15 @@
 import { Request, Response } from 'express'
+import Web3 from 'web3'
 import { statusMessages } from '../constants/statusMessages'
 import { platformConfig } from '../../config/platformConfig'
-import { creditsCostConfig } from '../../config/creditsCostConfig'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
+import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
+import EvolakeQueryModel from '../models/EvolakeQueryModel'
+import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
 import SubscriptionModel from '../models/SubscriptionModel'
+import { otherConstants } from '../constants/otherConstants'
+import { prototypeABI } from '../bin/prototypeABI'
+import FrostlakeAnalyticsModel from '../models/FrostlakeAnalyticsModel'
 import { envConfig } from '../../config/envConfig'
 
 export default class CommonController {
@@ -17,9 +23,9 @@ export default class CommonController {
         }
     }
 
-    async getSubscriptionAndCostConfig(req: Request, res: Response) {
+    async getSubscriptionConfig(req: Request, res: Response) {
         try {
-            return res.status(200).json({ subscriptionConfig, creditsCostConfig })
+            return res.status(200).json(subscriptionConfig)
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
         }
@@ -27,12 +33,20 @@ export default class CommonController {
 
     async getUsageByApiKey(req: Request, res: Response) {
         try {
+            const infuraEndpoint = otherConstants.infuraEndpoint + '/' + envConfig.infuraApiKey
+            const web3Provider = new Web3(infuraEndpoint)
+            const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
             const userId = req.headers.id
             const subscription = await SubscriptionModel.findOne({ owner: userId })
 
             if (subscription) {
-                const { availableCredits } = subscription
-                return res.status(200).json({ availableCredits })
+                const { apiKey } = subscription
+                const airlakeApiRequestCount = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
+                const evolakeQueryCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
+                const icelakeDocumentCount = await IcelakeDocumentModel.find({ apiKey }).countDocuments()
+                const frostlakeAnalyticsCount = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments()
+                const snowlakePrototypeCount = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call())
+                return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount, frostlakeAnalyticsCount })
             }
 
             else {
@@ -43,7 +57,7 @@ export default class CommonController {
         }
     }
 
-    async getSecrets(req: Request, res: Response) {
+    async getContractAddresses(req: Request, res: Response) {
         try {
             const { tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress, infuraApiKey } = envConfig
             return res.status(200).json({ tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress, infuraApiKey })

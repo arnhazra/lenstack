@@ -46,7 +46,7 @@ jobs:
 
       - name: Cleanup
         run: |
-          cd .vercel/output/functions/dist/main.js.func/dist
+          cd .vercel/output/functions/dist/handler.js.func/dist
           npm uninstall @types/express @types/node nodemon typescript @types/cors @types/jsonwebtoken @types/nodemailer concurrently
 
       - name: Deploy Project Artifacts to Vercel

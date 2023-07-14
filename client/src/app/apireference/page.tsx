@@ -22,9 +22,9 @@ const APIReferencePage: NextPage = () => {
                     <p className='lead'>Request Body</p>
                     <p>
                         &#123;<br />
-                        &nbsp;&nbsp;&nbsp;"selectedDb": "YOUR_DB_TYPE",<br />
-                        &nbsp;&nbsp;&nbsp;"userQuery": "YOUR_QUERY_IN_GENERAL",<br />
-                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
+                        &nbsp;&nbsp;&nbsp;'selectedDb': 'YOUR_DB_TYPE',<br />
+                        &nbsp;&nbsp;&nbsp;'userQuery': 'YOUR_QUERY_IN_GENERAL',<br />
+                        &nbsp;&nbsp;&nbsp;'apiKey': 'YOUR_API_KEY'<br />
                         &#125;
                     </p>
                 </SourceCode>
@@ -37,9 +37,9 @@ const APIReferencePage: NextPage = () => {
                     <p className='lead'>Request Body</p>
                     <p>
                         &#123;<br />
-                        &nbsp;&nbsp;&nbsp;"title": "YOUR_DOCUMENT_NAME",<br />
-                        &nbsp;&nbsp;&nbsp;"content": "YOUR_DOC_CONVERTED_IN_BASE64_FORMAT",<br />
-                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
+                        &nbsp;&nbsp;&nbsp;'title': 'YOUR_DOCUMENT_NAME',<br />
+                        &nbsp;&nbsp;&nbsp;'content': 'YOUR_DOC_CONVERTED_IN_BASE64_FORMAT',<br />
+                        &nbsp;&nbsp;&nbsp;'apiKey': 'YOUR_API_KEY'<br />
                         &#125;
                     </p>
                 </SourceCode>
@@ -52,12 +52,12 @@ const APIReferencePage: NextPage = () => {
                     <p className='lead'>Request Body</p>
                     <p>
                         &#123;<br />
-                        &nbsp;&nbsp;&nbsp;"project": "YOUR_PROJECT_NAME",<br />
-                        &nbsp;&nbsp;&nbsp;"component": "YOUR_COMPONENT_NAME",<br />
-                        &nbsp;&nbsp;&nbsp;"event": "JAVASCRIPT_EVENT",<br />
-                        &nbsp;&nbsp;&nbsp;"info": "INFORMATION",<br />
-                        &nbsp;&nbsp;&nbsp;"statusCode": "HTTP_STATUS_CODE",<br />
-                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
+                        &nbsp;&nbsp;&nbsp;'project': 'YOUR_PROJECT_NAME',<br />
+                        &nbsp;&nbsp;&nbsp;'component': 'YOUR_COMPONENT_NAME',<br />
+                        &nbsp;&nbsp;&nbsp;'event': 'JAVASCRIPT_EVENT',<br />
+                        &nbsp;&nbsp;&nbsp;'info': 'INFORMATION',<br />
+                        &nbsp;&nbsp;&nbsp;'statusCode': 'HTTP_STATUS_CODE',<br />
+                        &nbsp;&nbsp;&nbsp;'apiKey': 'YOUR_API_KEY'<br />
                         &#125;
                     </p>
                 </SourceCode>

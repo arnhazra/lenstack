@@ -14,7 +14,7 @@ import Loading from '@/components/Loading'
 
 const SubscribePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
-    const pricingDetails = useFetch('pricing', endPoints.getSubscriptionAndCostConfigEndpoint, HTTPMethods.POST)
+    const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
     const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
@@ -22,11 +22,11 @@ const SubscribePage: NextPage = () => {
 
     useEffect(() => {
         if (selectedPlan === 'Standard') {
-            setPlanPrice(pricingDetails.data?.subscriptionConfig?.standardSubscriptionConfig?.price)
+            setPlanPrice(pricingDetails.data?.standardSubscriptionConfig?.price)
         }
 
         if (selectedPlan === 'Premium') {
-            setPlanPrice(pricingDetails.data?.subscriptionConfig?.premiumSubscriptionConfig?.price)
+            setPlanPrice(pricingDetails.data?.premiumSubscriptionConfig?.price)
         }
     }, [selectedPlan, pricingDetails.data])
 
@@ -49,23 +49,21 @@ const SubscribePage: NextPage = () => {
                     </ButtonGroup>
                     <div className='plans mt-2'>
                         <Show when={selectedPlan === 'Standard'}>
-                            <p className='text-center'><i className='fa-brands fa-ethereum'></i>{planPrice} MATIC/month</p>
-                            <p className='branding text-center'>{pricingDetails.data?.subscriptionConfig?.standardSubscriptionConfig?.grantedCredits} CREDITS</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.airlake} / Airlake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.evolake} / Evolake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.icelake} / Icelake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.snowlake} / Snowlake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.frostlake} / Frostlake API Requests</p>
+                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.standardSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className='fa-solid fa-circle-plus'></i></Button>
                         </Show>
                         <Show when={selectedPlan === 'Premium'}>
-                            <p className='text-center'><i className='fa-brands fa-ethereum'></i>{planPrice} MATIC/month</p>
-                            <p className='branding text-center'>{pricingDetails.data?.subscriptionConfig?.premiumSubscriptionConfig?.grantedCredits} CREDITS</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.airlake} / Airlake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.evolake} / Evolake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.icelake} / Icelake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.snowlake} / Snowlake API Requests</p>
-                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.creditsCostConfig?.frostlake} / Frostlake API Requests</p>
+                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.airlake} Airlake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.evolake} Evolake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.icelake} Icelake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.snowlake} Snowlake API Requests</p>
+                            <p className='lead'><i className='fa-solid fa-star'></i>{pricingDetails.data?.premiumSubscriptionConfig?.requestLimit?.frostlake} Frostlake API Requests</p>
                             <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className='fa-solid fa-circle-plus'></i></Button>
                         </Show>
                     </div>
