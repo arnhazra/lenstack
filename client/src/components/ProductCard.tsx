@@ -3,7 +3,7 @@ import { Button, Card, Col } from 'react-bootstrap'
 import { ProductCardProps } from '@/types/Types'
 import { useRouter } from 'next/navigation'
 
-const ProductCard: FC<ProductCardProps> = ({ productName, description, url, productAvailable }) => {
+const ProductCard: FC<ProductCardProps> = ({ productName, description, url, productAvailable, dbRegion }) => {
     const router = useRouter()
 
     const redirectToProduct = () => {
@@ -21,7 +21,7 @@ const ProductCard: FC<ProductCardProps> = ({ productName, description, url, prod
                 <Card.Footer className={`pt-4 pb-2 ps-4 ${productName.toLowerCase()}Color product-card-footer`}>
                     <p className='branding product-name'>{productName}</p>
                     <p className='smalltext'>{description}</p>
-                    <Button className='tag-chip mb-3'>{productAvailable ? 'Available' : 'Under Maintenance'}</Button>
+                    <Button className='tag-chip mb-3'>{dbRegion}</Button>
                 </Card.Footer>
             </Card>
         </Col>

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { frostlakeDb } from '../utils/dbConnect'
 
 const FrostlakeAnalyticsSchema = new mongoose.Schema({
     owner: {
@@ -42,6 +43,6 @@ const FrostlakeAnalyticsSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const FrostlakeAnalyticsModel = mongoose.model('frostlakeanalytics', FrostlakeAnalyticsSchema)
+const FrostlakeAnalyticsModel = frostlakeDb.model('frostlakeanalytics', FrostlakeAnalyticsSchema)
 
 export default FrostlakeAnalyticsModel

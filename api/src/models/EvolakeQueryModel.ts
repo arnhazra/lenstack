@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { evolakeDb, mainLenstackDb } from '../utils/dbConnect'
 
 const EvolakeQuerySchema = new mongoose.Schema({
     owner: {
@@ -27,6 +28,6 @@ const EvolakeQuerySchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const EvolakeQueryModel = mongoose.model('evolakequery', EvolakeQuerySchema)
+const EvolakeQueryModel = evolakeDb.model('evolakequery', EvolakeQuerySchema)
 
 export default EvolakeQueryModel

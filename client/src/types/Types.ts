@@ -43,7 +43,8 @@ export type ProductCardProps = {
     productName: string,
     description: string,
     url: string,
-    productAvailable: boolean
+    productAvailable: boolean,
+    dbRegion: string
 }
 
 export type DocDetails = {

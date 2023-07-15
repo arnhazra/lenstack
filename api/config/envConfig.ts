@@ -3,7 +3,11 @@ config({ path: '../.env' })
 
 export const envConfig = {
     apiPort: process.env.API_PORT,
-    mongoUri: process.env.MONGO_URI,
+    mainLenstackMongoUri: process.env.MAIN_LENSTACK_MONGO_URI,
+    airlakeMongoUri: process.env.AIRLAKE_MONGO_URI,
+    icelakeMongoUri: process.env.ICELAKE_MONGO_URI,
+    frostlakeMongoUri: process.env.FROSTLAKE_MONGO_URI,
+    evolakeMongoUri: process.env.EVOLAKE_MONGO_URI,
     redisUri: process.env.REDIS_URI,
     openAIApiKey: process.env.OPENAI_API_KEY,
     infuraApiKey: process.env.INFURA_API_KEY,

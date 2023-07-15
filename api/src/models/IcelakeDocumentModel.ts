@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { icelakeDb } from '../utils/dbConnect'
 
 const IcelakeDocumentSchema = new mongoose.Schema({
     owner: {
@@ -27,6 +28,6 @@ const IcelakeDocumentSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const IcelakeDocumentModel = mongoose.model('icelakedocument', IcelakeDocumentSchema)
+const IcelakeDocumentModel = icelakeDb.model('icelakedocument', IcelakeDocumentSchema)
 
 export default IcelakeDocumentModel
