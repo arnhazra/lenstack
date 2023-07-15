@@ -2,7 +2,7 @@
 
 ### Introduction
 
-Lenstack is not just a standalone application; it serves as a comprehensive platform hosting multiple Software-as-a-Service (SaaS) applications. In technical terms, Lenstack can be considered a Platform-as-a-Service (PaaS). Let's explore the various applications hosted within Lenstack:
+Lenstack is not just a standalone application; it serves as a comprehensive platform hosting multiple Software-as-a-Service (SaaS) applications. In technical terms, Lenstack can be considered a Platform-as-a-Service (PaaS). All the apps are in different databases in different regions coupled together under this platform. Let's explore the various applications hosted within Lenstack:
 
 #### Airlake
 An open-source application designed for effortless discovery, subscription, and utilization of third-party cloud data.
