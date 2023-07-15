@@ -63,7 +63,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                         <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
                         <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
                     </Button>
-                    <Show when={dbQuery.length > 0}>
+                    <Show when={!!dbQuery}>
                         <SourceCode copyBtn>
                             {dbQuery}
                         </SourceCode>

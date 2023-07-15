@@ -4,7 +4,6 @@ import { Fragment, useContext, useEffect, useState } from 'react'
 import { AppContext } from '@/context/appStateProvider'
 import Show from '@/components/Show'
 import SubscribeModal from '@/components/SubscribeModal'
-import UnsubscribeModal from '@/components/UnsubscribeModal'
 import withAuth from '@/utils/withAuth'
 import { NextPage } from 'next'
 import useFetch from '@/hooks/useFetch'
@@ -17,7 +16,6 @@ const SubscribePage: NextPage = () => {
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
     const [selectedPlan, setSelectedPlan] = useState('Standard')
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
-    const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
     const [planPrice, setPlanPrice] = useState('')
 
     useEffect(() => {
@@ -32,10 +30,6 @@ const SubscribePage: NextPage = () => {
 
     const hideSubscribeModal = () => {
         setSubscribeModalOpened(false)
-    }
-
-    const hideUnsubscribeModal = () => {
-        setUnsubscribeModalOpened(false)
     }
 
     return (
@@ -67,12 +61,8 @@ const SubscribePage: NextPage = () => {
                             <Button className='btn-block' disabled={!!userState.apiKey} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className='fa-solid fa-circle-plus'></i></Button>
                         </Show>
                     </div>
-                    <Show when={!!userState.apiKey}>
-                        <p className='lead-link' onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription</p>
-                    </Show>
                 </div>
                 <SubscribeModal price={Number(planPrice) * 10000} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} selectedPlan={selectedPlan} />
-                <UnsubscribeModal tokenId={userState.tokenId} refundAmount={Number(0.2) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
             </Show>
             <Show when={pricingDetails.isLoading}>
                 <Loading />
