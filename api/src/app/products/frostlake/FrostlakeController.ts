@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { statusMessages } from '../constants/statusMessages'
-import FrostlakeAnalyticsModel from '../models/FrostlakeAnalyticsModel'
+import { statusMessages } from '../../../constants/statusMessages'
+import FrostlakeAnalyticsModel from './FrostlakeAnalyticsModel'
 
 export default class FrostlakeController {
     async createAnalytics(req: Request, res: Response) {

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import arraySort from 'array-sort'
-import { statusMessages } from '../constants/statusMessages'
-import AirlakeDatasetModel from '../models/AirlakeDatasetModel'
-import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
+import { statusMessages } from '../../../constants/statusMessages'
+import AirlakeDatasetModel from './AirlakeDatasetModel'
+import AirlakeHistoryModel from './AirlakeHistoryModel'
 
 export default class DatasetController {
     async getDatasetFilters(req: Request, res: Response) {

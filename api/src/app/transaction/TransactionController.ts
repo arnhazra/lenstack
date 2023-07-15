@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import { statusMessages } from '../constants/statusMessages'
-import TransactionModel from '../models/TransactionModel'
+import { statusMessages } from '../../constants/statusMessages'
+import TransactionModel from './TransactionModel'
 
 export default class TransactionController {
     async createTransaction(req: Request, res: Response) {

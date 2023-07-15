@@ -1,23 +1,28 @@
 import mongoose from 'mongoose'
-import { icelakeDb } from '../utils/dbConnect'
+import { mainLenstackDb } from '../../utils/dbConnect'
 
-const IcelakeDocumentSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
 
-    title: {
+    transactionType: {
         type: String,
         required: true
     },
 
-    content: {
+    fromAddress: {
         type: String,
         required: true
     },
 
-    apiKey: {
+    ethAmount: {
+        type: String,
+        required: true
+    },
+
+    txHash: {
         type: String,
         required: true
     },
@@ -28,6 +33,6 @@ const IcelakeDocumentSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const IcelakeDocumentModel = icelakeDb.model('icelakedocument', IcelakeDocumentSchema)
+const TransactionModel = mainLenstackDb.model('transaction', TransactionSchema)
 
-export default IcelakeDocumentModel
+export default TransactionModel

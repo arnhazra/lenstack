@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import CommonController from '../controllers/CommonController'
-import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
+import CommonController from './CommonController'
+import { tokenAuthorizer } from '../../middlewares/tokenAuthorizer'
 
 export default class CommonRouter {
     public router: Router

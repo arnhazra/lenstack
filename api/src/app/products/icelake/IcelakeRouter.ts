@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
-import IcelakeController from '../controllers/IcelakeController'
-import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
-import { apiKeyAuthorizer } from '../middlewares/apiKeyAuthorizer'
+import IcelakeController from './IcelakeController'
+import { tokenAuthorizer } from '../../../middlewares/tokenAuthorizer'
+import { apiKeyAuthorizer } from '../../../middlewares/apiKeyAuthorizer'
 
 export default class IcelakeRouter {
     public router: Router

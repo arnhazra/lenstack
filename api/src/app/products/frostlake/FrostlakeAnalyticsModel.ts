@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { frostlakeDb } from '../utils/dbConnect'
+import { frostlakeDb } from '../../../utils/dbConnect'
 
 const FrostlakeAnalyticsSchema = new mongoose.Schema({
     owner: {

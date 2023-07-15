@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
-import EvolakeController from '../controllers/EvolakeController'
-import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
-import { apiKeyAuthorizer } from '../middlewares/apiKeyAuthorizer'
+import EvolakeController from './EvolakeController'
+import { tokenAuthorizer } from '../../../middlewares/tokenAuthorizer'
+import { apiKeyAuthorizer } from '../../../middlewares/apiKeyAuthorizer'
 
 export default class EvolakeRouter {
     public router: Router

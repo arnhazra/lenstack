@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { airlakeDb } from '../utils/dbConnect'
+import { airlakeDb } from '../../../utils/dbConnect'
 
 const AirlakeDatasetSchema = new mongoose.Schema({
     name: {

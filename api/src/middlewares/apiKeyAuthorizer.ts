@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import { statusMessages } from '../constants/statusMessages'
 import { subscriptionConfig } from '../../config/subscriptionConfig'
-import AirlakeHistoryModel from '../models/AirlakeHistoryModel'
-import SubscriptionModel from '../models/SubscriptionModel'
-import EvolakeQueryModel from '../models/EvolakeQueryModel'
-import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
-import FrostlakeAnalyticsModel from '../models/FrostlakeAnalyticsModel'
+import AirlakeHistoryModel from '../app/products/airlake/AirlakeHistoryModel'
+import SubscriptionModel from '../app/user/SubscriptionModel'
+import EvolakeQueryModel from '../app/products/evolake/EvolakeQueryModel'
+import IcelakeDocumentModel from '../app/products/icelake/IcelakeDocumentModel'
+import FrostlakeAnalyticsModel from '../app/products/frostlake/FrostlakeAnalyticsModel'
 
 async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction) {
     const apiKeyFromParams = req.params.apiKey

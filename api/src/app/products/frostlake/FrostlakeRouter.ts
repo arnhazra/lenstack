@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
-import FrostlakeController from '../controllers/FrostlakeController'
-import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
-import { apiKeyAuthorizer } from '../middlewares/apiKeyAuthorizer'
+import FrostlakeController from './FrostlakeController'
+import { tokenAuthorizer } from '../../../middlewares/tokenAuthorizer'
+import { apiKeyAuthorizer } from '../../../middlewares/apiKeyAuthorizer'
 
 export default class FrostlakeRouter {
     public router: Router

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { statusMessages } from '../constants/statusMessages'
-import IcelakeDocumentModel from '../models/IcelakeDocumentModel'
+import { statusMessages } from '../../../constants/statusMessages'
+import IcelakeDocumentModel from './IcelakeDocumentModel'
 
 export default class IcelakeController {
     async createDocument(req: Request, res: Response) {

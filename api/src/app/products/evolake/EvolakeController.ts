@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { Configuration, OpenAIApi } from 'openai'
-import { envConfig } from '../../config/envConfig'
-import { statusMessages } from '../constants/statusMessages'
-import EvolakeQueryModel from '../models/EvolakeQueryModel'
+import { envConfig } from '../../../../config/envConfig'
+import { statusMessages } from '../../../constants/statusMessages'
+import EvolakeQueryModel from './EvolakeQueryModel'
 
 export default class EvolakeController {
     async getDatabaseList(req: Request, res: Response) {

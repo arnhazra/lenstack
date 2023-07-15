@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
-import TransactionController from '../controllers/TransactionController'
+import { tokenAuthorizer } from '../../middlewares/tokenAuthorizer'
+import TransactionController from './TransactionController'
 
 export default class TransactionRouter {
     public router: Router

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { mainLenstackDb } from '../utils/dbConnect'
+import { mainLenstackDb } from '../../utils/dbConnect'
 
 const SubscriptionSchema = new mongoose.Schema({
     owner: {

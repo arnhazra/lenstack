@@ -1,7 +1,7 @@
 import express, { Router } from 'express'
-import AirlakeController from '../controllers/AirlakeController'
-import { tokenAuthorizer } from '../middlewares/tokenAuthorizer'
-import { apiKeyAuthorizer } from '../middlewares/apiKeyAuthorizer'
+import AirlakeController from './AirlakeController'
+import { tokenAuthorizer } from '../../../middlewares/tokenAuthorizer'
+import { apiKeyAuthorizer } from '../../../middlewares/apiKeyAuthorizer'
 
 export default class AirlakeRouter {
     public router: Router

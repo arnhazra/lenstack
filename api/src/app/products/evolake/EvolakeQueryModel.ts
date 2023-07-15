@@ -1,13 +1,18 @@
 import mongoose from 'mongoose'
-import { airlakeDb } from '../utils/dbConnect'
+import { evolakeDb, mainLenstackDb } from '../../../utils/dbConnect'
 
-const AirlakeHistorySchema = new mongoose.Schema({
+const EvolakeQuerySchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
 
-    datasetId: {
+    query: {
+        type: String,
+        required: true
+    },
+
+    response: {
         type: String,
         required: true
     },
@@ -23,6 +28,6 @@ const AirlakeHistorySchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const AirlakeHistoryModel = airlakeDb.model('airlakehistory', AirlakeHistorySchema)
+const EvolakeQueryModel = evolakeDb.model('evolakequery', EvolakeQuerySchema)
 
-export default AirlakeHistoryModel
+export default EvolakeQueryModel
