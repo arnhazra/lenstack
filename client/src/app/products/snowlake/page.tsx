@@ -26,7 +26,6 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
         try {
             const remainingCredits = pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits - usageDetails.data?.usedCredits
             if (remainingCredits > 0) {
-                console.log(remainingCredits)
                 setUserEligible(true)
             }
             else {

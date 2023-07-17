@@ -20,7 +20,6 @@ export default class IcelakeController {
     async getAllDocuments(req: Request, res: Response) {
         try {
             const userId = req.headers.id as string
-            console.log(userId)
             const documents = await IcelakeDocumentModel.find({ owner: userId }).select('-content').sort({ createdAt: -1 })
             return res.status(200).json({ documents })
         }

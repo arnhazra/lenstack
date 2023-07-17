@@ -37,7 +37,6 @@ const SnowlakePrototypes: NextPage = () => {
 
                 try {
                     const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner().call({ from: owner })
-                    console.log(getPrototypesByOwnerData)
                     setPrototypeList(getPrototypesByOwnerData)
                 }
 
