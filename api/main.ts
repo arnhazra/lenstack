@@ -37,13 +37,9 @@ app.use('/api/products/frostlake', frostlakeRouter.getRouter())
 
 
 if (envConfig.nodeEnv === 'production') {
-    const cacheControl = 'public, max-age=31536000'
+    const cacheControl = 'public, max-age=3600'
     function setCustomCacheControl(res: Response, path: string) {
-        if (express.static.mime.lookup(path) === 'text/html') {
-            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-        } else {
-            res.setHeader('Cache-Control', cacheControl)
-        }
+        res.setHeader('Cache-Control', cacheControl)
     }
 
     app.use(express.static(path.join(__dirname, 'client'), { maxAge: 60000, setHeaders: setCustomCacheControl }))
