@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Web3 from 'web3'
 import { statusMessages } from '../../constants/statusMessages'
 import { platformConfig } from '../../../config/platformConfig'
-import { subscriptionConfig } from '../../../config/subscriptionConfig'
+import { apiPricing, subscriptionConfig } from '../../../config/subscriptionConfig'
 import AirlakeHistoryModel from '../products/airlake/AirlakeHistoryModel'
 import EvolakeQueryModel from '../products/evolake/EvolakeQueryModel'
 import IcelakeDocumentModel from '../products/icelake/IcelakeDocumentModel'
@@ -41,12 +41,13 @@ export default class CommonController {
 
             if (subscription) {
                 const { apiKey } = subscription
-                const airlakeApiRequestCount = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
-                const evolakeQueryCount = await EvolakeQueryModel.find({ apiKey }).countDocuments()
-                const icelakeDocumentCount = await IcelakeDocumentModel.find({ apiKey }).countDocuments()
-                const frostlakeAnalyticsCount = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments()
-                const snowlakePrototypeCount = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call())
-                return res.status(200).json({ airlakeApiRequestCount, evolakeQueryCount, icelakeDocumentCount, snowlakePrototypeCount, frostlakeAnalyticsCount })
+                const airlakeUsedCredits = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
+                const evolakeUsedCredits = await EvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
+                const icelakeUsedCredits = await IcelakeDocumentModel.find({ apiKey }).countDocuments() * apiPricing.icelake
+                const frostlakeUsedCredits = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
+                const snowlakeUsedCredits = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
+                const usedCredits = airlakeUsedCredits + evolakeUsedCredits + icelakeUsedCredits + frostlakeUsedCredits + snowlakeUsedCredits
+                return res.status(200).json({ usedCredits })
             }
 
             else {

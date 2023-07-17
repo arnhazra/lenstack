@@ -1,22 +1,22 @@
 export const subscriptionConfig = {
+    trialSubscriptionConfig: {
+        price: 0,
+        grantedCredits: 1000
+    },
     standardSubscriptionConfig: {
         price: 0.19,
-        requestLimit: {
-            airlake: 10000,
-            evolake: 20,
-            icelake: 20,
-            snowlake: 100,
-            frostlake: 3000
-        }
+        grantedCredits: 5000
     },
     premiumSubscriptionConfig: {
         price: 0.49,
-        requestLimit: {
-            airlake: 30000,
-            evolake: 60,
-            icelake: 50,
-            snowlake: 300,
-            frostlake: 10000
-        }
+        grantedCredits: 15000
     }
+}
+
+export const apiPricing = {
+    airlake: 1,
+    evolake: 150,
+    icelake: 100,
+    snowlake: 50,
+    frostlake: 1
 }

@@ -24,8 +24,9 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
 
     useEffect(() => {
         try {
-            const remainingCount = pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.requestLimit?.snowlake - usageDetails.data?.snowlakePrototypeCount
-            if (remainingCount > 0) {
+            const remainingCredits = pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits - usageDetails.data?.usedCredits
+            if (remainingCredits > 0) {
+                console.log(remainingCredits)
                 setUserEligible(true)
             }
             else {
@@ -34,7 +35,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
         } catch (error) {
             setUserEligible(false)
         }
-    }, [userState, usageDetails, pricingDetails])
+    }, [userState, usageDetails.data, pricingDetails.data])
 
     const createPrototype = async (e: any) => {
         e.preventDefault()

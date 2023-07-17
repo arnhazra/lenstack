@@ -4,7 +4,8 @@ import { frostlakeDb } from '../../../utils/dbConnect'
 const FrostlakeAnalyticsSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        required: true
     },
 
     project: {
