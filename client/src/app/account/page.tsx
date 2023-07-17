@@ -80,7 +80,7 @@ const AccountPage: NextPage = () => {
                     <h4 className='text-center'>Hello, {userState.name.split(' ')[0]}</h4>
                     <p className='lead pt-2 text-center' title={accountAddress}>Wallet Address - {showWalletAddress(accountAddress)}<i className='fa-solid fa-copy' onClick={copyWalletAddress}></i></p>
                     <h2 className='pb-3 text-center color-amount'>
-                        <i className='fa-brands fa-ethereum'></i>{Number(maticBalance).toFixed(2)} MATIC
+                        <i className='fa-solid fa-wallet'></i>{Number(maticBalance).toFixed(2)} MATIC
                     </h2>
                     <Link className='btn btn-block' passHref href={'https://faucet.polygon.technology/'} target='_blank'>Fund my wallet<i className='fa-solid fa-square-arrow-up-right'></i></Link>
                     <Button className='btn-block mb-4' onClick={signOutFromThisDevice}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></Button>

@@ -24,11 +24,11 @@ const PricingPage: NextPage = () => {
                     </ButtonGroup>
                     <div className='plans mt-2'>
                         <Show when={selectedPlan === 'Standard'}>
-                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
+                            <p className='branding text-center'><i className='fa-solid fa-wallet'></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
                             <p className='branding text-center'><i className='fa-solid fa-coins'></i>{pricingDetails.data?.standardSubscriptionConfig?.grantedCredits} Credits</p>
                         </Show>
                         <Show when={selectedPlan === 'Premium'}>
-                            <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
+                            <p className='branding text-center'><i className='fa-solid fa-wallet'></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
                             <p className='branding text-center'><i className='fa-solid fa-coins'></i>{pricingDetails.data?.premiumSubscriptionConfig?.grantedCredits} Credits</p>
                         </Show>
                     </div>

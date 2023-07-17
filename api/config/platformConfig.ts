@@ -8,10 +8,10 @@ export const platformConfig = [
     },
     {
         productName: 'icelake',
-        description: 'An open-souce application that offers users a secure storage solution for files and data.',
+        description: 'An open-souce application that offers users a secure scalable and economic storage solution for files and data.',
         url: '/products/icelake',
         productAvailable: true,
-        dbRegion: 'MongoDB GCP Asia-South1'
+        dbRegion: 'MongoDB GCP AP-South-1'
     },
     {
         productName: 'evolake',
@@ -32,6 +32,6 @@ export const platformConfig = [
         description: 'An open-source analytics provider for web applications. It empowers you to make informed analysis.',
         url: '/products/frostlake',
         productAvailable: true,
-        dbRegion: 'MongoDB Azure Centralindia'
+        dbRegion: 'MongoDB Azure CIN'
     },
 ]

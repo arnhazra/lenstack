@@ -3,7 +3,7 @@ enum Constants {
     HomeHeader2 = `and explore backed`,
     HomeHeader3 = `by Blockchain`,
     HomeIntro1 = `Envision and create intelligent apps`,
-    HomeIntro2 = `with the latest technologies announced at Lenstack`,
+    HomeIntro2 = `Start with 1 month free trial, upgrade on demand`,
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Authenticating`,
     ErrorMessage = '404, Lost',

@@ -2,7 +2,7 @@
 import { Fragment } from 'react'
 import endPoints from '@/constants/apiEndpoints'
 import Show from '@/components/Show'
-import { Button, Container, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import Loading from '@/components/Loading'
 import useFetchRealtime from '@/hooks/useFetchRealtime'
 import HTTPMethods from '@/constants/httpMethods'

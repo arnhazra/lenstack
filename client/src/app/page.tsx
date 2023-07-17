@@ -20,7 +20,7 @@ const HomePage: NextPage = () => {
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2} <br />
 					</p>
-					<Link href='/identity' className='btn'>Get Started<i className='fa-solid fa-circle-arrow-right'></i></Link>
+					<Link href='/identity' className='btn'>Start Free<i className='fa-solid fa-circle-arrow-right'></i></Link>
 				</div>
 			</ContainerComp>
 		</Fragment>

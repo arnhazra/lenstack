@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { evolakeDb, mainLenstackDb } from '../../../utils/dbConnect'
+import { evolakeDb } from '../../../utils/dbConnect'
 
 const EvolakeQuerySchema = new mongoose.Schema({
     owner: {

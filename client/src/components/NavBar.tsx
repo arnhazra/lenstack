@@ -46,7 +46,7 @@ const NavBar: FC = () => {
                             <Nav className='ms-auto'>
                                 <Link href='/pricing'><Navbar.Brand>Pricing</Navbar.Brand></Link>
                                 <Link target='_blank' passHref rel='noopener noreferrer' href='https://www.linkedin.com/in/arnhazra/'><Navbar.Brand>Developer</Navbar.Brand></Link>
-                                <Link href='/identity'><Navbar.Brand>Get Started</Navbar.Brand></Link>
+                                <Link href='/identity'><Navbar.Brand>Start Free</Navbar.Brand></Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
