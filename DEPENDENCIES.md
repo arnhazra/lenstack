@@ -26,5 +26,5 @@
 * react-hot-toast - Simple and customizable toast messages for React.
 * react-simple-star-rating - Rating component for React.
 * sass - CSS preprocessor that adds power and elegance to traditional CSS.
-* typescript - Typed superset of JavaScript that compiles to plain JavaScript.
+* typescript - Typed superset of JavaScript that compiles to plain JavaScript and helps maintaining type safe code.
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
