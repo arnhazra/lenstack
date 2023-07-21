@@ -23,7 +23,7 @@ jobs:
 
       - name: Move client build output to server dist directory
         run: |
-          mv client/out dist/client
+          mv client/out dist
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
