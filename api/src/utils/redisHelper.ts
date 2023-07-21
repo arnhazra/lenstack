@@ -2,7 +2,13 @@ import { createClient } from 'redis'
 import { statusMessages } from '../constants/statusMessages'
 import { envConfig } from '../../config/envConfig'
 
-const redis = createClient({ url: envConfig.redisUri })
+const redis = createClient({
+    password: envConfig.redisPassword,
+    socket: {
+        host: envConfig.redisSocketHost,
+        port: Number(envConfig.redisPort)
+    }
+})
 
 const connectRedis = async () => {
     try {
