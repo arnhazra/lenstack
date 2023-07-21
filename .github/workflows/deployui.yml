@@ -1,4 +1,7 @@
-name: Vercel Deploy
+name: Lenstack UI PROD Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 on:
   push:
@@ -16,7 +19,7 @@ jobs:
       - name: Install Node.js and npm
         uses: actions/setup-node@v2
         with:
-          node-version: '18' # Adjust the version to match your Next.js app's requirements
+          node-version: '18'
 
       - name: Install Vercel CLI
         run: npm install --global vercel
@@ -31,4 +34,4 @@ jobs:
           CI=false npm run build
 
       - name: Deploy to Vercel
-        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --scope client # Use the --scope flag to specify the client directory
+        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
