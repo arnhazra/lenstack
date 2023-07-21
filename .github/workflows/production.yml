@@ -1,14 +1,13 @@
-name: Lenstack API PROD Deployment
+name: Lenstack PROD Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_API_PROJECT_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
   push:
     branches:
       - main
-
 jobs:
-  Deploy-API:
+  Deploy-Production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +20,12 @@ jobs:
           npm install
           CI=false npm run build
 
+      - name: Build client application
+        working-directory: client
+        run: |
+          npm install
+          CI=false npm run build
+
       - name: Copy Dependencies to build
         run: |
           cp -r api/package.json api/build
@@ -28,6 +33,10 @@ jobs:
       - name: Move API build output to server dist directory
         run: |
           mv api/build dist
+
+      - name: Move client build output to server dist directory
+        run: |
+          mv client/out dist/client
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
