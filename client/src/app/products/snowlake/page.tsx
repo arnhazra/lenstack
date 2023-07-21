@@ -24,8 +24,8 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
 
     useEffect(() => {
         try {
-            const remainingCredits = pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits - usageDetails.data?.usedCredits
-            if (remainingCredits > 0) {
+            const remainingTokens = pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens - usageDetails.data?.usedTokens
+            if (remainingTokens > 0) {
                 setUserEligible(true)
             }
             else {

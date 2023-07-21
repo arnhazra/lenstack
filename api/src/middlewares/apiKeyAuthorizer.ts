@@ -38,15 +38,15 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
                 }
 
                 else {
-                    const airlakeUsedCredits = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
-                    const evolakeUsedCredits = await EvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
-                    const icelakeUsedCredits = await IcelakeDocumentModel.find({ apiKey }).countDocuments() * apiPricing.icelake
-                    const frostlakeUsedCredits = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
-                    const snowlakeUsedCredits = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
-                    const usedCredits = airlakeUsedCredits + evolakeUsedCredits + icelakeUsedCredits + frostlakeUsedCredits + snowlakeUsedCredits
+                    const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
+                    const evolakeUsedTokens = await EvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
+                    const icelakeUsedTokens = await IcelakeDocumentModel.find({ apiKey }).countDocuments() * apiPricing.icelake
+                    const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
+                    const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
+                    const usedTokens = airlakeUsedTokens + evolakeUsedTokens + icelakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens
                     req.headers.id = subscription.owner.toString()
 
-                    if (usedCredits < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedCredits) {
+                    if (usedTokens < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedTokens) {
                         next()
                     }
 

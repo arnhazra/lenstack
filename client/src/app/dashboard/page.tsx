@@ -21,6 +21,7 @@ const DashboardPage: NextPage = () => {
         <Fragment>
             <Show when={!products.isLoading}>
                 <Container>
+                    <h4 className='dashboard-header'>Welcome to Lenstack!</h4>
                     <Row className='mb-4'>
                         {productsToDisplay}
                     </Row>

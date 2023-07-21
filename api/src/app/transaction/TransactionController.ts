@@ -28,7 +28,7 @@ export default class TransactionController {
 
     async getTransactions(req: Request, res: Response) {
         try {
-            const transactions = await TransactionModel.find({ owner: req.headers.id }).sort({ createdAt: -1 }).limit(3)
+            const transactions = await TransactionModel.find({ owner: req.headers.id }).sort({ createdAt: -1 }).limit(10)
             return res.status(200).json({ transactions })
         }
 

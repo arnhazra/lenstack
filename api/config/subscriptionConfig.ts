@@ -1,15 +1,15 @@
 export const subscriptionConfig = {
     trialSubscriptionConfig: {
         price: 0,
-        grantedCredits: 1000
+        grantedTokens: 1000
     },
     standardSubscriptionConfig: {
         price: 0.19,
-        grantedCredits: 5000
+        grantedTokens: 5000
     },
     premiumSubscriptionConfig: {
         price: 0.49,
-        grantedCredits: 15000
+        grantedTokens: 15000
     }
 }
 
