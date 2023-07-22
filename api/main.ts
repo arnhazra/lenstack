@@ -3,7 +3,6 @@ import cors from 'cors'
 import path from 'path'
 import { envConfig } from './config/envConfig'
 import { dbConnect } from './src/utils/dbConnect'
-import { connectRedis } from './src/utils/redisHelper'
 import UserRouter from './src/app/user/UserRouter'
 import TransactionRouter from './src/app/transaction/TransactionRouter'
 import AirlakeRouter from './src/app/products/airlake/AirlakeRouter'
@@ -25,7 +24,6 @@ app.listen(envConfig.apiPort)
 app.use(cors())
 app.use(express.json({ limit: '3mb' }))
 dbConnect()
-connectRedis()
 
 app.use('/api/user', userRouter.getRouter())
 app.use('/api/transaction', transactionRouter.getRouter())

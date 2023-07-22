@@ -1,23 +1,12 @@
-import { createClient } from 'redis'
+import Redis from 'ioredis'
 import { statusMessages } from '../constants/statusMessages'
 import { envConfig } from '../../config/envConfig'
 
-const redis = createClient({
+const redis = new Redis({
+    port: Number(envConfig.redisPort),
+    host: envConfig.redisSocketHost,
     password: envConfig.redisPassword,
-    socket: {
-        host: envConfig.redisSocketHost,
-        port: Number(envConfig.redisPort)
-    }
 })
-
-const connectRedis = async () => {
-    try {
-        await redis.connect()
-        console.log(statusMessages.redisConnected)
-    } catch (error) {
-        console.log(statusMessages.connectionError)
-    }
-}
 
 const setTokenInRedis = async (userId: string, accessToken: string) => {
     const response = await redis.set(userId, accessToken)
@@ -34,4 +23,4 @@ const removeTokenFromRedis = async (userId: string) => {
     return response
 }
 
-export { getTokenFromRedis, removeTokenFromRedis, connectRedis, setTokenInRedis }
+export { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis }

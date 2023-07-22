@@ -5,7 +5,9 @@ const nextConfig = {
         unoptimized: true
     },
     output: 'export',
-    trailingSlash: true
+    trailingSlash: true,
+    swcMinify: false,
+    optimizeFonts: false,
 }
 
 module.exports = nextConfig

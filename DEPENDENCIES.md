@@ -12,7 +12,7 @@
 * nodemailer - Sends email from Node.js.
 * openai - Official openai library for interacting with GPT models.
 * otp-without-db - Generates and verifies one-time passwords (OTPs) without a database.
-* redis - In-memory data store for caching and session management.
+* ioredis - In-memory data store for caching and session management.
 * ts-node-dev - Dev server for typsecript express app.
 * @tanstack/react-query - Query client for react data fetching.
 * axios - Promise-based HTTP client for the browser and Node.js.

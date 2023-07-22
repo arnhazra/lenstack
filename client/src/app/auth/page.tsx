@@ -13,10 +13,10 @@ import withoutAuth from '@/utils/withoutAuth'
 import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/httpMethods'
 
-const IdentityPage: NextPage = () => {
+const AuthPage: NextPage = () => {
     const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
-    const [identityStep, setidentityStep] = useState(1)
+    const [authStep, setAuthStep] = useState(1)
     const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })
     const [alert, setAlert] = useState('')
     const [isLoading, setLoading] = useState(false)
@@ -41,7 +41,7 @@ const IdentityPage: NextPage = () => {
             }
 
             toast.success(response.data.msg)
-            setidentityStep(2)
+            setAuthStep(2)
             setLoading(false)
         }
 
@@ -84,10 +84,10 @@ const IdentityPage: NextPage = () => {
 
     return (
         <Fragment>
-            <Show when={identityStep === 1}>
+            <Show when={authStep === 1}>
                 <form className='box' onSubmit={requestAuthCode}>
-                    <p className='branding'>Identity</p>
-                    <p className='boxtext'>Enter the email address, it will be used as your identity.</p>
+                    <p className='branding'>Auth</p>
+                    <p className='boxtext'>Enter the email address, it will be used as your auth.</p>
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel>
@@ -97,9 +97,9 @@ const IdentityPage: NextPage = () => {
                     </Button>
                 </form>
             </Show>
-            <Show when={identityStep === 2}>
+            <Show when={authStep === 2}>
                 <form className='box' onSubmit={verifyAuthcode}>
-                    <p className='branding'>Identity</p>
+                    <p className='branding'>Auth</p>
                     <p className='boxtext'>Please verify your identity by entering the verification code we sent to your inbox.</p>
                     <Show when={state.newuser}>
                         <FloatingLabel controlId='floatingName' label='Your Name'>
@@ -119,4 +119,4 @@ const IdentityPage: NextPage = () => {
     )
 }
 
-export default withoutAuth(IdentityPage)
+export default withoutAuth(AuthPage)
