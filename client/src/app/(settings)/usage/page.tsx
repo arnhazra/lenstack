@@ -23,6 +23,8 @@ const UsagePage: NextPage = () => {
     const usageDetails = useFetchRealtime('usage', endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
     const pricingDetails = useFetch('pricing', endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
 
+    const usedTokens = usageDetails.data?.usedTokens > pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens ? pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens : usageDetails.data?.usedTokens
+
     const showapiKey = (apiKey: string) => {
         const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
         return displayapiKey
@@ -56,7 +58,7 @@ const UsagePage: NextPage = () => {
                     </h4>
                     <Show when={!!userState.apiKey}>
                         <p className='branding'>
-                            {usageDetails.data?.usedTokens} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens} Tokens used
+                            {usedTokens} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens} Tokens used
                         </p>
                         <Button className='btn-block' disabled={userState.selectedPlan === 'Trial'} onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription<i className='fa-solid fa-circle-arrow-right'></i></Button>
                     </Show>
