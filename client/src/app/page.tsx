@@ -22,7 +22,7 @@ const HomePage: NextPage = () => {
 						{Constants.HomeIntro3} <br />
 						{Constants.HomeIntro4} <br />
 					</p>
-					<Link href='/auth' className='btn'>Start Free<i className='fa-solid fa-circle-arrow-right'></i></Link>
+					<Link href='/auth' className='btn'>Try Free<i className='fa-solid fa-circle-arrow-right'></i></Link>
 				</div>
 			</ContainerComp>
 		</Fragment>

@@ -8,12 +8,14 @@ import useFetchRealtime from '@/hooks/useFetchRealtime'
 import withAuth from '@/utils/withAuth'
 import axios from 'axios'
 import moment from 'moment'
-import { useRouter } from 'next/navigation'
+import { NextPage } from 'next'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Fragment } from 'react'
 import { Button, Container, Table } from 'react-bootstrap'
 
-function FrostlakeViewProjectPage({ params }: { params: { slug: string } }) {
-    const projectId = params.slug
+const FrostlakeViewProjectPage: NextPage = () => {
+    const searchParams = useSearchParams()
+    const projectId = searchParams.get('id')
     const project = useFetchRealtime('view project', endPoints.frostlakeViewProjectEndpoint, HTTPMethods.POST, { projectId })
     const router = useRouter()
 

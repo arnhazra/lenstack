@@ -13,9 +13,12 @@ import Error from '@/components/ErrorComp'
 import { AppContext } from '@/context/appStateProvider'
 import withAuth from '@/utils/withAuth'
 import appConstants from '@/constants/appConstants'
+import { useSearchParams } from 'next/navigation'
+import { NextPage } from 'next'
 
-function AirlakeViewDatasetPage({ params }: { params: { slug: string } }) {
-    const datasetId = params.slug
+const AirlakeViewDatasetPage: NextPage = () => {
+    const searchParams = useSearchParams()
+    const datasetId = searchParams.get('id')
     const [{ userState }] = useContext(AppContext)
     const dataset = useFetch('view dataset', endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.airlakeFindSimilarDatasetsEndpoint, HTTPMethods.POST, { datasetId })
