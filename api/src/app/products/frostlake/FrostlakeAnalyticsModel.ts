@@ -8,8 +8,9 @@ const FrostlakeAnalyticsSchema = new mongoose.Schema({
         required: true
     },
 
-    project: {
-        type: String,
+    projectId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'frostlakeproject',
         required: true
     },
 

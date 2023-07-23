@@ -11,14 +11,11 @@ import useFetch from '@/hooks/useFetch'
 import HTTPMethods from '@/constants/httpMethods'
 import Error from '@/components/ErrorComp'
 import { AppContext } from '@/context/appStateProvider'
-import { useSearchParams } from 'next/navigation'
 import withAuth from '@/utils/withAuth'
-import { NextPage } from 'next'
 import appConstants from '@/constants/appConstants'
 
-const AirlakeViewDatasetPage: NextPage = () => {
-    const searchParams = useSearchParams()
-    const datasetId = searchParams.get('id')
+function AirlakeViewDatasetPage({ params }: { params: { slug: string } }) {
+    const datasetId = params.slug
     const [{ userState }] = useContext(AppContext)
     const dataset = useFetch('view dataset', endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch('similar datasets', endPoints.airlakeFindSimilarDatasetsEndpoint, HTTPMethods.POST, { datasetId })

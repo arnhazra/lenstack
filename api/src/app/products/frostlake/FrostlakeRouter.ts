@@ -14,8 +14,11 @@ export default class FrostlakeRouter {
     }
 
     registerRoutes() {
+        this.router.post('/createproject', tokenAuthorizer, this.frostlakeController.createProject.bind(this.frostlakeController))
+        this.router.post('/getprojects', tokenAuthorizer, this.frostlakeController.getProjects.bind(this.frostlakeController))
+        this.router.post('/viewproject', tokenAuthorizer, this.frostlakeController.viewProject.bind(this.frostlakeController))
+        this.router.delete('/deleteproject/:id', tokenAuthorizer, this.frostlakeController.deleteProject.bind(this.frostlakeController))
         this.router.post('/createanalytics', apiKeyAuthorizer, this.frostlakeController.createAnalytics.bind(this.frostlakeController))
-        this.router.post('/getanalytics', tokenAuthorizer, this.frostlakeController.getAnalytics.bind(this.frostlakeController))
     }
 
     getRouter() {

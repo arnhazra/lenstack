@@ -1,0 +1,39 @@
+$mainColor: #1a1a1f
+$white: #ffffff
+
+.project-card
+    background: transparent
+    color: $white
+    border-radius: 0.8rem !important
+    border: none
+    animation: transitionIn 0.4s forwards
+    cursor: pointer
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+
+.project-card-header
+    border-radius: 0.8rem 0.8rem 0 0 !important
+    border: none !important
+    text-align: center
+    padding: 0 !important
+
+.project-card-footer
+    border-radius: 0 0 0.8rem 0.8rem !important
+    border: none !important
+
+.project-card-body
+    border: none !important
+
+@mixin categoryContainer
+    height: 6rem
+    width: 100%
+    border-radius: 0.8rem 0.8rem 0 0
+    transition: transform 0.5s ease
+    background-size: cover
+    background-position: center
+
+.projectContainer
+    background: linear-gradient(to top, #193248ff, #19324800), url(../assets/images/project.jpg)
+    @include categoryContainer
+
+.projectColor
+    background: #193248 !important

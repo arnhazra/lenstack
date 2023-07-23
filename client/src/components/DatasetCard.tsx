@@ -8,7 +8,7 @@ import Link from 'next/link'
 const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, rating }) => {
     return (
         <Col xs={6} sm={6} md={4} lg={4} xl={2} className='mb-4'>
-            <Link href={`/products/airlake/viewdataset?id=${id}`}>
+            <Link href={`/products/airlake/viewdataset/${id}`}>
                 <Card className='dataset-card'>
                     <Card.Header className='pt-3 dataset-card-header'>
                         <div className={`${category?.toLowerCase()}Container pt-4`} />

@@ -1,66 +1,49 @@
 "use client"
-import { Fragment } from 'react'
-import endPoints from '@/constants/apiEndpoints'
 import Show from '@/components/Show'
-import { Container, Table } from 'react-bootstrap'
-import Loading from '@/components/Loading'
-import useFetchRealtime from '@/hooks/useFetchRealtime'
-import HTTPMethods from '@/constants/httpMethods'
-import moment from 'moment'
+import endPoints from '@/constants/apiEndpoints'
 import withAuth from '@/utils/withAuth'
+import axios from 'axios'
 import { NextPage } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { Button, FloatingLabel, Form } from 'react-bootstrap'
+import { toast } from 'react-hot-toast'
 
-const FrostlakeAnalyticsPage: NextPage = () => {
-    const analytics = useFetchRealtime('analytics', endPoints.frostlakeGetAnalyticsEndpoint, HTTPMethods.POST)
+const FrostlakeCreateProjectPage: NextPage = () => {
+    const [state, setState] = useState({ name: '', isLoading: false })
+    const router = useRouter()
 
-    const analyticsToDisplay = analytics?.data?.analyticsArray?.map((ant: any) => {
-        return (
-            <tr key={ant._id}>
-                <td>{ant.project}</td>
-                <td>{ant.component}</td>
-                <td>{ant.event}</td>
-                <td>{ant.info}</td>
-                <td>{ant.statusCode}</td>
-                <td>{moment(ant.createdAt).format('MMM, Do YYYY, h:mm a')}</td>
-            </tr>
-        )
-    })
+    const createProject = async (e: any) => {
+        e.preventDefault()
+        setState({ ...state, isLoading: true })
+
+        try {
+            const { name } = state
+            const response = await axios.post(endPoints.frostlakeCreateProjectEndpoint, { name })
+            toast.success('Project Created')
+            router.push(`/products/frostlake/viewproject/${response.data.project._id}`)
+        }
+
+        catch (error: any) {
+            setState({ ...state, isLoading: false })
+            toast.error('Unable to create project')
+        }
+    }
 
     return (
-        <Fragment>
-            <Show when={!analytics.isLoading}>
-                <Container>
-                    <Show when={analytics?.data?.analyticsArray?.length > 0}>
-                        <h4 className='text-white text-center'>Analytics</h4>
-                        <Table responsive hover variant='light'>
-                            <thead>
-                                <tr>
-                                    <th>Project</th>
-                                    <th>Component</th>
-                                    <th>Event</th>
-                                    <th>Info</th>
-                                    <th>Status Code</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {analyticsToDisplay}
-                            </tbody>
-                        </Table>
-                    </Show>
-                    <Show when={analytics?.data?.analyticsArray?.length === 0}>
-                        <div className='box'>
-                            <p className='branding'>Analytics <i className='fa-solid fa-database'></i></p>
-                            <p className='lead'>No Analytics to display</p>
-                        </div>
-                    </Show>
-                </Container>
-            </Show>
-            <Show when={analytics.isLoading}>
-                <Loading />
-            </Show>
-        </Fragment>
+        <form className='box' onSubmit={createProject}>
+            <p className='branding'>Create Project</p>
+            <FloatingLabel controlId='floatingtext' label='Project Name'>
+                <Form.Control disabled={state.isLoading} type='text' placeholder='Project Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={20} />
+            </FloatingLabel>
+            <Button type='submit' disabled={state.isLoading} className='mt-3 btn-block'>
+                <Show when={!state.isLoading}>Create Project <i className='fa-solid fa-circle-arrow-right'></i></Show>
+                <Show when={state.isLoading}><i className='fas fa-circle-notch fa-spin'></i> Creating Project</Show>
+            </Button>
+            <Link href={'/products/frostlake/projects'} className='lead-link'>View My Projects</Link>
+        </form>
     )
 }
 
-export default withAuth(FrostlakeAnalyticsPage)
+export default withAuth(FrostlakeCreateProjectPage)

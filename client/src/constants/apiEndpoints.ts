@@ -33,7 +33,10 @@ const endPoints = {
     snowlakeGetAllPrototypesEndpoint: `${apiHost}/api/products/snowlake/getallprototypes`,
     snowlakeViewPrototypeEndpoint: `${apiHost}/api/products/snowlake/viewprototype`,
     snowlakeDeletePrototypeEndpoint: `${apiHost}/api/products/snowlake/deleteprototype`,
-    frostlakeGetAnalyticsEndpoint: `${apiHost}/api/products/frostlake/getanalytics`,
+    frostlakeCreateProjectEndpoint: `${apiHost}/api/products/frostlake/createproject`,
+    frostlakeGetProjectsEndpoint: `${apiHost}/api/products/frostlake/getprojects`,
+    frostlakeViewProjectEndpoint: `${apiHost}/api/products/frostlake/viewproject`,
+    frostlakeDeleteProjectEndpoint: `${apiHost}/api/products/frostlake/deleteproject`,
     frostlakeCreateAnalyticsEndpoint: `${apiHost}/api/products/frostlake/createanalytics`
 }
 

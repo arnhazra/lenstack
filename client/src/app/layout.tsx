@@ -1,10 +1,10 @@
 "use client"
 import axios from 'axios'
 import AppStateProvider from '@/context/appStateProvider'
-import ReactQueryProvider from '@/utils/ReactQueryProvider'
 import { Toaster } from 'react-hot-toast'
 import { Tilt_Neon } from 'next/font/google'
 import Header from '@/components/Header'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/global.sass'
 import '@/styles/navbar.sass'
@@ -13,6 +13,7 @@ import '@/styles/form.sass'
 import '@/styles/icons.sass'
 import '@/styles/productcard.sass'
 import '@/styles/datasetcard.sass'
+import '@/styles/projectcard.sass'
 import '@/styles/sourcecode.sass'
 
 const tiltNeon = Tilt_Neon({ subsets: ['latin'] })
@@ -25,6 +26,8 @@ axios.interceptors.request.use((request) => {
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+	const client = new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
+
 	return (
 		<html lang="en">
 			<head>
@@ -35,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css' />
 			</head>
 			<body className={tiltNeon.className}>
-				<ReactQueryProvider>
+				<QueryClientProvider client={client}>
 					<AppStateProvider>
 						<nav className={`header`}>
 							<Header />
@@ -45,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 							<Toaster position='bottom-right' containerClassName='toaster' />
 						</main>
 					</AppStateProvider>
-				</ReactQueryProvider>
+				</QueryClientProvider>
 			</body>
 		</html>
 	)
