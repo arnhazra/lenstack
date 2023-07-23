@@ -19,6 +19,8 @@ const HomePage: NextPage = () => {
 					<p className='lead my-4'>
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2} <br />
+						{Constants.HomeIntro3} <br />
+						{Constants.HomeIntro4} <br />
 					</p>
 					<Link href='/auth' className='btn'>Start Free<i className='fa-solid fa-circle-arrow-right'></i></Link>
 				</div>

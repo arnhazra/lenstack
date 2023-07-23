@@ -5,7 +5,7 @@ import Show from './Show'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
-const NavBar: FC = () => {
+const Header: FC = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const pathname = usePathname()
 
@@ -56,4 +56,4 @@ const NavBar: FC = () => {
     )
 }
 
-export default NavBar
+export default Header

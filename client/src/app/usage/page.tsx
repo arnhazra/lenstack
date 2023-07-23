@@ -56,7 +56,7 @@ const UsagePage: NextPage = () => {
                     </h4>
                     <Show when={!!userState.apiKey}>
                         <p className='branding'>
-                            {usageDetails.data?.usedCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits} Credits used
+                            {usageDetails.data?.usedTokens} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens} Tokens used
                         </p>
                         <Button className='btn-block' disabled={userState.selectedPlan === 'Trial'} onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription<i className='fa-solid fa-circle-arrow-right'></i></Button>
                     </Show>

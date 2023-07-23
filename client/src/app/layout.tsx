@@ -4,7 +4,7 @@ import AppStateProvider from '@/context/appStateProvider'
 import ReactQueryProvider from '@/utils/ReactQueryProvider'
 import { Toaster } from 'react-hot-toast'
 import { Tilt_Neon } from 'next/font/google'
-import NavBar from '@/components/NavBar'
+import Header from '@/components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/global.sass'
 import '@/styles/navbar.sass'
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<ReactQueryProvider>
 					<AppStateProvider>
 						<nav className={`header`}>
-							<NavBar />
+							<Header />
 						</nav>
 						<main className='mt-2'>
 							{children}
