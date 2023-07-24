@@ -160,6 +160,7 @@ export default class UserController {
         const owner = req.headers.id
 
         try {
+            await SubscriptionModel.findOneAndDelete({ owner })
             const apiKey = 'ak-' + crypto.randomBytes(16).toString('hex')
             const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
             await subscription.save()
