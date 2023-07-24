@@ -38,6 +38,11 @@ jobs:
         run: |
           mv client/out dist/client
 
+      - name: Remove all junk files
+        working-directory: dist
+        run: |
+          find . -name "index.txt" -type f -delete
+
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
