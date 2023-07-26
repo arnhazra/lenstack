@@ -1,6 +1,6 @@
-import nodemailer from 'nodemailer'
-import { google } from 'googleapis'
-import { envConfig } from '../../config/envConfig'
+import nodemailer from "nodemailer"
+import { google } from "googleapis"
+import { envConfig } from "../../config/envConfig"
 
 const { clientId, clientSecret, redirectUri, refreshToken, mailerEmail } = envConfig
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
@@ -11,16 +11,16 @@ async function sendEmail(email: string, otp: number) {
         const accessToken = await oAuth2Client.getAccessToken()
 
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: "smtp.gmail.com",
             port: 465,
             secure: true,
             auth: {
-                type: 'OAuth2',
+                type: "OAuth2",
                 user: mailerEmail,
                 accessToken: accessToken.token,
             }
         })
-        const subject = 'Lenstack Verification Code'
+        const subject = "Lenstack Verification Code"
         const content = `Use <b>${otp}</b> as your Lenstack Verification Code. Do not share with anyone.`
         await transporter.sendMail({ from: mailerEmail, to: email, subject: subject, html: content })
     }

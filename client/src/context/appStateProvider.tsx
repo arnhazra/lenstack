@@ -1,29 +1,29 @@
 "use client"
-import { FC, ReactNode, createContext, useCallback, useMemo, useReducer } from 'react'
-import { AppState, Actions, ActionsMap, AppReducer } from './appReducer'
+import { FC, ReactNode, createContext, useCallback, useMemo, useReducer } from "react"
+import { AppState, Actions, ActionsMap, AppReducer } from "./appReducer"
 
-export type Dispatcher = <Type extends Actions['type'], Payload extends ActionsMap[Type]>(type: Type,
+export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsMap[Type]>(type: Type,
     ...payload: Payload extends undefined ? [undefined?] : [Payload]) => void
 
 type AppContextInterface = readonly [AppState, Dispatcher]
 
 const initialState = {
     userState: {
-        userid: '',
-        name: '',
-        privateKey: '',
-        email: '',
-        role: '',
-        selectedPlan: 'No Subscription',
-        apiKey: '',
-        tokenId: '',
-        subscriptionValidUpto: ''
+        userid: "",
+        name: "",
+        privateKey: "",
+        email: "",
+        role: "",
+        selectedPlan: "No Subscription",
+        apiKey: "",
+        tokenId: "",
+        subscriptionValidUpto: ""
     },
 
     datasetRequestState: {
-        searchQuery: '',
-        selectedFilter: 'All',
-        selectedSortOption: 'name',
+        searchQuery: "",
+        selectedFilter: "All",
+        selectedSortOption: "name",
         offset: 0
     }
 }

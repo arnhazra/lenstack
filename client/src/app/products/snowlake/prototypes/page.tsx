@@ -1,23 +1,23 @@
 "use client"
-import Loading from '@/components/Loading'
-import Show from '@/components/Show'
-import endPoints from '@/constants/apiEndpoints'
-import withAuth from '@/utils/withAuth'
-import Web3 from 'web3'
-import { NextPage } from 'next'
-import Link from 'next/link'
-import { Fragment, useContext, useEffect, useState } from 'react'
-import { Button, Container, Table } from 'react-bootstrap'
-import { toast } from 'react-hot-toast'
-import { AppContext } from '@/context/appStateProvider'
-import { prototypeABI } from '@/bin/prototypeABI'
-import moment from 'moment'
-import ArchiveModal from '@/components/ArchiveModal'
-import HTTPMethods from '@/constants/httpMethods'
-import useFetch from '@/hooks/useFetch'
+import Loading from "@/components/Loading"
+import Show from "@/components/Show"
+import endPoints from "@/constants/apiEndpoints"
+import withAuth from "@/utils/withAuth"
+import Web3 from "web3"
+import { NextPage } from "next"
+import Link from "next/link"
+import { Fragment, useContext, useEffect, useState } from "react"
+import { Button, Container, Table } from "react-bootstrap"
+import { toast } from "react-hot-toast"
+import { AppContext } from "@/context/appStateProvider"
+import { prototypeABI } from "@/bin/prototypeABI"
+import moment from "moment"
+import ArchiveModal from "@/components/ArchiveModal"
+import HTTPMethods from "@/constants/httpMethods"
+import useFetch from "@/hooks/useFetch"
 
 const SnowlakePrototypes: NextPage = () => {
-    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
+    const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [{ userState }] = useContext(AppContext)
     const [prototypeList, setPrototypeList] = useState([])
@@ -25,7 +25,7 @@ const SnowlakePrototypes: NextPage = () => {
     const [isArchiveModalOpened, setArchiveModalOpened] = useState(false)
     const [isArchiveProcessing, setArchiveProcessing] = useState(false)
     const [archiveId, setArchiveId] = useState(0)
-    const [refreshId, setRefreshId] = useState('')
+    const [refreshId, setRefreshId] = useState("")
 
     useEffect(() => {
         (async () => {
@@ -41,7 +41,7 @@ const SnowlakePrototypes: NextPage = () => {
                 }
 
                 catch (error: any) {
-                    toast.error('Could not get the list')
+                    toast.error("Could not get the list")
                 }
 
                 finally {
@@ -70,12 +70,12 @@ const SnowlakePrototypes: NextPage = () => {
             if (signedArchiveTx.rawTransaction) {
                 await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
             }
-            toast.success('Prototype archived')
+            toast.success("Prototype archived")
             setRefreshId(Math.random().toString())
         }
 
         catch (error) {
-            toast.error('Could not archive this prototype')
+            toast.error("Could not archive this prototype")
         }
 
         finally {
@@ -87,11 +87,11 @@ const SnowlakePrototypes: NextPage = () => {
     const prototypesToDisplay = prototypeList?.map((prototype: any) => {
         return (
             <tr key={prototype.id}>
-                <td><i className='fa-solid fa-file'></i> {prototype.name}</td>
+                <td><i className="fa-solid fa-file"></i> {prototype.name}</td>
                 <td>{prototype.description}</td>
-                <td>{moment(Number(prototype.createdAt) * 1000).format('MMM, Do YYYY, h:mm a')}</td>
-                <td><Link href={`${prototype.link}`} passHref target='_blank'><i className='fa-solid fa-square-arrow-up-right'></i></Link></td>
-                <td><i className='fa-solid fa-archive' onClick={() => { setArchiveModalOpened(true); setArchiveId(prototype.id) }}></i></td>
+                <td>{moment(Number(prototype.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}</td>
+                <td><Link href={`${prototype.link}`} passHref target="_blank"><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
+                <td><i className="fa-solid fa-archive" onClick={() => { setArchiveModalOpened(true); setArchiveId(prototype.id) }}></i></td>
             </tr>
         )
     })
@@ -101,8 +101,8 @@ const SnowlakePrototypes: NextPage = () => {
             <Show when={!isLoading && !contractAddress.isLoading}>
                 <Container>
                     <Show when={prototypeList.length > 0}>
-                        <h4 className='text-white text-center'>Prototypes</h4>
-                        <Table responsive hover variant='light'>
+                        <h4 className="text-white text-center">Prototypes</h4>
+                        <Table responsive hover variant="light">
                             <thead>
                                 <tr>
                                     <th>Prototype Name</th>
@@ -118,9 +118,9 @@ const SnowlakePrototypes: NextPage = () => {
                         </Table>
                     </Show>
                     <Show when={prototypeList.length === 0}>
-                        <div className='box'>
-                            <p className='branding'>Prototypes<i className='fa-solid fa-file'></i></p>
-                            <p className='lead'>No Prototypes to display</p>
+                        <div className="box">
+                            <p className="branding">Prototypes<i className="fa-solid fa-file"></i></p>
+                            <p className="lead">No Prototypes to display</p>
                         </div>
                     </Show>
                 </Container>

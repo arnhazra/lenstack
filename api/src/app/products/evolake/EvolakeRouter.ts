@@ -1,7 +1,7 @@
-import express, { Router } from 'express'
-import EvolakeController from './EvolakeController'
-import { tokenAuthorizer } from '../../../middlewares/tokenAuthorizer'
-import { apiKeyAuthorizer } from '../../../middlewares/apiKeyAuthorizer'
+import express, { Router } from "express"
+import EvolakeController from "./EvolakeController"
+import { tokenAuthorizer } from "../../../middlewares/tokenAuthorizer"
+import { apiKeyAuthorizer } from "../../../middlewares/apiKeyAuthorizer"
 
 export default class EvolakeRouter {
     public router: Router
@@ -14,9 +14,9 @@ export default class EvolakeRouter {
     }
 
     registerRoutes() {
-        this.router.post('/getdblist', tokenAuthorizer, this.evolakeController.getDatabaseList.bind(this.evolakeController))
-        this.router.post('/generatequery', apiKeyAuthorizer, this.evolakeController.generateQuery.bind(this.evolakeController))
-        this.router.post('/getqueryhistory', tokenAuthorizer, this.evolakeController.getQueryHistoryByUser.bind(this.evolakeController))
+        this.router.post("/getdblist", tokenAuthorizer, this.evolakeController.getDatabaseList.bind(this.evolakeController))
+        this.router.post("/generatequery", apiKeyAuthorizer, this.evolakeController.generateQuery.bind(this.evolakeController))
+        this.router.post("/getqueryhistory", tokenAuthorizer, this.evolakeController.getQueryHistoryByUser.bind(this.evolakeController))
     }
 
     getRouter() {

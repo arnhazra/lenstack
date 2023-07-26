@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import { mainLenstackDb } from '../../utils/dbConnect'
+import mongoose from "mongoose"
+import { mainLenstackDb } from "../../utils/dbConnect"
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
 
     role: {
         type: String,
-        default: 'user'
+        default: "user"
     },
 
     privateKey: {
@@ -29,6 +29,6 @@ const UserSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const UserModel = mainLenstackDb.model('user', UserSchema)
+const UserModel = mainLenstackDb.model("user", UserSchema)
 
 export default UserModel

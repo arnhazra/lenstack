@@ -1,28 +1,28 @@
 "use client"
-import { Fragment, useState } from 'react'
-import axios from 'axios'
-import Web3 from 'web3'
-import { Button, FloatingLabel, Form } from 'react-bootstrap'
-import Constants from '@/constants/appConstants'
-import Show from '@/components/Show'
-import endPoints from '@/constants/apiEndpoints'
-import { toast } from 'react-hot-toast'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { NextPage } from 'next'
-import withoutAuth from '@/utils/withoutAuth'
-import useFetch from '@/hooks/useFetch'
-import HTTPMethods from '@/constants/httpMethods'
+import { Fragment, useState } from "react"
+import axios from "axios"
+import Web3 from "web3"
+import { Button, FloatingLabel, Form } from "react-bootstrap"
+import Constants from "@/constants/appConstants"
+import Show from "@/components/Show"
+import endPoints from "@/constants/apiEndpoints"
+import { toast } from "react-hot-toast"
+import { useRouter, useSearchParams } from "next/navigation"
+import { NextPage } from "next"
+import withoutAuth from "@/utils/withoutAuth"
+import useFetch from "@/hooks/useFetch"
+import HTTPMethods from "@/constants/httpMethods"
 
 const AuthPage: NextPage = () => {
-    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
+    const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [authStep, setAuthStep] = useState(1)
-    const [state, setState] = useState({ name: '', email: '', hash: '', otp: '', privateKey: '', newuser: false })
-    const [alert, setAlert] = useState('')
+    const [state, setState] = useState({ name: "", email: "", hash: "", otp: "", privateKey: "", newuser: false })
+    const [alert, setAlert] = useState("")
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
     const searchParams = useSearchParams()
-    const nextRedirect = searchParams.get('nextRedirect')
+    const nextRedirect = searchParams.get("nextRedirect")
 
     const requestAuthCode = async (event: any) => {
         event.preventDefault()
@@ -58,14 +58,14 @@ const AuthPage: NextPage = () => {
 
         try {
             const response = await axios.post(endPoints.verifyAuthCodeEndpoint, state)
-            localStorage.setItem('accessToken', response.data.accessToken)
-            toast.success('Successfully authenticated')
+            localStorage.setItem("accessToken", response.data.accessToken)
+            toast.success("Successfully authenticated")
             setLoading(false)
             if (nextRedirect) {
                 router.push(`/${nextRedirect.toString()}`)
             }
             else {
-                router.push('/dashboard')
+                router.push("/dashboard")
             }
         }
 
@@ -85,33 +85,33 @@ const AuthPage: NextPage = () => {
     return (
         <Fragment>
             <Show when={authStep === 1}>
-                <form className='box' onSubmit={requestAuthCode}>
-                    <p className='branding'>Auth</p>
-                    <p className='boxtext'>Enter the email address, it will be used as your auth.</p>
-                    <FloatingLabel controlId='floatingEmail' label='Your Email'>
-                        <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
+                <form className="box" onSubmit={requestAuthCode}>
+                    <p className="branding">Auth</p>
+                    <p className="boxtext">Enter the email address, it will be used as your auth.</p>
+                    <FloatingLabel controlId="floatingEmail" label="Your Email">
+                        <Form.Control disabled={isLoading} autoFocus type="email" placeholder="Your Email" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
                     </FloatingLabel>
-                    <Button type='submit' disabled={isLoading} className='mt-4 btn-block'>
-                        <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
-                        <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
+                    <Button type="submit" disabled={isLoading} className="mt-4 btn-block">
+                        <Show when={!isLoading}>Continue <i className="fa-solid fa-circle-arrow-right"></i></Show>
+                        <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
                     </Button>
                 </form>
             </Show>
             <Show when={authStep === 2}>
-                <form className='box' onSubmit={verifyAuthcode}>
-                    <p className='branding'>Auth</p>
-                    <p className='boxtext'>Please verify your identity by entering the verification code we sent to your inbox.</p>
+                <form className="box" onSubmit={verifyAuthcode}>
+                    <p className="branding">Auth</p>
+                    <p className="boxtext">Please verify your identity by entering the verification code we sent to your inbox.</p>
                     <Show when={state.newuser}>
-                        <FloatingLabel controlId='floatingName' label='Your Name'>
-                            <Form.Control type='text' disabled={isLoading} placeholder='Your Name' onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={'off'} minLength={3} maxLength={40} />
+                        <FloatingLabel controlId="floatingName" label="Your Name">
+                            <Form.Control type="text" disabled={isLoading} placeholder="Your Name" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={3} maxLength={40} />
                         </FloatingLabel>
                     </Show>
-                    <FloatingLabel controlId='floatingPassword' label='Enter Verification Code' className='mt-3'>
-                        <Form.Control type='password' disabled={isLoading} name='otp' placeholder='Enter Verification Code' onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={'off'} minLength={6} maxLength={6} />
+                    <FloatingLabel controlId="floatingPassword" label="Enter Verification Code" className="mt-3">
+                        <Form.Control type="password" disabled={isLoading} name="otp" placeholder="Enter Verification Code" onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={"off"} minLength={6} maxLength={6} />
                     </FloatingLabel>
-                    <Button type='submit' disabled={isLoading} className='mt-4 btn-block'>
-                        <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
-                        <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
+                    <Button type="submit" disabled={isLoading} className="mt-4 btn-block">
+                        <Show when={!isLoading}>Continue <i className="fa-solid fa-circle-arrow-right"></i></Show>
+                        <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
                     </Button>
                 </form>
             </Show>

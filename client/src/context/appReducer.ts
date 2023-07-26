@@ -1,4 +1,4 @@
-import { UserState, DatasetRequestState } from '@/types/Types'
+import { UserState, DatasetRequestState } from "@/types/Types"
 
 export type AppState = {
     userState: UserState
@@ -21,12 +21,12 @@ export type Actions = {
 
 export const AppReducer = (state: AppState, action: Actions): AppState => {
     switch (action.type) {
-        case 'setUserState':
+        case "setUserState":
             return {
                 ...state, userState: { ...state.userState, ...action.payload }
             }
 
-        case 'setDatasetRequestState':
+        case "setDatasetRequestState":
             return {
                 ...state, datasetRequestState: { ...state.datasetRequestState, ...action.payload }
             }

@@ -1,6 +1,6 @@
 "use client"
-import { FC, ReactNode } from 'react'
-import { Container } from 'react-bootstrap'
+import { FC, ReactNode } from "react"
+import { Container } from "react-bootstrap"
 
 interface ContainerCompProps {
     children: ReactNode

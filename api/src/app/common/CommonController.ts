@@ -1,16 +1,16 @@
-import { Request, Response } from 'express'
-import Web3 from 'web3'
-import { statusMessages } from '../../constants/statusMessages'
-import { platformConfig } from '../../../config/platformConfig'
-import { apiPricing, subscriptionConfig } from '../../../config/subscriptionConfig'
-import AirlakeHistoryModel from '../products/airlake/AirlakeHistoryModel'
-import EvolakeQueryModel from '../products/evolake/EvolakeQueryModel'
-import IcelakeDocumentModel from '../products/icelake/IcelakeDocumentModel'
-import SubscriptionModel from '../user/SubscriptionModel'
-import { otherConstants } from '../../constants/otherConstants'
-import { prototypeABI } from '../../bin/prototypeABI'
-import FrostlakeAnalyticsModel from '../products/frostlake/FrostlakeAnalyticsModel'
-import { envConfig } from '../../../config/envConfig'
+import { Request, Response } from "express"
+import Web3 from "web3"
+import { statusMessages } from "../../constants/statusMessages"
+import { platformConfig } from "../../../config/platformConfig"
+import { apiPricing, subscriptionConfig } from "../../../config/subscriptionConfig"
+import AirlakeHistoryModel from "../products/airlake/AirlakeHistoryModel"
+import EvolakeQueryModel from "../products/evolake/EvolakeQueryModel"
+import IcelakeDocumentModel from "../products/icelake/IcelakeDocumentModel"
+import SubscriptionModel from "../user/SubscriptionModel"
+import { otherConstants } from "../../constants/otherConstants"
+import { prototypeABI } from "../../bin/prototypeABI"
+import FrostlakeAnalyticsModel from "../products/frostlake/FrostlakeAnalyticsModel"
+import { envConfig } from "../../../config/envConfig"
 
 export default class CommonController {
     async getPlatformConfig(req: Request, res: Response) {
@@ -33,7 +33,7 @@ export default class CommonController {
 
     async getUsageByApiKey(req: Request, res: Response) {
         try {
-            const infuraEndpoint = otherConstants.infuraEndpoint + '/' + envConfig.infuraApiKey
+            const infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
             const web3Provider = new Web3(infuraEndpoint)
             const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
             const userId = req.headers.id
@@ -51,7 +51,7 @@ export default class CommonController {
             }
 
             else {
-                return res.status(200).json({ msg: 'No Active Subscription Found' })
+                return res.status(200).json({ msg: "No Active Subscription Found" })
             }
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError, error })

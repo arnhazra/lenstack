@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
-import { evolakeDb } from '../../../utils/dbConnect'
+import mongoose from "mongoose"
+import { evolakeDb } from "../../../utils/dbConnect"
 
 const EvolakeQuerySchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: "user",
         required: true
     },
 
@@ -29,6 +29,6 @@ const EvolakeQuerySchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const EvolakeQueryModel = evolakeDb.model('evolakequery', EvolakeQuerySchema)
+const EvolakeQueryModel = evolakeDb.model("evolakequery", EvolakeQuerySchema)
 
 export default EvolakeQueryModel

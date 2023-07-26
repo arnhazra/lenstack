@@ -1,15 +1,15 @@
-import express, { Request, Response } from 'express'
-import cors from 'cors'
-import path from 'path'
-import { envConfig } from './config/envConfig'
-import { dbConnect } from './src/utils/dbConnect'
-import UserRouter from './src/app/user/UserRouter'
-import TransactionRouter from './src/app/transaction/TransactionRouter'
-import AirlakeRouter from './src/app/products/airlake/AirlakeRouter'
-import EvolakeRouter from './src/app/products/evolake/EvolakeRouter'
-import IcelakeRouter from './src/app/products/icelake/IcelakeRouter'
-import CommonRouter from './src/app/common/CommonRouter'
-import FrostlakeRouter from './src/app/products/frostlake/FrostlakeRouter'
+import express, { Request, Response } from "express"
+import cors from "cors"
+import path from "path"
+import { envConfig } from "./config/envConfig"
+import { dbConnect } from "./src/utils/dbConnect"
+import UserRouter from "./src/app/user/UserRouter"
+import TransactionRouter from "./src/app/transaction/TransactionRouter"
+import AirlakeRouter from "./src/app/products/airlake/AirlakeRouter"
+import EvolakeRouter from "./src/app/products/evolake/EvolakeRouter"
+import IcelakeRouter from "./src/app/products/icelake/IcelakeRouter"
+import CommonRouter from "./src/app/common/CommonRouter"
+import FrostlakeRouter from "./src/app/products/frostlake/FrostlakeRouter"
 
 const userRouter = new UserRouter()
 const transactionRouter = new TransactionRouter()
@@ -22,30 +22,30 @@ const commonRouter = new CommonRouter()
 const app = express()
 app.listen(envConfig.apiPort)
 app.use(cors())
-app.use(express.json({ limit: '3mb' }))
+app.use(express.json({ limit: "3mb" }))
 dbConnect()
 
-app.use('/api/user', userRouter.getRouter())
-app.use('/api/transaction', transactionRouter.getRouter())
-app.use('/api/common', commonRouter.getRouter())
-app.use('/api/products/airlake', airlakeRouter.getRouter())
-app.use('/api/products/evolake', evolakeRouter.getRouter())
-app.use('/api/products/icelake', icelakeRouter.getRouter())
-app.use('/api/products/frostlake', frostlakeRouter.getRouter())
+app.use("/api/user", userRouter.getRouter())
+app.use("/api/transaction", transactionRouter.getRouter())
+app.use("/api/common", commonRouter.getRouter())
+app.use("/api/products/airlake", airlakeRouter.getRouter())
+app.use("/api/products/evolake", evolakeRouter.getRouter())
+app.use("/api/products/icelake", icelakeRouter.getRouter())
+app.use("/api/products/frostlake", frostlakeRouter.getRouter())
 
 
-if (envConfig.nodeEnv === 'production') {
-    const cacheControl = 'public, max-age=31536000'
+if (envConfig.nodeEnv === "production") {
+    const cacheControl = "public, max-age=31536000"
     function setCustomCacheControl(res: Response, path: string) {
-        if (express.static.mime.lookup(path) === 'text/html') {
-            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+        if (express.static.mime.lookup(path) === "text/html") {
+            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
         } else {
-            res.setHeader('Cache-Control', cacheControl)
+            res.setHeader("Cache-Control", cacheControl)
         }
     }
 
-    app.use(express.static(path.join(__dirname, 'client'), { maxAge: 60000, setHeaders: setCustomCacheControl }))
-    app.get('/*', (req: Request, res: Response) => {
-        res.sendFile(path.join(__dirname, 'client', `${req.originalUrl.split('?')[0]}.html`))
+    app.use(express.static(path.join(__dirname, "client"), { maxAge: 60000, setHeaders: setCustomCacheControl }))
+    app.get("/*", (req: Request, res: Response) => {
+        res.sendFile(path.join(__dirname, "client", `${req.originalUrl.split("?")[0]}.html`))
     })
 }

@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
-import { airlakeDb } from '../../../utils/dbConnect'
+import mongoose from "mongoose"
+import { airlakeDb } from "../../../utils/dbConnect"
 
 const AirlakeHistorySchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: "user",
         required: true
     },
 
@@ -24,6 +24,6 @@ const AirlakeHistorySchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const AirlakeHistoryModel = airlakeDb.model('airlakehistory', AirlakeHistorySchema)
+const AirlakeHistoryModel = airlakeDb.model("airlakehistory", AirlakeHistorySchema)
 
 export default AirlakeHistoryModel

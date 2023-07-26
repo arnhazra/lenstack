@@ -1,15 +1,15 @@
-import { Request, Response, NextFunction } from 'express'
-import { statusMessages } from '../constants/statusMessages'
-import { apiPricing, subscriptionConfig } from '../../config/subscriptionConfig'
-import AirlakeHistoryModel from '../app/products/airlake/AirlakeHistoryModel'
-import SubscriptionModel from '../app/user/SubscriptionModel'
-import EvolakeQueryModel from '../app/products/evolake/EvolakeQueryModel'
-import IcelakeDocumentModel from '../app/products/icelake/IcelakeDocumentModel'
-import FrostlakeAnalyticsModel from '../app/products/frostlake/FrostlakeAnalyticsModel'
-import Web3 from 'web3'
-import { otherConstants } from '../constants/otherConstants'
-import { envConfig } from '../../config/envConfig'
-import { prototypeABI } from '../bin/prototypeABI'
+import { Request, Response, NextFunction } from "express"
+import { statusMessages } from "../constants/statusMessages"
+import { apiPricing, subscriptionConfig } from "../../config/subscriptionConfig"
+import AirlakeHistoryModel from "../app/products/airlake/AirlakeHistoryModel"
+import SubscriptionModel from "../app/user/SubscriptionModel"
+import EvolakeQueryModel from "../app/products/evolake/EvolakeQueryModel"
+import IcelakeDocumentModel from "../app/products/icelake/IcelakeDocumentModel"
+import FrostlakeAnalyticsModel from "../app/products/frostlake/FrostlakeAnalyticsModel"
+import Web3 from "web3"
+import { otherConstants } from "../constants/otherConstants"
+import { envConfig } from "../../config/envConfig"
+import { prototypeABI } from "../bin/prototypeABI"
 
 async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction) {
     const apiKeyFromParams = req.params.apiKey
@@ -24,7 +24,7 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
     else {
         try {
             const subscription = await SubscriptionModel.findOne({ apiKey })
-            const infuraEndpoint = otherConstants.infuraEndpoint + '/' + envConfig.infuraApiKey
+            const infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
             const web3Provider = new Web3(infuraEndpoint)
             const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
 

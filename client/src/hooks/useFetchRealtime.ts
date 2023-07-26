@@ -1,9 +1,9 @@
 "use client"
-import axios, { Method } from 'axios'
-import { useQuery } from '@tanstack/react-query'
-import { toast } from 'react-hot-toast'
-import Constants from '@/constants/appConstants'
-import { useRouter } from 'next/navigation'
+import axios, { Method } from "axios"
+import { useQuery } from "@tanstack/react-query"
+import { toast } from "react-hot-toast"
+import Constants from "@/constants/appConstants"
+import { useRouter } from "next/navigation"
 
 function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, requestBody?: object) {
     const router = useRouter()
@@ -24,8 +24,8 @@ function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, re
             retryDelay: 2500,
             onError(err: any) {
                 if (err.response && err.response.status === 401) {
-                    localStorage.removeItem('accessToken')
-                    router.push('/')
+                    localStorage.removeItem("accessToken")
+                    router.push("/")
                 }
 
                 toast.error(`${Constants.ToastError} fetching ${queryKey}`)

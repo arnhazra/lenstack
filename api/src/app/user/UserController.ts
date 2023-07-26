@@ -1,15 +1,15 @@
-import { Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
-import crypto from 'crypto'
-import otptool from 'otp-without-db'
-import { validationResult } from 'express-validator'
-import { statusMessages } from '../../constants/statusMessages'
-import UserModel from './UserModel'
-import { sendEmail } from '../../utils/sendEmail'
-import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/redisHelper'
-import { otherConstants } from '../../constants/otherConstants'
-import { envConfig } from '../../../config/envConfig'
-import SubscriptionModel from './SubscriptionModel'
+import { Request, Response } from "express"
+import jwt from "jsonwebtoken"
+import crypto from "crypto"
+import otptool from "otp-without-db"
+import { validationResult } from "express-validator"
+import { statusMessages } from "../../constants/statusMessages"
+import UserModel from "./UserModel"
+import { sendEmail } from "../../utils/sendEmail"
+import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from "../../utils/redisHelper"
+import { otherConstants } from "../../constants/otherConstants"
+import { envConfig } from "../../../config/envConfig"
+import SubscriptionModel from "./SubscriptionModel"
 
 export default class UserController {
     public otpKey: string
@@ -33,7 +33,7 @@ export default class UserController {
             try {
                 let user = await UserModel.findOne({ email })
                 const otp = Math.floor(100000 + Math.random() * 900000)
-                const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, 'sha256')
+                const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, "sha256")
                 await sendEmail(email, otp)
                 if (user) {
                     return res.status(200).json({ hash, newuser: false, msg: statusMessages.authCodeEmail })
@@ -61,7 +61,7 @@ export default class UserController {
             const { email, otp, hash, privateKey } = req.body
 
             try {
-                const isOTPValid = otptool.verifyOTP(email, otp, hash, this.otpKey, 'sha256')
+                const isOTPValid = otptool.verifyOTP(email, otp, hash, this.otpKey, "sha256")
 
                 if (isOTPValid) {
                     let user = await UserModel.findOne({ email })
@@ -76,7 +76,7 @@ export default class UserController {
 
                         else {
                             const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
-                            const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: 'RS512' })
+                            const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
                             await setTokenInRedis(user.id, accessToken)
                             return res.status(200).json({ accessToken })
                         }
@@ -86,13 +86,13 @@ export default class UserController {
                         const { name } = req.body || otherConstants.undefinedName
                         user = new UserModel({ name, email, privateKey })
                         const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
-                        const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: 'RS512' })
+                        const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
                         await setTokenInRedis(user.id, accessToken)
                         await user.save()
-                        const tokenId = '000000'
-                        const selectedPlan = 'Trial'
+                        const tokenId = "000000"
+                        const selectedPlan = "Trial"
                         const owner = user.id
-                        const apiKey = 'ak-' + crypto.randomBytes(16).toString('hex')
+                        const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
                         const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
                         await subscription.save()
                         return res.status(200).json({ accessToken, user })
@@ -161,7 +161,7 @@ export default class UserController {
 
         try {
             await SubscriptionModel.findOneAndDelete({ owner })
-            const apiKey = 'ak-' + crypto.randomBytes(16).toString('hex')
+            const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
             const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
             await subscription.save()
             return res.status(200).json({ msg: statusMessages.subscriptionSuccess })

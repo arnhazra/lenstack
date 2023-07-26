@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
-import { icelakeDb } from '../../../utils/dbConnect'
+import mongoose from "mongoose"
+import { icelakeDb } from "../../../utils/dbConnect"
 
 const IcelakeDocumentSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: "user",
         required: true
     },
 
@@ -29,6 +29,6 @@ const IcelakeDocumentSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const IcelakeDocumentModel = icelakeDb.model('icelakedocument', IcelakeDocumentSchema)
+const IcelakeDocumentModel = icelakeDb.model("icelakedocument", IcelakeDocumentSchema)
 
 export default IcelakeDocumentModel

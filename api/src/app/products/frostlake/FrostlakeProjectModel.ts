@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
-import { frostlakeDb } from '../../../utils/dbConnect'
+import mongoose from "mongoose"
+import { frostlakeDb } from "../../../utils/dbConnect"
 
 const FrostlakeProjectSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: "user"
     },
 
     name: {
@@ -30,6 +30,6 @@ const FrostlakeProjectSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const FrostlakeProjectModel = frostlakeDb.model('frostlakeproject', FrostlakeProjectSchema)
+const FrostlakeProjectModel = frostlakeDb.model("frostlakeproject", FrostlakeProjectSchema)
 
 export default FrostlakeProjectModel

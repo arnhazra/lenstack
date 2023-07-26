@@ -1,21 +1,21 @@
 "use client"
-import { FC, useEffect, useState, useContext } from 'react'
-import { Button, FloatingLabel, Form } from 'react-bootstrap'
-import { Fragment } from 'react'
-import { Tilt_Neon } from 'next/font/google'
-import Web3 from 'web3'
-import axios from 'axios'
-import Show from '@/components/Show'
-import { tokenABI } from '@/bin/tokenABI'
-import endPoints from '@/constants/apiEndpoints'
-import { toast } from 'react-hot-toast'
-import Constants from '@/constants/appConstants'
-import { AppContext } from '@/context/appStateProvider'
-import { Modal } from 'react-bootstrap'
-import { nftABI } from '@/bin/nftABI'
-import { vendorABI } from '@/bin/vendorABI'
-import useFetch from '@/hooks/useFetch'
-import HTTPMethods from '@/constants/httpMethods'
+import { FC, useEffect, useState, useContext } from "react"
+import { Button, FloatingLabel, Form } from "react-bootstrap"
+import { Fragment } from "react"
+import { Tilt_Neon } from "next/font/google"
+import Web3 from "web3"
+import axios from "axios"
+import Show from "@/components/Show"
+import { tokenABI } from "@/bin/tokenABI"
+import endPoints from "@/constants/apiEndpoints"
+import { toast } from "react-hot-toast"
+import Constants from "@/constants/appConstants"
+import { AppContext } from "@/context/appStateProvider"
+import { Modal } from "react-bootstrap"
+import { nftABI } from "@/bin/nftABI"
+import { vendorABI } from "@/bin/vendorABI"
+import useFetch from "@/hooks/useFetch"
+import HTTPMethods from "@/constants/httpMethods"
 
 interface SubscribeModalProps {
     isOpened: boolean,
@@ -24,10 +24,10 @@ interface SubscribeModalProps {
     selectedPlan: string
 }
 
-const tiltNeon = Tilt_Neon({ subsets: ['latin'] })
+const tiltNeon = Tilt_Neon({ subsets: ["latin"] })
 
 const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, selectedPlan }) => {
-    const contractAddress = useFetch('contract-address', endPoints.getContractAddressList, HTTPMethods.POST)
+    const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [step, setStep] = useState(1)
     const [ether, setEther] = useState(price / 10000)
@@ -53,7 +53,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
             const tokenId = Math.floor(1000000 + Math.random() * 9000000)
 
             const tokenContract: any = new web3Provider.eth.Contract(tokenABI as any, contractAddress?.data?.tokenContractAddress)
-            const approvalData = tokenContract.methods.approve(contractAddress?.data?.nftContractAddress, web3Provider.utils.toWei(price.toString(), 'ether')).encodeABI()
+            const approvalData = tokenContract.methods.approve(contractAddress?.data?.nftContractAddress, web3Provider.utils.toWei(price.toString(), "ether")).encodeABI()
 
             const approvalTx = {
                 from: walletAddress,
@@ -61,7 +61,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                 data: approvalData,
                 gasPrice: await web3Provider.eth.getGasPrice(),
                 gas: await tokenContract.methods
-                    .approve(contractAddress?.data?.nftContractAddress, web3Provider.utils.toWei(price.toString(), 'ether'))
+                    .approve(contractAddress?.data?.nftContractAddress, web3Provider.utils.toWei(price.toString(), "ether"))
                     .estimateGas({ from: walletAddress }),
             }
 
@@ -72,7 +72,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
 
             const nftcontract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
             const mintNFTData = nftcontract.methods.mintNFT(tokenId).encodeABI()
-            const purchaseNFTData = nftcontract.methods.purchaseNFT(tokenId, web3Provider.utils.toWei(price.toString(), 'ether')).encodeABI()
+            const purchaseNFTData = nftcontract.methods.purchaseNFT(tokenId, web3Provider.utils.toWei(price.toString(), "ether")).encodeABI()
 
             const mintNFTTx = {
                 from: walletAddress,
@@ -121,7 +121,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const vendor = new web3Provider.eth.Contract(vendorABI as any, contractAddress?.data?.vendorContractAddress)
             const gasPrice = await web3Provider.eth.getGasPrice()
-            const weiValue = web3Provider.utils.toWei(ether.toString(), 'ether')
+            const weiValue = web3Provider.utils.toWei(ether.toString(), "ether")
 
             const transaction = {
                 from: walletAddress,
@@ -137,7 +137,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                 const receipt = await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
                 const txObj = {
                     fromAddress: receipt.from,
-                    transactionType: 'Subscribe',
+                    transactionType: "Subscribe",
                     ethAmount: ether,
                     txHash: receipt.transactionHash
                 }
@@ -160,32 +160,32 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
 
     return (
         <Fragment>
-            <Modal backdrop='static' centered show={isOpened} onHide={hideModal} className={tiltNeon.className}>
+            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={tiltNeon.className}>
                 <Modal.Header closeButton>
                     <Modal.Title>Subscribe</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='text-center'>
+                <Modal.Body className="text-center">
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId='floatingAmount' label={`${price / 10000} MATIC`}>
-                                <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={'off'} type='number' placeholder={`${price / 10000} MATIC`} />
+                            <FloatingLabel controlId="floatingAmount" label={`${price / 10000} MATIC`}>
+                                <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={"off"} type="number" placeholder={`${price / 10000} MATIC`} />
                             </FloatingLabel>
-                            <Button className='btn-block mt-4' type='submit' disabled={isTxProcessing} onClick={buyToken}>
-                                <Show when={!isTxProcessing}>Pay & Subscribe<i className='fa-solid fa-circle-arrow-right'></i></Show>
-                                <Show when={isTxProcessing}><i className='fa-solid fa-circle-notch fa-spin'></i> Processing Tx</Show>
+                            <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={buyToken}>
+                                <Show when={!isTxProcessing}>Pay & Subscribe<i className="fa-solid fa-circle-arrow-right"></i></Show>
+                                <Show when={isTxProcessing}><i className="fa-solid fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
                         </Show>
                         <Show when={step === 2}>
                             <Show when={!txError}>
-                                <div className='text-center'>
-                                    <i className='fa-solid fa-circle-check fa-4x'></i>
-                                    <p className='lead text-center mt-4'>Success</p>
+                                <div className="text-center">
+                                    <i className="fa-solid fa-circle-check fa-4x"></i>
+                                    <p className="lead text-center mt-4">Success</p>
                                 </div>
                             </Show>
                             <Show when={txError}>
-                                <div className='text-center'>
-                                    <i className='fa-solid fa-circle-xmark fa-4x'></i>
-                                    <p className='lead text-center mt-4'>Failed</p>
+                                <div className="text-center">
+                                    <i className="fa-solid fa-circle-xmark fa-4x"></i>
+                                    <p className="lead text-center mt-4">Failed</p>
                                 </div>
                             </Show>
                         </Show>

@@ -1,12 +1,12 @@
 "use client"
-import Loading from '@/components/Loading'
-import { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import endPoints from '@/constants/apiEndpoints'
-import toast from 'react-hot-toast'
-import { useRouter, usePathname } from 'next/navigation'
-import { AppContext } from '@/context/appStateProvider'
-import Constants from '@/constants/appConstants'
+import Loading from "@/components/Loading"
+import { useContext, useEffect, useState } from "react"
+import axios from "axios"
+import endPoints from "@/constants/apiEndpoints"
+import toast from "react-hot-toast"
+import { useRouter, usePathname } from "next/navigation"
+import { AppContext } from "@/context/appStateProvider"
+import Constants from "@/constants/appConstants"
 
 export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
     return function WithAuth(props: any) {
@@ -17,7 +17,7 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
 
         useEffect(() => {
             (async () => {
-                if (localStorage.getItem('accessToken')) {
+                if (localStorage.getItem("accessToken")) {
                     try {
                         const response = await axios.post(endPoints.userDetailsEndpoint)
                         const userid = response.data.user._id
@@ -25,17 +25,17 @@ export default function withAuth<T>(WrappedComponent: React.ComponentType<T>) {
 
                         if (response.data.subscription) {
                             const { selectedPlan, apiKey, tokenId, expiresAt } = response.data.subscription
-                            dispatch('setUserState', { selectedPlan, apiKey, tokenId, subscriptionValidUpto: expiresAt })
+                            dispatch("setUserState", { selectedPlan, apiKey, tokenId, subscriptionValidUpto: expiresAt })
                         }
 
-                        dispatch('setUserState', { userid, name, email, privateKey, role })
+                        dispatch("setUserState", { userid, name, email, privateKey, role })
                         setAuthenticated(true)
                     }
 
                     catch (error: any) {
                         if (error.response) {
                             if (error.response.status === 401) {
-                                localStorage.removeItem('accessToken')
+                                localStorage.removeItem("accessToken")
                                 setAuthenticated(false)
                                 router.push(`/auth?nextRedirect=${pathname.slice(1)}`)
                             }

@@ -1,14 +1,14 @@
-import { Request, Response } from 'express'
-import arraySort from 'array-sort'
-import { statusMessages } from '../../../constants/statusMessages'
-import AirlakeDatasetModel from './AirlakeDatasetModel'
-import AirlakeHistoryModel from './AirlakeHistoryModel'
+import { Request, Response } from "express"
+import arraySort from "array-sort"
+import { statusMessages } from "../../../constants/statusMessages"
+import AirlakeDatasetModel from "./AirlakeDatasetModel"
+import AirlakeHistoryModel from "./AirlakeHistoryModel"
 
 export default class DatasetController {
     async getDatasetFilters(req: Request, res: Response) {
         try {
-            const filterCategories = await AirlakeDatasetModel.find().distinct('category')
-            filterCategories.push('All')
+            const filterCategories = await AirlakeDatasetModel.find().distinct("category")
+            filterCategories.push("All")
             filterCategories.sort()
             return res.status(200).json({ filterCategories })
         }
@@ -19,24 +19,24 @@ export default class DatasetController {
     }
 
     async findDatasets(req: Request, res: Response) {
-        const selectedFilterCategory = req.body.selectedFilter === 'All' ? '' : req.body.selectedFilter
-        const selectedSortOption = req.body.selectedSortOption === '-name' ? { reverse: true } : { reverse: false }
-        const searchQuery = req.body.searchQuery || ''
+        const selectedFilterCategory = req.body.selectedFilter === "All" ? "" : req.body.selectedFilter
+        const selectedSortOption = req.body.selectedSortOption === "-name" ? { reverse: true } : { reverse: false }
+        const searchQuery = req.body.searchQuery || ""
         const offset = req.body.offset || 0
         const limit = 36
 
         try {
             let datasets = await AirlakeDatasetModel.find({
                 $or: [
-                    { name: { $regex: searchQuery, $options: 'i' } },
-                    { description: { $regex: searchQuery, $options: 'i' } }
+                    { name: { $regex: searchQuery, $options: "i" } },
+                    { description: { $regex: searchQuery, $options: "i" } }
                 ],
                 category: { $regex: selectedFilterCategory }
-            }).select('-data -description')
+            }).select("-data -description")
                 .skip(offset)
                 .limit(limit)
 
-            datasets = arraySort(datasets, 'name', selectedSortOption)
+            datasets = arraySort(datasets, "name", selectedSortOption)
             return res.status(200).json({ datasets })
         }
 
@@ -48,7 +48,7 @@ export default class DatasetController {
     async viewDataset(req: Request, res: Response) {
         try {
             const { datasetId } = req.body
-            const totalData = await AirlakeDatasetModel.findById(datasetId).select('-data')
+            const totalData = await AirlakeDatasetModel.findById(datasetId).select("-data")
             return res.status(200).json(totalData)
         }
 
@@ -60,8 +60,8 @@ export default class DatasetController {
     async findSimilarDatasets(req: Request, res: Response) {
         try {
             const { datasetId } = req.body
-            const { category } = await AirlakeDatasetModel.findById(datasetId).select('-data')
-            const similarDatasets = await AirlakeDatasetModel.find({ category: category }).select('-data')
+            const { category } = await AirlakeDatasetModel.findById(datasetId).select("-data")
+            const similarDatasets = await AirlakeDatasetModel.find({ category: category }).select("-data")
             return res.status(200).json({ similarDatasets })
         }
 
@@ -72,7 +72,7 @@ export default class DatasetController {
 
     async getMetadata(req: Request, res: Response) {
         try {
-            const data = await AirlakeDatasetModel.findById(req.params.datasetId).select('data')
+            const data = await AirlakeDatasetModel.findById(req.params.datasetId).select("data")
             const previewdata = data.data.slice(-10)
             return res.status(200).json({ previewdata })
         }
@@ -85,7 +85,7 @@ export default class DatasetController {
     async getData(req: Request, res: Response) {
         try {
             const { datasetId, apiKey } = req.params
-            const data = await AirlakeDatasetModel.findById(datasetId).select('data')
+            const data = await AirlakeDatasetModel.findById(datasetId).select("data")
             const airlakeHistoryReq = new AirlakeHistoryModel({ owner: req.headers.id as string, datasetId, apiKey })
             await airlakeHistoryReq.save()
             return res.status(200).json({ data })

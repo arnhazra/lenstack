@@ -1,21 +1,21 @@
-import { Request, Response } from 'express'
-import { Configuration, OpenAIApi } from 'openai'
-import { envConfig } from '../../../../config/envConfig'
-import { statusMessages } from '../../../constants/statusMessages'
-import EvolakeQueryModel from './EvolakeQueryModel'
+import { Request, Response } from "express"
+import { Configuration, OpenAIApi } from "openai"
+import { envConfig } from "../../../../config/envConfig"
+import { statusMessages } from "../../../constants/statusMessages"
+import EvolakeQueryModel from "./EvolakeQueryModel"
 
 export default class EvolakeController {
     async getDatabaseList(req: Request, res: Response) {
         try {
             const dbOptions = [
-                { value: 'SQL', label: 'SQL' },
-                { value: 'MongoDB', label: 'Mongo DB' },
-                { value: 'PostgreSQL', label: 'Postgre SQL' },
-                { value: 'MariaDB', label: 'Maria DB' },
-                { value: 'Firebase', label: 'Firebase' },
-                { value: 'Prisma', label: 'Prisma' },
-                { value: 'GraphQL', label: 'GraphQL' },
-                { value: 'DynamoDB', label: 'Dynamo DB' },
+                { value: "SQL", label: "SQL" },
+                { value: "MongoDB", label: "Mongo DB" },
+                { value: "PostgreSQL", label: "Postgre SQL" },
+                { value: "MariaDB", label: "Maria DB" },
+                { value: "Firebase", label: "Firebase" },
+                { value: "Prisma", label: "Prisma" },
+                { value: "GraphQL", label: "GraphQL" },
+                { value: "DynamoDB", label: "Dynamo DB" },
             ]
 
             return res.status(200).json({ dbOptions })
@@ -36,7 +36,7 @@ export default class EvolakeController {
 
                 if (dbResponse.length > 0) {
                     const dbGeneratedQuery = dbResponse[0].response
-                    return res.status(200).json({ msg: dbGeneratedQuery, from: 'DB' })
+                    return res.status(200).json({ msg: dbGeneratedQuery, from: "DB" })
                 }
 
                 else {
@@ -44,7 +44,7 @@ export default class EvolakeController {
                     const openai = new OpenAIApi(configuration)
 
                     const response = await openai.createCompletion({
-                        model: 'text-davinci-003' || model,
+                        model: "text-davinci-003" || model,
                         prompt: finalQuery,
                         temperature: 0.3,
                         max_tokens: 120,
@@ -55,7 +55,7 @@ export default class EvolakeController {
                     const aiGeneratedQuery = response.data.choices[0].text
                     const evolakeDbReq = new EvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
                     await evolakeDbReq.save()
-                    return res.status(200).json({ msg: aiGeneratedQuery, from: 'AI', model })
+                    return res.status(200).json({ msg: aiGeneratedQuery, from: "AI", model })
                 }
             }
 

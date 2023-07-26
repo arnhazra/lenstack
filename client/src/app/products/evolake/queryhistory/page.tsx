@@ -1,16 +1,16 @@
 "use client"
-import { Fragment } from 'react'
-import { NextPage } from 'next'
-import endPoints from '@/constants/apiEndpoints'
-import Show from '@/components/Show'
-import { Container, Table } from 'react-bootstrap'
-import Loading from '@/components/Loading'
-import useFetchRealtime from '@/hooks/useFetchRealtime'
-import HTTPMethods from '@/constants/httpMethods'
-import withAuth from '@/utils/withAuth'
+import { Fragment } from "react"
+import { NextPage } from "next"
+import endPoints from "@/constants/apiEndpoints"
+import Show from "@/components/Show"
+import { Container, Table } from "react-bootstrap"
+import Loading from "@/components/Loading"
+import useFetchRealtime from "@/hooks/useFetchRealtime"
+import HTTPMethods from "@/constants/httpMethods"
+import withAuth from "@/utils/withAuth"
 
 const QueryHistoryPage: NextPage = () => {
-    const queryHistory = useFetchRealtime('query history', endPoints.evolakeGetQueryHistoryEndpoint, HTTPMethods.POST)
+    const queryHistory = useFetchRealtime("query history", endPoints.evolakeGetQueryHistoryEndpoint, HTTPMethods.POST)
 
     const queryHistoryToDisplay = queryHistory?.data?.queryHistory?.map((atc: any) => {
         return (
@@ -26,8 +26,8 @@ const QueryHistoryPage: NextPage = () => {
             <Show when={!queryHistory.isLoading}>
                 <Container>
                     <Show when={queryHistory?.data?.queryHistory?.length > 0}>
-                        <h4 className='text-white text-center'>Query History</h4>
-                        <Table responsive hover variant='light'>
+                        <h4 className="text-white text-center">Query History</h4>
+                        <Table responsive hover variant="light">
                             <thead>
                                 <tr>
                                     <th>Query</th>
@@ -40,9 +40,9 @@ const QueryHistoryPage: NextPage = () => {
                         </Table>
                     </Show>
                     <Show when={queryHistory?.data?.queryHistory?.length === 0}>
-                        <div className='box'>
-                            <p className='branding'>History <i className='fa-solid fa-database'></i></p>
-                            <p className='lead'>No historical queries to display</p>
+                        <div className="box">
+                            <p className="branding">History <i className="fa-solid fa-database"></i></p>
+                            <p className="lead">No historical queries to display</p>
                         </div>
                     </Show>
                 </Container>

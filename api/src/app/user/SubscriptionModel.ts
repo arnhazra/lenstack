@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
-import { mainLenstackDb } from '../../utils/dbConnect'
+import mongoose from "mongoose"
+import { mainLenstackDb } from "../../utils/dbConnect"
 
 const SubscriptionSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: "user",
         required: true,
         unique: true
     },
@@ -39,6 +39,6 @@ const SubscriptionSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const SubscriptionModel = mainLenstackDb.model('subscription', SubscriptionSchema)
+const SubscriptionModel = mainLenstackDb.model("subscription", SubscriptionSchema)
 
 export default SubscriptionModel

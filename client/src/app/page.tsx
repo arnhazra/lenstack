@@ -1,28 +1,28 @@
 "use client"
-import { Fragment } from 'react'
-import Constants from '@/constants/appConstants'
-import Link from 'next/link'
-import { NextPage } from 'next'
-import withoutAuth from '@/utils/withoutAuth'
-import ContainerComp from '@/components/ContainerComp'
+import { Fragment } from "react"
+import Constants from "@/constants/appConstants"
+import Link from "next/link"
+import { NextPage } from "next"
+import withoutAuth from "@/utils/withoutAuth"
+import ContainerComp from "@/components/ContainerComp"
 
 const HomePage: NextPage = () => {
 	return (
 		<Fragment>
 			<ContainerComp>
-				<div className='cover'>
-					<p className='display-5'>
+				<div className="cover">
+					<p className="display-5">
 						{Constants.HomeHeader1}<br />
 						{Constants.HomeHeader2}<br />
 						{Constants.HomeHeader3}
 					</p>
-					<p className='lead my-4'>
+					<p className="lead my-4">
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2} <br />
 						{Constants.HomeIntro3} <br />
 						{Constants.HomeIntro4} <br />
 					</p>
-					<Link href='/auth' className='btn'>Try Free<i className='fa-solid fa-circle-arrow-right'></i></Link>
+					<Link href="/auth" className="btn">Try Free<i className="fa-solid fa-circle-arrow-right"></i></Link>
 				</div>
 			</ContainerComp>
 		</Fragment>
