@@ -38,7 +38,7 @@ const FrostlakeCreateProjectPage: NextPage = () => {
                 <Form.Control disabled={state.isLoading} type="text" placeholder="Project Name" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
             </FloatingLabel>
             <Button type="submit" disabled={state.isLoading} className="mt-3 btn-block">
-                <Show when={!state.isLoading}>Create Project <i className="fa-solid fa-circle-arrow-right"></i></Show>
+                <Show when={!state.isLoading}>Create Project <i className="fa-solid fa-arrow-right"></i></Show>
                 <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Project</Show>
             </Button>
             <Link href={"/products/frostlake/projects"} className="lead-link">View My Projects</Link>

@@ -18,11 +18,9 @@ const HomePage: NextPage = () => {
 					</p>
 					<p className="lead my-4">
 						{Constants.HomeIntro1} <br />
-						{Constants.HomeIntro2} <br />
-						{Constants.HomeIntro3} <br />
-						{Constants.HomeIntro4} <br />
+						{Constants.HomeIntro2}
 					</p>
-					<Link href="/auth" className="btn">Try Free<i className="fa-solid fa-circle-arrow-right"></i></Link>
+					<Link href="/auth" className="btn">Try Free<i className="fa-solid fa-arrow-right"></i></Link>
 				</div>
 			</ContainerComp>
 		</Fragment>

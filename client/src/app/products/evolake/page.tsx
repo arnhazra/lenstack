@@ -60,7 +60,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                         <Form.Control type="text" disabled={isFetching} placeholder="Ask Your Query" onChange={(e) => setUserQuery(e.target.value)} autoComplete={"off"} required />
                     </FloatingLabel>
                     <Button type="submit" disabled={isFetching} className="btn-block mt-4">
-                        <Show when={!isFetching}>Generate DB Query <i className="fa-solid fa-circle-arrow-right"></i></Show>
+                        <Show when={!isFetching}>Generate DB Query <i className="fa-solid fa-arrow-right"></i></Show>
                         <Show when={isFetching}><i className="fas fa-circle-notch fa-spin"></i> Fetching</Show>
                     </Button>
                     <Show when={!!dbQuery}>

@@ -87,14 +87,16 @@ const AuthPage: NextPage = () => {
             <Show when={authStep === 1}>
                 <form className="box" onSubmit={requestAuthCode}>
                     <p className="branding">Auth</p>
-                    <p className="boxtext">Enter the email address, it will be used as your auth.</p>
-                    <FloatingLabel controlId="floatingEmail" label="Your Email">
-                        <Form.Control disabled={isLoading} autoFocus type="email" placeholder="Your Email" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
-                    </FloatingLabel>
-                    <Button type="submit" disabled={isLoading} className="mt-4 btn-block">
-                        <Show when={!isLoading}>Continue <i className="fa-solid fa-circle-arrow-right"></i></Show>
+                    <p className="boxtext">Enter the email address to get started</p>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control disabled={isLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
+                    </Form.Group>
+                    <Button type="submit" disabled={isLoading} className="mt-2 btn-block">
+                        <Show when={!isLoading}>Get Auth Code <i className="fa-solid fa-arrow-right"></i></Show>
                         <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
                     </Button>
+                    <p className="boxtext mt-1">By clicking continue, you agree to our Terms of Service and Privacy Policy.</p>
                 </form>
             </Show>
             <Show when={authStep === 2}>
@@ -102,15 +104,17 @@ const AuthPage: NextPage = () => {
                     <p className="branding">Auth</p>
                     <p className="boxtext">Please verify your identity by entering the verification code we sent to your inbox.</p>
                     <Show when={state.newuser}>
-                        <FloatingLabel controlId="floatingName" label="Your Name">
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Your Name</Form.Label>
                             <Form.Control type="text" disabled={isLoading} placeholder="Your Name" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={3} maxLength={40} />
-                        </FloatingLabel>
+                        </Form.Group>
                     </Show>
-                    <FloatingLabel controlId="floatingPassword" label="Enter Verification Code" className="mt-3">
-                        <Form.Control type="password" disabled={isLoading} name="otp" placeholder="Enter Verification Code" onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={"off"} minLength={6} maxLength={6} />
-                    </FloatingLabel>
+                    <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Verification Code</Form.Label>
+                        <Form.Control type="password" disabled={isLoading} name="otp" placeholder="Verification Code" onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={"off"} minLength={6} maxLength={6} />
+                    </Form.Group>
                     <Button type="submit" disabled={isLoading} className="mt-4 btn-block">
-                        <Show when={!isLoading}>Continue <i className="fa-solid fa-circle-arrow-right"></i></Show>
+                        <Show when={!isLoading}>Continue <i className="fa-solid fa-arrow-right"></i></Show>
                         <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
                     </Button>
                 </form>

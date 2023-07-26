@@ -80,8 +80,8 @@ const AirlakeDatasetsPage: NextPage = () => {
                         {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
                     </Row>
                     <div className="text-center">
-                        {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}>Show Prev<i className="fa-solid fa-circle-arrow-left"></i></Button>}
-                        {dataLibrary?.data?.datasets?.length === 36 && <Button className="btn" onClick={nextPage}>Show Next<i className="fa-solid fa-circle-arrow-right"></i></Button>}
+                        {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}>Show Prev<i className="fa-solid fa-arrow-left"></i></Button>}
+                        {dataLibrary?.data?.datasets?.length === 36 && <Button className="btn" onClick={nextPage}>Show Next<i className="fa-solid fa-arrow-right"></i></Button>}
                     </div>
                 </Container>
             </Show>

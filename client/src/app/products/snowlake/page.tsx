@@ -83,7 +83,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
                 <Form.Control disabled={state.isLoading} type="url" placeholder="Prototype Link" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
             </FloatingLabel>
             <Button type="submit" disabled={state.isLoading || !isUserEligible} className="mt-3 btn-block">
-                <Show when={!state.isLoading}>Create Prototype <i className="fa-solid fa-circle-arrow-right"></i></Show>
+                <Show when={!state.isLoading}>Create Prototype <i className="fa-solid fa-arrow-right"></i></Show>
                 <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Prototype</Show>
             </Button>
             <Link href={"/products/snowlake/prototypes"} className="lead-link">View My Prototypes</Link>

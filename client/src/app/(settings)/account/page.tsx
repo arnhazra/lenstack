@@ -83,7 +83,7 @@ const AccountPage: NextPage = () => {
                         <i className="fa-solid fa-wallet"></i>{Number(maticBalance).toFixed(2)} MATIC
                     </h2>
                     <Link className="btn btn-block" passHref href={"https://faucet.polygon.technology/"} target="_blank">Fund my wallet<i className="fa-solid fa-square-arrow-up-right"></i></Link>
-                    <Button className="btn-block mb-4" onClick={signOutFromThisDevice}>Sign Out<i className="fa-solid fa-circle-arrow-right"></i></Button>
+                    <Button className="btn-block mb-4" onClick={signOutFromThisDevice}>Sign Out<i className="fa-solid fa-arrow-right"></i></Button>
                     <p className="lead-link text-center" onClick={signOutFromAllDevices}>Sign out from all devices</p>
                 </div>
             </Show>

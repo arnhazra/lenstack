@@ -11,7 +11,7 @@ const Error: FC<ErrorProps> = ({ customMessage }) => {
             <div className="text-center mb-4">
                 <i className="fa-solid fa-circle-exclamation fa-4x "></i>
             </div>
-            <Button onClick={() => window.history.back()} className="btn-block mt-2"><i className="fa-solid fa-circle-arrow-left"></i>Go Back</Button>
+            <Button onClick={() => window.history.back()} className="btn-block mt-2"><i className="fa-solid fa-arrow-left"></i>Go Back</Button>
         </div>
     )
 }

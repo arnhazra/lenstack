@@ -25,7 +25,7 @@ const IcelakeHomePage: NextPage = () => {
             <tr key={doc._id}>
                 <td><i className="fa-solid fa-folder"></i> {doc.title}</td>
                 <td>{moment(doc.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-                <td><i className="fa-solid fa-circle-arrow-down" onClick={() => saveDocument(doc._id)}></i></td>
+                <td><i className="fa-solid fa-arrow-down" onClick={() => saveDocument(doc._id)}></i></td>
                 <td><i className="fa-solid fa-archive" onClick={() => archiveItemMutation.mutate(doc._id)}></i></td>
             </tr>
         )

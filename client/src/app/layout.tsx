@@ -2,7 +2,7 @@
 import axios from "axios"
 import AppStateProvider from "@/context/appStateProvider"
 import { Toaster } from "react-hot-toast"
-import { Tilt_Neon } from "next/font/google"
+import { Quicksand } from "next/font/google"
 import Header from "@/components/Header"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -16,7 +16,7 @@ import "@/styles/datasetcard.sass"
 import "@/styles/projectcard.sass"
 import "@/styles/sourcecode.sass"
 
-const tiltNeon = Tilt_Neon({ subsets: ["latin"] })
+const quickSand = Quicksand({ subsets: ["latin"], weight: ['600'] })
 
 axios.interceptors.request.use((request) => {
 	if (localStorage.hasOwnProperty("accessToken")) {
@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<meta name="description" content="Lenstack" />
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
 			</head>
-			<body className={tiltNeon.className}>
+			<body className={quickSand.className}>
 				<QueryClientProvider client={client}>
 					<AppStateProvider>
 						<nav className={`header`}>
