@@ -65,7 +65,7 @@ const UsagePage: NextPage = () => {
                             <p className="boxcategorytext">API Key</p>
                             <div className="boxcategorytext">
                                 <Show when={!!userState.apiKey}>
-                                    {showapiKey(userState.apiKey)}<CopyIcon className="icon-right" />
+                                    {showapiKey(userState.apiKey)}<CopyIcon className="icon-right" onClick={copyapiKey} />
                                 </Show>
                                 <Show when={!userState.apiKey}>
                                     No API Key

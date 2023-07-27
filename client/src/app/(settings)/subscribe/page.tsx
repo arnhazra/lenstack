@@ -36,7 +36,7 @@ const SubscribePage: NextPage = () => {
         <Fragment>
             <Show when={!pricingDetails.isLoading}>
                 <div className="box">
-                    <p className="branding">Subscribe<i className="fa-solid fa-money-check-dollar"></i></p>
+                    <p className="branding">Subscribe</p>
                     <ButtonGroup className="btn-group-card">
                         <Button className={selectedPlan === "Standard" ? "btn-grp-btn-sel" : "btn-grp-btn"} onClick={(): void => setSelectedPlan("Standard")}>STANDARD</Button>
                         <Button className={selectedPlan === "Premium" ? "btn-grp-btn-sel" : "btn-grp-btn"} onClick={(): void => setSelectedPlan("Premium")}>PREMIUM</Button>

@@ -46,7 +46,7 @@ const TransactionsPage: NextPage = () => {
                     </Show>
                     <Show when={transactions?.data?.transactions?.length === 0}>
                         <div className="box">
-                            <p className="branding">Transactions <i className="fa-solid fa-database"></i></p>
+                            <p className="branding">Transactions</p>
                             <p className="lead">No Transactions to display</p>
                         </div>
                     </Show>
