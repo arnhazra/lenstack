@@ -5,7 +5,7 @@ import endPoints from "@/constants/apiEndpoints"
 import { AppContext } from "@/context/appStateProvider"
 import axios from "axios"
 import React, { Fragment, useContext, useState } from "react"
-import { Button, Container, FloatingLabel, Form } from "react-bootstrap"
+import { Button, Container, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { NextPage } from "next"
 import useFetch from "@/hooks/useFetch"
@@ -45,20 +45,23 @@ const EvolakeQueryEnginePage: NextPage = () => {
             <Container>
                 <form className="box" onSubmit={fetchData}>
                     <p className="branding">Query Engine</p>
-                    <FloatingLabel controlId="floatingSelectGrid" label="Select OpenAI Model">
-                        <Form.Select onChange={(e): void => setModel(e.target.value)}>
+                    <Form.Group controlId="floatingSelectGrid">
+                        <Form.Label>Select OpenAI Model</Form.Label>
+                        <Form.Select size="lg" onChange={(e): void => setModel(e.target.value)}>
                             <option className="options" key={"text-davinci-003"} value={"text-davinci-003"}>{"text-davinci-003"}</option>
                             <option className="options" key={"text-davinci-002"} value={"text-davinci-002"}>{"text-davinci-002"}</option>
                         </Form.Select>
-                    </FloatingLabel>
-                    <FloatingLabel controlId="floatingSelectGrid" label="Select Database" className="mt-3">
-                        <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
+                    </Form.Group>
+                    <Form.Group controlId="floatingSelectGrid" className="mt-2">
+                        <Form.Label>Select Database</Form.Label>
+                        <Form.Select size="lg" onChange={(e): void => setSelectedDb(e.target.value)}>
                             {dbToDisplay}
                         </Form.Select>
-                    </FloatingLabel>
-                    <FloatingLabel controlId="floatingQuery" label="Ask Your Query" className="mt-3">
-                        <Form.Control type="text" disabled={isFetching} placeholder="Ask Your Query" onChange={(e) => setUserQuery(e.target.value)} autoComplete={"off"} required />
-                    </FloatingLabel>
+                    </Form.Group>
+                    <Form.Group controlId="floatingQuery" className="mt-2">
+                        <Form.Label>Ask Your Query</Form.Label>
+                        <Form.Control size="lg" type="text" disabled={isFetching} placeholder="Ask Your Query" onChange={(e) => setUserQuery(e.target.value)} autoComplete={"off"} required />
+                    </Form.Group>
                     <Button type="submit" disabled={isFetching} className="btn-block mt-4">
                         <Show when={!isFetching}>Generate DB Query <i className="fa-solid fa-arrow-right"></i></Show>
                         <Show when={isFetching}><i className="fas fa-circle-notch fa-spin"></i> Fetching</Show>

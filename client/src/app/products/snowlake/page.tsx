@@ -9,7 +9,7 @@ import withAuth from "@/utils/withAuth"
 import { NextPage } from "next"
 import Link from "next/link"
 import { useContext, useEffect, useState } from "react"
-import { Button, FloatingLabel, Form } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
@@ -73,15 +73,18 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
     return (
         <form className="box" onSubmit={createPrototype}>
             <p className="branding">Create Prototype</p>
-            <FloatingLabel controlId="floatingtext" label="Prototype Name">
-                <Form.Control disabled={state.isLoading} type="text" placeholder="Prototype Name" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
-            </FloatingLabel>
-            <FloatingLabel controlId="floatingtext" label="Short Description" className="mt-3">
-                <Form.Control disabled={state.isLoading} type="text" placeholder="Short Description" onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
-            </FloatingLabel>
-            <FloatingLabel controlId="floatingtext" label="Prototype Link" className="mt-3">
-                <Form.Control disabled={state.isLoading} type="url" placeholder="Prototype Link" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
-            </FloatingLabel>
+            <Form.Group controlId="floatingtext">
+                <Form.Label>Prototype Name</Form.Label>
+                <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Prototype" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
+            </Form.Group>
+            <Form.Group controlId="floatingtext" className="mt-2">
+                <Form.Label>Short Description</Form.Label>
+                <Form.Control disabled={state.isLoading} type="text" placeholder="Lorem Ipsum Dolor ..." onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
+            </Form.Group>
+            <Form.Group controlId="floatingtext" className="mt-2">
+                <Form.Label>Prototype Link</Form.Label>
+                <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/prototype" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
+            </Form.Group>
             <Button type="submit" disabled={state.isLoading || !isUserEligible} className="mt-3 btn-block">
                 <Show when={!state.isLoading}>Create Prototype <i className="fa-solid fa-arrow-right"></i></Show>
                 <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Prototype</Show>

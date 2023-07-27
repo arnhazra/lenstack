@@ -1,6 +1,6 @@
 "use client"
 import { FC, useEffect, useState, useContext } from "react"
-import { Button, FloatingLabel, Form } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import { Fragment } from "react"
 import Show from "@/components/Show"
 import { tokenABI } from "@/bin/tokenABI"

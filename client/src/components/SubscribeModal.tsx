@@ -1,6 +1,6 @@
 "use client"
 import { FC, useEffect, useState, useContext } from "react"
-import { Button, FloatingLabel, Form } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import { Fragment } from "react"
 import { Quicksand } from "next/font/google"
 import Web3 from "web3"
@@ -167,9 +167,10 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                 <Modal.Body className="text-center">
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId="floatingAmount" label={`${price / 10000} MATIC`}>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Subscription Amount</Form.Label>
                                 <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={"off"} type="number" placeholder={`${price / 10000} MATIC`} />
-                            </FloatingLabel>
+                            </Form.Group>
                             <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={buyToken}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<i className="fa-solid fa-arrow-right"></i></Show>
                                 <Show when={isTxProcessing}><i className="fa-solid fa-circle-notch fa-spin"></i> Processing Tx</Show>

@@ -2,7 +2,7 @@
 import { Fragment, useState } from "react"
 import axios from "axios"
 import Web3 from "web3"
-import { Button, FloatingLabel, Form } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import Constants from "@/constants/appConstants"
 import Show from "@/components/Show"
 import endPoints from "@/constants/apiEndpoints"

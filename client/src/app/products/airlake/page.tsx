@@ -1,6 +1,6 @@
 "use client"
 import { ChangeEvent, useContext, useMemo } from "react"
-import { Button, Col, Container, FloatingLabel, Form, Row } from "react-bootstrap"
+import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import debounce from "lodash.debounce"
 import Loading from "@/components/Loading"
@@ -54,24 +54,27 @@ const AirlakeDatasetsPage: NextPage = () => {
                     <div className="jumbotron p-4">
                         <Row className="g-2">
                             <Col xs={12} sm={12} md={6} lg={4} xl={6}>
-                                <FloatingLabel controlId="floatingSearch" label="What are you looking for today?">
-                                    <Form.Control type="Search" defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder="What are you looking for today?" required autoComplete={"off"} minLength={4} maxLength={40} />
-                                </FloatingLabel>
+                                <Form.Group controlId="floatingSearch">
+                                    <Form.Label>What are you looking for?</Form.Label>
+                                    <Form.Control size="lg" type="Search" defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder="What are you looking for today?" required autoComplete={"off"} minLength={4} maxLength={40} />
+                                </Form.Group>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                                <FloatingLabel controlId="floatingSelectGrid" label="Select Filter Category">
-                                    <Form.Select defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => dispatch("setDatasetRequestState", { selectedFilter: e.target.value, offset: 0 })}>
+                                <Form.Group controlId="floatingSelectGrid">
+                                    <Form.Label>Select Filter Category</Form.Label>
+                                    <Form.Select size="lg" defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => dispatch("setDatasetRequestState", { selectedFilter: e.target.value, offset: 0 })}>
                                         {filterCategoriesToDisplay}
                                     </Form.Select>
-                                </FloatingLabel>
+                                </Form.Group>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                                <FloatingLabel controlId="floatingSelectGrid" label="Sort By">
-                                    <Form.Select defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => dispatch("setDatasetRequestState", { selectedSortOption: e.target.value })}>
+                                <Form.Group controlId="floatingSelectGrid">
+                                    <Form.Label>Sort By</Form.Label>
+                                    <Form.Select size="lg" defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => dispatch("setDatasetRequestState", { selectedSortOption: e.target.value })}>
                                         <option className="options" key={"nameAscending"} value={"name"}>Name Ascending</option>
                                         <option className="options" key={"nameDescending"} value={"-name"}>Name Descending</option>
                                     </Form.Select>
-                                </FloatingLabel>
+                                </Form.Group>
                             </Col>
                         </Row>
                     </div>

@@ -3,7 +3,7 @@ import SourceCode from "@/components/SourceCode"
 import endPoints from "@/constants/apiEndpoints"
 import withAuth from "@/utils/withAuth"
 import { NextPage } from "next"
-import { Container, FloatingLabel, Form } from "react-bootstrap"
+import { Container, Form } from "react-bootstrap"
 
 const APIReferencePage: NextPage = () => {
     return (
@@ -12,7 +12,7 @@ const APIReferencePage: NextPage = () => {
                 <p className="branding">Airlake</p>
                 <Form.Control disabled type="text" defaultValue={`${endPoints.airlakeDataApiEndpoint}/<DATASET_ID>/<YOUR_API_KEY>`} />
 
-                <p className="branding">Evolake</p>
+                <p className="branding mt-3">Evolake</p>
                 <Form.Control disabled type="text" defaultValue={`${endPoints.evolakeGenerateQueryEndpint}`} />
                 <SourceCode>
                     <p className="lead">Request Body [POST]</p>
