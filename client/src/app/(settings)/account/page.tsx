@@ -1,6 +1,6 @@
 "use client"
 import { Fragment, useContext, useState, useEffect } from "react"
-import { Button } from "react-bootstrap"
+import { Button, Col, Row } from "react-bootstrap"
 import endPoints from "@/constants/apiEndpoints"
 import { useRouter } from "next/navigation"
 import { AppContext } from "@/context/appStateProvider"
@@ -15,6 +15,7 @@ import Loading from "@/components/Loading"
 import Link from "next/link"
 import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/httpMethods"
+import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 
 const AccountPage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
@@ -76,15 +77,37 @@ const AccountPage: NextPage = () => {
             </Show>
             <Show when={!walletLoading}>
                 <div className="box">
-                    <p className="branding">Account <i className="fa-solid fa-address-card"></i></p>
-                    <h4 className="text-center">Hello, {userState.name.split(" ")[0]}</h4>
-                    <p className="lead pt-2 text-center" title={accountAddress}>Wallet Address - {showWalletAddress(accountAddress)}<i className="fa-solid fa-copy" onClick={copyWalletAddress}></i></p>
-                    <h2 className="pb-3 text-center color-amount">
-                        <i className="fa-solid fa-wallet"></i>{Number(maticBalance).toFixed(2)} MATIC
-                    </h2>
-                    <Link className="btn btn-block" passHref href={"https://faucet.polygon.technology/"} target="_blank">Fund my wallet<i className="fa-solid fa-square-arrow-up-right"></i></Link>
-                    <Button className="btn-block mb-4" onClick={signOutFromThisDevice}>Sign Out<i className="fa-solid fa-arrow-right"></i></Button>
-                    <p className="lead-link text-center" onClick={signOutFromAllDevices}>Sign out from all devices</p>
+                    <p className="branding">Account</p>
+                    <Row className="mb-2 mt-4">
+                        <Col className="categorycol">
+                            <AvatarIcon />
+                        </Col>
+                        <Col>
+                            <p className="boxcategorytext">Hello, {userState.name.split(" ")[0]}</p>
+                            <div className="boxcategorytext">
+                                Wallet Address {showWalletAddress(accountAddress)}<CopyIcon className="icon-right" onClick={copyWalletAddress} />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row className="mb-2 mt-4">
+                        <Col className="categorycol">
+                            <BookmarkIcon />
+                        </Col>
+                        <Col>
+                            <p className="boxcategorytext">Wallet Balance</p>
+                            <div className="boxcategorytext">
+                                <Show when={!!userState.apiKey}>
+                                    {Number(maticBalance).toFixed(2)} MATIC
+                                </Show>
+                                <Show when={!userState.apiKey}>
+                                    No API Key
+                                </Show>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Link className="btn btn-block" passHref href={"https://faucet.polygon.technology/"} target="_blank">Fund my wallet<ExternalLinkIcon className="icon-right" /></Link>
+                    <Button className="btn-block" onClick={signOutFromThisDevice}>Sign Out<ExitIcon className="icon-right" /></Button>
+                    <Button className="btn-block btn-red" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
                 </div>
             </Show>
         </Fragment >
