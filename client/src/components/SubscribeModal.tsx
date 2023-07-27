@@ -174,7 +174,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                             </Form.Group>
                             <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={buyToken}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
-                                <Show when={isTxProcessing}><i className="fa-solid fa-circle-notch fa-spin"></i> Processing Tx</Show>
+                                <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
                         </Show>
                         <Show when={step === 2}>

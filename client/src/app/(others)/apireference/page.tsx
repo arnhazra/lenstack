@@ -48,8 +48,8 @@ const APIReferencePage: NextPage = () => {
                         &nbsp;&nbsp;&nbsp;"event": "JAVASCRIPT_EVENT",<br />
                         &nbsp;&nbsp;&nbsp;"info": "INFORMATION",<br />
                         &nbsp;&nbsp;&nbsp;"statusCode": "HTTP_STATUS_CODE",<br />
-                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
-                        &nbsp;&nbsp;&nbsp;"clientId": "YOUR_PROJECT_CLIENT_ID"<br />
+                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY",<br />
+                        &nbsp;&nbsp;&nbsp;"clientId": "YOUR_PROJECT_CLIENT_ID",<br />
                         &nbsp;&nbsp;&nbsp;"clientSecret": "YOUR_PROJECT_CLIENT_SECRET"<br />
                         &#125;
                     </p>

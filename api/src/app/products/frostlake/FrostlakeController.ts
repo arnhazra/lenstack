@@ -45,7 +45,7 @@ export default class FrostlakeController {
             const { projectId } = req.body
             const project = await FrostlakeProjectModel.findById(projectId)
             const { owner } = project
-            const analytics = await FrostlakeAnalyticsModel.find({ projectId, owner }).sort({ date: -1 }).select("-apiKey -owner -projectId")
+            const analytics = await FrostlakeAnalyticsModel.find({ projectId, owner }).select("-apiKey -owner -projectId").sort({ createdAt: -1 })
 
             if (owner.toString() === req.headers.id) {
                 return res.status(200).json({ project, analytics })
