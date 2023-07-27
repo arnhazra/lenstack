@@ -16,6 +16,7 @@ import { nftABI } from "@/bin/nftABI"
 import { vendorABI } from "@/bin/vendorABI"
 import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/httpMethods"
+import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 interface SubscribeModalProps {
     isOpened: boolean,
@@ -172,7 +173,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
                                 <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={"off"} type="number" placeholder={`${price / 10000} MATIC`} />
                             </Form.Group>
                             <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={buyToken}>
-                                <Show when={!isTxProcessing}>Pay & Subscribe<i className="fa-solid fa-arrow-right"></i></Show>
+                                <Show when={!isTxProcessing}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
                                 <Show when={isTxProcessing}><i className="fa-solid fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
                         </Show>

@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
+import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 const FrostlakeCreateProjectPage: NextPage = () => {
     const [state, setState] = useState({ name: "", isLoading: false })
@@ -39,7 +40,7 @@ const FrostlakeCreateProjectPage: NextPage = () => {
                 <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Project" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
             </Form.Group>
             <Button type="submit" disabled={state.isLoading} className="btn-block">
-                <Show when={!state.isLoading}>Create Project <i className="fa-solid fa-arrow-right"></i></Show>
+                <Show when={!state.isLoading}>Create Project <ArrowRightIcon className="icon-right" /></Show>
                 <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Project</Show>
             </Button>
             <Link href={"/products/frostlake/projects"} className="lead-link">View My Projects</Link>

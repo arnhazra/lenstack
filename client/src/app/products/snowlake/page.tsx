@@ -12,6 +12,7 @@ import { useContext, useEffect, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import Web3 from "web3"
+import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 const SnowlakeCreatePrototypePage: NextPage = () => {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
@@ -86,7 +87,7 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
                 <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/prototype" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
             </Form.Group>
             <Button type="submit" disabled={state.isLoading || !isUserEligible} className="mt-3 btn-block">
-                <Show when={!state.isLoading}>Create Prototype <i className="fa-solid fa-arrow-right"></i></Show>
+                <Show when={!state.isLoading}>Create Prototype <ArrowRightIcon className="icon-right" /></Show>
                 <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Prototype</Show>
             </Button>
             <Link href={"/products/snowlake/prototypes"} className="lead-link">View My Prototypes</Link>

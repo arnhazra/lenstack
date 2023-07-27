@@ -16,6 +16,7 @@ import { vendorABI } from "@/bin/vendorABI"
 import { Quicksand } from "next/font/google"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
+import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
@@ -162,7 +163,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                                 <Form.Control disabled defaultValue={`${(refundAmount / 10000).toFixed(2)} MATIC`} autoComplete={"off"} type="number" placeholder={`${(refundAmount / 10000).toFixed(2)} MATIC`} />
                             </Form.Group>
                             <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={unsubscribe}>
-                                <Show when={!isTxProcessing}>Get Refund<i className="fa-solid fa-arrow-right"></i></Show>
+                                <Show when={!isTxProcessing}>Get Refund<ArrowRightIcon className="icon-right" /></Show>
                                 <Show when={isTxProcessing}><i className="fa-solid fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
                         </Show>

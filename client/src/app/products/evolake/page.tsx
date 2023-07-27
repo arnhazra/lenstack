@@ -12,6 +12,7 @@ import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/httpMethods"
 import Link from "next/link"
 import SourceCode from "@/components/SourceCode"
+import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 const EvolakeQueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState("SQL")
@@ -63,7 +64,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                         <Form.Control size="lg" type="text" disabled={isFetching} placeholder="Ask Your Query" onChange={(e) => setUserQuery(e.target.value)} autoComplete={"off"} required />
                     </Form.Group>
                     <Button type="submit" disabled={isFetching} className="btn-block mt-4">
-                        <Show when={!isFetching}>Generate DB Query <i className="fa-solid fa-arrow-right"></i></Show>
+                        <Show when={!isFetching}>Generate DB Query <ArrowRightIcon className="icon-right" /></Show>
                         <Show when={isFetching}><i className="fas fa-circle-notch fa-spin"></i> Fetching</Show>
                     </Button>
                     <Show when={!!dbQuery}>

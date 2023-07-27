@@ -5,6 +5,7 @@ import Link from "next/link"
 import { NextPage } from "next"
 import withoutAuth from "@/utils/withoutAuth"
 import ContainerComp from "@/components/ContainerComp"
+import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 const HomePage: NextPage = () => {
 	return (
@@ -20,7 +21,7 @@ const HomePage: NextPage = () => {
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2}
 					</p>
-					<Link href="/auth" className="btn">Try Free<i className="fa-solid fa-arrow-right"></i></Link>
+					<Link href="/auth" className="btn">Try Free<ArrowRightIcon className="icon-right" /></Link>
 				</div>
 			</ContainerComp>
 		</Fragment>
