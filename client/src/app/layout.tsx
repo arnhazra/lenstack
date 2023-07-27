@@ -16,7 +16,7 @@ import "@/styles/datasetcard.sass"
 import "@/styles/projectcard.sass"
 import "@/styles/sourcecode.sass"
 
-const quickSand = Quicksand({ subsets: ["latin"], weight: ['600'] })
+const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
 axios.interceptors.request.use((request) => {
 	if (localStorage.hasOwnProperty("accessToken")) {

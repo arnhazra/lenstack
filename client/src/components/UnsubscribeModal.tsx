@@ -13,7 +13,7 @@ import { AppContext } from "@/context/appStateProvider"
 import { Modal } from "react-bootstrap"
 import { nftABI } from "@/bin/nftABI"
 import { vendorABI } from "@/bin/vendorABI"
-import { Tilt_Neon } from "next/font/google"
+import { Quicksand } from "next/font/google"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 
@@ -24,7 +24,7 @@ interface UnsubscribeModalProps {
     closeModal: () => void
 }
 
-const tiltNeon = Tilt_Neon({ subsets: ["latin"] })
+const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
 const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, refundAmount, tokenId }) => {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
@@ -150,16 +150,17 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
 
     return (
         <Fragment>
-            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={tiltNeon.className}>
+            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={quickSand.className}>
                 <Modal.Header closeButton>
                     <Modal.Title>Unsubscribe</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="text-center">
                     <Fragment>
                         <Show when={step === 1}>
-                            <FloatingLabel controlId="floatingAmount" label={`${refundAmount / 10000} MATIC`}>
-                                <Form.Control disabled defaultValue={`${refundAmount / 10000} MATIC`} autoComplete={"off"} type="number" placeholder={`${refundAmount / 10000} MATIC`} />
-                            </FloatingLabel>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Refund Amount</Form.Label>
+                                <Form.Control disabled defaultValue={`${(refundAmount / 10000).toFixed(2)} MATIC`} autoComplete={"off"} type="number" placeholder={`${(refundAmount / 10000).toFixed(2)} MATIC`} />
+                            </Form.Group>
                             <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={unsubscribe}>
                                 <Show when={!isTxProcessing}>Get Refund<i className="fa-solid fa-arrow-right"></i></Show>
                                 <Show when={isTxProcessing}><i className="fa-solid fa-circle-notch fa-spin"></i> Processing Tx</Show>

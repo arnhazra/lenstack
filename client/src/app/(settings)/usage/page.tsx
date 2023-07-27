@@ -2,7 +2,6 @@
 import { Fragment, useContext, useState } from "react"
 import { AppContext } from "@/context/appStateProvider"
 import Show from "@/components/Show"
-import Link from "next/link"
 import { toast } from "react-hot-toast"
 import withAuth from "@/utils/withAuth"
 import { NextPage } from "next"
@@ -14,7 +13,8 @@ import Loading from "@/components/Loading"
 import appConstants from "@/constants/appConstants"
 import moment from "moment"
 import UnsubscribeModal from "@/components/UnsubscribeModal"
-import { Button } from "react-bootstrap"
+import { Button, Col, Row } from "react-bootstrap"
+import { LockOpen1Icon, CalendarIcon, BookmarkIcon, BarChartIcon, CrossCircledIcon, CopyIcon } from "@radix-ui/react-icons"
 
 const UsagePage: NextPage = () => {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
@@ -39,35 +39,92 @@ const UsagePage: NextPage = () => {
         setUnsubscribeModalOpened(false)
     }
 
+    const calculateDaysRemaining = (targetDateString: string): number => {
+        const targetDate: Date = new Date(targetDateString)
+        const currentDate: Date = new Date()
+        const timeDifference: number = targetDate.getTime() - currentDate.getTime()
+        const daysRemaining: number = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+        return daysRemaining
+    }
+
+    const subscriptionAmount = pricingDetails?.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.price
+    const tokensRemainingPercent = Number(pricingDetails?.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens - usedTokens) / Number(pricingDetails?.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens)
+    const daysRemainingPercent = calculateDaysRemaining(userState.subscriptionValidUpto) / 30
+
     return (
         <Fragment>
             <Show when={!usageDetails.isLoading && !pricingDetails.isLoading && !contractAddress.isLoading}>
                 <div className="box">
-                    <p className="branding">Usage<i className="fa-solid fa-chart-pie"></i></p>
+                    <p className="branding">Usage</p>
+                    <p className="boxtext">Track your API Key usage from here</p>
+                    <Row className="mb-2 mt-4">
+                        <Col className="categorycol">
+                            <LockOpen1Icon />
+                        </Col>
+                        <Col>
+                            <p className="boxcategorytext">API Key</p>
+                            <div className="boxcategorytext">
+                                <Show when={!!userState.apiKey}>
+                                    {showapiKey(userState.apiKey)}<CopyIcon className="icon-right" />
+                                </Show>
+                                <Show when={!userState.apiKey}>
+                                    No API Key
+                                </Show>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row className="mb-2">
+                        <Col className="categorycol">
+                            <CalendarIcon />
+                        </Col>
+                        <Col>
+                            <p className="boxcategorytext">Validity</p>
+                            <div className="boxcategorytext">
+                                <Show when={!!userState.apiKey}>
+                                    <p>Valid upto {moment(userState.subscriptionValidUpto).format("MMM, Do YYYY")}</p>
+                                </Show>
+                                <Show when={!userState.apiKey}>
+                                    <p>No Validity Data</p>
+                                </Show>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row className="mb-2">
+                        <Col className="categorycol">
+                            <BookmarkIcon />
+                        </Col>
+                        <Col>
+                            <p className="boxcategorytext">Selected Plan</p>
+                            <p className="boxcategorytext">
+                                {userState.selectedPlan}
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row className="mb-2">
+                        <Col className="categorycol">
+                            <BarChartIcon />
+                        </Col>
+                        <Col>
+                            <p className="boxcategorytext">Key Usage</p>
+                            <div className="boxcategorytext">
+                                <Show when={!!userState.apiKey}>
+                                    {usedTokens} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens} Tokens used
+                                </Show>
+                                <Show when={!userState.apiKey}>
+                                    No API Key Usage Data
+                                </Show>
+                            </div>
+                        </Col>
+                    </Row>
                     <Show when={!!userState.apiKey}>
-                        <p className="smalltext" title={userState.apiKey}>API Key - {showapiKey(userState.apiKey)}<i className="fa-solid fa-copy" onClick={copyapiKey}></i></p>
-                        <p className="smalltext">Valid upto {moment(userState.subscriptionValidUpto).format("MMM, Do YYYY")}</p>
-                    </Show>
-                    <h4>
-                        {userState.selectedPlan}
-                        <Show when={!!userState.apiKey && userState.selectedPlan !== "Trial"}>
-                            <Link title="Access NFT" target="_blank" passHref href={`https://mumbai.polygonscan.com/token/${contractAddress?.data?.nftContractAddress}?a=${userState.tokenId}`}>
-                                <img src="https://cdn-icons-png.flaticon.com/128/6298/6298900.png" height={40} width={40}></img>
-                            </Link>
-                        </Show>
-                    </h4>
-                    <Show when={!!userState.apiKey}>
-                        <p className="branding">
-                            {usedTokens} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens} Tokens used
-                        </p>
-                        <Button className="btn-block" disabled={userState.selectedPlan === "Trial"} onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription<i className="fa-solid fa-arrow-right"></i></Button>
+                        <Button className="btn-block btn-red mb-2 mt-3" disabled={userState.selectedPlan === "Trial"} onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription<CrossCircledIcon className="icon-right" /></Button>
                     </Show>
                 </div>
             </Show>
             <Show when={usageDetails.isLoading || pricingDetails.isLoading || contractAddress.isLoading}>
                 <Loading />
             </Show>
-            <UnsubscribeModal tokenId={userState.tokenId} refundAmount={Number(0.2) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
+            <UnsubscribeModal tokenId={userState.tokenId} refundAmount={Number(subscriptionAmount * tokensRemainingPercent * daysRemainingPercent) * 10000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
         </Fragment >
     )
 }

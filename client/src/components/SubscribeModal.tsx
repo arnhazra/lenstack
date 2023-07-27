@@ -2,7 +2,7 @@
 import { FC, useEffect, useState, useContext } from "react"
 import { Button, FloatingLabel, Form } from "react-bootstrap"
 import { Fragment } from "react"
-import { Tilt_Neon } from "next/font/google"
+import { Quicksand } from "next/font/google"
 import Web3 from "web3"
 import axios from "axios"
 import Show from "@/components/Show"
@@ -24,7 +24,7 @@ interface SubscribeModalProps {
     selectedPlan: string
 }
 
-const tiltNeon = Tilt_Neon({ subsets: ["latin"] })
+const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
 const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, selectedPlan }) => {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
@@ -160,7 +160,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
 
     return (
         <Fragment>
-            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={tiltNeon.className}>
+            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={quickSand.className}>
                 <Modal.Header closeButton>
                     <Modal.Title>Subscribe</Modal.Title>
                 </Modal.Header>

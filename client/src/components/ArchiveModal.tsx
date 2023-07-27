@@ -1,7 +1,7 @@
 "use client"
 import { FC, Fragment } from "react"
 import { Button, Modal } from "react-bootstrap"
-import { Tilt_Neon } from "next/font/google"
+import { Quicksand } from "next/font/google"
 import Show from "./Show"
 
 interface ArchiveModalProps {
@@ -11,7 +11,7 @@ interface ArchiveModalProps {
     doAction: () => void
 }
 
-const tiltNeon = Tilt_Neon({ subsets: ["latin"] })
+const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
 const ArchiveModal: FC<ArchiveModalProps> = ({ isOpened, isTxProcessing, closeModal, doAction }) => {
     const hideModal = (): void => {
@@ -22,7 +22,7 @@ const ArchiveModal: FC<ArchiveModalProps> = ({ isOpened, isTxProcessing, closeMo
 
     return (
         <Fragment>
-            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={tiltNeon.className}>
+            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={quickSand.className}>
                 <Modal.Header closeButton>
                     <Modal.Title>Archive</Modal.Title>
                 </Modal.Header>

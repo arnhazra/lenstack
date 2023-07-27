@@ -1,9 +1,10 @@
 $btnColor: #1a1a1f
 $textColor: #fafafb
 $tagColor: #f1f5f9
+$dangerBtnColor: #ed2954
 
 .btn
-    background: $btnColor !important
+    background: $btnColor
     border-radius: 0.4rem
     padding: 0.65rem
     padding-left: 1.4rem
@@ -22,6 +23,14 @@ $tagColor: #f1f5f9
 .btn:focus,
 .btn:active
     background-color: $btnColor
+
+.btn-red
+    background: $dangerBtnColor !important
+
+.btn-red:hover,
+.btn-red:focus,
+.btn-red:active
+    background-color: $dangerBtnColor !important
 
 a,
 a:hover,
@@ -53,7 +62,7 @@ a:active
 
 .btn-block:hover,
 .btn-block:focus
-    background-color: $btnColor !important
+    background-color: $btnColor
 
 .fa-circle-user
     color: $tagColor
