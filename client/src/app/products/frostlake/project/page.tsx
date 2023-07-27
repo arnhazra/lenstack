@@ -6,6 +6,7 @@ import endPoints from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetchRealtime from "@/hooks/useFetchRealtime"
 import withAuth from "@/utils/withAuth"
+import { ArchiveIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { NextPage } from "next"
@@ -49,8 +50,8 @@ const FrostlakeViewProjectPage: NextPage = () => {
                             <p className="display-6 text-capitalize">{project?.data?.project?.name}</p>
                             <p className="lead mt-3">Client Id: {project?.data?.project?.clientId}</p>
                             <p className="lead mt-3">Client Secret: {project?.data?.project?.clientSecret}</p>
-                            <Button onClick={archiveProject}>Archive Project<i className="fa-solid fa-archive"></i></Button>
-                            <Button onClick={() => router.push("/apireference")}>API Reference<i className="fa-solid fa-diamond-turn-right"></i></Button>
+                            <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
+                            <Button onClick={() => router.push("/apireference")}>API Reference<ReaderIcon className="icon-right" /></Button>
                         </div>
                         <Show when={!!project?.data?.analytics.length}>
                             <h4 className="text-white text-center">Analytics</h4>

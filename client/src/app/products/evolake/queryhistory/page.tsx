@@ -41,7 +41,7 @@ const QueryHistoryPage: NextPage = () => {
                     </Show>
                     <Show when={queryHistory?.data?.queryHistory?.length === 0}>
                         <div className="box">
-                            <p className="branding">History <i className="fa-solid fa-database"></i></p>
+                            <p className="branding">Query History</p>
                             <p className="lead">No historical queries to display</p>
                         </div>
                     </Show>

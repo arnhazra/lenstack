@@ -3,6 +3,7 @@ import { FC, Fragment } from "react"
 import { Button, Modal } from "react-bootstrap"
 import { Quicksand } from "next/font/google"
 import Show from "./Show"
+import { ArchiveIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 
 interface ArchiveModalProps {
     isOpened: boolean,
@@ -31,12 +32,12 @@ const ArchiveModal: FC<ArchiveModalProps> = ({ isOpened, isTxProcessing, closeMo
                         <h5>Are you sure you want to archive this?</h5>
                     </Show>
                     <Show when={isTxProcessing}>
-                        <h5>Archive in progress <i className="fas fa-circle-notch fa-spin"></i></h5>
+                        <h5>Archive in progress</h5>
                     </Show>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button disabled={isTxProcessing} onClick={doAction}>Archive<i className="fa-solid fa-archive"></i></Button>
-                    <Button disabled={isTxProcessing} onClick={hideModal}>Cancel<i className="fa-solid fa-close"></i></Button>
+                    <Button disabled={isTxProcessing} onClick={doAction}>Archive<ArchiveIcon className="icon-right" /></Button>
+                    <Button disabled={isTxProcessing} onClick={hideModal}>Cancel<CrossCircledIcon className="icon-right" /></Button>
                 </Modal.Footer>
             </Modal>
         </Fragment>

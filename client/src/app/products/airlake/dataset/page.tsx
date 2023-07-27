@@ -15,6 +15,7 @@ import withAuth from "@/utils/withAuth"
 import appConstants from "@/constants/appConstants"
 import { useSearchParams } from "next/navigation"
 import { NextPage } from "next"
+import { CopyIcon } from "@radix-ui/react-icons"
 
 const AirlakeViewDatasetPage: NextPage = () => {
     const searchParams = useSearchParams()
@@ -57,9 +58,9 @@ const AirlakeViewDatasetPage: NextPage = () => {
                                     <p className="lead">{dataset?.data?.category}</p>
                                     <p className="lead mt-3">{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
-                                    <Button onClick={copyMetadataAPI}>Metadata API <i className="fa-solid fa-copy"></i></Button>
+                                    <Button onClick={copyMetadataAPI}>Metadata API<CopyIcon className="icon-right" /></Button>
                                     <Show when={userState.apiKey.length > 0}>
-                                        <Button onClick={copyDataAPI}>Data API <i className="fa-solid fa-copy"></i></Button>
+                                        <Button onClick={copyDataAPI}>Data API <CopyIcon className="icon-right" /></Button>
                                     </Show>
                                 </Col>
                             </Row>

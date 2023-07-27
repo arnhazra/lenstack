@@ -13,7 +13,7 @@ import HTTPMethods from "@/constants/httpMethods"
 import Error from "@/components/ErrorComp"
 import withAuth from "@/utils/withAuth"
 import { NextPage } from "next"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
 
 const AirlakeDatasetsPage: NextPage = () => {
     const [{ datasetRequestState }, dispatch] = useContext(AppContext)
@@ -84,7 +84,7 @@ const AirlakeDatasetsPage: NextPage = () => {
                         {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
                     </Row>
                     <div className="text-center">
-                        {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}>Show Prev<i className="fa-solid fa-arrow-left"></i></Button>}
+                        {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
                         {dataLibrary?.data?.datasets?.length === 36 && <Button className="btn" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
                     </div>
                 </Container>

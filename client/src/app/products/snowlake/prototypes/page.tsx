@@ -15,6 +15,7 @@ import moment from "moment"
 import ArchiveModal from "@/components/ArchiveModal"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
+import { FileIcon, OpenInNewWindowIcon, ArchiveIcon } from "@radix-ui/react-icons"
 
 const SnowlakePrototypes: NextPage = () => {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
@@ -87,11 +88,11 @@ const SnowlakePrototypes: NextPage = () => {
     const prototypesToDisplay = prototypeList?.map((prototype: any) => {
         return (
             <tr key={prototype.id}>
-                <td><i className="fa-solid fa-file"></i> {prototype.name}</td>
+                <td><FileIcon className="icon-left" /> {prototype.name}</td>
                 <td>{prototype.description}</td>
                 <td>{moment(Number(prototype.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}</td>
-                <td><Link href={`${prototype.link}`} passHref target="_blank"><i className="fa-solid fa-square-arrow-up-right"></i></Link></td>
-                <td><i className="fa-solid fa-archive" onClick={() => { setArchiveModalOpened(true); setArchiveId(prototype.id) }}></i></td>
+                <td><Link href={`${prototype.link}`} passHref target="_blank"><OpenInNewWindowIcon /></Link></td>
+                <td><ArchiveIcon onClick={() => { setArchiveModalOpened(true); setArchiveId(prototype.id) }} /></td>
             </tr>
         )
     })
@@ -119,7 +120,7 @@ const SnowlakePrototypes: NextPage = () => {
                     </Show>
                     <Show when={prototypeList.length === 0}>
                         <div className="box">
-                            <p className="branding">Prototypes<i className="fa-solid fa-file"></i></p>
+                            <p className="branding">Prototypes</p>
                             <p className="lead">No Prototypes to display</p>
                         </div>
                     </Show>

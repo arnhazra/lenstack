@@ -31,7 +31,7 @@ const FrostlakeAnalyticsPage: NextPage = () => {
                     </Show>
                     <Show when={projects?.data?.projects?.length === 0}>
                         <div className="box">
-                            <p className="branding">Projects <i className="fa-solid fa-database"></i></p>
+                            <p className="branding">Projects</p>
                             <p className="lead">No Projects to display</p>
                         </div>
                     </Show>

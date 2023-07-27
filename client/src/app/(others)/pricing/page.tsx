@@ -24,12 +24,12 @@ const PricingPage: NextPage = () => {
                     </ButtonGroup>
                     <div className="plans mt-2">
                         <Show when={selectedPlan === "Standard"}>
-                            <p className="branding text-center"><i className="fa-solid fa-wallet"></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
-                            <p className="branding text-center"><i className="fa-solid fa-coins"></i>{pricingDetails.data?.standardSubscriptionConfig?.grantedTokens} Tokens</p>
+                            <p className="boxtext ms-2 mt-2">This plan is more intended towards individual use, offers all products with {pricingDetails.data?.standardSubscriptionConfig?.grantedTokens} tokens.</p>
+                            <p className="branding text-center">{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
                         </Show>
                         <Show when={selectedPlan === "Premium"}>
-                            <p className="branding text-center"><i className="fa-solid fa-wallet"></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
-                            <p className="branding text-center"><i className="fa-solid fa-coins"></i>{pricingDetails.data?.premiumSubscriptionConfig?.grantedTokens} Tokens</p>
+                            <p className="boxtext ms-2 mt-2">This plan is more intended towards enterprise use, offers all products with {pricingDetails.data?.premiumSubscriptionConfig?.grantedTokens} Tokens</p>
+                            <p className="branding text-center">{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
                         </Show>
                     </div>
                 </div>

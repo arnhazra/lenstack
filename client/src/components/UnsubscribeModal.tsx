@@ -16,7 +16,7 @@ import { vendorABI } from "@/bin/vendorABI"
 import { Quicksand } from "next/font/google"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
@@ -170,13 +170,13 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                         <Show when={step === 2}>
                             <Show when={!txError}>
                                 <div className="text-center">
-                                    <i className="fa-solid fa-circle-check fa-4x"></i>
+                                    <CheckCircledIcon className="icon-large" />
                                     <p className="lead text-center mt-4">Success</p>
                                 </div>
                             </Show>
                             <Show when={txError}>
                                 <div className="text-center">
-                                    <i className="fa-solid fa-circle-xmark fa-4x"></i>
+                                    <CrossCircledIcon className="icon-large" />
                                     <p className="lead text-center mt-4">Failed</p>
                                 </div>
                             </Show>

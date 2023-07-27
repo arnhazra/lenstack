@@ -10,6 +10,7 @@ import useFetch from "@/hooks/useFetch"
 import endPoints from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
 import Loading from "@/components/Loading"
+import { PlusCircledIcon } from "@radix-ui/react-icons"
 
 const SubscribePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
@@ -43,14 +44,14 @@ const SubscribePage: NextPage = () => {
                     </ButtonGroup>
                     <div className="plans mt-2">
                         <Show when={selectedPlan === "Standard"}>
-                            <p className="branding text-center"><i className="fa-solid fa-wallet"></i>{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
-                            <p className="branding text-center"><i className="fa-solid fa-coins"></i>{pricingDetails.data?.standardSubscriptionConfig?.grantedTokens} Tokens</p>
-                            <Button className="btn-block" disabled={!!userState.apiKey && userState.selectedPlan !== "Trial"} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-circle-plus"></i></Button>
+                            <p className="boxtext ms-2 mt-2">This plan is more intended towards individual use, offers all products with {pricingDetails.data?.standardSubscriptionConfig?.grantedTokens} tokens.</p>
+                            <p className="branding text-center">{pricingDetails.data?.standardSubscriptionConfig?.price} MATIC/month</p>
+                            <Button className="btn-block" disabled={!!userState.apiKey && userState.selectedPlan !== "Trial"} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<PlusCircledIcon className="icon-right" /></Button>
                         </Show>
                         <Show when={selectedPlan === "Premium"}>
-                            <p className="branding text-center"><i className="fa-solid fa-wallet"></i>{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
-                            <p className="branding text-center"><i className="fa-solid fa-coins"></i>{pricingDetails.data?.premiumSubscriptionConfig?.grantedTokens} Tokens</p>
-                            <Button className="btn-block" disabled={!!userState.apiKey && userState.selectedPlan !== "Trial"} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-circle-plus"></i></Button>
+                            <p className="boxtext ms-2 mt-2">This plan is more intended towards enterprise use, offers all products with {pricingDetails.data?.premiumSubscriptionConfig?.grantedTokens} Tokens</p>
+                            <p className="branding text-center">{pricingDetails.data?.premiumSubscriptionConfig?.price} MATIC/month</p>
+                            <Button className="btn-block" disabled={!!userState.apiKey && userState.selectedPlan !== "Trial"} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<PlusCircledIcon className="icon-right" /></Button>
                         </Show>
                     </div>
                 </div>
