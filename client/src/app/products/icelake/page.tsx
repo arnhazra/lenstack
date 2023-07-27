@@ -14,7 +14,7 @@ import { NextPage } from "next"
 import { ChangeEvent, Fragment, useContext } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import { toast } from "react-hot-toast"
-import { FileTextIcon, DownloadIcon, ArchiveIcon } from "@radix-ui/react-icons"
+import { FileTextIcon, DownloadIcon, ArchiveIcon, UploadIcon } from "@radix-ui/react-icons"
 
 const IcelakeHomePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
@@ -135,7 +135,7 @@ const IcelakeHomePage: NextPage = () => {
             <Show when={!documentList.isLoading}>
                 <Container>
                     <div className="mb-3">
-                        <label htmlFor="file-upload" className="file-button">Upload</label>
+                        <label htmlFor="file-upload" className="file-button"><UploadIcon className="icon-left" />Upload</label>
                         <input id="file-upload" className="file-input" type="file" multiple onChange={readFile} />
                     </div>
                     <Show when={documentList?.data?.documents?.length > 0}>
