@@ -18,11 +18,8 @@ jobs:
       - name: Remove Everything from Root Directory (except client)
         run: find . -not -path "./client/*" -not -name "client" -delete
 
-      - name: Move Next.js build output to Repository Root
-        run: mv .next ../.next
-
-      - name: Move other files to Repository Root
-        run: mv * ../ && mv .[!.]* ../ || true  # Move all files (except dot files) to the repository root
+      - name: Move Next.js build output and other files to Repository Root
+        run: mv ./client/* ./
 
       - name: Build client application
         run: |
