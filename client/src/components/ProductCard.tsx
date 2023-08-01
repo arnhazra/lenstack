@@ -18,7 +18,7 @@ const ProductCard: FC<ProductCardProps> = ({ productName, description, url, prod
                 <Card.Header className="pt-3 product-card-header">
                     <div className={`${productName.toLowerCase()}Container pt-4`} />
                 </Card.Header>
-                <Card.Footer className={`pt-4 pb-2 ps-4 ${productName.toLowerCase()}Color product-card-footer`}>
+                <Card.Footer className={`pt-4 pb-2 ps-4 productColor product-card-footer`}>
                     <p className="branding product-name">{productName}</p>
                     <p className="smalltext">{description}</p>
                     <Button className="tag-chip mb-3">{dbRegion}</Button>
