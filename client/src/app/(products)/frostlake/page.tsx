@@ -23,7 +23,7 @@ const FrostlakeCreateProjectPage: NextPage = () => {
             const { name } = state
             const response = await axios.post(endPoints.frostlakeCreateProjectEndpoint, { name })
             toast.success("Project Created")
-            router.push(`/products/frostlake/project?id=${response.data.project._id}`)
+            router.push(`/frostlake/project?id=${response.data.project._id}`)
         }
 
         catch (error: any) {
@@ -43,7 +43,7 @@ const FrostlakeCreateProjectPage: NextPage = () => {
                 <Show when={!state.isLoading}>Create Project <ArrowRightIcon className="icon-right" /></Show>
                 <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Project</Show>
             </Button>
-            <Link href={"/products/frostlake/projects"} className="lead-link">View My Projects</Link>
+            <Link href={"/frostlake/projects"} className="lead-link">View My Projects</Link>
         </form>
     )
 }

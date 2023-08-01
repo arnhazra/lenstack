@@ -37,7 +37,7 @@ const FrostlakeViewProjectPage: NextPage = () => {
 
         if (userConsent) {
             await axios.delete(`${endPoints.frostlakeDeleteProjectEndpoint}/${projectId}`)
-            router.push("/products/frostlake")
+            router.push("/frostlake")
         }
     }
 

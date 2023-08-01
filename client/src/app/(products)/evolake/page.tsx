@@ -72,7 +72,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                             {dbQuery}
                         </SourceCode>
                     </Show>
-                    <Link className="lead-link" href={"/products/evolake/queryhistory"}>My Query History</Link>
+                    <Link className="lead-link" href={"/evolake/queryhistory"}>My Query History</Link>
                 </form>
             </Container>
         </Fragment >
