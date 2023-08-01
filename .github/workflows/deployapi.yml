@@ -1,4 +1,4 @@
-name: Lenstack PROD Deployment
+name: Lenstack API PROD Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_API }}
@@ -6,8 +6,9 @@ on:
   push:
     branches:
       - main
+
 jobs:
-  Deploy-Production:
+  Deploy-API:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

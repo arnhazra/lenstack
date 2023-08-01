@@ -1,0 +1,33 @@
+name: Lenstack UI PROD Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deploy-UI:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@canary
+
+      - name: Remove Everything from Root Directory (except client)
+        run: find . -not -path "./client/*" -not -name "client" -delete
+
+      - name: Move Next.js build output to Repository Root
+        run: mv .next ../.next
+
+      - name: Move other files to Repository Root
+        run: mv * ../ && mv .[!.]* ../ || true  # Move all files (except dot files) to the repository root
+
+      - name: Build client application
+        run: |
+          npm install
+          CI=false npm run build
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
