@@ -28,7 +28,7 @@ const AirlakeDatasetsPage: NextPage = () => {
         return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} rating={dataset.rating} />
     })
 
-    const noDatasetsToDisplay = <Error customMessage="No Datasets" />
+    const noDatasetsToDisplay = <p className="display-6 text-white text-center">No results !</p>
 
     const prevPage = () => {
         const prevDatasetReqNumber = datasetRequestState.offset - 36
