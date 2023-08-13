@@ -4,6 +4,7 @@ import Loading from "@/components/Loading"
 import Show from "@/components/Show"
 import endPoints from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
+import useConfirm from "@/hooks/useConfirm"
 import useFetchRealtime from "@/hooks/useFetchRealtime"
 import withAuth from "@/utils/withAuth"
 import { ArchiveIcon, ReaderIcon } from "@radix-ui/react-icons"
@@ -19,6 +20,7 @@ const FrostlakeViewProjectPage: NextPage = () => {
     const projectId = searchParams.get("id")
     const project = useFetchRealtime("view project", endPoints.frostlakeViewProjectEndpoint, HTTPMethods.POST, { projectId })
     const router = useRouter()
+    const { confirmDialog, confirm } = useConfirm()
 
     const analyticsToDisplay = project?.data?.analytics?.map((ant: any) => {
         return (
@@ -33,7 +35,7 @@ const FrostlakeViewProjectPage: NextPage = () => {
     })
 
     const archiveProject = async () => {
-        const userConsent = confirm("Are you sure to archive this project?")
+        const userConsent = await confirm("Are you sure to archive this project?")
 
         if (userConsent) {
             await axios.delete(`${endPoints.frostlakeDeleteProjectEndpoint}/${projectId}`)
@@ -70,6 +72,7 @@ const FrostlakeViewProjectPage: NextPage = () => {
                                 </tbody>
                             </Table>
                         </Show>
+                        {confirmDialog()}
                     </Container>
                 </Show>
                 <Show when={project.error}>

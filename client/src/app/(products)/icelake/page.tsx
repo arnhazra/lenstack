@@ -15,10 +15,12 @@ import { ChangeEvent, Fragment, useContext } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { FileTextIcon, DownloadIcon, ArchiveIcon, UploadIcon } from "@radix-ui/react-icons"
+import useConfirm from "@/hooks/useConfirm"
 
 const IcelakeHomePage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const queryClient = useQueryClient()
+    const { confirm, confirmDialog } = useConfirm()
     const documentList = useFetchRealtime("list-docs", endPoints.icelakeGetAllDocEndpoint, HTTPMethods.POST)
 
     const documentsToDisplay = documentList?.data?.documents?.map((doc: any) => {
@@ -88,13 +90,17 @@ const IcelakeHomePage: NextPage = () => {
     }
 
     const archiveFile = async (docId: string) => {
-        try {
-            await axios.delete(`${endPoints.icelakeArchiveDocEndpoint}/${docId}`)
-            toast.success("Document Archived")
-        }
+        const userConsent = await confirm("Are you sure to archive this document?")
 
-        catch (error: any) {
-            toast.error("Unable to archive the document")
+        if (userConsent) {
+            try {
+                await axios.delete(`${endPoints.icelakeArchiveDocEndpoint}/${docId}`)
+                toast.success("Document Archived")
+            }
+
+            catch (error: any) {
+                toast.error("Unable to archive the document")
+            }
         }
     }
 
@@ -160,6 +166,7 @@ const IcelakeHomePage: NextPage = () => {
                             <p className="lead">No Docs to display</p>
                         </div>
                     </Show>
+                    {confirmDialog()}
                 </Container>
             </Show>
             <Show when={documentList.isLoading}>
