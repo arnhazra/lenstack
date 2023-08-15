@@ -4,13 +4,13 @@ import Constants from "@/constants/appConstants"
 import Link from "next/link"
 import { NextPage } from "next"
 import withoutAuth from "@/utils/withoutAuth"
-import ContainerComp from "@/components/ContainerComp"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { Container } from "react-bootstrap"
 
 const HomePage: NextPage = () => {
 	return (
 		<Fragment>
-			<ContainerComp>
+			<Container>
 				<div className="cover">
 					<p className="display-5">
 						{Constants.HomeHeader1}<br />
@@ -23,7 +23,7 @@ const HomePage: NextPage = () => {
 					</p>
 					<Link href="/auth" className="btn">Try Free<ArrowRightIcon className="icon-right" /></Link>
 				</div>
-			</ContainerComp>
+			</Container>
 		</Fragment>
 	)
 }

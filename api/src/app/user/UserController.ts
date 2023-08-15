@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import jwt from "jsonwebtoken"
+import Web3 from "web3"
 import crypto from "crypto"
 import otptool from "otp-without-db"
 import { validationResult } from "express-validator"
@@ -14,10 +15,14 @@ import SubscriptionModel from "./SubscriptionModel"
 export default class UserController {
     public otpKey: string
     public authPrivateKey: string
+    public infuraEndpoint: string
+    public web3Provider: Web3
 
     constructor() {
         this.otpKey = envConfig.otpKey
         this.authPrivateKey = envConfig.authPrivateKey
+        this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
+        this.web3Provider = new Web3(this.infuraEndpoint)
     }
 
     async requestAuthCode(req: Request, res: Response) {
@@ -156,15 +161,38 @@ export default class UserController {
     }
 
     async subscribe(req: Request, res: Response) {
-        const { tokenId, selectedPlan } = req.body
+        const { tokenId, selectedPlan, transactionHash } = req.body
         const owner = req.headers.id
 
         try {
-            await SubscriptionModel.findOneAndDelete({ owner })
-            const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
-            const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
-            await subscription.save()
-            return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
+            const { privateKey } = await UserModel.findById(owner)
+            const { address: walletAddress } = this.web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+            const tx = await this.web3Provider.eth.getTransaction(transactionHash)
+            const block = await this.web3Provider.eth.getBlock(tx.blockNumber)
+
+            if (walletAddress.toLowerCase() == tx.from.toLowerCase()) {
+                const currentBlock = await this.web3Provider.eth.getBlock('latest')
+                const currentTimestamp = currentBlock.timestamp
+                const transactionTimestamp = block.timestamp
+                const timeTolerance = 30
+
+                if (currentTimestamp - transactionTimestamp > timeTolerance) {
+                    res.status(400).json({ msg: statusMessages.subscriptionFailure })
+                    return
+                }
+
+                else {
+                    await SubscriptionModel.findOneAndDelete({ owner })
+                    const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
+                    const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+                    await subscription.save()
+                    return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
+                }
+            }
+
+            else {
+                return res.status(500).json({ msg: statusMessages.subscriptionFailure })
+            }
         }
 
         catch (error) {

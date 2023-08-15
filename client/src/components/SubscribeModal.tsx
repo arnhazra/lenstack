@@ -98,15 +98,17 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
 
             const signedpurchaseNFTTx = await web3Provider.eth.accounts.signTransaction(purchaseNFTTx, privateKey)
             if (signedpurchaseNFTTx.rawTransaction) {
-                await web3Provider.eth.sendSignedTransaction(signedpurchaseNFTTx.rawTransaction)
+                const res = await web3Provider.eth.sendSignedTransaction(signedpurchaseNFTTx.rawTransaction)
+                const { transactionHash } = res
+                await axios.post(`${endPoints.subscribeEndpoint}`, { tokenId, selectedPlan, transactionHash })
+                setTxProcessing(false)
+                setTxError(false)
+                setStep(2)
+                toast.success(Constants.TransactionSuccess)
             }
+        }
 
-            await axios.post(`${endPoints.subscribeEndpoint}`, { tokenId, selectedPlan })
-            setTxProcessing(false)
-            setTxError(false)
-            setStep(2)
-            toast.success(Constants.TransactionSuccess)
-        } catch (error) {
+        catch (error) {
             setTxProcessing(false)
             setTxError(true)
             setStep(2)
