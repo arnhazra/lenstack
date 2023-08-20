@@ -1,6 +1,6 @@
 "use client"
 import { FC, useEffect, useState, useContext } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Button, Col, Form, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import { Quicksand } from "next/font/google"
 import Web3 from "web3"
@@ -16,7 +16,8 @@ import { nftABI } from "@/bin/nftABI"
 import { vendorABI } from "@/bin/vendorABI"
 import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/httpMethods"
-import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon, CubeIcon, ModulzLogoIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
+import { useRouter } from "next/navigation"
 
 interface SubscribeModalProps {
     isOpened: boolean,
@@ -35,6 +36,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
     const [{ userState }] = useContext(AppContext)
+    const router = useRouter()
 
     useEffect(() => {
         setStep(1)
@@ -158,23 +160,58 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
     const hideModal = (): void => {
         if (!isTxProcessing) {
             closeModal()
+            router.push('/dashboard')
         }
     }
 
     return (
         <Fragment>
-            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={quickSand.className}>
+            <Modal size="sm" backdrop="static" centered show={isOpened} onHide={hideModal} className={quickSand.className}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Subscribe</Modal.Title>
+                    <Modal.Title>Lenstack Pay</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="text-center">
+                <Modal.Body>
                     <Fragment>
                         <Show when={step === 1}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>Subscription Amount</Form.Label>
-                                <Form.Control disabled defaultValue={`${price / 10000} MATIC`} autoComplete={"off"} type="number" placeholder={`${price / 10000} MATIC`} />
+                                <div className="text-center mb-3">
+                                    <img src="./lenstackpay.png" height={140} width={140} />
+                                </div>
+                                <Row className="mb-2">
+                                    <Col className="categorycol">
+                                        <PaperPlaneIcon />
+                                    </Col>
+                                    <Col>
+                                        <p className="boxcategorytext">From</p>
+                                        <p className="boxcategorytext">
+                                            {userState.name}
+                                        </p>
+                                    </Col>
+                                </Row>
+                                <Row className="mb-2">
+                                    <Col className="categorycol">
+                                        <CubeIcon />
+                                    </Col>
+                                    <Col>
+                                        <p className="boxcategorytext">To</p>
+                                        <p className="boxcategorytext">
+                                            Lenstack
+                                        </p>
+                                    </Col>
+                                </Row>
+                                <Row className="mb-2">
+                                    <Col className="categorycol">
+                                        <ModulzLogoIcon />
+                                    </Col>
+                                    <Col>
+                                        <p className="boxcategorytext">Payable Amount</p>
+                                        <p className="boxcategorytext">
+                                            {price / 10000} MATIC
+                                        </p>
+                                    </Col>
+                                </Row>
                             </Form.Group>
-                            <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={buyToken}>
+                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing} onClick={buyToken}>
                                 <Show when={!isTxProcessing}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
                                 <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>

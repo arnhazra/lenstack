@@ -1,6 +1,6 @@
 "use client"
 import { FC, useEffect, useState, useContext } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Button, Col, Form, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import Show from "@/components/Show"
 import { tokenABI } from "@/bin/tokenABI"
@@ -16,7 +16,8 @@ import { vendorABI } from "@/bin/vendorABI"
 import { Quicksand } from "next/font/google"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
-import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon, CubeIcon, ModulzLogoIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
+import { useRouter } from "next/navigation"
 
 interface UnsubscribeModalProps {
     isOpened: boolean,
@@ -34,6 +35,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
     const [{ userState }] = useContext(AppContext)
+    const router = useRouter()
 
     useEffect(() => {
         setStep(1)
@@ -146,21 +148,56 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
     const hideModal = (): void => {
         if (!isTxProcessing) {
             closeModal()
+            router.push('/dashboard')
         }
     }
 
     return (
         <Fragment>
-            <Modal backdrop="static" centered show={isOpened} onHide={hideModal} className={quickSand.className}>
+            <Modal size="sm" backdrop="static" centered show={isOpened} onHide={hideModal} className={quickSand.className}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Unsubscribe</Modal.Title>
+                    <Modal.Title>Lenstack Pay</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="text-center">
+                <Modal.Body>
                     <Fragment>
                         <Show when={step === 1}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>Refund Amount</Form.Label>
-                                <Form.Control disabled defaultValue={`${(refundAmount / 10000).toFixed(2)} MATIC`} autoComplete={"off"} type="number" placeholder={`${(refundAmount / 10000).toFixed(2)} MATIC`} />
+                                <div className="text-center mb-3">
+                                    <img src="./lenstackpay.png" height={140} width={140} />
+                                </div>
+                                <Row className="mb-2">
+                                    <Col className="categorycol">
+                                        <PaperPlaneIcon />
+                                    </Col>
+                                    <Col>
+                                        <p className="boxcategorytext">From</p>
+                                        <p className="boxcategorytext">
+                                            Lenstack
+                                        </p>
+                                    </Col>
+                                </Row>
+                                <Row className="mb-2">
+                                    <Col className="categorycol">
+                                        <CubeIcon />
+                                    </Col>
+                                    <Col>
+                                        <p className="boxcategorytext">To</p>
+                                        <p className="boxcategorytext">
+                                            {userState.name}
+                                        </p>
+                                    </Col>
+                                </Row>
+                                <Row className="mb-2">
+                                    <Col className="categorycol">
+                                        <ModulzLogoIcon />
+                                    </Col>
+                                    <Col>
+                                        <p className="boxcategorytext">Refund Amount</p>
+                                        <p className="boxcategorytext">
+                                            {refundAmount / 10000} MATIC
+                                        </p>
+                                    </Col>
+                                </Row>
                             </Form.Group>
                             <Button className="btn-block mt-4" type="submit" disabled={isTxProcessing} onClick={unsubscribe}>
                                 <Show when={!isTxProcessing}>Get Refund<ArrowRightIcon className="icon-right" /></Show>
