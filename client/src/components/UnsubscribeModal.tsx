@@ -163,7 +163,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
                         <Show when={step === 1}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <div className="text-center mb-3">
-                                    <img src="./lenstackpay.png" height={140} width={140} />
+                                    <img src={`../lenstackpay.png`} height={140} width={140} />
                                 </div>
                                 <Row className="mb-2">
                                     <Col className="categorycol">
