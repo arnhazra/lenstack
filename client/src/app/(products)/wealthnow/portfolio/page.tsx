@@ -62,6 +62,8 @@ const WealthnowViewPortfolioPage: NextPage = () => {
                         <div className="jumbotron p-4">
                             <p className="display-6 text-capitalize">{portfolio?.data?.portfolio?.name}</p>
                             <p className="lead mt-3">Created On {moment(portfolio?.data?.portfolio?.createdAt).format("MMM, Do YYYY, h:mm a")}</p>
+                            <p className="lead text-capitalize">Total Asset</p>
+                            <p className="display-4 text-capitalize">₹ {portfolio?.data?.totalAssetUnderPortfolio.toLocaleString()}</p>
                             <Button onClick={archivePortfolio}>Archive Portfolio<ArchiveIcon className="icon-right" /></Button>
                             <Button onClick={() => router.push("/apireference")}>API Reference<ReaderIcon className="icon-right" /></Button>
                             <Button onClick={() => router.push(`/wealthnow/portfolio/addasset?portfolioId=${portfolioId}`)}>Add New Asset<IdCardIcon className="icon-right" /></Button>

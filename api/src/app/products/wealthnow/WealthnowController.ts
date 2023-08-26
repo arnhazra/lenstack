@@ -29,13 +29,22 @@ export default class WealthnowController {
         }
     }
 
-    async getPortfolios(req: Request, res: Response) {
+    async getPortfolios(req, res) {
         try {
             const portfolios = await WealthnowPortfolioModel.find({ owner: req.headers.id })
-            return res.status(200).json({ portfolios })
-        }
+            let consolidatedAsset = 0
 
-        catch (error) {
+            for (const portfolio of portfolios) {
+                const { owner, id: portfolioId } = portfolio
+                const assets = await WealthnowAssetModel.find({ portfolioId, owner }).sort({ createdAt: -1 })
+                let totalAssetUnderPortfolio = 0
+
+                assets.forEach(asset => totalAssetUnderPortfolio += asset.principalAmount)
+                consolidatedAsset += totalAssetUnderPortfolio
+            }
+
+            return res.status(200).json({ portfolios, consolidatedAsset })
+        } catch (error) {
             return res.status(500).json({ msg: "Connection Error" })
         }
     }
@@ -46,9 +55,11 @@ export default class WealthnowController {
             const portfolio = await WealthnowPortfolioModel.findById(portfolioId)
             const { owner } = portfolio
             const assets = await WealthnowAssetModel.find({ portfolioId, owner }).sort({ createdAt: -1 })
+            let totalAssetUnderPortfolio = 0
+            assets.forEach(asset => totalAssetUnderPortfolio += asset.principalAmount)
 
             if (owner.toString() === req.headers.id) {
-                return res.status(200).json({ portfolio, assets })
+                return res.status(200).json({ portfolio, assets, totalAssetUnderPortfolio })
             }
 
             else {
@@ -101,7 +112,6 @@ export default class WealthnowController {
         }
 
         catch (error) {
-            console.log(error)
             return res.status(500).json({ msg: "Error creating asset" })
         }
     }
