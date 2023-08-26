@@ -14,6 +14,13 @@ export const platformConfig = [
         dbRegion: "MongoDB GCP AP-South-1"
     },
     {
+        productName: "wealthnow",
+        description: "An open-source wealth management platform to manage personal and businees wealth in a consolidated dashboard.",
+        url: "/wealthnow",
+        productAvailable: true,
+        dbRegion: "MongoDB Azure CIN"
+    },
+    {
         productName: "evolake",
         description: "An open-source application that utilizes the OpenAI Davinci model to generate database queries.",
         url: "/evolake",

@@ -6,6 +6,7 @@ const airlakeDb = mongoose.createConnection(envConfig.airlakeMongoUri)
 const icelakeDb = mongoose.createConnection(envConfig.icelakeMongoUri)
 const frostlakeDb = mongoose.createConnection(envConfig.frostlakeMongoUri)
 const evolakeDb = mongoose.createConnection(envConfig.evolakeMongoUri)
+const wealthnowDb = mongoose.createConnection(envConfig.wealthnowMongoUri)
 
 const dbConnect = async () => {
     mainLenstackDb.on("connected", () => {
@@ -47,6 +48,14 @@ const dbConnect = async () => {
     evolakeDb.on("error", (err) => {
         console.log("Evolake DB Not Connected")
     })
+
+    wealthnowDb.on("connected", () => {
+        console.log("Wealthnow DB Connected")
+    })
+
+    wealthnowDb.on("error", (err) => {
+        console.log("Wealthnow DB Not Connected")
+    })
 }
 
-export { dbConnect, mainLenstackDb, airlakeDb, icelakeDb, frostlakeDb, evolakeDb }
+export { dbConnect, mainLenstackDb, airlakeDb, icelakeDb, frostlakeDb, evolakeDb, wealthnowDb }

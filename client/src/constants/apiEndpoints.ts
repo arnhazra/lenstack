@@ -37,7 +37,15 @@ const endPoints = {
     frostlakeGetProjectsEndpoint: `${apiHost}/api/products/frostlake/getprojects`,
     frostlakeViewProjectEndpoint: `${apiHost}/api/products/frostlake/viewproject`,
     frostlakeDeleteProjectEndpoint: `${apiHost}/api/products/frostlake/deleteproject`,
-    frostlakeCreateAnalyticsEndpoint: `${apiHost}/api/products/frostlake/createanalytics`
+    frostlakeCreateAnalyticsEndpoint: `${apiHost}/api/products/frostlake/createanalytics`,
+    wealthnowCreatePortfolioEndpoint: `${apiHost}/api/products/wealthnow/createportfolio`,
+    wealthnowGetPortfoliosEndpoint: `${apiHost}/api/products/wealthnow/getportfolios`,
+    wealthnowViewPortfolioEndpoint: `${apiHost}/api/products/wealthnow/viewportfolio`,
+    wealthnowDeletePortfolioEndpoint: `${apiHost}/api/products/wealthnow/deleteportfolio`,
+    wealthnowCreateAssetEndpoint: `${apiHost}/api/products/wealthnow/createasset`,
+    wealthnowViewAssetEndpoint: `${apiHost}/api/products/wealthnow/viewasset`,
+    wealthnowEditAssetEndpoint: `${apiHost}/api/products/wealthnow/editasset`,
+    wealthnowDeleteAssetEndpoint: `${apiHost}/api/products/wealthnow/deleteasset`
 }
 
 export default endPoints

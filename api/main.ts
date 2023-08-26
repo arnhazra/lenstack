@@ -10,12 +10,14 @@ import EvolakeRouter from "./src/app/products/evolake/EvolakeRouter"
 import IcelakeRouter from "./src/app/products/icelake/IcelakeRouter"
 import CommonRouter from "./src/app/common/CommonRouter"
 import FrostlakeRouter from "./src/app/products/frostlake/FrostlakeRouter"
+import WealthnowRouter from "./src/app/products/wealthnow/WealthnowRouter"
 
 const userRouter = new UserRouter()
 const transactionRouter = new TransactionRouter()
 const airlakeRouter = new AirlakeRouter()
 const evolakeRouter = new EvolakeRouter()
 const icelakeRouter = new IcelakeRouter()
+const wealthNowRouter = new WealthnowRouter()
 const frostlakeRouter = new FrostlakeRouter()
 const commonRouter = new CommonRouter()
 
@@ -32,6 +34,7 @@ app.use("/api/products/airlake", airlakeRouter.getRouter())
 app.use("/api/products/evolake", evolakeRouter.getRouter())
 app.use("/api/products/icelake", icelakeRouter.getRouter())
 app.use("/api/products/frostlake", frostlakeRouter.getRouter())
+app.use("/api/products/wealthnow", wealthNowRouter.getRouter())
 
 
 if (envConfig.nodeEnv === "production") {

@@ -24,7 +24,7 @@ const FrostlakeProjectSchema = new mongoose.Schema({
         unique: true,
     },
 
-    date: {
+    createdAt: {
         type: Date,
         default: Date.now
     }

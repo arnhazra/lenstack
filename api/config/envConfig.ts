@@ -8,6 +8,7 @@ export const envConfig = {
     icelakeMongoUri: process.env.ICELAKE_MONGO_URI,
     frostlakeMongoUri: process.env.FROSTLAKE_MONGO_URI,
     evolakeMongoUri: process.env.EVOLAKE_MONGO_URI,
+    wealthnowMongoUri: process.env.WEALTHNOW_MONGO_URI,
     redisSocketHost: process.env.REDIS_SOCKET,
     redisPassword: process.env.REDIS_PASSWORD,
     redisPort: process.env.REDIS_PORT,

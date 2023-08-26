@@ -52,8 +52,3 @@ export type DocDetails = {
     content: string,
     apiKey: string
 }
-
-export type ProjectCardProps = {
-    id: string
-    name: string,
-}

@@ -12,7 +12,6 @@ import "@/styles/button.sass"
 import "@/styles/form.sass"
 import "@/styles/productcard.sass"
 import "@/styles/datasetcard.sass"
-import "@/styles/projectcard.sass"
 import "@/styles/sourcecode.sass"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
