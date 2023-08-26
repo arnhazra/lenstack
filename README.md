@@ -19,6 +19,9 @@ An open-source prototype management application that that efficiently organizes 
 #### Frostlake
 An open-source analytics provider for web applications. It empowers you to make informed analysis.
 
+#### Wealthnow
+An open-source wealth management platform to manage personal and businees wealth in a consolidated dashboard.
+
 ### What is the cost of using this platform ?
 
 Typically, utilizing this platform incurs no cost. However, a subscription fee of 0.19 MATIC/month is required for the standard subscription, while the premium subscription is available at 0.49 MATIC/month. It"s worth noting, as we utilize the Polygon Testnet, allowing you to receive free MATIC tokens daily into your wallet, enabling you to use this platform completely free of charge.
