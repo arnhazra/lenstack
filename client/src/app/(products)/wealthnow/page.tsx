@@ -29,8 +29,8 @@ const WealthnowPortfoliosPage: NextPage = () => {
         <Fragment>
             <Show when={!portfolios.isLoading}>
                 <Container>
+                    <Link className="btn" href={'/wealthnow/createportfolio'}>Create Portfolio</Link>
                     <Show when={portfolios?.data?.portfolios?.length > 0}>
-                        <Link className="btn" href={'/wealthnow/createportfolio'}>Create Portfolio</Link>
                         <Row>
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
                                 <Card className="p-4 mb-2 product-card-wealthnow">
@@ -47,13 +47,13 @@ const WealthnowPortfoliosPage: NextPage = () => {
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
                                 <Card className="p-4 mb-2 product-card-wealthnow">
                                     <p className="lead text-capitalize">Oldest Portfolio</p>
-                                    <p className="display-6 text-capitalize">{portfolios?.data?.portfolios[0].name}</p>
+                                    <p className="display-6 text-capitalize">{portfolios?.data?.portfolios[0]?.name ?? ''}</p>
                                 </Card>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
                                 <Card className="p-4 mb-2 product-card-wealthnow">
                                     <p className="lead text-capitalize">Latest Portfolio</p>
-                                    <p className="display-6 text-capitalize">{portfolios?.data?.portfolios[portfolios?.data?.portfolios.length - 1].name}</p>
+                                    <p className="display-6 text-capitalize">{portfolios?.data?.portfolios[portfolios?.data?.portfolios.length - 1]?.name ?? ''}</p>
                                 </Card>
                             </Col>
                         </Row>
