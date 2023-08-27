@@ -93,7 +93,7 @@ export default class WealthnowController {
     }
 
     async createAsset(req: Request, res: Response) {
-        const { portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount } = req.body
+        const { portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey } = req.body
 
         try {
             const userId = req.headers.id
@@ -101,7 +101,7 @@ export default class WealthnowController {
 
             if (portfolio && portfolio.owner.toString() === userId) {
                 const portfolioId = portfolio.id
-                const asset = new WealthnowAssetModel({ owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount })
+                const asset = new WealthnowAssetModel({ owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey })
                 await asset.save()
                 return res.status(200).json({ msg: "Asset created" })
             }

@@ -11,6 +11,7 @@ import { otherConstants } from "../../constants/otherConstants"
 import { prototypeABI } from "../../bin/prototypeABI"
 import FrostlakeAnalyticsModel from "../products/frostlake/FrostlakeAnalyticsModel"
 import { envConfig } from "../../../config/envConfig"
+import WealthnowAssetModel from "../products/wealthnow/WealthnowAssetModel"
 
 export default class CommonController {
     async getPlatformConfig(req: Request, res: Response) {
@@ -45,8 +46,9 @@ export default class CommonController {
                 const evolakeUsedTokens = await EvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
                 const icelakeUsedTokens = await IcelakeDocumentModel.find({ apiKey }).countDocuments() * apiPricing.icelake
                 const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
+                const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
                 const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
-                const usedTokens = airlakeUsedTokens + evolakeUsedTokens + icelakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens
+                const usedTokens = airlakeUsedTokens + evolakeUsedTokens + icelakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
                 return res.status(200).json({ usedTokens })
             }
 

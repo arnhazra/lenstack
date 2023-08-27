@@ -19,5 +19,5 @@ export const apiPricing = {
     icelake: 100,
     snowlake: 50,
     frostlake: 1,
-    wealthnow: 1
+    wealthnow: 10
 }

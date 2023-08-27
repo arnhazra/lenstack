@@ -5,15 +5,17 @@ import withAuth from "@/utils/withAuth"
 import axios from "axios"
 import { NextPage } from "next"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { AppContext } from "@/context/appStateProvider"
 
 const WealthnowCreateAssetPage: NextPage = () => {
     const searchParams = useSearchParams()
     const portfolioId = searchParams.get("portfolioId")
     const [state, setState] = useState({ principalAmount: 0, rateOfInterest: 0, tenure: 0, maturityAmount: 0, isLoading: false })
+    const [{ userState }] = useContext(AppContext)
     const router = useRouter()
 
     const createAsset = async (e: any) => {
@@ -22,7 +24,8 @@ const WealthnowCreateAssetPage: NextPage = () => {
 
         try {
             const { principalAmount, rateOfInterest, maturityAmount, tenure } = state
-            const response = await axios.post(endPoints.wealthnowCreateAssetEndpoint, { principalAmount, rateOfInterest, portfolioId, maturityAmount, tenure })
+            const { apiKey } = userState
+            const response = await axios.post(endPoints.wealthnowCreateAssetEndpoint, { principalAmount, rateOfInterest, portfolioId, maturityAmount, tenure, apiKey })
             toast.success("Asset Created")
             router.push(`/wealthnow/portfolio?id=${portfolioId}`)
         }

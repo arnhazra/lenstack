@@ -1,6 +1,7 @@
 import express, { Router } from "express"
 import WealthnowController from "./WealthnowController"
 import { tokenAuthorizer } from "../../../middlewares/tokenAuthorizer"
+import { apiKeyAuthorizer } from "../../../middlewares/apiKeyAuthorizer"
 
 export default class WealthnowRouter {
     public router: Router
@@ -17,7 +18,7 @@ export default class WealthnowRouter {
         this.router.post("/getportfolios", tokenAuthorizer, this.wealthnowController.getPortfolios.bind(this.wealthnowController))
         this.router.post("/viewportfolio", tokenAuthorizer, this.wealthnowController.viewPortfolio.bind(this.wealthnowController))
         this.router.delete("/deleteportfolio/:id", tokenAuthorizer, this.wealthnowController.deletePortfolio.bind(this.wealthnowController))
-        this.router.post("/createasset", tokenAuthorizer, this.wealthnowController.createAsset.bind(this.wealthnowController))
+        this.router.post("/createasset", apiKeyAuthorizer, this.wealthnowController.createAsset.bind(this.wealthnowController))
         this.router.post("/viewasset", tokenAuthorizer, this.wealthnowController.viewAsset.bind(this.wealthnowController))
         this.router.patch("/editasset", tokenAuthorizer, this.wealthnowController.editAsset.bind(this.wealthnowController))
         this.router.delete("/deleteasset/:id", tokenAuthorizer, this.wealthnowController.deleteAsset.bind(this.wealthnowController))
