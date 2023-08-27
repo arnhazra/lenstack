@@ -12,11 +12,10 @@ import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/httpMethods"
 import Link from "next/link"
 import SourceCode from "@/components/SourceCode"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, TextNoneIcon } from "@radix-ui/react-icons"
 
 const EvolakeQueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState("SQL")
-    const [model, setModel] = useState("text-davinci-003")
     const [userQuery, setUserQuery] = useState("")
     const [dbQuery, setDbQuery] = useState("")
     const [{ userState }] = useContext(AppContext)
@@ -32,7 +31,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
         try {
             setFetching(true)
             const apiKey = userState.apiKey
-            const response = await axios.post(endPoints.evolakeGenerateQueryEndpint, { selectedDb, userQuery, apiKey, model })
+            const response = await axios.post(endPoints.evolakeGenerateQueryEndpint, { selectedDb, userQuery, apiKey })
             setDbQuery(response.data.msg)
             setFetching(false)
         } catch (error: any) {
@@ -44,15 +43,8 @@ const EvolakeQueryEnginePage: NextPage = () => {
     return (
         <Fragment>
             <Container>
-                <form className="box" onSubmit={fetchData}>
-                    <p className="branding">Query Engine</p>
-                    <Form.Group controlId="floatingSelectGrid">
-                        <Form.Label>Select OpenAI Model</Form.Label>
-                        <Form.Select size="lg" onChange={(e): void => setModel(e.target.value)}>
-                            <option className="options" key={"text-davinci-003"} value={"text-davinci-003"}>{"text-davinci-003"}</option>
-                            <option className="options" key={"text-davinci-002"} value={"text-davinci-002"}>{"text-davinci-002"}</option>
-                        </Form.Select>
-                    </Form.Group>
+                <form className="jumbotron p-4" onSubmit={fetchData}>
+                    <p className="branding">Querygen</p>
                     <Form.Group controlId="floatingSelectGrid" className="mt-2">
                         <Form.Label>Select Database</Form.Label>
                         <Form.Select size="lg" onChange={(e): void => setSelectedDb(e.target.value)}>
@@ -63,7 +55,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                         <Form.Label>Ask Your Query</Form.Label>
                         <Form.Control size="lg" type="text" disabled={isFetching} placeholder="Ask Your Query" onChange={(e) => setUserQuery(e.target.value)} autoComplete={"off"} required />
                     </Form.Group>
-                    <Button type="submit" disabled={isFetching} className="btn-block mt-4">
+                    <Button type="submit" disabled={isFetching} className="mt-4">
                         <Show when={!isFetching}>Generate DB Query <ArrowRightIcon className="icon-right" /></Show>
                         <Show when={isFetching}><i className="fas fa-circle-notch fa-spin"></i> Fetching</Show>
                     </Button>
@@ -72,7 +64,7 @@ const EvolakeQueryEnginePage: NextPage = () => {
                             {dbQuery}
                         </SourceCode>
                     </Show>
-                    <Link className="lead-link" href={"/evolake/queryhistory"}>My Query History</Link>
+                    <Link className="btn mt-4" href={"/evolake/queryhistory"}>My Query History<TextNoneIcon className="icon-right" /></Link>
                 </form>
             </Container>
         </Fragment >

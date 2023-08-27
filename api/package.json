@@ -23,7 +23,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.3.1",
     "nodemailer": "^6.9.3",
-    "openai": "^3.3.0",
+    "openai": "^4.2.0",
     "otp-without-db": "^1.0.5",
     "web3": "^4.0.2"
   },
