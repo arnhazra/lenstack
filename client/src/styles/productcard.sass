@@ -3,13 +3,12 @@ $white: #ffffff
 
 @mixin categoryContainer
     color: $white
-    border-radius: 0.8rem !important
+    border-radius: 0.8rem
     border: none
     animation: transitionIn 0.4s forwards
     cursor: pointer
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
     width: 100%
-    border-radius: 0.8rem 0.8rem 0 0
     transition: transform 0.5s ease
     -webkit-background-size: cover
     -moz-background-size: cover
@@ -18,22 +17,20 @@ $white: #ffffff
     background-attachment: fixed
 
 .product-card-header
-    border-radius: 0.8rem 0.8rem 0 0 !important
-    border: none !important
+    border: none
     text-align: center
     min-height: 11rem
-    padding: 0 !important
-    margin-top: -2rem !important
+    margin-top: -2rem
+    margin-left: -1rem
     display: flex
     justify-content: space-between
     align-items: center
 
 .product-card-body
-    border: none !important
+    border: none
 
 .product-card-footer
-    border-radius: 0 0 0.8rem 0.8rem !important
-    border: none !important
+    border: none
 
 .product-card-airlake
     background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../assets/images/airlake.jpg)
