@@ -1,9 +1,8 @@
 enum Constants {
-    HomeHeader1 = "Learn, connect",
-    HomeHeader2 = `and explore backed`,
-    HomeHeader3 = `by Blockchain`,
-    HomeIntro1 = `Start with 1 month free trial, upgrade on demand.`,
-    HomeIntro2 = `Build in our new platform.`,
+    HomeHeader1 = "Human ingenuity. AI power.",
+    HomeHeader2 = "Create innovative solutions",
+    HomeIntro1 = `Build, ship, and scale your solutions. Start with 30 days free trial, upgrade on demand.`,
+    HomeIntro2 = `Build in our new platform. There’s no upfront commitment—cancel anytime.`,
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Authenticating`,
     ErrorMessage = "404, Lost",
