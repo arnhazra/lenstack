@@ -9,7 +9,7 @@
   "author": "",
   "license": "GNU GENERAL PUBLIC LICENSE",
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.1"
   },
   "description": ""
 }
