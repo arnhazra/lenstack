@@ -18,7 +18,7 @@ const HomePage: NextPage = () => {
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2}
 					</p>
-					<Link href="/auth" className="btn">TRY FREE<ArrowRightIcon className="icon-right" /></Link>
+					<Link href="/auth" className="btn">Try Free<ArrowRightIcon className="icon-right" /></Link>
 				</div>
 			</Container>
 		</Fragment>
