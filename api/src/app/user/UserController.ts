@@ -10,7 +10,7 @@ import { sendEmail } from "../../utils/sendEmail"
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from "../../utils/redisHelper"
 import { otherConstants } from "../../constants/otherConstants"
 import { envConfig } from "../../../config/envConfig"
-import SubscriptionModel from "./SubscriptionModel"
+import SubscriptionModel from "../subscription/SubscriptionModel"
 
 export default class UserController {
     public otpKey: string

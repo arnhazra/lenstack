@@ -6,7 +6,7 @@ import { apiPricing, subscriptionConfig } from "../../../config/subscriptionConf
 import AirlakeHistoryModel from "../products/airlake/AirlakeHistoryModel"
 import EvolakeQueryModel from "../products/evolake/EvolakeQueryModel"
 import IcelakeDocumentModel from "../products/icelake/IcelakeDocumentModel"
-import SubscriptionModel from "../user/SubscriptionModel"
+import SubscriptionModel from "../subscription/SubscriptionModel"
 import { otherConstants } from "../../constants/otherConstants"
 import { prototypeABI } from "../../bin/prototypeABI"
 import FrostlakeAnalyticsModel from "../products/frostlake/FrostlakeAnalyticsModel"

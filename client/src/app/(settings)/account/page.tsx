@@ -96,12 +96,7 @@ const AccountPage: NextPage = () => {
                         <Col>
                             <p className="boxcategorytext">Wallet Balance</p>
                             <div className="boxcategorytext">
-                                <Show when={!!userState.apiKey}>
-                                    {Number(maticBalance).toFixed(2)} MATIC
-                                </Show>
-                                <Show when={!userState.apiKey}>
-                                    No API Key
-                                </Show>
+                                {Number(maticBalance).toFixed(2)} MATIC
                             </div>
                         </Col>
                     </Row>

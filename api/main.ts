@@ -11,6 +11,7 @@ import IcelakeRouter from "./src/app/products/icelake/IcelakeRouter"
 import CommonRouter from "./src/app/common/CommonRouter"
 import FrostlakeRouter from "./src/app/products/frostlake/FrostlakeRouter"
 import WealthnowRouter from "./src/app/products/wealthnow/WealthnowRouter"
+import SubscriptionRouter from "./src/app/subscription/SubscriptionRouter"
 
 const userRouter = new UserRouter()
 const transactionRouter = new TransactionRouter()
@@ -20,6 +21,7 @@ const icelakeRouter = new IcelakeRouter()
 const wealthNowRouter = new WealthnowRouter()
 const frostlakeRouter = new FrostlakeRouter()
 const commonRouter = new CommonRouter()
+const subscriptionRouter = new SubscriptionRouter()
 
 const app = express()
 app.listen(envConfig.apiPort)
@@ -30,6 +32,7 @@ dbConnect()
 app.use("/api/user", userRouter.getRouter())
 app.use("/api/transaction", transactionRouter.getRouter())
 app.use("/api/common", commonRouter.getRouter())
+app.use("/api/subscription", subscriptionRouter.getRouter())
 app.use("/api/products/airlake", airlakeRouter.getRouter())
 app.use("/api/products/evolake", evolakeRouter.getRouter())
 app.use("/api/products/icelake", icelakeRouter.getRouter())
