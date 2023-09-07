@@ -26,6 +26,11 @@ const UserSchema = new mongoose.Schema({
     privateKey: {
         type: String,
         required: true
+    },
+
+    trialAvailable: {
+        type: Boolean,
+        default: true
     }
 }, { versionKey: false })
 

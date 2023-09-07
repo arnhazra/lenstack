@@ -9,6 +9,7 @@ const endPoints = {
     signOutEndpoint: `${apiHost}/api/user/signout`,
     subscribeEndpoint: `${apiHost}/api/subscription/subscribe`,
     unsubscribeEndpoint: `${apiHost}/api/subscription/unsubscribe`,
+    activateTrialEndpoint: `${apiHost}/api/subscription/activatetrial`,
     createTransactionEndpoint: `${apiHost}/api/transaction/create`,
     getTransactionsEndpoint: `${apiHost}/api/transaction/gettxbyuser`,
     getPlatformConfigEndpoint: `${apiHost}/api/common/getplatformconfig`,

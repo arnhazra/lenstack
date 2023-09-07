@@ -23,6 +23,7 @@ export type UserState = {
     apiKey: string,
     tokenId: string,
     subscriptionValidUpto: string
+    trialAvailable: boolean
 }
 
 export type DatasetCardProps = {

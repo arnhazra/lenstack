@@ -7,9 +7,7 @@ export type AppState = {
 
 export type ActionsMap = {
     setUserState: { [key: string]: string | boolean }
-    setSubPlanState: { [key: string]: string },
     setDatasetRequestState: { [key: string]: string | number },
-    setSubReqLimitState: { [key: string]: string }
 }
 
 export type Actions = {

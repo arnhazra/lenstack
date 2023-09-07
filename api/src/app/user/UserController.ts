@@ -89,12 +89,6 @@ export default class UserController {
                         const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
                         await setTokenInRedis(user.id, accessToken)
                         await user.save()
-                        const tokenId = "000000"
-                        const selectedPlan = "Trial"
-                        const owner = user.id
-                        const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
-                        const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
-                        await subscription.save()
                         return res.status(200).json({ accessToken, user })
                     }
                 }

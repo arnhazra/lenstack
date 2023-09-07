@@ -6,6 +6,7 @@ enum Constants {
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Authenticating`,
     ErrorMessage = "404, Lost",
+    ToastSuccess = "Done",
     ToastError = "Something went wrong",
     TransactionError = "Transaction Error",
     TransactionSuccess = "Transaction Success",

@@ -16,6 +16,32 @@ export default class SubscriptionController {
         this.web3Provider = new Web3(this.infuraEndpoint)
     }
 
+    async activateTrial(req: Request, res: Response) {
+        const owner = req.headers.id
+
+        try {
+            const { trialAvailable } = await UserModel.findById(owner)
+
+            if (trialAvailable) {
+                const tokenId = "000000"
+                const selectedPlan = "Trial"
+                const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
+                const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+                await subscription.save()
+                await UserModel.findByIdAndUpdate(owner, { trialAvailable: false })
+                return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
+            }
+
+            else {
+                return res.status(400).json({ msg: statusMessages.connectionError })
+            }
+        }
+
+        catch (error) {
+            return res.status(400).json({ msg: statusMessages.connectionError })
+        }
+    }
+
     async subscribe(req: Request, res: Response) {
         const { tokenId, selectedPlan, transactionHash } = req.body
         const owner = req.headers.id

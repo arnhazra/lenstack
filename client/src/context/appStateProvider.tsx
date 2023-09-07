@@ -17,7 +17,8 @@ const initialState = {
         selectedPlan: "No Subscription",
         apiKey: "",
         tokenId: "",
-        subscriptionValidUpto: ""
+        subscriptionValidUpto: "",
+        trialAvailable: false
     },
 
     datasetRequestState: {

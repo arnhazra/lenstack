@@ -13,6 +13,7 @@ export default class UserRouter {
     }
 
     registerRoutes() {
+        this.router.post("/activatetrial", tokenAuthorizer, this.subscriptionController.activateTrial.bind(this.subscriptionController))
         this.router.post("/subscribe", tokenAuthorizer, this.subscriptionController.subscribe.bind(this.subscriptionController))
         this.router.post("/unsubscribe", tokenAuthorizer, this.subscriptionController.unsubscribe.bind(this.subscriptionController))
     }
