@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast"
 import Constants from "@/constants/appConstants"
 import { useRouter } from "next/navigation"
 
-function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, requestBody?: object) {
+function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, requestBody?: object, refetchInterval?: number) {
     const router = useRouter()
 
     const fetchDataFunction = async () => {
@@ -19,7 +19,7 @@ function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, re
         {
             enabled: true,
             refetchOnWindowFocus: true,
-            refetchInterval: 60000,
+            refetchInterval: refetchInterval ?? 60000,
             retry: 2,
             retryDelay: 2500,
             onError(err: any) {

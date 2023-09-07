@@ -31,6 +31,11 @@ const UserSchema = new mongoose.Schema({
     trialAvailable: {
         type: Boolean,
         default: true
+    },
+
+    isPaymentUnderProcess: {
+        type: Boolean,
+        default: false
     }
 }, { versionKey: false })
 

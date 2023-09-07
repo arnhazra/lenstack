@@ -2,8 +2,42 @@ import { Request, Response } from "express"
 import { validationResult } from "express-validator"
 import { statusMessages } from "../../constants/statusMessages"
 import TransactionModel from "./TransactionModel"
+import UserModel from "../user/UserModel"
 
 export default class TransactionController {
+    async togglePaymentStatusOn(req: Request, res: Response) {
+        const owner = req.headers.id
+
+        try {
+            await UserModel.findByIdAndUpdate(owner, { isPaymentUnderProcess: true })
+            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+        } catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async togglePaymentStatusOff(req: Request, res: Response) {
+        const owner = req.headers.id
+
+        try {
+            await UserModel.findByIdAndUpdate(owner, { isPaymentUnderProcess: false })
+            return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
+        } catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
+    async getCurrentPaymentStatus(req: Request, res: Response) {
+        const owner = req.headers.id
+
+        try {
+            const { isPaymentUnderProcess } = await UserModel.findById(owner)
+            return res.status(200).json({ isPaymentUnderProcess })
+        } catch (error) {
+            return res.status(500).json({ msg: statusMessages.connectionError })
+        }
+    }
+
     async createTransaction(req: Request, res: Response) {
         const errors = validationResult(req)
 

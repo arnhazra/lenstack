@@ -13,6 +13,9 @@ export default class TransactionRouter {
     }
 
     registerRoutes() {
+        this.router.post("/togglepaymentstatuson", tokenAuthorizer, this.transactionController.togglePaymentStatusOn.bind(this.transactionController))
+        this.router.post("/togglepaymentstatusoff", tokenAuthorizer, this.transactionController.togglePaymentStatusOff.bind(this.transactionController))
+        this.router.post("/getpaymentstatus", tokenAuthorizer, this.transactionController.getCurrentPaymentStatus.bind(this.transactionController))
         this.router.post("/create", tokenAuthorizer, this.transactionController.createTransaction.bind(this.transactionController))
         this.router.post("/gettxbyuser", tokenAuthorizer, this.transactionController.getTransactions.bind(this.transactionController))
     }
