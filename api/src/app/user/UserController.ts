@@ -171,7 +171,7 @@ export default class UserController {
             const block = await this.web3Provider.eth.getBlock(tx.blockNumber)
 
             if (walletAddress.toLowerCase() == tx.from.toLowerCase()) {
-                const currentBlock = await this.web3Provider.eth.getBlock('latest')
+                const currentBlock = await this.web3Provider.eth.getBlock("latest")
                 const currentTimestamp = currentBlock.timestamp
                 const transactionTimestamp = block.timestamp
                 const timeTolerance = 30

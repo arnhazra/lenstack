@@ -160,7 +160,7 @@ const SubscribeModal: FC<SubscribeModalProps> = ({ isOpened, closeModal, price, 
     const hideModal = (): void => {
         if (!isTxProcessing) {
             closeModal()
-            router.push('/dashboard')
+            router.push("/dashboard")
         }
     }
 

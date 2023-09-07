@@ -1,9 +1,7 @@
 import { Request, Response } from "express"
 import OpenAI from "openai"
-import { envConfig } from "../../../../config/envConfig"
 import { statusMessages } from "../../../constants/statusMessages"
 import EvolakeQueryModel from "./EvolakeQueryModel"
-import { error } from "console"
 
 export default class EvolakeController {
     async getDatabaseList(req: Request, res: Response) {
@@ -57,7 +55,7 @@ export default class EvolakeController {
                         frequency_penalty: 0.0,
                         presence_penalty: 0.0,
                     })
-                    const aiGeneratedQuery = response.choices[0].message.content.split('```')[1]
+                    const aiGeneratedQuery = response.choices[0].message.content.split("```")[1]
                     const evolakeDbReq = new EvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
                     await evolakeDbReq.save()
                     return res.status(200).json({ msg: aiGeneratedQuery, from: "AI" })

@@ -148,7 +148,7 @@ const UnsubscribeModal: FC<UnsubscribeModalProps> = ({ isOpened, closeModal, ref
     const hideModal = (): void => {
         if (!isTxProcessing) {
             closeModal()
-            router.push('/dashboard')
+            router.push("/dashboard")
         }
     }
 

@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import { useState } from "react"
+import Modal from "react-bootstrap/Modal"
+import Button from "react-bootstrap/Button"
 import { ArchiveIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 
 function useConfirm() {
     const [show, setShow] = useState(false)
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState("")
     const [resolveCallback, setResolveCallback] = useState<(choice: boolean) => void>(() => { })
 
     const handleClose = () => setShow(false)
