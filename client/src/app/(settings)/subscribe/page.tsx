@@ -231,17 +231,6 @@ const SubscribePage: NextPage = () => {
                                         </p>
                                     </Col>
                                 </Row>
-                                <Row className="mb-2">
-                                    <Col className="categorycol">
-                                        <ModulzLogoIcon />
-                                    </Col>
-                                    <Col>
-                                        <p className="boxcategorytext">Payable Amount</p>
-                                        <p className="boxcategorytext">
-                                            {price / 10000} MATIC
-                                        </p>
-                                    </Col>
-                                </Row>
                             </Form.Group>
                             <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={buyToken}>
                                 <Show when={!isTxProcessing}>Pay {price / 10000} MATIC<ArrowRightIcon className="icon-right" /></Show>
