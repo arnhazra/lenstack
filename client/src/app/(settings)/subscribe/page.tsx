@@ -48,6 +48,34 @@ const SubscribePage: NextPage = () => {
         axios.post(endPoints.setPaymentStatusEndpoint, { paymentStatus: 0 })
     }, [])
 
+    useEffect(() => {
+        const status = paymentStatus?.data?.paymentStatus
+
+        if (status === 0) {
+            setStep(1)
+            setTxProcessing(false)
+            setTxError(false)
+        }
+
+        if (status == 1) {
+            setStep(1)
+            setTxProcessing(true)
+            setTxError(false)
+        }
+
+        if (status == 2) {
+            setStep(2)
+            setTxProcessing(false)
+            setTxError(false)
+        }
+
+        if (status == 3) {
+            setStep(2)
+            setTxProcessing(false)
+            setTxError(true)
+        }
+    }, [paymentStatus.data])
+
     const subscribe = async () => {
         try {
             setTxProcessing(true)
@@ -169,7 +197,7 @@ const SubscribePage: NextPage = () => {
                         <p className="boxtext ms-2 mt-2">This plan, offers all product subscriptions with {pricingDetails.data?.proSubscriptionConfig?.grantedTokens} Tokens</p>
                     </div>
                     <Fragment>
-                        <Show when={step === 1 || paymentStatus?.data?.paymentStatus === 0 || paymentStatus?.data?.paymentStatus === 1}>
+                        <Show when={step === 1}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <div className="text-center mb-3">
                                     <QRCodeSVG value="https://lenstack.vercel.app/subscribe" fgColor="#009688" />
@@ -209,19 +237,19 @@ const SubscribePage: NextPage = () => {
                                     </Col>
                                 </Row>
                             </Form.Group>
-                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || paymentStatus?.data?.paymentStatus === 1 || userState.selectedPlan === "Pro"} onClick={buyToken}>
-                                <Show when={!isTxProcessing && paymentStatus?.data?.paymentStatus !== 1}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
-                                <Show when={isTxProcessing || paymentStatus?.data?.paymentStatus === 1}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
+                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={buyToken}>
+                                <Show when={!isTxProcessing}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
+                                <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
                         </Show>
-                        <Show when={step === 2 || paymentStatus?.data?.paymentStatus === 2 || paymentStatus?.data?.paymentStatus === 3}>
-                            <Show when={!txError || paymentStatus?.data?.paymentStatus === 2}>
+                        <Show when={step === 2}>
+                            <Show when={!txError}>
                                 <div className="text-center">
                                     <CheckCircledIcon className="icon-large" />
                                     <p className="lead text-center mt-4">Success</p>
                                 </div>
                             </Show>
-                            <Show when={txError || paymentStatus?.data?.paymentStatus === 3}>
+                            <Show when={txError}>
                                 <div className="text-center">
                                     <CrossCircledIcon className="icon-large" />
                                     <p className="lead text-center mt-4">Failed</p>
