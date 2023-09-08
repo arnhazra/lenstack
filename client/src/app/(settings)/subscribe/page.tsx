@@ -168,7 +168,7 @@ const SubscribePage: NextPage = () => {
                         <p className="boxtext ms-2 mt-2">This plan, offers all product subscriptions with {pricingDetails.data?.proSubscriptionConfig?.grantedTokens} Tokens</p>
                     </div>
                     <Fragment>
-                        <Show when={step === 1}>
+                        <Show when={step === 1 || paymentStatus?.data?.paymentStatus === 0 || paymentStatus?.data?.paymentStatus === 1}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <div className="text-center mb-3">
                                     <img src={`../lenstackpay.png`} height={140} width={140} />
@@ -207,7 +207,7 @@ const SubscribePage: NextPage = () => {
                                     </Col>
                                 </Row>
                             </Form.Group>
-                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || paymentStatus?.data?.paymentStatus === 1} onClick={buyToken}>
+                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || paymentStatus?.data?.paymentStatus === 1 || userState.selectedPlan === 'Pro'} onClick={buyToken}>
                                 <Show when={!isTxProcessing && paymentStatus?.data?.paymentStatus !== 1}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
                                 <Show when={isTxProcessing || paymentStatus?.data?.paymentStatus === 1}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
