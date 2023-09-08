@@ -1,5 +1,6 @@
 "use client"
 import { Fragment, useContext, useState } from "react"
+import { QRCodeSVG } from "qrcode.react"
 import { AppContext } from "@/context/appStateProvider"
 import Show from "@/components/Show"
 import withAuth from "@/utils/withAuth"
@@ -171,7 +172,8 @@ const SubscribePage: NextPage = () => {
                         <Show when={step === 1 || paymentStatus?.data?.paymentStatus === 0 || paymentStatus?.data?.paymentStatus === 1}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <div className="text-center mb-3">
-                                    <img src={`../lenstackpay.png`} height={140} width={140} />
+                                    <QRCodeSVG value="https://lenstack.vercel.app/subscribe" fgColor="#009688" />
+                                    <p className="mt-2 mb-2">Scan to Pay</p>
                                 </div>
                                 <Row className="mb-2">
                                     <Col className="categorycol">
@@ -207,7 +209,7 @@ const SubscribePage: NextPage = () => {
                                     </Col>
                                 </Row>
                             </Form.Group>
-                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || paymentStatus?.data?.paymentStatus === 1 || userState.selectedPlan === 'Pro'} onClick={buyToken}>
+                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || paymentStatus?.data?.paymentStatus === 1 || userState.selectedPlan === "Pro"} onClick={buyToken}>
                                 <Show when={!isTxProcessing && paymentStatus?.data?.paymentStatus !== 1}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
                                 <Show when={isTxProcessing || paymentStatus?.data?.paymentStatus === 1}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
