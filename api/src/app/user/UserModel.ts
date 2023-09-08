@@ -33,8 +33,8 @@ const UserSchema = new mongoose.Schema({
         default: true
     },
 
-    isPaymentUnderProcess: {
-        type: Boolean,
+    paymentStatus: {
+        type: Number,
         default: false
     }
 }, { versionKey: false })

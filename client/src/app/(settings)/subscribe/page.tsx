@@ -44,7 +44,7 @@ const SubscribePage: NextPage = () => {
     }, [price])
 
     useEffect(() => {
-        axios.post(endPoints.togglePaymentStatusOffEndpoint)
+        axios.post(endPoints.setPaymentStatusEndpoint, { paymentStatus: 0 })
     }, [])
 
     const subscribe = async () => {
@@ -102,6 +102,7 @@ const SubscribePage: NextPage = () => {
                 const res = await web3Provider.eth.sendSignedTransaction(signedpurchaseNFTTx.rawTransaction)
                 const { transactionHash } = res
                 await axios.post(`${endPoints.subscribeEndpoint}`, { tokenId, selectedPlan, transactionHash })
+                await axios.post(endPoints.setPaymentStatusEndpoint, { paymentStatus: 2 })
                 setTxProcessing(false)
                 setTxError(false)
                 setStep(2)
@@ -110,21 +111,18 @@ const SubscribePage: NextPage = () => {
         }
 
         catch (error) {
+            await axios.post(endPoints.setPaymentStatusEndpoint, { paymentStatus: 3 })
             setTxProcessing(false)
             setTxError(true)
             setStep(2)
             toast.error(Constants.TransactionError)
-        }
-
-        finally {
-            await axios.post(endPoints.togglePaymentStatusOffEndpoint)
         }
     }
 
     const buyToken = async (e: any) => {
         e.preventDefault()
         try {
-            await axios.post(endPoints.togglePaymentStatusOnEndpoint)
+            axios.post(endPoints.setPaymentStatusEndpoint, { paymentStatus: 1 })
             setTxProcessing(true)
             const { privateKey } = userState
             const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
@@ -209,19 +207,19 @@ const SubscribePage: NextPage = () => {
                                     </Col>
                                 </Row>
                             </Form.Group>
-                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || paymentStatus?.data?.isPaymentUnderProcess} onClick={buyToken}>
-                                <Show when={!isTxProcessing && !paymentStatus?.data?.isPaymentUnderProcess}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
-                                <Show when={isTxProcessing || paymentStatus?.data?.isPaymentUnderProcess}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
+                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || paymentStatus?.data?.paymentStatus === 1} onClick={buyToken}>
+                                <Show when={!isTxProcessing && paymentStatus?.data?.paymentStatus !== 1}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
+                                <Show when={isTxProcessing || paymentStatus?.data?.paymentStatus === 1}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
                             </Button>
                         </Show>
-                        <Show when={step === 2}>
-                            <Show when={!txError}>
+                        <Show when={step === 2 || paymentStatus?.data?.paymentStatus === 2 || paymentStatus?.data?.paymentStatus === 3}>
+                            <Show when={!txError || paymentStatus?.data?.paymentStatus === 2}>
                                 <div className="text-center">
                                     <CheckCircledIcon className="icon-large" />
                                     <p className="lead text-center mt-4">Success</p>
                                 </div>
                             </Show>
-                            <Show when={txError}>
+                            <Show when={txError || paymentStatus?.data?.paymentStatus === 3}>
                                 <div className="text-center">
                                     <CrossCircledIcon className="icon-large" />
                                     <p className="lead text-center mt-4">Failed</p>
