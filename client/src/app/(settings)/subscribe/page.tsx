@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext, useRef, useState } from "react"
 import { QRCodeSVG } from "qrcode.react"
 import { AppContext } from "@/context/appStateProvider"
 import Show from "@/components/Show"
@@ -34,6 +34,10 @@ const SubscribePage: NextPage = () => {
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
 
+    function playAudio() {
+        new Audio("../notification.mp3").play()
+    }
+
     useEffect(() => {
         setStep(1)
         setTxProcessing(false)
@@ -67,12 +71,14 @@ const SubscribePage: NextPage = () => {
             setStep(2)
             setTxProcessing(false)
             setTxError(false)
+            playAudio()
         }
 
         if (status == 3) {
             setStep(2)
             setTxProcessing(false)
             setTxError(true)
+            playAudio()
         }
     }, [paymentStatus.data])
 
@@ -200,7 +206,7 @@ const SubscribePage: NextPage = () => {
                         <Show when={step === 1}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <div className="text-center mb-3">
-                                    <QRCodeSVG value="https://lenstack.vercel.app/subscribe" fgColor="#009688" />
+                                    <QRCodeSVG value="https://lenstack.vercel.app/subscribe" fgColor="#025a75" size={100} />
                                     <p className="mt-2 mb-2">Scan to Pay</p>
                                 </div>
                                 <Row className="mb-2">
@@ -238,8 +244,8 @@ const SubscribePage: NextPage = () => {
                                 </Row>
                             </Form.Group>
                             <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={buyToken}>
-                                <Show when={!isTxProcessing}>Pay & Subscribe<ArrowRightIcon className="icon-right" /></Show>
-                                <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
+                                <Show when={!isTxProcessing}>Pay {price / 10000} MATIC<ArrowRightIcon className="icon-right" /></Show>
+                                <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
                             </Button>
                         </Show>
                         <Show when={step === 2}>
