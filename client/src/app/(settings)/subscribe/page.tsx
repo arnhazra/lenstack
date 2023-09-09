@@ -35,7 +35,7 @@ const SubscribePage: NextPage = () => {
     const [txError, setTxError] = useState(false)
 
     function playAudio() {
-        new Audio("../notification.mp3").play()
+        new Audio("./notification.mp3").play()
     }
 
     useEffect(() => {
