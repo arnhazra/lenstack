@@ -34,10 +34,6 @@ const SubscribePage: NextPage = () => {
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
 
-    function playAudio() {
-        new Audio("./notification.mp3").play()
-    }
-
     useEffect(() => {
         setStep(1)
         setTxProcessing(false)
@@ -71,14 +67,12 @@ const SubscribePage: NextPage = () => {
             setStep(2)
             setTxProcessing(false)
             setTxError(false)
-            playAudio()
         }
 
         if (status == 3) {
             setStep(2)
             setTxProcessing(false)
             setTxError(true)
-            playAudio()
         }
     }, [paymentStatus.data])
 
