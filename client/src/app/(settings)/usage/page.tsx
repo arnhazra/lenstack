@@ -117,7 +117,7 @@ const UsagePage: NextPage = () => {
                         </Col>
                     </Row>
                     <Show when={!!userState.apiKey}>
-                        <Button className="btn-block btn-red mb-2 mt-3" disabled={userState.selectedPlan === "Trial"} onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription<CrossCircledIcon className="icon-right" /></Button>
+                        <Button className="btn-block mb-2 mt-3" disabled={userState.selectedPlan === "Trial"} onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription<CrossCircledIcon className="icon-right" /></Button>
                     </Show>
                 </div>
             </Show>

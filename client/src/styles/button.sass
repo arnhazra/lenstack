@@ -1,7 +1,7 @@
-$btnColor: #1a1a1f
+$btnColor: linear-gradient(120deg, #f6d365 0%, #fda085 100%)
 $textColor: #fafafb
 $tagColor: #f1f5f9
-$dangerBtnColor: #ed2954
+$black: #000000
 
 .btn
     background: $btnColor
@@ -11,26 +11,19 @@ $dangerBtnColor: #ed2954
     padding-right: 1.2rem
     margin-right: 1rem
     margin-bottom: 1rem
-    color: $textColor !important
+    color: $textColor
     font-size: 0.9rem
     border: none
 
     &:disabled
         background: $btnColor
-        color: $textColor !important
+        color: $textColor
 
 .btn:hover,
 .btn:focus,
 .btn:active
     background-color: $btnColor
-
-.btn-red
-    background: $dangerBtnColor !important
-
-.btn-red:hover,
-.btn-red:focus,
-.btn-red:active
-    background-color: $dangerBtnColor !important
+    color: $textColor
 
 a,
 a:hover,
@@ -42,7 +35,7 @@ a:active
 
 .tag-chip
     background: $tagColor !important
-    color: $btnColor !important
+    color: $black !important
     padding: 0.7rem
     padding-left: 1.1rem
     padding-right: 1.1rem
@@ -100,9 +93,9 @@ a:active
 
 .file-button
     display: inline-block
-    padding: 0.5rem 2rem
+    padding: 0.8rem 2rem
     padding-left: 2rem !important
-    background-color: $btnColor
+    background: $btnColor
     color: $textColor
     border-radius: 3rem
     cursor: pointer
@@ -118,4 +111,4 @@ a:active
     height: 3rem !important
     width: 3rem !important
     background: $textColor
-    color: $btnColor !important
+    color: $black !important

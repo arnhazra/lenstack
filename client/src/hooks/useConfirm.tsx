@@ -41,7 +41,7 @@ function useConfirm() {
                 <Button variant="secondary" onClick={() => handleConfirm(false)}>
                     Cancel <CrossCircledIcon className="icon-right" />
                 </Button>
-                <Button className="btn-red" onClick={() => handleConfirm(true)}>
+                <Button onClick={() => handleConfirm(true)}>
                     Yeah <ArchiveIcon className="icon-right" />
                 </Button>
             </Modal.Footer>
