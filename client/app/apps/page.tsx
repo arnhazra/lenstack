@@ -1,4 +1,5 @@
 "use client"
+import { useContext } from "react"
 import Loading from "@/_components/Loading"
 import AppCard from "@/_components/AppCard"
 import Show from "@/_components/Show"
@@ -8,16 +9,20 @@ import useFetch from "@/_hooks/useFetch"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { NextPage } from "next"
 import { useRouter, useSearchParams } from "next/navigation"
-import React from 'react'
+import React from "react"
 import { Button, Container, Row } from "react-bootstrap"
 import withAuth from "@/_utils/withAuth"
 import Error from "@/_components/ErrorComp"
+import { AppContext } from "@/_context/appStateProvider"
+import Link from "next/link"
 
 const AppsPage: NextPage = () => {
+    const [{ userState }] = useContext(AppContext)
     const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
     const searchParams = useSearchParams()
     const router = useRouter()
     const appName = searchParams.get("appname")
+    console.log(userState.selectedPlan)
 
     const selectedApp = apps?.data?.find((app: any) => {
         return app.appName === appName
@@ -42,8 +47,15 @@ const AppsPage: NextPage = () => {
                         <p className="branding text-capitalize">{selectedApp?.appName}</p>
                         <p className="lead mt-3">{selectedApp?.description}</p>
                         <Button className="tag-chip">{selectedApp?.dbRegion}</Button>
-                        <Button className="tag-chip">{selectedApp?.appAvailable ? 'Available' : 'Under Maintainance'}</Button><br />
-                        <Button className="mt-2" onClick={launchApp}>Go to App<ArrowRightIcon className="icon-right" /></Button>
+                        <Button className="tag-chip">{selectedApp?.appAvailable ? "Available" : "Under Maintainance"}</Button><br />
+                        <Show when={userState.selectedPlan !== "No Subscription"}>
+                            <Button className="mt-2" onClick={launchApp}>Go to App<ArrowRightIcon className="icon-right" /></Button>
+                        </Show>
+                        <Show when={userState.selectedPlan === "No Subscription"}>
+                            <Link href={'/subscribe'}>
+                                <Button className="mt-2">Subscribe & Continue<ArrowRightIcon className="icon-right" /></Button>
+                            </Link>
+                        </Show>
                     </div>
                     <h4 className="dashboard-header mt-2">Other Apps</h4>
                     <Row className="mb-4 mt-2">

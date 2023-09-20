@@ -32,7 +32,7 @@ const WealthnowCreateAssetPage: NextPage = () => {
 
         catch (error: any) {
             setState({ ...state, isLoading: false })
-            toast.error("Unable to create asset")
+            toast.error(error.response.data.msg ?? "Unable to create asset")
         }
     }
 

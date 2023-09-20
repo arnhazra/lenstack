@@ -33,6 +33,17 @@ const SubscribePage: NextPage = () => {
     const [ether, setEther] = useState(price / 10000)
     const [isTxProcessing, setTxProcessing] = useState(false)
     const [txError, setTxError] = useState(false)
+    const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
+
+    const activateTrial = async () => {
+        try {
+            await axios.post(endPoints.activateTrialEndpoint)
+            setDisplayTrialButton(false)
+            toast.success(Constants.ToastSuccess)
+        } catch (error) {
+            toast.error(Constants.ToastError)
+        }
+    }
 
     useEffect(() => {
         setStep(1)
@@ -226,8 +237,11 @@ const SubscribePage: NextPage = () => {
                                     </Col>
                                 </Row>
                             </Form.Group>
-                            <Button className="btn-block mt-2" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={buyToken}>
-                                <Show when={!isTxProcessing}>Pay {price / 10000} MATIC<ArrowRightIcon className="icon-right" /></Show>
+                            <Show when={displayTrialButton}>
+                                <Button className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
+                            </Show>
+                            <Button className="btn-block" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={buyToken}>
+                                <Show when={!isTxProcessing}>Activate Pro {price / 10000} MATIC<ArrowRightIcon className="icon-right" /></Show>
                                 <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
                             </Button>
                         </Show>

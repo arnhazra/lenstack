@@ -23,7 +23,7 @@ const AuthPage: NextPage = () => {
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
     const searchParams = useSearchParams()
-    const nextRedirect = searchParams.get("nextRedirect")
+    const redirect = searchParams.get("redirect")
 
     const requestAuthCode = async (event: any) => {
         event.preventDefault()
@@ -62,8 +62,8 @@ const AuthPage: NextPage = () => {
             localStorage.setItem("accessToken", response.data.accessToken)
             toast.success("Successfully authenticated")
             setLoading(false)
-            if (nextRedirect) {
-                router.push(`/${nextRedirect.toString()}`)
+            if (redirect) {
+                router.push(`/${redirect.toString()}`)
             }
             else {
                 router.push("/dashboard")

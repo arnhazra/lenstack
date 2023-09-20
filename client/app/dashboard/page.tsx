@@ -13,6 +13,7 @@ import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
+import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 const DashboardPage: NextPage = () => {
     const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
@@ -39,7 +40,7 @@ const DashboardPage: NextPage = () => {
                 <Container>
                     <h4 className="dashboard-header">Welcome to Lenstack!</h4>
                     <Show when={displayTrialButton}>
-                        <Button onClick={activateTrial}>Activate Trial</Button>
+                        <Button onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
                     </Show>
                     <Row className="mb-4">
                         {appsToDisplay}
