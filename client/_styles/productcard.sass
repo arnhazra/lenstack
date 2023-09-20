@@ -1,0 +1,57 @@
+$mainColor: #1a1a1f
+$white: #ffffff
+
+@mixin categoryContainer
+    color: $white
+    border-radius: 0.8rem
+    border: none
+    animation: transitionIn 0.4s forwards
+    cursor: pointer
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+    width: 100%
+    transition: transform 0.5s ease
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    background-attachment: fixed
+
+.product-card-header
+    border: none
+    text-align: center
+    min-height: 11rem
+    margin-top: -2rem
+    margin-left: -1rem
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.product-card-body
+    border: none
+
+.product-card-footer
+    border: none
+
+.product-card-airlake
+    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/airlake.jpg)
+    @include categoryContainer
+
+.product-card-evolake
+    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/evolake.jpg)
+    @include categoryContainer
+
+.product-card-icelake
+    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/icelake.jpg)
+    @include categoryContainer
+
+.product-card-snowlake
+    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/snowlake.jpg)
+    @include categoryContainer
+
+.product-card-frostlake
+    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/frostlake.jpg)
+    @include categoryContainer
+
+.product-card-wealthnow
+    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/wealthnow.jpg)
+    @include categoryContainer
