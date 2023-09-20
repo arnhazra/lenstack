@@ -19,7 +19,7 @@ import { CopyIcon } from "@radix-ui/react-icons"
 
 const AirlakeViewDatasetPage: NextPage = () => {
     const searchParams = useSearchParams()
-    const datasetId = searchParams.get("id")
+    const datasetId = searchParams.get("datasetid")
     const [{ userState }] = useContext(AppContext)
     const dataset = useFetch("view dataset", endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
     const similarDatasets = useFetch("similar datasets", endPoints.airlakeFindSimilarDatasetsEndpoint, HTTPMethods.POST, { datasetId })
