@@ -46,7 +46,7 @@ const FrostlakeViewProjectPage: NextPage = () => {
     return (
         <Fragment>
             <Show when={!project?.isLoading}>
-                <Show when={!project.error}>
+                <Show when={!project.error || !!projectId}>
                     <Container>
                         <div className="jumbotron p-4">
                             <p className="display-6 text-capitalize">{project?.data?.project?.name}</p>
@@ -75,7 +75,7 @@ const FrostlakeViewProjectPage: NextPage = () => {
                         {confirmDialog()}
                     </Container>
                 </Show>
-                <Show when={project.error}>
+                <Show when={project.error || !projectId}>
                     <Error />
                 </Show>
             </Show>

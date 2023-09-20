@@ -45,7 +45,7 @@ const AppsPage: NextPage = () => {
                         <Button className="tag-chip">{selectedApp?.appAvailable ? 'Available' : 'Under Maintainance'}</Button><br />
                         <Button className="mt-2" onClick={launchApp}>Go to App<ArrowRightIcon className="icon-right" /></Button>
                     </div>
-                    <h4 className="dashboard-header mt-2">Other apps</h4>
+                    <h4 className="dashboard-header mt-2">Other Apps</h4>
                     <Row className="mb-4 mt-2">
                         {appsToDisplay}
                     </Row>
