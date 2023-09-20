@@ -17,7 +17,7 @@ const TransactionsPage: NextPage = () => {
         return (
             <tr key={tx._id}>
                 <td>{tx.transactionType}</td>
-                <td>{tx.ethAmount} MATIC</td>
+                <td>{Number(tx.ethAmount).toFixed(2)} MATIC</td>
                 <td>{moment(tx.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
                 <td><a href={`${endPoints.polygonScanEndpoint}/${tx.txHash}`} target="_blank" rel="noopener noreferrer" className="link-table">View on Polygonscan</a></td>
             </tr>
