@@ -20,7 +20,7 @@ const WealthnowPortfoliosPage: NextPage = () => {
             <tr key={portfolio._id}>
                 <td>{portfolio.name}</td>
                 <td>{moment(portfolio.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-                <td><Link href={`/wealthnow/portfolio?id=${portfolio._id}`}>Open Portfolio<ExternalLinkIcon className="icon-right" /></Link></td>
+                <td><Link href={`/wealthnow/portfolio?portfolioid=${portfolio._id}`}>Open Portfolio<ExternalLinkIcon className="icon-right" /></Link></td>
             </tr>
         )
     })

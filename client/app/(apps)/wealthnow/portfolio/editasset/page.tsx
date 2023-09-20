@@ -14,7 +14,7 @@ import useFetch from "@/_hooks/useFetch"
 
 const WealthnowEditAssetPage: NextPage = () => {
     const searchParams = useSearchParams()
-    const assetId = searchParams.get("assetId")
+    const assetId = searchParams.get("assetid")
     const asset = useFetch("view asset", endPoints.wealthnowViewAssetEndpoint, HTTPMethods.POST, { assetId })
     const [state, setState] = useState({ principalAmount: 0, rateOfInterest: 0, tenure: 0, maturityAmount: 0, isLoading: false })
 

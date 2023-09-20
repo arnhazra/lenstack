@@ -23,7 +23,7 @@ const WealthnowCreatePortfolioPage: NextPage = () => {
             const { name } = state
             const response = await axios.post(endPoints.wealthnowCreatePortfolioEndpoint, { name })
             toast.success("Portfolio Created")
-            router.push(`/wealthnow/portfolio?id=${response.data.portfolio._id}`)
+            router.push(`/wealthnow/portfolio?portfolioid=${response.data.portfolio._id}`)
         }
 
         catch (error: any) {

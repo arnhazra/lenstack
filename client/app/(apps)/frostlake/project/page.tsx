@@ -17,7 +17,7 @@ import { Button, Container, Table } from "react-bootstrap"
 
 const FrostlakeViewProjectPage: NextPage = () => {
     const searchParams = useSearchParams()
-    const projectId = searchParams.get("id")
+    const projectId = searchParams.get("projectid")
     const project = useFetchRealtime("view project", endPoints.frostlakeViewProjectEndpoint, HTTPMethods.POST, { projectId })
     const router = useRouter()
     const { confirmDialog, confirm } = useConfirm()

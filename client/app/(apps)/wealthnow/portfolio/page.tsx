@@ -18,7 +18,7 @@ import { Button, Container, Table } from "react-bootstrap"
 
 const WealthnowViewPortfolioPage: NextPage = () => {
     const searchParams = useSearchParams()
-    const portfolioId = searchParams.get("id")
+    const portfolioId = searchParams.get("portfolioid")
     const portfolio = useFetchRealtime("view portfolio", endPoints.wealthnowViewPortfolioEndpoint, HTTPMethods.POST, { portfolioId })
     const router = useRouter()
     const { confirmDialog, confirm } = useConfirm()
@@ -39,7 +39,7 @@ const WealthnowViewPortfolioPage: NextPage = () => {
                 <td>{asset.tenure}</td>
                 <td>{asset.maturityAmount}</td>
                 <td>{moment(asset.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-                <td><Link href={`/wealthnow/portfolio/editasset?assetId=${asset._id}`}>Link<ExternalLinkIcon className="icon-right" /></Link></td>
+                <td><Link href={`/wealthnow/portfolio/editasset?assetid=${asset._id}`}>Link<ExternalLinkIcon className="icon-right" /></Link></td>
                 <td><ArchiveIcon onClick={() => deleteAsset(asset._id)} /></td>
             </tr>
         )
@@ -66,7 +66,7 @@ const WealthnowViewPortfolioPage: NextPage = () => {
                             <p className="display-4 text-capitalize">₹ {portfolio?.data?.totalAssetUnderPortfolio.toLocaleString()}</p>
                             <Button onClick={archivePortfolio}>Archive Portfolio<ArchiveIcon className="icon-right" /></Button>
                             <Button onClick={() => router.push("/apireference")}>API Reference<ReaderIcon className="icon-right" /></Button>
-                            <Button onClick={() => router.push(`/wealthnow/portfolio/addasset?portfolioId=${portfolioId}`)}>Add New Asset<IdCardIcon className="icon-right" /></Button>
+                            <Button onClick={() => router.push(`/wealthnow/portfolio/addasset?portfolioid=${portfolioId}`)}>Add New Asset<IdCardIcon className="icon-right" /></Button>
                         </div>
                         <Show when={!!portfolio?.data?.assets.length}>
                             <h4 className="text-white text-center">Assets</h4>

@@ -13,7 +13,7 @@ import { AppContext } from "@/_context/appStateProvider"
 
 const WealthnowCreateAssetPage: NextPage = () => {
     const searchParams = useSearchParams()
-    const portfolioId = searchParams.get("portfolioId")
+    const portfolioId = searchParams.get("portfolioid")
     const [state, setState] = useState({ principalAmount: 0, rateOfInterest: 0, tenure: 0, maturityAmount: 0, isLoading: false })
     const [{ userState }] = useContext(AppContext)
     const router = useRouter()
@@ -27,7 +27,7 @@ const WealthnowCreateAssetPage: NextPage = () => {
             const { apiKey } = userState
             const response = await axios.post(endPoints.wealthnowCreateAssetEndpoint, { principalAmount, rateOfInterest, portfolioId, maturityAmount, tenure, apiKey })
             toast.success("Asset Created")
-            router.push(`/wealthnow/portfolio?id=${portfolioId}`)
+            router.push(`/wealthnow/portfolio?portfolioid=${portfolioId}`)
         }
 
         catch (error: any) {
