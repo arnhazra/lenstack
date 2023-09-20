@@ -10,8 +10,9 @@ import { NextPage } from "next"
 import { useRouter, useSearchParams } from "next/navigation"
 import React from 'react'
 import { Button, Container, Row } from "react-bootstrap"
+import withAuth from "@/_utils/withAuth"
 
-const AppPage: NextPage = () => {
+const AppsPage: NextPage = () => {
     const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
     const searchParams = useSearchParams()
     const router = useRouter()
@@ -51,4 +52,4 @@ const AppPage: NextPage = () => {
     )
 }
 
-export default AppPage
+export default withAuth(AppsPage)
