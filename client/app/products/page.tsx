@@ -1,5 +1,7 @@
 "use client"
+import Loading from "@/_components/Loading"
 import ProductCard from "@/_components/ProductCard"
+import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
@@ -29,17 +31,22 @@ const ProductPage: NextPage = () => {
 
     return (
         <Container>
-            <div className="jumbotron p-4">
-                <p className="branding text-capitalize">{selectedProduct?.productName}</p>
-                <p className="lead mt-3">{selectedProduct?.description}</p>
-                <Button className="tag-chip">{selectedProduct?.dbRegion}</Button>
-                <Button className="tag-chip">{selectedProduct?.productAvailable ? 'Available' : 'Under Maintainance'}</Button><br />
-                <Button className="mt-2" onClick={launchProduct}>Go to App<ArrowRightIcon className="icon-right" /></Button>
-            </div>
-            <h4 className="dashboard-header mt-2">Other Products</h4>
-            <Row className="mb-4 mt-2">
-                {productsToDisplay}
-            </Row>
+            <Show when={products?.isLoading}>
+                <Loading />
+            </Show>
+            <Show when={!products?.isLoading}>
+                <div className="jumbotron p-4">
+                    <p className="branding text-capitalize">{selectedProduct?.productName}</p>
+                    <p className="lead mt-3">{selectedProduct?.description}</p>
+                    <Button className="tag-chip">{selectedProduct?.dbRegion}</Button>
+                    <Button className="tag-chip">{selectedProduct?.productAvailable ? 'Available' : 'Under Maintainance'}</Button><br />
+                    <Button className="mt-2" onClick={launchProduct}>Go to App<ArrowRightIcon className="icon-right" /></Button>
+                </div>
+                <h4 className="dashboard-header mt-2">Other Products</h4>
+                <Row className="mb-4 mt-2">
+                    {productsToDisplay}
+                </Row>
+            </Show>
         </Container>
     )
 }
