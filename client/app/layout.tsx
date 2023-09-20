@@ -10,7 +10,7 @@ import "@/_styles/global.sass"
 import "@/_styles/header.sass"
 import "@/_styles/button.sass"
 import "@/_styles/form.sass"
-import "@/_styles/productcard.sass"
+import "@/_styles/appcard.sass"
 import "@/_styles/datasetcard.sass"
 import "@/_styles/sourcecode.sass"
 

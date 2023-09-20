@@ -40,11 +40,11 @@ export type DatasetRequestState = {
     offset: number
 }
 
-export type ProductCardProps = {
-    productName: string,
+export type AppCardProps = {
+    appName: string,
     description: string,
     url: string,
-    productAvailable: boolean,
+    appAvailable: boolean,
     dbRegion: string
 }
 

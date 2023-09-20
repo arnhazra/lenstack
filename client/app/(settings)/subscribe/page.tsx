@@ -194,7 +194,7 @@ const SubscribePage: NextPage = () => {
                 <div className="box">
                     <p className="branding">Subscribe</p>
                     <div className="plans mt-2">
-                        <p className="boxtext ms-2 mt-2">This plan, offers all product subscriptions with {pricingDetails.data?.proSubscriptionConfig?.grantedTokens} Tokens</p>
+                        <p className="boxtext ms-2 mt-2">This plan, offers all apps subscriptions with {pricingDetails.data?.proSubscriptionConfig?.grantedTokens} Tokens</p>
                     </div>
                     <Fragment>
                         <Show when={step === 1}>

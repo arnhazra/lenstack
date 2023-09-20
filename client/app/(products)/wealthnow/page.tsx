@@ -33,25 +33,25 @@ const WealthnowPortfoliosPage: NextPage = () => {
                     <Show when={portfolios?.data?.portfolios?.length > 0}>
                         <Row>
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
-                                <Card className="p-4 mb-2 product-card-wealthnow">
+                                <Card className="p-4 mb-2 app-card-wealthnow">
                                     <p className="lead text-capitalize">Consolidated Asset</p>
                                     <p className="display-6 text-capitalize">₹ {portfolios?.data?.consolidatedAsset.toLocaleString()}</p>
                                 </Card>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
-                                <Card className="p-4 mb-2 product-card-wealthnow">
+                                <Card className="p-4 mb-2 app-card-wealthnow">
                                     <p className="lead text-capitalize">Total Portfolios</p>
                                     <p className="display-6 text-capitalize">{portfolios?.data?.portfolios.length}</p>
                                 </Card>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
-                                <Card className="p-4 mb-2 product-card-wealthnow">
+                                <Card className="p-4 mb-2 app-card-wealthnow">
                                     <p className="lead text-capitalize">Oldest Portfolio</p>
                                     <p className="display-6 text-capitalize">{portfolios?.data?.portfolios[0]?.name ?? ""}</p>
                                 </Card>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
-                                <Card className="p-4 mb-2 product-card-wealthnow">
+                                <Card className="p-4 mb-2 app-card-wealthnow">
                                     <p className="lead text-capitalize">Latest Portfolio</p>
                                     <p className="display-6 text-capitalize">{portfolios?.data?.portfolios[portfolios?.data?.portfolios.length - 1]?.name ?? ""}</p>
                                 </Card>

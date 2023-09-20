@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from "express"
 import { statusMessages } from "../constants/statusMessages"
 import { apiPricing, subscriptionConfig } from "../../config/subscriptionConfig"
-import AirlakeHistoryModel from "../app/products/airlake/AirlakeHistoryModel"
+import AirlakeHistoryModel from "../app/apps/airlake/AirlakeHistoryModel"
 import SubscriptionModel from "../app/subscription/SubscriptionModel"
-import EvolakeQueryModel from "../app/products/evolake/EvolakeQueryModel"
-import IcelakeDocumentModel from "../app/products/icelake/IcelakeDocumentModel"
-import FrostlakeAnalyticsModel from "../app/products/frostlake/FrostlakeAnalyticsModel"
+import EvolakeQueryModel from "../app/apps/evolake/EvolakeQueryModel"
+import IcelakeDocumentModel from "../app/apps/icelake/IcelakeDocumentModel"
+import FrostlakeAnalyticsModel from "../app/apps/frostlake/FrostlakeAnalyticsModel"
 import Web3 from "web3"
 import { otherConstants } from "../constants/otherConstants"
 import { envConfig } from "../../config/envConfig"
 import { prototypeABI } from "../bin/prototypeABI"
-import WealthnowAssetModel from "../app/products/wealthnow/WealthnowAssetModel"
+import WealthnowAssetModel from "../app/apps/wealthnow/WealthnowAssetModel"
 
 async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction) {
     const apiKeyFromParams = req.params.apiKey
