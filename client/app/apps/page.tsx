@@ -11,12 +11,13 @@ import { useRouter, useSearchParams } from "next/navigation"
 import React from 'react'
 import { Button, Container, Row } from "react-bootstrap"
 import withAuth from "@/_utils/withAuth"
+import Error from "@/_components/ErrorComp"
 
 const AppsPage: NextPage = () => {
     const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
     const searchParams = useSearchParams()
     const router = useRouter()
-    const appName = searchParams.get("appName")
+    const appName = searchParams.get("appname")
 
     const selectedApp = apps?.data?.find((app: any) => {
         return app.appName === appName
@@ -36,17 +37,22 @@ const AppsPage: NextPage = () => {
                 <Loading />
             </Show>
             <Show when={!apps?.isLoading}>
-                <div className="jumbotron p-4">
-                    <p className="branding text-capitalize">{selectedApp?.appName}</p>
-                    <p className="lead mt-3">{selectedApp?.description}</p>
-                    <Button className="tag-chip">{selectedApp?.dbRegion}</Button>
-                    <Button className="tag-chip">{selectedApp?.appAvailable ? 'Available' : 'Under Maintainance'}</Button><br />
-                    <Button className="mt-2" onClick={launchApp}>Go to App<ArrowRightIcon className="icon-right" /></Button>
-                </div>
-                <h4 className="dashboard-header mt-2">Other apps</h4>
-                <Row className="mb-4 mt-2">
-                    {appsToDisplay}
-                </Row>
+                <Show when={selectedApp}>
+                    <div className="jumbotron p-4">
+                        <p className="branding text-capitalize">{selectedApp?.appName}</p>
+                        <p className="lead mt-3">{selectedApp?.description}</p>
+                        <Button className="tag-chip">{selectedApp?.dbRegion}</Button>
+                        <Button className="tag-chip">{selectedApp?.appAvailable ? 'Available' : 'Under Maintainance'}</Button><br />
+                        <Button className="mt-2" onClick={launchApp}>Go to App<ArrowRightIcon className="icon-right" /></Button>
+                    </div>
+                    <h4 className="dashboard-header mt-2">Other apps</h4>
+                    <Row className="mb-4 mt-2">
+                        {appsToDisplay}
+                    </Row>
+                </Show>
+                <Show when={!selectedApp}>
+                    <Error customMessage="App Not Found" />
+                </Show>
             </Show>
         </Container>
     )
