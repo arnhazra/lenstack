@@ -48,7 +48,7 @@ const AirlakeViewDatasetPage: NextPage = () => {
     return (
         <Fragment>
             <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
-                <Show when={!dataset.error}>
+                <Show when={!dataset.error && !!datasetId}>
                     <Container>
                         <div className="jumbotron p-4">
                             <Row>
@@ -71,7 +71,7 @@ const AirlakeViewDatasetPage: NextPage = () => {
                         </Row>
                     </Container>
                 </Show>
-                <Show when={dataset.error}>
+                <Show when={dataset.error || !datasetId}>
                     <Error />
                 </Show>
             </Show>

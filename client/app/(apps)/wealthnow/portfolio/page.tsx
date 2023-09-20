@@ -57,7 +57,7 @@ const WealthnowViewPortfolioPage: NextPage = () => {
     return (
         <Fragment>
             <Show when={!portfolio?.isLoading}>
-                <Show when={!portfolio.error}>
+                <Show when={!portfolio.error && !!portfolioId}>
                     <Container>
                         <div className="jumbotron p-4">
                             <p className="display-6 text-capitalize">{portfolio?.data?.portfolio?.name}</p>
@@ -90,7 +90,7 @@ const WealthnowViewPortfolioPage: NextPage = () => {
                         {confirmDialog()}
                     </Container>
                 </Show>
-                <Show when={portfolio.error}>
+                <Show when={portfolio.error || !portfolioId}>
                     <Error />
                 </Show>
             </Show>
