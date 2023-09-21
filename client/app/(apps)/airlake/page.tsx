@@ -11,7 +11,7 @@ import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
+
 import { DatasetRequestState } from "@/_types/Types"
 
 function Page() {

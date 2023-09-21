@@ -7,7 +7,7 @@ import axios from "axios"
 import React, { Fragment, useContext, useState } from "react"
 import { Button, Container, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
-import { NextPage } from "next"
+
 import useFetch from "@/_hooks/useFetch"
 import HTTPMethods from "@/_constants/httpMethods"
 import Link from "next/link"

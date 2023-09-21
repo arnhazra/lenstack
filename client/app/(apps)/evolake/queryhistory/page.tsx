@@ -1,6 +1,6 @@
 "use client"
 import { Fragment } from "react"
-import { NextPage } from "next"
+
 import endPoints from "@/_constants/apiEndpoints"
 import Show from "@/_components/Show"
 import { Container, Table } from "react-bootstrap"

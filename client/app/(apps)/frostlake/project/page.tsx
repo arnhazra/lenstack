@@ -10,7 +10,7 @@ import withAuth from "@/_utils/withAuth"
 import { ArchiveIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
-import { NextPage } from "next"
+
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"

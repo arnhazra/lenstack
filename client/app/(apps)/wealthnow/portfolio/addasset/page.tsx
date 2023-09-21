@@ -3,7 +3,7 @@ import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import withAuth from "@/_utils/withAuth"
 import axios from "axios"
-import { NextPage } from "next"
+
 import { useRouter, useSearchParams } from "next/navigation"
 import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
