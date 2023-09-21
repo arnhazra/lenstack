@@ -17,7 +17,7 @@ import { toast } from "react-hot-toast"
 import { FileTextIcon, DownloadIcon, ArchiveIcon, UploadIcon } from "@radix-ui/react-icons"
 import useConfirm from "@/_hooks/useConfirm"
 
-const IcelakeHomePage: NextPage = () => {
+function Page() {
     const [{ userState }] = useContext(AppContext)
     const queryClient = useQueryClient()
     const { confirm, confirmDialog } = useConfirm()
@@ -176,4 +176,4 @@ const IcelakeHomePage: NextPage = () => {
     )
 }
 
-export default withAuth(IcelakeHomePage)
+export default withAuth(Page)

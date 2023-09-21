@@ -2,10 +2,9 @@
 import SourceCode from "@/_components/SourceCode"
 import endPoints from "@/_constants/apiEndpoints"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
 import { Container, Form } from "react-bootstrap"
 
-const APIReferencePage: NextPage = () => {
+function Page() {
     return (
         <Container style={{ minWidth: "60%" }}>
             <div className="jumbotron mt-4 p-4">
@@ -59,4 +58,4 @@ const APIReferencePage: NextPage = () => {
     )
 }
 
-export default withAuth(APIReferencePage)
+export default withAuth(Page)

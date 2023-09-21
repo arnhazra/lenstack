@@ -6,13 +6,12 @@ import { Card, Container, Row, Table, Col } from "react-bootstrap"
 import Loading from "@/_components/Loading"
 import HTTPMethods from "@/_constants/httpMethods"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
 import useFetch from "@/_hooks/useFetch"
 import moment from "moment"
 import Link from "next/link"
 import { ExternalLinkIcon } from "@radix-ui/react-icons"
 
-const WealthnowPortfoliosPage: NextPage = () => {
+function Page() {
     const portfolios = useFetch("portfolios", endPoints.wealthnowGetPortfoliosEndpoint, HTTPMethods.POST)
 
     const portfoliosToDisplay = portfolios?.data?.portfolios?.map((portfolio: any) => {
@@ -86,4 +85,4 @@ const WealthnowPortfoliosPage: NextPage = () => {
     )
 }
 
-export default withAuth(WealthnowPortfoliosPage)
+export default withAuth(Page)

@@ -14,7 +14,7 @@ import withAuth from "@/_utils/withAuth"
 import { NextPage } from "next"
 import { DatasetRequestState } from "@/_types/Types"
 
-const AirlakeDatasetsPage: NextPage = () => {
+function Page() {
     const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: '', selectedFilter: 'All', selectedSortOption: 'name', offset: 0 })
     const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
     const dataLibrary = useFetch("data platform", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
@@ -98,4 +98,4 @@ const AirlakeDatasetsPage: NextPage = () => {
     )
 }
 
-export default withAuth(AirlakeDatasetsPage)
+export default withAuth(Page)

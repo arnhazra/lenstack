@@ -9,7 +9,7 @@ import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import HTTPMethods from "@/_constants/httpMethods"
 import withAuth from "@/_utils/withAuth"
 
-const QueryHistoryPage: NextPage = () => {
+function Page() {
     const queryHistory = useFetchRealtime("query history", endPoints.evolakeGetQueryHistoryEndpoint, HTTPMethods.POST)
 
     const queryHistoryToDisplay = queryHistory?.data?.queryHistory?.map((atc: any) => {
@@ -54,4 +54,4 @@ const QueryHistoryPage: NextPage = () => {
     )
 }
 
-export default withAuth(QueryHistoryPage)
+export default withAuth(Page)

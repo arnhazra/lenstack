@@ -1,10 +1,9 @@
 "use client"
-import { Fragment, useContext, useRef, useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import { QRCodeSVG } from "qrcode.react"
 import { AppContext } from "@/_context/appStateProvider"
 import Show from "@/_components/Show"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
 import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
@@ -18,10 +17,10 @@ import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 import { nftABI } from "@/_bin/nftABI"
 import { vendorABI } from "@/_bin/vendorABI"
-import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon, CubeIcon, ModulzLogoIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon, CubeIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
 
-const SubscribePage: NextPage = () => {
+function Page() {
     const [{ userState }] = useContext(AppContext)
     const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
     const paymentStatus = useFetchRealtime("get payment status", endPoints.getPaymentStatusEndpoint, HTTPMethods.POST, {}, 2000)
@@ -269,4 +268,4 @@ const SubscribePage: NextPage = () => {
     )
 }
 
-export default withAuth(SubscribePage)
+export default withAuth(Page)

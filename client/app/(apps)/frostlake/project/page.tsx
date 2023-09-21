@@ -15,7 +15,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 
-const FrostlakeViewProjectPage: NextPage = () => {
+function Page() {
     const searchParams = useSearchParams()
     const projectId = searchParams.get("projectid")
     const project = useFetchRealtime("view project", endPoints.frostlakeViewProjectEndpoint, HTTPMethods.POST, { projectId })
@@ -86,4 +86,4 @@ const FrostlakeViewProjectPage: NextPage = () => {
     )
 }
 
-export default withAuth(FrostlakeViewProjectPage)
+export default withAuth(Page)

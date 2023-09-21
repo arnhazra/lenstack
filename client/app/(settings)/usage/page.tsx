@@ -4,7 +4,6 @@ import { AppContext } from "@/_context/appStateProvider"
 import Show from "@/_components/Show"
 import { toast } from "react-hot-toast"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
@@ -16,7 +15,7 @@ import UnsubscribeModal from "@/_components/UnsubscribeModal"
 import { Button, Col, Row } from "react-bootstrap"
 import { LockOpen1Icon, CalendarIcon, BookmarkIcon, BarChartIcon, CrossCircledIcon, CopyIcon } from "@radix-ui/react-icons"
 
-const UsagePage: NextPage = () => {
+function Page() {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const [{ userState }] = useContext(AppContext)
     const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
@@ -129,4 +128,4 @@ const UsagePage: NextPage = () => {
     )
 }
 
-export default withAuth(UsagePage)
+export default withAuth(Page)

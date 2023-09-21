@@ -12,7 +12,7 @@ import moment from "moment"
 import { ExternalLinkIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 
-const FrostlakeProjectsPage: NextPage = () => {
+function Page() {
     const projects = useFetch("project", endPoints.frostlakeGetProjectsEndpoint, HTTPMethods.POST)
 
     const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
@@ -59,4 +59,4 @@ const FrostlakeProjectsPage: NextPage = () => {
     )
 }
 
-export default withAuth(FrostlakeProjectsPage)
+export default withAuth(Page)

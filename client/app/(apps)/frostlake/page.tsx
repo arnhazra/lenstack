@@ -11,7 +11,7 @@ import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
-const FrostlakeCreateProjectPage: NextPage = () => {
+function Page() {
     const [state, setState] = useState({ name: "", isLoading: false })
     const router = useRouter()
 
@@ -48,4 +48,4 @@ const FrostlakeCreateProjectPage: NextPage = () => {
     )
 }
 
-export default withAuth(FrostlakeCreateProjectPage)
+export default withAuth(Page)

@@ -1,14 +1,13 @@
 "use client"
 import { Fragment } from "react"
 import Show from "@/_components/Show"
-import { NextPage } from "next"
 import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import Loading from "@/_components/Loading"
 import withoutAuth from "@/_utils/withoutAuth"
 
-const PricingPage: NextPage = () => {
+function Page() {
     const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
 
     return (
@@ -29,4 +28,4 @@ const PricingPage: NextPage = () => {
     )
 }
 
-export default withoutAuth(PricingPage)
+export default withoutAuth(Page)

@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { AppContext } from "@/_context/appStateProvider"
 
-const WealthnowCreateAssetPage: NextPage = () => {
+function Page() {
     const searchParams = useSearchParams()
     const portfolioId = searchParams.get("portfolioid")
     const [state, setState] = useState({ principalAmount: 0, rateOfInterest: 0, tenure: 0, maturityAmount: 0, isLoading: false })
@@ -57,4 +57,4 @@ const WealthnowCreateAssetPage: NextPage = () => {
     )
 }
 
-export default withAuth(WealthnowCreateAssetPage)
+export default withAuth(Page)

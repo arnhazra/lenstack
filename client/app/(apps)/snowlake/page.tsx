@@ -14,7 +14,7 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
-const SnowlakeCreatePrototypePage: NextPage = () => {
+function Page() {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [{ userState }] = useContext(AppContext)
@@ -95,4 +95,4 @@ const SnowlakeCreatePrototypePage: NextPage = () => {
     )
 }
 
-export default withAuth(SnowlakeCreatePrototypePage)
+export default withAuth(Page)

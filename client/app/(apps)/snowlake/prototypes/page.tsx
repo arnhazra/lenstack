@@ -17,7 +17,7 @@ import useFetch from "@/_hooks/useFetch"
 import { FileIcon, OpenInNewWindowIcon, ArchiveIcon } from "@radix-ui/react-icons"
 import useConfirm from "@/_hooks/useConfirm"
 
-const SnowlakePrototypes: NextPage = () => {
+function Page() {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [{ userState }] = useContext(AppContext)
@@ -130,4 +130,4 @@ const SnowlakePrototypes: NextPage = () => {
     )
 }
 
-export default withAuth(SnowlakePrototypes)
+export default withAuth(Page)

@@ -14,7 +14,7 @@ import Link from "next/link"
 import SourceCode from "@/_components/SourceCode"
 import { ArrowRightIcon, TextNoneIcon } from "@radix-ui/react-icons"
 
-const EvolakeQueryEnginePage: NextPage = () => {
+function Page() {
     const [selectedDb, setSelectedDb] = useState("SQL")
     const [userQuery, setUserQuery] = useState("")
     const [dbQuery, setDbQuery] = useState("")
@@ -71,4 +71,4 @@ const EvolakeQueryEnginePage: NextPage = () => {
     )
 }
 
-export default withAuth(EvolakeQueryEnginePage)
+export default withAuth(Page)

@@ -8,9 +8,8 @@ import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import HTTPMethods from "@/_constants/httpMethods"
 import moment from "moment"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
 
-const TransactionsPage: NextPage = () => {
+function Page() {
     const transactions = useFetchRealtime("transactions", endPoints.getTransactionsEndpoint, HTTPMethods.POST)
 
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
@@ -59,4 +58,4 @@ const TransactionsPage: NextPage = () => {
     )
 }
 
-export default withAuth(TransactionsPage)
+export default withAuth(Page)

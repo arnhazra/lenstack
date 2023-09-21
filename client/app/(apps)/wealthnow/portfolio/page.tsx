@@ -16,7 +16,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 
-const WealthnowViewPortfolioPage: NextPage = () => {
+function Page() {
     const searchParams = useSearchParams()
     const portfolioId = searchParams.get("portfolioid")
     const portfolio = useFetchRealtime("view portfolio", endPoints.wealthnowViewPortfolioEndpoint, HTTPMethods.POST, { portfolioId })
@@ -101,4 +101,4 @@ const WealthnowViewPortfolioPage: NextPage = () => {
     )
 }
 
-export default withAuth(WealthnowViewPortfolioPage)
+export default withAuth(Page)

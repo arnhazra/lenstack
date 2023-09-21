@@ -8,7 +8,6 @@ import axios from "axios"
 import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
 import Web3 from "web3"
 import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
@@ -17,7 +16,7 @@ import useFetch from "@/_hooks/useFetch"
 import HTTPMethods from "@/_constants/httpMethods"
 import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 
-const AccountPage: NextPage = () => {
+function Page() {
     const [{ userState }] = useContext(AppContext)
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
@@ -109,4 +108,4 @@ const AccountPage: NextPage = () => {
     )
 }
 
-export default withAuth(AccountPage)
+export default withAuth(Page)

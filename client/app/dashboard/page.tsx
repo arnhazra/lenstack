@@ -8,14 +8,13 @@ import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
 import { Button, Container, Row } from "react-bootstrap"
 import withAuth from "@/_utils/withAuth"
-import { NextPage } from "next"
 import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
-const DashboardPage: NextPage = () => {
+function Page() {
     const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
     const [{ userState }] = useContext(AppContext)
     const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
@@ -54,4 +53,4 @@ const DashboardPage: NextPage = () => {
     )
 }
 
-export default withAuth(DashboardPage)
+export default withAuth(Page)

@@ -17,7 +17,7 @@ import { useSearchParams } from "next/navigation"
 import { NextPage } from "next"
 import { CopyIcon } from "@radix-ui/react-icons"
 
-const AirlakeViewDatasetPage: NextPage = () => {
+function Page() {
     const searchParams = useSearchParams()
     const datasetId = searchParams.get("datasetid")
     const [{ userState }] = useContext(AppContext)
@@ -82,4 +82,4 @@ const AirlakeViewDatasetPage: NextPage = () => {
     )
 }
 
-export default withAuth(AirlakeViewDatasetPage)
+export default withAuth(Page)

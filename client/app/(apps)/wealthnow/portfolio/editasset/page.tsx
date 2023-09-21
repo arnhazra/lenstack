@@ -12,7 +12,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 
-const WealthnowEditAssetPage: NextPage = () => {
+function Page() {
     const searchParams = useSearchParams()
     const assetId = searchParams.get("assetid")
     const asset = useFetch("view asset", endPoints.wealthnowViewAssetEndpoint, HTTPMethods.POST, { assetId })
@@ -69,4 +69,4 @@ const WealthnowEditAssetPage: NextPage = () => {
     )
 }
 
-export default withAuth(WealthnowEditAssetPage)
+export default withAuth(Page)
