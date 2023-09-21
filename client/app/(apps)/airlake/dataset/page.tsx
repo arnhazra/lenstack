@@ -35,8 +35,8 @@ const AirlakeViewDatasetPage: NextPage = () => {
         }
     })
 
-    const copyMetadataAPI = (): void => {
-        navigator.clipboard.writeText(`${endPoints.airlakeMetadataApiEndpoint}/${datasetId}`)
+    const copyPreviewDataAPI = (): void => {
+        navigator.clipboard.writeText(`${endPoints.airlakePreviewDataApiEndpoint}/${datasetId}`)
         toast.success(appConstants.CopiedToClipBoard)
     }
 
@@ -58,7 +58,7 @@ const AirlakeViewDatasetPage: NextPage = () => {
                                     <p className="lead">{dataset?.data?.category}</p>
                                     <p className="lead mt-3">{dataset?.data?.description}</p>
                                     <div>{datasetTagsToDisplay}</div>
-                                    <Button onClick={copyMetadataAPI}>Metadata API<CopyIcon className="icon-right" /></Button>
+                                    <Button onClick={copyPreviewDataAPI}>Preview Data API<CopyIcon className="icon-right" /></Button>
                                     <Show when={userState.apiKey.length > 0}>
                                         <Button onClick={copyDataAPI}>Data API <CopyIcon className="icon-right" /></Button>
                                     </Show>

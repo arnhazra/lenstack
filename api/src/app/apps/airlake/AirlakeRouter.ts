@@ -18,7 +18,7 @@ export default class AirlakeRouter {
         this.router.post("/finddatasets", tokenAuthorizer, this.airlakeController.findDatasets.bind(this.airlakeController))
         this.router.post("/viewdataset", tokenAuthorizer, this.airlakeController.viewDataset.bind(this.airlakeController))
         this.router.post("/findsimilardatasets", tokenAuthorizer, this.airlakeController.findSimilarDatasets.bind(this.airlakeController))
-        this.router.get("/metadataapi/:datasetId", this.airlakeController.getMetadata.bind(this.airlakeController))
+        this.router.get("/previewdataapi/:datasetId", this.airlakeController.getPreviewData.bind(this.airlakeController))
         this.router.get("/dataapi/:datasetId/:apiKey", apiKeyAuthorizer, this.airlakeController.getData.bind(this.airlakeController))
     }
 
