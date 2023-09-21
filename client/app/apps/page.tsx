@@ -49,7 +49,7 @@ const AppsPage: NextPage = () => {
                         <Button className="tag-chip">{selectedApp?.dbRegion}</Button>
                         <Button className="tag-chip">{selectedApp?.appAvailable ? "Available" : "Under Maintainance"}</Button><br />
                         <Show when={userState.selectedPlan !== "No Subscription"}>
-                            <Button className="mt-2" onClick={launchApp}>Go to App<ArrowRightIcon className="icon-right" /></Button>
+                            <Button className="mt-2" onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
                         </Show>
                         <Show when={userState.selectedPlan === "No Subscription"}>
                             <Link href={'/subscribe'}>
