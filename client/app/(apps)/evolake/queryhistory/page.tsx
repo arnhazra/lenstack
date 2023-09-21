@@ -1,6 +1,5 @@
 "use client"
 import { Fragment } from "react"
-
 import endPoints from "@/_constants/apiEndpoints"
 import Show from "@/_components/Show"
 import { Container, Table } from "react-bootstrap"

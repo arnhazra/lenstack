@@ -4,7 +4,6 @@ import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import withAuth from "@/_utils/withAuth"
 import Web3 from "web3"
-
 import Link from "next/link"
 import { Fragment, useContext, useEffect, useState } from "react"
 import { Container, Table } from "react-bootstrap"

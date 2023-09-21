@@ -14,7 +14,6 @@ import { AppContext } from "@/_context/appStateProvider"
 import withAuth from "@/_utils/withAuth"
 import appConstants from "@/_constants/appConstants"
 import { useSearchParams } from "next/navigation"
-
 import { CopyIcon } from "@radix-ui/react-icons"
 
 function Page() {

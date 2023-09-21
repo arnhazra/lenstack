@@ -3,7 +3,6 @@ import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import withAuth from "@/_utils/withAuth"
 import axios from "axios"
-
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
