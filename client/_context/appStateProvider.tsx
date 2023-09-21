@@ -20,13 +20,6 @@ const initialState = {
         subscriptionValidUpto: "",
         trialAvailable: false
     },
-
-    datasetRequestState: {
-        searchQuery: "",
-        selectedFilter: "All",
-        selectedSortOption: "name",
-        offset: 0
-    }
 }
 
 export const AppContext = createContext<AppContextInterface>([initialState, ((): void => undefined)])

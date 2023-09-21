@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, useContext, useMemo } from "react"
+import { ChangeEvent, useContext, useMemo, useState } from "react"
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
@@ -13,9 +13,10 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import withAuth from "@/_utils/withAuth"
 import { NextPage } from "next"
+import { DatasetRequestState } from "@/_types/Types"
 
 const AirlakeDatasetsPage: NextPage = () => {
-    const [{ datasetRequestState }, dispatch] = useContext(AppContext)
+    const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: '', selectedFilter: 'All', selectedSortOption: 'name', offset: 0 })
     const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
     const dataLibrary = useFetch("data platform", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
 
@@ -31,18 +32,18 @@ const AirlakeDatasetsPage: NextPage = () => {
 
     const prevPage = () => {
         const prevDatasetReqNumber = datasetRequestState.offset - 36
-        dispatch("setDatasetRequestState", { offset: prevDatasetReqNumber })
+        setDatasetRequestState({ ...datasetRequestState, offset: prevDatasetReqNumber })
         window.scrollTo(0, 0)
     }
 
     const nextPage = () => {
         const nextOffset = datasetRequestState.offset + 36
-        dispatch("setDatasetRequestState", { offset: nextOffset })
+        setDatasetRequestState({ ...datasetRequestState, offset: nextOffset })
         window.scrollTo(0, 0)
     }
 
     const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-        dispatch("setDatasetRequestState", { searchQuery: event.target.value, offset: 0 })
+        setDatasetRequestState({ ...datasetRequestState, searchQuery: event.target.value, offset: 0 })
     }
 
     const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])
@@ -62,7 +63,7 @@ const AirlakeDatasetsPage: NextPage = () => {
                             <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                                 <Form.Group controlId="floatingSelectGrid">
                                     <Form.Label>Select Filter Category</Form.Label>
-                                    <Form.Select size="lg" defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => dispatch("setDatasetRequestState", { selectedFilter: e.target.value, offset: 0 })}>
+                                    <Form.Select size="lg" defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: e.target.value, offset: 0 })}>
                                         {filterCategoriesToDisplay}
                                     </Form.Select>
                                 </Form.Group>
@@ -70,7 +71,7 @@ const AirlakeDatasetsPage: NextPage = () => {
                             <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                                 <Form.Group controlId="floatingSelectGrid">
                                     <Form.Label>Sort By</Form.Label>
-                                    <Form.Select size="lg" defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => dispatch("setDatasetRequestState", { selectedSortOption: e.target.value })}>
+                                    <Form.Select size="lg" defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: e.target.value })}>
                                         <option className="options" key={"nameAscending"} value={"name"}>Name Ascending</option>
                                         <option className="options" key={"nameDescending"} value={"-name"}>Name Descending</option>
                                     </Form.Select>
