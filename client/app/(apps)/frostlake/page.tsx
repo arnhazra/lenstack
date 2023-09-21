@@ -1,49 +1,63 @@
 "use client"
-import Show from "@/_components/Show"
+import { Fragment } from "react"
 import endPoints from "@/_constants/apiEndpoints"
+import Show from "@/_components/Show"
+import { Container, Table } from "react-bootstrap"
+import Loading from "@/_components/Loading"
+import HTTPMethods from "@/_constants/httpMethods"
 import withAuth from "@/_utils/withAuth"
-import axios from "axios"
+import useFetch from "@/_hooks/useFetch"
+import moment from "moment"
+import { ArrowRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { Button, Form } from "react-bootstrap"
-import { toast } from "react-hot-toast"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 function Page() {
-    const [state, setState] = useState({ name: "", isLoading: false })
-    const router = useRouter()
+    const projects = useFetch("project", endPoints.frostlakeGetProjectsEndpoint, HTTPMethods.POST)
 
-    const createProject = async (e: any) => {
-        e.preventDefault()
-        setState({ ...state, isLoading: true })
-
-        try {
-            const { name } = state
-            const response = await axios.post(endPoints.frostlakeCreateProjectEndpoint, { name })
-            toast.success("Project Created")
-            router.push(`/frostlake/project?projectid=${response.data.project._id}`)
-        }
-
-        catch (error: any) {
-            setState({ ...state, isLoading: false })
-            toast.error("Unable to create project")
-        }
-    }
+    const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
+        return (
+            <tr key={project._id}>
+                <td>{project.name}</td>
+                <td>{moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
+                <td><Link href={`/frostlake/project?projectid=${project._id}`}>Open Project<ExternalLinkIcon className="icon-right" /></Link></td>
+            </tr>
+        )
+    })
 
     return (
-        <form className="box" onSubmit={createProject}>
-            <p className="branding">Create Project</p>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Project Name</Form.Label>
-                <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Project" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
-            </Form.Group>
-            <Button type="submit" disabled={state.isLoading} className="btn-block">
-                <Show when={!state.isLoading}>Create Project <ArrowRightIcon className="icon-right" /></Show>
-                <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Project</Show>
-            </Button>
-            <Link href={"/frostlake/projects"} className="lead-link">View My Projects</Link>
-        </form>
+        <Fragment>
+            <Show when={!projects.isLoading}>
+                <Container>
+                    <div className="mb-3">
+                        <Link className="btn" href="/frostlake/createproject">Create Project<ArrowRightIcon className="icon-right" /></Link>
+                    </div>
+                    <Show when={projects?.data?.projects?.length > 0}>
+                        <h4 className="text-white text-center">Projects</h4>
+                        <Table responsive hover variant="light">
+                            <thead>
+                                <tr>
+                                    <th>Project Name</th>
+                                    <th>Created At</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {projectsToDisplay}
+                            </tbody>
+                        </Table>
+                    </Show>
+                    <Show when={projects?.data?.projects?.length === 0}>
+                        <div className="box">
+                            <p className="branding">Projects</p>
+                            <p className="lead">No Projects to display</p>
+                        </div>
+                    </Show>
+                </Container>
+            </Show>
+            <Show when={projects.isLoading}>
+                <Loading />
+            </Show>
+        </Fragment>
     )
 }
 

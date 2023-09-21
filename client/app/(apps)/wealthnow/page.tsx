@@ -9,7 +9,7 @@ import withAuth from "@/_utils/withAuth"
 import useFetch from "@/_hooks/useFetch"
 import moment from "moment"
 import Link from "next/link"
-import { ExternalLinkIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 
 function Page() {
     const portfolios = useFetch("portfolios", endPoints.wealthnowGetPortfoliosEndpoint, HTTPMethods.POST)
@@ -28,7 +28,7 @@ function Page() {
         <Fragment>
             <Show when={!portfolios.isLoading}>
                 <Container>
-                    <Link className="btn" href={"/wealthnow/createportfolio"}>Create Portfolio</Link>
+                    <Link className="btn" href={"/wealthnow/createportfolio"}>Create Portfolio<ArrowRightIcon className="icon-right" /></Link>
                     <Show when={portfolios?.data?.portfolios?.length > 0}>
                         <Row>
                             <Col xs={12} sm={12} md={6} lg={6} xl={3}>
