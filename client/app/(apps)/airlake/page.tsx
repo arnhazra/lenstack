@@ -1,12 +1,11 @@
 "use client"
-import { ChangeEvent, useContext, useMemo, useState } from "react"
+import { ChangeEvent, useMemo, useState } from "react"
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
 import debounce from "lodash.debounce"
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
-import { AppContext } from "@/_context/appStateProvider"
 import DatasetCard from "@/_components/DatasetCard"
 import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
@@ -56,8 +55,8 @@ const AirlakeDatasetsPage: NextPage = () => {
                         <Row className="g-2">
                             <Col xs={12} sm={12} md={6} lg={4} xl={6}>
                                 <Form.Group controlId="floatingSearch">
-                                    <Form.Label>What are you looking for?</Form.Label>
-                                    <Form.Control size="lg" type="Search" defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder="What are you looking for today?" required autoComplete={"off"} minLength={4} maxLength={40} />
+                                    <Form.Label>Search for Datasets</Form.Label>
+                                    <Form.Control size="lg" type="Search" defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder="Search for Datasets" required autoComplete={"off"} minLength={4} maxLength={40} />
                                 </Form.Group>
                             </Col>
                             <Col xs={12} sm={12} md={6} lg={4} xl={3}>
