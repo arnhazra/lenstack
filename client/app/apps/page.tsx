@@ -51,7 +51,7 @@ function Page() {
                             <Button className="mt-2" onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
                         </Show>
                         <Show when={userState.selectedPlan === "No Subscription"}>
-                            <Link href={'/subscribe'}>
+                            <Link href={"/subscribe"}>
                                 <Button className="mt-2">Subscribe & Continue<ArrowRightIcon className="icon-right" /></Button>
                             </Link>
                         </Show>
@@ -64,8 +64,8 @@ function Page() {
                 <Show when={!selectedApp}>
                     <Error customMessage="App Not Found" />
                 </Show>
-            </Show>
-        </Container>
+            </Show >
+        </Container >
     )
 }
 
