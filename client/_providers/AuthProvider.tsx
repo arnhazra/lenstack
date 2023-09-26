@@ -14,7 +14,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         if (Object.hasOwn(localStorage, 'accessToken')) {
-            if (pathname === '/' || pathname === '/auth' || pathname === '/pricing') {
+            if (pathname === '/' || pathname === '/auth') {
                 router.push('/dashboard')
             }
 
