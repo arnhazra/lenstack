@@ -67,7 +67,7 @@ export default class SubscriptionController {
 
                 else {
                     await MasterSubscriptionModel.findOneAndDelete({ owner })
-                    await ReplicaSubscriptionModel.findByIdAndDelete({ owner })
+                    await ReplicaSubscriptionModel.findOneAndDelete({ owner })
                     const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
                     const subscription = new MasterSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
                     await subscription.save()
