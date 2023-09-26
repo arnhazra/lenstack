@@ -3,8 +3,8 @@ import Web3 from "web3"
 import { statusMessages } from "../../constants/statusMessages"
 import { platformConfig } from "../../../config/platformConfig"
 import { apiPricing, subscriptionConfig } from "../../../config/subscriptionConfig"
-import { MasterAirlakeHistoryModel, ReplicaAirlakeHistoryModel } from "../apps/airlake/AirlakeHistoryModel"
-import EvolakeQueryModel from "../apps/evolake/EvolakeQueryModel"
+import { MasterAirlakeHistoryModel } from "../apps/airlake/AirlakeHistoryModel"
+import { MasterEvolakeQueryModel } from "../apps/evolake/EvolakeQueryModel"
 import { MasterSubscriptionModel } from "../subscription/SubscriptionModel"
 import { otherConstants } from "../../constants/otherConstants"
 import { prototypeABI } from "../../bin/prototypeABI"
@@ -42,7 +42,7 @@ export default class CommonController {
             if (subscription) {
                 const { apiKey } = subscription
                 const airlakeUsedTokens = await MasterAirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
-                const evolakeUsedTokens = await EvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
+                const evolakeUsedTokens = await MasterEvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
                 const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
                 const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
                 const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake

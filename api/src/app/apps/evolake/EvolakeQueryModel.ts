@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { evolakeDb } from "../../../utils/dbConnect"
+import { masterDb, replicaDb } from "../../../utils/dbConnect"
 
 const EvolakeQuerySchema = new mongoose.Schema({
     owner: {
@@ -29,6 +29,5 @@ const EvolakeQuerySchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const EvolakeQueryModel = evolakeDb.model("evolakequery", EvolakeQuerySchema)
-
-export default EvolakeQueryModel
+export const MasterEvolakeQueryModel = masterDb.model("evolakequery", EvolakeQuerySchema)
+export const ReplicaEvolakeQueryModel = replicaDb.model("evolakequery", EvolakeQuerySchema)

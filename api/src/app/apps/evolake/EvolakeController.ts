@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import OpenAI from "openai"
 import { statusMessages } from "../../../constants/statusMessages"
-import EvolakeQueryModel from "./EvolakeQueryModel"
+import { MasterEvolakeQueryModel, ReplicaEvolakeQueryModel } from "./EvolakeQueryModel"
 
 export default class EvolakeController {
     async getDatabaseList(req: Request, res: Response) {
@@ -31,7 +31,7 @@ export default class EvolakeController {
 
             if (selectedDb.length > 0 && userQuery.length > 0) {
                 const finalQuery = `Write a ${selectedDb} query to ${userQuery.charAt(0).toLowerCase() + userQuery.slice(1)}`
-                const dbResponse = await EvolakeQueryModel.find({ query: finalQuery })
+                const dbResponse = await MasterEvolakeQueryModel.find({ query: finalQuery })
 
                 if (dbResponse.length > 0) {
                     const dbGeneratedQuery = dbResponse[0].response
@@ -56,8 +56,10 @@ export default class EvolakeController {
                         presence_penalty: 0.0,
                     })
                     const aiGeneratedQuery = response.choices[0].message.content.split("```")[1]
-                    const evolakeDbReq = new EvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
+                    const evolakeDbReq = new MasterEvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
+                    const replicaEvolakeDbReq = new ReplicaEvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
                     await evolakeDbReq.save()
+                    await replicaEvolakeDbReq.save()
                     return res.status(200).json({ msg: aiGeneratedQuery, from: "AI" })
                 }
             }
@@ -75,7 +77,7 @@ export default class EvolakeController {
     async getQueryHistoryByUser(req: Request, res: Response) {
         try {
             const userId = req.headers.id as string
-            const queryHistory = await EvolakeQueryModel.find({ owner: userId }).sort({ createdAt: -1 }).limit(10)
+            const queryHistory = await MasterEvolakeQueryModel.find({ owner: userId }).sort({ createdAt: -1 }).limit(10)
             return res.status(200).json({ queryHistory })
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
