@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
-import crypto from "crypto"
-import WealthnowAssetModel from "./WealthnowAssetModel"
-import WealthnowPortfolioModel from "./WealthnowPortfolioModel"
+import { MasterWealthnowAssetModel, ReplicaWealthnowAssetModel } from "./WealthnowAssetModel"
+import { MasterWealthnowPortfolioModel, ReplicaWealthnowPortfolioModel } from "./WealthnowPortfolioModel"
 
 export default class WealthnowController {
     async createPortfolio(req: Request, res: Response) {
@@ -9,13 +8,13 @@ export default class WealthnowController {
         const owner = req.headers.id
 
         try {
-            const count = await WealthnowPortfolioModel.find({ owner }).count()
+            const count = await MasterWealthnowPortfolioModel.find({ owner }).count()
 
             if (count < 100) {
-                const clientId = crypto.randomBytes(16).toString("hex")
-                const clientSecret = crypto.randomBytes(32).toString("hex")
-                const portfolio = new WealthnowPortfolioModel({ owner, name })
+                const portfolio = new MasterWealthnowPortfolioModel({ owner, name })
+                const portfolioReplica = new ReplicaWealthnowPortfolioModel({ owner, name })
                 await portfolio.save()
+                await portfolioReplica.save()
                 return res.status(200).json({ msg: "New Portfolio Created", portfolio })
             }
 
@@ -31,12 +30,12 @@ export default class WealthnowController {
 
     async getPortfolios(req, res) {
         try {
-            const portfolios = await WealthnowPortfolioModel.find({ owner: req.headers.id })
+            const portfolios = await MasterWealthnowPortfolioModel.find({ owner: req.headers.id })
             let consolidatedAsset = 0
 
             for (const portfolio of portfolios) {
                 const { owner, id: portfolioId } = portfolio
-                const assets = await WealthnowAssetModel.find({ portfolioId, owner }).sort({ createdAt: -1 })
+                const assets = await MasterWealthnowAssetModel.find({ portfolioId, owner }).sort({ createdAt: -1 })
                 let totalAssetUnderPortfolio = 0
 
                 assets.forEach(asset => totalAssetUnderPortfolio += asset.principalAmount)
@@ -52,9 +51,9 @@ export default class WealthnowController {
     async viewPortfolio(req: Request, res: Response) {
         try {
             const { portfolioId } = req.body
-            const portfolio = await WealthnowPortfolioModel.findById(portfolioId)
+            const portfolio = await MasterWealthnowPortfolioModel.findById(portfolioId)
             const { owner } = portfolio
-            const assets = await WealthnowAssetModel.find({ portfolioId, owner }).sort({ createdAt: -1 })
+            const assets = await MasterWealthnowAssetModel.find({ portfolioId, owner }).sort({ createdAt: -1 })
             let totalAssetUnderPortfolio = 0
             assets.forEach(asset => totalAssetUnderPortfolio += asset.principalAmount)
 
@@ -74,11 +73,13 @@ export default class WealthnowController {
 
     async deletePortfolio(req: Request, res: Response) {
         try {
-            const portfolio = await WealthnowPortfolioModel.findById(req.params.id)
+            const portfolio = await MasterWealthnowPortfolioModel.findById(req.params.id)
 
             if (portfolio.owner.toString() === req.headers.id) {
-                await WealthnowAssetModel.deleteMany({ owner: req.headers.id, portfolioId: req.params.id })
-                await WealthnowPortfolioModel.findByIdAndDelete(portfolio.id)
+                await MasterWealthnowAssetModel.deleteMany({ owner: req.headers.id, portfolioId: req.params.id })
+                await ReplicaWealthnowAssetModel.deleteMany({ owner: req.headers.id, portfolioId: req.params.id })
+                await MasterWealthnowPortfolioModel.findByIdAndDelete(portfolio.id)
+                await ReplicaWealthnowPortfolioModel.findByIdAndDelete(portfolio.id)
                 return res.status(200).json({ msg: "Project Deleted" })
             }
 
@@ -97,12 +98,14 @@ export default class WealthnowController {
 
         try {
             const userId = req.headers.id
-            const portfolio = await WealthnowPortfolioModel.findById(portfolioId)
+            const portfolio = await MasterWealthnowPortfolioModel.findById(portfolioId)
 
             if (portfolio && portfolio.owner.toString() === userId) {
                 const portfolioId = portfolio.id
-                const asset = new WealthnowAssetModel({ owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey })
+                const asset = new MasterWealthnowAssetModel({ owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey })
+                const assetReplica = new ReplicaWealthnowAssetModel({ owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey })
                 await asset.save()
+                await assetReplica.save()
                 return res.status(200).json({ msg: "Asset created" })
             }
 
@@ -119,7 +122,7 @@ export default class WealthnowController {
     async viewAsset(req: Request, res: Response) {
         try {
             const { assetId } = req.body
-            const asset = await WealthnowAssetModel.findById(assetId)
+            const asset = await MasterWealthnowAssetModel.findById(assetId)
 
             if (asset.owner.toString() === req.headers.id) {
                 return res.status(200).json({ asset })
@@ -140,9 +143,10 @@ export default class WealthnowController {
 
         try {
             const userId = req.headers.id
-            const asset = await WealthnowAssetModel.findById(assetId)
+            const asset = await MasterWealthnowAssetModel.findById(assetId)
             if (asset && asset.owner.toString() === userId) {
-                await WealthnowAssetModel.findByIdAndUpdate(assetId, { principalAmount, rateOfInterest, tenure, maturityAmount, createdAt })
+                await MasterWealthnowAssetModel.findByIdAndUpdate(assetId, { principalAmount, rateOfInterest, tenure, maturityAmount, createdAt })
+                await ReplicaWealthnowAssetModel.findByIdAndUpdate(assetId, { principalAmount, rateOfInterest, tenure, maturityAmount, createdAt })
                 return res.status(200).json({ msg: "Asset updated" })
             }
 
@@ -159,9 +163,10 @@ export default class WealthnowController {
     async deleteAsset(req: Request, res: Response) {
         try {
             const userId = req.headers.id
-            const asset = await WealthnowAssetModel.findById(req.params.id)
+            const asset = await MasterWealthnowAssetModel.findById(req.params.id)
             if (asset && asset.owner.toString() === userId) {
-                await WealthnowAssetModel.findByIdAndDelete(asset.id)
+                await MasterWealthnowAssetModel.findByIdAndDelete(asset.id)
+                await ReplicaWealthnowAssetModel.findByIdAndDelete(asset.id)
                 return res.status(200).json({ msg: "Asset deleted" })
             }
 

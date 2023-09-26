@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import crypto from "crypto"
-import FrostlakeAnalyticsModel from "./FrostlakeAnalyticsModel"
-import FrostlakeProjectModel from "./FrostlakeProjectModel"
+import { MasterFrostlakeAnalyticsModel, ReplicaFrostlakeAnalyticsModel } from "./FrostlakeAnalyticsModel"
+import { MasterFrostlakeProjectModel, ReplicaFrostlakeProjectModel } from "./FrostlakeProjectModel"
 
 export default class FrostlakeController {
     async createProject(req: Request, res: Response) {
@@ -9,13 +9,15 @@ export default class FrostlakeController {
         const owner = req.headers.id
 
         try {
-            const count = await FrostlakeProjectModel.find({ owner }).count()
+            const count = await MasterFrostlakeProjectModel.find({ owner }).count()
 
             if (count < 10) {
                 const clientId = crypto.randomBytes(16).toString("hex")
                 const clientSecret = crypto.randomBytes(32).toString("hex")
-                const project = new FrostlakeProjectModel({ owner, name, clientId, clientSecret })
+                const project = new MasterFrostlakeProjectModel({ owner, name, clientId, clientSecret })
+                const projectReplica = new ReplicaFrostlakeProjectModel({ owner, name, clientId, clientSecret })
                 await project.save()
+                await projectReplica.save()
                 return res.status(200).json({ msg: "New Project Created", project })
             }
 
@@ -31,7 +33,7 @@ export default class FrostlakeController {
 
     async getProjects(req: Request, res: Response) {
         try {
-            const projects = await FrostlakeProjectModel.find({ owner: req.headers.id })
+            const projects = await MasterFrostlakeProjectModel.find({ owner: req.headers.id })
             return res.status(200).json({ projects })
         }
 
@@ -43,9 +45,9 @@ export default class FrostlakeController {
     async viewProject(req: Request, res: Response) {
         try {
             const { projectId } = req.body
-            const project = await FrostlakeProjectModel.findById(projectId)
+            const project = await MasterFrostlakeProjectModel.findById(projectId)
             const { owner } = project
-            const analytics = await FrostlakeAnalyticsModel.find({ projectId, owner }).select("-apiKey -owner -projectId").sort({ createdAt: -1 })
+            const analytics = await MasterFrostlakeAnalyticsModel.find({ projectId, owner }).select("-apiKey -owner -projectId").sort({ createdAt: -1 })
 
             if (owner.toString() === req.headers.id) {
                 return res.status(200).json({ project, analytics })
@@ -63,11 +65,13 @@ export default class FrostlakeController {
 
     async deleteProject(req: Request, res: Response) {
         try {
-            const project = await FrostlakeProjectModel.findById(req.params.id)
+            const project = await MasterFrostlakeProjectModel.findById(req.params.id)
 
             if (project.owner.toString() === req.headers.id) {
-                await FrostlakeProjectModel.deleteMany({ owner: req.headers.id, projectId: req.params.id })
-                await FrostlakeProjectModel.findByIdAndDelete(project.id)
+                await MasterFrostlakeProjectModel.deleteMany({ owner: req.headers.id, projectId: req.params.id })
+                await MasterFrostlakeProjectModel.findByIdAndDelete(project.id)
+                await ReplicaFrostlakeProjectModel.deleteMany({ owner: req.headers.id, projectId: req.params.id })
+                await ReplicaFrostlakeProjectModel.findByIdAndDelete(project.id)
                 return res.status(200).json({ msg: "Project Deleted" })
             }
 
@@ -86,12 +90,14 @@ export default class FrostlakeController {
 
         try {
             const userId = req.headers.id
-            const project = await FrostlakeProjectModel.findOne({ clientId, clientSecret })
+            const project = await MasterFrostlakeProjectModel.findOne({ clientId, clientSecret })
             if (project) {
                 if (project.owner.toString() === userId) {
                     const projectId = project.id
-                    const analytics = new FrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode, apiKey })
+                    const analytics = new MasterFrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode, apiKey })
                     await analytics.save()
+                    const analyticsReplica = new ReplicaFrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode, apiKey })
+                    await analyticsReplica.save()
                     return res.status(200).json({ msg: "Analytics created" })
                 }
 

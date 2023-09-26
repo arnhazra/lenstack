@@ -8,9 +8,9 @@ import { MasterEvolakeQueryModel } from "../apps/evolake/EvolakeQueryModel"
 import { MasterSubscriptionModel } from "../subscription/SubscriptionModel"
 import { otherConstants } from "../../constants/otherConstants"
 import { prototypeABI } from "../../bin/prototypeABI"
-import FrostlakeAnalyticsModel from "../apps/frostlake/FrostlakeAnalyticsModel"
+import { MasterFrostlakeAnalyticsModel } from "../apps/frostlake/FrostlakeAnalyticsModel"
 import { envConfig } from "../../../config/envConfig"
-import WealthnowAssetModel from "../apps/wealthnow/WealthnowAssetModel"
+import { MasterWealthnowAssetModel } from "../apps/wealthnow/WealthnowAssetModel"
 
 export default class CommonController {
     async getPlatformConfig(req: Request, res: Response) {
@@ -43,8 +43,8 @@ export default class CommonController {
                 const { apiKey } = subscription
                 const airlakeUsedTokens = await MasterAirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
                 const evolakeUsedTokens = await MasterEvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
-                const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
-                const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
+                const frostlakeUsedTokens = await MasterFrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
+                const wealthnowUsedTokens = await MasterWealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
                 const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
                 const usedTokens = airlakeUsedTokens + evolakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
                 return res.status(200).json({ usedTokens })

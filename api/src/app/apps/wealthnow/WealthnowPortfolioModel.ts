@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { wealthnowDb } from "../../../utils/dbConnect"
+import { masterDb, replicaDb } from "../../../utils/dbConnect"
 
 const WealthnowPortfolioSchema = new mongoose.Schema({
     owner: {
@@ -18,6 +18,5 @@ const WealthnowPortfolioSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const WealthnowPortfolioModel = wealthnowDb.model("wealthnowportfolio", WealthnowPortfolioSchema)
-
-export default WealthnowPortfolioModel
+export const MasterWealthnowPortfolioModel = masterDb.model("wealthnowportfolio", WealthnowPortfolioSchema)
+export const ReplicaWealthnowPortfolioModel = replicaDb.model("wealthnowportfolio", WealthnowPortfolioSchema)

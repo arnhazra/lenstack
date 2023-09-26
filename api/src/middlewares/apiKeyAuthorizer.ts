@@ -4,12 +4,12 @@ import { apiPricing, subscriptionConfig } from "../../config/subscriptionConfig"
 import { MasterAirlakeHistoryModel, ReplicaAirlakeHistoryModel } from "../app/apps/airlake/AirlakeHistoryModel"
 import { MasterSubscriptionModel, ReplicaSubscriptionModel } from "../app/subscription/SubscriptionModel"
 import { MasterEvolakeQueryModel } from "../app/apps/evolake/EvolakeQueryModel"
-import FrostlakeAnalyticsModel from "../app/apps/frostlake/FrostlakeAnalyticsModel"
+import { MasterFrostlakeAnalyticsModel } from "../app/apps/frostlake/FrostlakeAnalyticsModel"
 import Web3 from "web3"
 import { otherConstants } from "../constants/otherConstants"
 import { envConfig } from "../../config/envConfig"
 import { prototypeABI } from "../bin/prototypeABI"
-import WealthnowAssetModel from "../app/apps/wealthnow/WealthnowAssetModel"
+import { MasterWealthnowAssetModel } from "../app/apps/wealthnow/WealthnowAssetModel"
 
 async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction) {
     const apiKeyFromParams = req.params.apiKey
@@ -41,8 +41,8 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
                 else {
                     const airlakeUsedTokens = await MasterAirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
                     const evolakeUsedTokens = await MasterEvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
-                    const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
-                    const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
+                    const frostlakeUsedTokens = await MasterFrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
+                    const wealthnowUsedTokens = await MasterWealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
                     const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
                     const usedTokens = airlakeUsedTokens + evolakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
                     req.headers.id = subscription.owner.toString()
