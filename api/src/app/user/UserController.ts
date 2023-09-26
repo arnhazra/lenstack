@@ -4,7 +4,7 @@ import crypto from "crypto"
 import otptool from "otp-without-db"
 import { validationResult } from "express-validator"
 import { statusMessages } from "../../constants/statusMessages"
-import UserModel from "./UserModel"
+import { MasterUserModel, ReplicaUserModel } from "./UserModel"
 import { sendEmail } from "../../utils/sendEmail"
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from "../../utils/redisHelper"
 import { otherConstants } from "../../constants/otherConstants"
@@ -31,7 +31,7 @@ export default class UserController {
             const { email } = req.body
 
             try {
-                let user = await UserModel.findOne({ email })
+                let user = await MasterUserModel.findOne({ email })
                 const otp = Math.floor(100000 + Math.random() * 900000)
                 const hash = otptool.createNewOTP(email, otp, this.otpKey, 5, "sha256")
                 await sendEmail(email, otp)
@@ -64,7 +64,7 @@ export default class UserController {
                 const isOTPValid = otptool.verifyOTP(email, otp, hash, this.otpKey, "sha256")
 
                 if (isOTPValid) {
-                    let user = await UserModel.findOne({ email })
+                    let user = await MasterUserModel.findOne({ email })
 
                     if (user) {
                         const redisAccessToken = await getTokenFromRedis(user.id)
@@ -84,7 +84,8 @@ export default class UserController {
 
                     else {
                         const { name } = req.body || otherConstants.undefinedName
-                        user = new UserModel({ name, email, privateKey })
+                        user = new MasterUserModel({ name, email, privateKey })
+                        new ReplicaUserModel({ name, email, privateKey }).save()
                         const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
                         const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
                         await setTokenInRedis(user.id, accessToken)
@@ -106,7 +107,7 @@ export default class UserController {
 
     async userDetails(req: Request, res: Response) {
         try {
-            const user = await UserModel.findById(req.headers.id)
+            const user = await MasterUserModel.findById(req.headers.id)
             if (user) {
                 const userId = user.id
                 const subscription = await SubscriptionModel.findOne({ owner: userId })

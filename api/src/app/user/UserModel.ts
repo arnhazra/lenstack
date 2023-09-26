@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mainLenstackDb } from "../../utils/dbConnect"
+import { masterDb, replicaDb } from "../../utils/dbConnect"
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -39,6 +39,7 @@ const UserSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const UserModel = mainLenstackDb.model("user", UserSchema)
+const MasterUserModel = masterDb.model("user", UserSchema)
+const ReplicaUserModel = replicaDb.model("user", UserSchema)
 
-export default UserModel
+export { MasterUserModel, ReplicaUserModel }

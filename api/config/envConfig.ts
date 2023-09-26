@@ -3,6 +3,8 @@ config({ path: "../.env" })
 
 export const envConfig = {
     apiPort: process.env.API_PORT,
+    lenstackMasterDbUri: process.env.LENSTACK_MASTER_DB_URI,
+    lenstackReplicaDbUri: process.env.LENSTACK_REPLICA_DB_URI,
     mainLenstackMongoUri: process.env.MAIN_LENSTACK_MONGO_URI,
     airlakeMongoUri: process.env.AIRLAKE_MONGO_URI,
     frostlakeMongoUri: process.env.FROSTLAKE_MONGO_URI,

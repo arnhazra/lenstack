@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import Web3 from "web3"
 import crypto from "crypto"
 import { statusMessages } from "../../constants/statusMessages"
-import UserModel from "../user/UserModel"
+import { MasterUserModel, ReplicaUserModel } from "../user/UserModel"
 import { otherConstants } from "../../constants/otherConstants"
 import { envConfig } from "../../../config/envConfig"
 import SubscriptionModel from "./SubscriptionModel"
@@ -20,7 +20,7 @@ export default class SubscriptionController {
         const owner = req.headers.id
 
         try {
-            const { trialAvailable } = await UserModel.findById(owner)
+            const { trialAvailable } = await MasterUserModel.findById(owner)
 
             if (trialAvailable) {
                 const tokenId = "000000"
@@ -28,7 +28,8 @@ export default class SubscriptionController {
                 const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
                 const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
                 await subscription.save()
-                await UserModel.findByIdAndUpdate(owner, { trialAvailable: false })
+                await MasterUserModel.findByIdAndUpdate(owner, { trialAvailable: false })
+                await ReplicaUserModel.findByIdAndUpdate(owner, { trialAvailable: false })
                 return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
             }
 
@@ -47,7 +48,7 @@ export default class SubscriptionController {
         const owner = req.headers.id
 
         try {
-            const { privateKey } = await UserModel.findById(owner)
+            const { privateKey } = await MasterUserModel.findById(owner)
             const { address: walletAddress } = this.web3Provider.eth.accounts.privateKeyToAccount(privateKey)
             const tx = await this.web3Provider.eth.getTransaction(transactionHash)
             const block = await this.web3Provider.eth.getBlock(tx.blockNumber)

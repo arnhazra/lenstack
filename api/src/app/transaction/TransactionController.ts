@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { validationResult } from "express-validator"
 import { statusMessages } from "../../constants/statusMessages"
 import TransactionModel from "./TransactionModel"
-import UserModel from "../user/UserModel"
+import { MasterUserModel, ReplicaUserModel } from "../user/UserModel"
 
 export default class TransactionController {
     async setPaymentStatus(req: Request, res: Response) {
@@ -10,7 +10,8 @@ export default class TransactionController {
         const owner = req.headers.id
 
         try {
-            await UserModel.findByIdAndUpdate(owner, { paymentStatus })
+            await MasterUserModel.findByIdAndUpdate(owner, { paymentStatus })
+            await ReplicaUserModel.findByIdAndUpdate(owner, { paymentStatus })
             return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
@@ -21,7 +22,7 @@ export default class TransactionController {
         const owner = req.headers.id
 
         try {
-            const { paymentStatus } = await UserModel.findById(owner)
+            const { paymentStatus } = await MasterUserModel.findById(owner)
             return res.status(200).json({ paymentStatus })
         } catch (error) {
             return res.status(500).json({ msg: statusMessages.connectionError })
