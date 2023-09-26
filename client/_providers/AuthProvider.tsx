@@ -44,7 +44,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         else {
-            if (pathname !== '/' && pathname !== '/auth' && pathname !== '/pricing') {
+            if (pathname !== '/' && pathname !== '/auth') {
                 router.push(`/auth?redirect=${pathname.slice(1)}`)
                 setLoading(false)
             }
