@@ -16,6 +16,7 @@ export default function Page() {
 						{Constants.HomeIntro1} <br />
 						{Constants.HomeIntro2} <br />
 						{Constants.HomeIntro3} <br />
+						{Constants.HomeIntro4} <br />
 					</p>
 					<Link href="/auth" className="btn">Try Free<ArrowRightIcon className="icon-right" /></Link>
 				</div>

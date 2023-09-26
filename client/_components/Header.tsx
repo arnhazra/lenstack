@@ -44,7 +44,6 @@ const Header: FC = () => {
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
                             <Nav className="ms-auto">
-                                <Link href="/pricing"><Navbar.Brand>Pricing</Navbar.Brand></Link>
                                 <Link target="_blank" passHref rel="noopener noreferrer" href="https://www.linkedin.com/in/arnhazra/"><Navbar.Brand>Developer</Navbar.Brand></Link>
                                 <Link href="/auth"><Navbar.Brand>Try Free</Navbar.Brand></Link>
                             </Nav>

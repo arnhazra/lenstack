@@ -4,6 +4,7 @@ enum Constants {
     HomeIntro1 = `Build, ship, and scale your solutions.`,
     HomeIntro2 = `Start with 30 days free trial, upgrade on demand.`,
     HomeIntro3 = `There’s no upfront commitment—cancel anytime.`,
+    HomeIntro4 = `Starting at 1.99 MATIC/month`,
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Authenticating`,
     ErrorMessage = "404, Lost",
