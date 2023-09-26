@@ -12,7 +12,6 @@ export const subscriptionConfig = {
 export const apiPricing = {
     airlake: 2,
     evolake: 200,
-    icelake: 100,
     snowlake: 50,
     frostlake: 5,
     wealthnow: 20

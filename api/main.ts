@@ -7,7 +7,6 @@ import UserRouter from "./src/app/user/UserRouter"
 import TransactionRouter from "./src/app/transaction/TransactionRouter"
 import AirlakeRouter from "./src/app/apps/airlake/AirlakeRouter"
 import EvolakeRouter from "./src/app/apps/evolake/EvolakeRouter"
-import IcelakeRouter from "./src/app/apps/icelake/IcelakeRouter"
 import FrostlakeRouter from "./src/app/apps/frostlake/FrostlakeRouter"
 import WealthnowRouter from "./src/app/apps/wealthnow/WealthnowRouter"
 import CommonRouter from "./src/app/common/CommonRouter"
@@ -17,7 +16,6 @@ const userRouter = new UserRouter()
 const transactionRouter = new TransactionRouter()
 const airlakeRouter = new AirlakeRouter()
 const evolakeRouter = new EvolakeRouter()
-const icelakeRouter = new IcelakeRouter()
 const wealthNowRouter = new WealthnowRouter()
 const frostlakeRouter = new FrostlakeRouter()
 const commonRouter = new CommonRouter()
@@ -35,10 +33,8 @@ app.use("/api/common", commonRouter.getRouter())
 app.use("/api/subscription", subscriptionRouter.getRouter())
 app.use("/api/apps/airlake", airlakeRouter.getRouter())
 app.use("/api/apps/evolake", evolakeRouter.getRouter())
-app.use("/api/apps/icelake", icelakeRouter.getRouter())
 app.use("/api/apps/frostlake", frostlakeRouter.getRouter())
 app.use("/api/apps/wealthnow", wealthNowRouter.getRouter())
-
 
 if (envConfig.nodeEnv === "production") {
     const cacheControl = "public, max-age=31536000"

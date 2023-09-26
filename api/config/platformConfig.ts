@@ -7,13 +7,6 @@ export const platformConfig = [
         dbRegion: "MongoDB AWS AP-South-1"
     },
     {
-        appName: "icelake",
-        description: "An application that offers users a secure scalable and economic storage solution for files, documents and data.",
-        url: "/apps?appname=icelake",
-        appAvailable: true,
-        dbRegion: "MongoDB GCP AP-South-1"
-    },
-    {
         appName: "wealthnow",
         description: "An wealth management platform to manage personal and businees wealth in a single dashboard with many features.",
         url: "/apps?appname=wealthnow",

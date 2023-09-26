@@ -10,9 +10,6 @@ An open-source application designed for effortless discovery, subscription, and 
 #### Evolake
 An open-source application that harnesses the capabilities of the OpenAI GPT-4 Davinci model to generate complex and efficient database queries.
 
-#### Icelake
-An open-souce application that offers secure and scalable storage solution for files and data, designed to meet your storage needs.
-
 #### Snowlake
 An open-source prototype management application that that efficiently organizes and manages prototypes and uses Ethereum Blockchain to store prototypes.
 

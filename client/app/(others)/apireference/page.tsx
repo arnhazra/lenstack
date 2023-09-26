@@ -24,19 +24,6 @@ function Page() {
                     </p>
                 </SourceCode>
 
-                <p className="branding">Icelake</p>
-                <Form.Control disabled type="text" defaultValue={`${endPoints.icelakeCreateDocEndpoint}`} />
-                <SourceCode>
-                    <p className="lead">Request Body [POST]</p>
-                    <p>
-                        &#123;<br />
-                        &nbsp;&nbsp;&nbsp;"title": "YOUR_DOCUMENT_NAME",<br />
-                        &nbsp;&nbsp;&nbsp;"content": "YOUR_DOC_CONVERTED_IN_BASE64_FORMAT",<br />
-                        &nbsp;&nbsp;&nbsp;"apiKey": "YOUR_API_KEY"<br />
-                        &#125;
-                    </p>
-                </SourceCode>
-
                 <p className="branding">Frostlake</p>
                 <Form.Control disabled type="text" defaultValue={`${endPoints.frostlakeCreateAnalyticsEndpoint}`} />
                 <SourceCode>

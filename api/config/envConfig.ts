@@ -5,7 +5,6 @@ export const envConfig = {
     apiPort: process.env.API_PORT,
     mainLenstackMongoUri: process.env.MAIN_LENSTACK_MONGO_URI,
     airlakeMongoUri: process.env.AIRLAKE_MONGO_URI,
-    icelakeMongoUri: process.env.ICELAKE_MONGO_URI,
     frostlakeMongoUri: process.env.FROSTLAKE_MONGO_URI,
     evolakeMongoUri: process.env.EVOLAKE_MONGO_URI,
     wealthnowMongoUri: process.env.WEALTHNOW_MONGO_URI,

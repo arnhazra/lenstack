@@ -4,7 +4,6 @@ import { apiPricing, subscriptionConfig } from "../../config/subscriptionConfig"
 import AirlakeHistoryModel from "../app/apps/airlake/AirlakeHistoryModel"
 import SubscriptionModel from "../app/subscription/SubscriptionModel"
 import EvolakeQueryModel from "../app/apps/evolake/EvolakeQueryModel"
-import IcelakeDocumentModel from "../app/apps/icelake/IcelakeDocumentModel"
 import FrostlakeAnalyticsModel from "../app/apps/frostlake/FrostlakeAnalyticsModel"
 import Web3 from "web3"
 import { otherConstants } from "../constants/otherConstants"
@@ -41,11 +40,10 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
                 else {
                     const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
                     const evolakeUsedTokens = await EvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
-                    const icelakeUsedTokens = await IcelakeDocumentModel.find({ apiKey }).countDocuments() * apiPricing.icelake
                     const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
                     const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
                     const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
-                    const usedTokens = airlakeUsedTokens + evolakeUsedTokens + icelakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
+                    const usedTokens = airlakeUsedTokens + evolakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
                     req.headers.id = subscription.owner.toString()
 
                     if (usedTokens < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedTokens) {
