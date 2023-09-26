@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import { statusMessages } from "../constants/statusMessages"
 import { apiPricing, subscriptionConfig } from "../../config/subscriptionConfig"
 import AirlakeHistoryModel from "../app/apps/airlake/AirlakeHistoryModel"
-import SubscriptionModel from "../app/subscription/SubscriptionModel"
+import { MasterSubscriptionModel, ReplicaSubscriptionModel } from "../app/subscription/SubscriptionModel"
 import EvolakeQueryModel from "../app/apps/evolake/EvolakeQueryModel"
 import FrostlakeAnalyticsModel from "../app/apps/frostlake/FrostlakeAnalyticsModel"
 import Web3 from "web3"
@@ -23,7 +23,7 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
 
     else {
         try {
-            const subscription = await SubscriptionModel.findOne({ apiKey })
+            const subscription = await MasterSubscriptionModel.findOne({ apiKey })
             const infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
             const web3Provider = new Web3(infuraEndpoint)
             const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
@@ -33,7 +33,8 @@ async function apiKeyAuthorizer(req: Request, res: Response, next: NextFunction)
                 const expiryDate = subscription.expiresAt
 
                 if (currentDate > expiryDate) {
-                    await SubscriptionModel.findOneAndDelete({ apiKey })
+                    await MasterSubscriptionModel.findOneAndDelete({ apiKey })
+                    await ReplicaSubscriptionModel.findOneAndDelete({ apiKey })
                     return res.status(403).json({ msg: statusMessages.apiKeyExpired })
                 }
 

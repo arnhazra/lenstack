@@ -5,7 +5,7 @@ import { platformConfig } from "../../../config/platformConfig"
 import { apiPricing, subscriptionConfig } from "../../../config/subscriptionConfig"
 import AirlakeHistoryModel from "../apps/airlake/AirlakeHistoryModel"
 import EvolakeQueryModel from "../apps/evolake/EvolakeQueryModel"
-import SubscriptionModel from "../subscription/SubscriptionModel"
+import { MasterSubscriptionModel } from "../subscription/SubscriptionModel"
 import { otherConstants } from "../../constants/otherConstants"
 import { prototypeABI } from "../../bin/prototypeABI"
 import FrostlakeAnalyticsModel from "../apps/frostlake/FrostlakeAnalyticsModel"
@@ -37,7 +37,7 @@ export default class CommonController {
             const web3Provider = new Web3(infuraEndpoint)
             const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
             const userId = req.headers.id
-            const subscription = await SubscriptionModel.findOne({ owner: userId })
+            const subscription = await MasterSubscriptionModel.findOne({ owner: userId })
 
             if (subscription) {
                 const { apiKey } = subscription

@@ -5,7 +5,7 @@ import { statusMessages } from "../../constants/statusMessages"
 import { MasterUserModel, ReplicaUserModel } from "../user/UserModel"
 import { otherConstants } from "../../constants/otherConstants"
 import { envConfig } from "../../../config/envConfig"
-import SubscriptionModel from "./SubscriptionModel"
+import { MasterSubscriptionModel, ReplicaSubscriptionModel } from "./SubscriptionModel"
 
 export default class SubscriptionController {
     public infuraEndpoint: string
@@ -26,8 +26,10 @@ export default class SubscriptionController {
                 const tokenId = "000000"
                 const selectedPlan = "Trial"
                 const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
-                const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+                const subscription = new MasterSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+                const replicaSubscription = new ReplicaSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
                 await subscription.save()
+                await replicaSubscription.save()
                 await MasterUserModel.findByIdAndUpdate(owner, { trialAvailable: false })
                 await ReplicaUserModel.findByIdAndUpdate(owner, { trialAvailable: false })
                 return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
@@ -65,10 +67,13 @@ export default class SubscriptionController {
                 }
 
                 else {
-                    await SubscriptionModel.findOneAndDelete({ owner })
+                    await MasterSubscriptionModel.findOneAndDelete({ owner })
+                    await ReplicaSubscriptionModel.findByIdAndDelete({ owner })
                     const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
-                    const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+                    const subscription = new MasterSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+                    const replicaSubscription = new ReplicaSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
                     await subscription.save()
+                    await replicaSubscription.save()
                     return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
                 }
             }
@@ -87,7 +92,8 @@ export default class SubscriptionController {
         const userId = req.headers.id
 
         try {
-            await SubscriptionModel.findOneAndDelete({ owner: userId })
+            await MasterSubscriptionModel.findOneAndDelete({ owner: userId })
+            await ReplicaSubscriptionModel.findOneAndDelete({ owner: userId })
             return res.status(200).json({ msg: statusMessages.unsubscribeSuccess })
         }
 

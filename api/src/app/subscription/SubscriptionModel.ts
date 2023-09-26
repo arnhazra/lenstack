@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mainLenstackDb } from "../../utils/dbConnect"
+import { masterDb, replicaDb } from "../../utils/dbConnect"
 
 const SubscriptionSchema = new mongoose.Schema({
     owner: {
@@ -39,6 +39,7 @@ const SubscriptionSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const SubscriptionModel = mainLenstackDb.model("subscription", SubscriptionSchema)
+const MasterSubscriptionModel = masterDb.model("subscription", SubscriptionSchema)
+const ReplicaSubscriptionModel = replicaDb.model("subscription", SubscriptionSchema)
 
-export default SubscriptionModel
+export { MasterSubscriptionModel, ReplicaSubscriptionModel }

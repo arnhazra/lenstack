@@ -9,7 +9,7 @@ import { sendEmail } from "../../utils/sendEmail"
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from "../../utils/redisHelper"
 import { otherConstants } from "../../constants/otherConstants"
 import { envConfig } from "../../../config/envConfig"
-import SubscriptionModel from "../subscription/SubscriptionModel"
+import { MasterSubscriptionModel, ReplicaSubscriptionModel } from "../subscription/SubscriptionModel"
 
 export default class UserController {
     public otpKey: string
@@ -111,13 +111,14 @@ export default class UserController {
             const user = await MasterUserModel.findById(req.headers.id)
             if (user) {
                 const userId = user.id
-                const subscription = await SubscriptionModel.findOne({ owner: userId })
+                const subscription = await MasterSubscriptionModel.findOne({ owner: userId })
                 if (subscription) {
                     const currentDate = new Date()
                     const expiryDate = subscription.expiresAt
 
                     if (currentDate > expiryDate) {
-                        await SubscriptionModel.findOneAndDelete({ owner: userId })
+                        await MasterSubscriptionModel.findOneAndDelete({ owner: userId })
+                        await ReplicaSubscriptionModel.findOneAndDelete({ owner: userId })
                         return res.status(200).json({ user })
                     }
 
