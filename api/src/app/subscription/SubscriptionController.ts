@@ -62,8 +62,7 @@ export default class SubscriptionController {
                 const timeTolerance = 30
 
                 if (currentTimestamp - transactionTimestamp > timeTolerance) {
-                    res.status(400).json({ msg: statusMessages.subscriptionFailure })
-                    return
+                    return res.status(400).json({ msg: statusMessages.subscriptionFailure })
                 }
 
                 else {

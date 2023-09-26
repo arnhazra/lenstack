@@ -21,7 +21,6 @@ function Page() {
     const searchParams = useSearchParams()
     const router = useRouter()
     const appName = searchParams.get("appname")
-    console.log(userState.selectedPlan)
 
     const selectedApp = apps?.data?.find((app: any) => {
         return app.appName === appName
