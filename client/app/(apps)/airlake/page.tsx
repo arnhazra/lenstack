@@ -72,7 +72,7 @@ function Page() {
                                     <Form.Select size="lg" defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: e.target.value })}>
                                         <option className="options" key={"nameAscending"} value={"name"}>Name Ascending</option>
                                         <option className="options" key={"nameDescending"} value={"-name"}>Name Descending</option>
-                                        <option className="options" key={"freshness"} value={"_id"}>Freshness</option>
+                                        <option className="options" key={"freshness"} value={"-_id"}>Freshness</option>
                                         <option className="options" key={"popularityRatingAscending"} value={"-rating"}>More Popular</option>
                                         <option className="options" key={"popularityRatingDescending"} value={"rating"}>Less Popular</option>
                                     </Form.Select>

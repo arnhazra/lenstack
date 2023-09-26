@@ -7,18 +7,18 @@ export const platformConfig = [
         dbRegion: "MongoDB AWS AP-South-1"
     },
     {
-        appName: "wealthnow",
-        description: "An wealth management platform to manage personal and businees wealth in a single dashboard with many features.",
-        url: "/apps?appname=wealthnow",
-        appAvailable: true,
-        dbRegion: "MongoDB Azure CIN"
-    },
-    {
         appName: "evolake",
         description: "An application that utilizes the OpenAI Davinci model to intelligently generate database queries based on input.",
         url: "/apps?appname=evolake",
         appAvailable: true,
         dbRegion: "MongoDB AWS AP-South-1"
+    },
+    {
+        appName: "frostlake",
+        description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
+        url: "/apps?appname=frostlake",
+        appAvailable: true,
+        dbRegion: "MongoDB Azure CIN"
     },
     {
         appName: "snowlake",
@@ -28,10 +28,10 @@ export const platformConfig = [
         dbRegion: "Polygon Testnet Mumbai"
     },
     {
-        appName: "frostlake",
-        description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
-        url: "/apps?appname=frostlake",
+        appName: "wealthnow",
+        description: "An wealth management platform to manage personal and businees wealth in a single dashboard with many features.",
+        url: "/apps?appname=wealthnow",
         appAvailable: true,
         dbRegion: "MongoDB Azure CIN"
-    },
+    }
 ]

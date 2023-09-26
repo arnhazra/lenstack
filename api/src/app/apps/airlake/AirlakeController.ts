@@ -20,7 +20,7 @@ export default class DatasetController {
 
     async findDatasets(req: Request, res: Response) {
         const selectedFilterCategory = req.body.selectedFilter === "All" ? "" : req.body.selectedFilter
-        const selectedSortOption = req.body.selectedSortOption
+        const selectedSortOption = req.body.selectedSortOption || "name"
         const searchQuery = req.body.searchQuery || ""
         const offset = req.body.offset || 0
         const limit = 36
