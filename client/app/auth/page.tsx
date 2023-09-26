@@ -8,12 +8,11 @@ import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import { toast } from "react-hot-toast"
 import { useRouter, useSearchParams } from "next/navigation"
-import withoutAuth from "@/_utils/withoutAuth"
 import useFetch from "@/_hooks/useFetch"
 import HTTPMethods from "@/_constants/httpMethods"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
-function Page() {
+export default function Page() {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [authStep, setAuthStep] = useState(1)
@@ -122,5 +121,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withoutAuth(Page)

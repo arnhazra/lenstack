@@ -7,9 +7,8 @@ import Loading from "@/_components/Loading"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import HTTPMethods from "@/_constants/httpMethods"
 import moment from "moment"
-import withAuth from "@/_utils/withAuth"
 
-function Page() {
+export default function Page() {
     const transactions = useFetchRealtime("transactions", endPoints.getTransactionsEndpoint, HTTPMethods.POST)
 
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
@@ -57,5 +56,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withAuth(Page)

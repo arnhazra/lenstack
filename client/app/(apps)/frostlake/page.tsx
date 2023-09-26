@@ -5,13 +5,12 @@ import Show from "@/_components/Show"
 import { Container, Table } from "react-bootstrap"
 import Loading from "@/_components/Loading"
 import HTTPMethods from "@/_constants/httpMethods"
-import withAuth from "@/_utils/withAuth"
 import useFetch from "@/_hooks/useFetch"
 import moment from "moment"
 import { ArrowRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 
-function Page() {
+export default function Page() {
     const projects = useFetch("project", endPoints.frostlakeGetProjectsEndpoint, HTTPMethods.POST)
 
     const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
@@ -60,5 +59,3 @@ function Page() {
         </Fragment>
     )
 }
-
-export default withAuth(Page)

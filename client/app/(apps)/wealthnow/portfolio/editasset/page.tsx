@@ -1,7 +1,6 @@
 "use client"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
-import withAuth from "@/_utils/withAuth"
 import axios from "axios"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -11,7 +10,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 
-function Page() {
+export default function Page() {
     const searchParams = useSearchParams()
     const assetId = searchParams.get("assetid")
     const asset = useFetch("view asset", endPoints.wealthnowViewAssetEndpoint, HTTPMethods.POST, { assetId })
@@ -67,5 +66,3 @@ function Page() {
         </form>
     )
 }
-
-export default withAuth(Page)

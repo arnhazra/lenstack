@@ -6,9 +6,8 @@ import { Container, Table } from "react-bootstrap"
 import Loading from "@/_components/Loading"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import HTTPMethods from "@/_constants/httpMethods"
-import withAuth from "@/_utils/withAuth"
 
-function Page() {
+export default function Page() {
     const queryHistory = useFetchRealtime("query history", endPoints.evolakeGetQueryHistoryEndpoint, HTTPMethods.POST)
 
     const queryHistoryToDisplay = queryHistory?.data?.queryHistory?.map((atc: any) => {
@@ -52,5 +51,3 @@ function Page() {
         </Fragment>
     )
 }
-
-export default withAuth(Page)

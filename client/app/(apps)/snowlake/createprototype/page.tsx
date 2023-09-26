@@ -5,7 +5,6 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import { AppContext } from "@/_context/appStateProvider"
 import useFetch from "@/_hooks/useFetch"
-import withAuth from "@/_utils/withAuth"
 import Link from "next/link"
 import { useContext, useEffect, useState } from "react"
 import { Button, Form } from "react-bootstrap"
@@ -13,7 +12,7 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
-function Page() {
+export default function Page() {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [{ userState }] = useContext(AppContext)
@@ -93,5 +92,3 @@ function Page() {
         </form>
     )
 }
-
-export default withAuth(Page)

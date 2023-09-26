@@ -2,7 +2,6 @@
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
-import withAuth from "@/_utils/withAuth"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useContext, useEffect, useState } from "react"
@@ -16,7 +15,7 @@ import useFetch from "@/_hooks/useFetch"
 import { FileIcon, OpenInNewWindowIcon, ArchiveIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import useConfirm from "@/_hooks/useConfirm"
 
-function Page() {
+export default function Page() {
     const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
     const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
     const [{ userState }] = useContext(AppContext)
@@ -129,5 +128,3 @@ function Page() {
         </Fragment>
     )
 }
-
-export default withAuth(Page)

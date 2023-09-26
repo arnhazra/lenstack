@@ -10,10 +10,9 @@ import DatasetCard from "@/_components/DatasetCard"
 import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
-import withAuth from "@/_utils/withAuth"
 import { DatasetRequestState } from "@/_types/Types"
 
-function Page() {
+export default function Page() {
     const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
     const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
     const dataLibrary = useFetch("data platform", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
@@ -96,5 +95,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withAuth(Page)

@@ -3,7 +3,6 @@ import { Fragment, useContext, useState } from "react"
 import { QRCodeSVG } from "qrcode.react"
 import { AppContext } from "@/_context/appStateProvider"
 import Show from "@/_components/Show"
-import withAuth from "@/_utils/withAuth"
 import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
@@ -20,7 +19,7 @@ import { vendorABI } from "@/_bin/vendorABI"
 import { ArrowRightIcon, CheckCircledIcon, CrossCircledIcon, CubeIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
 
-function Page() {
+export default function Page() {
     const [{ userState }] = useContext(AppContext)
     const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
     const paymentStatus = useFetchRealtime("get payment status", endPoints.getPaymentStatusEndpoint, HTTPMethods.POST, {}, 2000)
@@ -267,5 +266,3 @@ function Page() {
         </Fragment>
     )
 }
-
-export default withAuth(Page)

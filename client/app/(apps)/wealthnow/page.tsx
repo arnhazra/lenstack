@@ -5,13 +5,12 @@ import Show from "@/_components/Show"
 import { Card, Container, Row, Table, Col } from "react-bootstrap"
 import Loading from "@/_components/Loading"
 import HTTPMethods from "@/_constants/httpMethods"
-import withAuth from "@/_utils/withAuth"
 import useFetch from "@/_hooks/useFetch"
 import moment from "moment"
 import Link from "next/link"
 import { ArrowRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 
-function Page() {
+export default function Page() {
     const portfolios = useFetch("portfolios", endPoints.wealthnowGetPortfoliosEndpoint, HTTPMethods.POST)
 
     const portfoliosToDisplay = portfolios?.data?.portfolios?.map((portfolio: any) => {
@@ -84,5 +83,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withAuth(Page)

@@ -1,5 +1,5 @@
 "use client"
-import React, { FC, ReactNode } from "react"
+import { FC, ReactNode } from "react"
 import { Fira_Code } from "next/font/google"
 import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"

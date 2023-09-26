@@ -1,7 +1,6 @@
 "use client"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
-import withAuth from "@/_utils/withAuth"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useContext, useState } from "react"
@@ -10,7 +9,7 @@ import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { AppContext } from "@/_context/appStateProvider"
 
-function Page() {
+export default function Page() {
     const searchParams = useSearchParams()
     const portfolioId = searchParams.get("portfolioid")
     const [state, setState] = useState({ principalAmount: 0, rateOfInterest: 0, tenure: 0, maturityAmount: 0, isLoading: false })
@@ -55,5 +54,3 @@ function Page() {
         </form>
     )
 }
-
-export default withAuth(Page)

@@ -5,9 +5,8 @@ import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import Loading from "@/_components/Loading"
-import withoutAuth from "@/_utils/withoutAuth"
 
-function Page() {
+export default function Page() {
     const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
 
     return (
@@ -27,5 +26,3 @@ function Page() {
         </Fragment>
     )
 }
-
-export default withoutAuth(Page)

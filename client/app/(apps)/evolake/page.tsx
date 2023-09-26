@@ -1,10 +1,9 @@
 "use client"
-import withAuth from "@/_utils/withAuth"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
-import React, { Fragment, useContext, useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import { Button, Container, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import useFetch from "@/_hooks/useFetch"
@@ -13,7 +12,7 @@ import Link from "next/link"
 import SourceCode from "@/_components/SourceCode"
 import { ArrowRightIcon, TextNoneIcon } from "@radix-ui/react-icons"
 
-function Page() {
+export default function Page() {
     const [selectedDb, setSelectedDb] = useState("SQL")
     const [userQuery, setUserQuery] = useState("")
     const [dbQuery, setDbQuery] = useState("")
@@ -69,5 +68,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withAuth(Page)

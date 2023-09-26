@@ -13,7 +13,7 @@ export default class CommonRouter {
     }
 
     registerRoutes() {
-        this.router.post("/getplatformconfig", this.commonController.getPlatformConfig.bind(this.commonController))
+        this.router.post("/getplatformconfig", tokenAuthorizer, this.commonController.getPlatformConfig.bind(this.commonController))
         this.router.post("/getsubscriptionconfig", this.commonController.getSubscriptionConfig.bind(this.commonController))
         this.router.post("/getusagebyapikey", tokenAuthorizer, this.commonController.getUsageByApiKey.bind(this.commonController))
         this.router.post("/getcontractaddresses", this.commonController.getContractAddresses.bind(this.commonController))

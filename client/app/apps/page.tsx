@@ -8,14 +8,12 @@ import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
-import React from "react"
 import { Button, Container, Row } from "react-bootstrap"
-import withAuth from "@/_utils/withAuth"
 import Error from "@/_components/ErrorComp"
 import { AppContext } from "@/_context/appStateProvider"
 import Link from "next/link"
 
-function Page() {
+export default function Page() {
     const [{ userState }] = useContext(AppContext)
     const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
     const searchParams = useSearchParams()
@@ -67,5 +65,3 @@ function Page() {
         </Container >
     )
 }
-
-export default withAuth(Page)

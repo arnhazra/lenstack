@@ -2,11 +2,10 @@
 import { Fragment } from "react"
 import Constants from "@/_constants/appConstants"
 import Link from "next/link"
-import withoutAuth from "@/_utils/withoutAuth"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"
 
-function Page() {
+export default function Page() {
 	return (
 		<Fragment>
 			<Container>
@@ -24,5 +23,3 @@ function Page() {
 		</Fragment>
 	)
 }
-
-export default withoutAuth(Page)

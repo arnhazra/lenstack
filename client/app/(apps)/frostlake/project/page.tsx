@@ -6,7 +6,6 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
-import withAuth from "@/_utils/withAuth"
 import { ArchiveIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
@@ -14,7 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 
-function Page() {
+export default function Page() {
     const searchParams = useSearchParams()
     const projectId = searchParams.get("projectid")
     const project = useFetchRealtime("view project", endPoints.frostlakeViewProjectEndpoint, HTTPMethods.POST, { projectId })
@@ -84,5 +83,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withAuth(Page)

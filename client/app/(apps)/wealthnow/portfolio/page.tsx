@@ -6,7 +6,6 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
-import withAuth from "@/_utils/withAuth"
 import { ArchiveIcon, ExternalLinkIcon, IdCardIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
@@ -15,7 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 
-function Page() {
+export default function Page() {
     const searchParams = useSearchParams()
     const portfolioId = searchParams.get("portfolioid")
     const portfolio = useFetchRealtime("view portfolio", endPoints.wealthnowViewPortfolioEndpoint, HTTPMethods.POST, { portfolioId })
@@ -99,5 +98,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withAuth(Page)

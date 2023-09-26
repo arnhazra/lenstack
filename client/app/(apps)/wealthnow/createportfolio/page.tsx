@@ -1,7 +1,6 @@
 "use client"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
-import withAuth from "@/_utils/withAuth"
 import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -10,7 +9,7 @@ import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
-function Page() {
+export default function Page() {
     const [state, setState] = useState({ name: "", isLoading: false })
     const router = useRouter()
 
@@ -46,5 +45,3 @@ function Page() {
         </form>
     )
 }
-
-export default withAuth(Page)

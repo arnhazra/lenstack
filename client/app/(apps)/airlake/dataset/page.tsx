@@ -11,12 +11,11 @@ import useFetch from "@/_hooks/useFetch"
 import HTTPMethods from "@/_constants/httpMethods"
 import Error from "@/_components/ErrorComp"
 import { AppContext } from "@/_context/appStateProvider"
-import withAuth from "@/_utils/withAuth"
 import appConstants from "@/_constants/appConstants"
 import { useSearchParams } from "next/navigation"
 import { CopyIcon } from "@radix-ui/react-icons"
 
-function Page() {
+export default function Page() {
     const searchParams = useSearchParams()
     const datasetId = searchParams.get("datasetid")
     const [{ userState }] = useContext(AppContext)
@@ -80,5 +79,3 @@ function Page() {
         </Fragment >
     )
 }
-
-export default withAuth(Page)
