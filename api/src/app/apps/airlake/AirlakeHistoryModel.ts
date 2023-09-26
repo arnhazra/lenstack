@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { airlakeDb } from "../../../utils/dbConnect"
+import { masterDb, replicaDb } from "../../../utils/dbConnect"
 
 const AirlakeHistorySchema = new mongoose.Schema({
     owner: {
@@ -24,6 +24,7 @@ const AirlakeHistorySchema = new mongoose.Schema({
     },
 }, { versionKey: false })
 
-const AirlakeHistoryModel = airlakeDb.model("airlakehistory", AirlakeHistorySchema)
+const MasterAirlakeHistoryModel = masterDb.model("airlakehistory", AirlakeHistorySchema)
+const ReplicaAirlakeHistoryModel = replicaDb.model("airlakehistory", AirlakeHistorySchema)
 
-export default AirlakeHistoryModel
+export { MasterAirlakeHistoryModel, ReplicaAirlakeHistoryModel }

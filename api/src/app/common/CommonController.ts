@@ -3,7 +3,7 @@ import Web3 from "web3"
 import { statusMessages } from "../../constants/statusMessages"
 import { platformConfig } from "../../../config/platformConfig"
 import { apiPricing, subscriptionConfig } from "../../../config/subscriptionConfig"
-import AirlakeHistoryModel from "../apps/airlake/AirlakeHistoryModel"
+import { MasterAirlakeHistoryModel, ReplicaAirlakeHistoryModel } from "../apps/airlake/AirlakeHistoryModel"
 import EvolakeQueryModel from "../apps/evolake/EvolakeQueryModel"
 import { MasterSubscriptionModel } from "../subscription/SubscriptionModel"
 import { otherConstants } from "../../constants/otherConstants"
@@ -41,7 +41,7 @@ export default class CommonController {
 
             if (subscription) {
                 const { apiKey } = subscription
-                const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
+                const airlakeUsedTokens = await MasterAirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
                 const evolakeUsedTokens = await EvolakeQueryModel.find({ apiKey }).countDocuments() * apiPricing.evolake
                 const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
                 const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow

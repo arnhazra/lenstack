@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mainLenstackDb, masterDb, replicaDb } from "../../utils/dbConnect"
+import { masterDb, replicaDb } from "../../utils/dbConnect"
 
 const TransactionSchema = new mongoose.Schema({
     owner: {
