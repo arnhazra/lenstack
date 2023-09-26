@@ -68,9 +68,9 @@ export default class FrostlakeController {
             const project = await MasterFrostlakeProjectModel.findById(req.params.id)
 
             if (project.owner.toString() === req.headers.id) {
-                await MasterFrostlakeProjectModel.deleteMany({ owner: req.headers.id, projectId: req.params.id })
+                await MasterFrostlakeAnalyticsModel.deleteMany({ owner: req.headers.id, projectId: req.params.id })
                 await MasterFrostlakeProjectModel.findByIdAndDelete(project.id)
-                await ReplicaFrostlakeProjectModel.deleteMany({ owner: req.headers.id, projectId: req.params.id })
+                await ReplicaFrostlakeAnalyticsModel.deleteMany({ owner: req.headers.id, projectId: req.params.id })
                 await ReplicaFrostlakeProjectModel.findByIdAndDelete(project.id)
                 return res.status(200).json({ msg: "Project Deleted" })
             }
