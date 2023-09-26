@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { validationResult } from "express-validator"
 import { statusMessages } from "../../constants/statusMessages"
-import TransactionModel from "./TransactionModel"
+import { MasterTransactionModel, ReplicaTransactionModel } from "./TransactionModel"
 import { MasterUserModel, ReplicaUserModel } from "../user/UserModel"
 
 export default class TransactionController {
@@ -40,8 +40,10 @@ export default class TransactionController {
             const { transactionType, fromAddress, ethAmount, txHash } = req.body
 
             try {
-                const transaction = new TransactionModel({ owner: req.headers.id, transactionType, fromAddress, ethAmount, txHash })
+                const transaction = new MasterTransactionModel({ owner: req.headers.id, transactionType, fromAddress, ethAmount, txHash })
+                const replicaTransaction = new ReplicaTransactionModel({ owner: req.headers.id, transactionType, fromAddress, ethAmount, txHash })
                 await transaction.save()
+                await replicaTransaction.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }
 
@@ -53,7 +55,7 @@ export default class TransactionController {
 
     async getTransactions(req: Request, res: Response) {
         try {
-            const transactions = await TransactionModel.find({ owner: req.headers.id }).sort({ createdAt: -1 }).limit(10)
+            const transactions = await MasterTransactionModel.find({ owner: req.headers.id }).sort({ createdAt: -1 }).limit(10)
             return res.status(200).json({ transactions })
         }
 

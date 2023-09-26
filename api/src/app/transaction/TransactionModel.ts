@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mainLenstackDb } from "../../utils/dbConnect"
+import { mainLenstackDb, masterDb, replicaDb } from "../../utils/dbConnect"
 
 const TransactionSchema = new mongoose.Schema({
     owner: {
@@ -33,6 +33,7 @@ const TransactionSchema = new mongoose.Schema({
     }
 }, { versionKey: false })
 
-const TransactionModel = mainLenstackDb.model("transaction", TransactionSchema)
+const MasterTransactionModel = masterDb.model("transaction", TransactionSchema)
+const ReplicaTransactionModel = replicaDb.model("transaction", TransactionSchema)
 
-export default TransactionModel
+export { MasterTransactionModel, ReplicaTransactionModel }
