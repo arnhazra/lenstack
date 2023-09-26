@@ -85,11 +85,11 @@ export default class UserController {
                     else {
                         const { name } = req.body || otherConstants.undefinedName
                         user = new MasterUserModel({ name, email, privateKey })
-                        const replicaUser = new ReplicaUserModel({ name, email, privateKey })
+                        await user.save()
+                        const replicaUser = new ReplicaUserModel({ _id: user.id, name, email, privateKey })
                         const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
                         const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
                         await setTokenInRedis(user.id, accessToken)
-                        await user.save()
                         await replicaUser.save()
                         return res.status(200).json({ accessToken, user })
                     }

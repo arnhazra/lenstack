@@ -27,8 +27,8 @@ export default class SubscriptionController {
                 const selectedPlan = "Trial"
                 const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
                 const subscription = new MasterSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
-                const replicaSubscription = new ReplicaSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
                 await subscription.save()
+                const replicaSubscription = new ReplicaSubscriptionModel({ _id: subscription.id, owner, selectedPlan, apiKey, tokenId })
                 await replicaSubscription.save()
                 await MasterUserModel.findByIdAndUpdate(owner, { trialAvailable: false })
                 await ReplicaUserModel.findByIdAndUpdate(owner, { trialAvailable: false })
@@ -70,8 +70,8 @@ export default class SubscriptionController {
                     await ReplicaSubscriptionModel.findByIdAndDelete({ owner })
                     const apiKey = "ak-" + crypto.randomBytes(16).toString("hex")
                     const subscription = new MasterSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
-                    const replicaSubscription = new ReplicaSubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
                     await subscription.save()
+                    const replicaSubscription = new ReplicaSubscriptionModel({ _id: subscription.id, owner, selectedPlan, apiKey, tokenId })
                     await replicaSubscription.save()
                     return res.status(200).json({ msg: statusMessages.subscriptionSuccess })
                 }

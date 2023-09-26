@@ -87,8 +87,8 @@ export default class DatasetController {
             const { datasetId, apiKey } = req.params
             const data = await MasterAirlakeDatasetDataModel.findOne({ datasetRelationId: req.params.datasetId }).select("data")
             const airlakeHistoryReq = new MasterAirlakeHistoryModel({ owner: req.headers.id as string, datasetId, apiKey })
-            const replicaAirlakeHistoryReq = new ReplicaAirlakeHistoryModel({ owner: req.headers.id as string, datasetId, apiKey })
             await airlakeHistoryReq.save()
+            const replicaAirlakeHistoryReq = new ReplicaAirlakeHistoryModel({ _id: airlakeHistoryReq.id, owner: req.headers.id as string, datasetId, apiKey })
             await replicaAirlakeHistoryReq.save()
             return res.status(200).json({ data })
         }

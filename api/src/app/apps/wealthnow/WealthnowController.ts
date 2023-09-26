@@ -12,8 +12,8 @@ export default class WealthnowController {
 
             if (count < 100) {
                 const portfolio = new MasterWealthnowPortfolioModel({ owner, name })
-                const portfolioReplica = new ReplicaWealthnowPortfolioModel({ owner, name })
                 await portfolio.save()
+                const portfolioReplica = new ReplicaWealthnowPortfolioModel({ _id: portfolio.id, owner, name })
                 await portfolioReplica.save()
                 return res.status(200).json({ msg: "New Portfolio Created", portfolio })
             }
@@ -103,8 +103,8 @@ export default class WealthnowController {
             if (portfolio && portfolio.owner.toString() === userId) {
                 const portfolioId = portfolio.id
                 const asset = new MasterWealthnowAssetModel({ owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey })
-                const assetReplica = new ReplicaWealthnowAssetModel({ owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey })
                 await asset.save()
+                const assetReplica = new ReplicaWealthnowAssetModel({ _id: asset.id, owner: userId, portfolioId, principalAmount, rateOfInterest, tenure, maturityAmount, apiKey })
                 await assetReplica.save()
                 return res.status(200).json({ msg: "Asset created" })
             }

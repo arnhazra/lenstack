@@ -41,8 +41,8 @@ export default class TransactionController {
 
             try {
                 const transaction = new MasterTransactionModel({ owner: req.headers.id, transactionType, fromAddress, ethAmount, txHash })
-                const replicaTransaction = new ReplicaTransactionModel({ owner: req.headers.id, transactionType, fromAddress, ethAmount, txHash })
                 await transaction.save()
+                const replicaTransaction = new ReplicaTransactionModel({ _id: transaction.id, owner: req.headers.id, transactionType, fromAddress, ethAmount, txHash })
                 await replicaTransaction.save()
                 return res.status(200).json({ msg: statusMessages.transactionCreationSuccess, transaction })
             }

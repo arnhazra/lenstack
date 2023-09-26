@@ -15,8 +15,8 @@ export default class FrostlakeController {
                 const clientId = crypto.randomBytes(16).toString("hex")
                 const clientSecret = crypto.randomBytes(32).toString("hex")
                 const project = new MasterFrostlakeProjectModel({ owner, name, clientId, clientSecret })
-                const projectReplica = new ReplicaFrostlakeProjectModel({ owner, name, clientId, clientSecret })
                 await project.save()
+                const projectReplica = new ReplicaFrostlakeProjectModel({ _id: project.id, owner, name, clientId, clientSecret })
                 await projectReplica.save()
                 return res.status(200).json({ msg: "New Project Created", project })
             }
@@ -96,7 +96,7 @@ export default class FrostlakeController {
                     const projectId = project.id
                     const analytics = new MasterFrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode, apiKey })
                     await analytics.save()
-                    const analyticsReplica = new ReplicaFrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode, apiKey })
+                    const analyticsReplica = new ReplicaFrostlakeAnalyticsModel({ _id: analytics.id, owner: userId, projectId, component, event, info, statusCode, apiKey })
                     await analyticsReplica.save()
                     return res.status(200).json({ msg: "Analytics created" })
                 }

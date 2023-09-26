@@ -57,8 +57,8 @@ export default class EvolakeController {
                     })
                     const aiGeneratedQuery = response.choices[0].message.content.split("```")[1]
                     const evolakeDbReq = new MasterEvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
-                    const replicaEvolakeDbReq = new ReplicaEvolakeQueryModel({ owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
                     await evolakeDbReq.save()
+                    const replicaEvolakeDbReq = new ReplicaEvolakeQueryModel({ _id: evolakeDbReq.id, owner: req.headers.id as string, query: finalQuery, response: aiGeneratedQuery, apiKey })
                     await replicaEvolakeDbReq.save()
                     return res.status(200).json({ msg: aiGeneratedQuery, from: "AI" })
                 }
