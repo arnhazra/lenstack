@@ -5,7 +5,7 @@ env:
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
@@ -14,8 +14,8 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Build api application
-        working-directory: api
+      - name: Build Server application
+        working-directory: server
         run: |
           npm install
           CI=false npm run build
@@ -28,11 +28,11 @@ jobs:
 
       - name: Copy Dependencies to build
         run: |
-          cp -r api/package.json api/build
+          cp -r server/package.json server/dist
 
-      - name: Move API build output to server dist directory
+      - name: Move Server build output to server dist directory
         run: |
-          mv api/build dist
+          mv server/dist dist
 
       - name: Move client build output to server dist directory
         run: |
