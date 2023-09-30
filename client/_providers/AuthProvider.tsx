@@ -4,7 +4,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
 import { usePathname, useRouter } from "next/navigation"
-import { ReactNode, useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from "react"
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
     const pathname = usePathname()
@@ -13,9 +13,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (Object.hasOwn(localStorage, 'accessToken')) {
-            if (pathname === '/' || pathname === '/auth') {
-                router.push('/dashboard')
+        if (Object.hasOwn(localStorage, "accessToken")) {
+            if (pathname === "/" || pathname === "/auth") {
+                router.push("/dashboard")
             }
 
             else {
@@ -44,7 +44,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         else {
-            if (pathname !== '/' && pathname !== '/auth') {
+            if (pathname !== "/" && pathname !== "/auth") {
                 router.push(`/auth?redirect=${pathname.slice(1)}`)
                 setLoading(false)
             }

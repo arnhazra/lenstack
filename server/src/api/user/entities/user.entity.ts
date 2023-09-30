@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb, replicaDb } from "../../utils/dbConnect"
+import { masterDb, replicaDb } from "../../../utils/dbConnect"
 
 const UserSchema = new mongoose.Schema({
     name: {
