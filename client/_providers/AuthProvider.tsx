@@ -10,17 +10,19 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     const pathname = usePathname()
     const router = useRouter()
     const [, dispatch] = useContext(AppContext)
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
         if (Object.hasOwn(localStorage, "accessToken")) {
             if (pathname === "/" || pathname === "/auth") {
+                setLoading(false)
                 router.push("/dashboard")
             }
 
             else {
                 (async () => {
                     try {
+                        setLoading(true)
                         const response = await axios.post(endPoints.userDetailsEndpoint)
                         const userid = response.data.user._id
                         const { name, email, privateKey, role, trialAvailable } = response.data.user
