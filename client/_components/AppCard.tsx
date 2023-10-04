@@ -4,7 +4,7 @@ import { AppCardProps } from "@/_types/Types"
 import { useRouter } from "next/navigation"
 import { ArrowTopRightIcon } from "@radix-ui/react-icons"
 
-const AppCard: FC<AppCardProps> = ({ appName, description, url, appAvailable, dbRegion }) => {
+const AppCard: FC<AppCardProps> = ({ appName, description, url, appAvailable }) => {
   const router = useRouter()
 
   const redirectToApp = () => {
@@ -22,6 +22,7 @@ const AppCard: FC<AppCardProps> = ({ appName, description, url, appAvailable, db
         </Card.Header>
         <Card.Footer className="pt-4 ps-4 app-card-footer">
           <p className="smalltext">{description}</p>
+          <Button>{appAvailable ? 'Available' : 'Coming Soon'}</Button>
         </Card.Footer>
       </Card>
     </Col >

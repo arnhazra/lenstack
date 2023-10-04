@@ -1,4 +1,4 @@
-import { createParamDecorator, ExecutionContext, ForbiddenException } from '@nestjs/common'
+import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { MasterAirlakeHistoryModel } from "src/api/apps/airlake/entities/airlake-history.entity"
 import { MasterFrostlakeAnalyticsModel } from "src/api/apps/frostlake/entities/frostlake-analytics.entity"
 import { MasterWealthnowAssetModel } from "src/api/apps/wealthnow/entities/wealthnow-asset.entity"

@@ -7,6 +7,13 @@ export const platformConfig = [
     dbRegion: "MongoDB on Azure"
   },
   {
+    appName: "dwallet",
+    description: "An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.",
+    url: "/apps?appname=dwallet",
+    appAvailable: false,
+    dbRegion: "Polygon Testnet"
+  },
+  {
     appName: "frostlake",
     description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
     url: "/apps?appname=frostlake",
@@ -26,5 +33,19 @@ export const platformConfig = [
     url: "/apps?appname=wealthnow",
     appAvailable: true,
     dbRegion: "MongoDB on Azure"
+  },
+  {
+    appName: "zknft",
+    description: "An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.",
+    url: "/apps?appname=zknft",
+    appAvailable: false,
+    dbRegion: "Polygon Testnet"
+  },
+  {
+    appName: "swapstream",
+    description: "Effortlessly trade ERC-20 tokens with our platform, ensuring seamless transactions within the Ethereum ecosystem.",
+    url: "/apps?appname=swapstream",
+    appAvailable: false,
+    dbRegion: "Polygon Testnet"
   }
 ]

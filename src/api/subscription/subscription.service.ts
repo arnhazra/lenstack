@@ -36,7 +36,7 @@ export class SubscriptionService {
         const selectedPlan = "Trial"
         const apiKey = "ak-" + randomBytes(16).toString("hex")
         await this.subscriptionRepository.createNewSubscription(owner, selectedPlan, apiKey, tokenId)
-        await this.userRepository.findUserByIdAndUpdate(owner, 'trialAvailable', false)
+        await this.userRepository.findUserByIdAndUpdate(owner, "trialAvailable", false)
         return true
       }
 
@@ -112,7 +112,7 @@ export class SubscriptionService {
       }
 
       else {
-        return { message: 'No Active Subscriptions' }
+        return { message: "No Active Subscriptions" }
       }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

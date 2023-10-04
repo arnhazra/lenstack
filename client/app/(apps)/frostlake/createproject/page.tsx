@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
-import { toast } from "react-hot-toast"
+import { toast } from "sonner"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 export default function Page() {

@@ -1,7 +1,7 @@
 "use client"
 import axios from "axios"
 import AppStateProvider from "@/_context/appStateProvider"
-import { Toaster } from "react-hot-toast"
+import { Toaster } from "sonner"
 import { Quicksand } from "next/font/google"
 import Header from "@/_components/Header"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </nav>
               <main className="mt-2">
                 {children}
-                <Toaster position="bottom-right" containerClassName="toaster" />
+                <Toaster position="bottom-right" richColors />
               </main>
             </AuthProvider>
           </AppStateProvider>

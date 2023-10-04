@@ -1,7 +1,7 @@
 "use client"
 import { FC, ReactNode } from "react"
 import { Fira_Code } from "next/font/google"
-import { toast } from "react-hot-toast"
+import { toast } from "sonner"
 import Constants from "@/_constants/appConstants"
 import { CopyIcon } from "@radix-ui/react-icons"
 

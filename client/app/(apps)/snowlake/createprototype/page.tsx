@@ -8,7 +8,7 @@ import useFetch from "@/_hooks/useFetch"
 import Link from "next/link"
 import { useContext, useEffect, useState } from "react"
 import { Button, Form } from "react-bootstrap"
-import { toast } from "react-hot-toast"
+import { toast } from "sonner"
 import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 

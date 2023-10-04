@@ -8,7 +8,7 @@ import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
 import { usePathname } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
-import toast from "react-hot-toast"
+import toast from "sonner"
 import AuthGuard from "./AuthGuard"
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
@@ -18,7 +18,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setAuthenticated] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
+    if (localStorage.getItem("accessToken")) {
       (async () => {
         try {
           const response = await axios.post(endPoints.userDetailsEndpoint)
@@ -74,10 +74,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           {children}
         </Show>
         <Show when={!isAuthenticated}>
-          <Show when={pathname === '/'}>
+          <Show when={pathname === "/"}>
             {children}
           </Show>
-          <Show when={pathname !== '/'} >
+          <Show when={pathname !== "/"} >
             <Header />
             <AuthGuard onAuthSuccess={(): void => setAuthenticated(true)} onAuthFailure={(): void => setAuthenticated(false)} />
           </Show>

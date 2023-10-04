@@ -9,7 +9,7 @@ import Loading from "@/_components/Loading"
 import { Button, Container, Row } from "react-bootstrap"
 import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
-import { toast } from "react-hot-toast"
+import { toast } from "sonner"
 import Constants from "@/_constants/appConstants"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
