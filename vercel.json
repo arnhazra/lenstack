@@ -1,23 +1,23 @@
 {
-    "builds": [
-        {
-            "src": "dist/main.js",
-            "use": "@vercel/node",
-            "config": {
-                "includeFiles": [
-                    "dist/**"
-                ]
-            }
-        },
-        {
-            "src": "./dist/client",
-            "use": "@vercel/static"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "dist/main.js"
-        }
-    ]
+  "builds": [
+    {
+      "src": "dist/main.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "dist/**"
+        ]
+      }
+    },
+    {
+      "src": "./dist/client",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/main.js"
+    }
+  ]
 }

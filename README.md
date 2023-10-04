@@ -2,13 +2,10 @@
 
 ### Introduction
 
-Lenstack is not just a standalone application; it serves as a comprehensive platform hosting multiple Software-as-a-Service (SaaS) applications. In technical terms, Lenstack can be considered a Platform-as-a-Service (PaaS). All the apps are in different databases in different regions coupled together under this platform. Let"s explore the various applications hosted within Lenstack:
+Lenstack is a comprehensive Software-as-a-Service (SaaS) application. In technical terms. Let"s explore the various applications hosted within Lenstack
 
 #### Airlake
 An open-source application designed for effortless discovery, subscription, and utilization of third-party cloud data.
-
-#### Evolake
-An open-source application that harnesses the capabilities of the OpenAI GPT-4 Davinci model to generate complex and efficient database queries.
 
 #### Snowlake
 An open-source prototype management application that that efficiently organizes and manages prototypes and uses Ethereum Blockchain to store prototypes.
@@ -26,11 +23,9 @@ Upon successfully creating an account on the application, an Ethereum wallet wil
 
 ### Tech Stack
 
-* OpenAI Davinci model
-* Mongo DB
-* Ethereum Blockchain - Polygon PoS Chain
+* Nest as a framework on top of Node JS for API
+* Next JS as a framework on top of React JS for UI
+* Mongo DB as a primary & replica database
+* Redis for Managing user authorization, access tokens
+* Ethereum Blockchain - Polygon Testnet for Payment system and decentralized DB
 * Web3 JS for Ethereum blockchain for Web3 transactions
-* Redis for Managing user authentication, access tokens
-* Express JS as a framework on top of Node JS for API - Microservices
-* Next JS as a framework on top of React as a UI library
-* Google OAuth2

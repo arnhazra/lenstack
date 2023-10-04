@@ -14,40 +14,40 @@ import Constants from "@/_constants/appConstants"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 export default function Page() {
-    const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
-    const [{ userState }] = useContext(AppContext)
-    const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
+  const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
+  const [{ userState }] = useContext(AppContext)
+  const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
 
-    const appsToDisplay = apps?.data?.map((app: any) => {
-        return <AppCard key={app.appName} appName={app.appName} url={app.url} appAvailable={app.appAvailable} description={app.description} dbRegion={app.dbRegion} />
-    })
+  const appsToDisplay = apps?.data?.map((app: any) => {
+    return <AppCard key={app.appName} appName={app.appName} url={app.url} appAvailable={app.appAvailable} description={app.description} dbRegion={app.dbRegion} />
+  })
 
-    const activateTrial = async () => {
-        try {
-            await axios.post(endPoints.activateTrialEndpoint)
-            setDisplayTrialButton(false)
-            toast.success(Constants.ToastSuccess)
-        } catch (error) {
-            toast.error(Constants.ToastError)
-        }
+  const activateTrial = async () => {
+    try {
+      await axios.post(endPoints.activateTrialEndpoint)
+      setDisplayTrialButton(false)
+      toast.success(Constants.ToastSuccess)
+    } catch (error) {
+      toast.error(Constants.ToastError)
     }
+  }
 
-    return (
-        <Fragment>
-            <Show when={!apps.isLoading}>
-                <Container>
-                    <h4 className="dashboard-header">Welcome to Lenstack!</h4>
-                    <Show when={displayTrialButton}>
-                        <Button onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
-                    </Show>
-                    <Row className="mb-4">
-                        {appsToDisplay}
-                    </Row>
-                </Container>
-            </Show>
-            <Show when={apps.isLoading}>
-                <Loading />
-            </Show>
-        </Fragment>
-    )
+  return (
+    <Fragment>
+      <Show when={!apps.isLoading}>
+        <Container>
+          <h4 className="dashboard-header">Welcome to Lenstack!</h4>
+          <Show when={displayTrialButton}>
+            <Button onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
+          </Show>
+          <Row className="mb-4">
+            {appsToDisplay}
+          </Row>
+        </Container>
+      </Show>
+      <Show when={apps.isLoading}>
+        <Loading />
+      </Show>
+    </Fragment>
+  )
 }

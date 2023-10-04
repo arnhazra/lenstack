@@ -2,50 +2,46 @@ $mainColor: #1a1a1f
 $white: #ffffff
 
 @mixin categoryContainer
-    color: $white
-    border-radius: 1rem
-    border: none
-    animation: transitionIn 0.4s forwards
-    cursor: pointer
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
-    width: 100%
-    transition: transform 0.5s ease
-    -webkit-background-size: cover
-    -moz-background-size: cover
-    -o-background-size: cover
-    background-size: cover
-    background-attachment: fixed
+  color: $white
+  border-radius: 1rem
+  border: none
+  animation: transitionIn 0.4s forwards
+  cursor: pointer
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+  width: 100%
+  transition: transform 0.5s ease
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+  background-attachment: fixed
 
 .app-card-header
-    border: none
-    text-align: center
-    min-height: 9rem
-    display: flex
-    justify-content: space-between
-    padding-top: 1.5rem
+  border: none
+  text-align: center
+  min-height: 9rem
+  display: flex
+  justify-content: space-between
+  padding-top: 1.5rem
 
 .app-card-body
-    border: none
+  border: none
 
 .app-card-footer
-    border: none
+  border: none
 
 .app-card-airlake
-    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/airlake.jpg)
-    @include categoryContainer
-
-.app-card-evolake
-    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/evolake.jpg)
-    @include categoryContainer
+  background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/airlake.jpg)
+  @include categoryContainer
 
 .app-card-snowlake
-    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/snowlake.jpg)
-    @include categoryContainer
+  background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/snowlake.jpg)
+  @include categoryContainer
 
 .app-card-frostlake
-    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/frostlake.jpg)
-    @include categoryContainer
+  background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/frostlake.jpg)
+  @include categoryContainer
 
 .app-card-wealthnow
-    background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/wealthnow.jpg)
-    @include categoryContainer
+  background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/wealthnow.jpg)
+  @include categoryContainer

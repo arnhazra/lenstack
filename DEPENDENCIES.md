@@ -10,7 +10,6 @@
 * jsonwebtoken - Generates and validates JSON Web Tokens (JWTs) for user authentication and authorization.
 * mongoose - Elegant MongoDB object modeling for Node.js.
 * nodemailer - Sends email from Node.js.
-* openai - Official openai library for interacting with GPT models.
 * otp-without-db - Generates and verifies one-time passwords (OTPs) without a database.
 * ioredis - In-memory data store for caching and session management.
 * ts-node-dev - Dev server for typsecript express app.

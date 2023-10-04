@@ -6,34 +6,34 @@ import Constants from "@/_constants/appConstants"
 import { useRouter } from "next/navigation"
 
 function useFetchRealtime(queryKey: string, queryUrl: string, method: Method, requestBody?: object, refetchInterval?: number) {
-    const router = useRouter()
+  const router = useRouter()
 
-    const fetchDataFunction = async () => {
-        const { data } = await axios({ method, url: queryUrl, data: requestBody })
-        return data
-    }
+  const fetchDataFunction = async () => {
+    const { data } = await axios({ method, url: queryUrl, data: requestBody })
+    return data
+  }
 
-    const { error, data, isLoading } = useQuery(
-        [queryKey, requestBody],
-        () => fetchDataFunction(),
-        {
-            enabled: true,
-            refetchOnWindowFocus: true,
-            refetchInterval: refetchInterval ?? 60000,
-            retry: 2,
-            retryDelay: 2500,
-            onError(err: any) {
-                if (err.response && err.response.status === 401) {
-                    localStorage.removeItem("accessToken")
-                    router.push("/")
-                }
-
-                toast.error(`${Constants.ToastError} fetching ${queryKey}`)
-            },
+  const { error, data, isLoading } = useQuery(
+    [queryKey, requestBody],
+    () => fetchDataFunction(),
+    {
+      enabled: true,
+      refetchOnWindowFocus: true,
+      refetchInterval: refetchInterval ?? 60000,
+      retry: 2,
+      retryDelay: 2500,
+      onError(err: any) {
+        if (err.response && err.response.status === 401) {
+          localStorage.removeItem("accessToken")
+          router.push("/")
         }
-    )
 
-    return { error, data, isLoading }
+        toast.error(`${Constants.ToastError} fetching ${queryKey}`)
+      },
+    }
+  )
+
+  return { error, data, isLoading }
 }
 
 export default useFetchRealtime
