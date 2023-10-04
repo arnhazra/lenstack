@@ -1,18 +1,15 @@
 # Lenstack Dependencies
 
 * concurrently - Run concurrent servers.
-* array-sort - Sort arrays with properties.
-* cors - Enables Cross-Origin Resource Sharing for Express middleware.
 * dotenv - Loads environment variables from a .env file.
-* express - Fast and minimalist web framework for Node.js to build APIs.
-* express-validator - Validates incoming HTTP requests.
+* nestjs - Fast backend framework for Node.js to build APIs.
 * googleapis - Official Google library for interacting with Google APIs, including OAuth2.
 * jsonwebtoken - Generates and validates JSON Web Tokens (JWTs) for user authentication and authorization.
 * mongoose - Elegant MongoDB object modeling for Node.js.
 * nodemailer - Sends email from Node.js.
-* otp-without-db - Generates and verifies one-time passwords (OTPs) without a database.
 * ioredis - In-memory data store for caching and session management.
-* ts-node-dev - Dev server for typsecript express app.
+* ts-node - Dev server for typsecript express app.
+* @radix-ui/react-icons - Icon library.
 * @tanstack/react-query - Query client for react data fetching.
 * axios - Promise-based HTTP client for the browser and Node.js.
 * bootstrap - Popular CSS framework for building responsive, mobile-first websites.

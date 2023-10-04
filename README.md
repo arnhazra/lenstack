@@ -2,7 +2,7 @@
 
 ### Introduction
 
-Lenstack is a comprehensive Software-as-a-Service (SaaS) application. In technical terms. Let"s explore the various applications hosted within Lenstack
+Lenstack is a comprehensive Software-as-a-Service (SaaS) application. Let"s explore the various applications hosted within Lenstack.
 
 #### Airlake
 An open-source application designed for effortless discovery, subscription, and utilization of third-party cloud data.
