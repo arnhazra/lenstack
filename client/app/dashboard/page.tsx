@@ -19,7 +19,7 @@ export default function Page() {
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
 
   const appsToDisplay = apps?.data?.map((app: any) => {
-    return <AppCard key={app.appName} appName={app.appName} url={app.url} appAvailable={app.appAvailable} description={app.description} dbRegion={app.dbRegion} />
+    return <AppCard key={app.appName} appName={app.appName} url={app.url} appStatus={app.appStatus} description={app.description} dbRegion={app.dbRegion} />
   })
 
   const activateTrial = async () => {

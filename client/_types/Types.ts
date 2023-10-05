@@ -44,7 +44,7 @@ export type AppCardProps = {
   appName: string,
   description: string,
   url: string,
-  appAvailable: boolean,
+  appStatus: string,
   dbRegion: string
 }
 

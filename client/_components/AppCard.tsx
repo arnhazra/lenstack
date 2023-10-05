@@ -1,14 +1,13 @@
 import { FC } from "react"
-import { Button, Card, Col } from "react-bootstrap"
+import { Card, Col, Badge } from "react-bootstrap"
 import { AppCardProps } from "@/_types/Types"
 import { useRouter } from "next/navigation"
-import { ArrowTopRightIcon } from "@radix-ui/react-icons"
 
-const AppCard: FC<AppCardProps> = ({ appName, description, url, appAvailable }) => {
+const AppCard: FC<AppCardProps> = ({ appName, description, url, appStatus }) => {
   const router = useRouter()
 
   const redirectToApp = () => {
-    if (appAvailable) {
+    if (appStatus === 'Available') {
       router.push(url)
     }
   }
@@ -16,13 +15,14 @@ const AppCard: FC<AppCardProps> = ({ appName, description, url, appAvailable }) 
   return (
     <Col xs={12} sm={12} md={6} lg={6} xl={3} className="mb-4">
       <Card onClick={redirectToApp} className={`app-card-${appName.toLowerCase()}`}>
+        <Badge bg="dark" pill className="position-absolute mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{appStatus}</Badge>
         <Card.Header className="pb-2 ps-4 app-card-header">
           <p className="branding app-name pb-2 ps-4">{appName}</p>
-          <Button className="circle-btn mb-3"><ArrowTopRightIcon /></Button>
         </Card.Header>
         <Card.Footer className="pt-4 ps-4 app-card-footer">
-          <p className="smalltext">{description}</p>
-          <Button>{appAvailable ? 'Available' : 'Coming Soon'}</Button>
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="smalltext">{description}</p>
+          </div>
         </Card.Footer>
       </Card>
     </Col >

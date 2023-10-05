@@ -25,7 +25,7 @@ export default function Page() {
   })
 
   const appsToDisplay = apps?.data?.filter((app: any) => app.appName !== appName).map((app: any) => {
-    return <AppCard key={app.appName} appName={app.appName} url={app.url} appAvailable={app.appAvailable} description={app.description} dbRegion={app.dbRegion} />
+    return <AppCard key={app.appName} appName={app.appName} url={app.url} appStatus={app.appStatus} description={app.description} dbRegion={app.dbRegion} />
   })
 
   const launchApp = () => {
@@ -43,7 +43,7 @@ export default function Page() {
             <p className="branding text-capitalize">{selectedApp?.appName}</p>
             <p className="lead mt-3">{selectedApp?.description}</p>
             <Button className="tag-chip">{selectedApp?.dbRegion}</Button>
-            <Button className="tag-chip">{selectedApp?.appAvailable ? "Available" : "Under Maintainance"}</Button><br />
+            <Button className="tag-chip">{selectedApp?.appStatus ? "Available" : "Under Maintainance"}</Button><br />
             <Show when={userState.selectedPlan !== "No Subscription"}>
               <Button className="mt-2" onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
             </Show>
