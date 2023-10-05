@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb } from "../../../utils/dbConnect"
+import { mongoDbConn } from "../../../utils/dbConnect"
 
 export interface NewUser {
   name: string
@@ -49,4 +49,4 @@ const UserSchema = new mongoose.Schema<User>({
   },
 }, { versionKey: false })
 
-export const UserModel = masterDb.model("user", UserSchema)
+export const UserModel = mongoDbConn.model("user", UserSchema)

@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb } from "../../../utils/dbConnect"
+import { mongoDbConn } from "../../../utils/dbConnect"
 
 const SubscriptionSchema = new mongoose.Schema({
   owner: {
@@ -39,4 +39,4 @@ const SubscriptionSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const SubscriptionModel = masterDb.model("subscription", SubscriptionSchema)
+export const SubscriptionModel = mongoDbConn.model("subscription", SubscriptionSchema)

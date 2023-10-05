@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb } from "../../../../utils/dbConnect"
+import { mongoDbConn } from "../../../../utils/dbConnect"
 
 const FrostlakeProjectSchema = new mongoose.Schema({
   owner: {
@@ -30,4 +30,4 @@ const FrostlakeProjectSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const FrostlakeProjectModel = masterDb.model("frostlakeproject", FrostlakeProjectSchema)
+export const FrostlakeProjectModel = mongoDbConn.model("frostlakeproject", FrostlakeProjectSchema)

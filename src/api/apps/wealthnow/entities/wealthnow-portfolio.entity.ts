@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb } from "../../../../utils/dbConnect"
+import { mongoDbConn } from "../../../../utils/dbConnect"
 
 const WealthnowPortfolioSchema = new mongoose.Schema({
   owner: {
@@ -18,4 +18,4 @@ const WealthnowPortfolioSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const WealthnowPortfolioModel = masterDb.model("wealthnowportfolio", WealthnowPortfolioSchema)
+export const WealthnowPortfolioModel = mongoDbConn.model("wealthnowportfolio", WealthnowPortfolioSchema)
