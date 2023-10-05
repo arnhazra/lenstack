@@ -98,7 +98,7 @@ export default function Page() {
               </div>
             </Col>
           </Row>
-          <Link className="btn btn-block" passHref href={"https://faucet.polygon.technology/"} target="_blank">Fund my wallet<ExternalLinkIcon className="icon-right" /></Link>
+          <Link className="btn btn-block" passHref href={"https://mumbaifaucet.com/"} target="_blank">Fund my wallet<ExternalLinkIcon className="icon-right" /></Link>
           <Button className="btn-block" onClick={signOutFromThisDevice}>Sign Out<ExitIcon className="icon-right" /></Button>
           <Button className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
         </div>
