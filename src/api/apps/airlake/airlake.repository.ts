@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 import { MasterAirlakeDatasetMetaDataModel } from "./entities/airlake-metadata.entity"
 import { MasterAirlakeDatasetDataModel } from "./entities/airlake-dataset.entity"
-import { MasterAirlakeHistoryModel, ReplicaAirlakeHistoryModel } from "./entities/airlake-history.entity"
+import { MasterAirlakeHistoryModel } from "./entities/airlake-history.entity"
 
 @Injectable()
 export class AirlakeRepository {
@@ -40,8 +40,6 @@ export class AirlakeRepository {
   async createNewHistory(owner: string, datasetId: string, apiKey: string) {
     const airlakeHistoryReq = new MasterAirlakeHistoryModel({ owner, datasetId, apiKey })
     await airlakeHistoryReq.save()
-    const replicaAirlakeHistoryReq = new ReplicaAirlakeHistoryModel({ _id: airlakeHistoryReq.id, owner, datasetId, apiKey })
-    await replicaAirlakeHistoryReq.save()
   }
 
   async findCountByApiKey(apiKey: string) {

@@ -25,7 +25,7 @@ Upon successfully creating an account on the application, an Ethereum wallet wil
 
 * Nest as a framework on top of Node JS for API
 * Next JS as a framework on top of React JS for UI
-* Mongo DB as a primary & replica database
+* Mongo DB as a primary database
 * Redis for Managing user authorization, access tokens
 * Ethereum Blockchain - Polygon Testnet for Payment system and decentralized DB
 * Web3 JS for Ethereum blockchain for Web3 transactions

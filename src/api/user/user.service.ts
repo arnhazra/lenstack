@@ -38,7 +38,7 @@ export class UserService {
 
   async verifyAuthCode(verifyAuthCodeDto: VerifyAuthCodeDto) {
     try {
-      const { name, email, hash, otp, privateKey } = verifyAuthCodeDto
+      const { name, email, hash, otp } = verifyAuthCodeDto
       const isOTPValid = verifyAuthCode(email, hash, otp)
 
       if (isOTPValid) {

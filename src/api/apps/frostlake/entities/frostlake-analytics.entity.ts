@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb, replicaDb } from "../../../../utils/dbConnect"
+import { masterDb } from "../../../../utils/dbConnect"
 
 const FrostlakeAnalyticsSchema = new mongoose.Schema({
   owner: {
@@ -46,4 +46,3 @@ const FrostlakeAnalyticsSchema = new mongoose.Schema({
 }, { versionKey: false })
 
 export const MasterFrostlakeAnalyticsModel = masterDb.model("frostlakeanalytics", FrostlakeAnalyticsSchema)
-export const ReplicaFrostlakeAnalyticsModel = replicaDb.model("frostlakeanalytics", FrostlakeAnalyticsSchema)

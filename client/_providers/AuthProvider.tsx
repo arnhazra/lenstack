@@ -31,7 +31,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           }
 
           dispatch("setUserState", { userid, name, email, privateKey, role, trialAvailable })
-          setLoading(false)
           setAuthenticated(true)
         }
 
@@ -39,20 +38,21 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           if (error.response) {
             if (error.response.status === 401 || error.response.status === 403) {
               localStorage.removeItem("accessToken")
-              setLoading(false)
               setAuthenticated(false)
             }
 
             else {
-              setLoading(false)
               toast.error(Constants.ConnectionErrorMessage)
             }
           }
 
           else {
-            setLoading(false)
             toast.error(Constants.ConnectionErrorMessage)
           }
+        }
+
+        finally {
+          setLoading(false)
         }
       })()
     }
@@ -61,7 +61,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       setAuthenticated(false)
       setLoading(false)
     }
-  }, [pathname])
+  }, [pathname, isAuthenticated])
 
   return (
     <Fragment>

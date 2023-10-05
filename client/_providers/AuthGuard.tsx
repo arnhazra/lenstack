@@ -15,7 +15,7 @@ interface AuthGuardProps {
 
 export default function AuthGuard({ onAuthSuccess, onAuthFailure }: AuthGuardProps) {
   const [authStep, setAuthStep] = useState(1)
-  const [state, setState] = useState({ name: "", email: "", hash: "", otp: "", privateKey: "", newuser: false })
+  const [state, setState] = useState({ name: "", email: "", hash: "", otp: "", newuser: false })
   const [alert, setAlert] = useState("")
   const [isLoading, setLoading] = useState(false)
   const [authAlert, setAuthAlert] = useState("")

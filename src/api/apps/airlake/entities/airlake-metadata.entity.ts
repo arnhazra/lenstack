@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb, replicaDb } from "../../../../utils/dbConnect"
+import { masterDb } from "../../../../utils/dbConnect"
 
 const AirlakeDatasetMetadataSchema = new mongoose.Schema({
   name: {
@@ -24,6 +24,5 @@ const AirlakeDatasetMetadataSchema = new mongoose.Schema({
 }, { versionKey: false })
 
 const MasterAirlakeDatasetMetaDataModel = masterDb.model("airlakedatasetsmetadata", AirlakeDatasetMetadataSchema)
-const ReplicaAirlakeDatasetMetaDataModel = replicaDb.model("airlakedatasetsmetadata", AirlakeDatasetMetadataSchema)
 
-export { MasterAirlakeDatasetMetaDataModel, ReplicaAirlakeDatasetMetaDataModel }
+export { MasterAirlakeDatasetMetaDataModel }

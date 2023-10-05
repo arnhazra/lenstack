@@ -1,13 +1,11 @@
-import { MasterUserModel, NewUser, ReplicaUserModel, User } from "./entities/user.entity"
+import { MasterUserModel, NewUser, User } from "./entities/user.entity"
 import { Injectable } from "@nestjs/common"
 
 @Injectable()
 export class UserRepository {
   async createNewUser(user: NewUser): Promise<User | null> {
     const newUser = new MasterUserModel(user)
-    const newUserReplica = new ReplicaUserModel(user)
     await newUser.save()
-    await newUserReplica.save()
     return newUser
   }
 
@@ -23,7 +21,6 @@ export class UserRepository {
     const objectToUpdate = {}
     objectToUpdate[property] = value
     await MasterUserModel.findByIdAndUpdate(userId, objectToUpdate)
-    await ReplicaUserModel.findByIdAndUpdate(userId, objectToUpdate)
     return true
   }
 }

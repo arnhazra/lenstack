@@ -3,8 +3,7 @@ config()
 
 export const envConfig = {
   apiPort: process.env.API_PORT,
-  lenstackMasterDbUri: process.env.LENSTACK_MASTER_DB_URI,
-  lenstackReplicaDbUri: process.env.LENSTACK_REPLICA_DB_URI,
+  lenstackMongoDbUri: process.env.LENSTACK_MONGO_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,

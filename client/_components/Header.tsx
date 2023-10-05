@@ -7,20 +7,22 @@ import Link from "next/link"
 
 const Header: FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isHomePage, setIsHomePage] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken")
     setIsLoggedIn(accessToken !== null)
+    setIsHomePage(pathname === '/')
   }, [pathname])
 
   return (
     <Fragment>
-      <Show when={isLoggedIn}>
+      <Show when={isLoggedIn && !isHomePage}>
         <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
-              <Navbar.Brand>Dashboard</Navbar.Brand>
+              <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
             <Navbar.Toggle></Navbar.Toggle>
             <Navbar.Collapse>
@@ -34,7 +36,7 @@ const Header: FC = () => {
           </Container>
         </Navbar>
       </Show>
-      <Show when={!isLoggedIn}>
+      <Show when={!isLoggedIn || isHomePage}>
         <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">

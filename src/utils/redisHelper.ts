@@ -1,5 +1,4 @@
 import Redis from "ioredis"
-import { statusMessages } from "../constants/statusMessages"
 import { envConfig } from "../config/envConfig"
 
 const redis = new Redis({

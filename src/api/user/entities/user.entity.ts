@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb, replicaDb } from "../../../utils/dbConnect"
+import { masterDb } from "../../../utils/dbConnect"
 
 export interface NewUser {
   name: string
@@ -50,6 +50,5 @@ const UserSchema = new mongoose.Schema<User>({
 }, { versionKey: false })
 
 const MasterUserModel = masterDb.model("user", UserSchema)
-const ReplicaUserModel = replicaDb.model("user", UserSchema)
 
-export { MasterUserModel, ReplicaUserModel }
+export { MasterUserModel }

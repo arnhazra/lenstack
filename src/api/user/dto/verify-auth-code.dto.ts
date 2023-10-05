@@ -10,6 +10,4 @@ export class VerifyAuthCodeDto extends PartialType(RequestAuthCodeDto) {
 
   @IsNotEmpty()
   readonly hash: string
-
-  readonly privateKey: string
 }

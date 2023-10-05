@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { masterDb, replicaDb } from "../../../utils/dbConnect"
+import { masterDb } from "../../../utils/dbConnect"
 
 const SubscriptionSchema = new mongoose.Schema({
   owner: {
@@ -40,6 +40,5 @@ const SubscriptionSchema = new mongoose.Schema({
 }, { versionKey: false })
 
 const MasterSubscriptionModel = masterDb.model("subscription", SubscriptionSchema)
-const ReplicaSubscriptionModel = replicaDb.model("subscription", SubscriptionSchema)
 
-export { MasterSubscriptionModel, ReplicaSubscriptionModel }
+export { MasterSubscriptionModel }

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
-import { MasterFrostlakeProjectModel, ReplicaFrostlakeProjectModel } from "./entities/frostlake-project.entity"
-import { MasterFrostlakeAnalyticsModel, ReplicaFrostlakeAnalyticsModel } from "./entities/frostlake-analytics.entity"
+import { MasterFrostlakeProjectModel } from "./entities/frostlake-project.entity"
+import { MasterFrostlakeAnalyticsModel } from "./entities/frostlake-analytics.entity"
 
 @Injectable()
 export class FrostlakeRepository {
@@ -12,8 +12,6 @@ export class FrostlakeRepository {
   async createProject(owner: string, name: string, clientId: string, clientSecret: string) {
     const project = new MasterFrostlakeProjectModel({ owner, name, clientId, clientSecret })
     await project.save()
-    const projectReplica = new ReplicaFrostlakeProjectModel({ _id: project.id, owner, name, clientId, clientSecret })
-    await projectReplica.save()
     return project
   }
 
@@ -39,17 +37,13 @@ export class FrostlakeRepository {
 
   async deleteProjectById(owner: string, projectId: string) {
     await MasterFrostlakeAnalyticsModel.deleteMany({ owner, projectId })
-    await ReplicaFrostlakeAnalyticsModel.deleteMany({ owner, projectId })
     await MasterFrostlakeProjectModel.findByIdAndDelete(projectId)
-    await ReplicaFrostlakeProjectModel.findByIdAndDelete(projectId)
     return true
   }
 
   async createAnalytics(userId: string, projectId: string, component: string, event: string, info: string, statusCode: string, apiKey: string) {
     const analytics = new MasterFrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode, apiKey })
     await analytics.save()
-    const analyticsReplica = new ReplicaFrostlakeAnalyticsModel({ _id: analytics.id, owner: userId, projectId, component, event, info, statusCode, apiKey })
-    await analyticsReplica.save()
     return true
   }
 
