@@ -8,7 +8,7 @@ import { createAuthCodeAndSendEmail, verifyAuthCode } from "src/utils/otpTool"
 import { UserRepository } from "./user.repository"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redisHelper"
 import { otherConstants } from "src/constants/otherConstants"
-import { MasterSubscriptionModel } from "../subscription/entities/subscription.entity"
+import { SubscriptionModel } from "../subscription/entities/subscription.entity"
 import { statusMessages } from "src/constants/statusMessages"
 
 @Injectable()
@@ -84,7 +84,7 @@ export class UserService {
       const user = await this.userRepository.findUserById(userId)
       if (user) {
         const userId = user.id
-        const subscription = await MasterSubscriptionModel.findOne({ owner: userId })
+        const subscription = await SubscriptionModel.findOne({ owner: userId })
         return { user, subscription }
       }
 

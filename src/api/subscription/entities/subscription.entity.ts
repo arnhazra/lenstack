@@ -39,6 +39,4 @@ const SubscriptionSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-const MasterSubscriptionModel = masterDb.model("subscription", SubscriptionSchema)
-
-export { MasterSubscriptionModel }
+export const SubscriptionModel = masterDb.model("subscription", SubscriptionSchema)

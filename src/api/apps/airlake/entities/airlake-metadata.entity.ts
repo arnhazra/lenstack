@@ -23,6 +23,4 @@ const AirlakeDatasetMetadataSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-const MasterAirlakeDatasetMetaDataModel = masterDb.model("airlakedatasetsmetadata", AirlakeDatasetMetadataSchema)
-
-export { MasterAirlakeDatasetMetaDataModel }
+export const AirlakeDatasetMetaDataModel = masterDb.model("airlakedatasetsmetadata", AirlakeDatasetMetadataSchema)

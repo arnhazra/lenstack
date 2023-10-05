@@ -1,26 +1,26 @@
-import { MasterUserModel, NewUser, User } from "./entities/user.entity"
+import { UserModel, NewUser, User } from "./entities/user.entity"
 import { Injectable } from "@nestjs/common"
 
 @Injectable()
 export class UserRepository {
   async createNewUser(user: NewUser): Promise<User | null> {
-    const newUser = new MasterUserModel(user)
+    const newUser = new UserModel(user)
     await newUser.save()
     return newUser
   }
 
   async findUserByEmail(email: string) {
-    return MasterUserModel.findOne({ email })
+    return UserModel.findOne({ email })
   }
 
   async findUserById(userId: string) {
-    return MasterUserModel.findById(userId).exec()
+    return UserModel.findById(userId).exec()
   }
 
   async findUserByIdAndUpdate(userId: string, property: string, value: string | boolean | number) {
     const objectToUpdate = {}
     objectToUpdate[property] = value
-    await MasterUserModel.findByIdAndUpdate(userId, objectToUpdate)
+    await UserModel.findByIdAndUpdate(userId, objectToUpdate)
     return true
   }
 }

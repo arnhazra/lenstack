@@ -42,4 +42,4 @@ const WealthnowAssetSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const MasterWealthnowAssetModel = masterDb.model("wealthnowasset", WealthnowAssetSchema)
+export const WealthnowAssetModel = masterDb.model("wealthnowasset", WealthnowAssetSchema)

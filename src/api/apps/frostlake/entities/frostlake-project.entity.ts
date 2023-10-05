@@ -30,4 +30,4 @@ const FrostlakeProjectSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const MasterFrostlakeProjectModel = masterDb.model("frostlakeproject", FrostlakeProjectSchema)
+export const FrostlakeProjectModel = masterDb.model("frostlakeproject", FrostlakeProjectSchema)

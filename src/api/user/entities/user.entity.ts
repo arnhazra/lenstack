@@ -49,6 +49,4 @@ const UserSchema = new mongoose.Schema<User>({
   },
 }, { versionKey: false })
 
-const MasterUserModel = masterDb.model("user", UserSchema)
-
-export { MasterUserModel }
+export const UserModel = masterDb.model("user", UserSchema)

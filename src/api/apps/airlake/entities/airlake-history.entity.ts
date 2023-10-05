@@ -24,6 +24,4 @@ const AirlakeHistorySchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-const MasterAirlakeHistoryModel = masterDb.model("airlakehistory", AirlakeHistorySchema)
-
-export { MasterAirlakeHistoryModel }
+export const AirlakeHistoryModel = masterDb.model("airlakehistory", AirlakeHistorySchema)

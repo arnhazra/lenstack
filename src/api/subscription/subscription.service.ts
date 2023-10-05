@@ -8,10 +8,11 @@ import { otherConstants } from "src/constants/otherConstants"
 import { envConfig } from "src/config/envConfig"
 import { SubscribeDto } from "./dto/subscribe.dto"
 import { prototypeABI } from "src/bin/prototypeABI"
-import { MasterSubscriptionModel } from "./entities/subscription.entity"
+import { SubscriptionModel } from "./entities/subscription.entity"
 import { apiPricing } from "src/config/subscriptionConfig"
 import { AirlakeRepository } from "../apps/airlake/airlake.repository"
 import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
+import { WealthnowRepository } from "../apps/wealthnow/wealthnow.repository"
 
 @Injectable()
 export class SubscriptionService {
@@ -21,7 +22,8 @@ export class SubscriptionService {
   constructor(private readonly subscriptionRepository: SubscriptionRepository,
     private readonly userRepository: UserRepository,
     private readonly airlakeRepository: AirlakeRepository,
-    private readonly frostlakeRepository: FrostlakeRepository) {
+    private readonly frostlakeRepository: FrostlakeRepository,
+    private readonly wealthnowRepository: WealthnowRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
@@ -100,14 +102,15 @@ export class SubscriptionService {
   async getUsageByApiKey(userId: string) {
     try {
       const prototypeContract: any = new this.web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
-      const subscription = await MasterSubscriptionModel.findOne({ owner: userId })
+      const subscription = await SubscriptionModel.findOne({ owner: userId })
 
       if (subscription) {
         const { apiKey } = subscription
         const airlakeUsedTokens = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
         const frostlakeUsedTokens = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
         const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
-        const usedTokens = airlakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens
+        const wealthnowUsedTokens = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
+        const usedTokens = airlakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
         return { usedTokens }
       }
 
