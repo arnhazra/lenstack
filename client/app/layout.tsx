@@ -13,6 +13,7 @@ import "@/_styles/form.sass"
 import "@/_styles/appcard.sass"
 import "@/_styles/datasetcard.sass"
 import "@/_styles/sourcecode.sass"
+import "@/_styles/tokencard.sass"
 import AuthProvider from "@/_providers/AuthProvider"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })

@@ -16,7 +16,7 @@ export default function Page() {
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
   const [matic, setMatic] = useState(0)
-  const [receiverAddress, setReceiverAddress] = useState('')
+  const [receiverAddress, setReceiverAddress] = useState("")
   const [isLoading, setLoading] = useState(false)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
 
@@ -66,7 +66,7 @@ export default function Page() {
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>MATIC Amount</Form.Label>
-        <Form.Control disabled={isLoading} autoFocus type="text" placeholder="MATIC Amount" onChange={(e) => setMatic(Number(e.target.value))} required autoComplete={"off"} />
+        <Form.Control disabled={isLoading} type="text" placeholder="MATIC Amount" onChange={(e) => setMatic(Number(e.target.value))} required autoComplete={"off"} />
       </Form.Group>
       <Button type="submit" disabled={isLoading} className="mt-2 btn-block">
         <Show when={!isLoading}>Send {matic} MATIC <ArrowRightIcon className="icon-right" /></Show>

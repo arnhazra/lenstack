@@ -31,7 +31,7 @@ export const platformConfig = [
     appName: "swapstream",
     description: "Effortlessly trade ERC-20 tokens with our platform, ensuring seamless transactions within the Ethereum ecosystem.",
     url: "/apps?appname=swapstream",
-    appStatus: "Coming Soon",
+    appStatus: "Available",
     dbRegion: "Polygon Testnet"
   },
   {

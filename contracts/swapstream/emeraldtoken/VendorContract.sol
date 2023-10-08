@@ -4,12 +4,12 @@ import "./TokenContract.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract VendorContract is Ownable {
-    TokenContract tokenContract;
-    uint256 public tokensPerMatic = 10000;
+    EmeraldTokenContract tokenContract;
+    uint256 public tokensPerMatic = 4000;
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {
-        tokenContract = TokenContract(tokenAddress);
+        tokenContract = EmeraldTokenContract(tokenAddress);
     }
 
     function buyTokens() public payable returns (uint256 tokenAmount) {

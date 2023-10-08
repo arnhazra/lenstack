@@ -7,7 +7,7 @@ const AppCard: FC<AppCardProps> = ({ appName, description, url, appStatus }) => 
   const router = useRouter()
 
   const redirectToApp = () => {
-    if (appStatus === 'Available') {
+    if (appStatus === "Available") {
       router.push(url)
     }
   }

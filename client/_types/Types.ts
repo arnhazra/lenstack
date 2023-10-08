@@ -53,3 +53,16 @@ export type DocDetails = {
   content: string,
   apiKey: string
 }
+
+export type TokenData = {
+  tokenName: string
+  tokenSymbol: string,
+  tokenContractAddress: string,
+  vendorContractAddress: string,
+  tokensPerMatic: number,
+  description: string
+}
+
+export type TokenCardProps = {
+  token: TokenData
+}

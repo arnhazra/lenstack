@@ -4,12 +4,12 @@ import "./TokenContract.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract VendorContract is Ownable {
-    TokenContract tokenContract;
-    uint256 public tokensPerMatic = 10000;
+    RubyTokenContract tokenContract;
+    uint256 public tokensPerMatic = 5000;
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {
-        tokenContract = TokenContract(tokenAddress);
+        tokenContract = RubyTokenContract(tokenAddress);
     }
 
     function buyTokens() public payable returns (uint256 tokenAmount) {

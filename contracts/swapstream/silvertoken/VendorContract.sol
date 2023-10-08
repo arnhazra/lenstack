@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract VendorContract is Ownable {
     SilverTokenContract tokenContract;
-    uint256 public tokensPerMatic = 10000;
+    uint256 public tokensPerMatic = 50000;
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {

@@ -2,8 +2,8 @@
 pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract TokenContract is ERC20 {
-    constructor() ERC20("Platinum FT", "PFT") {
+contract DiamondTokenContract is ERC20 {
+    constructor() ERC20("Diamond FT", "DT") {
         _mint(msg.sender, 300000 * 10 ** decimals());
     }
 

@@ -13,7 +13,7 @@ const Header: FC = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken")
     setIsLoggedIn(accessToken !== null)
-    setIsHomePage(pathname === '/')
+    setIsHomePage(pathname === "/")
   }, [pathname])
 
   return (
