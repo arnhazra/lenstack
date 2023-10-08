@@ -7,7 +7,7 @@ import Link from "next/link"
 const TokenCard: FC<TokenCardProps> = ({ token }) => {
   return (
     <Col xs={6} sm={6} md={4} lg={4} xl={3} className="mb-4">
-      <Link href={`/swapstream/token?tokenAddress=${token.tokenContractAddress}`}>
+      <Link href={`/apps/swapstream/token?tokenAddress=${token.tokenContractAddress}`}>
         <Card className="token-card">
           <Card.Header className="pt-3 token-card-header">
             <div className={`${token.tokenSymbol?.toLowerCase()}Container pt-4`} />

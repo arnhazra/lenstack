@@ -25,7 +25,7 @@ export default function Page() {
       const { apiKey } = userState
       await axios.post(endPoints.wealthnowCreateAssetEndpoint, { principalAmount, rateOfInterest, portfolioId, maturityAmount, tenure, apiKey })
       toast.success("Asset Created")
-      router.push(`/wealthnow/portfolio?portfolioid=${portfolioId}`)
+      router.push(`/apps/wealthnow/portfolio?portfolioid=${portfolioId}`)
     }
 
     catch (error: any) {

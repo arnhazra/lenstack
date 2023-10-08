@@ -21,7 +21,7 @@ export default function Page() {
       const { name } = state
       const response = await axios.post(endPoints.frostlakeCreateProjectEndpoint, { name })
       toast.success("Project Created")
-      router.push(`/frostlake/project?projectid=${response.data.project._id}`)
+      router.push(`/apps/frostlake/project?projectid=${response.data.project._id}`)
     }
 
     catch (error: any) {
@@ -41,7 +41,7 @@ export default function Page() {
         <Show when={!state.isLoading}>Create Project <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Project</Show>
       </Button>
-      <Link href={"/frostlake"} className="lead-link">View My Projects</Link>
+      <Link href={"/apps/frostlake"} className="lead-link">View My Projects</Link>
     </form>
   )
 }

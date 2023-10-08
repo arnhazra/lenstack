@@ -18,7 +18,7 @@ export default function Page() {
       <tr key={portfolio._id}>
         <td>{portfolio.name}</td>
         <td>{moment(portfolio.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`/wealthnow/portfolio?portfolioid=${portfolio._id}`}>Open Portfolio<ExternalLinkIcon className="icon-right" /></Link></td>
+        <td><Link href={`/apps/wealthnow/portfolio?portfolioid=${portfolio._id}`}>Open Portfolio<ExternalLinkIcon className="icon-right" /></Link></td>
       </tr>
     )
   })
@@ -27,7 +27,7 @@ export default function Page() {
     <Fragment>
       <Show when={!portfolios.isLoading}>
         <Container>
-          <Link className="btn" href={"/wealthnow/createportfolio"}>Create Portfolio<ArrowRightIcon className="icon-right" /></Link>
+          <Link className="btn" href={"/apps/wealthnow/createportfolio"}>Create Portfolio<ArrowRightIcon className="icon-right" /></Link>
           <Show when={portfolios?.data?.portfolios?.length > 0}>
             <Row>
               <Col xs={12} sm={12} md={6} lg={6} xl={3}>

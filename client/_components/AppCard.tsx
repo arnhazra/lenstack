@@ -3,12 +3,12 @@ import { Card, Col, Badge } from "react-bootstrap"
 import { AppCardProps } from "@/_types/Types"
 import { useRouter } from "next/navigation"
 
-const AppCard: FC<AppCardProps> = ({ appName, description, url, appStatus }) => {
+const AppCard: FC<AppCardProps> = ({ appName, description, appStatus }) => {
   const router = useRouter()
 
   const redirectToApp = () => {
     if (appStatus === "Available") {
-      router.push(url)
+      router.push(`/apps?appName=${appName}`)
     }
   }
 

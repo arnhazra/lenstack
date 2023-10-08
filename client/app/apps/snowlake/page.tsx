@@ -95,7 +95,7 @@ export default function Page() {
     <Fragment>
       <Show when={!isLoading && !contractAddress.isLoading}>
         <Container>
-          <Link className="btn" href={"/snowlake/createprototype"}>Create Prototype<ArrowRightIcon className="icon-right" /></Link>
+          <Link className="btn" href={"/apps/snowlake/createprototype"}>Create Prototype<ArrowRightIcon className="icon-right" /></Link>
           < Show when={prototypeList.length > 0}>
             <h4 className="text-white text-center">Prototypes</h4>
             <Table responsive hover variant="light">

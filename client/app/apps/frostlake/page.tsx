@@ -18,7 +18,7 @@ export default function Page() {
       <tr key={project._id}>
         <td>{project.name}</td>
         <td>{moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`/frostlake/project?projectid=${project._id}`}>Open Project<ExternalLinkIcon className="icon-right" /></Link></td>
+        <td><Link href={`/apps/frostlake/project?projectid=${project._id}`}>Open Project<ExternalLinkIcon className="icon-right" /></Link></td>
       </tr>
     )
   })
@@ -28,7 +28,7 @@ export default function Page() {
       <Show when={!projects.isLoading}>
         <Container>
           <div className="mb-3">
-            <Link className="btn" href="/frostlake/createproject">Create Project<ArrowRightIcon className="icon-right" /></Link>
+            <Link className="btn" href="/apps/frostlake/createproject">Create Project<ArrowRightIcon className="icon-right" /></Link>
           </div>
           <Show when={projects?.data?.projects?.length > 0}>
             <h4 className="text-white text-center">Projects</h4>

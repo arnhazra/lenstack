@@ -43,7 +43,6 @@ export type DatasetRequestState = {
 export type AppCardProps = {
   appName: string,
   description: string,
-  url: string,
   appStatus: string,
   dbRegion: string
 }

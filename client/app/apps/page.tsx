@@ -18,18 +18,20 @@ export default function Page() {
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
   const searchParams = useSearchParams()
   const router = useRouter()
-  const appName = searchParams.get("appname")
+  const appName = searchParams.get("appName")
 
   const selectedApp = apps?.data?.find((app: any) => {
     return app.appName === appName
   })
 
   const appsToDisplay = apps?.data?.filter((app: any) => app.appName !== appName).map((app: any) => {
-    return <AppCard key={app.appName} appName={app.appName} url={app.url} appStatus={app.appStatus} description={app.description} dbRegion={app.dbRegion} />
+    return <AppCard key={app.appName} appName={app.appName} appStatus={app.appStatus} description={app.description} dbRegion={app.dbRegion} />
   })
 
   const launchApp = () => {
-    router.push(`/${appName}`)
+    if (selectedApp.appStatus === 'Available') {
+      router.push(`/apps/${appName}`)
+    }
   }
 
   return (

@@ -21,7 +21,7 @@ export default function Page() {
       const { name } = state
       const response = await axios.post(endPoints.wealthnowCreatePortfolioEndpoint, { name })
       toast.success("Portfolio Created")
-      router.push(`/wealthnow/portfolio?portfolioid=${response.data.portfolio._id}`)
+      router.push(`/apps/wealthnow/portfolio?portfolioid=${response.data.portfolio._id}`)
     }
 
     catch (error: any) {
@@ -41,7 +41,7 @@ export default function Page() {
         <Show when={!state.isLoading}>Create Portfolio <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Portfolio</Show>
       </Button>
-      <Link href={"/wealthnow"} className="lead-link">View My Portfolios</Link>
+      <Link href={"/apps/wealthnow"} className="lead-link">View My Portfolios</Link>
     </form>
   )
 }

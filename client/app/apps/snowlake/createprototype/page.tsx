@@ -88,7 +88,7 @@ export default function Page() {
         <Show when={!state.isLoading}>Create Prototype <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Prototype</Show>
       </Button>
-      <Link href={"/snowlake"} className="lead-link">View My Prototypes</Link>
+      <Link href={"/apps/snowlake"} className="lead-link">View My Prototypes</Link>
     </form>
   )
 }
