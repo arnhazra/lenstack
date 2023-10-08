@@ -4,7 +4,6 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import { TokenData } from "@/_types/Types"
-import React from "react"
 import { Container, Row } from "react-bootstrap"
 
 export default function Page() {
