@@ -19,7 +19,7 @@ const Header: FC = () => {
   return (
     <Fragment>
       <Show when={isLoggedIn && !isHomePage}>
-        <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
+        <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
               <Navbar.Brand>Lenstack</Navbar.Brand>
@@ -37,7 +37,7 @@ const Header: FC = () => {
         </Navbar>
       </Show>
       <Show when={!isLoggedIn || isHomePage}>
-        <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
+        <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">
               <Navbar.Brand>Lenstack</Navbar.Brand>
