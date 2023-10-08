@@ -31,13 +31,4 @@ export class CommonController {
       throw error
     }
   }
-
-  @Post("getswapstreamtokenconfig")
-  getSwapStreamTokenList() {
-    try {
-      return this.commonService.getSwapStreamTokenList()
-    } catch (error) {
-      throw error
-    }
-  }
 }

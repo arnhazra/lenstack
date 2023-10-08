@@ -14,7 +14,6 @@ const endPoints = {
   getPlatformConfigEndpoint: `${apiHost}/api/common/getplatformconfig`,
   getSubscriptionConfigEndpoint: `${apiHost}/api/common/getsubscriptionconfig`,
   getContractAddressList: `${apiHost}/api/common/getcontractaddresses`,
-  getSwapstreamTokenConfig: `${apiHost}/api/common/getswapstreamtokenconfig`,
   airlakeFiltersEndpoint: `${apiHost}/api/airlake/filters`,
   airlakeFindDatasetsEndpoint: `${apiHost}/api/airlake/finddatasets`,
   airlakeViewDatasetsEndpoint: `${apiHost}/api/airlake/viewdataset`,
@@ -37,7 +36,8 @@ const endPoints = {
   wealthnowCreateAssetEndpoint: `${apiHost}/api/wealthnow/createasset`,
   wealthnowViewAssetEndpoint: `${apiHost}/api/wealthnow/viewasset`,
   wealthnowEditAssetEndpoint: `${apiHost}/api/wealthnow/editasset`,
-  wealthnowDeleteAssetEndpoint: `${apiHost}/api/wealthnow/deleteasset`
+  wealthnowDeleteAssetEndpoint: `${apiHost}/api/wealthnow/deleteasset`,
+  getSwapstreamTokenConfig: `${apiHost}/api/swapstream/getswapstreamtokenconfig`,
 }
 
 export default endPoints

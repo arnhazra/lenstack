@@ -37,14 +37,4 @@ export class CommonService {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
-
-  getSwapStreamTokenList() {
-    try {
-      return swapstreamTokenConfig
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
 }
