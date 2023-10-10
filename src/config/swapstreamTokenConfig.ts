@@ -24,6 +24,14 @@ export const swapstreamTokenConfig = [
     "description": "Gold Tokens (GT) signify a top-tier cryptocurrency with a conversion rate of 10,000 Tokens per Matic, offering exclusive premium features."
   },
   {
+    "tokenName": "Platinum Token",
+    "tokenSymbol": "PT",
+    "tokenContractAddress": "0x777D9c6DD5f0c86118EdC9B421a496df3d152931",
+    "vendorContractAddress": "0x813F5CdB3178f2dcc5A0d13A9EB070D54aC020E4",
+    "tokensPerMatic": 10000,
+    "description": "Platinum Tokens (PT) signify a top-tier cryptocurrency with a conversion rate of 7,000 Tokens per Matic, offering exclusive premium features."
+  },
+  {
     "tokenName": "Ruby Token",
     "tokenSymbol": "RT",
     "tokenContractAddress": "0x329a03321a9906F49Dc4fAe68FC854784eFC01eE",
