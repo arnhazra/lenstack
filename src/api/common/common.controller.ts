@@ -1,4 +1,4 @@
-import { Controller, Post } from "@nestjs/common"
+import { Controller, Get, Post } from "@nestjs/common"
 import { CommonService } from "./common.service"
 
 @Controller("common")
@@ -27,6 +27,16 @@ export class CommonController {
   getContractAddresses() {
     try {
       return this.commonService.getContractAddresses()
+    } catch (error) {
+      throw error
+    }
+  }
+
+  @Post("testedge")
+  async testEdge() {
+    try {
+      await new Promise(resolve => setTimeout(resolve, 15000))
+      return "Response after 15 seconds"
     } catch (error) {
       throw error
     }
