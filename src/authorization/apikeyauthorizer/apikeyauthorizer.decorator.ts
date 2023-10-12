@@ -28,6 +28,13 @@ export const ApiKeyAuthorizer = createParamDecorator(
         const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
 
         if (subscription) {
+          const currentDate = new Date()
+          const expiryDate = subscription.expiresAt
+
+          if (currentDate > expiryDate) {
+            await SubscriptionModel.findOneAndDelete({ owner: subscription.owner })
+          }
+
           const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
           const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
           const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow

@@ -85,6 +85,16 @@ export class UserService {
       if (user) {
         const userId = user.id
         const subscription = await SubscriptionModel.findOne({ owner: userId })
+
+        if (subscription) {
+          const currentDate = new Date()
+          const expiryDate = subscription.expiresAt
+
+          if (currentDate > expiryDate) {
+            await SubscriptionModel.findOneAndDelete({ owner: userId })
+          }
+        }
+
         return { user, subscription }
       }
 
