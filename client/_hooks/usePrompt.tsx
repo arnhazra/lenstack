@@ -32,22 +32,18 @@ export default function usePrompt() {
   }
 
   const promptDialog = () => (
-    <Modal show={show} onHide={() => handleConfirm(false)} centered>
+    <Modal show={show} onHide={() => handleConfirm(false)} centered keyboard={false} backdrop="static">
       <Modal.Header closeButton>
-        <Modal.Title>Confirmation</Modal.Title>
+        <Modal.Title>{message}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h5 className="mb-2">{message}</h5>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Group controlId="exampleForm.ControlInput1">
           <Form.Control autoFocus type="number" placeholder="Amount in number" autoComplete={"off"} onChange={(e) => setAmount(Number(e.target.value))} />
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleConfirm(false)}>
-          Cancel <CrossCircledIcon className="icon-right" />
-        </Button>
         <Button onClick={() => handleConfirm(true)}>
-          Okay <CheckCircledIcon className="icon-right" />
+          Proceed <CheckCircledIcon className="icon-right" />
         </Button>
       </Modal.Footer>
     </Modal>
