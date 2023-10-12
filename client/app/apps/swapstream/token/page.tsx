@@ -22,7 +22,7 @@ export default function page() {
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
-  const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
+  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.getSwapstreamTokenConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const selectedToken: TokenData = swapstreamTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)

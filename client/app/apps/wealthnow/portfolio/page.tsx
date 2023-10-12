@@ -63,7 +63,6 @@ export default function Page() {
               <p className="lead text-capitalize">Total Asset</p>
               <p className="display-4 text-capitalize">₹ {portfolio?.data?.totalAssetUnderPortfolio.toLocaleString()}</p>
               <Button onClick={archivePortfolio}>Archive Portfolio<ArchiveIcon className="icon-right" /></Button>
-              <Button onClick={() => router.push("/apireference")}>API Reference<ReaderIcon className="icon-right" /></Button>
               <Button onClick={() => router.push(`/apps/wealthnow/portfolio/addasset?portfolioid=${portfolioId}`)}>Add New Asset<IdCardIcon className="icon-right" /></Button>
             </div>
             <Show when={!!portfolio?.data?.assets.length}>

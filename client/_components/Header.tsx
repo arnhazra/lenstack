@@ -27,8 +27,7 @@ const Header: FC = () => {
             <Navbar.Toggle></Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
-                <Link href="/apidocs"><Navbar.Brand>API Docs</Navbar.Brand></Link>
-                <Link href="/subscribe"><Navbar.Brand>Subscribe</Navbar.Brand></Link>
+                <Link href="/subscription"><Navbar.Brand>Subscription</Navbar.Brand></Link>
                 <Link href="/usage"><Navbar.Brand>Usage</Navbar.Brand></Link>
                 <Link href="/account"><Navbar.Brand>Account</Navbar.Brand></Link>
               </Nav>

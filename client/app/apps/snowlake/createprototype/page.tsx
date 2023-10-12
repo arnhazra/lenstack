@@ -13,7 +13,7 @@ import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 export default function Page() {
-  const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
+  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false, apiKey: userState.apiKey })

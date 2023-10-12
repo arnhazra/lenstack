@@ -34,10 +34,9 @@ export class SubscriptionService {
       const owner = user.id
 
       if (user.trialAvailable) {
-        const tokenId = "00000000"
         const selectedPlan = "Trial"
         const apiKey = "ak-" + randomBytes(16).toString("hex")
-        await this.subscriptionRepository.createNewSubscription(owner, selectedPlan, apiKey, tokenId)
+        await this.subscriptionRepository.createNewSubscription(owner, selectedPlan, apiKey)
         await this.userRepository.findUserByIdAndUpdate(owner, "trialAvailable", false)
         return true
       }
@@ -54,7 +53,7 @@ export class SubscriptionService {
 
   async subscribe(userId: string, subscribeDto: SubscribeDto) {
     try {
-      const { tokenId, selectedPlan, transactionHash } = subscribeDto
+      const { selectedPlan, transactionHash } = subscribeDto
       const { privateKey } = await this.userRepository.findUserById(userId)
       const { address: walletAddress } = this.web3Provider.eth.accounts.privateKeyToAccount(privateKey)
       const tx = await this.web3Provider.eth.getTransaction(transactionHash)
@@ -73,7 +72,7 @@ export class SubscriptionService {
         else {
           await this.subscriptionRepository.findSubscriptionByUserIdAndDelete(userId)
           const apiKey = "ak-" + randomBytes(16).toString("hex")
-          await this.subscriptionRepository.createNewSubscription(userId, selectedPlan, apiKey, tokenId)
+          await this.subscriptionRepository.createNewSubscription(userId, selectedPlan, apiKey)
           return true
         }
       }
@@ -81,17 +80,6 @@ export class SubscriptionService {
       else {
         throw new BadRequestException(statusMessages.connectionError)
       }
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async unsubscribe(userId: string) {
-    try {
-      await this.subscriptionRepository.findSubscriptionByUserIdAndDelete(userId)
-      return true
     }
 
     catch (error) {

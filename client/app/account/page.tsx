@@ -17,7 +17,7 @@ import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon, ExternalLinkIcon } from "
 
 export default function Page() {
   const [{ userState }] = useContext(AppContext)
-  const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
+  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")

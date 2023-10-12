@@ -12,7 +12,7 @@ import { toast } from "sonner"
 import Web3 from "web3"
 
 export default function Page() {
-  const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
+  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
   const [matic, setMatic] = useState(0)

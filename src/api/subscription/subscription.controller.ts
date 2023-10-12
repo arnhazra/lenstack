@@ -29,17 +29,6 @@ export class SubscriptionController {
     }
   }
 
-  @Post("unsubscribe")
-  async unsubscribe(@TokenAuthorizer() userId: string) {
-    try {
-      return this.subscriptionService.unsubscribe(userId)
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
   @Post("getusagebyapikey")
   async getUsageByApiKey(@TokenAuthorizer() userId: string) {
     try {

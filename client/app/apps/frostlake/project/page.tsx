@@ -51,7 +51,6 @@ export default function Page() {
               <p className="lead mt-3">Client Id: {project?.data?.project?.clientId}</p>
               <p className="lead mt-3">Client Secret: {project?.data?.project?.clientSecret}</p>
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
-              <Button onClick={() => router.push("/apireference")}>API Reference<ReaderIcon className="icon-right" /></Button>
             </div>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>
               <h4 className="text-white text-center">Analytics</h4>

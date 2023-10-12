@@ -22,7 +22,7 @@ export default function Page() {
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
   const [selectedPlan] = useState("Pro")
   const price = pricingDetails.data?.proSubscriptionConfig?.price * 10000
-  const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
+  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [step, setStep] = useState(1)
   const [ether, setEther] = useState(price / 10000)

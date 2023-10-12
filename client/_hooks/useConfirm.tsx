@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
-import { ArchiveIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { CheckCircledIcon } from "@radix-ui/react-icons"
 
 function useConfirm() {
   const [show, setShow] = useState(false)
@@ -30,19 +30,16 @@ function useConfirm() {
   }
 
   const confirmDialog = () => (
-    <Modal show={show} onHide={() => handleConfirm(false)} centered>
+    <Modal show={show} onHide={() => handleConfirm(false)} centered keyboard={false} backdrop="static">
       <Modal.Header closeButton>
-        <Modal.Title>Confirmation</Modal.Title>
+        <Modal.Title>Confirm</Modal.Title>
       </Modal.Header>
       <Modal.Body className="text-center">
         <h5>{message}</h5>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleConfirm(false)}>
-          Cancel <CrossCircledIcon className="icon-right" />
-        </Button>
         <Button onClick={() => handleConfirm(true)}>
-          Yeah <ArchiveIcon className="icon-right" />
+          Yeah <CheckCircledIcon className="icon-right" />
         </Button>
       </Modal.Footer>
     </Modal>

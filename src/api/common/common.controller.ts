@@ -23,10 +23,10 @@ export class CommonController {
     }
   }
 
-  @Post("getcontractaddresses")
-  getContractAddresses() {
+  @Post("getsecretconfig")
+  getSecretConfig() {
     try {
-      return this.commonService.getContractAddresses()
+      return this.commonService.getSecretConfig()
     } catch (error) {
       throw error
     }

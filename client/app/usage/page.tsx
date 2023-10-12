@@ -10,14 +10,12 @@ import useFetch from "@/_hooks/useFetch"
 import Loading from "@/_components/Loading"
 import appConstants from "@/_constants/appConstants"
 import moment from "moment"
-import UnsubscribeModal from "@/_components/UnsubscribeModal"
 import { Button, Col, Row } from "react-bootstrap"
 import { LockOpen1Icon, CalendarIcon, BookmarkIcon, BarChartIcon, CrossCircledIcon, CopyIcon } from "@radix-ui/react-icons"
 
 export default function Page() {
-  const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
+  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const [{ userState }] = useContext(AppContext)
-  const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
   const usageDetails = useFetchRealtime("usage", endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
 
@@ -32,22 +30,6 @@ export default function Page() {
     navigator.clipboard.writeText(`${userState.apiKey}`)
     toast.success(appConstants.CopiedToClipBoard)
   }
-
-  const hideUnsubscribeModal = () => {
-    setUnsubscribeModalOpened(false)
-  }
-
-  const calculateDaysRemaining = (targetDateString: string): number => {
-    const targetDate: Date = new Date(targetDateString)
-    const currentDate: Date = new Date()
-    const timeDifference: number = targetDate.getTime() - currentDate.getTime()
-    const daysRemaining: number = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
-    return daysRemaining
-  }
-
-  const subscriptionAmount = pricingDetails?.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.price
-  const tokensRemainingPercent = Number(pricingDetails?.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens - usedTokens) / Number(pricingDetails?.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens)
-  const daysRemainingPercent = calculateDaysRemaining(userState.subscriptionValidUpto) / 30
 
   return (
     <Fragment>
@@ -114,15 +96,11 @@ export default function Page() {
               </div>
             </Col>
           </Row>
-          <Show when={!!userState.apiKey}>
-            <Button className="btn-block mb-2 mt-3" disabled={userState.selectedPlan === "Trial"} onClick={() => setUnsubscribeModalOpened(true)}>Cancel Subscription<CrossCircledIcon className="icon-right" /></Button>
-          </Show>
         </div>
       </Show>
       <Show when={usageDetails.isLoading || pricingDetails.isLoading || contractAddress.isLoading}>
         <Loading />
       </Show>
-      <UnsubscribeModal tokenId={userState.tokenId} refundAmount={Number(subscriptionAmount * tokensRemainingPercent * daysRemainingPercent) * 10000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
     </Fragment >
   )
 }

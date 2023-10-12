@@ -2,6 +2,7 @@ import { config } from "dotenv"
 config()
 
 export const envConfig = {
+  nodeEnv: process.env.NODE_ENV,
   apiPort: process.env.API_PORT,
   lenstackMongoDbUri: process.env.LENSTACK_MONGO_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
@@ -16,9 +17,7 @@ export const envConfig = {
   mailerEmail: process.env.MAILER_EMAIL,
   authPrivateKey: process.env.AUTH_RSA_PRIVATE_KEY,
   authPublicKey: process.env.AUTH_RSA_PUBLIC_KEY,
-  tokenContractAddress: process.env.TOKEN_CONTRACT_ADDRESS,
-  vendorContractAddress: process.env.VENDOR_CONTRACT_ADDRESS,
   nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,
   prototypeContractAddress: process.env.PROTOTYPE_CONTRACT_ADDRESS,
-  nodeEnv: process.env.NODE_ENV,
+  lenstackNpaWalletAddress: process.env.LENSTACK_NPA_WALLET_ADDRESS
 }

@@ -2,7 +2,6 @@ import { Injectable, BadRequestException } from "@nestjs/common"
 import { envConfig } from "src/config/envConfig"
 import { platformConfig } from "src/config/platformConfig"
 import { subscriptionConfig } from "src/config/subscriptionConfig"
-import { swapstreamTokenConfig } from "src/config/swapstreamTokenConfig"
 import { statusMessages } from "src/constants/statusMessages"
 
 @Injectable()
@@ -27,10 +26,10 @@ export class CommonService {
     }
   }
 
-  getContractAddresses() {
+  getSecretConfig() {
     try {
-      const { tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress, infuraApiKey } = envConfig
-      return { tokenContractAddress, vendorContractAddress, nftContractAddress, prototypeContractAddress, infuraApiKey }
+      const { lenstackNpaWalletAddress, nftContractAddress, prototypeContractAddress, infuraApiKey } = envConfig
+      return { lenstackNpaWalletAddress, nftContractAddress, prototypeContractAddress, infuraApiKey }
     }
 
     catch (error) {

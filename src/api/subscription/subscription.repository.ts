@@ -15,8 +15,8 @@ export class SubscriptionRepository {
     return true
   }
 
-  async createNewSubscription(owner: string, selectedPlan: string, apiKey: string, tokenId: string) {
-    const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey, tokenId })
+  async createNewSubscription(owner: string, selectedPlan: string, apiKey: string) {
+    const subscription = new SubscriptionModel({ owner, selectedPlan, apiKey })
     await subscription.save()
     return subscription
   }

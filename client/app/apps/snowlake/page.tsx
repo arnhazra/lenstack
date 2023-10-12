@@ -16,7 +16,7 @@ import { FileIcon, OpenInNewWindowIcon, ArchiveIcon, ArrowRightIcon } from "@rad
 import useConfirm from "@/_hooks/useConfirm"
 
 export default function Page() {
-  const contractAddress = useFetch("contract-address", endPoints.getContractAddressList, HTTPMethods.POST)
+  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
   const [prototypeList, setPrototypeList] = useState([])
