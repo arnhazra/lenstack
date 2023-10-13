@@ -1,6 +1,6 @@
 "use client"
 import { useContext } from "react"
-import { Button, Col, Container, Row } from "react-bootstrap"
+import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
@@ -29,7 +29,7 @@ export default function Page() {
 
   const datasetTagsToDisplay = dataset?.data?.description?.split(" ").slice(0, 30).map((item: string) => {
     if (item.length > 4) {
-      return <Button className="tag-chip" title="tags" key={Math.random().toString()}>{item}</Button>
+      return <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={Math.random().toString()}>{item}</Badge>
     }
   })
 
@@ -55,7 +55,7 @@ export default function Page() {
                   <p className="branding text-capitalize">{dataset?.data?.name}</p>
                   <p className="lead">{dataset?.data?.category}</p>
                   <p className="lead mt-3">{dataset?.data?.description}</p>
-                  <div>{datasetTagsToDisplay}</div>
+                  <div className="mb-3">{datasetTagsToDisplay}</div>
                   <Button onClick={copyPreviewDataAPI}>Preview Data API<CopyIcon className="icon-right" /></Button>
                   <Show when={userState.apiKey.length > 0}>
                     <Button onClick={copyDataAPI}>Data API <CopyIcon className="icon-right" /></Button>

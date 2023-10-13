@@ -7,7 +7,7 @@ import { TokenData } from "@/_types/Types"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
-import { Button, Container } from "react-bootstrap"
+import { Badge, Button, Container } from "react-bootstrap"
 import usePrompt from "@/_hooks/usePrompt"
 import { AppContext } from "@/_context/appStateProvider"
 import { vendorABI } from "@/_bin/vendorABI"
@@ -149,8 +149,10 @@ export default function page() {
           <p className="lead mt-3">{selectedToken?.description}</p>
           <p className="lead mt-2">My {selectedToken?.tokenName} Balance</p>
           <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
-          <Button className="tag-chip">{selectedToken?.tokenSymbol}</Button>
-          <Button className="tag-chip">{selectedToken?.tokensPerMatic} Tokens/MATIC</Button><br />
+          <div className="mb-2">
+            <Badge bg="dark" pill className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
+            <Badge bg="dark" pill className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
+          </div>
           <Button className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
             <Show when={!isTxProcessing}>Buy Token <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>

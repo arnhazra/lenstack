@@ -8,7 +8,7 @@ import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Button, Container, Row } from "react-bootstrap"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/_components/ErrorComp"
 import { AppContext } from "@/_context/appStateProvider"
 import Link from "next/link"
@@ -44,8 +44,10 @@ export default function Page() {
           <div className="jumbotron p-4">
             <p className="branding text-capitalize">{selectedApp?.appName}</p>
             <p className="lead mt-3">{selectedApp?.description}</p>
-            <Button className="tag-chip">{selectedApp?.dbRegion}</Button>
-            <Button className="tag-chip">{selectedApp?.appStatus ? "Available" : "Under Maintainance"}</Button><br />
+            <div className="mb-2">
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
+            </div>
             <Show when={userState.selectedPlan !== "No Subscription"}>
               <Button className="mt-2" onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
             </Show>

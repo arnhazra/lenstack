@@ -5,15 +5,16 @@ $black: #000000
 
 .btn
   background: $btnColor
-  border-radius: 3rem
-  padding: 0.8rem
-  padding-left: 1.4rem
-  padding-right: 1.2rem
+  border-radius: 0.35rem
+  padding: 0.6rem
+  padding-left: 1rem
+  padding-right: 1.1rem
   margin-right: 1rem
   margin-bottom: 1rem
   color: $textColor !important
   font-size: 0.9rem
   border: none
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 4px, rgba(0, 0, 0, 0.23) 0px 2px 4px
 
   &:disabled
     background: $btnColor
@@ -33,23 +34,6 @@ a:active
   text-decoration: none
   cursor: pointer
 
-.tag-chip
-  background: $tagColor !important
-  color: $black !important
-  padding: 0.7rem
-  padding-left: 1.1rem
-  padding-right: 1.1rem
-  font-size: 0.7rem
-  border-radius: 3rem
-  cursor: default !important
-  text-transform: uppercase
-
-.tag-chip:hover,
-.tag-chip:focus
-.tag-chip:active
-  background: $tagColor
-  color: $btnColor
-
 .btn-block
   width: 100%
 
@@ -57,47 +41,3 @@ a:active
 .btn-block:focus,
 .btn-block:active
   background-color: $btnColor !important
-
-.btn-group-card
-  width: 100%
-  background: $tagColor
-  margin-bottom: 0.3rem
-  height: 2.3rem
-
-.btn-grp-btn
-  background: transparent !important
-  border-radius: 3rem
-  padding: 0
-  padding-left: 1rem
-  padding-right: 1rem
-  margin-right: 0 !important
-  margin-bottom: 0
-  color: $btnColor !important
-  font-size: 0.8rem
-  border: none
-
-.btn-grp-btn-sel
-  background: white !important
-  border-radius: 3rem
-  padding: 0
-  padding-left: 1rem
-  padding-right: 1rem
-  margin-right: 0 !important
-  margin: 0.15rem !important
-  color: $btnColor !important
-  font-size: 0.8rem
-  border: none
-
-.file-input
-  display: none
-
-.file-button
-  display: inline-block
-  padding: 0.8rem 2rem
-  padding-left: 2rem !important
-  background: $btnColor
-  color: $textColor
-  border-radius: 3rem
-  cursor: pointer
-  font-size: 0.8rem
-  text-transform: uppercase
