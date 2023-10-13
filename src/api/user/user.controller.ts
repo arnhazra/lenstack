@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UnauthorizedException, BadRequestException } from "@nestjs/common"
 import { UserService } from "./user.service"
-import { RequestAuthCodeDto } from "./dto/request-auth-code.dto"
-import { VerifyAuthCodeDto } from "./dto/verify-auth-code.dto"
+import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
+import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
 import { statusMessages } from "src/constants/statusMessages"
 import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
@@ -9,17 +9,17 @@ import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthoriz
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  @Post("/requestauthcode")
-  async requestAuthCode(@Body() requestAuthCodeDto: RequestAuthCodeDto) {
+  @Post("/generatepasskey")
+  async generateIdentityPasskey(@Body() generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {
     try {
-      const { user, hash } = await this.userService.requestAuthCode(requestAuthCodeDto)
+      const { user, hash } = await this.userService.generateIdentityPasskey(generateIdentityPasskeyDto)
 
       if (user) {
-        return { hash, newuser: false, message: statusMessages.authCodeEmail }
+        return { hash, newuser: false, message: statusMessages.passKeyEmail }
       }
 
       else {
-        return { hash, newuser: true, message: statusMessages.authCodeEmail }
+        return { hash, newuser: true, message: statusMessages.passKeyEmail }
       }
     }
 
@@ -28,17 +28,17 @@ export class UserController {
     }
   }
 
-  @Post("/verifyauthcode")
-  async verifyAuthCode(@Body() verifyAuthCodeDto: VerifyAuthCodeDto) {
+  @Post("/verifypasskey")
+  async verifyIdentityPasskey(@Body() verifyIdentityPasskeyDto: VerifyIdentityPasskeyDto) {
     try {
-      const response = await this.userService.verifyAuthCode(verifyAuthCodeDto)
+      const response = await this.userService.verifyIdentityPasskey(verifyIdentityPasskeyDto)
 
       if (response.success) {
         return { accessToken: response.accessToken, user: response.user }
       }
 
       else {
-        throw new BadRequestException(statusMessages.invalidAuthCode)
+        throw new BadRequestException(statusMessages.invalidPassKey)
       }
     }
 

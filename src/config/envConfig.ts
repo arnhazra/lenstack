@@ -9,7 +9,7 @@ export const envConfig = {
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
   infuraApiKey: process.env.INFURA_API_KEY,
-  otpKey: process.env.OTP_KEY,
+  passkeyHashingKey: process.env.PASSKEY_HASHING_KEY,
   redirectUri: process.env.GCLOUD_REDIRECT_URI,
   clientId: process.env.GCLOUD_CLIENT_ID,
   clientSecret: process.env.GCLOUD_CLIENT_SECRET,

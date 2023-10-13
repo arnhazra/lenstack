@@ -9,13 +9,13 @@ import axios from "axios"
 import { usePathname } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "sonner"
-import AuthGuard from "./AuthGuard"
+import IdentityGuard from "./IdentityGuard"
 
-export default function AuthProvider({ children }: { children: ReactNode }) {
+export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const [, dispatch] = useContext(AppContext)
   const [isLoading, setLoading] = useState(true)
-  const [isAuthenticated, setAuthenticated] = useState(false)
+  const [isAuthorized, setAuthorized] = useState(false)
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
@@ -31,14 +31,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           }
 
           dispatch("setUserState", { userid, name, email, privateKey, role, trialAvailable })
-          setAuthenticated(true)
+          setAuthorized(true)
         }
 
         catch (error: any) {
           if (error.response) {
             if (error.response.status === 401 || error.response.status === 403) {
               localStorage.removeItem("accessToken")
-              setAuthenticated(false)
+              setAuthorized(false)
             }
 
             else {
@@ -58,10 +58,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     else {
-      setAuthenticated(false)
+      setAuthorized(false)
       setLoading(false)
     }
-  }, [pathname, isAuthenticated])
+  }, [pathname, isAuthorized])
 
   return (
     <Fragment>
@@ -70,16 +70,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         <Loading />
       </Show>
       <Show when={!isLoading}>
-        <Show when={isAuthenticated}>
+        <Show when={isAuthorized}>
           {children}
         </Show>
-        <Show when={!isAuthenticated}>
+        <Show when={!isAuthorized}>
           <Show when={pathname === "/"}>
             {children}
           </Show>
           <Show when={pathname !== "/"} >
             <Header />
-            <AuthGuard onAuthSuccess={(): void => setAuthenticated(true)} onAuthFailure={(): void => setAuthenticated(false)} />
+            <IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />
           </Show>
         </Show>
       </Show>

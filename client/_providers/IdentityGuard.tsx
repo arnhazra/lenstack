@@ -8,25 +8,25 @@ import endPoints from "@/_constants/apiEndpoints"
 import { toast } from "sonner"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
-interface AuthGuardProps {
-  onAuthSuccess: () => void
-  onAuthFailure: () => void
+interface IdentityGuardProps {
+  onIdentitySuccess: () => void
+  onIdentityFailure: () => void
 }
 
-export default function AuthGuard({ onAuthSuccess, onAuthFailure }: AuthGuardProps) {
-  const [authStep, setAuthStep] = useState(1)
-  const [state, setState] = useState({ name: "", email: "", hash: "", otp: "", newuser: false })
+export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: IdentityGuardProps) {
+  const [identityStep, setIdentityStep] = useState(1)
+  const [state, setState] = useState({ name: "", email: "", hash: "", passKey: "", newuser: false })
   const [alert, setAlert] = useState("")
   const [isLoading, setLoading] = useState(false)
-  const [authAlert, setAuthAlert] = useState("")
+  const [identityAlert, setIdentityAlert] = useState("")
 
-  const requestAuthCode = async (event: any) => {
+  const generatePassKey = async (event: any) => {
     event.preventDefault()
-    setAlert(Constants.AuthMessage)
+    setAlert(Constants.IdentityVerificationMessage)
     setLoading(true)
 
     try {
-      const response = await axios.post(endPoints.requestAuthCodeEndpoint, state)
+      const response = await axios.post(endPoints.generatePassKeyEndpoint, state)
       if (response.data.newuser) {
         setState({ ...state, hash: response.data.hash, newuser: true })
       }
@@ -36,7 +36,7 @@ export default function AuthGuard({ onAuthSuccess, onAuthFailure }: AuthGuardPro
       }
 
       toast.success(response.data.message)
-      setAuthStep(2)
+      setIdentityStep(2)
       setLoading(false)
     }
 
@@ -46,48 +46,48 @@ export default function AuthGuard({ onAuthSuccess, onAuthFailure }: AuthGuardPro
     }
   }
 
-  const verifyAuthcode = async (event: any) => {
+  const verifyPassKey = async (event: any) => {
     event.preventDefault()
-    setAuthAlert("")
-    setAlert(Constants.AuthMessage)
+    setIdentityAlert("")
+    setAlert(Constants.IdentityVerificationMessage)
     setLoading(true)
 
     try {
-      const response = await axios.post(endPoints.verifyAuthCodeEndpoint, state)
+      const response = await axios.post(endPoints.verifyPassKeyEndpoint, state)
       localStorage.setItem("accessToken", response.data.accessToken)
-      toast.success(Constants.AuthSuccess)
+      toast.success(Constants.IdentityVerificationSuccess)
       setLoading(false)
-      onAuthSuccess()
+      onIdentitySuccess()
     }
 
     catch (error: any) {
-      setAuthAlert(Constants.InvalidAuthCode)
+      setIdentityAlert(Constants.InvalidPasskey)
       setLoading(false)
-      onAuthFailure()
+      onIdentityFailure()
     }
   }
 
   return (
     <Fragment>
-      <Show when={authStep === 1}>
-        <form className="box" onSubmit={requestAuthCode}>
-          <p className="branding">Auth</p>
+      <Show when={identityStep === 1}>
+        <form className="box" onSubmit={generatePassKey}>
+          <p className="branding">Identity</p>
           <p className="boxtext">Enter the email address to get started</p>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email address</Form.Label>
             <Form.Control disabled={isLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
           </Form.Group>
           <Button type="submit" disabled={isLoading} className="mt-2 btn-block">
-            <Show when={!isLoading}>Get Auth Code <ArrowRightIcon className="icon-right" /></Show>
+            <Show when={!isLoading}>Get Identity Passkey <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
           </Button>
           <p className="boxtext mt-1">By clicking continue, you agree to our Terms of Service and Privacy Policy.</p>
         </form>
       </Show>
-      <Show when={authStep === 2}>
-        <form className="box" onSubmit={verifyAuthcode}>
-          <p className="branding">Auth</p>
-          <p className="boxtext">Please verify your identity by entering the auth code we sent to your inbox.</p>
+      <Show when={identityStep === 2}>
+        <form className="box" onSubmit={verifyPassKey}>
+          <p className="branding">Identity</p>
+          <p className="boxtext">Please verify your identity by entering the identity passkey we sent to your inbox.</p>
           <Show when={state.newuser}>
             <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
               <Form.Label>Your Name</Form.Label>
@@ -95,14 +95,14 @@ export default function AuthGuard({ onAuthSuccess, onAuthFailure }: AuthGuardPro
             </Form.Group>
           </Show>
           <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
-            <Form.Label>Auth Code</Form.Label>
-            <Form.Control type="password" disabled={isLoading} name="otp" placeholder="Auth Code" onChange={(e) => setState({ ...state, otp: e.target.value })} required autoComplete={"off"} minLength={6} maxLength={6} />
+            <Form.Label>Identity Passkey</Form.Label>
+            <Form.Control type="password" disabled={isLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
           </Form.Group>
           <Button type="submit" disabled={isLoading} className="mt-4 btn-block">
             <Show when={!isLoading}>Continue <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
           </Button>
-          <p id="alert" className="mt-1 mb-1">{authAlert}</p>
+          <p id="alert" className="mt-1 mb-1">{identityAlert}</p>
         </form>
       </Show>
     </Fragment >

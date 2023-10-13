@@ -14,7 +14,7 @@ import "@/_styles/appcard.sass"
 import "@/_styles/datasetcard.sass"
 import "@/_styles/sourcecode.sass"
 import "@/_styles/tokencard.sass"
-import AuthProvider from "@/_providers/AuthProvider"
+import IdentityProvider from "@/_providers/IdentityProvider"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={quickSand.className}>
         <QueryClientProvider client={client}>
           <AppStateProvider>
-            <AuthProvider>
+            <IdentityProvider>
               <nav className={`header`}>
                 <Header />
               </nav>
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {children}
                 <Toaster position="bottom-right" richColors />
               </main>
-            </AuthProvider>
+            </IdentityProvider>
           </AppStateProvider>
         </QueryClientProvider>
       </body>

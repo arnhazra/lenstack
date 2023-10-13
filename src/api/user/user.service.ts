@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common"
-import { RequestAuthCodeDto } from "./dto/request-auth-code.dto"
+import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
+import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import Web3 from "web3"
-import { VerifyAuthCodeDto } from "./dto/verify-auth-code.dto"
 import { envConfig } from "src/config/envConfig"
-import { createAuthCodeAndSendEmail, verifyAuthCode } from "src/utils/otpTool"
+import { generateIdentityPasskeyAndSendEmail, verifyIdentityPasskey } from "src/utils/passKeyTool"
 import { UserRepository } from "./user.repository"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redisHelper"
 import { otherConstants } from "src/constants/otherConstants"
@@ -23,11 +23,11 @@ export class UserService {
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
 
-  async requestAuthCode(requestAuthCodeDto: RequestAuthCodeDto) {
+  async generateIdentityPasskey(generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {
     try {
-      const { email } = requestAuthCodeDto
+      const { email } = generateIdentityPasskeyDto
       let user = await this.userRepository.findUserByEmail(email)
-      const hash = await createAuthCodeAndSendEmail(email)
+      const hash = await generateIdentityPasskeyAndSendEmail(email)
       return { user, hash }
     }
 
@@ -36,10 +36,10 @@ export class UserService {
     }
   }
 
-  async verifyAuthCode(verifyAuthCodeDto: VerifyAuthCodeDto) {
+  async verifyIdentityPasskey(verifyIdentityPasskeyDto: VerifyIdentityPasskeyDto) {
     try {
-      const { name, email, hash, otp } = verifyAuthCodeDto
-      const isOTPValid = verifyAuthCode(email, hash, otp)
+      const { name, email, hash, passKey } = verifyIdentityPasskeyDto
+      const isOTPValid = verifyIdentityPasskey(email, hash, passKey)
 
       if (isOTPValid) {
         let user = await this.userRepository.findUserByEmail(email)

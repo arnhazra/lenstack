@@ -5,7 +5,7 @@ enum Constants {
   HomeIntro2 = `There’s no upfront commitment, renewal is completely optional.`,
   HomeIntro3 = `Starting at 1.99 MATIC/month`,
   ConnectionErrorMessage = `Connection Error`,
-  AuthMessage = `Authenticating`,
+  IdentityVerificationMessage = `Verifying Identity`,
   ErrorMessage = "404, Lost",
   ToastSuccess = "Done",
   ToastError = "Something went wrong",
@@ -17,8 +17,8 @@ enum Constants {
   TokenSellFailure = "Error selling token",
   UnknwonError = "Unknown error",
   CopiedToClipBoard = "Copied to Clipboard",
-  InvalidAuthCode = "Invalid Auth Code",
-  AuthSuccess = "Successfully authenticated"
+  InvalidPasskey = "Invalid Pass Key",
+  IdentityVerificationSuccess = "Identity Verified"
 }
 
 export default Constants

@@ -1,5 +1,5 @@
 import { IsEmail } from "class-validator"
-export class RequestAuthCodeDto {
+export class GenerateIdentityPasskeyDto {
   @IsEmail()
   readonly email: string
 }

@@ -6,7 +6,7 @@ const { clientId, clientSecret, redirectUri, refreshToken, mailerEmail } = envCo
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
 oAuth2Client.setCredentials({ refresh_token: refreshToken })
 
-async function sendEmail(email: string, otp: number) {
+async function sendEmail(email: string, passKey: string) {
   try {
     const accessToken = await oAuth2Client.getAccessToken()
 
@@ -20,8 +20,18 @@ async function sendEmail(email: string, otp: number) {
         accessToken: accessToken.token,
       }
     })
-    const subject = "Lenstack Auth Code"
-    const content = `Use <b>${otp}</b> as your Lenstack Auth Code. Do not share with anyone.`
+
+    const subject = "Lenstack Identity Passkey"
+    const content = `
+    <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+      <div style="background-color: #f4f4f4; padding: 20px; border-radius: 5px; text-align: center;">
+        <p style="font-size: 16px; color: #555; margin-top: 20px;">Use the below key as your Lenstack Identity Passkey. Do not share.</p>
+        <div style="display: inline-block; background-color: #e0e0e0; padding: 10px 20px; border-radius: 5px; font-size: 18px;">
+          <span style="color: #333; font-weight: bold;">${passKey}</span>
+        </div>
+      </div>
+    </div>`
+
     await transporter.sendMail({ from: mailerEmail, to: email, subject: subject, html: content })
   }
 
