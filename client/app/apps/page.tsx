@@ -29,7 +29,7 @@ export default function Page() {
   })
 
   const launchApp = () => {
-    if (selectedApp.appStatus === 'Available') {
+    if (selectedApp.appStatus === "Available") {
       router.push(`/apps/${appName}`)
     }
   }
@@ -48,14 +48,7 @@ export default function Page() {
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
-            <Show when={userState.selectedPlan !== "No Subscription"}>
-              <Button className="mt-2" onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
-            </Show>
-            <Show when={userState.selectedPlan === "No Subscription"}>
-              <Link href={"/subscribe"}>
-                <Button className="mt-2">Subscribe & Continue<ArrowRightIcon className="icon-right" /></Button>
-              </Link>
-            </Show>
+            <Button className="mt-2" onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
           </div>
           <h4 className="dashboard-header mt-2">Other Apps</h4>
           <Row className="mb-4 mt-2">

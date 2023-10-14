@@ -31,14 +31,4 @@ export class CommonController {
       throw error
     }
   }
-
-  @Post("testedge")
-  async testEdge() {
-    try {
-      await new Promise(resolve => setTimeout(resolve, 15000))
-      return "Response after 15 seconds"
-    } catch (error) {
-      throw error
-    }
-  }
 }

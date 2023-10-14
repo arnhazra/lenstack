@@ -4,11 +4,11 @@ import { envConfig } from "src/config/envConfig"
 const { passkeyHashingKey } = envConfig
 
 function generateRandomPassKey() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  let randomPassKey = ''
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  let randomPassKey = ""
   for (let i = 0; i < 9; i++) {
     if (i === 4) {
-      randomPassKey += '-'
+      randomPassKey += "-"
     }
     else {
       randomPassKey += characters.charAt(Math.floor(Math.random() * characters.length))

@@ -6,6 +6,7 @@ import HTTPMethods from "@/_constants/httpMethods"
 import { AppContext } from "@/_context/appStateProvider"
 import useFetch from "@/_hooks/useFetch"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
+import axios from "axios"
 import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "sonner"
@@ -39,6 +40,7 @@ export default function Page() {
 
       if (signedApprovalTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
+        await axios.post(endPoints.dwalletCreateTxEndpoint, { from: transactionObject.from, to: transactionObject.to, amount: matic.toString(), apiKey: userState.apiKey })
         toast.success(Constants.TransactionSuccess)
       }
 

@@ -10,8 +10,12 @@ export const subscriptionConfig = {
 }
 
 export const apiPricing = {
-  airlake: 2,
-  snowlake: 50,
+  airlake: 1,
+  cruxql: 15000,
+  dwallet: 5,
   frostlake: 5,
-  wealthnow: 20
+  snowlake: 50,
+  swapstream: 5,
+  wealthnow: 20,
+  zknft: 20
 }

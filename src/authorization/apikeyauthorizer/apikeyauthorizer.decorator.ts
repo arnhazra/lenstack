@@ -1,5 +1,6 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { AirlakeHistoryModel } from "src/api/apps/airlake/entities/airlake-history.entity"
+import { DwalletTransactionModel } from "src/api/apps/dwallet/entities/dwallet.entity"
 import { FrostlakeAnalyticsModel } from "src/api/apps/frostlake/entities/frostlake-analytics.entity"
 import { WealthnowAssetModel } from "src/api/apps/wealthnow/entities/wealthnow-asset.entity"
 import { SubscriptionModel } from "src/api/subscription/entities/subscription.entity"
@@ -36,10 +37,11 @@ export const ApiKeyAuthorizer = createParamDecorator(
           }
 
           const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
+          const dwalletUsedTokens = await DwalletTransactionModel.find({ apiKey }).countDocuments() * apiPricing.dwallet
           const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
-          const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
           const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
-          const usedTokens = airlakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
+          const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
+          const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
 
           if (usedTokens < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedTokens) {
             return subscription.owner.toString()

@@ -13,6 +13,7 @@ import { apiPricing } from "src/config/subscriptionConfig"
 import { AirlakeRepository } from "../apps/airlake/airlake.repository"
 import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
 import { WealthnowRepository } from "../apps/wealthnow/wealthnow.repository"
+import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 
 @Injectable()
 export class SubscriptionService {
@@ -22,6 +23,7 @@ export class SubscriptionService {
   constructor(private readonly subscriptionRepository: SubscriptionRepository,
     private readonly userRepository: UserRepository,
     private readonly airlakeRepository: AirlakeRepository,
+    private readonly dwalletRepository: DwalletRepository,
     private readonly frostlakeRepository: FrostlakeRepository,
     private readonly wealthnowRepository: WealthnowRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
@@ -95,10 +97,11 @@ export class SubscriptionService {
       if (subscription) {
         const { apiKey } = subscription
         const airlakeUsedTokens = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
+        const dwalletUsedTokens = await this.dwalletRepository.findCountByApiKey(apiKey) * apiPricing.dwallet
         const frostlakeUsedTokens = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
         const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
         const wealthnowUsedTokens = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
-        const usedTokens = airlakeUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
+        const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + wealthnowUsedTokens
         return { usedTokens }
       }
 
