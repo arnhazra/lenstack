@@ -6,14 +6,17 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
-import { ArchiveIcon, ReaderIcon } from "@radix-ui/react-icons"
+import ReactJson from 'react-json-view'
+import { ArchiveIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment } from "react"
+import { Fragment, useContext } from "react"
 import { Button, Container, Table } from "react-bootstrap"
+import { AppContext } from "@/_context/appStateProvider"
 
 export default function Page() {
+  const [{ userState }] = useContext(AppContext)
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectid")
   const project = useFetchRealtime("view project", `${endPoints.frostlakeViewProjectEndpoint}?projectId=${projectId}`, HTTPMethods.POST)
@@ -41,6 +44,16 @@ export default function Page() {
     }
   }
 
+  const sampleAPIRequest = {
+    "component": "YOUR_COMPONENT_NAME",
+    "event": "JAVASCRIPT_EVENT",
+    "info": "INFORMATION",
+    "statusCode": "200",
+    "apiKey": userState.apiKey,
+    "clientId": project?.data?.project?.clientId,
+    "clientSecret": project?.data?.project?.clientSecret
+  }
+
   return (
     <Fragment>
       <Show when={!project?.isLoading}>
@@ -48,8 +61,10 @@ export default function Page() {
           <Container>
             <div className="jumbotron p-4">
               <p className="display-6 text-capitalize">{project?.data?.project?.name}</p>
-              <p className="lead mt-3">Client Id: {project?.data?.project?.clientId}</p>
-              <p className="lead mt-3">Client Secret: {project?.data?.project?.clientSecret}</p>
+              <p className="lead mt-3">Sample Request Object</p>
+              <div className="pb-4 pt-2">
+                <ReactJson src={sampleAPIRequest} theme={"ocean"} style={{ borderRadius: "0.3rem", padding: "0.5rem" }} />
+              </div>
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
             </div>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>

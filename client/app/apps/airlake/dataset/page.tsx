@@ -58,7 +58,7 @@ export default function Page() {
                   <div className="mb-3">{datasetTagsToDisplay}</div>
                   <Button onClick={copyPreviewDataAPI}>Preview Data API<CopyIcon className="icon-right" /></Button>
                   <Show when={userState.apiKey.length > 0}>
-                    <Button onClick={copyDataAPI}>Data API <CopyIcon className="icon-right" /></Button>
+                    <Button disabled={!userState.apiKey} onClick={copyDataAPI}>Data API <CopyIcon className="icon-right" /></Button>
                   </Show>
                 </Col>
               </Row>

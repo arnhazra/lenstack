@@ -28,23 +28,25 @@ export const ApiKeyAuthorizer = createParamDecorator(
           const expiryDate = subscription.expiresAt
 
           if (currentDate > expiryDate) {
-            await SubscriptionModel.findOneAndDelete({ owner: subscription.owner })
-          }
-
-          const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
-          const dwalletUsedTokens = await DwalletTransactionModel.find({ apiKey }).countDocuments() * apiPricing.dwallet
-          const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
-          const swapstreamUsedTokens = await SwapstreamTransactionModel.find({ apiKey }).countDocuments() * apiPricing.swapstream
-          const snowlakeUsedTokens = await SnowlakeTransactionModel.find({ apiKey }).countDocuments() * apiPricing.snowlake
-          const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
-          const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens
-
-          if (usedTokens < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedTokens) {
-            return subscription.owner.toString()
+            throw new ForbiddenException()
           }
 
           else {
-            throw new ForbiddenException()
+            const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
+            const dwalletUsedTokens = await DwalletTransactionModel.find({ apiKey }).countDocuments() * apiPricing.dwallet
+            const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
+            const snowlakeUsedTokens = await SnowlakeTransactionModel.find({ apiKey }).countDocuments() * apiPricing.snowlake
+            const swapstreamUsedTokens = await SwapstreamTransactionModel.find({ apiKey }).countDocuments() * apiPricing.swapstream
+            const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
+            const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens
+
+            if (usedTokens < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedTokens) {
+              return subscription.owner.toString()
+            }
+
+            else {
+              throw new ForbiddenException()
+            }
           }
         }
 

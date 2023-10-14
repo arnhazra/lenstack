@@ -6,7 +6,7 @@ import HTTPMethods from "@/_constants/httpMethods"
 import { AppContext } from "@/_context/appStateProvider"
 import useFetch from "@/_hooks/useFetch"
 import Link from "next/link"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "sonner"
 import Web3 from "web3"
@@ -18,23 +18,6 @@ export default function Page() {
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false, apiKey: userState.apiKey })
-  const usageDetails = useFetch("usage", endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
-  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
-  const [isUserEligible, setUserEligible] = useState(false)
-
-  useEffect(() => {
-    try {
-      const remainingTokens = pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens - usageDetails.data?.usedTokens
-      if (remainingTokens > 0) {
-        setUserEligible(true)
-      }
-      else {
-        setUserEligible(false)
-      }
-    } catch (error) {
-      setUserEligible(false)
-    }
-  }, [userState, usageDetails.data, pricingDetails.data])
 
   const createPrototype = async (e: any) => {
     e.preventDefault()
@@ -86,7 +69,7 @@ export default function Page() {
         <Form.Label>Prototype Link</Form.Label>
         <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/prototype" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
       </Form.Group>
-      <Button type="submit" disabled={state.isLoading || !isUserEligible} className="mt-3 btn-block">
+      <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="mt-3 btn-block">
         <Show when={!state.isLoading}>Create Prototype <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Prototype</Show>
       </Button>

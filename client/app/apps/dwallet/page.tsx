@@ -70,7 +70,7 @@ export default function Page() {
         <Form.Label>MATIC Amount</Form.Label>
         <Form.Control disabled={isLoading} type="text" placeholder="MATIC Amount" onChange={(e) => setMatic(Number(e.target.value))} required autoComplete={"off"} />
       </Form.Group>
-      <Button type="submit" disabled={isLoading} className="mt-2 btn-block">
+      <Button type="submit" disabled={isLoading || !userState.apiKey} className="mt-2 btn-block">
         <Show when={!isLoading}>Send {matic} MATIC <ArrowRightIcon className="icon-right" /></Show>
         <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</Show>
       </Button>

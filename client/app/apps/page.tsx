@@ -10,11 +10,8 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/_components/ErrorComp"
-import { AppContext } from "@/_context/appStateProvider"
-import Link from "next/link"
 
 export default function Page() {
-  const [{ userState }] = useContext(AppContext)
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
   const searchParams = useSearchParams()
   const router = useRouter()

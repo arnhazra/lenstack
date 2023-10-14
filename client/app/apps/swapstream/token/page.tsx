@@ -160,7 +160,7 @@ export default function page() {
             <Badge bg="dark" pill className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
             <Badge bg="dark" pill className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
           </div>
-          <Button className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
+          <Button className="mt-2" disabled={isTxProcessing || !userState.apiKey} onClick={buyToken}>
             <Show when={!isTxProcessing}>Buy Token <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
           </Button>

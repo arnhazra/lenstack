@@ -47,7 +47,7 @@ export default function Page() {
         <Form.Label className="mt-2">Maturity Amount</Form.Label>
         <Form.Control disabled={state.isLoading} type="number" placeholder="Maturity Amount" onChange={(e) => setState({ ...state, maturityAmount: Number(e.target.value) })} autoComplete={"off"} minLength={2} maxLength={20} />
       </Form.Group>
-      <Button type="submit" disabled={state.isLoading} className="btn-block">
+      <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="btn-block">
         <Show when={!state.isLoading}>Create Asset<ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Asset</Show>
       </Button>
