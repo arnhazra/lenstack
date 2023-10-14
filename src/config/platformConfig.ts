@@ -1,3 +1,5 @@
+import { envConfig } from "./envConfig"
+
 export const platformConfig = [
   {
     appName: "airlake",
@@ -8,7 +10,7 @@ export const platformConfig = [
   {
     appName: "cruxql",
     description: "Enable one-click deployment of multi-cloud MongoDB clusters with data privacy, ensuring cross-regional availability.",
-    appStatus: "Coming Soon",
+    appStatus: envConfig.nodeEnv === "production" ? "Coming Soon" : "Available",
     dbRegion: "Polygon Testnet"
   },
   {
@@ -44,7 +46,7 @@ export const platformConfig = [
   {
     appName: "zknft",
     description: "An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.",
-    appStatus: "Coming Soon",
+    appStatus: envConfig.nodeEnv === "production" ? "Coming Soon" : "Available",
     dbRegion: "Polygon Testnet"
   }
 ]
