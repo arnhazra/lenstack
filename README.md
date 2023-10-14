@@ -5,16 +5,31 @@
 Lenstack is a comprehensive Software-as-a-Service (SaaS) application. Let"s explore the various applications hosted within Lenstack.
 
 #### Airlake
-An open-source application designed for effortless discovery, subscription, and utilization of third-party cloud data.
+An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
+
+#### Cruxql
+Enable one-click deployment of multi-cloud MongoDB clusters with data privacy, ensuring cross-regional availability.
+
+#### Dwallet
+An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
 
 #### Snowlake
-An open-source prototype management application that that efficiently organizes and manages prototypes and uses Ethereum Blockchain to store prototypes.
+A prototype management application that uses Ethereum Blockchain to create and manage prototypes.
 
 #### Frostlake
-An open-source analytics provider for web applications. It empowers you to make informed analysis.
+An analytics provider for web applications. It empowers you to make informed analysis and better decisions.
+
+#### Snowlake
+A prototype management application that uses Ethereum Blockchain to create and manage prototypes.
+
+#### Swapstream
+Effortlessly trade ERC-20 tokens with our platform, ensuring seamless transactions within the Ethereum ecosystem.
 
 #### Wealthnow
-An open-source wealth management platform to manage personal and businees wealth in a consolidated dashboard.
+An wealth management platform to manage personal and businees wealth in a single dashboard with many features.
+
+#### Zknft
+An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.
 
 ### What is the cost of using this platform ?
 
