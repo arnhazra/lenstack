@@ -13,9 +13,6 @@ Enable one-click deployment of multi-cloud MongoDB clusters with data privacy, e
 #### Dwallet
 An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
 
-#### Snowlake
-A prototype management application that uses Ethereum Blockchain to create and manage prototypes.
-
 #### Frostlake
 An analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 
