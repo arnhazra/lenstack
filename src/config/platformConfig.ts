@@ -6,6 +6,12 @@ export const platformConfig = [
     dbRegion: "MongoDB on Azure"
   },
   {
+    appName: "cruxql",
+    description: "Enable one-click deployment of multi-cloud MongoDB clusters with data privacy, ensuring cross-regional availability.",
+    appStatus: "Coming Soon",
+    dbRegion: "Polygon Testnet"
+  },
+  {
     appName: "dwallet",
     description: "An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.",
     appStatus: "Available",
