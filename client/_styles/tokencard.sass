@@ -1,63 +1,36 @@
 $mainColor: #1a1a1f
 $white: #ffffff
 
-.token-card
-  background: $white !important
-  color: $mainColor
-  border-radius: 1rem !important
+@mixin categoryContainer
+  color: $white
+  border-radius: 1rem
   border: none
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
   animation: transitionIn 0.4s forwards
+  cursor: pointer
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px
+  width: 100%
+  transition: transform 0.5s ease
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+  background-attachment: fixed
 
 .token-card-header
-  background: $white !important
-  border-radius: 1rem 1rem 0 0 !important
-  border: none !important
+  border: none
   text-align: center
-  padding: 1rem 1rem 0 1rem !important
-
-.token-card-footer
-  background: $white !important
-  border-radius: 0 0 1rem 1rem !important
-  border: none !important
+  height: 8rem
+  display: flex
+  justify-content: space-between
+  padding-top: 1.5rem
 
 .token-card-body
-  background: $white !important
-  border: none !important
+  border: none
 
-@mixin categoryContainer
-  height: 4.5rem
-  width: 100%
-  border-radius: 1rem
-  transition: transform 0.75s ease
-  background-size: contain
-  background-position: center
-  background-repeat: no-repeat
+.token-card-footer
+  border: none
+  height: 8rem
 
-.btContainer
-  background: url(../_assets/tokens/BT.png)
-  @include categoryContainer
-
-.stContainer
-  background: url(../_assets/tokens/ST.png)
-  @include categoryContainer
-
-.gtContainer
-  background: url(../_assets/tokens/GT.png)
-  @include categoryContainer
-
-.rtContainer
-  background: url(../_assets/tokens/RT.png)
-  @include categoryContainer
-
-.etContainer
-  background: url(../_assets/tokens/ET.png)
-  @include categoryContainer
-
-.dtContainer
-  background: url(../_assets/tokens/DT.png)
-  @include categoryContainer
-
-.ptContainer
-  background: url(../_assets/tokens/PT.png)
+.token-card-all
+  background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../_assets/images/ethereum.jpg)
   @include categoryContainer

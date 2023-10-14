@@ -11,8 +11,10 @@ export default function Page() {
     <Fragment>
       <Container>
         <div className="cover">
-          <p className="display-5">{Constants.HomeHeader1}</p>
-          <p className="display-5">{Constants.HomeHeader2}</p>
+          <p className="display-4">
+            {Constants.HomeHeader1}<br />
+            {Constants.HomeHeader2}<br />
+          </p>
           <p className="lead my-4">
             {Constants.HomeIntro1} <br />
             {Constants.HomeIntro2} <br />
