@@ -1,34 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
 import { SnowlakeService } from "./snowlake.service"
-import { CreateSnowlakeDto } from "./dto/create-snowlake.dto"
-import { UpdateSnowlakeDto } from "./dto/update-snowlake.dto"
+import { CreateTransactionDto } from "./dto/snowlake-tx.dto"
+import { statusMessages } from "../../../constants/statusMessages"
+import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
 @Controller("snowlake")
 export class SnowlakeController {
   constructor(private readonly snowlakeService: SnowlakeService) { }
 
-  @Post()
-  create(@Body() createSnowlakeDto: CreateSnowlakeDto) {
-    return this.snowlakeService.create(createSnowlakeDto)
-  }
+  @Post("createtx")
+  async createTransaction(@ApiKeyAuthorizer() userId: string, @Body() createTransactionDto: CreateTransactionDto) {
+    try {
+      await this.snowlakeService.createTransaction(createTransactionDto, userId)
+      return true
+    }
 
-  @Get()
-  findAll() {
-    return this.snowlakeService.findAll()
-  }
-
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.snowlakeService.findOne(+id)
-  }
-
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateSnowlakeDto: UpdateSnowlakeDto) {
-    return this.snowlakeService.update(+id, updateSnowlakeDto)
-  }
-
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.snowlakeService.remove(+id)
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
   }
 }

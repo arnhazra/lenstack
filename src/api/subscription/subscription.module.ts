@@ -8,10 +8,11 @@ import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
 import { WealthnowRepository } from "../apps/wealthnow/wealthnow.repository"
 import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
+import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
 
 @Module({
   controllers: [SubscriptionController],
-  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, DwalletRepository, FrostlakeRepository, WealthnowRepository, SwapstreamRepository],
+  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, DwalletRepository, FrostlakeRepository, WealthnowRepository, SwapstreamRepository, SnowlakeRepository],
 })
 
 export class SubscriptionModule { }

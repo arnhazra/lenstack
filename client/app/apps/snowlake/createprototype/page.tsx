@@ -11,6 +11,7 @@ import { Button, Form } from "react-bootstrap"
 import { toast } from "sonner"
 import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
+import axios from "axios"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -58,6 +59,7 @@ export default function Page() {
       const signedNewPrototypeTx = await web3Provider.eth.accounts.signTransaction(newPrototypeTx, privateKey)
       if (signedNewPrototypeTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedNewPrototypeTx.rawTransaction)
+        await axios.post(endPoints.snowlakeCreateTxEndpoint, { apiKey: userState.apiKey })
         toast.success("Prototype Created")
         setState({ ...state, isLoading: false })
       }

@@ -1,26 +1,20 @@
-import { Injectable } from "@nestjs/common"
-import { CreateSnowlakeDto } from "./dto/create-snowlake.dto"
-import { UpdateSnowlakeDto } from "./dto/update-snowlake.dto"
+import { BadRequestException, Injectable } from "@nestjs/common"
+import { CreateTransactionDto } from "./dto/snowlake-tx.dto"
+import { SnowlakeRepository } from "./snowlake.repository"
 
 @Injectable()
 export class SnowlakeService {
-  create(createSnowlakeDto: CreateSnowlakeDto) {
-    return "This action adds a new snowlake"
-  }
+  constructor(private readonly snowlakeRepository: SnowlakeRepository) { }
 
-  findAll() {
-    return `This action returns all snowlake`
-  }
+  async createTransaction(createTransactionDto: CreateTransactionDto, userId: string) {
+    try {
+      const { apiKey } = createTransactionDto
+      await this.snowlakeRepository.createTransaction(userId, apiKey)
+      return true
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} snowlake`
-  }
-
-  update(id: number, updateSnowlakeDto: UpdateSnowlakeDto) {
-    return `This action updates a #${id} snowlake`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} snowlake`
+    catch (error) {
+      throw new BadRequestException()
+    }
   }
 }

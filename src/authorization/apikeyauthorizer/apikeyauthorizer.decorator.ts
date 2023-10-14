@@ -2,14 +2,11 @@ import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nes
 import { AirlakeHistoryModel } from "src/api/apps/airlake/entities/airlake-history.entity"
 import { DwalletTransactionModel } from "src/api/apps/dwallet/entities/dwallet.entity"
 import { FrostlakeAnalyticsModel } from "src/api/apps/frostlake/entities/frostlake-analytics.entity"
+import { SnowlakeTransactionModel } from "src/api/apps/snowlake/entities/snowlake.entity"
 import { SwapstreamTransactionModel } from "src/api/apps/swapstream/entities/swapstream.entity"
 import { WealthnowAssetModel } from "src/api/apps/wealthnow/entities/wealthnow-asset.entity"
 import { SubscriptionModel } from "src/api/subscription/entities/subscription.entity"
-import { prototypeABI } from "src/bin/prototypeABI"
-import { envConfig } from "src/config/envConfig"
 import { apiPricing, subscriptionConfig } from "src/config/subscriptionConfig"
-import { otherConstants } from "src/constants/otherConstants"
-import Web3 from "web3"
 
 export const ApiKeyAuthorizer = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext) => {
@@ -25,9 +22,6 @@ export const ApiKeyAuthorizer = createParamDecorator(
     else {
       try {
         const subscription = await SubscriptionModel.findOne({ apiKey })
-        const infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
-        const web3Provider = new Web3(infuraEndpoint)
-        const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
 
         if (subscription) {
           const currentDate = new Date()
@@ -41,7 +35,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
           const dwalletUsedTokens = await DwalletTransactionModel.find({ apiKey }).countDocuments() * apiPricing.dwallet
           const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
           const swapstreamUsedTokens = await SwapstreamTransactionModel.find({ apiKey }).countDocuments() * apiPricing.swapstream
-          const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
+          const snowlakeUsedTokens = await SnowlakeTransactionModel.find({ apiKey }).countDocuments() * apiPricing.snowlake
           const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
           const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens
 

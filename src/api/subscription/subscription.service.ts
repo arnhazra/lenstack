@@ -7,7 +7,6 @@ import { statusMessages } from "src/constants/statusMessages"
 import { otherConstants } from "src/constants/otherConstants"
 import { envConfig } from "src/config/envConfig"
 import { SubscribeDto } from "./dto/subscribe.dto"
-import { prototypeABI } from "src/bin/prototypeABI"
 import { SubscriptionModel } from "./entities/subscription.entity"
 import { apiPricing } from "src/config/subscriptionConfig"
 import { AirlakeRepository } from "../apps/airlake/airlake.repository"
@@ -15,6 +14,7 @@ import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
 import { WealthnowRepository } from "../apps/wealthnow/wealthnow.repository"
 import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
+import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
 
 @Injectable()
 export class SubscriptionService {
@@ -27,6 +27,7 @@ export class SubscriptionService {
     private readonly dwalletRepository: DwalletRepository,
     private readonly frostlakeRepository: FrostlakeRepository,
     private readonly swapstreamRepository: SwapstreamRepository,
+    private readonly snowlakeRepository: SnowlakeRepository,
     private readonly wealthnowRepository: WealthnowRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
     this.web3Provider = new Web3(this.infuraEndpoint)
@@ -93,7 +94,6 @@ export class SubscriptionService {
 
   async getUsageByApiKey(userId: string) {
     try {
-      const prototypeContract: any = new this.web3Provider.eth.Contract(prototypeABI as any, envConfig.prototypeContractAddress)
       const subscription = await SubscriptionModel.findOne({ owner: userId })
 
       if (subscription) {
@@ -101,9 +101,9 @@ export class SubscriptionService {
         const airlakeUsedTokens = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
         const dwalletUsedTokens = await this.dwalletRepository.findCountByApiKey(apiKey) * apiPricing.dwallet
         const frostlakeUsedTokens = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
+        const snowlakeUsedTokens = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
         const swapstreamUsedTokens = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
-        const snowlakeUsedTokens = Number(await prototypeContract.methods.getPrototypeCountByAPIKey(apiKey).call()) * apiPricing.snowlake
-        const wealthnowUsedTokens = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
+        const wealthnowUsedTokens = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.wealthnow
         const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens
         return { usedTokens }
       }
@@ -111,7 +111,9 @@ export class SubscriptionService {
       else {
         return { message: "No Active Subscriptions" }
       }
-    } catch (error) {
+    }
+
+    catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

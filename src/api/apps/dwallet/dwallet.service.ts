@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { CreateTransactionDto } from "./dto/create-dwallet.dto"
+import { CreateTransactionDto } from "./dto/dwallet-tx"
 import { DwalletRepository } from "./dwallet.repository"
 
 @Injectable()
