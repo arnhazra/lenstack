@@ -16,6 +16,7 @@ import Constants from "@/_constants/appConstants"
 import { tokenABI } from "@/_bin/tokenABI"
 import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
+import axios from "axios"
 
 export default function page() {
   const [{ userState }] = useContext(AppContext)
@@ -73,6 +74,7 @@ export default function page() {
 
         if (signedTransaction.rawTransaction) {
           await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
+          await axios.post(endPoints.swapstreamCreateTxEndpoint, { apiKey: userState.apiKey, tokenContractAddress: tokenAddress, amount: amount, transactionType: 'Buy' })
           toast.success(Constants.TokenPurchaseSuccess)
         }
       }
@@ -126,12 +128,17 @@ export default function page() {
           const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
           if (signedSellTx.rawTransaction) {
             await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
-            setTxProcessing(false)
+            await axios.post(endPoints.swapstreamCreateTxEndpoint, { apiKey: userState.apiKey, tokenContractAddress: tokenAddress, amount: amount, transactionType: 'Sell' })
             toast.success(Constants.TransactionSuccess)
           }
-        } catch (err) {
-          setTxProcessing(false)
+        }
+
+        catch (err) {
           toast.error(Constants.TransactionError)
+        }
+
+        finally {
+          setTxProcessing(false)
         }
       }
 

@@ -6,7 +6,7 @@ import Link from "next/link"
 
 const TokenCard: FC<TokenCardProps> = ({ token }) => {
   return (
-    <Col xs={6} sm={6} md={4} lg={4} xl={3} className="mb-4">
+    <Col xs={12} sm={12} md={6} lg={4} xl={3} className="mb-4">
       <Link href={`/apps/swapstream/token?tokenAddress=${token.tokenContractAddress}`}>
         <Card className="token-card-all" title={token.tokenName}>
           <Badge bg="dark" pill className="position-absolute mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{token.tokensPerMatic} Tokens/MATIC</Badge>

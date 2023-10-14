@@ -1,5 +1,8 @@
-import { BadRequestException, Controller, Post } from "@nestjs/common"
+import { BadRequestException, Controller, Post, Body } from "@nestjs/common"
 import { SwapstreamService } from "./swapstream.service"
+import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { SwapstreamTransactionDto } from "./dto/swapstream-tx.dto"
+import { statusMessages } from "src/constants/statusMessages"
 
 @Controller("swapstream")
 export class SwapstreamController {
@@ -13,6 +16,18 @@ export class SwapstreamController {
 
     catch (error) {
       throw new BadRequestException()
+    }
+  }
+
+  @Post("createtx")
+  async createTransaction(@ApiKeyAuthorizer() userId: string, @Body() swapstreamTransactionDto: SwapstreamTransactionDto) {
+    try {
+      await this.swapstreamService.createTransaction(swapstreamTransactionDto, userId)
+      return true
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 }
