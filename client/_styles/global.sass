@@ -134,6 +134,16 @@ h4
 .icon-large
   zoom: 500%
 
+@keyframes modal-pop-in
+  0%
+    transform: scale(0)
+
+  100%
+    transform: scale(1)
+
+.modal.fade .modal-dialog
+  animation: modal-pop-in 0.2s
+
 @media only screen and (max-width: 61.95rem)
   .lead
     font-size: 80%

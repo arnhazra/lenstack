@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
-import { CheckCircledIcon } from "@radix-ui/react-icons"
+import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 
 function useConfirm() {
   const [show, setShow] = useState(false)
@@ -30,19 +30,22 @@ function useConfirm() {
   }
 
   const confirmDialog = () => (
-    <Modal show={show} onHide={() => handleConfirm(false)} centered keyboard={false} backdrop="static">
-      <Modal.Header closeButton>
-        <Modal.Title>Confirm</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="text-center">
+    <Modal show={show} centered keyboard={false} backdrop="static">
+      <Modal.Header className="ps-4 pe-4">
         <h5>{message}</h5>
+      </Modal.Header>
+      <Modal.Body className="ps-4 pe-4">
+        <p className="boxtext">This Action may not be undone, be sure before you click on continue, you can cancel if you don't want to proceed</p>
       </Modal.Body>
       <Modal.Footer>
+        <Button onClick={() => handleConfirm(false)}>
+          Cancel <CrossCircledIcon className="icon-right" />
+        </Button>
         <Button onClick={() => handleConfirm(true)}>
-          Yeah <CheckCircledIcon className="icon-right" />
+          Continue <CheckCircledIcon className="icon-right" />
         </Button>
       </Modal.Footer>
-    </Modal>
+    </Modal >
   )
 
   return { confirmDialog, confirm }

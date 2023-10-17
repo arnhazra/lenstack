@@ -32,9 +32,9 @@ export default function usePrompt() {
   }
 
   const promptDialog = () => (
-    <Modal show={show} onHide={() => handleConfirm(false)} centered keyboard={false} backdrop="static">
-      <Modal.Header closeButton>
-        <Modal.Title>{message}</Modal.Title>
+    <Modal show={show} centered keyboard={false} backdrop="static">
+      <Modal.Header>
+        <h6>{message}</h6>
       </Modal.Header>
       <Modal.Body>
         <Form.Group controlId="exampleForm.ControlInput1">
@@ -42,6 +42,9 @@ export default function usePrompt() {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
+        <Button onClick={() => handleConfirm(false)}>
+          Cancel <CrossCircledIcon className="icon-right" />
+        </Button>
         <Button onClick={() => handleConfirm(true)}>
           Proceed <CheckCircledIcon className="icon-right" />
         </Button>
