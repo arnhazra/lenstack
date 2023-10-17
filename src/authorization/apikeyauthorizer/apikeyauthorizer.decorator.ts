@@ -28,7 +28,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
           const expiryDate = subscription.expiresAt
 
           if (currentDate > expiryDate) {
-            throw new ForbiddenException()
+            await SubscriptionModel.findOneAndDelete({ apiKey })
           }
 
           else {
