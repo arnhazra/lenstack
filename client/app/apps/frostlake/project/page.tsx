@@ -6,7 +6,6 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
-import ReactJson from "react-json-view"
 import { ArchiveIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
@@ -63,7 +62,7 @@ export default function Page() {
               <p className="display-6 text-capitalize">{project?.data?.project?.name}</p>
               <p className="lead mt-3">Sample Request Object</p>
               <div className="pb-4 pt-2">
-                <ReactJson src={sampleAPIRequest} theme={"ocean"} style={{ borderRadius: "0.3rem", padding: "0.5rem" }} />
+
               </div>
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
             </div>
