@@ -16,7 +16,7 @@ export class SnowlakeRepository {
   }
 
   async findCountByApiKey(apiKey: string) {
-    const airlakeUsedTokens = await SnowlakeTransactionModel.find({ apiKey }).countDocuments()
-    return airlakeUsedTokens
+    const snowlakeUsedTokens = await SnowlakeTransactionModel.find({ apiKey }).countDocuments()
+    return snowlakeUsedTokens
   }
 }

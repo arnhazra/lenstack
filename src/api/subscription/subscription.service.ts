@@ -15,6 +15,7 @@ import { WealthnowRepository } from "../apps/wealthnow/wealthnow.repository"
 import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
+import { CruxqlRepository } from "../apps/cruxql/cruxql.repository"
 
 @Injectable()
 export class SubscriptionService {
@@ -28,7 +29,8 @@ export class SubscriptionService {
     private readonly frostlakeRepository: FrostlakeRepository,
     private readonly swapstreamRepository: SwapstreamRepository,
     private readonly snowlakeRepository: SnowlakeRepository,
-    private readonly wealthnowRepository: WealthnowRepository) {
+    private readonly wealthnowRepository: WealthnowRepository,
+    private readonly cruxqlRepository: CruxqlRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
@@ -104,7 +106,8 @@ export class SubscriptionService {
         const snowlakeUsedTokens = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
         const swapstreamUsedTokens = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
         const wealthnowUsedTokens = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.wealthnow
-        const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens
+        const cruxqlUsedTokens = await this.cruxqlRepository.findCountByApiKey(apiKey) * apiPricing.cruxql
+        const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens + cruxqlUsedTokens
         return { usedTokens }
       }
 

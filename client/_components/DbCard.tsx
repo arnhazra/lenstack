@@ -11,7 +11,7 @@ const DbCard: FC<DbCardProps> = ({ db }) => {
         <Card className="db-card-all" title={db.cloudPlatform + ' ' + db.region}>
           <Badge bg="dark" pill className="position-absolute mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{db.region}</Badge>
           <Card.Header className="pb-2 ps-4 app-card-header">
-            <img src={`../${db.cloudPlatform}.png`} width="50" height="50"></img>
+            <img src={process.env.NODE_ENV === "development" ? `http://localhost:3000/${db.cloudPlatform}.png` : `https://lenstack.vercel.app/${db.cloudPlatform}.png`} width="50" height="50"></img>
           </Card.Header>
           <Card.Footer className="pt-4 ps-4 app-card-footer">
             <div className="d-flex justify-content-between align-items-center">

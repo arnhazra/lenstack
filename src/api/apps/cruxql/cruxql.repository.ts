@@ -33,4 +33,9 @@ export class CruxqlRepository {
     const db = await CruxqlDbListModel.findById(dbId)
     return db
   }
+
+  async findCountByApiKey(apiKey: string) {
+    const cruxQlUsedTokens = await CruxqlDbOwnershipModel.find({ apiKey }).countDocuments()
+    return cruxQlUsedTokens
+  }
 }

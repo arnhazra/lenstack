@@ -9,7 +9,7 @@ import Link from "next/link"
 import { Container, Row } from "react-bootstrap"
 
 export default function Page() {
-  const availableDbList = useFetch("availableDbList", endPoints.cruxqlGetAvailableDbList, HTTPMethods.POST)
+  const availableDbList = useFetch("mydblist", endPoints.cruxqlGetAvailableDbList, HTTPMethods.POST)
 
   return (
     <Container>
