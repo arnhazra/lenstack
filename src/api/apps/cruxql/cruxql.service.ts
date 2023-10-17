@@ -20,7 +20,13 @@ export class CruxqlService {
   async getMyDbList(userId: string) {
     try {
       const myDbList = await this.cruxqlRepository.findAllDbByUserId(userId)
-      return myDbList
+      const myDbListFormatted = []
+      for (const myDb of myDbList) {
+        const dbfull = await this.cruxqlRepository.findDbByIdWithoutConnectionString(myDb.dbRelationId as unknown as string)
+        myDbListFormatted.push(dbfull)
+      }
+
+      return myDbListFormatted
     }
 
     catch (error) {

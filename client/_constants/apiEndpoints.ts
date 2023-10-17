@@ -37,8 +37,8 @@ const endPoints = {
   wealthnowDeleteAssetEndpoint: `${apiHost}/api/wealthnow/deleteasset`,
   getSwapstreamTokenConfig: `${apiHost}/api/swapstream/getswapstreamtokenconfig`,
   cruxqlGetAvailableDbList: `${apiHost}/api/cruxql/getavailabledblist`,
-  cruxqlGetMyDbList: `${apiHost}/api/swapstream/getmydblist`,
-  cruxqlPurchaseDb: `${apiHost}/api/swapstream/purchasedb`,
+  cruxqlGetMyDbList: `${apiHost}/api/cruxql/getmydblist`,
+  cruxqlPurchaseDb: `${apiHost}/api/cruxql/purchasedb`,
 }
 
 export default endPoints

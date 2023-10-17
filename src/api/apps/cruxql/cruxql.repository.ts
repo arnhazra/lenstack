@@ -21,7 +21,7 @@ export class CruxqlRepository {
   }
 
   async updateAvailableDbListAfterPurchase(dbId: string) {
-    await CruxqlDbListModel.findByIdAndDelete(dbId, { isSold: true })
+    await CruxqlDbListModel.findByIdAndUpdate(dbId, { isSold: true })
   }
 
   async findDbByIdWithoutConnectionString(dbId: string) {
