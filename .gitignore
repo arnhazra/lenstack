@@ -6,10 +6,6 @@ client/.next
 client/.vercel
 client/*.tsbuildinfo
 client/out
-view/.next
-view/.vercel
-view/*.tsbuildinfo
-view/out
 .vercel
 dist
 api/build
