@@ -6,7 +6,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
-import ReactJson from 'react-json-view'
+import ReactJson from "react-json-view"
 import { ArchiveIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
