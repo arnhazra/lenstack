@@ -1,34 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
 import { CruxqlService } from "./cruxql.service"
-import { CreateCruxqlDto } from "./dto/create-cruxql.dto"
-import { UpdateCruxqlDto } from "./dto/update-cruxql.dto"
+import { PurchaseDbDto } from "./dto/purchase-db.dto"
+import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
 @Controller("cruxql")
 export class CruxqlController {
   constructor(private readonly cruxqlService: CruxqlService) { }
 
-  @Post()
-  create(@Body() createCruxqlDto: CreateCruxqlDto) {
-    return this.cruxqlService.create(createCruxqlDto)
+  @Post("getavailabledblist")
+  async getAvailableDbList() {
+    try {
+      const dbList = await this.cruxqlService.getAvailableDbList()
+      return { dbList }
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
   }
 
-  @Get()
-  findAll() {
-    return this.cruxqlService.findAll()
+  @Post("getmydblist")
+  async getMyDbList(@TokenAuthorizer() userId: string) {
+    try {
+      const myDbList = await this.cruxqlService.getMyDbList(userId)
+      return { myDbList }
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
   }
 
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.cruxqlService.findOne(+id)
-  }
+  @Post("purchasedb")
+  async purchaseDb(@ApiKeyAuthorizer() userId: string, @Body() purchaseDbDto: PurchaseDbDto) {
+    try {
+      await this.cruxqlService.purchaseDb(userId, purchaseDbDto)
+      return true
+    }
 
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateCruxqlDto: UpdateCruxqlDto) {
-    return this.cruxqlService.update(+id, updateCruxqlDto)
-  }
-
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.cruxqlService.remove(+id)
+    catch (error) {
+      throw new BadRequestException()
+    }
   }
 }
