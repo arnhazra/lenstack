@@ -1,0 +1,43 @@
+$btnColor: linear-gradient(120deg, #1a1a1f 0%, #1a1a1f 100%)
+$textColor: #fafafb
+$tagColor: #f1f5f9
+$black: #000000
+
+.btn
+  background: $btnColor
+  border-radius: 3rem
+  padding: 0.6rem
+  padding-left: 1rem
+  padding-right: 1.1rem
+  margin-right: 1rem
+  margin-bottom: 1rem
+  color: $textColor !important
+  font-size: 0.9rem
+  border: none
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 4px, rgba(0, 0, 0, 0.23) 0px 2px 4px
+
+  &:disabled
+    background: $btnColor
+    color: $textColor
+
+.btn:hover,
+.btn:focus,
+.btn:active
+  background-color: $btnColor
+  color: $textColor
+
+a,
+a:hover,
+a:focus,
+a:active
+  color: $btnColor
+  text-decoration: none
+  cursor: pointer
+
+.btn-block
+  width: 100%
+
+.btn-block:hover,
+.btn-block:focus,
+.btn-block:active
+  background-color: $btnColor !important
