@@ -13,7 +13,7 @@ export default function Page() {
 
   return (
     <Container>
-      <h4 className="dashboard-header">Choose and spin up your DB instantly !</h4>
+      <h4 className="dashboard-header">My Databases list</h4>
       <Link className="btn" href={"/apps/cruxql"}>View Store <ArrowRightIcon className="icon-right" /></Link>
       <Row>
         {availableDbList?.data?.myDbList?.map((db: CruxQlDb) => <DbCard key={db._id} db={db} />)}

@@ -43,4 +43,16 @@ export class CruxqlController {
       throw new BadRequestException()
     }
   }
+
+  @Post("viewdatabase")
+  async viewDatabase(@TokenAuthorizer() userId: string, @Body("dbId") dbId: string) {
+    try {
+      const dataBase = await this.cruxqlService.viewDatabase(userId, dbId)
+      return { dataBase }
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
 }

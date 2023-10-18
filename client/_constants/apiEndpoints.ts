@@ -39,6 +39,7 @@ const endPoints = {
   cruxqlGetAvailableDbList: `${apiHost}/api/cruxql/getavailabledblist`,
   cruxqlGetMyDbList: `${apiHost}/api/cruxql/getmydblist`,
   cruxqlPurchaseDb: `${apiHost}/api/cruxql/purchasedb`,
+  cruxqlViewDatabase: `${apiHost}/api/cruxql/viewdatabase`,
 }
 
 export default endPoints
