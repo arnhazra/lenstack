@@ -55,9 +55,9 @@ export default function Page() {
       <Show when={!db.isLoading && !availableDbList.isLoading}>
         <Show when={!db.error && !!dbId}>
           <div className="jumbotron p-4">
-            <div>
-              <img src={process.env.NODE_ENV === "development" ? `http://localhost:3000/${selectedDb?.cloudPlatform}.png` : `https://lenstack.vercel.app/${selectedDb?.cloudPlatform}.png`} width="100" height="100"></img>
-            </div>
+            <p className="branding">
+              {selectedDb?.cloudPlatform}
+            </p>
             <p className="lead mt-2">Enable one-click deployment of {selectedDb?.cloudPlatform + " " + selectedDb?.region} MongoDB cluster with data privacy, ensuring cross-regional availability.</p>
             <Badge pill bg="dark" className="mt-2 me-2 mb-2 top-0 end-0 ps-3 pe-3 p-2" key={Math.random().toString()}>{selectedDb?.region}</Badge><br />
             <Show when={!!selectedDb?.connectionString}>
@@ -80,6 +80,6 @@ export default function Page() {
         <Loading />
       </Show>
       {confirmDialog()}
-    </Container>
+    </Container >
   )
 }
