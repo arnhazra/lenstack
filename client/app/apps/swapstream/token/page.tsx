@@ -7,7 +7,7 @@ import { TokenData } from "@/_types/Types"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
-import { Badge, Button, Container } from "react-bootstrap"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import usePrompt from "@/_hooks/usePrompt"
 import { AppContext } from "@/_context/appStateProvider"
 import { vendorABI } from "@/_bin/vendorABI"
@@ -17,14 +17,15 @@ import { tokenABI } from "@/_bin/tokenABI"
 import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
 import axios from "axios"
+import TokenCard from "@/_components/TokenCard"
 
 export default function page() {
   const [{ userState }] = useContext(AppContext)
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
+  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.getSwapstreamTokenConfig, HTTPMethods.POST)
   const tokenAddress = searchParams.get("tokenAddress")
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.getSwapstreamTokenConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const selectedToken: TokenData = swapstreamTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
@@ -169,6 +170,10 @@ export default function page() {
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
           </Button>
         </div>
+        <Row>
+          <p className="lead text-center text-white mb-4">Other Tokens</p>
+          {swapstreamTokenConfig?.data?.map((token: TokenData) => <TokenCard key={token.tokenContractAddress} token={token} />)}
+        </Row>
       </Show>
       <Show when={swapstreamTokenConfig.isLoading || contractAddress.isLoading}>
         <Loading />
