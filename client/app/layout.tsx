@@ -12,7 +12,6 @@ import "@/_styles/button.sass"
 import "@/_styles/form.sass"
 import "@/_styles/appcard.sass"
 import "@/_styles/datasetcard.sass"
-import "@/_styles/sourcecode.sass"
 import "@/_styles/tokencard.sass"
 import IdentityProvider from "@/_providers/IdentityProvider"
 

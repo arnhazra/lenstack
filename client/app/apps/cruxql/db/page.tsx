@@ -40,7 +40,7 @@ export default function Page() {
       const userConsent = await confirm("Are you sure, you want to purchase this DB? Cost: 15000 tokens")
       if (userConsent) {
         await axios.post(endPoints.cruxqlPurchaseDb, { apiKey, dbId })
-        router.push('/apps/cruxql/mydblist')
+        router.push("/apps/cruxql/mydblist")
         toast.error(appConstants.ToastSuccess)
       }
     }
@@ -58,7 +58,7 @@ export default function Page() {
             <div>
               <img src={process.env.NODE_ENV === "development" ? `http://localhost:3000/${selectedDb?.cloudPlatform}.png` : `https://lenstack.vercel.app/${selectedDb?.cloudPlatform}.png`} width="100" height="100"></img>
             </div>
-            <p className="lead mt-2">Enable one-click deployment of {selectedDb?.cloudPlatform + ' ' + selectedDb?.region} MongoDB cluster with data privacy, ensuring cross-regional availability.</p>
+            <p className="lead mt-2">Enable one-click deployment of {selectedDb?.cloudPlatform + " " + selectedDb?.region} MongoDB cluster with data privacy, ensuring cross-regional availability.</p>
             <Badge pill bg="dark" className="mt-2 me-2 mb-2 top-0 end-0 ps-3 pe-3 p-2" key={Math.random().toString()}>{selectedDb?.region}</Badge><br />
             <Show when={!!selectedDb?.connectionString}>
               <Button onClick={copyDbConnString}>Db Connection String <CopyIcon className="icon-right" /></Button>
