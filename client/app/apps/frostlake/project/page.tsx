@@ -67,7 +67,7 @@ export default function Page() {
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
             </div>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>
-              <h4 className="text-white text-center">Analytics</h4>
+              <h4 className="text-white">Analytics</h4>
               <Table responsive hover variant="light">
                 <thead>
                   <tr>

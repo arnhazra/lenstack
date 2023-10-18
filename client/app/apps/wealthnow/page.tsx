@@ -55,7 +55,7 @@ export default function Page() {
                 </Card>
               </Col>
             </Row>
-            <h4 className="text-white text-center mt-2">Portfolios</h4>
+            <h4 className="text-white mt-2">Portfolios</h4>
             <Table responsive hover variant="light">
               <thead>
                 <tr>

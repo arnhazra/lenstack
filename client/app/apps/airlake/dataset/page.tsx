@@ -64,7 +64,7 @@ export default function Page() {
               </Row>
             </div>
             <Row>
-              <p className="lead text-center text-white mb-4">Similar Datasets</p>
+              <h4 className="text-white mb-4">Similar Datasets</h4>
               {similarDatasetsToDisplay}
             </Row>
           </Container>

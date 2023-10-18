@@ -171,7 +171,7 @@ export default function page() {
           </Button>
         </div>
         <Row>
-          <p className="lead text-center text-white mb-4">Other Tokens</p>
+          <h4 className="text-white mb-4">Other Tokens</h4>
           {swapstreamTokenConfig?.data?.map((token: TokenData) => <TokenCard key={token.tokenContractAddress} token={token} />)}
         </Row>
       </Show>

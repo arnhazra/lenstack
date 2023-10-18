@@ -64,10 +64,10 @@ export default function Page() {
               <Button onClick={copyDbConnString}>Db Connection String <CopyIcon className="icon-right" /></Button>
             </Show>
             <Show when={!selectedDb?.connectionString}>
-              <Button onClick={purchaseDb}>Purchase this Db<ArrowRightIcon className="icon-right" /></Button>
+              <Button onClick={purchaseDb}>Deploy & Own<ArrowRightIcon className="icon-right" /></Button>
             </Show>
           </div>
-          <p className="lead text-center text-white mb-4">Other Databases</p>
+          <h4 className="text-white mb-4">Other Databases</h4>
           <Row>
             {availableDbList?.data?.dbList?.map((db: CruxQlDb) => <DbCard key={db._id} db={db} />)}
           </Row>

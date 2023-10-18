@@ -97,7 +97,7 @@ export default function Page() {
         <Container>
           <Link className="btn" href={"/apps/snowlake/createprototype"}>Create Prototype<ArrowRightIcon className="icon-right" /></Link>
           < Show when={prototypeList.length > 0}>
-            <h4 className="text-white text-center">Prototypes</h4>
+            <h4 className="text-white">Prototypes</h4>
             <Table responsive hover variant="light">
               <thead>
                 <tr>

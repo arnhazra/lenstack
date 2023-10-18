@@ -66,7 +66,7 @@ export default function Page() {
               <Button onClick={() => router.push(`/apps/wealthnow/portfolio/addasset?portfolioid=${portfolioId}`)}>Add New Asset<IdCardIcon className="icon-right" /></Button>
             </div>
             <Show when={!!portfolio?.data?.assets.length}>
-              <h4 className="text-white text-center">Assets</h4>
+              <h4 className="text-white">Assets</h4>
               <Table responsive hover variant="light">
                 <thead>
                   <tr>

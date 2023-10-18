@@ -31,7 +31,7 @@ export default function Page() {
             <Link className="btn" href="/apps/frostlake/createproject">Create Project<ArrowRightIcon className="icon-right" /></Link>
           </div>
           <Show when={projects?.data?.projects?.length > 0}>
-            <h4 className="text-white text-center">Projects</h4>
+            <h4 className="text-white">Projects</h4>
             <Table responsive hover variant="light">
               <thead>
                 <tr>
