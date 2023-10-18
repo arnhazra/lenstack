@@ -62,6 +62,18 @@ export type TokenData = {
   description: string
 }
 
+export type CruxQlDb = {
+  _id: string,
+  region: string,
+  cloudPlatform: string,
+  isSold: boolean,
+  connectionString?: string
+}
+
 export type TokenCardProps = {
   token: TokenData
+}
+
+export type DbCardProps = {
+  db: CruxQlDb
 }

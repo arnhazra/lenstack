@@ -10,8 +10,8 @@ export const platformConfig = [
   {
     appName: "cruxql",
     description: "Enable one-click deployment of multi-cloud MongoDB clusters with data privacy, ensuring cross-regional availability.",
-    appStatus: envConfig.nodeEnv === "production" ? "Coming Soon" : "Available",
-    dbRegion: "Polygon Testnet"
+    appStatus: "Available",
+    dbRegion: "MongoDB on Azure"
   },
   {
     appName: "dwallet",

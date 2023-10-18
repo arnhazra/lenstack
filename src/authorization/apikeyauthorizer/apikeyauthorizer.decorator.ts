@@ -1,5 +1,6 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { AirlakeHistoryModel } from "src/api/apps/airlake/entities/airlake-history.entity"
+import { CruxqlDbOwnershipModel } from "src/api/apps/cruxql/entities/cruxql-dbownership.entity"
 import { DwalletTransactionModel } from "src/api/apps/dwallet/entities/dwallet.entity"
 import { FrostlakeAnalyticsModel } from "src/api/apps/frostlake/entities/frostlake-analytics.entity"
 import { SnowlakeTransactionModel } from "src/api/apps/snowlake/entities/snowlake.entity"
@@ -28,7 +29,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
           const expiryDate = subscription.expiresAt
 
           if (currentDate > expiryDate) {
-            throw new ForbiddenException()
+            await SubscriptionModel.findOneAndDelete({ apiKey })
           }
 
           else {
@@ -38,7 +39,8 @@ export const ApiKeyAuthorizer = createParamDecorator(
             const snowlakeUsedTokens = await SnowlakeTransactionModel.find({ apiKey }).countDocuments() * apiPricing.snowlake
             const swapstreamUsedTokens = await SwapstreamTransactionModel.find({ apiKey }).countDocuments() * apiPricing.swapstream
             const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
-            const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens
+            const cruxqlUsedTokens = await CruxqlDbOwnershipModel.find({ apiKey }).countDocuments() * apiPricing.cruxql
+            const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens + cruxqlUsedTokens
 
             if (usedTokens < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedTokens) {
               return subscription.owner.toString()

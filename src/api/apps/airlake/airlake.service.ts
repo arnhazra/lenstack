@@ -26,7 +26,9 @@ export class AirlakeService {
       const limit = 36
       const datasets = await this.airlakeRepository.findDatasets(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
       return datasets
-    } catch (error) {
+    }
+
+    catch (error) {
       throw new BadRequestException()
     }
   }
@@ -35,7 +37,9 @@ export class AirlakeService {
     try {
       const dataset = await this.airlakeRepository.findDatasetMetadataById(datasetId)
       return dataset
-    } catch (error) {
+    }
+
+    catch (error) {
       throw new BadRequestException()
     }
   }
@@ -46,7 +50,9 @@ export class AirlakeService {
       const datasetCategory = dataset.category
       const similarDatasets = await this.airlakeRepository.findDatasets("", datasetCategory, "name", 0, 36)
       return similarDatasets
-    } catch (error) {
+    }
+
+    catch (error) {
       throw new BadRequestException()
     }
   }
@@ -56,7 +62,9 @@ export class AirlakeService {
       const totalData = await this.airlakeRepository.findDatasetDataById(datasetId)
       const previewData = totalData.data.slice(-10)
       return previewData
-    } catch (error) {
+    }
+
+    catch (error) {
       throw new BadRequestException()
     }
   }
@@ -66,7 +74,9 @@ export class AirlakeService {
       const data = await this.airlakeRepository.findDatasetDataById(datasetId)
       await this.airlakeRepository.createNewHistory(userId, datasetId, apiKey)
       return data
-    } catch (error) {
+    }
+
+    catch (error) {
       throw new BadRequestException()
     }
   }
