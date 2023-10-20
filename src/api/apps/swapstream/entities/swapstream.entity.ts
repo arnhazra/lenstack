@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mongoDbConn } from "../../../../utils/dbConnect"
+import { swapstreamMongoDbConn } from "../../../../utils/dbConnect"
 
 const SwapstreamTransactionSchema = new mongoose.Schema({
   owner: {
@@ -34,4 +34,4 @@ const SwapstreamTransactionSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const SwapstreamTransactionModel = mongoDbConn.model("swapstreamtransaction", SwapstreamTransactionSchema)
+export const SwapstreamTransactionModel = swapstreamMongoDbConn.model("transaction", SwapstreamTransactionSchema)

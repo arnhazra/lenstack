@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mongoDbConn } from "../../../../utils/dbConnect"
+import { cruxqlMongoDbConn } from "../../../../utils/dbConnect"
 
 const CruxqlDbListSchema = new mongoose.Schema({
   region: {
@@ -23,4 +23,4 @@ const CruxqlDbListSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const CruxqlDbListModel = mongoDbConn.model("cruxqldblist", CruxqlDbListSchema)
+export const CruxqlDbListModel = cruxqlMongoDbConn.model("database", CruxqlDbListSchema)

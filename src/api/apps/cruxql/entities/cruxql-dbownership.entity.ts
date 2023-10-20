@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mongoDbConn } from "../../../../utils/dbConnect"
+import { cruxqlMongoDbConn } from "../../../../utils/dbConnect"
 
 const CruxqlDbOwnershipSchema = new mongoose.Schema({
   owner: {
@@ -20,4 +20,4 @@ const CruxqlDbOwnershipSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const CruxqlDbOwnershipModel = mongoDbConn.model("cruxqldbownership", CruxqlDbOwnershipSchema)
+export const CruxqlDbOwnershipModel = cruxqlMongoDbConn.model("dbownership", CruxqlDbOwnershipSchema)

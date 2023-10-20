@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mongoDbConn } from "../../../utils/dbConnect"
+import { mainLenstackMongoDbConn } from "../../../utils/dbConnect"
 
 export interface NewUser {
   name: string
@@ -49,4 +49,4 @@ const UserSchema = new mongoose.Schema<User>({
   },
 }, { versionKey: false })
 
-export const UserModel = mongoDbConn.model("user", UserSchema)
+export const UserModel = mainLenstackMongoDbConn.model("user", UserSchema)

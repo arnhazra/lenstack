@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mongoDbConn } from "../../../../utils/dbConnect"
+import { snowlakeMongoDbConn } from "../../../../utils/dbConnect"
 
 const SnowlakeTransactionSchema = new mongoose.Schema({
   owner: {
@@ -19,4 +19,4 @@ const SnowlakeTransactionSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const SnowlakeTransactionModel = mongoDbConn.model("snowlaketransaction", SnowlakeTransactionSchema)
+export const SnowlakeTransactionModel = snowlakeMongoDbConn.model("transaction", SnowlakeTransactionSchema)

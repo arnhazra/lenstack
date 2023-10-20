@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mongoDbConn } from "../../../../utils/dbConnect"
+import { dwalletMongoDbConn } from "../../../../utils/dbConnect"
 
 const DwalletTransactionSchema = new mongoose.Schema({
   owner: {
@@ -34,4 +34,4 @@ const DwalletTransactionSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const DwalletTransactionModel = mongoDbConn.model("dwallettransaction", DwalletTransactionSchema)
+export const DwalletTransactionModel = dwalletMongoDbConn.model("transaction", DwalletTransactionSchema)

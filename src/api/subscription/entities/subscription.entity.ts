@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mongoDbConn } from "../../../utils/dbConnect"
+import { mainLenstackMongoDbConn } from "../../../utils/dbConnect"
 
 const SubscriptionSchema = new mongoose.Schema({
   owner: {
@@ -34,4 +34,4 @@ const SubscriptionSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const SubscriptionModel = mongoDbConn.model("subscription", SubscriptionSchema)
+export const SubscriptionModel = mainLenstackMongoDbConn.model("subscription", SubscriptionSchema)
