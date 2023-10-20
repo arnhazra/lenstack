@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios"
-import AppStateProvider from "@/_context/appStateProvider"
+import { AppStateProvider } from "@/_context/appStateProvider"
 import { Toaster } from "sonner"
 import { Quicksand } from "next/font/google"
 import Header from "@/_components/Header"

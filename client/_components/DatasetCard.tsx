@@ -1,11 +1,10 @@
 "use client"
-import { FC } from "react"
 import { Card, Col } from "react-bootstrap"
 import { DatasetCardProps } from "@/_types/Types"
 import { Rating } from "react-simple-star-rating"
 import Link from "next/link"
 
-const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, rating }) => {
+export default function DatasetCard({ id, category, name, rating }: DatasetCardProps) {
   return (
     <Col xs={6} sm={6} md={4} lg={4} xl={2} className="mb-4">
       <Link href={`/apps/airlake/dataset?datasetid=${id}`}>
@@ -25,5 +24,3 @@ const DatasetCard: FC<DatasetCardProps> = ({ id, category, name, rating }) => {
     </Col>
   )
 }
-
-export default DatasetCard

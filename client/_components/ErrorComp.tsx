@@ -1,11 +1,10 @@
 "use client"
-import { FC } from "react"
 import Constants from "@/_constants/appConstants"
 import { ErrorProps } from "@/_types/Types"
 import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 
-const Error: FC<ErrorProps> = ({ customMessage }) => {
+export default function Error({ customMessage }: ErrorProps) {
   return (
     <div className="box">
       <p className="branding mb-4">{customMessage ? customMessage : Constants.ErrorMessage}</p>
@@ -16,5 +15,3 @@ const Error: FC<ErrorProps> = ({ customMessage }) => {
     </div>
   )
 }
-
-export default Error

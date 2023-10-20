@@ -77,3 +77,7 @@ export type TokenCardProps = {
 export type DbCardProps = {
   db: CruxQlDb
 }
+
+export interface AppStateProviderProps {
+  children: ReactNode
+}

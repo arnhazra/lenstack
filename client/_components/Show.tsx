@@ -1,9 +1,7 @@
 "use client"
 import { ShowProps } from "@/_types/Types"
-import { FC, Fragment } from "react"
+import { Fragment } from "react"
 
-const Show: FC<ShowProps> = ({ when, children }) => {
+export default function Show({ when, children }: ShowProps) {
   return when === undefined || !when ? <Fragment></Fragment> : <Fragment>{children}</Fragment>
 }
-
-export default Show

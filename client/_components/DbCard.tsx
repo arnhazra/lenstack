@@ -1,10 +1,9 @@
 "use client"
-import { FC } from "react"
 import { Badge, Card, Col } from "react-bootstrap"
 import { DbCardProps } from "@/_types/Types"
 import Link from "next/link"
 
-const DbCard: FC<DbCardProps> = ({ db }) => {
+export default function DbCard({ db }: DbCardProps) {
   return (
     <Col xs={12} sm={12} md={6} lg={4} xl={3} className="mb-4">
       <Link href={`/apps/cruxql/db?dbId=${db._id}`}>
@@ -23,5 +22,3 @@ const DbCard: FC<DbCardProps> = ({ db }) => {
     </Col >
   )
 }
-
-export default DbCard

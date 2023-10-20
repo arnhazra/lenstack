@@ -54,5 +54,3 @@ export default function usePrompt() {
 
   return { promptDialog, prompt }
 }
-
-

@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 
-function useConfirm() {
+export default function useConfirm() {
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState("")
   const [resolveCallback, setResolveCallback] = useState<(choice: boolean) => void>(() => { })
@@ -50,5 +50,3 @@ function useConfirm() {
 
   return { confirmDialog, confirm }
 }
-
-export default useConfirm

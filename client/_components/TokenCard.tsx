@@ -1,10 +1,9 @@
 "use client"
-import { FC } from "react"
 import { Badge, Card, Col } from "react-bootstrap"
 import { TokenCardProps } from "@/_types/Types"
 import Link from "next/link"
 
-const TokenCard: FC<TokenCardProps> = ({ token }) => {
+export default function TokenCard({ token }: TokenCardProps) {
   return (
     <Col xs={12} sm={12} md={6} lg={4} xl={3} className="mb-4">
       <Link href={`/apps/swapstream/token?tokenAddress=${token.tokenContractAddress}`}>
@@ -23,5 +22,3 @@ const TokenCard: FC<TokenCardProps> = ({ token }) => {
     </Col>
   )
 }
-
-export default TokenCard

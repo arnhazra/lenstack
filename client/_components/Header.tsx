@@ -1,11 +1,11 @@
 "use client"
-import { FC, Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
 import Show from "./Show"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 
-const Header: FC = () => {
+export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isHomePage, setIsHomePage] = useState(false)
   const pathname = usePathname()
@@ -56,5 +56,3 @@ const Header: FC = () => {
     </Fragment >
   )
 }
-
-export default Header

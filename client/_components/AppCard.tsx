@@ -1,9 +1,8 @@
-import { FC } from "react"
 import { Card, Col, Badge } from "react-bootstrap"
 import { AppCardProps } from "@/_types/Types"
 import { useRouter } from "next/navigation"
 
-const AppCard: FC<AppCardProps> = ({ appName, description, appStatus }) => {
+export default function AppCard({ appName, description, appStatus }: AppCardProps) {
   const router = useRouter()
 
   const redirectToApp = () => {
@@ -28,5 +27,3 @@ const AppCard: FC<AppCardProps> = ({ appName, description, appStatus }) => {
     </Col >
   )
 }
-
-export default AppCard
