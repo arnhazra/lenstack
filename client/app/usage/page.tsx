@@ -19,7 +19,7 @@ export default function Page() {
   const usageDetails = useFetchRealtime("usage", endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
 
-  const usedTokens = usageDetails.data?.usedTokens > pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens ? pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens : usageDetails.data?.usedTokens
+  const usedCredits = usageDetails.data?.usedCredits > pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits ? pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits : usageDetails.data?.usedCredits
 
   const showapiKey = (apiKey: string) => {
     const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
@@ -88,7 +88,7 @@ export default function Page() {
               <p className="boxcategorytext">Key Usage</p>
               <div className="boxcategorytext">
                 <Show when={!!userState.apiKey}>
-                  {usedTokens} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedTokens} Tokens used
+                  {usedCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits} Credits used
                 </Show>
                 <Show when={!userState.apiKey}>
                   No API Key Usage Data

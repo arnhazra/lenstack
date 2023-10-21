@@ -21,7 +21,6 @@ export interface UserState {
   role: string
   selectedPlan: string
   apiKey: string
-  tokenId: string
   subscriptionValidUpto: string
   trialAvailable: boolean
 }

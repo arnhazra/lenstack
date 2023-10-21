@@ -49,7 +49,7 @@ export default function Page() {
 
   const purchaseDb = async () => {
     try {
-      const userConsent = await confirm("Are you sure, you want to purchase this DB? Cost: 15000 tokens")
+      const userConsent = await confirm("Are you sure, you want to purchase this DB? Cost: 15000 credits")
       if (userConsent) {
         await axios.post(endPoints.cruxqlPurchaseDb, { apiKey, dbId })
         router.push("/apps/cruxql/mydblist")

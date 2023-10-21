@@ -53,7 +53,7 @@ export class WealthnowRepository {
   }
 
   async findCountByApiKey(apiKey: string) {
-    const wealthnowUSedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments()
-    return wealthnowUSedTokens
+    const wealthnowUsedCredits = await WealthnowAssetModel.find({ apiKey }).countDocuments()
+    return wealthnowUsedCredits
   }
 }

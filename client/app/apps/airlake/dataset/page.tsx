@@ -1,6 +1,6 @@
 "use client"
 import { useContext } from "react"
-import { Badge, Button, Col, Container, Row } from "react-bootstrap"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
@@ -10,7 +10,7 @@ import useFetch from "@/_hooks/useFetch"
 import HTTPMethods from "@/_constants/httpMethods"
 import Error from "@/_components/ErrorComp"
 import { AppContext } from "@/_context/appStateProvider"
-import appConstants from "@/_constants/appConstants"
+import Constants from "@/_constants/appConstants"
 import { useSearchParams } from "next/navigation"
 import { CopyIcon } from "@radix-ui/react-icons"
 import { GenericAppCardInterface } from "@/_types/Types"
@@ -43,12 +43,12 @@ export default function Page() {
 
   const copyPreviewDataAPI = (): void => {
     navigator.clipboard.writeText(`${endPoints.airlakePreviewDataApiEndpoint}?datasetId=${datasetId}`)
-    toast.success(appConstants.CopiedToClipBoard)
+    toast.success(Constants.CopiedToClipBoard)
   }
 
   const copyDataAPI = (): void => {
     navigator.clipboard.writeText(`${endPoints.airlakeDataApiEndpoint}/?datasetId=${datasetId}&apiKey=${userState.apiKey}`)
-    toast.success(appConstants.CopiedToClipBoard)
+    toast.success(Constants.CopiedToClipBoard)
   }
 
   return (

@@ -16,7 +16,7 @@ export class DwalletRepository {
   }
 
   async findCountByApiKey(apiKey: string) {
-    const dwalletUsedTokens = await DwalletTransactionModel.find({ apiKey }).countDocuments()
-    return dwalletUsedTokens
+    const dwalletUsedCredits = await DwalletTransactionModel.find({ apiKey }).countDocuments()
+    return dwalletUsedCredits
   }
 }

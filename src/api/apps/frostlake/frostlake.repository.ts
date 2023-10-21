@@ -48,7 +48,7 @@ export class FrostlakeRepository {
   }
 
   async findCountByApiKey(apiKey: string) {
-    const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments()
-    return frostlakeUsedTokens
+    const frostlakeUsedCredits = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments()
+    return frostlakeUsedCredits
   }
 }

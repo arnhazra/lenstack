@@ -100,15 +100,15 @@ export class SubscriptionService {
 
       if (subscription) {
         const { apiKey } = subscription
-        const airlakeUsedTokens = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
-        const dwalletUsedTokens = await this.dwalletRepository.findCountByApiKey(apiKey) * apiPricing.dwallet
-        const frostlakeUsedTokens = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
-        const snowlakeUsedTokens = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
-        const swapstreamUsedTokens = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
-        const wealthnowUsedTokens = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.wealthnow
-        const cruxqlUsedTokens = await this.cruxqlRepository.findCountByApiKey(apiKey) * apiPricing.cruxql
-        const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens + cruxqlUsedTokens
-        return { usedTokens }
+        const airlakeUsedCredits = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
+        const dwalletUsedCredits = await this.dwalletRepository.findCountByApiKey(apiKey) * apiPricing.dwallet
+        const frostlakeUsedCredits = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
+        const snowlakeUsedCredits = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
+        const swapstreamUsedCredits = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
+        const wealthnowUsedCredits = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.wealthnow
+        const cruxqlUsedCredits = await this.cruxqlRepository.findCountByApiKey(apiKey) * apiPricing.cruxql
+        const usedCredits = airlakeUsedCredits + dwalletUsedCredits + frostlakeUsedCredits + snowlakeUsedCredits + swapstreamUsedCredits + wealthnowUsedCredits + cruxqlUsedCredits
+        return { usedCredits }
       }
 
       else {

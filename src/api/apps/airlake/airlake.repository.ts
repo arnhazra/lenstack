@@ -42,7 +42,7 @@ export class AirlakeRepository {
   }
 
   async findCountByApiKey(apiKey: string) {
-    const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
-    return airlakeUsedTokens
+    const airlakeUsedCredits = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
+    return airlakeUsedCredits
   }
 }

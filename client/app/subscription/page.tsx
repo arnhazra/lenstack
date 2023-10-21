@@ -80,7 +80,7 @@ export default function Page() {
         <div className="box">
           <p className="branding">Subscription</p>
           <div className="plans mt-2">
-            <p className="boxtext ms-2 mt-2">This plan, offers all apps subscriptions with {pricingDetails.data?.proSubscriptionConfig?.grantedTokens} Tokens</p>
+            <p className="boxtext ms-2 mt-2">This plan, offers all apps subscriptions with {pricingDetails.data?.proSubscriptionConfig?.grantedCredits} Credits</p>
           </div>
           <Fragment>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

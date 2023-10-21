@@ -27,8 +27,8 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           const { name, email, privateKey, role, trialAvailable } = response.data.user
 
           if (response.data.subscription) {
-            const { selectedPlan, apiKey, tokenId, expiresAt } = response.data.subscription
-            dispatch("setUserState", { selectedPlan, apiKey, tokenId, subscriptionValidUpto: expiresAt })
+            const { selectedPlan, apiKey, expiresAt } = response.data.subscription
+            dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
           }
 
           dispatch("setUserState", { userid, name, email, privateKey, role, trialAvailable })

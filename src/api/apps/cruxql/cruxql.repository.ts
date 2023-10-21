@@ -35,7 +35,7 @@ export class CruxqlRepository {
   }
 
   async findCountByApiKey(apiKey: string) {
-    const cruxQlUsedTokens = await CruxqlDbOwnershipModel.find({ apiKey }).countDocuments()
-    return cruxQlUsedTokens
+    const cruxQlUsedCredits = await CruxqlDbOwnershipModel.find({ apiKey }).countDocuments()
+    return cruxQlUsedCredits
   }
 }

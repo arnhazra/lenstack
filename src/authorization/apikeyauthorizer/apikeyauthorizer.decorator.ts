@@ -15,6 +15,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
     const apiKeyFromParams = request.query.apiKey
     const apiKeyFromBody = request.body.apiKey
     const apiKey = apiKeyFromParams ? apiKeyFromParams : apiKeyFromBody
+    const requestedResource = String(request.originalUrl).split('/')[2]
 
     if (!apiKey) {
       throw new ForbiddenException()
@@ -33,16 +34,17 @@ export const ApiKeyAuthorizer = createParamDecorator(
           }
 
           else {
-            const airlakeUsedTokens = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
-            const dwalletUsedTokens = await DwalletTransactionModel.find({ apiKey }).countDocuments() * apiPricing.dwallet
-            const frostlakeUsedTokens = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
-            const snowlakeUsedTokens = await SnowlakeTransactionModel.find({ apiKey }).countDocuments() * apiPricing.snowlake
-            const swapstreamUsedTokens = await SwapstreamTransactionModel.find({ apiKey }).countDocuments() * apiPricing.swapstream
-            const wealthnowUsedTokens = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
-            const cruxqlUsedTokens = await CruxqlDbOwnershipModel.find({ apiKey }).countDocuments() * apiPricing.cruxql
-            const usedTokens = airlakeUsedTokens + dwalletUsedTokens + frostlakeUsedTokens + snowlakeUsedTokens + swapstreamUsedTokens + wealthnowUsedTokens + cruxqlUsedTokens
+            const airlakeUsedCredits = await AirlakeHistoryModel.find({ apiKey }).countDocuments() * apiPricing.airlake
+            const dwalletUsedCredits = await DwalletTransactionModel.find({ apiKey }).countDocuments() * apiPricing.dwallet
+            const frostlakeUsedCredits = await FrostlakeAnalyticsModel.find({ apiKey }).countDocuments() * apiPricing.frostlake
+            const snowlakeUsedCredits = await SnowlakeTransactionModel.find({ apiKey }).countDocuments() * apiPricing.snowlake
+            const swapstreamUsedCredits = await SwapstreamTransactionModel.find({ apiKey }).countDocuments() * apiPricing.swapstream
+            const wealthnowUsedCredits = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
+            const cruxqlUsedCredits = await CruxqlDbOwnershipModel.find({ apiKey }).countDocuments() * apiPricing.cruxql
+            const usedCredits = airlakeUsedCredits + dwalletUsedCredits + frostlakeUsedCredits + snowlakeUsedCredits + swapstreamUsedCredits + wealthnowUsedCredits + cruxqlUsedCredits
+            const creditRequiredForCurrentRequest = apiPricing[`${requestedResource}`]
 
-            if (usedTokens < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedTokens) {
+            if ((usedCredits + creditRequiredForCurrentRequest) < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedCredits) {
               return subscription.owner.toString()
             }
 

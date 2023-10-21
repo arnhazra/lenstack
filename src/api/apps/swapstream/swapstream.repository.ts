@@ -16,7 +16,7 @@ export class SwapstreamRepository {
   }
 
   async findCountByApiKey(apiKey: string) {
-    const airlakeUsedTokens = await SwapstreamTransactionModel.find({ apiKey }).countDocuments()
-    return airlakeUsedTokens
+    const airlakeUsedCredits = await SwapstreamTransactionModel.find({ apiKey }).countDocuments()
+    return airlakeUsedCredits
   }
 }

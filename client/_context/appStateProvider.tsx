@@ -17,7 +17,6 @@ const initialState = {
     role: "",
     selectedPlan: "No Subscription",
     apiKey: "",
-    tokenId: "",
     subscriptionValidUpto: "",
     trialAvailable: false
   },

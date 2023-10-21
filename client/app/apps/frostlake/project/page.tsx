@@ -6,13 +6,15 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
-import { ArchiveIcon } from "@radix-ui/react-icons"
+import { ArchiveIcon, CopyIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment, useContext } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import { AppContext } from "@/_context/appStateProvider"
+import { toast } from "sonner"
+import Constants from "@/_constants/appConstants"
 
 export default function Page() {
   const [{ userState }] = useContext(AppContext)
@@ -53,6 +55,16 @@ export default function Page() {
     "clientSecret": project?.data?.project?.clientSecret
   }
 
+  const copyAPIURI = (): void => {
+    navigator.clipboard.writeText(`${endPoints.frostlakeCreateAnalyticsEndpoint}`)
+    toast.success(Constants.CopiedToClipBoard)
+  }
+
+  const copySampleAPIRequetObject = (): void => {
+    navigator.clipboard.writeText(JSON.stringify(sampleAPIRequest))
+    toast.success(Constants.CopiedToClipBoard)
+  }
+
   return (
     <Fragment>
       <Show when={!project?.isLoading}>
@@ -60,10 +72,9 @@ export default function Page() {
           <Container>
             <div className="jumbotron p-4">
               <p className="display-6 text-capitalize">{project?.data?.project?.name}</p>
-              <p className="lead mt-3">Sample Request Object</p>
-              <div className="pb-4 pt-2">
-
-              </div>
+              <p className="lead mt-3">Your Project Analytics will be displayed below (if any)</p>
+              <Button onClick={copyAPIURI}>Copy POST API URI<CopyIcon className="icon-right" /></Button>
+              <Button onClick={copySampleAPIRequetObject}>Copy Sample Request<CopyIcon className="icon-right" /></Button>
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
             </div>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>
