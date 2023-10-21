@@ -1,5 +1,7 @@
 "use client"
 import GenericAppCard from "@/_components/GenericAppCard"
+import Loading from "@/_components/Loading"
+import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
@@ -25,11 +27,16 @@ export default function Page() {
 
   return (
     <Container>
-      <h4 className="dashboard-header">Choose and spin up your DB instantly !</h4>
-      <Link className="btn" href={"/apps/cruxql/mydblist"}>View My Db List <ArrowRightIcon className="icon-right" /></Link>
-      <Row>
-        {databasesToDisplay}
-      </Row>
+      <Show when={!availableDbList.isLoading}>
+        <h4 className="dashboard-header">Choose and spin up your DB instantly !</h4>
+        <Link className="btn" href={"/apps/cruxql/mydblist"}>View My Db List <ArrowRightIcon className="icon-right" /></Link>
+        <Row>
+          {databasesToDisplay}
+        </Row>
+      </Show>
+      <Show when={availableDbList.isLoading}>
+        <Loading />
+      </Show>
     </Container>
   )
 }
