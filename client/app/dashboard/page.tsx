@@ -22,10 +22,10 @@ export default function Page() {
   const appsToDisplay = apps?.data?.map((app: any) => {
     const genericAppCardProps: GenericAppCardInterface = {
       badgeText: app.appStatus,
-      className: app.appName?.toLowerCase(),
+      className: app.appName,
       footerText: app.description,
       headerText: app.appName,
-      redirectUri: `/apps/?appName=${app.appName?.toLowerCase()}`
+      redirectUri: `/apps/?appName=${app.appName}`
     }
 
     return <GenericAppCard key={app.appName} genericAppCardProps={genericAppCardProps} />

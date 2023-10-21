@@ -1,7 +1,7 @@
 # Lenstack Changelog
 
 #### v2.4
-* Introduced multi cluster system for apps
+* Introduced new Passkey based Identity Provider replacing legacy Auth Provider for authentication and authorization
 * Major Codebase Refactoring
 * Introduction of new App Cruxql
 

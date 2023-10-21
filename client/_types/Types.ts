@@ -26,25 +26,11 @@ export interface UserState {
   trialAvailable: boolean
 }
 
-export interface DatasetCardProps {
-  id: string
-  category: string
-  name: string
-  rating: number
-}
-
 export interface DatasetRequestState {
   searchQuery: string
   selectedFilter: string
   selectedSortOption: string
   offset: number
-}
-
-export interface AppCardProps {
-  appName: string
-  description: string
-  appStatus: string
-  dbRegion: string
 }
 
 export interface GenericAppCardInterface {
@@ -74,14 +60,6 @@ export interface CruxQlDb {
   cloudPlatform: string
   isSold: boolean
   connectionString?: string
-}
-
-export interface TokenCardProps {
-  token: TokenData
-}
-
-export interface DbCardProps {
-  db: CruxQlDb
 }
 
 export interface AppStateProviderProps {
