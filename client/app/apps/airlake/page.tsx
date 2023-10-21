@@ -6,11 +6,11 @@ import { Fragment } from "react"
 import debounce from "lodash.debounce"
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
-import DatasetCard from "@/_components/DatasetCard"
 import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
-import { DatasetRequestState } from "@/_types/Types"
+import { DatasetRequestState, GenericAppCardInterface } from "@/_types/Types"
+import GenericAppCard from "@/_components/GenericAppCard"
 
 export default function Page() {
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
@@ -22,7 +22,14 @@ export default function Page() {
   })
 
   const datasetsToDisplay = dataLibrary?.data?.datasets?.map((dataset: any) => {
-    return <DatasetCard key={dataset._id} id={dataset._id} category={dataset.category} name={dataset.name} rating={dataset.rating} />
+    const genericAppCardProps: GenericAppCardInterface = {
+      badgeText: dataset.category,
+      className: "airlake",
+      headerText: dataset.name,
+      footerText: `${dataset.description.slice(0, 110)}...`,
+      redirectUri: `/apps/airlake/dataset?datasetId=${dataset._id}`
+    }
+    return <GenericAppCard key={dataset._id} genericAppCardProps={genericAppCardProps} />
   })
 
   const noDatasetsToDisplay = <p className="display-6 text-white text-center">No results !</p>
@@ -80,7 +87,7 @@ export default function Page() {
             </Row>
           </div>
 
-          <Row className="mt-4 mb-4">
+          <Row className="mt-4 mb-2">
             {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
           </Row>
           <div className="text-center">

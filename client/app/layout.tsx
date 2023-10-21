@@ -1,5 +1,7 @@
 "use client"
 import axios from "axios"
+import IdentityProvider from "@/_providers/IdentityProvider"
+import Footer from "@/_components/Footer"
 import { AppStateProvider } from "@/_context/appStateProvider"
 import { Toaster } from "sonner"
 import { Quicksand } from "next/font/google"
@@ -10,10 +12,7 @@ import "@/_styles/global.sass"
 import "@/_styles/header.sass"
 import "@/_styles/button.sass"
 import "@/_styles/form.sass"
-import "@/_styles/appcard.sass"
-import "@/_styles/datasetcard.sass"
-import "@/_styles/tokencard.sass"
-import IdentityProvider from "@/_providers/IdentityProvider"
+import "@/_styles/genericappcard.sass"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
@@ -40,13 +39,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <QueryClientProvider client={client}>
           <AppStateProvider>
             <IdentityProvider>
-              <nav className={`header`}>
+              <nav className="header">
                 <Header />
               </nav>
-              <main className="mt-2">
+              <main className="mt-2 mb-4 pb-4">
                 {children}
                 <Toaster position="bottom-right" richColors />
               </main>
+              <Footer />
             </IdentityProvider>
           </AppStateProvider>
         </QueryClientProvider>

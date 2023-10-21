@@ -3,7 +3,7 @@ import Web3 from "web3"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
-import { TokenData } from "@/_types/Types"
+import { GenericAppCardInterface, TokenData } from "@/_types/Types"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
@@ -17,7 +17,7 @@ import { tokenABI } from "@/_bin/tokenABI"
 import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
 import axios from "axios"
-import TokenCard from "@/_components/TokenCard"
+import GenericAppCard from "@/_components/GenericAppCard"
 
 export default function page() {
   const [{ userState }] = useContext(AppContext)
@@ -149,6 +149,19 @@ export default function page() {
     }
   }
 
+  const tokensToDisplay = swapstreamTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
+    .map((token: TokenData) => {
+      const genericAppCardProps: GenericAppCardInterface = {
+        badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
+        className: "swapstream",
+        headerText: token.tokenName,
+        footerText: token.description,
+        redirectUri: `/apps/swapstream/token?tokenAddress=${token.tokenContractAddress}`
+      }
+
+      return <GenericAppCard key={token.tokenContractAddress} genericAppCardProps={genericAppCardProps} />
+    })
+
   return (
     <Container>
       <Show when={!swapstreamTokenConfig.isLoading && !contractAddress.isLoading}>
@@ -172,7 +185,7 @@ export default function page() {
         </div>
         <Row>
           <h4 className="text-white mb-4">Other Tokens</h4>
-          {swapstreamTokenConfig?.data?.map((token: TokenData) => <TokenCard key={token.tokenContractAddress} token={token} />)}
+          {tokensToDisplay}
         </Row>
       </Show>
       <Show when={swapstreamTokenConfig.isLoading || contractAddress.isLoading}>

@@ -1,7 +1,5 @@
 "use client"
-import { useContext } from "react"
 import Loading from "@/_components/Loading"
-import AppCard from "@/_components/AppCard"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
@@ -10,6 +8,8 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/_components/ErrorComp"
+import GenericAppCard from "@/_components/GenericAppCard"
+import { GenericAppCardInterface } from "@/_types/Types"
 
 export default function Page() {
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
@@ -22,7 +22,15 @@ export default function Page() {
   })
 
   const appsToDisplay = apps?.data?.filter((app: any) => app.appName !== appName).map((app: any) => {
-    return <AppCard key={app.appName} appName={app.appName} appStatus={app.appStatus} description={app.description} dbRegion={app.dbRegion} />
+    const genericAppCardProps: GenericAppCardInterface = {
+      badgeText: app.appStatus,
+      className: app.appName?.toLowerCase(),
+      footerText: app.description,
+      headerText: app.appName,
+      redirectUri: `/apps/?appName=${app.appName?.toLowerCase()}`
+    }
+
+    return <GenericAppCard key={app.appName} genericAppCardProps={genericAppCardProps} />
   })
 
   const launchApp = () => {

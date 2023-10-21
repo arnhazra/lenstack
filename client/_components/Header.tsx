@@ -47,7 +47,7 @@ export default function Header() {
             <Navbar.Collapse>
               <Nav className="ms-auto">
                 <Link target="_blank" passHref rel="noopener noreferrer" href="https://www.linkedin.com/in/arnhazra/"><Navbar.Brand>Developer</Navbar.Brand></Link>
-                <Link href="/dashboard"><Navbar.Brand>Try Free</Navbar.Brand></Link>
+                <Link href="/dashboard"><Navbar.Brand>Get Started</Navbar.Brand></Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

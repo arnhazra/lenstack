@@ -2,7 +2,6 @@
 import useFetch from "@/_hooks/useFetch"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
-import AppCard from "@/_components/AppCard"
 import { Fragment, useContext, useState } from "react"
 import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
@@ -12,6 +11,8 @@ import axios from "axios"
 import { toast } from "sonner"
 import Constants from "@/_constants/appConstants"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { GenericAppCardInterface } from "@/_types/Types"
+import GenericAppCard from "@/_components/GenericAppCard"
 
 export default function Page() {
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
@@ -19,7 +20,15 @@ export default function Page() {
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
 
   const appsToDisplay = apps?.data?.map((app: any) => {
-    return <AppCard key={app.appName} appName={app.appName} appStatus={app.appStatus} description={app.description} dbRegion={app.dbRegion} />
+    const genericAppCardProps: GenericAppCardInterface = {
+      badgeText: app.appStatus,
+      className: app.appName?.toLowerCase(),
+      footerText: app.description,
+      headerText: app.appName,
+      redirectUri: `/apps/?appName=${app.appName?.toLowerCase()}`
+    }
+
+    return <GenericAppCard key={app.appName} genericAppCardProps={genericAppCardProps} />
   })
 
   const activateTrial = async () => {

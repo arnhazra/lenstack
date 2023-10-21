@@ -19,8 +19,7 @@ export class AirlakeRepository {
         { description: { $regex: searchQuery, $options: "i" } }
       ],
       category: { $regex: selectedFilterCategory }
-    }).select("-description")
-      .sort(selectedSortOption)
+    }).sort(selectedSortOption)
       .skip(offset)
       .limit(limit)
 

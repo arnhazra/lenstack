@@ -1,80 +1,86 @@
 import { ReactNode } from "react"
 
-export type LayoutProps = {
+export interface LayoutProps {
   children: ReactNode
 }
 
-export type ShowProps = {
-  when: boolean,
+export interface ShowProps {
+  when: boolean
   children: ReactNode
 }
 
-export type ErrorProps = {
+export interface ErrorProps {
   customMessage?: string
 }
 
-export type UserState = {
-  userid: string,
-  name: string,
-  privateKey: string,
-  email: string,
-  role: string,
-  selectedPlan: string,
-  apiKey: string,
-  tokenId: string,
+export interface UserState {
+  userid: string
+  name: string
+  privateKey: string
+  email: string
+  role: string
+  selectedPlan: string
+  apiKey: string
+  tokenId: string
   subscriptionValidUpto: string
   trialAvailable: boolean
 }
 
-export type DatasetCardProps = {
+export interface DatasetCardProps {
   id: string
-  category: string,
-  name: string,
+  category: string
+  name: string
   rating: number
 }
 
-export type DatasetRequestState = {
-  searchQuery: string,
-  selectedFilter: string,
+export interface DatasetRequestState {
+  searchQuery: string
+  selectedFilter: string
   selectedSortOption: string
   offset: number
 }
 
-export type AppCardProps = {
-  appName: string,
-  description: string,
-  appStatus: string,
+export interface AppCardProps {
+  appName: string
+  description: string
+  appStatus: string
   dbRegion: string
 }
 
-export type DocDetails = {
-  title: string,
-  content: string,
-  apiKey: string
+export interface GenericAppCardInterface {
+  headerText: string
+  footerText: string
+  badgeText: string
+  redirectUri: string
+  className: string
 }
 
-export type TokenData = {
+export interface GenericAppCardProps {
+  genericAppCardProps: GenericAppCardInterface
+}
+
+export interface TokenData {
   tokenName: string
-  tokenSymbol: string,
-  tokenContractAddress: string,
-  vendorContractAddress: string,
-  tokensPerMatic: number,
+  tokenSymbol: string
+  tokenContractAddress: string
+  vendorContractAddress: string
+  tokensPerMatic: number
   description: string
 }
 
-export type CruxQlDb = {
-  _id: string,
-  region: string,
-  cloudPlatform: string,
-  isSold: boolean,
+export interface CruxQlDb {
+  _id: string
+  region: string
+  cloudPlatform: string
+  isSold: boolean
   connectionString?: string
 }
 
-export type TokenCardProps = {
+export interface TokenCardProps {
   token: TokenData
 }
 
-export type DbCardProps = {
+export interface DbCardProps {
   db: CruxQlDb
 }
 

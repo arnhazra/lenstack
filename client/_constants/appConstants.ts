@@ -1,8 +1,8 @@
 enum Constants {
-  HomeHeader1 = "Build, ship & scale",
-  HomeHeader2 = "powered by blockchain.",
+  HomeHeader1 = "Build, Ship & Scale",
+  HomeHeader2 = "Powered by Blockchain.",
   HomeIntro1 = `Start with 30 days free trial, upgrade on demand.`,
-  HomeIntro2 = `There’s no upfront commitment, renewal is completely optional.`,
+  HomeIntro2 = `There’s no upfront commitment, renewal is optional.`,
   HomeIntro3 = `Starting at 1.99 MATIC/month`,
   ConnectionErrorMessage = `Connection Error`,
   IdentityVerificationMessage = `Verifying Identity`,
