@@ -10,7 +10,7 @@ const CruxqlDbOwnershipSchema = new mongoose.Schema({
 
   dbRelationId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "cruxqldblist",
+    ref: "database",
     required: true
   },
 

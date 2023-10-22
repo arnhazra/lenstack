@@ -4,7 +4,7 @@ import { airlakeMongoDbConn } from "../../../../utils/dbConnect"
 const AirlakeDatasetDataSchema = new mongoose.Schema({
   datasetRelationId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "airlakedatasetsmetadata",
+    ref: "datasetmetadata",
     required: true
   },
 

@@ -2,7 +2,8 @@
 
 ### v2.4
 * Announcement of 2 new apps - Entria & Keylux
-* Minor UI Changes
+* Minor Visual Enhancements
+* Minor Bux Fixes & Performance Improvements
 
 ### v2.3
 * Subscription charges scaling & credits replacing tokens used
@@ -22,7 +23,7 @@
 ## v2.0
 * Deprecated Evolake - OpenAI Based Query Generator
 * Announcement of 3 new blockchain apps - Dwallet, Swapstream & Zknft
-* UI & UX changes
+* Major Visual Enhancements
 
 ### v1.5
 * New tech stack and rearchitecture of backend APIs, Introducted Nest JS replacing Express

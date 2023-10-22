@@ -10,7 +10,7 @@ const WealthnowAssetSchema = new mongoose.Schema({
 
   portfolioId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "wealthnowportfolio",
+    ref: "portfolio",
     required: true
   },
 

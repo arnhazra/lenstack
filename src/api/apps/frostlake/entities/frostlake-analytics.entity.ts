@@ -10,7 +10,7 @@ const FrostlakeAnalyticsSchema = new mongoose.Schema({
 
   projectId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "frostlakeproject",
+    ref: "project",
     required: true
   },
 
