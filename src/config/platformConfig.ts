@@ -1,5 +1,3 @@
-import { envConfig } from "./envConfig"
-
 export const platformConfig = [
   {
     appName: "airlake",
@@ -46,7 +44,7 @@ export const platformConfig = [
   {
     appName: "zknft",
     description: "An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.",
-    appStatus: envConfig.nodeEnv === "production" ? "Coming Soon" : "Available",
+    appStatus: "Coming Soon",
     dbRegion: "Polygon Testnet"
   }
 ]

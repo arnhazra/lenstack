@@ -10,8 +10,11 @@ import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/_components/ErrorComp"
 import GenericAppCard from "@/_components/GenericAppCard"
 import { GenericAppCardInterface } from "@/_types/Types"
+import { useContext } from "react"
+import { AppContext } from "@/_context/appStateProvider"
 
 export default function Page() {
+  const [{ userState }] = useContext(AppContext)
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -53,7 +56,7 @@ export default function Page() {
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
-            <Button className="mt-2" onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
+            <Button className="mt-2" disabled={selectedApp?.appStatus !== "Available" || userState.apiKey === ""} onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
           </div>
           <h4 className="dashboard-header mt-2">Other Apps</h4>
           <Row className="mb-4 mt-2">
