@@ -1,5 +1,9 @@
 # Lenstack Changelog
 
+### v2.4
+* Announcement of 2 new apps - Entria & Keylux
+* Minor UI Changes
+
 ### v2.3
 * Subscription charges scaling & credits replacing tokens used
 * Introduced new Passkey based Identity Provider for IAM - Lenstack Id, replacing legacy Auth Provider
