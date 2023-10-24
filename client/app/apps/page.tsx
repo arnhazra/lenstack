@@ -30,7 +30,7 @@ export default function Page() {
       badgeText: app.appStatus,
       className: app.appName,
       footerText: app.description,
-      headerText: `Lenstack ${app.appName}`,
+      headerText: app.appName,
       redirectUri: `/apps/?appName=${app.appName}`
     }
 
@@ -51,7 +51,7 @@ export default function Page() {
       <Show when={!apps?.isLoading}>
         <Show when={selectedApp}>
           <div className="jumbotron p-4">
-            <p className="branding text-capitalize">Lenstack {selectedApp?.appName}</p>
+            <p className="branding text-capitalize">{selectedApp?.appName}</p>
             <p className="lead mt-3">{selectedApp?.description}</p>
             <div className="mb-2">
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
