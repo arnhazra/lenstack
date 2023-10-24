@@ -12,7 +12,7 @@ import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
 import useFetch from "@/_hooks/useFetch"
 import HTTPMethods from "@/_constants/httpMethods"
-import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
+import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-icons"
 
 export default function Page() {
   const [{ userState }] = useContext(AppContext)

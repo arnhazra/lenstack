@@ -1,6 +1,6 @@
 "use client"
 import Show from "@/_components/Show"
-import { JsonView, allExpanded, darkStyles, defaultStyles } from "react-json-view-lite"
+import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"

@@ -10,10 +10,11 @@ import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
 import { CruxqlRepository } from "../apps/cruxql/cruxql.repository"
+import { EasenftRepository } from "../apps/easenft/easenft.repository"
 
 @Module({
   controllers: [SubscriptionController],
-  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, CruxqlRepository, DwalletRepository, FrostlakeRepository, WealthnowRepository, SwapstreamRepository, SnowlakeRepository],
+  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, CruxqlRepository, DwalletRepository, EasenftRepository, FrostlakeRepository, WealthnowRepository, SwapstreamRepository, SnowlakeRepository],
 })
 
 export class SubscriptionModule { }

@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, useContext, useEffect, useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import endPoints from "@/_constants/apiEndpoints"
 import Show from "@/_components/Show"
 import { Button, Container, Table } from "react-bootstrap"

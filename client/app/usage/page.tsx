@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext } from "react"
 import { AppContext } from "@/_context/appStateProvider"
 import Show from "@/_components/Show"
 import { toast } from "sonner"
@@ -11,7 +11,7 @@ import Loading from "@/_components/Loading"
 import appConstants from "@/_constants/appConstants"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
-import { LockOpen1Icon, CalendarIcon, BookmarkIcon, BarChartIcon, CrossCircledIcon, CopyIcon } from "@radix-ui/react-icons"
+import { LockOpen1Icon, CalendarIcon, BookmarkIcon, BarChartIcon, CopyIcon } from "@radix-ui/react-icons"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)

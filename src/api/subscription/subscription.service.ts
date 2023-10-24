@@ -16,6 +16,7 @@ import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
 import { CruxqlRepository } from "../apps/cruxql/cruxql.repository"
+import { EasenftRepository } from "../apps/easenft/easenft.repository"
 
 @Injectable()
 export class SubscriptionService {
@@ -30,7 +31,8 @@ export class SubscriptionService {
     private readonly swapstreamRepository: SwapstreamRepository,
     private readonly snowlakeRepository: SnowlakeRepository,
     private readonly wealthnowRepository: WealthnowRepository,
-    private readonly cruxqlRepository: CruxqlRepository) {
+    private readonly cruxqlRepository: CruxqlRepository,
+    private readonly easenftRepository: EasenftRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
@@ -101,13 +103,14 @@ export class SubscriptionService {
       if (subscription) {
         const { apiKey } = subscription
         const airlakeUsedCredits = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
+        const cruxqlUsedCredits = await this.cruxqlRepository.findCountByApiKey(apiKey) * apiPricing.cruxql
         const dwalletUsedCredits = await this.dwalletRepository.findCountByApiKey(apiKey) * apiPricing.dwallet
+        const easeNftUsedCredits = await this.easenftRepository.findCountByApiKey(apiKey) * apiPricing.easenft
         const frostlakeUsedCredits = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
         const snowlakeUsedCredits = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
         const swapstreamUsedCredits = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
         const wealthnowUsedCredits = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.wealthnow
-        const cruxqlUsedCredits = await this.cruxqlRepository.findCountByApiKey(apiKey) * apiPricing.cruxql
-        const usedCredits = airlakeUsedCredits + dwalletUsedCredits + frostlakeUsedCredits + snowlakeUsedCredits + swapstreamUsedCredits + wealthnowUsedCredits + cruxqlUsedCredits
+        const usedCredits = airlakeUsedCredits + cruxqlUsedCredits + dwalletUsedCredits + easeNftUsedCredits + frostlakeUsedCredits + snowlakeUsedCredits + swapstreamUsedCredits + wealthnowUsedCredits
         return { usedCredits }
       }
 

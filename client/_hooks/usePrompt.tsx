@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
