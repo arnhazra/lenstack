@@ -57,18 +57,6 @@ export class AirlakeService {
     }
   }
 
-  async getPreviewData(datasetId: string) {
-    try {
-      const totalData = await this.airlakeRepository.findDatasetDataById(datasetId)
-      const previewData = totalData.data.slice(-10)
-      return previewData
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
   async getData(userId: string, datasetId: string, apiKey: string) {
     try {
       const data = await this.airlakeRepository.findDatasetDataById(datasetId)

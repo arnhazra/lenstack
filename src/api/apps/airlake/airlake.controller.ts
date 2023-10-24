@@ -54,20 +54,8 @@ export class AirlakeController {
     }
   }
 
-  @Get("previewdataapi")
-  async getPreviewData(@Query("datasetId") datasetId: string) {
-    try {
-      const previewData = await this.airlakeService.getPreviewData(datasetId)
-      return { previewData }
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
   @Get("dataapi")
-  async getData(@ApiKeyAuthorizer() userId: string, @Query("datasetId") datasetId: string, @Query("apiKey") apiKey: string) {
+  async getData(@ApiKeyAuthorizer() userId: string, @Body("datasetId") datasetId: string, @Body("apiKey") apiKey: string) {
     try {
       const data = await this.airlakeService.getData(userId, datasetId, apiKey)
       return { data }

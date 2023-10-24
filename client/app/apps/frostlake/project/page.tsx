@@ -45,23 +45,13 @@ export default function Page() {
     }
   }
 
-  const sampleAPIRequest = {
-    "component": "YOUR_COMPONENT_NAME",
-    "event": "JAVASCRIPT_EVENT",
-    "info": "INFORMATION",
-    "statusCode": "200",
-    "apiKey": userState.apiKey,
-    "clientId": project?.data?.project?.clientId,
-    "clientSecret": project?.data?.project?.clientSecret
-  }
-
-  const copyAPIURI = (): void => {
-    navigator.clipboard.writeText(`${endPoints.frostlakeCreateAnalyticsEndpoint}`)
+  const copyClientId = (): void => {
+    navigator.clipboard.writeText(`${project?.data?.project?.clientId}`)
     toast.success(Constants.CopiedToClipBoard)
   }
 
-  const copySampleAPIRequetObject = (): void => {
-    navigator.clipboard.writeText(JSON.stringify(sampleAPIRequest))
+  const copyClientSecret = (): void => {
+    navigator.clipboard.writeText(`${project?.data?.project?.clientSecret}`)
     toast.success(Constants.CopiedToClipBoard)
   }
 
@@ -73,8 +63,8 @@ export default function Page() {
             <div className="jumbotron p-4">
               <p className="display-6 text-capitalize">{project?.data?.project?.name}</p>
               <p className="lead mt-3">Your Project Analytics will be displayed below (if any)</p>
-              <Button onClick={copyAPIURI}>Copy POST API URI<CopyIcon className="icon-right" /></Button>
-              <Button onClick={copySampleAPIRequetObject}>Copy Sample Request<CopyIcon className="icon-right" /></Button>
+              <Button onClick={copyClientId}>Copy Client Id<CopyIcon className="icon-right" /></Button>
+              <Button onClick={copyClientSecret}>Copy Client Secret<CopyIcon className="icon-right" /></Button>
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
             </div>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>

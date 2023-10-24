@@ -3,16 +3,18 @@ import Error from "@/_components/ErrorComp"
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
+import Constants from "@/_constants/appConstants"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
-import { ArchiveIcon, ExternalLinkIcon, IdCardIcon, ReaderIcon } from "@radix-ui/react-icons"
+import { ArchiveIcon, CopyIcon, ExternalLinkIcon, IdCardIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
+import { toast } from "sonner"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -27,6 +29,11 @@ export default function Page() {
     if (userConsent) {
       await axios.delete(`${endPoints.wealthnowDeleteAssetEndpoint}?assetId=${assetId}`)
     }
+  }
+
+  const copyPortfolioId = (): void => {
+    navigator.clipboard.writeText(`${portfolioId}`)
+    toast.success(Constants.CopiedToClipBoard)
   }
 
   const assetsToDisplay = portfolio?.data?.assets?.map((asset: any) => {
@@ -62,6 +69,7 @@ export default function Page() {
               <p className="lead mt-3">Created On {moment(portfolio?.data?.portfolio?.createdAt).format("MMM, Do YYYY, h:mm a")}</p>
               <p className="lead text-capitalize">Total Asset</p>
               <p className="display-4 text-capitalize">₹ {portfolio?.data?.totalAssetUnderPortfolio.toLocaleString()}</p>
+              <Button onClick={copyPortfolioId}>Copy Portfolio Id<CopyIcon className="icon-right" /></Button>
               <Button onClick={archivePortfolio}>Archive Portfolio<ArchiveIcon className="icon-right" /></Button>
               <Button onClick={() => router.push(`/apps/wealthnow/portfolio/addasset?portfolioid=${portfolioId}`)}>Add New Asset<IdCardIcon className="icon-right" /></Button>
             </div>

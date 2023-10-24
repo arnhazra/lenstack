@@ -12,10 +12,8 @@ import { apiPricing, subscriptionConfig } from "src/config/subscriptionConfig"
 export const ApiKeyAuthorizer = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest()
-    const apiKeyFromParams = request.query.apiKey
-    const apiKeyFromBody = request.body.apiKey
-    const apiKey = apiKeyFromParams ? apiKeyFromParams : apiKeyFromBody
-    const requestedResource = String(request.originalUrl).split('/')[2]
+    const apiKey = request.body.apiKey
+    const requestedResource = String(request.originalUrl).split("/")[2]
 
     if (!apiKey) {
       throw new ForbiddenException()

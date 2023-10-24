@@ -17,7 +17,6 @@ const endPoints = {
   airlakeFindDatasetsEndpoint: `${apiHost}/api/airlake/finddatasets`,
   airlakeViewDatasetsEndpoint: `${apiHost}/api/airlake/viewdataset`,
   airlakeFindSimilarDatasetsEndpoint: `${apiHost}/api/airlake/findsimilardatasets`,
-  airlakePreviewDataApiEndpoint: `${apiHost}/api/airlake/previewdataapi`,
   airlakeDataApiEndpoint: `${apiHost}/api/airlake/dataapi`,
   dwalletCreateTxEndpoint: `${apiHost}/api/dwallet/createtx`,
   swapstreamCreateTxEndpoint: `${apiHost}/api/swapstream/createtx`,
@@ -40,6 +39,7 @@ const endPoints = {
   cruxqlGetMyDbList: `${apiHost}/api/cruxql/getmydblist`,
   cruxqlPurchaseDb: `${apiHost}/api/cruxql/purchasedb`,
   cruxqlViewDatabase: `${apiHost}/api/cruxql/viewdatabase`,
+  getdocumentation: `${apiHost}/api/documentation/getallbyappname`,
 }
 
 export default endPoints

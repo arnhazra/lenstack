@@ -1,5 +1,4 @@
 "use client"
-import { FC } from "react"
 import Constants from "@/_constants/appConstants"
 import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"

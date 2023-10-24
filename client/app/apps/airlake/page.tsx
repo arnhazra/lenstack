@@ -32,7 +32,7 @@ export default function Page() {
     return <GenericAppCard key={dataset._id} genericAppCardProps={genericAppCardProps} />
   })
 
-  const noDatasetsToDisplay = <p className="display-6 text-white text-center">No results !</p>
+  const noDatasetsToDisplay = <p className="display-6 text-white">No results !</p>
 
   const prevPage = () => {
     const prevDatasetReqNumber = datasetRequestState.offset - 36

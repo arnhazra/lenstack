@@ -41,13 +41,8 @@ export default function Page() {
     }
   })
 
-  const copyPreviewDataAPI = (): void => {
-    navigator.clipboard.writeText(`${endPoints.airlakePreviewDataApiEndpoint}?datasetId=${datasetId}`)
-    toast.success(Constants.CopiedToClipBoard)
-  }
-
-  const copyDataAPI = (): void => {
-    navigator.clipboard.writeText(`${endPoints.airlakeDataApiEndpoint}/?datasetId=${datasetId}&apiKey=${userState.apiKey}`)
+  const copyDatasetId = (): void => {
+    navigator.clipboard.writeText(`${datasetId}`)
     toast.success(Constants.CopiedToClipBoard)
   }
 
@@ -61,10 +56,7 @@ export default function Page() {
               <p className="lead">{dataset?.data?.category}</p>
               <p className="lead mt-3">{dataset?.data?.description}</p>
               <div className="mb-3">{datasetTagsToDisplay}</div>
-              <Button onClick={copyPreviewDataAPI}>Preview Data API<CopyIcon className="icon-right" /></Button>
-              <Show when={userState.apiKey.length > 0}>
-                <Button disabled={!userState.apiKey} onClick={copyDataAPI}>Data API <CopyIcon className="icon-right" /></Button>
-              </Show>
+              <Button onClick={copyDatasetId}>Copy Dataset Id <CopyIcon className="icon-right" /></Button>
             </div>
             <Row>
               <h4 className="text-white mb-4">Similar Datasets</h4>

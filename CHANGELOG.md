@@ -1,5 +1,10 @@
 # Lenstack Changelog
 
+### v2.5
+* Added Generic Documentation
+* Breaking API Changes in Airlake Data API
+* Deprecated Preview Data API - Airlake
+
 ### v2.4
 * Announcement of 2 new apps - Entria & Keylux
 * Minor Visual Enhancements
