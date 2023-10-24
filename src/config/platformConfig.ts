@@ -21,6 +21,13 @@ export const platformConfig = [
     isDocumentationAvailable: false
   },
   {
+    appName: "easenft",
+    description: "An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.",
+    appStatus: "Available",
+    dbRegion: "Polygon",
+    isDocumentationAvailable: false
+  },
+  {
     appName: "entria",
     description: "Secure access for a connected world. Protect any identity and secure access to any resource with our IAM solution.",
     appStatus: "Coming Soon",
@@ -61,12 +68,5 @@ export const platformConfig = [
     appStatus: "Available",
     dbRegion: "MongoDB",
     isDocumentationAvailable: true
-  },
-  {
-    appName: "zknft",
-    description: "An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.",
-    appStatus: "Coming Soon",
-    dbRegion: "Polygon",
-    isDocumentationAvailable: false
   }
 ]

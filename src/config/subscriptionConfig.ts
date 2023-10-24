@@ -17,5 +17,5 @@ export const apiPricing = {
   snowlake: 750,
   swapstream: 75,
   wealthnow: 300,
-  zknft: 300
+  easenft: 200
 }

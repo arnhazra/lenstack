@@ -5,6 +5,7 @@ export const mainLenstackMongoDbConn = mongoose.createConnection(envConfig.lenst
 export const airlakeMongoDbConn = mongoose.createConnection(envConfig.airlakeMongoDbUri)
 export const cruxqlMongoDbConn = mongoose.createConnection(envConfig.cruxqlMongoDbUri)
 export const dwalletMongoDbConn = mongoose.createConnection(envConfig.dwalletMongoDbUri)
+export const easenftMongoDbConn = mongoose.createConnection(envConfig.easenftMongoDbUri)
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
 export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
 export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
@@ -28,6 +29,11 @@ const cruxqlDbConnect = async () => {
 const dwalletDbConnect = async () => {
   dwalletMongoDbConn.on("connected", () => console.log("Dwallet DB Connected"))
   dwalletMongoDbConn.on("error", (err) => console.log("Dwallet DB Not Connected"))
+}
+
+const easenftDbConnect = async () => {
+  easenftMongoDbConn.on("connected", () => console.log("Easenft DB Connected"))
+  easenftMongoDbConn.on("error", (err) => console.log("Easenft DB Not Connected"))
 }
 
 const frostlakeDbConnect = async () => {
@@ -55,6 +61,7 @@ export const dbConnect = async () => {
   airlakeDbConnect()
   cruxqlDbConnect()
   dwalletDbConnect()
+  easenftDbConnect()
   frostlakeDbConnect()
   snowlakeDbConnect()
   swapstreamDbConnect()

@@ -25,7 +25,7 @@ Effortlessly trade ERC-20 tokens with our platform, ensuring seamless transactio
 #### Wealthnow
 An wealth management platform to manage personal and businees wealth in a single dashboard with many features.
 
-#### Zknft
+#### EaseNFT
 An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.
 
 ### What is the cost of using this platform ?

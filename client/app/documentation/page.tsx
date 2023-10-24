@@ -1,6 +1,6 @@
 "use client"
 import Show from "@/_components/Show"
-import { JsonView, allExpanded, darkStyles, defaultStyles } from 'react-json-view-lite'
+import { JsonView, allExpanded, darkStyles, defaultStyles } from "react-json-view-lite"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation"
 import { Container, Form } from "react-bootstrap"
 import Loading from "../loading"
 import Error from "@/_components/ErrorComp"
-import 'react-json-view-lite/dist/index.css'
+import "react-json-view-lite/dist/index.css"
 
 export default function Page() {
   const searchParams = useSearchParams()

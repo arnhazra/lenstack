@@ -6,9 +6,9 @@ import { SwapstreamModule } from "./swapstream/swapstream.module"
 import { CruxqlModule } from "./cruxql/cruxql.module"
 import { DwalletModule } from "./dwallet/dwallet.module"
 import { SnowlakeModule } from "./snowlake/snowlake.module"
-import { ZknftModule } from "./zknft/zknft.module"
+import { EasenftModule } from "./easenft/easenft.module"
 
 @Module({
-  imports: [AirlakeModule, FrostlakeModule, WealthnowModule, SwapstreamModule, CruxqlModule, DwalletModule, SnowlakeModule, ZknftModule]
+  imports: [AirlakeModule, FrostlakeModule, WealthnowModule, SwapstreamModule, CruxqlModule, DwalletModule, SnowlakeModule, EasenftModule]
 })
 export class AppsModule { }

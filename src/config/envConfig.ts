@@ -8,6 +8,7 @@ export const envConfig = {
   airlakeMongoDbUri: process.env.AIRLAKE_DB_URI,
   cruxqlMongoDbUri: process.env.CRUXQL_DB_URI,
   dwalletMongoDbUri: process.env.DWALLET_DB_URI,
+  easenftMongoDbUri: process.env.EASENFT_DB_URI,
   frostlakeMongoDbUri: process.env.FROSTLAKE_DB_URI,
   snowlakeMongoDbUri: process.env.SNOWLAKE_DB_URI,
   swapstreamMongoDbUri: process.env.SWAPSTREAM_DB_URI,

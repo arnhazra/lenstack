@@ -19,6 +19,8 @@ const endPoints = {
   airlakeFindSimilarDatasetsEndpoint: `${apiHost}/api/airlake/findsimilardatasets`,
   airlakeDataApiEndpoint: `${apiHost}/api/airlake/dataapi`,
   dwalletCreateTxEndpoint: `${apiHost}/api/dwallet/createtx`,
+  easenftCreateTxEndpoint: `${apiHost}/api/easenft/createtx`,
+  easenftGetMyNftsEndpoint: `${apiHost}/api/easenft/getmynfts`,
   swapstreamCreateTxEndpoint: `${apiHost}/api/swapstream/createtx`,
   snowlakeCreateTxEndpoint: `${apiHost}/api/snowlake/createtx`,
   frostlakeCreateProjectEndpoint: `${apiHost}/api/frostlake/createproject`,

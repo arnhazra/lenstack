@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v3.0
+* Introduction of new blockchain app - EaseNFT
+
 ### v2.5
 * Added Generic Documentation
 * Breaking API Changes in Airlake Data API
@@ -27,7 +30,7 @@
 
 ## v2.0
 * Deprecated Evolake - OpenAI Based Query Generator
-* Announcement of 3 new blockchain apps - Dwallet, Swapstream & Zknft
+* Announcement of 3 new blockchain apps - Dwallet, Swapstream & Easenft
 * Major Visual Enhancements
 
 ### v1.5

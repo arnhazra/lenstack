@@ -24,7 +24,7 @@ export default function Page() {
       badgeText: app.appStatus,
       className: app.appName,
       footerText: app.description,
-      headerText: app.appName,
+      headerText: `Lenstack ${app.appName}`,
       redirectUri: `/apps/?appName=${app.appName}`
     }
 
