@@ -42,13 +42,6 @@ export const platformConfig = [
     isDocumentationAvailable: true
   },
   {
-    appName: "keylux",
-    description: "A cloud service for securely storing and accessing secrets. Centrally manage keys and use in apps from a single point.",
-    appStatus: "Coming Soon",
-    dbRegion: "MongoDB",
-    isDocumentationAvailable: false
-  },
-  {
     appName: "snowlake",
     description: "A prototype management application that uses Ethereum Blockchain to create and manage prototypes.",
     appStatus: "Available",
@@ -61,6 +54,13 @@ export const platformConfig = [
     appStatus: "Available",
     dbRegion: "Polygon",
     isDocumentationAvailable: false
+  },
+  {
+    appName: "vuelock",
+    description: "A cloud service for securely storing and accessing secrets. Centrally manage keys and use in apps from a single point.",
+    appStatus: "Available",
+    dbRegion: "MongoDB",
+    isDocumentationAvailable: true
   },
   {
     appName: "wealthnow",

@@ -7,8 +7,9 @@ import { CruxqlModule } from "./cruxql/cruxql.module"
 import { DwalletModule } from "./dwallet/dwallet.module"
 import { SnowlakeModule } from "./snowlake/snowlake.module"
 import { EasenftModule } from "./easenft/easenft.module"
+import { VuelockModule } from "./vuelock/vuelock.module"
 
 @Module({
-  imports: [AirlakeModule, FrostlakeModule, WealthnowModule, SwapstreamModule, CruxqlModule, DwalletModule, SnowlakeModule, EasenftModule]
+  imports: [AirlakeModule, FrostlakeModule, WealthnowModule, SwapstreamModule, CruxqlModule, DwalletModule, SnowlakeModule, EasenftModule, VuelockModule]
 })
 export class AppsModule { }

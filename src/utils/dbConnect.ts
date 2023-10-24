@@ -10,6 +10,7 @@ export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlak
 export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
 export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
 export const wealthnowMongoDbConn = mongoose.createConnection(envConfig.wealthnowMongoDbUri)
+export const vuelockMongoDbConn = mongoose.createConnection(envConfig.vuelockMongoDbUri)
 
 const mainLenstackDbConnect = async () => {
   mainLenstackMongoDbConn.on("connected", () => console.log("Main Lenstack DB Connected"))
@@ -56,6 +57,11 @@ const wealthnowDbConnect = async () => {
   wealthnowMongoDbConn.on("error", (err) => console.log("Wealthnow DB Not Connected"))
 }
 
+const vuelockDbConnect = async () => {
+  vuelockMongoDbConn.on("connected", () => console.log("Vuelock DB Connected"))
+  vuelockMongoDbConn.on("error", (err) => console.log("Vuelock DB Not Connected"))
+}
+
 export const dbConnect = async () => {
   mainLenstackDbConnect()
   airlakeDbConnect()
@@ -66,4 +72,5 @@ export const dbConnect = async () => {
   snowlakeDbConnect()
   swapstreamDbConnect()
   wealthnowDbConnect()
+  vuelockDbConnect()
 }

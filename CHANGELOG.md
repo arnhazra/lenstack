@@ -2,6 +2,8 @@
 
 ### v3.0
 * Introduction of new blockchain app - EaseNFT
+* Introduction of new key vault manager app - Vuelock
+* Code Optimizations & Bug Fixes
 
 ### v2.5
 * Added Generic Documentation
@@ -9,7 +11,7 @@
 * Deprecated Preview Data API - Airlake
 
 ### v2.4
-* Announcement of 2 new apps - Entria & Keylux
+* Announcement of 2 new apps - Entria & Vuelock
 * Minor Visual Enhancements
 * Minor Bux Fixes & Performance Improvements
 

@@ -21,11 +21,11 @@ export default function Page() {
         <p className="branding">{apiDoc.apiName}</p>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Method: {apiDoc.apiMethod}</Form.Label>
-          <Form.Control readOnly autoFocus type="email" defaultValue={`https://lenstack.vercel.app${apiDoc.apiUri}`} />
+          <Form.Control readOnly type="email" defaultValue={`https://lenstack.vercel.app${apiDoc.apiUri}`} />
         </Form.Group>
-        <p className="lead">Sample Request Body</p>
+        <p>Sample Request Body</p>
         <JsonView data={apiDoc.sampleRequestBody} shouldExpandNode={allExpanded} style={defaultStyles} /><br />
-        <p className="lead">Sample Response Body</p>
+        <p>Sample Response Body</p>
         <JsonView data={apiDoc.sampleResponseBody} shouldExpandNode={allExpanded} style={defaultStyles} />
         <hr />
       </div>

@@ -42,6 +42,12 @@ const endPoints = {
   cruxqlPurchaseDb: `${apiHost}/api/cruxql/purchasedb`,
   cruxqlViewDatabase: `${apiHost}/api/cruxql/viewdatabase`,
   getdocumentation: `${apiHost}/api/documentation/getallbyappname`,
+  vuelockCreateVaultEndpoint: `${apiHost}/api/vuelock/createvault`,
+  vuelockGetMyVaultsEndpoint: `${apiHost}/api/vuelock/getmyvaults`,
+  vuelockViewVaultEndpoint: `${apiHost}/api/vuelock/viewvault`,
+  vuelockDeleteVaultEndpoint: `${apiHost}/api/vuelock/deletevault`,
+  vuelockCreateSecretEndpoint: `${apiHost}/api/vuelock/createsecret`,
+  vuelockDeleteSecretEndpoint: `${apiHost}/api/vuelock/deletesecret`,
 }
 
 export default endPoints

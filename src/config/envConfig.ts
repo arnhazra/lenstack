@@ -13,6 +13,7 @@ export const envConfig = {
   snowlakeMongoDbUri: process.env.SNOWLAKE_DB_URI,
   swapstreamMongoDbUri: process.env.SWAPSTREAM_DB_URI,
   wealthnowMongoDbUri: process.env.WEALTHNOW_DB_URI,
+  vuelockMongoDbUri: process.env.VUELOCK_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,

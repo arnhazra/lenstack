@@ -1,6 +1,6 @@
+import Web3 from "web3"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { randomBytes } from "crypto"
-import Web3 from "web3"
 import { SubscriptionRepository } from "./subscription.repository"
 import { UserRepository } from "../user/user.repository"
 import { statusMessages } from "src/constants/statusMessages"
@@ -17,6 +17,7 @@ import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
 import { CruxqlRepository } from "../apps/cruxql/cruxql.repository"
 import { EasenftRepository } from "../apps/easenft/easenft.repository"
+import { VuelockRepository } from "../apps/vuelock/vuelock.repository"
 
 @Injectable()
 export class SubscriptionService {
@@ -32,7 +33,8 @@ export class SubscriptionService {
     private readonly snowlakeRepository: SnowlakeRepository,
     private readonly wealthnowRepository: WealthnowRepository,
     private readonly cruxqlRepository: CruxqlRepository,
-    private readonly easenftRepository: EasenftRepository) {
+    private readonly easenftRepository: EasenftRepository,
+    private readonly vuelockRepository: VuelockRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
@@ -109,8 +111,19 @@ export class SubscriptionService {
         const frostlakeUsedCredits = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
         const snowlakeUsedCredits = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
         const swapstreamUsedCredits = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
+        const vuelockUsedCredits = await this.vuelockRepository.findCountByApiKey(apiKey) * apiPricing.vuelock
         const wealthnowUsedCredits = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.wealthnow
-        const usedCredits = airlakeUsedCredits + cruxqlUsedCredits + dwalletUsedCredits + easeNftUsedCredits + frostlakeUsedCredits + snowlakeUsedCredits + swapstreamUsedCredits + wealthnowUsedCredits
+
+        const usedCredits = airlakeUsedCredits +
+          cruxqlUsedCredits +
+          dwalletUsedCredits +
+          easeNftUsedCredits +
+          frostlakeUsedCredits +
+          snowlakeUsedCredits +
+          swapstreamUsedCredits +
+          vuelockUsedCredits +
+          wealthnowUsedCredits
+
         return { usedCredits }
       }
 

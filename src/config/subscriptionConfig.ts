@@ -13,9 +13,10 @@ export const apiPricing = {
   airlake: 15,
   cruxql: 200000,
   dwallet: 75,
+  easenft: 200,
   frostlake: 30,
   snowlake: 750,
   swapstream: 75,
+  vuelock: 5,
   wealthnow: 300,
-  easenft: 200
 }

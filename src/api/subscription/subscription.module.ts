@@ -11,10 +11,11 @@ import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
 import { CruxqlRepository } from "../apps/cruxql/cruxql.repository"
 import { EasenftRepository } from "../apps/easenft/easenft.repository"
+import { VuelockRepository } from "../apps/vuelock/vuelock.repository"
 
 @Module({
   controllers: [SubscriptionController],
-  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, CruxqlRepository, DwalletRepository, EasenftRepository, FrostlakeRepository, WealthnowRepository, SwapstreamRepository, SnowlakeRepository],
+  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, CruxqlRepository, DwalletRepository, VuelockRepository, EasenftRepository, FrostlakeRepository, WealthnowRepository, SwapstreamRepository, SnowlakeRepository],
 })
 
 export class SubscriptionModule { }
