@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v3.1
+* Deprecated Wealthow - A app for Wealth management
+
 ### v3.0
 * Introduction of new blockchain app - EaseNFT
 * Introduction of new key vault manager app - Vuelock

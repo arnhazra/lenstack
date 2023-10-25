@@ -54,12 +54,5 @@ export const platformConfig = [
     appStatus: "Available",
     dbRegion: "MongoDB",
     isDocumentationAvailable: true
-  },
-  {
-    appName: "wealthnow",
-    description: "An wealth management platform to manage personal and businees wealth in a single dashboard with many features.",
-    appStatus: "Available",
-    dbRegion: "MongoDB",
-    isDocumentationAvailable: true
   }
 ]

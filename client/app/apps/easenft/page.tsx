@@ -27,7 +27,7 @@ export default function Page() {
     return (
       <tr key={nft._id}>
         <td>{moment(nft.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link target="_blank" passHref href={`https://mumbai.polygonscan.com/tx/${nft.txId}`}>View NFT<ExternalLinkIcon className=" icon-right" /></Link></td>
+        <td><Link target="_blank" passHref href={`https://mumbai.polygonscan.com/tx/${nft.txId}`} className="new-link">View NFT<ExternalLinkIcon className=" icon-right" /></Link></td>
       </tr >
     )
   })

@@ -9,7 +9,6 @@ export const easenftMongoDbConn = mongoose.createConnection(envConfig.easenftMon
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
 export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
 export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
-export const wealthnowMongoDbConn = mongoose.createConnection(envConfig.wealthnowMongoDbUri)
 export const vuelockMongoDbConn = mongoose.createConnection(envConfig.vuelockMongoDbUri)
 
 const mainLenstackDbConnect = async () => {
@@ -52,11 +51,6 @@ const swapstreamDbConnect = async () => {
   swapstreamMongoDbConn.on("error", (err) => console.log("Swpastream DB Not Connected"))
 }
 
-const wealthnowDbConnect = async () => {
-  wealthnowMongoDbConn.on("connected", () => console.log("Wealthnow DB Connected"))
-  wealthnowMongoDbConn.on("error", (err) => console.log("Wealthnow DB Not Connected"))
-}
-
 const vuelockDbConnect = async () => {
   vuelockMongoDbConn.on("connected", () => console.log("Vuelock DB Connected"))
   vuelockMongoDbConn.on("error", (err) => console.log("Vuelock DB Not Connected"))
@@ -71,6 +65,5 @@ export const dbConnect = async () => {
   frostlakeDbConnect()
   snowlakeDbConnect()
   swapstreamDbConnect()
-  wealthnowDbConnect()
   vuelockDbConnect()
 }

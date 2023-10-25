@@ -7,7 +7,6 @@ import { FrostlakeAnalyticsModel } from "src/api/apps/frostlake/entities/frostla
 import { SnowlakeTransactionModel } from "src/api/apps/snowlake/entities/snowlake.entity"
 import { SwapstreamTransactionModel } from "src/api/apps/swapstream/entities/swapstream.entity"
 import { VuelockSecretModel } from "src/api/apps/vuelock/entities/vuelock-secret.entity"
-import { WealthnowAssetModel } from "src/api/apps/wealthnow/entities/wealthnow-asset.entity"
 import { SubscriptionModel } from "src/api/subscription/entities/subscription.entity"
 import { apiPricing, subscriptionConfig } from "src/config/subscriptionConfig"
 
@@ -42,7 +41,6 @@ export const ApiKeyAuthorizer = createParamDecorator(
             const snowlakeUsedCredits = await SnowlakeTransactionModel.find({ apiKey }).countDocuments() * apiPricing.snowlake
             const swapstreamUsedCredits = await SwapstreamTransactionModel.find({ apiKey }).countDocuments() * apiPricing.swapstream
             const vuelockUsedCredits = await VuelockSecretModel.find({ apiKey }).countDocuments() * apiPricing.vuelock
-            const wealthnowUsedCredits = await WealthnowAssetModel.find({ apiKey }).countDocuments() * apiPricing.wealthnow
             const usedCredits = airlakeUsedCredits +
               cruxqlUsedCredits +
               dwalletUsedCredits +
@@ -50,7 +48,6 @@ export const ApiKeyAuthorizer = createParamDecorator(
               frostlakeUsedCredits +
               snowlakeUsedCredits +
               swapstreamUsedCredits +
-              wealthnowUsedCredits +
               vuelockUsedCredits
 
             const creditRequiredForCurrentRequest = apiPricing[`${requestedResource}`]

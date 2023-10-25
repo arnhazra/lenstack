@@ -13,6 +13,9 @@ Enable one-click deployment of multi-cloud MongoDB clusters with data privacy, e
 #### Dwallet
 An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
 
+#### EaseNFT
+An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.
+
 #### Frostlake
 An analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 
@@ -22,11 +25,8 @@ A prototype management application that uses Ethereum Blockchain to create and m
 #### Swapstream
 Effortlessly trade ERC-20 tokens with our platform, ensuring seamless transactions within the Ethereum ecosystem.
 
-#### Wealthnow
-An wealth management platform to manage personal and businees wealth in a single dashboard with many features.
-
-#### EaseNFT
-An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.
+#### Vuelock
+A cloud service for securely storing and accessing secrets. Centrally manage keys and use in apps from a single point.
 
 ### What is the cost of using this platform ?
 

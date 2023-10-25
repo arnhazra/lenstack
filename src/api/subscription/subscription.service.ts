@@ -11,7 +11,6 @@ import { SubscriptionModel } from "./entities/subscription.entity"
 import { apiPricing } from "src/config/subscriptionConfig"
 import { AirlakeRepository } from "../apps/airlake/airlake.repository"
 import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
-import { WealthnowRepository } from "../apps/wealthnow/wealthnow.repository"
 import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
@@ -31,7 +30,6 @@ export class SubscriptionService {
     private readonly frostlakeRepository: FrostlakeRepository,
     private readonly swapstreamRepository: SwapstreamRepository,
     private readonly snowlakeRepository: SnowlakeRepository,
-    private readonly wealthnowRepository: WealthnowRepository,
     private readonly cruxqlRepository: CruxqlRepository,
     private readonly easenftRepository: EasenftRepository,
     private readonly vuelockRepository: VuelockRepository) {
@@ -112,7 +110,6 @@ export class SubscriptionService {
         const snowlakeUsedCredits = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
         const swapstreamUsedCredits = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
         const vuelockUsedCredits = await this.vuelockRepository.findCountByApiKey(apiKey) * apiPricing.vuelock
-        const wealthnowUsedCredits = await this.wealthnowRepository.findCountByApiKey(apiKey) * apiPricing.wealthnow
 
         const usedCredits = airlakeUsedCredits +
           cruxqlUsedCredits +
@@ -121,8 +118,7 @@ export class SubscriptionService {
           frostlakeUsedCredits +
           snowlakeUsedCredits +
           swapstreamUsedCredits +
-          vuelockUsedCredits +
-          wealthnowUsedCredits
+          vuelockUsedCredits
 
         return { usedCredits }
       }

@@ -18,5 +18,4 @@ export const apiPricing = {
   snowlake: 750,
   swapstream: 75,
   vuelock: 5,
-  wealthnow: 300,
 }
