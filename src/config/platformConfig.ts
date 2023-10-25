@@ -28,13 +28,6 @@ export const platformConfig = [
     isDocumentationAvailable: false
   },
   {
-    appName: "entria",
-    description: "Secure access for a connected world. Protect any identity and secure access to any resource with our IAM solution.",
-    appStatus: "Coming Soon",
-    dbRegion: "MongoDB",
-    isDocumentationAvailable: false
-  },
-  {
     appName: "frostlake",
     description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
     appStatus: "Available",

@@ -11,7 +11,7 @@
 * Deprecated Preview Data API - Airlake
 
 ### v2.4
-* Announcement of 2 new apps - Entria & Vuelock
+* Announcement of Vuelock
 * Minor Visual Enhancements
 * Minor Bux Fixes & Performance Improvements
 
