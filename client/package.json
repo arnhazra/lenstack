@@ -24,7 +24,6 @@
     "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
     "react-json-view-lite": "^1.1.0",
-    "react-simple-star-rating": "^5.1.7",
     "sass": "^1.67.0",
     "sonner": "^1.0.3",
     "typescript": "5.2.2",
