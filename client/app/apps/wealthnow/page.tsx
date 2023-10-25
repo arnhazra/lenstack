@@ -8,7 +8,7 @@ import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import moment from "moment"
 import Link from "next/link"
-import { ArrowRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, ExternalLinkIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 
 export default function Page() {
   const portfolios = useFetch("portfolios", endPoints.wealthnowGetPortfoliosEndpoint, HTTPMethods.POST)
@@ -27,7 +27,7 @@ export default function Page() {
     <Fragment>
       <Show when={!portfolios.isLoading}>
         <Container>
-          <Link className="btn" href={"/apps/wealthnow/createportfolio"}>Create Portfolio<ArrowRightIcon className="icon-right" /></Link>
+          <Link className="btn" href={"/apps/wealthnow/createportfolio"}><PlusCircledIcon className="icon-left" />Create Portfolio</Link>
           <Show when={portfolios?.data?.portfolios?.length > 0}>
             <Row>
               <Col xs={12} sm={12} md={6} lg={6} xl={3}>

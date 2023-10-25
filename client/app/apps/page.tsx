@@ -5,7 +5,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import Link from "next/link"
-import { ArrowRightIcon, CopyIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, ReaderIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/_components/ErrorComp"
@@ -59,7 +59,7 @@ export default function Page() {
             </div>
             <Button className="mt-2" disabled={selectedApp?.appStatus !== "Available" || userState.apiKey === ""} onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
             <Show when={!!selectedApp?.isDocumentationAvailable}>
-              <Link className="btn mt-2" href={`/documentation?appName=${appName}`}>View Documentation <CopyIcon className="icon-right" /></Link>
+              <Link className="btn mt-2" href={`/documentation?appName=${appName}`}>View Documentation <ReaderIcon className="icon-right" /></Link>
             </Show>
           </div>
           <h4 className="dashboard-header mt-2">Other Apps</h4>

@@ -5,7 +5,7 @@ import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { AppContext } from "@/_context/appStateProvider"
 

@@ -6,13 +6,13 @@ import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useContext, useEffect, useState } from "react"
 import { Container, Table } from "react-bootstrap"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import { AppContext } from "@/_context/appStateProvider"
 import { prototypeABI } from "@/_bin/prototypeABI"
 import moment from "moment"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
-import { FileIcon, OpenInNewWindowIcon, ArchiveIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import { FileIcon, OpenInNewWindowIcon, ArchiveIcon, ArrowRightIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import useConfirm from "@/_hooks/useConfirm"
 
 export default function Page() {
@@ -95,7 +95,7 @@ export default function Page() {
     <Fragment>
       <Show when={!isLoading && !contractAddress.isLoading}>
         <Container>
-          <Link className="btn" href={"/apps/snowlake/createprototype"}>Create Prototype<ArrowRightIcon className="icon-right" /></Link>
+          <Link className="btn" href={"/apps/snowlake/createprototype"}><PlusCircledIcon className="icon-left" />Create Prototype</Link>
           < Show when={prototypeList.length > 0}>
             <h4 className="text-white">Prototypes</h4>
             <Table responsive hover variant="light">

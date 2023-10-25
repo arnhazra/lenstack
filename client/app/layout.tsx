@@ -3,7 +3,7 @@ import axios from "axios"
 import IdentityProvider from "@/_providers/IdentityProvider"
 import Footer from "@/_components/Footer"
 import { AppStateProvider } from "@/_context/appStateProvider"
-import { Toaster } from "sonner"
+import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
 import Header from "@/_components/Header"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </nav>
               <main className="mt-2 mb-4 pb-4">
                 {children}
-                <Toaster position="bottom-right" richColors />
+                <Toaster position="bottom-right" />
               </main>
               <Footer />
             </IdentityProvider>

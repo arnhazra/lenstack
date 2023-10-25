@@ -7,7 +7,7 @@ import Loading from "@/_components/Loading"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import moment from "moment"
-import { ArrowRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
+import { ExternalLinkIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 
 export default function Page() {
@@ -28,7 +28,7 @@ export default function Page() {
       <Show when={!projects.isLoading}>
         <Container>
           <div className="mb-3">
-            <Link className="btn" href="/apps/frostlake/createproject">Create Project<ArrowRightIcon className="icon-right" /></Link>
+            <Link className="btn" href="/apps/frostlake/createproject"><PlusCircledIcon className="icon-left" />Create Project</Link>
           </div>
           <Show when={projects?.data?.projects?.length > 0}>
             <h4 className="text-white">Projects</h4>

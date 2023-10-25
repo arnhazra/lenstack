@@ -8,7 +8,7 @@ import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
 import { usePathname } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import IdentityGuard from "./IdentityGuard"
 import Footer from "@/_components/Footer"
 

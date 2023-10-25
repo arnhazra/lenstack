@@ -14,7 +14,7 @@ import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 
 export default function Page() {
   const searchParams = useSearchParams()

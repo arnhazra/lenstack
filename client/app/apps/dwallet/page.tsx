@@ -9,7 +9,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
 export default function Page() {

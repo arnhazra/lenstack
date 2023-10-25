@@ -1,7 +1,7 @@
 "use client"
 import axios, { Method } from "axios"
 import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 import { useRouter } from "next/navigation"
 

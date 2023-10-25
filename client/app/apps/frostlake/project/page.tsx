@@ -13,7 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment, useContext } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import { AppContext } from "@/_context/appStateProvider"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 
 export default function Page() {

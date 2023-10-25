@@ -7,10 +7,10 @@ import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import { CruxQlDb, GenericAppCardInterface } from "@/_types/Types"
-import { ArrowRightIcon, CopyIcon } from "@radix-ui/react-icons"
+import { CopyIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { Badge, Button, Container, Row } from "react-bootstrap"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import useConfirm from "@/_hooks/useConfirm"
 import axios from "axios"
 import { useContext } from "react"
@@ -76,7 +76,7 @@ export default function Page() {
               <Button onClick={copyDbConnString}>Db Connection String <CopyIcon className="icon-right" /></Button>
             </Show>
             <Show when={!selectedDb?.connectionString}>
-              <Button onClick={purchaseDb}>Deploy & Own<ArrowRightIcon className="icon-right" /></Button>
+              <Button onClick={purchaseDb}><PlusCircledIcon className="icon-left" />Deploy & Own</Button>
             </Show>
           </div>
           <h4 className="text-white mb-4">Other Databases</h4>

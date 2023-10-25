@@ -5,7 +5,7 @@ import { Button, Form } from "react-bootstrap"
 import Constants from "@/_constants/appConstants"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 interface IdentityGuardProps {

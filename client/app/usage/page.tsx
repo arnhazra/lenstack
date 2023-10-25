@@ -2,7 +2,7 @@
 import { Fragment, useContext } from "react"
 import { AppContext } from "@/_context/appStateProvider"
 import Show from "@/_components/Show"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"

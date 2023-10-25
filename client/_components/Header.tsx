@@ -4,6 +4,7 @@ import { Container, Navbar, Nav } from "react-bootstrap"
 import Show from "./Show"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { TextAlignLeftIcon } from "@radix-ui/react-icons"
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -24,7 +25,9 @@ export default function Header() {
             <Link href="/dashboard">
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
-            <Navbar.Toggle></Navbar.Toggle>
+            <Navbar.Toggle>
+              <TextAlignLeftIcon />
+            </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
                 <Link href="/subscription"><Navbar.Brand>Subscription</Navbar.Brand></Link>
@@ -43,7 +46,9 @@ export default function Header() {
             <Link href="/">
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
-            <Navbar.Toggle></Navbar.Toggle>
+            <Navbar.Toggle>
+              <TextAlignLeftIcon />
+            </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
                 <Link target="_blank" passHref rel="noopener noreferrer" href="https://www.linkedin.com/in/arnhazra/"><Navbar.Brand>Developer</Navbar.Brand></Link>
