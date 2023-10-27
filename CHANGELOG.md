@@ -1,9 +1,7 @@
 # Lenstack Changelog
 
 ### v1.6
-* Announcement - Merge Subscription & Usage Module
-* Announcement - Merge Snowlake and EaseNFT App
-* Announcement - New upcoming Identity management app
+* Merge of Subscription & Usage Module & API Changes
 * Deprecated Wealthow - An app for Wealth management
 * Introduction of new blockchain app - EaseNFT
 * Introduction of new key vault manager app - Vuelock
@@ -12,7 +10,6 @@
 * Added Generic Documentation
 * Breaking API Changes in Airlake Data API
 * Deprecated Preview Data API - Airlake
-* Announcement of Vuelock
 * Minor Visual Enhancements
 * Minor Bux Fixes & Performance Improvements
 
@@ -26,10 +23,8 @@
 
 ### v1.3
 * Introduction of Dwallet and Swapstream
-* Announcement of new App Cruxql
 * New Direct and faster Ethereum Payment System, removed dependency on ERC-20
 * Deprecated Evolake - OpenAI Based Query Generator
-* Announcement of 3 new blockchain apps - Dwallet, Swapstream & Easenft
 * Major Visual Enhancements
 
 ### v1.2

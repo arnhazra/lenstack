@@ -49,7 +49,7 @@ export default function Page() {
 
   const purchaseDb = async () => {
     try {
-      const userConsent = await confirm("Are you sure, you want to purchase this DB? Cost: 15000 credits")
+      const userConsent = await confirm("Are you sure, you want to purchase this DB? Cost: 200000 credits")
       if (userConsent) {
         await axios.post(endPoints.cruxqlPurchaseDb, { apiKey, dbId })
         router.push("/apps/cruxql/mydblist")
@@ -57,8 +57,14 @@ export default function Page() {
       }
     }
 
-    catch (error) {
-      toast.error(appConstants.ToastError)
+    catch (error: any) {
+      if (error && error.response) {
+        toast.error(error.response.data.message)
+      }
+
+      else {
+        toast.error(appConstants.ToastError)
+      }
     }
   }
 

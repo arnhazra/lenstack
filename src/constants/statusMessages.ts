@@ -15,6 +15,7 @@ enum statusMessages {
   apiKeyLimitReached = "API Key Limit Reached",
   invalidApiKey = "Invalid API Key",
   apiKeyExpired = "API Key Expired",
+  noApiKey = "No API Key Provided",
   subscriptionSuccess = "You are subscribed now",
   subscriptionFailure = "Subscription failed",
   unsubscribeSuccess = "Successfully unsubscribed",

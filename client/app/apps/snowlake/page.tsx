@@ -85,7 +85,7 @@ export default function Page() {
         <td><FileIcon className="icon-left" /> {prototype.name}</td>
         <td>{prototype.description}</td>
         <td>{moment(Number(prototype.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`${prototype.link}`} passHref target="_blank"><OpenInNewWindowIcon /></Link></td>
+        <td><Link href={prototype.link} passHref target="_blank"><OpenInNewWindowIcon /></Link></td>
         <td><ArchiveIcon onClick={() => { archivePrototype(prototype.id) }} /></td>
       </tr>
     )

@@ -31,7 +31,6 @@ export default function Header() {
             <Navbar.Collapse>
               <Nav className="ms-auto">
                 <Link href="/subscription"><Navbar.Brand>Subscription</Navbar.Brand></Link>
-                <Link href="/usage"><Navbar.Brand>Usage</Navbar.Brand></Link>
                 <Link target="_blank" passHref rel="noopener noreferrer" href="https://mumbaifaucet.com/"><Navbar.Brand>Fund Wallet</Navbar.Brand></Link>
                 <Link href="/account"><Navbar.Brand>Account</Navbar.Brand></Link>
                 <Link href="/"><Navbar.Brand onClick={() => localStorage.clear()}>Sign Out</Navbar.Brand></Link>

@@ -9,6 +9,7 @@ import { SwapstreamTransactionModel } from "src/api/apps/swapstream/entities/swa
 import { VuelockSecretModel } from "src/api/apps/vuelock/entities/vuelock-secret.entity"
 import { SubscriptionModel } from "src/api/subscription/entities/subscription.entity"
 import { apiPricing, subscriptionConfig } from "src/config/subscriptionConfig"
+import { statusMessages } from "src/constants/statusMessages"
 
 export const ApiKeyAuthorizer = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext) => {
@@ -17,7 +18,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
     const requestedResource = String(request.originalUrl).split("/")[2]
 
     if (!apiKey) {
-      throw new ForbiddenException()
+      throw new ForbiddenException(statusMessages.noApiKey)
     }
 
     else {
@@ -30,6 +31,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
 
           if (currentDate > expiryDate) {
             await SubscriptionModel.findOneAndDelete({ apiKey })
+            throw new ForbiddenException(statusMessages.apiKeyExpired)
           }
 
           else {
@@ -57,18 +59,18 @@ export const ApiKeyAuthorizer = createParamDecorator(
             }
 
             else {
-              throw new ForbiddenException()
+              throw new ForbiddenException(statusMessages.apiKeyLimitReached)
             }
           }
         }
 
         else {
-          throw new ForbiddenException()
+          throw new ForbiddenException(statusMessages.invalidApiKey)
         }
       }
 
       catch (error) {
-        throw new ForbiddenException()
+        throw new ForbiddenException(statusMessages.invalidApiKey)
       }
     }
   },

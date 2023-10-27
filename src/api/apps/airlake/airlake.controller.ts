@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Query } from "@nestjs/common"
+import { Controller, Post, Body } from "@nestjs/common"
 import { AirlakeService } from "./airlake.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
@@ -54,7 +54,7 @@ export class AirlakeController {
     }
   }
 
-  @Get("dataapi")
+  @Post("dataapi")
   async getData(@ApiKeyAuthorizer() userId: string, @Body("datasetId") datasetId: string, @Body("apiKey") apiKey: string) {
     try {
       const data = await this.airlakeService.getData(userId, datasetId, apiKey)

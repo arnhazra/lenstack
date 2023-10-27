@@ -72,7 +72,7 @@ export default function Page() {
       <Show when={!myNfts.isLoading}>
         <Container>
           <div className="mb-3">
-            <Button onClick={mintNft} disabled={isMintingNft}>
+            <Button onClick={mintNft} disabled={isMintingNft || !userState.apiKey}>
               <Show when={!isMintingNft}>
                 <PlusCircledIcon className="icon-left" />Mint New NFT
               </Show>
