@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "1.6",
+  "version": "1.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,18 +15,18 @@
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
-    "axios": "^1.5.0",
+    "axios": "^1.6.0",
     "bootstrap": "^5.3.2",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.29.4",
-    "next": "^13.5.6",
-    "react": "18.2.0",
-    "react-bootstrap": "^2.8.0",
-    "react-dom": "18.2.0",
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.9.1",
+    "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-json-view-lite": "^1.1.0",
-    "sass": "^1.67.0",
-    "typescript": "5.2.2",
-    "web3": "^4.1.2"
+    "sass": "^1.69.5",
+    "typescript": "^5.2.2",
+    "web3": "^4.2.1"
   }
 }

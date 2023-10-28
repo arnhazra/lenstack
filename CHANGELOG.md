@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v1.7
+* Major dependency updates
+
 ### v1.6
 * Merge of Subscription & Usage Module & API Changes
 * Deprecated Wealthow - An app for Wealth management
