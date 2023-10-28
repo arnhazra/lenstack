@@ -94,7 +94,7 @@ export default function Page() {
 
       finally {
         setTxProcessing(false)
-        router.push("/usage")
+        router.refresh()
       }
     }
   }

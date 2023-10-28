@@ -9,6 +9,7 @@ import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { AppContext } from "@/_context/appStateProvider"
+import delay from "@/_utils/delay"
 
 export default function Page() {
   const [state, setState] = useState({ name: "", isLoading: false })
@@ -17,18 +18,22 @@ export default function Page() {
 
   const createProject = async (e: any) => {
     e.preventDefault()
-    setState({ ...state, isLoading: true })
 
     try {
       const { name } = state
+      setState({ ...state, isLoading: true })
+      await delay(5)
       const response = await axios.post(endPoints.frostlakeCreateProjectEndpoint, { name })
       toast.success("Project Created")
       router.push(`/apps/frostlake/project?projectid=${response.data.project._id}`)
     }
 
     catch (error: any) {
-      setState({ ...state, isLoading: false })
       toast.error("Unable to create project")
+    }
+
+    finally {
+      setState({ ...state, isLoading: false })
     }
   }
 

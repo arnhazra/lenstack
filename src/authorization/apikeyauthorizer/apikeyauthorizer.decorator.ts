@@ -70,7 +70,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
       }
 
       catch (error) {
-        throw new ForbiddenException(statusMessages.invalidApiKey)
+        throw error
       }
     }
   },

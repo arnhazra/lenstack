@@ -13,11 +13,12 @@ import { Badge, Button, Container, Row } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import useConfirm from "@/_hooks/useConfirm"
 import axios from "axios"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { AppContext } from "@/_context/appStateProvider"
 import { useRouter } from "next/navigation"
 import Error from "@/_components/ErrorComp"
 import GenericAppCard from "@/_components/GenericAppCard"
+import delay from "@/_utils/delay"
 
 export default function Page() {
   const [{ userState }] = useContext(AppContext)
@@ -29,6 +30,7 @@ export default function Page() {
   const db = useFetchRealtime("view db", endPoints.cruxqlViewDatabase, HTTPMethods.POST, { dbId })
   const availableDbList = useFetch("availableDbList", endPoints.cruxqlGetAvailableDbList, HTTPMethods.POST)
   const selectedDb = db?.data?.dataBase
+  const [isLoading, setLoading] = useState(false)
 
   const databasesToDisplay = availableDbList?.data?.dbList?.map((db: CruxQlDb) => {
     const genericAppCardProps: GenericAppCardInterface = {
@@ -51,6 +53,8 @@ export default function Page() {
     try {
       const userConsent = await confirm("Are you sure, you want to purchase this DB? Cost: 200000 credits")
       if (userConsent) {
+        setLoading(true)
+        await delay(10)
         await axios.post(endPoints.cruxqlPurchaseDb, { apiKey, dbId })
         router.push("/apps/cruxql/mydblist")
         toast.success(appConstants.ToastSuccess)
@@ -65,6 +69,10 @@ export default function Page() {
       else {
         toast.error(appConstants.ToastError)
       }
+    }
+
+    finally {
+      setLoading(false)
     }
   }
 
@@ -82,7 +90,14 @@ export default function Page() {
               <Button onClick={copyDbConnString}>Db Connection String <CopyIcon className="icon-right" /></Button>
             </Show>
             <Show when={!selectedDb?.connectionString}>
-              <Button onClick={purchaseDb}><PlusCircledIcon className="icon-left" />Deploy & Own</Button>
+              <Button onClick={purchaseDb} disabled={isLoading}>
+                <Show when={!isLoading}>
+                  <PlusCircledIcon className="icon-left" />Deploy & Own
+                </Show>
+                <Show when={isLoading}>
+                  <i className="fas fa-circle-notch fa-spin"></i> Deploying your DB
+                </Show>
+              </Button>
             </Show>
           </div>
           <h4 className="text-white mb-4">Other Databases</h4>
@@ -93,7 +108,7 @@ export default function Page() {
         <Show when={db.error || !dbId}>
           <Error />
         </Show>
-      </Show>
+      </Show >
       <Show when={db.isLoading || availableDbList.isLoading}>
         <Loading />
       </Show>

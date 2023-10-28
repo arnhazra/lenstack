@@ -9,6 +9,7 @@ import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { AppContext } from "@/_context/appStateProvider"
+import delay from "@/_utils/delay"
 
 export default function Page() {
   const [state, setState] = useState({ name: "", isLoading: false })
@@ -17,18 +18,22 @@ export default function Page() {
 
   const createVault = async (e: any) => {
     e.preventDefault()
-    setState({ ...state, isLoading: true })
 
     try {
       const { name } = state
+      setState({ ...state, isLoading: true })
+      await delay(5)
       const response = await axios.post(endPoints.vuelockCreateVaultEndpoint, { name })
       toast.success("Vault Created")
       router.push(`/apps/vuelock/vault?vaultId=${response.data.vault._id}`)
     }
 
     catch (error: any) {
-      setState({ ...state, isLoading: false })
       toast.error("Unable to create vault")
+    }
+
+    finally {
+      setState({ ...state, isLoading: false })
     }
   }
 
@@ -41,7 +46,7 @@ export default function Page() {
       </Form.Group>
       <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="btn-block">
         <Show when={!state.isLoading}>Create Vault <ArrowRightIcon className="icon-right" /></Show>
-        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Vault</Show>
+        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating & Configuring Vault</Show>
       </Button>
       <Link href={"/apps/vuelock"} className="lead-link">View My Vaults</Link>
     </form>
