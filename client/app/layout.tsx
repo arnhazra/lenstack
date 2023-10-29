@@ -46,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {children}
                 <Toaster position="bottom-right" />
               </main>
-              <Footer />
             </IdentityProvider>
           </AppStateProvider>
         </QueryClientProvider>

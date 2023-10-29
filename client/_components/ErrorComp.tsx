@@ -16,7 +16,6 @@ export default function Error({ customMessage }: ErrorProps) {
         </div>
         <Button onClick={() => window.history.back()} className="btn-block mt-2"><ArrowLeftIcon className="icon-left" />Go Back</Button>
       </div>
-      <Footer />
     </Fragment>
   )
 }
