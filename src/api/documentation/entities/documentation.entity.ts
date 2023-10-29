@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { mainLenstackMongoDbConn } from "../../../utils/dbConnect"
+import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
 
 const DocumentationSchema = new mongoose.Schema({
   appName: {
@@ -33,4 +33,4 @@ const DocumentationSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const DocumentationModel = mainLenstackMongoDbConn.model("documentation", DocumentationSchema)
+export const DocumentationModel = lenstackPlatformMongoDbConn.model("documentation", DocumentationSchema)

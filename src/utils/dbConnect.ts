@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { envConfig } from "../config/envConfig"
 
-export const mainLenstackMongoDbConn = mongoose.createConnection(envConfig.lenstackMongoDbUri)
+export const lenstackPlatformMongoDbConn = mongoose.createConnection(envConfig.lenstackPlatformDbUri)
 export const airlakeMongoDbConn = mongoose.createConnection(envConfig.airlakeMongoDbUri)
 export const cruxqlMongoDbConn = mongoose.createConnection(envConfig.cruxqlMongoDbUri)
 export const dwalletMongoDbConn = mongoose.createConnection(envConfig.dwalletMongoDbUri)
@@ -11,9 +11,9 @@ export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeM
 export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
 export const vuelockMongoDbConn = mongoose.createConnection(envConfig.vuelockMongoDbUri)
 
-const mainLenstackDbConnect = async () => {
-  mainLenstackMongoDbConn.on("connected", () => console.log("Main Lenstack DB Connected"))
-  mainLenstackMongoDbConn.on("error", (err) => console.log("Main Lenstack DB Not Connected"))
+const lenstackPlatformDbConnect = async () => {
+  lenstackPlatformMongoDbConn.on("connected", () => console.log("Main Lenstack DB Connected"))
+  lenstackPlatformMongoDbConn.on("error", (err) => console.log("Main Lenstack DB Not Connected"))
 }
 
 const airlakeDbConnect = async () => {
@@ -57,7 +57,7 @@ const vuelockDbConnect = async () => {
 }
 
 export const dbConnect = async () => {
-  mainLenstackDbConnect()
+  lenstackPlatformDbConnect()
   airlakeDbConnect()
   cruxqlDbConnect()
   dwalletDbConnect()

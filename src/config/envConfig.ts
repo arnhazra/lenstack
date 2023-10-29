@@ -4,7 +4,7 @@ config()
 export const envConfig = {
   nodeEnv: process.env.NODE_ENV,
   apiPort: process.env.API_PORT,
-  lenstackMongoDbUri: process.env.LENSTACK_MAIN_DB_URI,
+  lenstackPlatformDbUri: process.env.LENSTACK_PLATFORM_DB_URI,
   airlakeMongoDbUri: process.env.AIRLAKE_DB_URI,
   cruxqlMongoDbUri: process.env.CRUXQL_DB_URI,
   dwalletMongoDbUri: process.env.DWALLET_DB_URI,
