@@ -71,7 +71,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
     <Fragment>
       <Show when={identityStep === 1}>
         <form className="box" onSubmit={generatePassKey}>
-          <p className="branding">Lenstack Id</p>
+          <p className="branding">Identity</p>
           <p className="boxtext">Enter the email address to get started</p>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email address</Form.Label>
@@ -86,7 +86,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
       </Show>
       <Show when={identityStep === 2}>
         <form className="box" onSubmit={verifyPassKey}>
-          <p className="branding">Lenstack Id</p>
+          <p className="branding">Identity</p>
           <p className="boxtext">Please verify your identity by entering the identity passkey we sent to your inbox.</p>
           <Show when={state.newuser}>
             <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
