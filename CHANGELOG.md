@@ -1,7 +1,7 @@
 # Lenstack Changelog
 
 ### v1.7
-* Major dependency updates
+* Major dependency upgradation
 * Major updates in authorization system
 * Changes in error handling with new tanstack query
 * Global 401 handler on the platform
