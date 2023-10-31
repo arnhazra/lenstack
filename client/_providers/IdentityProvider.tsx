@@ -23,7 +23,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
       (async () => {
         try {
           const response = await axios.post(endPoints.userDetailsEndpoint)
-          const userid = response.data.user._id
+          const userId = response.data.user._id
           const { name, email, privateKey, role, trialAvailable } = response.data.user
 
           if (response.data.subscription) {
@@ -31,14 +31,13 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
             dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
           }
 
-          dispatch("setUserState", { userid, name, email, privateKey, role, trialAvailable })
+          dispatch("setUserState", { userId, name, email, privateKey, role, trialAvailable })
           setAuthorized(true)
         }
 
         catch (error: any) {
           if (error.response) {
-            if (error.response.status === 401 || error.response.status === 403) {
-              localStorage.removeItem("accessToken")
+            if (error.response.status === 401) {
               setAuthorized(false)
             }
 
@@ -62,7 +61,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
       setAuthorized(false)
       setLoading(false)
     }
-  }, [pathname, isAuthorized])
+  }, [isAuthorized])
 
   return (
     <Fragment>

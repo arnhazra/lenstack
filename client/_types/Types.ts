@@ -14,7 +14,7 @@ export interface ErrorProps {
 }
 
 export interface UserState {
-  userid: string
+  userId: string
   name: string
   privateKey: string
   email: string

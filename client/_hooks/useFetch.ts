@@ -22,11 +22,6 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
       retry: 2,
       retryDelay: 2500,
       onError(err: any) {
-        if (err.response && err.response.status === 401) {
-          localStorage.removeItem("accessToken")
-          router.push("/")
-        }
-
         toast.error(`${Constants.ToastError} fetching ${queryKey}`)
       },
     },

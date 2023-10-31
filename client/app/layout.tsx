@@ -1,7 +1,6 @@
 "use client"
 import axios from "axios"
 import IdentityProvider from "@/_providers/IdentityProvider"
-import Footer from "@/_components/Footer"
 import { AppStateProvider } from "@/_context/appStateProvider"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
@@ -22,6 +21,21 @@ axios.interceptors.request.use((request) => {
   }
   return request
 })
+
+axios.interceptors.response.use(
+  function (response) {
+    return response
+  },
+
+  function (error) {
+    if (error.response.status === 401) {
+      localStorage.clear()
+      window.location.replace("/")
+    }
+
+    return Promise.reject(error)
+  }
+)
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const client = new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })

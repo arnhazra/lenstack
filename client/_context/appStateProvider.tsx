@@ -10,7 +10,7 @@ type AppContextInterface = readonly [AppState, Dispatcher]
 
 const initialState = {
   userState: {
-    userid: "",
+    userId: "",
     name: "",
     privateKey: "",
     email: "",

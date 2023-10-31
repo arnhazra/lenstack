@@ -3,7 +3,6 @@ import Constants from "@/_constants/appConstants"
 import { ErrorProps } from "@/_types/Types"
 import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
-import Footer from "./Footer"
 import { Fragment } from "react"
 
 export default function Error({ customMessage }: ErrorProps) {
