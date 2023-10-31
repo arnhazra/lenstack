@@ -3,7 +3,6 @@ import { envConfig } from "../config/envConfig"
 
 export const lenstackPlatformMongoDbConn = mongoose.createConnection(envConfig.lenstackPlatformDbUri)
 export const airlakeMongoDbConn = mongoose.createConnection(envConfig.airlakeMongoDbUri)
-export const cruxqlMongoDbConn = mongoose.createConnection(envConfig.cruxqlMongoDbUri)
 export const dwalletMongoDbConn = mongoose.createConnection(envConfig.dwalletMongoDbUri)
 export const easenftMongoDbConn = mongoose.createConnection(envConfig.easenftMongoDbUri)
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
@@ -19,11 +18,6 @@ const lenstackPlatformDbConnect = async () => {
 const airlakeDbConnect = async () => {
   airlakeMongoDbConn.on("connected", () => console.log("Airlake DB Connected"))
   airlakeMongoDbConn.on("error", (err) => console.log("Airlake DB Not Connected"))
-}
-
-const cruxqlDbConnect = async () => {
-  cruxqlMongoDbConn.on("connected", () => console.log("Cruxql DB Connected"))
-  cruxqlMongoDbConn.on("error", (err) => console.log("Cruxql Not Connected"))
 }
 
 const dwalletDbConnect = async () => {
@@ -59,7 +53,6 @@ const vuelockDbConnect = async () => {
 export const dbConnect = async () => {
   lenstackPlatformDbConnect()
   airlakeDbConnect()
-  cruxqlDbConnect()
   dwalletDbConnect()
   easenftDbConnect()
   frostlakeDbConnect()

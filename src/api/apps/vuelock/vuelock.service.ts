@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from "@nestjs/common"
+import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
 import { randomBytes } from "crypto"
 import { CreateSecretDto } from "./dto/create-secret.dto"
 import { CreateVaultDto } from "./dto/create-vault.dto"
@@ -92,12 +92,12 @@ export class VuelockService {
       }
 
       else {
-        throw new ForbiddenException()
+        throw new BadRequestException()
       }
     }
 
     catch (error) {
-      throw new ForbiddenException()
+      throw new BadRequestException()
     }
   }
 

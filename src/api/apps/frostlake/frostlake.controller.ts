@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException, ForbiddenException } from "@nestjs/common"
+import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException } from "@nestjs/common"
 import { FrostlakeService } from "./frostlake.service"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CreateProjectDto } from "./dto/create-project.dto"
@@ -65,7 +65,7 @@ export class FrostlakeController {
     }
 
     catch (error) {
-      throw new ForbiddenException()
+      throw new BadRequestException()
     }
   }
 }

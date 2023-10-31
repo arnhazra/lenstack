@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException, ForbiddenException } from "@nestjs/common"
+import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException } from "@nestjs/common"
 import { VuelockService } from "./vuelock.service"
 import { CreateSecretDto } from "./dto/create-secret.dto"
 import { CreateVaultDto } from "./dto/create-vault.dto"
@@ -65,7 +65,7 @@ export class VuelockController {
     }
 
     catch (error) {
-      throw new ForbiddenException()
+      throw new BadRequestException()
     }
   }
 

@@ -2,6 +2,7 @@
 
 ### v1.7
 * Major dependency updates
+* Major updates in authorization system
 
 ### v1.6
 * Merge of Subscription & Usage Module & API Changes
@@ -22,7 +23,6 @@
 * Bug Fixes on api key authorizer & code optimization
 * Introduced AuthProvider replacing Auth HOC & Auth Page
 * Major Codebase Refactoring
-* Introduction of new App Cruxql
 
 ### v1.3
 * Introduction of Dwallet and Swapstream

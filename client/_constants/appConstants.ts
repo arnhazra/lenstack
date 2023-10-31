@@ -1,7 +1,7 @@
 enum Constants {
   HomeHeader1 = "Build, Ship & Scale",
   HomeHeader2 = "Powered by Blockchain.",
-  HomeIntro1 = `Start with 30 days free trial, with 15000 credits.`,
+  HomeIntro1 = `Start with 30 days free trial, with 10k credits.`,
   HomeIntro2 = `There’s no upfront commitment, upgrade on demand.`,
   HomeIntro3 = `Starting at 1.99 MATIC/month`,
   ConnectionErrorMessage = `Connection Error`,

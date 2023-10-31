@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from "@nestjs/common"
+import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
 import { randomBytes } from "crypto"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CreateProjectDto } from "./dto/create-project.dto"
@@ -91,12 +91,12 @@ export class FrostlakeService {
       }
 
       else {
-        throw new ForbiddenException()
+        throw new BadRequestException()
       }
     }
 
     catch (error) {
-      throw new ForbiddenException()
+      throw new BadRequestException()
     }
   }
 }

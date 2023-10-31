@@ -7,13 +7,6 @@ export const platformConfig = [
     isDocumentationAvailable: true
   },
   {
-    appName: "cruxql",
-    description: "Enable one-click deployment of multi-cloud MongoDB clusters with data privacy, ensuring cross-regional availability.",
-    appStatus: "Available",
-    dbRegion: "MongoDB",
-    isDocumentationAvailable: false
-  },
-  {
     appName: "dwallet",
     description: "An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.",
     appStatus: "Available",

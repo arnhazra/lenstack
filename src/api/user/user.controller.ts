@@ -57,12 +57,12 @@ export class UserController {
       }
 
       else {
-        throw new BadRequestException(statusMessages.unauthorized)
+        throw new BadRequestException(statusMessages.invalidUser)
       }
     }
 
     catch (error) {
-      throw new BadRequestException(statusMessages.unauthorized)
+      throw new BadRequestException(statusMessages.invalidUser)
     }
   }
 

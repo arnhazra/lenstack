@@ -53,14 +53,6 @@ export interface TokenData {
   description: string
 }
 
-export interface CruxQlDb {
-  _id: string
-  region: string
-  cloudPlatform: string
-  isSold: boolean
-  connectionString?: string
-}
-
 export interface AppStateProviderProps {
   children: ReactNode
 }
