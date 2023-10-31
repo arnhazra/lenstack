@@ -14,12 +14,11 @@ import { toast } from "react-hot-toast"
 import axios from "axios"
 import { nftABI } from "@/_bin/nftABI"
 import Link from "next/link"
-import useFetchRealtime from "@/_hooks/useFetchRealtime"
 
 export default function Page() {
   const [{ userState }] = useContext(AppContext)
   const secretConfig = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const myNfts = useFetchRealtime("get-my-nfts", endPoints.easenftGetMyNftsEndpoint, HTTPMethods.POST)
+  const myNfts = useFetch("get-my-nfts", endPoints.easenftGetMyNftsEndpoint, HTTPMethods.POST, {}, true)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${secretConfig?.data?.infuraApiKey}`)
   const [isMintingNft, setMintingNft] = useState(false)
 

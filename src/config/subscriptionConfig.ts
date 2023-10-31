@@ -1,9 +1,9 @@
 export const subscriptionConfig = {
-  trialSubscriptionConfig: {
+  trial: {
     price: 0,
     grantedCredits: 10000
   },
-  proSubscriptionConfig: {
+  pro: {
     price: 1.99,
     grantedCredits: 50000
   }

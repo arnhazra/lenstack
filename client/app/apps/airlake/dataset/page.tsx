@@ -64,7 +64,7 @@ export default function Page() {
             </Row>
           </Container>
         </Show>
-        <Show when={dataset.error || !datasetId}>
+        <Show when={!!dataset.error || !datasetId}>
           <Error />
         </Show>
       </Show>

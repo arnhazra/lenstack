@@ -3,6 +3,8 @@
 ### v1.7
 * Major dependency updates
 * Major updates in authorization system
+* Changes in error handling with new tanstack query
+* Global 401 handler on the platform
 
 ### v1.6
 * Merge of Subscription & Usage Module & API Changes

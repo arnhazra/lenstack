@@ -5,7 +5,7 @@ import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
-import useFetchRealtime from "@/_hooks/useFetchRealtime"
+import useFetch from "@/_hooks/useFetch"
 import { ArchiveIcon, CopyIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -19,7 +19,7 @@ export default function Page() {
   const [{ userState }] = useContext(AppContext)
   const searchParams = useSearchParams()
   const vaultId = searchParams.get("vaultId")
-  const vault = useFetchRealtime("view vault", `${endPoints.vuelockViewVaultEndpoint}?vaultId=${vaultId}`, HTTPMethods.POST, { apiKey: userState.apiKey })
+  const vault = useFetch("view vault", `${endPoints.vuelockViewVaultEndpoint}?vaultId=${vaultId}`, HTTPMethods.POST, { apiKey: userState.apiKey }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
@@ -80,7 +80,7 @@ export default function Page() {
             {confirmDialog()}
           </Container>
         </Show>
-        <Show when={vault.error || !vaultId}>
+        <Show when={!!vault.error || !vaultId}>
           <Error />
         </Show>
       </Show>

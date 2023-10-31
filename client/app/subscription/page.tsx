@@ -3,7 +3,6 @@ import { Fragment, useContext, useState } from "react"
 import { AppContext } from "@/_context/appStateProvider"
 import Show from "@/_components/Show"
 import { toast } from "react-hot-toast"
-import useFetchRealtime from "@/_hooks/useFetchRealtime"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
@@ -22,7 +21,7 @@ export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const [{ userState }] = useContext(AppContext)
-  const usageDetails = useFetchRealtime("usage", endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST)
+  const usageDetails = useFetch("usage", endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST, {}, true)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
   const router = useRouter()
   const secretConfig = useFetch("secrets", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -31,7 +30,7 @@ export default function Page() {
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
-  const usedCredits = usageDetails.data?.usedCredits > pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits ? pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits : usageDetails.data?.usedCredits
+  const usedCredits = usageDetails.data?.usedCredits > pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits ? pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits : usageDetails.data?.usedCredits
 
   const showapiKey = (apiKey: string) => {
     const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
@@ -69,7 +68,7 @@ export default function Page() {
         const transactionObject = {
           from: walletAddress,
           to: secretConfig?.data?.lenstackNpaWalletAddress,
-          value: web3Provider.utils.toWei(pricingDetails?.data?.proSubscriptionConfig?.price.toString(), "ether"),
+          value: web3Provider.utils.toWei(pricingDetails?.data?.pro?.price.toString(), "ether"),
           gas: 40000,
           gasPrice: gasPrice,
         }
@@ -156,7 +155,7 @@ export default function Page() {
               <p className="boxcategorytext">Key Usage</p>
               <div className="boxcategorytext">
                 <Show when={!!userState.apiKey}>
-                  {usedCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}SubscriptionConfig`]?.grantedCredits} Credits used
+                  {usedCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits used
                 </Show>
                 <Show when={!userState.apiKey}>
                   No API Key Usage Data
@@ -170,7 +169,7 @@ export default function Page() {
             </Show>
             <Show when={userState.selectedPlan !== "Pro"}>
               <Button className="btn-block" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={activatePro}>
-                <Show when={!isTxProcessing}>Activate Pro {pricingDetails.data?.proSubscriptionConfig?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
+                <Show when={!isTxProcessing}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
                 <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
               </Button>
             </Show>

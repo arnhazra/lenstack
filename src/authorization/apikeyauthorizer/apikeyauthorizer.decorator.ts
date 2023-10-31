@@ -51,7 +51,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
 
             const creditRequiredForCurrentRequest = apiPricing[`${requestedResource}`]
 
-            if ((usedCredits + creditRequiredForCurrentRequest) < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}SubscriptionConfig`].grantedCredits) {
+            if ((usedCredits + creditRequiredForCurrentRequest) < subscriptionConfig[`${subscription.selectedPlan.toLowerCase()}`].grantedCredits) {
               return subscription.owner.toString()
             }
 

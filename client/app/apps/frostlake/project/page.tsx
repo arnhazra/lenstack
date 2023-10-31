@@ -5,22 +5,20 @@ import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useConfirm from "@/_hooks/useConfirm"
-import useFetchRealtime from "@/_hooks/useFetchRealtime"
+import useFetch from "@/_hooks/useFetch"
 import { ArchiveIcon, CopyIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment, useContext } from "react"
+import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
-import { AppContext } from "@/_context/appStateProvider"
 import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 
 export default function Page() {
-  const [{ userState }] = useContext(AppContext)
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectid")
-  const project = useFetchRealtime("view project", `${endPoints.frostlakeViewProjectEndpoint}?projectId=${projectId}`, HTTPMethods.POST)
+  const project = useFetch("view project", `${endPoints.frostlakeViewProjectEndpoint}?projectId=${projectId}`, HTTPMethods.POST, {}, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
@@ -87,7 +85,7 @@ export default function Page() {
             {confirmDialog()}
           </Container>
         </Show>
-        <Show when={project.error || !projectId}>
+        <Show when={!!project.error || !projectId}>
           <Error />
         </Show>
       </Show>
