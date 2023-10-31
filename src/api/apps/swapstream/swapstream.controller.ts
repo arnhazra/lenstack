@@ -3,13 +3,14 @@ import { SwapstreamService } from "./swapstream.service"
 import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 import { SwapstreamTransactionDto } from "./dto/swapstream-tx.dto"
 import { statusMessages } from "src/constants/statusMessages"
+import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
 @Controller("swapstream")
 export class SwapstreamController {
   constructor(private readonly swapstreamService: SwapstreamService) { }
 
   @Post("getswapstreamtokenconfig")
-  getSwapStreamTokenList() {
+  getSwapStreamTokenList(@TokenAuthorizer() userId: string) {
     try {
       return this.swapstreamService.getSwapStreamTokenList()
     }

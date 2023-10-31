@@ -1,7 +1,5 @@
-import { UnauthorizedException } from "@nestjs/common"
 import * as jwt from "jsonwebtoken"
 import { envConfig } from "src/config/envConfig"
-import { statusMessages } from "src/constants/statusMessages"
 
 export function decodeJwt(accessToken: string) {
   try {
@@ -11,6 +9,6 @@ export function decodeJwt(accessToken: string) {
   }
 
   catch (error) {
-    throw new UnauthorizedException(statusMessages.unauthorized)
+    throw new error
   }
 }

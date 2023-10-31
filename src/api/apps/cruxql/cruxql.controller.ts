@@ -9,7 +9,7 @@ export class CruxqlController {
   constructor(private readonly cruxqlService: CruxqlService) { }
 
   @Post("getavailabledblist")
-  async getAvailableDbList() {
+  async getAvailableDbList(@TokenAuthorizer() userId: string) {
     try {
       const dbList = await this.cruxqlService.getAvailableDbList()
       return { dbList }

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UnauthorizedException, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
 import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
@@ -57,7 +57,7 @@ export class UserController {
       }
 
       else {
-        throw new UnauthorizedException(statusMessages.unauthorized)
+        throw new BadRequestException(statusMessages.unauthorized)
       }
     }
 

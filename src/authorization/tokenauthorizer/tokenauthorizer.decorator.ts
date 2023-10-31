@@ -1,4 +1,5 @@
 import { createParamDecorator, ExecutionContext, UnauthorizedException } from "@nestjs/common"
+import { statusMessages } from "src/constants/statusMessages"
 import { decodeJwt } from "src/utils/decodeJwt"
 import { getTokenFromRedis } from "src/utils/redisHelper"
 
@@ -8,7 +9,7 @@ export const TokenAuthorizer = createParamDecorator(
     const accessToken = request.headers["authorization"]?.split(" ")[1]
 
     if (!accessToken) {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException(statusMessages.unauthorized)
     }
 
     else {
@@ -21,12 +22,12 @@ export const TokenAuthorizer = createParamDecorator(
         }
 
         else {
-          throw new UnauthorizedException()
+          throw new UnauthorizedException(statusMessages.unauthorized)
         }
       }
 
       catch (error) {
-        throw new UnauthorizedException()
+        throw new UnauthorizedException(statusMessages.unauthorized)
       }
     }
   },

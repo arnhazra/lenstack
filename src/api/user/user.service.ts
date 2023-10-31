@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common"
+import { BadRequestException, Injectable } from "@nestjs/common"
 import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
 import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
 import * as jwt from "jsonwebtoken"
@@ -99,7 +99,7 @@ export class UserService {
       }
 
       else {
-        throw new UnauthorizedException(statusMessages.invalidUser)
+        throw new BadRequestException(statusMessages.invalidUser)
       }
     }
 
