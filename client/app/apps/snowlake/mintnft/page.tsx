@@ -1,5 +1,5 @@
 "use client"
-import { prototypeABI } from "@/_bin/prototypeABI"
+import { nftABI } from "@/_bin/nftABI"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
@@ -12,68 +12,72 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
+  const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false, apiKey: userState.apiKey })
 
-  const createPrototype = async (e: any) => {
+  const mintNFT = async (e: any) => {
     e.preventDefault()
     setState({ ...state, isLoading: true })
     const { privateKey } = userState
     const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-    const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress?.data?.prototypeContractAddress)
+    const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
 
     try {
       const { name, description, link, apiKey } = state
       const isArchived = false
-      const newPrototypeData = prototypeContract.methods.createPrototype(name, description, link, apiKey, isArchived).encodeABI()
+      const newNFTData = nftContract.methods.createNFT(name, description, link, apiKey, isArchived).encodeABI()
 
-      const newPrototypeTx = {
+      const newNFTTx = {
         from: owner,
-        to: contractAddress?.data?.prototypeContractAddress,
-        data: newPrototypeData,
+        to: contractAddress?.data?.nftContractAddress,
+        data: newNFTData,
         gasPrice: await web3Provider.eth.getGasPrice(),
         gas: 500000,
       }
 
-      const signedNewPrototypeTx = await web3Provider.eth.accounts.signTransaction(newPrototypeTx, privateKey)
-      if (signedNewPrototypeTx.rawTransaction) {
-        await web3Provider.eth.sendSignedTransaction(signedNewPrototypeTx.rawTransaction)
+      const signedNewNFTTx = await web3Provider.eth.accounts.signTransaction(newNFTTx, privateKey)
+      if (signedNewNFTTx.rawTransaction) {
+        await web3Provider.eth.sendSignedTransaction(signedNewNFTTx.rawTransaction)
         await axios.post(endPoints.snowlakeCreateTxEndpoint, { apiKey: userState.apiKey })
-        toast.success("Prototype Created")
+        toast.success("NFT Minting Success")
         setState({ ...state, isLoading: false })
+        router.push("/apps/snowlake")
       }
     }
 
     catch (error: any) {
+      console.log(error)
       setState({ ...state, isLoading: false })
       toast.error("Fund your wallet & try again")
     }
   }
 
   return (
-    <form className="box" onSubmit={createPrototype}>
-      <p className="branding">Create Prototype</p>
+    <form className="box" onSubmit={mintNFT}>
+      <p className="branding">Mint NFT</p>
       <Form.Group controlId="floatingtext">
-        <Form.Label>Prototype Name</Form.Label>
-        <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Prototype" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
+        <Form.Label>NFT Name</Form.Label>
+        <Form.Control disabled={state.isLoading} type="text" placeholder="Acme NFT" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
       </Form.Group>
       <Form.Group controlId="floatingtext" className="mt-2">
         <Form.Label>Short Description</Form.Label>
         <Form.Control disabled={state.isLoading} type="text" placeholder="Lorem Ipsum Dolor ..." onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
       </Form.Group>
       <Form.Group controlId="floatingtext" className="mt-2">
-        <Form.Label>Prototype Link</Form.Label>
-        <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/prototype" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
+        <Form.Label>NFT Link</Form.Label>
+        <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
       </Form.Group>
       <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="mt-3 btn-block">
-        <Show when={!state.isLoading}>Create Prototype <ArrowRightIcon className="icon-right" /></Show>
-        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Prototype</Show>
+        <Show when={!state.isLoading}>Mint NFT <ArrowRightIcon className="icon-right" /></Show>
+        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating NFT</Show>
       </Button>
-      <Link href={"/apps/snowlake"} className="lead-link">View My Prototypes</Link>
+      <Link href={"/apps/snowlake"} className="lead-link">View My NFTs</Link>
     </form>
   )
 }

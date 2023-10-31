@@ -8,12 +8,11 @@ import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
 import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
-import { EasenftRepository } from "../apps/easenft/easenft.repository"
 import { VuelockRepository } from "../apps/vuelock/vuelock.repository"
 
 @Module({
   controllers: [SubscriptionController],
-  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, DwalletRepository, VuelockRepository, EasenftRepository, FrostlakeRepository, SwapstreamRepository, SnowlakeRepository],
+  providers: [SubscriptionService, SubscriptionRepository, UserRepository, AirlakeRepository, DwalletRepository, VuelockRepository, FrostlakeRepository, SwapstreamRepository, SnowlakeRepository],
 })
 
 export class SubscriptionModule { }

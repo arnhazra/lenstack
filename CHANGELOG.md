@@ -46,7 +46,7 @@
 * Advanced cache controls
 * Change in Technology Stack - Introduction of Next JS replacing CRA
 * Introduction of subscribe and unsubscribe based on conversion of Ether to ERC-20 token transfer
-* Introducted new app Snowlake - Prototype Manager to the Lenstack Platform
+* Introducted new app Snowlake - NFT Toolkit to the Lenstack Platform
 
 ### v1.0
 * Introduction of subscribe and unsubscribe based on conversion of Ether to ERC-20 token transfer

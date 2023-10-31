@@ -7,7 +7,6 @@ export const envConfig = {
   lenstackPlatformDbUri: process.env.LENSTACK_PLATFORM_DB_URI,
   airlakeMongoDbUri: process.env.AIRLAKE_DB_URI,
   dwalletMongoDbUri: process.env.DWALLET_DB_URI,
-  easenftMongoDbUri: process.env.EASENFT_DB_URI,
   frostlakeMongoDbUri: process.env.FROSTLAKE_DB_URI,
   snowlakeMongoDbUri: process.env.SNOWLAKE_DB_URI,
   swapstreamMongoDbUri: process.env.SWAPSTREAM_DB_URI,
@@ -25,6 +24,5 @@ export const envConfig = {
   authPrivateKey: process.env.AUTH_RSA_PRIVATE_KEY,
   authPublicKey: process.env.AUTH_RSA_PUBLIC_KEY,
   nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,
-  prototypeContractAddress: process.env.PROTOTYPE_CONTRACT_ADDRESS,
   lenstackNpaWalletAddress: process.env.LENSTACK_NPA_WALLET_ADDRESS
 }

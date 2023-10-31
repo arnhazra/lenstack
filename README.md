@@ -10,9 +10,6 @@ An application for easily searching, subscribing to, and utilizing third-party c
 #### Dwallet
 An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
 
-#### EaseNFT
-An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.
-
 #### Frostlake
 An analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 

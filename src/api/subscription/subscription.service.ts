@@ -14,7 +14,6 @@ import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
 import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
 import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
 import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
-import { EasenftRepository } from "../apps/easenft/easenft.repository"
 import { VuelockRepository } from "../apps/vuelock/vuelock.repository"
 
 @Injectable()
@@ -29,7 +28,6 @@ export class SubscriptionService {
     private readonly frostlakeRepository: FrostlakeRepository,
     private readonly swapstreamRepository: SwapstreamRepository,
     private readonly snowlakeRepository: SnowlakeRepository,
-    private readonly easenftRepository: EasenftRepository,
     private readonly vuelockRepository: VuelockRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
     this.web3Provider = new Web3(this.infuraEndpoint)
@@ -102,7 +100,6 @@ export class SubscriptionService {
         const { apiKey } = subscription
         const airlakeUsedCredits = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
         const dwalletUsedCredits = await this.dwalletRepository.findCountByApiKey(apiKey) * apiPricing.dwallet
-        const easeNftUsedCredits = await this.easenftRepository.findCountByApiKey(apiKey) * apiPricing.easenft
         const frostlakeUsedCredits = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
         const snowlakeUsedCredits = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
         const swapstreamUsedCredits = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
@@ -110,7 +107,6 @@ export class SubscriptionService {
 
         const usedCredits = airlakeUsedCredits +
           dwalletUsedCredits +
-          easeNftUsedCredits +
           frostlakeUsedCredits +
           snowlakeUsedCredits +
           swapstreamUsedCredits +

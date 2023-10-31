@@ -1,4 +1,4 @@
-import { IsEthereumAddress, IsNotEmpty } from "class-validator"
+import { IsNotEmpty } from "class-validator"
 
 export class CreateTransactionDto {
   @IsNotEmpty()

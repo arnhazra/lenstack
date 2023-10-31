@@ -14,13 +14,6 @@ export const platformConfig = [
     isDocumentationAvailable: false
   },
   {
-    appName: "easenft",
-    description: "An application to Create NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app and API.",
-    appStatus: "Available",
-    dbRegion: "Polygon",
-    isDocumentationAvailable: false
-  },
-  {
     appName: "frostlake",
     description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
     appStatus: "Available",
@@ -29,7 +22,7 @@ export const platformConfig = [
   },
   {
     appName: "snowlake",
-    description: "A prototype management application that uses Ethereum Blockchain to create and manage prototypes.",
+    description: "An application to Mint, View & Share NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app.",
     appStatus: "Available",
     dbRegion: "Polygon",
     isDocumentationAvailable: false

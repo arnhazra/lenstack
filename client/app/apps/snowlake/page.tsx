@@ -8,7 +8,7 @@ import { Fragment, useContext, useEffect, useState } from "react"
 import { Container, Table } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { AppContext } from "@/_context/appStateProvider"
-import { prototypeABI } from "@/_bin/prototypeABI"
+import { nftABI } from "@/_bin/nftABI"
 import moment from "moment"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
@@ -19,7 +19,7 @@ export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
-  const [prototypeList, setPrototypeList] = useState([])
+  const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
   const [refreshId, setRefreshId] = useState("")
   const { confirm, confirmDialog } = useConfirm()
@@ -27,14 +27,15 @@ export default function Page() {
   useEffect(() => {
     (async () => {
       if (!contractAddress.isLoading) {
-        const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress?.data?.prototypeContractAddress)
+        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
         setLoading(true)
         const { privateKey } = userState
         const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
 
         try {
-          const getPrototypesByOwnerData = await prototypeContract.methods.getPrototypesByOwner().call({ from: owner })
-          setPrototypeList(getPrototypesByOwnerData)
+          const getNFTsByOwnerData = await nftContract.methods.getNFTsByOwner().call({ from: owner })
+          setNFTList(getNFTsByOwnerData)
+          console.log(getNFTsByOwnerData)
         }
 
         catch (error: any) {
@@ -48,18 +49,18 @@ export default function Page() {
     })()
   }, [refreshId, contractAddress?.data])
 
-  const archivePrototype = async (prototypeId: any) => {
-    const userConsent = await confirm("Are you sure to archive this prototype?")
+  const archiveNFT = async (nftId: any) => {
+    const userConsent = await confirm("Are you sure to archive this NFT?")
 
     if (userConsent) {
       try {
-        const prototypeContract: any = new web3Provider.eth.Contract(prototypeABI as any, contractAddress?.data?.prototypeContractAddress)
+        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
         const { privateKey } = userState
         const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-        const archiveTxData = await prototypeContract.methods.archivePrototype(prototypeId).encodeABI()
+        const archiveTxData = await nftContract.methods.archiveNFT(nftId).encodeABI()
         const archiveTx = {
           from: owner,
-          to: contractAddress?.data?.prototypeContractAddress,
+          to: contractAddress?.data?.nftContractAddress,
           data: archiveTxData,
           gasPrice: await web3Provider.eth.getGasPrice(),
           gas: 500000,
@@ -69,24 +70,25 @@ export default function Page() {
         if (signedArchiveTx.rawTransaction) {
           await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
         }
-        toast.success("Prototype archived")
+        toast.success("NFT archived")
         setRefreshId(Math.random().toString())
       }
 
       catch (error) {
-        toast.error("Could not archive this prototype")
+        toast.error("Could not archive this NFT")
       }
     }
   }
 
-  const prototypesToDisplay = prototypeList?.map((prototype: any) => {
+  const nftsToDisplay = nftList?.map((nft: any) => {
     return (
-      <tr key={prototype.id}>
-        <td><FileIcon className="icon-left" /> {prototype.name}</td>
-        <td>{prototype.description}</td>
-        <td>{moment(Number(prototype.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={prototype.link} passHref target="_blank"><OpenInNewWindowIcon /></Link></td>
-        <td><ArchiveIcon onClick={() => { archivePrototype(prototype.id) }} /></td>
+      <tr key={nft.id}>
+        <td><FileIcon className="icon-left" /> {nft.name}</td>
+        <td>{nft.description}</td>
+        <td>{moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}</td>
+        <td><Link href={nft.link} passHref target="_blank">View Link<OpenInNewWindowIcon /></Link></td>
+        <td><Link href={`https://mumbai.polygonscan.com/nft/${contractAddress?.data?.nftContractAddress}/${nft.id}`} passHref target="_blank">View NFT<OpenInNewWindowIcon /></Link></td>
+        <td><ArchiveIcon onClick={() => { archiveNFT(nft.id) }} /></td>
       </tr>
     )
   })
@@ -95,28 +97,29 @@ export default function Page() {
     <Fragment>
       <Show when={!isLoading && !contractAddress.isLoading}>
         <Container>
-          <Link className="btn" href={"/apps/snowlake/createprototype"}><PlusCircledIcon className="icon-left" />Create Prototype</Link>
-          < Show when={prototypeList.length > 0}>
-            <h4 className="text-white">Prototypes</h4>
+          <Link className="btn" href={"/apps/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+          < Show when={nftList.length > 0}>
+            <h4 className="text-white">NFTs</h4>
             <Table responsive hover variant="light">
               <thead>
                 <tr>
-                  <th>Prototype Name</th>
+                  <th>NFT Name</th>
                   <th>Description</th>
                   <th>Created At</th>
                   <th>View Link</th>
+                  <th>View NFT</th>
                   <th>Archive</th>
                 </tr>
               </thead>
               <tbody>
-                {prototypesToDisplay}
+                {nftsToDisplay}
               </tbody>
             </Table>
           </Show>
-          <Show when={prototypeList.length === 0}>
+          <Show when={nftList.length === 0}>
             <div className="box">
-              <p className="branding">Prototypes</p>
-              <p className="lead">No Prototypes to display</p>
+              <p className="branding">NFTs</p>
+              <p className="lead">No NFTs to display</p>
             </div>
           </Show>
         </Container>
