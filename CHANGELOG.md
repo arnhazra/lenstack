@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v1.7
+* Merge of Snowlake & EaseNFT to new Snowlake App
 * Major dependency upgradation
 * Major updates in authorization system
 * Changes in error handling with new tanstack query
