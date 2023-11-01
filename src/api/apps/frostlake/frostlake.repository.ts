@@ -31,7 +31,7 @@ export class FrostlakeRepository {
   }
 
   async findAnalyticsByProjectId(owner: string, projectId: string) {
-    const analytics = await FrostlakeAnalyticsModel.find({ owner, projectId }).select("-apiKey -owner -projectId").sort({ createdAt: -1 })
+    const analytics = await FrostlakeAnalyticsModel.find({ owner, projectId }).select("-owner -projectId").sort({ createdAt: -1 })
     return analytics
   }
 
@@ -41,8 +41,8 @@ export class FrostlakeRepository {
     return true
   }
 
-  async createAnalytics(userId: string, projectId: string, component: string, event: string, info: string, statusCode: string, apiKey: string) {
-    const analytics = new FrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode, apiKey })
+  async createAnalytics(userId: string, projectId: string, component: string, event: string, info: string, statusCode: string) {
+    const analytics = new FrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode })
     await analytics.save()
     return true
   }

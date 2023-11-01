@@ -3,9 +3,9 @@ import { SnowlakeTransactionModel } from "./entities/snowlake.entity"
 
 @Injectable()
 export class SnowlakeRepository {
-  async createTransaction(owner: string, apiKey: string) {
+  async createTransaction(owner: string) {
     try {
-      const transaction = new SnowlakeTransactionModel({ owner, apiKey })
+      const transaction = new SnowlakeTransactionModel({ owner })
       await transaction.save()
       return true
     }

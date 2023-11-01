@@ -8,11 +8,6 @@ const SnowlakeTransactionSchema = new mongoose.Schema({
     required: true
   },
 
-  apiKey: {
-    type: String,
-    required: true
-  },
-
   createdAt: {
     type: Date,
     default: Date.now

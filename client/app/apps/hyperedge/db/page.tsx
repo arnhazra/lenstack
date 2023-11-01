@@ -64,7 +64,7 @@ export default function Page() {
               <Button onClick={archiveDb}>Archive Db<ArchiveIcon className="icon-right" /></Button>
             </div>
             <Show when={!!db?.data?.kvs && db?.data?.kvs.length}>
-              <h4 className="text-white">kvs</h4>
+              <h4 className="text-white">KVs</h4>
               <Table responsive hover variant="light">
                 <thead>
                   <tr>

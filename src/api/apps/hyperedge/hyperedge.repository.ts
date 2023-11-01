@@ -31,7 +31,7 @@ export class HyperedgeRepository {
   }
 
   async findKvsByDbId(owner: string, dbId: string) {
-    const kvs = await HyperedgeKvModel.find({ owner, dbId }).select("-apiKey -owner -dbId").sort({ createdAt: -1 })
+    const kvs = await HyperedgeKvModel.find({ owner, dbId }).select("-owner -dbId").sort({ createdAt: -1 })
     return kvs
   }
 

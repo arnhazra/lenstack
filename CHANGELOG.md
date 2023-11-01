@@ -3,6 +3,7 @@
 ### v2.0
 * Rebranded Vuelock to Hyperedge
 * Rebranded Dwallet to Edgepay
+* Major Performance & Security Enhancements - Removed APIKey Dependency from DB as recalculation is not needed
 
 ### v1.9
 * Minor Performance Improvements

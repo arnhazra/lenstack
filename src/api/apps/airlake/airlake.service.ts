@@ -57,7 +57,7 @@ export class AirlakeService {
     }
   }
 
-  async getData(userId: string, datasetId: string, apiKey: string) {
+  async getData(datasetId: string) {
     try {
       const data = await this.airlakeRepository.findDatasetDataById(datasetId)
       return data

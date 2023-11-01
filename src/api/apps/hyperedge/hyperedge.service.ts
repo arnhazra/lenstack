@@ -82,7 +82,7 @@ export class HyperedgeService {
 
   async createKv(userId: string, createKvDto: CreateKvDto) {
     try {
-      const { apiKey, key, value, dbId, dbPassword } = createKvDto
+      const { key, value, dbId, dbPassword } = createKvDto
       const db = await this.hyperedgeRepository.findDb(dbId, dbPassword)
 
       if (db.owner.toString() === userId) {

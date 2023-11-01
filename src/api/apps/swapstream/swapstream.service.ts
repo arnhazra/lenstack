@@ -20,8 +20,8 @@ export class SwapstreamService {
 
   async createTransaction(swapstreamTransactionDto: SwapstreamTransactionDto, userId: string) {
     try {
-      const { amount, apiKey, tokenContractAddress, transactionType } = swapstreamTransactionDto
-      await this.swapstreamRepository.createTransaction(userId, tokenContractAddress, amount, transactionType, apiKey)
+      const { amount, tokenContractAddress, transactionType } = swapstreamTransactionDto
+      await this.swapstreamRepository.createTransaction(userId, tokenContractAddress, amount, transactionType)
       return true
     }
 
