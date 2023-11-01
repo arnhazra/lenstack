@@ -2,6 +2,7 @@
 
 ### v2.0
 * Rebranded Vuelock to Hyperedge
+* Rebranded Dwallet to Edgepay
 
 ### v1.9
 * Minor Performance Improvements

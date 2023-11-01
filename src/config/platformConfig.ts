@@ -7,22 +7,22 @@ export const platformConfig = [
     isDocumentationAvailable: true
   },
   {
-    appName: "dwallet",
+    appName: "edgepay",
     description: "An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.",
     appStatus: "Available",
     dbRegion: "Polygon",
     isDocumentationAvailable: false
   },
   {
-    appName: "hyperedge",
-    description: "A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.",
+    appName: "frostlake",
+    description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
     appStatus: "Available",
     dbRegion: "MongoDB",
     isDocumentationAvailable: true
   },
   {
-    appName: "frostlake",
-    description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
+    appName: "hyperedge",
+    description: "A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.",
     appStatus: "Available",
     dbRegion: "MongoDB",
     isDocumentationAvailable: true

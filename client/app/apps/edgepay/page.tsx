@@ -40,7 +40,7 @@ export default function Page() {
 
       if (signedApprovalTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
-        await axios.post(endPoints.dwalletCreateTxEndpoint, { from: transactionObject.from, to: transactionObject.to, amount: matic.toString(), apiKey: userState.apiKey })
+        await axios.post(endPoints.edgepayCreateTxEndpoint, { from: transactionObject.from, to: transactionObject.to, amount: matic.toString(), apiKey: userState.apiKey })
         toast.success(Constants.TransactionSuccess)
       }
 
@@ -60,7 +60,7 @@ export default function Page() {
 
   return (
     <form className="box" onSubmit={sendMatic}>
-      <p className="branding">Dwallet</p>
+      <p className="branding">EdgePay</p>
       <p className="boxtext">Enter the wallet address to send matic</p>
       <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
         <Form.Label>Wallet address</Form.Label>

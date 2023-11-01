@@ -19,7 +19,7 @@ const endPoints = {
   airlakeViewDatasetsEndpoint: `${apiHost}/api/airlake/viewdataset`,
   airlakeFindSimilarDatasetsEndpoint: `${apiHost}/api/airlake/findsimilardatasets`,
   airlakeDataApiEndpoint: `${apiHost}/api/airlake/dataapi`,
-  dwalletCreateTxEndpoint: `${apiHost}/api/dwallet/createtx`,
+  edgepayCreateTxEndpoint: `${apiHost}/api/edgepay/createtx`,
   frostlakeCreateProjectEndpoint: `${apiHost}/api/frostlake/createproject`,
   frostlakeGetProjectsEndpoint: `${apiHost}/api/frostlake/getprojects`,
   frostlakeViewProjectEndpoint: `${apiHost}/api/frostlake/viewproject`,

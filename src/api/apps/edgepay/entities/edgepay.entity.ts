@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { dwalletMongoDbConn } from "../../../../utils/dbConnect"
+import { edgepayMongoDbConn } from "../../../../utils/dbConnect"
 
-const DwalletTransactionSchema = new mongoose.Schema({
+const EdgepayTransactionSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
@@ -23,15 +23,10 @@ const DwalletTransactionSchema = new mongoose.Schema({
     required: true
   },
 
-  apiKey: {
-    type: String,
-    required: true
-  },
-
   createdAt: {
     type: Date,
     default: Date.now
   },
 }, { versionKey: false })
 
-export const DwalletTransactionModel = dwalletMongoDbConn.model("transaction", DwalletTransactionSchema)
+export const EdgepayTransactionModel = edgepayMongoDbConn.model("transaction", EdgepayTransactionSchema)
