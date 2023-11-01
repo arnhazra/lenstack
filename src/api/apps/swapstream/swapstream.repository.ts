@@ -14,9 +14,4 @@ export class SwapstreamRepository {
       throw new BadRequestException()
     }
   }
-
-  async findCountByApiKey(apiKey: string) {
-    const airlakeUsedCredits = await SwapstreamTransactionModel.find({ apiKey }).countDocuments()
-    return airlakeUsedCredits
-  }
 }

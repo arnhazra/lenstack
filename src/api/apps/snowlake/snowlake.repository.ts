@@ -14,9 +14,4 @@ export class SnowlakeRepository {
       throw new BadRequestException()
     }
   }
-
-  async findCountByApiKey(apiKey: string) {
-    const snowlakeUsedCredits = await SnowlakeTransactionModel.find({ apiKey }).countDocuments()
-    return snowlakeUsedCredits
-  }
 }

@@ -30,7 +30,7 @@ export default function Page() {
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
-  const usedCredits = usageDetails.data?.usedCredits > pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits ? pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits : usageDetails.data?.usedCredits
+  const remainingCredits = usageDetails.data?.remainingCredits > 0 ? usageDetails.data?.remainingCredits : 0
 
   const showapiKey = (apiKey: string) => {
     const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
@@ -155,7 +155,7 @@ export default function Page() {
               <p className="boxcategorytext">Key Usage</p>
               <div className="boxcategorytext">
                 <Show when={!!userState.apiKey}>
-                  {usedCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits used
+                  {remainingCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining
                 </Show>
                 <Show when={!userState.apiKey}>
                   No API Key Usage Data

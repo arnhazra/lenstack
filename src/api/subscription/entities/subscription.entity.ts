@@ -24,6 +24,11 @@ const SubscriptionSchema = new mongoose.Schema({
     default: Date.now
   },
 
+  remainingCredits: {
+    type: Number,
+    required: true
+  },
+
   expiresAt: {
     type: Date,
     default: function () {

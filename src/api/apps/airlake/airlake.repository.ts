@@ -40,9 +40,4 @@ export class AirlakeRepository {
     const airlakeHistoryReq = new AirlakeHistoryModel({ owner, datasetId, apiKey })
     await airlakeHistoryReq.save()
   }
-
-  async findCountByApiKey(apiKey: string) {
-    const airlakeUsedCredits = await AirlakeHistoryModel.find({ apiKey }).countDocuments()
-    return airlakeUsedCredits
-  }
 }

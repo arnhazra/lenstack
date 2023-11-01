@@ -14,9 +14,4 @@ export class DwalletRepository {
       throw new BadRequestException()
     }
   }
-
-  async findCountByApiKey(apiKey: string) {
-    const dwalletUsedCredits = await DwalletTransactionModel.find({ apiKey }).countDocuments()
-    return dwalletUsedCredits
-  }
 }

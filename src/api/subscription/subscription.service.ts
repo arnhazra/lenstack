@@ -8,13 +8,6 @@ import { otherConstants } from "src/constants/otherConstants"
 import { envConfig } from "src/config/envConfig"
 import { SubscribeDto } from "./dto/subscribe.dto"
 import { SubscriptionModel } from "./entities/subscription.entity"
-import { apiPricing } from "src/config/subscriptionConfig"
-import { AirlakeRepository } from "../apps/airlake/airlake.repository"
-import { FrostlakeRepository } from "../apps/frostlake/frostlake.repository"
-import { DwalletRepository } from "../apps/dwallet/dwallet.repository"
-import { SwapstreamRepository } from "../apps/swapstream/swapstream.repository"
-import { SnowlakeRepository } from "../apps/snowlake/snowlake.repository"
-import { VuelockRepository } from "../apps/vuelock/vuelock.repository"
 
 @Injectable()
 export class SubscriptionService {
@@ -22,13 +15,7 @@ export class SubscriptionService {
   private readonly web3Provider: Web3
 
   constructor(private readonly subscriptionRepository: SubscriptionRepository,
-    private readonly userRepository: UserRepository,
-    private readonly airlakeRepository: AirlakeRepository,
-    private readonly dwalletRepository: DwalletRepository,
-    private readonly frostlakeRepository: FrostlakeRepository,
-    private readonly swapstreamRepository: SwapstreamRepository,
-    private readonly snowlakeRepository: SnowlakeRepository,
-    private readonly vuelockRepository: VuelockRepository) {
+    private readonly userRepository: UserRepository) {
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
@@ -97,22 +84,8 @@ export class SubscriptionService {
       const subscription = await SubscriptionModel.findOne({ owner: userId })
 
       if (subscription) {
-        const { apiKey } = subscription
-        const airlakeUsedCredits = await this.airlakeRepository.findCountByApiKey(apiKey) * apiPricing.airlake
-        const dwalletUsedCredits = await this.dwalletRepository.findCountByApiKey(apiKey) * apiPricing.dwallet
-        const frostlakeUsedCredits = await this.frostlakeRepository.findCountByApiKey(apiKey) * apiPricing.frostlake
-        const snowlakeUsedCredits = await this.snowlakeRepository.findCountByApiKey(apiKey) * apiPricing.snowlake
-        const swapstreamUsedCredits = await this.swapstreamRepository.findCountByApiKey(apiKey) * apiPricing.swapstream
-        const vuelockUsedCredits = await this.vuelockRepository.findCountByApiKey(apiKey) * apiPricing.vuelock
-
-        const usedCredits = airlakeUsedCredits +
-          dwalletUsedCredits +
-          frostlakeUsedCredits +
-          snowlakeUsedCredits +
-          swapstreamUsedCredits +
-          vuelockUsedCredits
-
-        return { usedCredits }
+        const { remainingCredits } = subscription
+        return { remainingCredits }
       }
 
       else {

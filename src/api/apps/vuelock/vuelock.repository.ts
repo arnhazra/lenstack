@@ -47,11 +47,6 @@ export class VuelockRepository {
     return true
   }
 
-  async findCountByApiKey(apiKey: string) {
-    const VuelockUsedCredits = await VuelockSecretModel.find({ apiKey }).countDocuments()
-    return VuelockUsedCredits
-  }
-
   async deleteSecretById(owner: string, secretId: string) {
     await VuelockSecretModel.findOneAndDelete({ owner, _id: secretId })
     return true
