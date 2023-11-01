@@ -60,7 +60,6 @@ export class AirlakeService {
   async getData(userId: string, datasetId: string, apiKey: string) {
     try {
       const data = await this.airlakeRepository.findDatasetDataById(datasetId)
-      await this.airlakeRepository.createNewHistory(userId, datasetId, apiKey)
       return data
     }
 
