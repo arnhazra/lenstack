@@ -1,13 +1,17 @@
 # Lenstack Changelog
 
-### v1.8
+### v1.9
+* Minor Performance Improvements
 * Better UX for NFT & Image Support on Snowlake
+* Codebase refactoring, removed junks
+
+### v1.8
 * Major upgrade in Platform API Key Authorizer, removed api credits calculation, improved performance
 * Added remainingCredits field in subscription to avoid recalculation
 * Removed findUsageByAPIkey method from apps
+* Global 401 handler on the platform
 
 ### v1.7
-* Global 401 handler on the platform
 * Major dependency upgradation
 * Major upgrade in Platform Authorization system, improved performance
 * Changes in error handling with new tanstack query
@@ -32,7 +36,6 @@
 
 ### v1.3
 * New tech stack and rearchitecture of backend APIs, Introducted Nest JS replacing Express
-* Integrated Frostlake - Analytics Platform (Previously Different App) to the Lenstack Platform
 * Introduction of Dwallet and Swapstream
 * New Direct and faster Ethereum Payment System, removed dependency on ERC-20
 
