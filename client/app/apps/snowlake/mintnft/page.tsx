@@ -70,8 +70,8 @@ export default function Page() {
         <Form.Control disabled={state.isLoading} type="text" placeholder="Lorem Ipsum Dolor ..." onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
       </Form.Group>
       <Form.Group controlId="floatingtext" className="mt-2">
-        <Form.Label>NFT Link</Form.Label>
-        <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={30} />
+        <Form.Label>NFT Link/Image URI</Form.Label>
+        <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} />
       </Form.Group>
       <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="mt-3 btn-block">
         <Show when={!state.isLoading}>Mint NFT <ArrowRightIcon className="icon-right" /></Show>

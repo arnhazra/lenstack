@@ -5,7 +5,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useContext, useEffect, useState } from "react"
-import { Container, Table } from "react-bootstrap"
+import { Container, Row, Table } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { AppContext } from "@/_context/appStateProvider"
 import { nftABI } from "@/_bin/nftABI"
@@ -14,6 +14,8 @@ import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import { FileIcon, OpenInNewWindowIcon, ArchiveIcon, ArrowRightIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import useConfirm from "@/_hooks/useConfirm"
+import GenericAppCard from "@/_components/GenericAppCard"
+import { GenericAppCardInterface, GenericAppCardProps } from "@/_types/Types"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -35,7 +37,7 @@ export default function Page() {
         try {
           const getNFTsByOwnerData = await nftContract.methods.getNFTsByOwner().call({ from: owner })
           setNFTList(getNFTsByOwnerData)
-          console.log(getNFTsByOwnerData)
+          console.log(getNFTsByOwnerData.filter((item: any) => item.id == 3))
         }
 
         catch (error: any) {
@@ -81,15 +83,16 @@ export default function Page() {
   }
 
   const nftsToDisplay = nftList?.map((nft: any) => {
+    const genericAppCardProps: GenericAppCardInterface = {
+      badgeText: "NFT",
+      className: "snowlake",
+      headerText: nft.name,
+      footerText: `This NFT was minted by you using Snowlake's NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+      redirectUri: `/apps/snowlake/nft?nftId=${nft.id}`
+    }
+
     return (
-      <tr key={nft.id}>
-        <td><FileIcon className="icon-left" /> {nft.name}</td>
-        <td>{nft.description}</td>
-        <td>{moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={nft.link} passHref target="_blank">View Link<OpenInNewWindowIcon /></Link></td>
-        <td><Link href={`https://mumbai.polygonscan.com/nft/${contractAddress?.data?.nftContractAddress}/${nft.id}`} passHref target="_blank">View NFT<OpenInNewWindowIcon /></Link></td>
-        <td><ArchiveIcon onClick={() => { archiveNFT(nft.id) }} /></td>
-      </tr>
+      <GenericAppCard key={nft.id} genericAppCardProps={genericAppCardProps} />
     )
   })
 
@@ -98,27 +101,15 @@ export default function Page() {
       <Show when={!isLoading && !contractAddress.isLoading}>
         <Container>
           <Link className="btn" href={"/apps/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
-          < Show when={nftList.length > 0}>
-            <h4 className="text-white">NFTs</h4>
-            <Table responsive hover variant="light">
-              <thead>
-                <tr>
-                  <th>NFT Name</th>
-                  <th>Description</th>
-                  <th>Created At</th>
-                  <th>View Link</th>
-                  <th>View NFT</th>
-                  <th>Archive</th>
-                </tr>
-              </thead>
-              <tbody>
-                {nftsToDisplay}
-              </tbody>
-            </Table>
+          <Show when={nftList.length > 0}>
+            <h4 className="text-white">My Collection</h4>
+            <Row className="mt-4 mb-2">
+              {nftsToDisplay}
+            </Row>
           </Show>
           <Show when={nftList.length === 0}>
             <div className="box">
-              <p className="branding">NFTs</p>
+              <p className="branding">My Collection</p>
               <p className="lead">No NFTs to display</p>
             </div>
           </Show>
