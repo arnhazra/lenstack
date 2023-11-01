@@ -5,17 +5,16 @@ import endPoints from "@/_constants/apiEndpoints"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useContext, useEffect, useState } from "react"
-import { Container, Row, Table } from "react-bootstrap"
+import { Container, Row } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { AppContext } from "@/_context/appStateProvider"
 import { nftABI } from "@/_bin/nftABI"
 import moment from "moment"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
-import { FileIcon, OpenInNewWindowIcon, ArchiveIcon, ArrowRightIcon, PlusCircledIcon } from "@radix-ui/react-icons"
-import useConfirm from "@/_hooks/useConfirm"
+import { PlusCircledIcon } from "@radix-ui/react-icons"
 import GenericAppCard from "@/_components/GenericAppCard"
-import { GenericAppCardInterface, GenericAppCardProps } from "@/_types/Types"
+import { GenericAppCardInterface } from "@/_types/Types"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -23,8 +22,6 @@ export default function Page() {
   const [{ userState }] = useContext(AppContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
-  const [refreshId, setRefreshId] = useState("")
-  const { confirm, confirmDialog } = useConfirm()
 
   useEffect(() => {
     (async () => {
@@ -49,38 +46,7 @@ export default function Page() {
         }
       }
     })()
-  }, [refreshId, contractAddress?.data])
-
-  const archiveNFT = async (nftId: any) => {
-    const userConsent = await confirm("Are you sure to archive this NFT?")
-
-    if (userConsent) {
-      try {
-        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
-        const { privateKey } = userState
-        const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-        const archiveTxData = await nftContract.methods.archiveNFT(nftId).encodeABI()
-        const archiveTx = {
-          from: owner,
-          to: contractAddress?.data?.nftContractAddress,
-          data: archiveTxData,
-          gasPrice: await web3Provider.eth.getGasPrice(),
-          gas: 500000,
-        }
-        const signedArchiveTx = await web3Provider.eth.accounts.signTransaction(archiveTx, privateKey)
-
-        if (signedArchiveTx.rawTransaction) {
-          await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
-        }
-        toast.success("NFT archived")
-        setRefreshId(Math.random().toString())
-      }
-
-      catch (error) {
-        toast.error("Could not archive this NFT")
-      }
-    }
-  }
+  }, [contractAddress?.data])
 
   const nftsToDisplay = nftList?.map((nft: any) => {
     const genericAppCardProps: GenericAppCardInterface = {
@@ -118,7 +84,6 @@ export default function Page() {
       <Show when={isLoading || contractAddress.isLoading}>
         <Loading />
       </Show>
-      {confirmDialog()}
     </Fragment>
   )
 }

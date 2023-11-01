@@ -19,7 +19,7 @@ export default function Page() {
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
   const [{ userState }] = useContext(AppContext)
   const router = useRouter()
-  const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false, apiKey: userState.apiKey })
+  const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })
 
   const mintNFT = async (e: any) => {
     e.preventDefault()
@@ -29,9 +29,9 @@ export default function Page() {
     const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
 
     try {
-      const { name, description, link, apiKey } = state
+      const { name, description, link } = state
       const isArchived = false
-      const newNFTData = nftContract.methods.createNFT(name, description, link, apiKey, isArchived).encodeABI()
+      const newNFTData = nftContract.methods.createNFT(name, description, link, isArchived).encodeABI()
 
       const newNFTTx = {
         from: owner,
@@ -75,7 +75,7 @@ export default function Page() {
       </Form.Group>
       <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="mt-3 btn-block">
         <Show when={!state.isLoading}>Mint NFT <ArrowRightIcon className="icon-right" /></Show>
-        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating NFT</Show>
+        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</Show>
       </Button>
       <Link href={"/apps/snowlake"} className="lead-link">View My NFTs</Link>
     </form>
