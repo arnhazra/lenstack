@@ -19,8 +19,8 @@ A prototype management application that uses Ethereum Blockchain to create and m
 #### Swapstream
 Effortlessly trade ERC-20 tokens with our platform, ensuring seamless transactions within the Ethereum ecosystem.
 
-#### Vuelock
-A cloud service for securely storing and accessing secrets. Centrally manage keys and use in apps from a single point.
+#### Hyperedge
+A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
 ### What is the cost of using this platform ?
 

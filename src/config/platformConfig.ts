@@ -14,6 +14,13 @@ export const platformConfig = [
     isDocumentationAvailable: false
   },
   {
+    appName: "hyperedge",
+    description: "A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.",
+    appStatus: "Available",
+    dbRegion: "MongoDB",
+    isDocumentationAvailable: true
+  },
+  {
     appName: "frostlake",
     description: "An analytics provider for web applications. It empowers you to make informed analysis and better decisions.",
     appStatus: "Available",
@@ -33,12 +40,5 @@ export const platformConfig = [
     appStatus: "Available",
     dbRegion: "Polygon",
     isDocumentationAvailable: false
-  },
-  {
-    appName: "vuelock",
-    description: "A cloud service for securely storing and accessing secrets. Centrally manage keys and use in apps from a single point.",
-    appStatus: "Available",
-    dbRegion: "MongoDB",
-    isDocumentationAvailable: true
   }
 ]

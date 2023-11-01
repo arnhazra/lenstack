@@ -15,19 +15,19 @@ export default function Page() {
   const router = useRouter()
   const [{ userState }] = useContext(AppContext)
 
-  const createVault = async (e: any) => {
+  const createDb = async (e: any) => {
     e.preventDefault()
 
     try {
       const { name } = state
       setState({ ...state, isLoading: true })
-      const response = await axios.post(endPoints.vuelockCreateVaultEndpoint, { name })
-      toast.success("Vault Created")
-      router.push(`/apps/vuelock/vault?vaultId=${response.data.vault._id}`)
+      const response = await axios.post(endPoints.hyperedgeCreateDbEndpoint, { name })
+      toast.success("Db Created")
+      router.push(`/apps/hyperedge/db?dbId=${response.data.db._id}`)
     }
 
     catch (error: any) {
-      toast.error("Unable to create vault")
+      toast.error("Unable to create db")
     }
 
     finally {
@@ -36,17 +36,17 @@ export default function Page() {
   }
 
   return (
-    <form className="box" onSubmit={createVault}>
-      <p className="branding">Create Vault</p>
+    <form className="box" onSubmit={createDb}>
+      <p className="branding">Create Db</p>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>Vault Name</Form.Label>
-        <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Vault" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
+        <Form.Label>Db Name</Form.Label>
+        <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Db" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
       </Form.Group>
       <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="btn-block">
-        <Show when={!state.isLoading}>Create Vault <ArrowRightIcon className="icon-right" /></Show>
-        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating & Configuring Vault</Show>
+        <Show when={!state.isLoading}>Create Db <ArrowRightIcon className="icon-right" /></Show>
+        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating & Configuring Db</Show>
       </Button>
-      <Link href={"/apps/vuelock"} className="lead-link">View My Vaults</Link>
+      <Link href={"/apps/hyperedge"} className="lead-link">View My Dbs</Link>
     </form>
   )
 }

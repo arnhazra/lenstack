@@ -7,7 +7,7 @@ export const dwalletMongoDbConn = mongoose.createConnection(envConfig.dwalletMon
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
 export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
 export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
-export const vuelockMongoDbConn = mongoose.createConnection(envConfig.vuelockMongoDbUri)
+export const hyperedgeMongoDbConn = mongoose.createConnection(envConfig.hyperedgeMongoDbUri)
 
 const lenstackPlatformDbConnect = async () => {
   lenstackPlatformMongoDbConn.on("connected", () => console.log("Main Lenstack DB Connected"))
@@ -39,9 +39,9 @@ const swapstreamDbConnect = async () => {
   swapstreamMongoDbConn.on("error", (err) => console.log("Swpastream DB Not Connected"))
 }
 
-const vuelockDbConnect = async () => {
-  vuelockMongoDbConn.on("connected", () => console.log("Vuelock DB Connected"))
-  vuelockMongoDbConn.on("error", (err) => console.log("Vuelock DB Not Connected"))
+const hyperedgeDbConnect = async () => {
+  hyperedgeMongoDbConn.on("connected", () => console.log("Hyperedge DB Connected"))
+  hyperedgeMongoDbConn.on("error", (err) => console.log("Hyperedge DB Not Connected"))
 }
 
 export const dbConnect = async () => {
@@ -51,5 +51,5 @@ export const dbConnect = async () => {
   frostlakeDbConnect()
   snowlakeDbConnect()
   swapstreamDbConnect()
-  vuelockDbConnect()
+  hyperedgeDbConnect()
 }

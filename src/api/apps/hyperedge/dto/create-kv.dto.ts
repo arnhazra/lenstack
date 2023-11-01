@@ -1,18 +1,18 @@
 import { IsNotEmpty } from "class-validator"
 
-export class CreateSecretDto {
+export class CreateKvDto {
   @IsNotEmpty()
   key: string
 
   @IsNotEmpty()
-  secretValue: string
+  value: string
 
   @IsNotEmpty()
   apiKey: string
 
   @IsNotEmpty()
-  vaultId: string
+  dbId: string
 
   @IsNotEmpty()
-  vaultSecret: string
+  dbPassword: string
 }

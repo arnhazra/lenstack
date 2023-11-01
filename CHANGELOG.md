@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v2.0
+* Rebranded Vuelock to Hyperedge
+
 ### v1.9
 * Minor Performance Improvements
 * Better UX for NFT & Image Support on Snowlake
@@ -19,7 +22,7 @@
 ### v1.6
 * Subscription charges scaling & credits replacing tokens used
 * Merge of Subscription & Usage Module & API Changes
-* Introduction of new key vault manager app - Vuelock
+* Introduction of new key db manager app - Hyperedge
 * Minor Bux Fixes & Performance Improvements
 
 ### v1.5

@@ -10,7 +10,7 @@ export const envConfig = {
   frostlakeMongoDbUri: process.env.FROSTLAKE_DB_URI,
   snowlakeMongoDbUri: process.env.SNOWLAKE_DB_URI,
   swapstreamMongoDbUri: process.env.SWAPSTREAM_DB_URI,
-  vuelockMongoDbUri: process.env.VUELOCK_DB_URI,
+  hyperedgeMongoDbUri: process.env.HYPEREDGE_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,

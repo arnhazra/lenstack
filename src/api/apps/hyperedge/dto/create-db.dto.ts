@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator"
 
-export class CreateVaultDto {
+export class CreateDbDto {
   @IsNotEmpty()
   name: string
 }

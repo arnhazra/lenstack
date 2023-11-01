@@ -11,49 +11,49 @@ import { ArrowRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 
 export default function Page() {
-  const vaults = useFetch("vaults", endPoints.vuelockGetMyVaultsEndpoint, HTTPMethods.POST)
+  const dbs = useFetch("dbs", endPoints.hyperedgeGetMyDbsEndpoint, HTTPMethods.POST)
 
-  const vaultsToDisplay = vaults?.data?.vaults?.map((vault: any) => {
+  const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
     return (
-      <tr key={vault._id}>
-        <td>{vault.name}</td>
-        <td>{moment(vault.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`/apps/vuelock/vault?vaultId=${vault._id}`}>Open Vault<ExternalLinkIcon className="icon-right" /></Link></td>
+      <tr key={db._id}>
+        <td>{db.name}</td>
+        <td>{moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
+        <td><Link href={`/apps/hyperedge/db?dbId=${db._id}`}>Open db<ExternalLinkIcon className="icon-right" /></Link></td>
       </tr>
     )
   })
 
   return (
     <Fragment>
-      <Show when={!vaults.isLoading}>
+      <Show when={!dbs.isLoading}>
         <Container>
           <div className="mb-3">
-            <Link className="btn" href="/apps/vuelock/createvault">Create vault<ArrowRightIcon className="icon-right" /></Link>
+            <Link className="btn" href="/apps/hyperedge/createdb">Create db<ArrowRightIcon className="icon-right" /></Link>
           </div>
-          <Show when={vaults?.data?.vaults?.length > 0}>
-            <h4 className="text-white">My Vaults</h4>
+          <Show when={dbs?.data?.dbs?.length > 0}>
+            <h4 className="text-white">My dbs</h4>
             <Table responsive hover variant="light">
               <thead>
                 <tr>
-                  <th>Vault Name</th>
+                  <th>db Name</th>
                   <th>Created At</th>
                   <th>Link</th>
                 </tr>
               </thead>
               <tbody>
-                {vaultsToDisplay}
+                {dbsToDisplay}
               </tbody>
             </Table>
           </Show>
-          <Show when={vaults?.data?.vaults?.length === 0}>
+          <Show when={dbs?.data?.dbs?.length === 0}>
             <div className="box">
-              <p className="branding">Vaults</p>
-              <p className="lead">No vaults to display</p>
+              <p className="branding">dbs</p>
+              <p className="lead">No dbs to display</p>
             </div>
           </Show>
         </Container>
       </Show>
-      <Show when={vaults.isLoading}>
+      <Show when={dbs.isLoading}>
         <Loading />
       </Show>
     </Fragment>

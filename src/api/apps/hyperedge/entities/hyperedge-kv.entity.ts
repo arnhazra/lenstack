@@ -1,16 +1,16 @@
 import mongoose from "mongoose"
-import { vuelockMongoDbConn } from "../../../../utils/dbConnect"
+import { hyperedgeMongoDbConn } from "../../../../utils/dbConnect"
 
-const VuelockSecretSchema = new mongoose.Schema({
+const HyperedgeKvSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
     required: true
   },
 
-  vaultId: {
+  dbId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "vault",
+    ref: "database",
     required: true
   },
 
@@ -19,12 +19,7 @@ const VuelockSecretSchema = new mongoose.Schema({
     required: true
   },
 
-  secretValue: {
-    type: String,
-    required: true
-  },
-
-  apiKey: {
+  value: {
     type: String,
     required: true
   },
@@ -35,4 +30,4 @@ const VuelockSecretSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const VuelockSecretModel = vuelockMongoDbConn.model("secrets", VuelockSecretSchema)
+export const HyperedgeKvModel = hyperedgeMongoDbConn.model("kv", HyperedgeKvSchema)

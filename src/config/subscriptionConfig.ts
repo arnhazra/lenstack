@@ -15,5 +15,5 @@ export const apiPricing = {
   frostlake: 2,
   snowlake: 50,
   swapstream: 10,
-  vuelock: 2,
+  hyperedge: 2,
 }
