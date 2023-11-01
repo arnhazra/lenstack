@@ -65,8 +65,10 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
 
   return (
     <Fragment>
+      <nav className="header">
+        <Header onSignOut={(): void => setAuthorized(false)} isAuthorized={isAuthorized} />
+      </nav>
       <Show when={isLoading}>
-        <Header />
         <Loading />
       </Show>
       <Show when={!isLoading}>
@@ -78,7 +80,6 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
             {children}
           </Show>
           <Show when={pathname !== "/"} >
-            <Header />
             <IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />
             <Footer />
           </Show>

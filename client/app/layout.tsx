@@ -4,7 +4,6 @@ import IdentityProvider from "@/_providers/IdentityProvider"
 import { AppStateProvider } from "@/_context/appStateProvider"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
-import Header from "@/_components/Header"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "@/_styles/global.sass"
@@ -53,9 +52,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <QueryClientProvider client={client}>
           <AppStateProvider>
             <IdentityProvider>
-              <nav className="header">
-                <Header />
-              </nav>
               <main className="mt-2 mb-4 pb-4">
                 {children}
                 <Toaster position="bottom-right" />

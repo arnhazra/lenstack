@@ -3,61 +3,62 @@
 ### v2.0
 * Rebranded Vuelock to Hyperedge
 * Rebranded Dwallet to Edgepay
-* Major Performance & Security Enhancements - Removed APIKey Dependency from DB as recalculation is not needed
+* Implemented significant Performance & Security Enhancements - Eliminated the need for recalculating APIKey dependency from the DB
+* Implemented Minor Enhancements to the Identity Provider
 
 ### v1.9
-* Minor Performance Improvements
-* Better UX for NFT & Image Support on Snowlake
-* Codebase refactoring, removed junks
+* Implemented Minor Performance Improvements
+* Enhanced UX for NFT & Image Support on Snowlake
+* Conducted Codebase Refactoring, eliminating unnecessary components
 
 ### v1.8
-* Major upgrade in Platform API Key Authorizer, removed api credits calculation, improved performance
-* Added remainingCredits field in subscription to avoid recalculation
-* Removed findUsageByAPIkey method from apps
-* Global 401 handler on the platform
+* Significantly Upgraded Platform API Key Authorizer, enhancing performance and removing the need for API credits calculation
+* Added the 'remainingCredits' field in the subscription to prevent recalculation
+* Eliminated the 'findUsageByAPIkey' method from apps
+* Implemented a Global 401 handler on the platform
 
 ### v1.7
-* Major dependency upgradation
-* Major upgrade in Platform Authorization system, improved performance
-* Changes in error handling with new tanstack query
+* Conducted Major Dependency Upgrades
+* Upgraded Platform Authorization system significantly, enhancing performance
+* Modified error handling with the new Tanstack query
 
 ### v1.6
-* Subscription charges scaling & credits replacing tokens used
-* Merge of Subscription & Usage Module & API Changes
-* Introduction of new key db manager app - Hyperedge
-* Minor Bux Fixes & Performance Improvements
+* Scaled Subscription charges and replaced tokens used with credits
+* Merged Subscription & Usage Module with API Changes
+* Introduced the new key database manager app - Hyperedge
+* Implemented Minor Bug Fixes & Performance Improvements
 
 ### v1.5
-* Major Codebase Refactoring
+* Conducted Major Codebase Refactoring
 * Added Generic Documentation
-* Breaking API Changes in Airlake Data API
-* Minor Visual Enhancements
+* Implemented Breaking API Changes in Airlake Data API
+* Made Minor Visual Enhancements
 
 ### v1.4
-* Major Visual Enhancements
-* Introduced new Passkey based Identity Provider for IAM - Lenstack Id, replacing legacy Auth Provider
-* Bug Fixes on api key authorizer & code optimization
-* Introduced AuthProvider replacing Auth HOC & Auth Page
+* Implemented Major Visual Enhancements
+* Introduced the new Passkey based Identity Provider for IAM - Lenstack Id, replacing the legacy Auth Provider
+* Conducted Bug Fixes on the API key authorizer & optimized the code
+* Introduced AuthProvider, replacing Auth HOC & Auth Page
 
 ### v1.3
-* New tech stack and rearchitecture of backend APIs, Introducted Nest JS replacing Express
-* Introduction of Dwallet and Swapstream
-* New Direct and faster Ethereum Payment System, removed dependency on ERC-20
+* Re-architected the backend APIs with a New Tech Stack, introducing Nest JS to replace Express
+* Introduced Dwallet and Swapstream
+* Implemented a Direct and Faster Ethereum Payment System, removing the dependency on ERC-20
 
 ### v1.2
-* Introduced Auth HOC for authorization within App
-* Advanced cache controls
-* Integrated Frostlake - Analytics Platform (Previously Different App) to the Lenstack Platform
-* Introduced Auth HOC for authorization within App
+* Introduced Auth HOC for authorization within the App
+* Implemented Advanced Cache Controls
+* Integrated Frostlake - Analytics Platform (previously a separate app) into the Lenstack Platform
+* Introduced Auth HOC for authorization within the App
 
 ### v1.1
-* Advanced cache controls
-* Change in Technology Stack - Introduction of Next JS replacing CRA
-* Introduction of subscribe and unsubscribe based on conversion of Ether to ERC-20 token transfer
-* Introducted new app Snowlake - NFT Toolkit to the Lenstack Platform
+* Implemented Advanced Cache Controls
+* Changed Technology Stack - Introduced Next JS, replacing CRA
+* Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
+* Introduced a new app, Snowlake - NFT Toolkit, to the Lenstack Platform
 
 ### v1.0
-* Introduction of subscribe and unsubscribe based on conversion of Ether to ERC-20 token transfer
-* Introduction subscription & subscription key based on ethereum payment
-* Integrated Airlake - Dataset Marketplace (Previously Different App) to the Lenstack Platform
-* Introduction of new Lenstack Platform
+* Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
+* Introduced subscription & subscription key based on Ethereum payment
+* Integrated Airlake - Dataset Marketplace (previously a separate app) into the Lenstack Platform
+* Introduced the new Lenstack Platform

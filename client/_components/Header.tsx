@@ -6,20 +6,27 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
 
-export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+interface HeaderProps {
+  isAuthorized: boolean,
+  onSignOut: () => void
+}
+
+export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const [isHomePage, setIsHomePage] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken")
-    setIsLoggedIn(accessToken !== null)
     setIsHomePage(pathname === "/")
   }, [pathname])
 
+  const signOut = () => {
+    localStorage.clear()
+    onSignOut()
+  }
+
   return (
     <Fragment>
-      <Show when={isLoggedIn && !isHomePage}>
+      <Show when={isAuthorized && !isHomePage}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
@@ -33,13 +40,13 @@ export default function Header() {
                 <Link href="/subscription"><Navbar.Brand>Subscription</Navbar.Brand></Link>
                 <Link target="_blank" passHref rel="noopener noreferrer" href="https://mumbaifaucet.com/"><Navbar.Brand>Fund Wallet</Navbar.Brand></Link>
                 <Link href="/account"><Navbar.Brand>Account</Navbar.Brand></Link>
-                <Link href="/"><Navbar.Brand onClick={() => localStorage.clear()}>Sign Out</Navbar.Brand></Link>
+                <Link href="/"><Navbar.Brand onClick={signOut}>Sign Out</Navbar.Brand></Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </Show>
-      <Show when={!isLoggedIn || isHomePage}>
+      <Show when={!isAuthorized || isHomePage}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">

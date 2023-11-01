@@ -2,7 +2,6 @@
 import { Fragment, useContext, useState, useEffect } from "react"
 import { Button, Col, Row } from "react-bootstrap"
 import endPoints from "@/_constants/apiEndpoints"
-import { useRouter } from "next/navigation"
 import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
@@ -21,7 +20,6 @@ export default function Page() {
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")
   const [maticBalance, setMaticBalance] = useState("0")
-  const router = useRouter()
 
   useEffect(() => {
     (async () => {
@@ -46,7 +44,7 @@ export default function Page() {
     try {
       await axios.post(endPoints.signOutEndpoint)
       localStorage.clear()
-      router.push("/")
+      window.location.replace("/")
     } catch (error) {
       toast.error(Constants.ToastError)
     }
