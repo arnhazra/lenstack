@@ -7,7 +7,7 @@ import useFetch from "@/_hooks/useFetch"
 import { Container, Row } from "react-bootstrap"
 
 export default function Page() {
-  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.getSwapstreamTokenConfig, HTTPMethods.POST)
+  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST)
 
   const tokensToDisplay = swapstreamTokenConfig?.data?.map((token: TokenData) => {
     const genericAppCardProps: GenericAppCardInterface = {
@@ -23,7 +23,7 @@ export default function Page() {
 
   return (
     <Container>
-      <h4 className="dashboard-header">Start Trading your tokens from here !</h4>
+      <h4 className="text-white">Start Trading your tokens from here !</h4>
       <Row>
         {tokensToDisplay}
       </Row>

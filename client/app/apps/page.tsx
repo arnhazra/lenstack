@@ -62,7 +62,7 @@ export default function Page() {
               <Link className="btn mt-2" href={`/documentation?appName=${appName}`}>View Documentation <ReaderIcon className="icon-right" /></Link>
             </Show>
           </div>
-          <h4 className="dashboard-header mt-2">Other Apps</h4>
+          <h4 className="text-white mt-2">Other Apps</h4>
           <Row className="mb-4 mt-2">
             {appsToDisplay}
           </Row>

@@ -9,7 +9,6 @@ import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { AppContext } from "@/_context/appStateProvider"
-import delay from "@/_utils/delay"
 
 export default function Page() {
   const [state, setState] = useState({ name: "", isLoading: false })
@@ -22,7 +21,6 @@ export default function Page() {
     try {
       const { name } = state
       setState({ ...state, isLoading: true })
-      await delay(5)
       const response = await axios.post(endPoints.vuelockCreateVaultEndpoint, { name })
       toast.success("Vault Created")
       router.push(`/apps/vuelock/vault?vaultId=${response.data.vault._id}`)
