@@ -73,7 +73,7 @@ export default function Page() {
               <AvatarIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">Hello, {userState.name.split(" ")[0]}</p>
+              <p className="boxcategorytext">{userState.email}</p>
               <div className="boxcategorytext">
                 Wallet Address {showWalletAddress(accountAddress)}<CopyIcon className="icon-right" onClick={copyWalletAddress} />
               </div>

@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v2.0
+* Changes in authentication params, no requirements of name
 * UI Design Changes
 * Documentation Changes
 * Removed Tx records from Decentralized apps as it's not required

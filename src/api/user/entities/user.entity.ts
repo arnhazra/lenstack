@@ -2,13 +2,11 @@ import mongoose from "mongoose"
 import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
 
 export interface NewUser {
-  name: string
   email: string
   privateKey: string
 }
 
 export interface User extends Document {
-  name: string
   email: string
   createdAt?: Date
   role?: string
@@ -17,11 +15,6 @@ export interface User extends Document {
 }
 
 const UserSchema = new mongoose.Schema<User>({
-  name: {
-    type: String,
-    required: true
-  },
-
   email: {
     type: String,
     required: true,

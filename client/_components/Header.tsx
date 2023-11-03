@@ -19,11 +19,6 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
     setIsHomePage(pathname === "/")
   }, [pathname])
 
-  const signOut = () => {
-    localStorage.clear()
-    onSignOut()
-  }
-
   return (
     <Fragment>
       <Show when={isAuthorized && !isHomePage}>
@@ -37,10 +32,10 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
-                <Link href="/subscription"><Navbar.Brand>Subscription</Navbar.Brand></Link>
-                <Link target="_blank" passHref rel="noopener noreferrer" href="https://mumbaifaucet.com/"><Navbar.Brand>Fund Wallet</Navbar.Brand></Link>
-                <Link href="/account"><Navbar.Brand>Account</Navbar.Brand></Link>
-                <Link href="/"><Navbar.Brand onClick={signOut}>Sign Out</Navbar.Brand></Link>
+                <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href="https://mumbaifaucet.com/">Fund Wallet</Link></Nav.Item>
+                <Nav.Item><Link href="/account">Account</Link></Nav.Item>
+                <Nav.Item onClick={onSignOut}>Sign Out</Nav.Item>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -57,8 +52,8 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
-                <Link target="_blank" passHref rel="noopener noreferrer" href="https://www.linkedin.com/in/arnhazra/"><Navbar.Brand>Developer</Navbar.Brand></Link>
-                <Link href="/dashboard"><Navbar.Brand>Get Started</Navbar.Brand></Link>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href="https://www.linkedin.com/in/arnhazra/">Developer</Link></Nav.Item>
+                <Nav.Item><Link href="/dashboard">Get Started</Link></Nav.Item>
               </Nav>
             </Navbar.Collapse>
           </Container>

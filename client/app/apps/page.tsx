@@ -5,7 +5,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import Link from "next/link"
-import { ArrowRightIcon, ReaderIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, ReaderIcon, RocketIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/_components/ErrorComp"
@@ -57,9 +57,9 @@ export default function Page() {
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
-            <Button className="mt-2" disabled={selectedApp?.appStatus !== "Available" || userState.apiKey === ""} onClick={launchApp}>Launch App<ArrowRightIcon className="icon-right" /></Button>
+            <Button className="mt-2" disabled={selectedApp?.appStatus !== "Available" || userState.apiKey === ""} onClick={launchApp}><RocketIcon className="icon-left" />Launch App</Button>
             <Show when={!!selectedApp?.isDocumentationAvailable}>
-              <Link className="btn mt-2" href={`/documentation?appName=${appName}`}>View Documentation <ReaderIcon className="icon-right" /></Link>
+              <Link className="btn mt-2" href={`/documentation?appName=${appName}`}><ReaderIcon className="icon-left" />View Documentation</Link>
             </Show>
           </div>
           <h4 className="text-white mt-2">Other Apps</h4>

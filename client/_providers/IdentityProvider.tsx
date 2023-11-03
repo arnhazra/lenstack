@@ -6,13 +6,14 @@ import endPoints from "@/_constants/apiEndpoints"
 import Constants from "@/_constants/appConstants"
 import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import IdentityGuard from "./IdentityGuard"
 
 export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
   const [, dispatch] = useContext(AppContext)
   const [isLoading, setLoading] = useState(true)
   const [isAuthorized, setAuthorized] = useState(false)
@@ -23,7 +24,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
         try {
           const response = await axios.post(endPoints.userDetailsEndpoint)
           const userId = response.data.user._id
-          const { name, email, privateKey, role, trialAvailable } = response.data.user
+          const { email, privateKey, role, trialAvailable } = response.data.user
 
           if (response.data.subscription) {
             const { selectedPlan, apiKey, expiresAt } = response.data.subscription
@@ -31,7 +32,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
             dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
           }
 
-          dispatch("setUserState", { userId, name, email, privateKey, role, trialAvailable })
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable })
           setAuthorized(true)
         }
 
@@ -63,10 +64,16 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
     }
   }, [isAuthorized])
 
+  const onsignOut = () => {
+    localStorage.clear()
+    router.push("/")
+    setAuthorized(false)
+  }
+
   return (
     <Fragment>
       <nav className="header">
-        <Header onSignOut={(): void => setAuthorized(false)} isAuthorized={isAuthorized} />
+        <Header onSignOut={(): void => onsignOut()} isAuthorized={isAuthorized} />
       </nav>
       <Show when={isLoading}>
         <Loading />

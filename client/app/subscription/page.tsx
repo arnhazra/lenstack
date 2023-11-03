@@ -10,7 +10,7 @@ import Loading from "@/_components/Loading"
 import appConstants from "@/_constants/appConstants"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
-import { LockOpen1Icon, CalendarIcon, BookmarkIcon, BarChartIcon, CopyIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
@@ -82,7 +82,7 @@ export default function Page() {
 
           const response = await axios.post(endPoints.userDetailsEndpoint)
           const userId = response.data.user._id
-          const { name, email, privateKey, role, trialAvailable } = response.data.user
+          const { email, privateKey, role, trialAvailable } = response.data.user
 
           if (response.data.subscription) {
             const { selectedPlan, apiKey, expiresAt } = response.data.subscription
@@ -90,7 +90,7 @@ export default function Page() {
             dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
           }
 
-          dispatch("setUserState", { userId, name, email, privateKey, role, trialAvailable })
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable })
           toast.success(Constants.TransactionSuccess)
         }
 
@@ -150,7 +150,7 @@ export default function Page() {
           </Row>
           <Row className="mb-2">
             <Col className="categorycol">
-              <BookmarkIcon />
+              <CubeIcon />
             </Col>
             <Col>
               <p className="boxcategorytext">Selected Plan</p>
@@ -161,7 +161,7 @@ export default function Page() {
           </Row>
           <Row className="mb-2">
             <Col className="categorycol">
-              <BarChartIcon />
+              <PieChartIcon />
             </Col>
             <Col>
               <p className="boxcategorytext">Key Usage</p>
