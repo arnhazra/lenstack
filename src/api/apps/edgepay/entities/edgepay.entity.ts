@@ -8,21 +8,6 @@ const EdgepayTransactionSchema = new mongoose.Schema({
     required: true
   },
 
-  from: {
-    type: String,
-    required: true
-  },
-
-  to: {
-    type: String,
-    required: true
-  },
-
-  amount: {
-    type: String,
-    required: true
-  },
-
   createdAt: {
     type: Date,
     default: Date.now

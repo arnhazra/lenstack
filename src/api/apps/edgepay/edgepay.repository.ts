@@ -3,9 +3,9 @@ import { EdgepayTransactionModel } from "./entities/edgepay.entity"
 
 @Injectable()
 export class EdgepayRepository {
-  async createTransaction(owner: string, from: string, to: string, amount: string) {
+  async createTransaction(owner: string) {
     try {
-      const transaction = new EdgepayTransactionModel({ owner, from, to, amount })
+      const transaction = new EdgepayTransactionModel({ owner })
       await transaction.save()
       return true
     }

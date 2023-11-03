@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { swapstreamTokenConfig } from "src/config/swapstreamTokenConfig"
 import { statusMessages } from "src/constants/statusMessages"
-import { SwapstreamTransactionDto } from "./dto/swapstream-tx.dto"
 import { SwapstreamRepository } from "./swapstream.repository"
 
 @Injectable()
@@ -18,10 +17,9 @@ export class SwapstreamService {
     }
   }
 
-  async createTransaction(swapstreamTransactionDto: SwapstreamTransactionDto, userId: string) {
+  async createTransaction(userId: string) {
     try {
-      const { amount, tokenContractAddress, transactionType } = swapstreamTransactionDto
-      await this.swapstreamRepository.createTransaction(userId, tokenContractAddress, amount, transactionType)
+      await this.swapstreamRepository.createTransaction(userId)
       return true
     }
 

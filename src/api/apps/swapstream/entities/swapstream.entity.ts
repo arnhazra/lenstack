@@ -8,21 +8,6 @@ const SwapstreamTransactionSchema = new mongoose.Schema({
     required: true
   },
 
-  tokenContractAddress: {
-    type: String,
-    required: true
-  },
-
-  amount: {
-    type: String,
-    required: true
-  },
-
-  transactionType: {
-    type: String,
-    required: true
-  },
-
   createdAt: {
     type: Date,
     default: Date.now

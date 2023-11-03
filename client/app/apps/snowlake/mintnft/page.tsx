@@ -13,6 +13,7 @@ import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import Constants from "@/_constants/appConstants"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -52,8 +53,17 @@ export default function Page() {
     }
 
     catch (error: any) {
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message)
+      }
+
+      else {
+        toast.error(Constants.TransactionError)
+      }
+    }
+
+    finally {
       setState({ ...state, isLoading: false })
-      toast.error("Fund your wallet & try again")
     }
   }
 

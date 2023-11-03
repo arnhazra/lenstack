@@ -1,6 +1,8 @@
 # Lenstack Changelog
 
 ### v2.0
+* Removed Tx records from Decentralized apps as it's not required
+* Added the api key authorizer call before blockchain transactions to restrict user if no/expired api key
 * Removed APIKey dependency from request body and added in header with x-api-key
 * Fix Hyperedge db view security issue, added dbPassword field as mandatory
 * Removed apiKey from dto as it"s not used in controller/services and only in middleware

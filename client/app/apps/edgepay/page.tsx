@@ -26,6 +26,7 @@ export default function Page() {
 
     try {
       setLoading(true)
+      await axios.post(endPoints.edgepayCreateTxEndpoint)
       const gasPrice = await web3Provider.eth.getGasPrice()
 
       const transactionObject = {
@@ -40,7 +41,6 @@ export default function Page() {
 
       if (signedApprovalTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
-        await axios.post(endPoints.edgepayCreateTxEndpoint, { from: transactionObject.from, to: transactionObject.to, amount: matic.toString() })
         toast.success(Constants.TransactionSuccess)
       }
 
@@ -49,8 +49,14 @@ export default function Page() {
       }
     }
 
-    catch (error) {
-      toast.error(Constants.TransactionError)
+    catch (error: any) {
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message)
+      }
+
+      else {
+        toast.error(Constants.TransactionError)
+      }
     }
 
     finally {
