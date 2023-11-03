@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v2.0
+* UI Design Changes
 * Documentation Changes
 * Removed Tx records from Decentralized apps as it's not required
 * Added the api key authorizer call before blockchain transactions to restrict user if no/expired api key

@@ -10,7 +10,6 @@ import { usePathname } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import IdentityGuard from "./IdentityGuard"
-import Footer from "@/_components/Footer"
 
 export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
@@ -82,7 +81,6 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           </Show>
           <Show when={pathname !== "/"} >
             <IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />
-            <Footer />
           </Show>
         </Show>
       </Show>
