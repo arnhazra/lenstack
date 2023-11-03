@@ -21,6 +21,13 @@ export const platformConfig = [
     isDocumentationAvailable: true
   },
   {
+    appName: "hexscan",
+    description: "Hexscan is designed to gather & analyze data from blockchain ledger, including balances, transactions & blocks.",
+    appStatus: "Available",
+    dbRegion: "Polygon",
+    isDocumentationAvailable: true
+  },
+  {
     appName: "hyperedge",
     description: "A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.",
     appStatus: "Available",

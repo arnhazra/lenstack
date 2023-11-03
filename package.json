@@ -16,11 +16,13 @@
     "deploy": "git add . && git commit -m ProdDeploy && git push"
   },
   "dependencies": {
+    "@nestjs/axios": "^3.0.1",
     "@nestjs/common": "^10.2.8",
     "@nestjs/core": "^10.2.8",
     "@nestjs/mapped-types": "^2.0.2",
     "@nestjs/platform-express": "^10.2.8",
     "@nestjs/serve-static": "^4.0.0",
+    "axios": "^1.6.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
