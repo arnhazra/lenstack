@@ -29,6 +29,7 @@ export default function Page() {
     const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
 
     try {
+      await axios.post(endPoints.snowlakeCreateTxEndpoint)
       const { name, description, link } = state
       const isArchived = false
       const newNFTData = nftContract.methods.createNFT(name, description, link, isArchived).encodeABI()
@@ -44,7 +45,6 @@ export default function Page() {
       const signedNewNFTTx = await web3Provider.eth.accounts.signTransaction(newNFTTx, privateKey)
       if (signedNewNFTTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedNewNFTTx.rawTransaction)
-        await axios.post(endPoints.snowlakeCreateTxEndpoint)
         toast.success("NFT Minting Success")
         setState({ ...state, isLoading: false })
         router.push("/apps/snowlake")
