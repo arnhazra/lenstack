@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v2.0
+* Documentation Changes
 * Removed Tx records from Decentralized apps as it's not required
 * Added the api key authorizer call before blockchain transactions to restrict user if no/expired api key
 * Removed APIKey dependency from request body and added in header with x-api-key

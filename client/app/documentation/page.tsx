@@ -24,7 +24,7 @@ export default function Page() {
           <Form.Control readOnly type="email" defaultValue={`https://lenstack.vercel.app${apiDoc.apiUri}`} />
         </Form.Group>
         <p>Sample Request Body</p>
-        <JsonView data={apiDoc.sampleRequestBody} shouldExpandNode={allExpanded} style={defaultStyles} /><br />
+        <JsonView data={apiDoc.sampleRequestBody ?? {}} shouldExpandNode={allExpanded} style={defaultStyles} /><br />
         <p>Sample Response Body</p>
         <JsonView data={apiDoc.sampleResponseBody} shouldExpandNode={allExpanded} style={defaultStyles} />
         <hr />
@@ -41,6 +41,7 @@ export default function Page() {
         <Show when={!!documentation?.data?.docList.length}>
           <div className="jumbotron p-4">
             <p className="display-6 text-capitalize">API Documentation - {appName}</p>
+            <p className="lead">Must include your API key under x-api-key in request header</p>
             <hr />
             {listApiDocumentations}
           </div>
