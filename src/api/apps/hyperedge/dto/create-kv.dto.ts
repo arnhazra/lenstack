@@ -8,9 +8,6 @@ export class CreateKvDto {
   value: string
 
   @IsNotEmpty()
-  apiKey: string
-
-  @IsNotEmpty()
   dbId: string
 
   @IsNotEmpty()

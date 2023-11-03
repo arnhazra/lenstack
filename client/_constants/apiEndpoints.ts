@@ -29,7 +29,7 @@ const endPoints = {
   swapstreamCreateTxEndpoint: `${apiHost}/api/swapstream/createtx`,
   hyperedgeCreateDbEndpoint: `${apiHost}/api/hyperedge/createdb`,
   hyperedgeGetMyDbsEndpoint: `${apiHost}/api/hyperedge/getmydbs`,
-  hyperedgeViewDbEndpoint: `${apiHost}/api/hyperedge/viewdb`,
+  hyperedgeViewDbEndpoint: `${apiHost}/api/hyperedge/viewdbfromplatform`,
   hyperedgeDeleteDbEndpoint: `${apiHost}/api/hyperedge/deletedb`,
   hyperedgeCreateKvEndpoint: `${apiHost}/api/hyperedge/createkv`,
   hyperedgeDeleteKvEndpoint: `${apiHost}/api/hyperedge/deletekv`,

@@ -19,7 +19,7 @@ export default function Page() {
   const [{ userState }] = useContext(AppContext)
   const searchParams = useSearchParams()
   const dbId = searchParams.get("dbId")
-  const db = useFetch("view db", `${endPoints.hyperedgeViewDbEndpoint}?dbId=${dbId}`, HTTPMethods.POST, { apiKey: userState.apiKey }, true)
+  const db = useFetch("view db", `${endPoints.hyperedgeViewDbEndpoint}?dbId=${dbId}`, HTTPMethods.POST, {}, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 

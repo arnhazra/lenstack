@@ -61,6 +61,26 @@ export class HyperedgeService {
     }
   }
 
+  async viewDbOutsidePlatform(userId: string, dbId: string, dbPassword: string) {
+    try {
+      const db = await this.hyperedgeRepository.findDb(dbId, dbPassword)
+      const { owner } = db
+
+      if (owner.toString() === userId) {
+        const kvs = await this.hyperedgeRepository.findKvsByDbId(userId, db.id)
+        return { db, kvs }
+      }
+
+      else {
+        throw new NotFoundException()
+      }
+    }
+
+    catch (error) {
+      throw new NotFoundException()
+    }
+  }
+
   async deleteDb(userId: string, dbId: string) {
     try {
       const db = await this.hyperedgeRepository.findDbById(dbId)

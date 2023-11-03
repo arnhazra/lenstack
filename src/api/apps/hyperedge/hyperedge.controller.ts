@@ -33,10 +33,22 @@ export class HyperedgeController {
     }
   }
 
-  @Post("viewdb")
-  async viewDb(@ApiKeyAuthorizer() userId: string, @Query("dbId") dbId: string) {
+  @Post("viewdbfromplatform")
+  async viewDbInsidePlatform(@TokenAuthorizer() userId: string, @Query("dbId") dbId: string) {
     try {
       const { db, kvs } = await this.hyperedgeService.viewDb(userId, dbId)
+      return { db, kvs }
+    }
+
+    catch (error) {
+      throw new NotFoundException()
+    }
+  }
+
+  @Post("viewdb")
+  async viewDbOutsidePlatform(@ApiKeyAuthorizer() userId: string, @Body("dbId") dbId: string, @Body("dbPassword") dbPassword: string) {
+    try {
+      const { db, kvs } = await this.hyperedgeService.viewDbOutsidePlatform(userId, dbId, dbPassword)
       return { db, kvs }
     }
 
