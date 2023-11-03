@@ -1,6 +1,8 @@
 # Lenstack Changelog
 
 ### v2.0
+* Fix Hyperedge db view security issue, added dbPassword field as mandatory
+* Removed apiKey from dto as it's not used in controller/services and only in middleware
 * Rebranded Vuelock to Hyperedge
 * Rebranded Dwallet to Edgepay
 * Implemented significant Performance & Security Enhancements - Eliminated the need for recalculating APIKey dependency from the DB
