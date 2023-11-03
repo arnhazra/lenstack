@@ -65,9 +65,9 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
   }, [isAuthorized])
 
   const onsignOut = () => {
+    setAuthorized(false)
     localStorage.clear()
     router.push("/")
-    setAuthorized(false)
   }
 
   return (

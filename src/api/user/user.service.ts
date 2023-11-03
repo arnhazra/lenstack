@@ -61,11 +61,11 @@ export class UserService {
 
         else {
           const { privateKey } = this.web3Provider.eth.accounts.create()
-          await this.userRepository.createNewUser({ email, privateKey })
-          const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
+          const newUser = await this.userRepository.createNewUser({ email, privateKey })
+          const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-          await setTokenInRedis(user.id, accessToken)
-          return { accessToken, success: true, user }
+          await setTokenInRedis(newUser.id, accessToken)
+          return { accessToken, success: true, user: newUser }
         }
       }
 
@@ -75,7 +75,7 @@ export class UserService {
     }
 
     catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(error)
     }
   }
 
