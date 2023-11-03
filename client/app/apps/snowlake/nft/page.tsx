@@ -25,7 +25,7 @@ export default function Page() {
   const router = useRouter()
   const nftId = searchParams.get("nftId")
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [{ userState }] = useContext(AppContext)
   const [selectedNft, setSelectedNft] = useState<any>()
   const [nftList, setNFTList] = useState([])

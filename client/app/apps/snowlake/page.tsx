@@ -18,7 +18,7 @@ import { GenericAppCardInterface } from "@/_types/Types"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [{ userState }] = useContext(AppContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
@@ -34,7 +34,6 @@ export default function Page() {
         try {
           const getNFTsByOwnerData = await nftContract.methods.getNFTsByOwner().call({ from: owner })
           setNFTList(getNFTsByOwnerData)
-          console.log(getNFTsByOwnerData.filter((item: any) => item.id == 3))
         }
 
         catch (error: any) {

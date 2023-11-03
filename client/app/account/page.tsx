@@ -16,7 +16,7 @@ import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-ic
 export default function Page() {
   const [{ userState }] = useContext(AppContext)
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")
   const [maticBalance, setMaticBalance] = useState("0")

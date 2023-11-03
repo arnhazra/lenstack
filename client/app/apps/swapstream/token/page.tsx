@@ -26,7 +26,7 @@ export default function page() {
   const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST)
   const tokenAddress = searchParams.get("tokenAddress")
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const selectedToken: TokenData = swapstreamTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [balance, setBalance] = useState(0)
@@ -75,7 +75,7 @@ export default function page() {
 
         if (signedTransaction.rawTransaction) {
           await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
-          await axios.post(endPoints.swapstreamCreateTxEndpoint, { apiKey: userState.apiKey, tokenContractAddress: tokenAddress, amount: amount, transactionType: "Buy" })
+          await axios.post(endPoints.swapstreamCreateTxEndpoint, { tokenContractAddress: tokenAddress, amount: amount, transactionType: "Buy" })
           toast.success(Constants.TokenPurchaseSuccess)
         }
       }
@@ -129,7 +129,7 @@ export default function page() {
           const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
           if (signedSellTx.rawTransaction) {
             await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
-            await axios.post(endPoints.swapstreamCreateTxEndpoint, { apiKey: userState.apiKey, tokenContractAddress: tokenAddress, amount: amount, transactionType: "Sell" })
+            await axios.post(endPoints.swapstreamCreateTxEndpoint, { tokenContractAddress: tokenAddress, amount: amount, transactionType: "Sell" })
             toast.success(Constants.TransactionSuccess)
           }
         }

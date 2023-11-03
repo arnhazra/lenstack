@@ -14,7 +14,7 @@ import Web3 from "web3"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [{ userState }] = useContext(AppContext)
   const [matic, setMatic] = useState(0)
   const [receiverAddress, setReceiverAddress] = useState("")
@@ -40,7 +40,7 @@ export default function Page() {
 
       if (signedApprovalTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
-        await axios.post(endPoints.edgepayCreateTxEndpoint, { from: transactionObject.from, to: transactionObject.to, amount: matic.toString(), apiKey: userState.apiKey })
+        await axios.post(endPoints.edgepayCreateTxEndpoint, { from: transactionObject.from, to: transactionObject.to, amount: matic.toString() })
         toast.success(Constants.TransactionSuccess)
       }
 

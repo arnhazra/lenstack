@@ -1,8 +1,9 @@
 # Lenstack Changelog
 
 ### v2.0
+* Removed APIKey dependency from request body and added in header with x-api-key
 * Fix Hyperedge db view security issue, added dbPassword field as mandatory
-* Removed apiKey from dto as it's not used in controller/services and only in middleware
+* Removed apiKey from dto as it"s not used in controller/services and only in middleware
 * Rebranded Vuelock to Hyperedge
 * Rebranded Dwallet to Edgepay
 * Implemented significant Performance & Security Enhancements - Eliminated the need for recalculating APIKey dependency from the DB
@@ -15,8 +16,8 @@
 
 ### v1.8
 * Significantly Upgraded Platform API Key Authorizer, enhancing performance and removing the need for API credits calculation
-* Added the 'remainingCredits' field in the subscription to prevent recalculation
-* Eliminated the 'findUsageByAPIkey' method from apps
+* Added the "remainingCredits" field in the subscription to prevent recalculation
+* Eliminated the "findUsageByAPIkey" method from apps
 * Implemented a Global 401 handler on the platform
 
 ### v1.7

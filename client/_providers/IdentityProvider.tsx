@@ -28,6 +28,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
 
           if (response.data.subscription) {
             const { selectedPlan, apiKey, expiresAt } = response.data.subscription
+            localStorage.setItem("apiKey", apiKey)
             dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
           }
 

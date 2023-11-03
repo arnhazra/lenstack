@@ -6,7 +6,7 @@ import { statusMessages } from "src/constants/statusMessages"
 export const ApiKeyAuthorizer = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest()
-    const apiKey = request.body.apiKey
+    const apiKey = request.headers["x-api-key"]
     const requestedResource = String(request.originalUrl).split("/")[2]
 
     if (!apiKey) {

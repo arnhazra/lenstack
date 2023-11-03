@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [{ userState }] = useContext(AppContext)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })
@@ -44,7 +44,7 @@ export default function Page() {
       const signedNewNFTTx = await web3Provider.eth.accounts.signTransaction(newNFTTx, privateKey)
       if (signedNewNFTTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedNewNFTTx.rawTransaction)
-        await axios.post(endPoints.snowlakeCreateTxEndpoint, { apiKey: userState.apiKey })
+        await axios.post(endPoints.snowlakeCreateTxEndpoint)
         toast.success("NFT Minting Success")
         setState({ ...state, isLoading: false })
         router.push("/apps/snowlake")
@@ -52,7 +52,6 @@ export default function Page() {
     }
 
     catch (error: any) {
-      console.log(error)
       setState({ ...state, isLoading: false })
       toast.error("Fund your wallet & try again")
     }
