@@ -14,9 +14,6 @@ export class CreateAnalyticsDto {
   statusCode: string
 
   @IsNotEmpty()
-  apiKey: string
-
-  @IsNotEmpty()
   clientId: string
 
   @IsNotEmpty()

@@ -13,7 +13,7 @@ import "react-json-view-lite/dist/index.css"
 export default function Page() {
   const searchParams = useSearchParams()
   const appName = searchParams.get("appName")
-  const documentation = useFetch("docs", `${endPoints.getdocumentation}?appName=${appName}`, HTTPMethods.POST)
+  const documentation = useFetch("docs", `${endPoints.getdocumentation}`, HTTPMethods.POST, { appName })
 
   const listApiDocumentations = documentation?.data?.docList?.map((apiDoc: any) => {
     return (

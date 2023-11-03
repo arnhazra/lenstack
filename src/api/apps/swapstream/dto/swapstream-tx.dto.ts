@@ -1,9 +1,6 @@
 import { IsEthereumAddress, IsNotEmpty } from "class-validator"
 
 export class SwapstreamTransactionDto {
-  @IsNotEmpty()
-  apiKey: string
-
   @IsEthereumAddress()
   tokenContractAddress: string
 
