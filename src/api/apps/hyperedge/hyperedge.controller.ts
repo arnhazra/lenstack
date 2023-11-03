@@ -34,7 +34,7 @@ export class HyperedgeController {
   }
 
   @Post("viewdbfromplatform")
-  async viewDbInsidePlatform(@TokenAuthorizer() userId: string, @Query("dbId") dbId: string) {
+  async viewDbInsidePlatform(@TokenAuthorizer() userId: string, @Body("dbId") dbId: string) {
     try {
       const { db, kvs } = await this.hyperedgeService.viewDb(userId, dbId)
       return { db, kvs }

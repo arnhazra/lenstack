@@ -18,7 +18,7 @@ import Constants from "@/_constants/appConstants"
 export default function Page() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectid")
-  const project = useFetch("view project", `${endPoints.frostlakeViewProjectEndpoint}?projectId=${projectId}`, HTTPMethods.POST, {}, true)
+  const project = useFetch("view project", `${endPoints.frostlakeViewProjectEndpoint}?projectId`, HTTPMethods.POST, { projectId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 

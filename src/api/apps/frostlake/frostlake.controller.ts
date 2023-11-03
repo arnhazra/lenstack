@@ -34,7 +34,7 @@ export class FrostlakeController {
   }
 
   @Post("viewproject")
-  async viewProject(@TokenAuthorizer() userId: string, @Query("projectId") projectId: string) {
+  async viewProject(@TokenAuthorizer() userId: string, @Body("projectId") projectId: string) {
     try {
       const { project, analytics } = await this.frostlakeService.viewProject(userId, projectId)
       return { project, analytics }

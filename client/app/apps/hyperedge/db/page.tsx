@@ -9,17 +9,15 @@ import useFetch from "@/_hooks/useFetch"
 import { ArchiveIcon, CopyIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment, useContext } from "react"
+import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
-import { AppContext } from "@/_context/appStateProvider"
 import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 
 export default function Page() {
-  const [{ userState }] = useContext(AppContext)
   const searchParams = useSearchParams()
   const dbId = searchParams.get("dbId")
-  const db = useFetch("view db", `${endPoints.hyperedgeViewDbEndpoint}?dbId=${dbId}`, HTTPMethods.POST, {}, true)
+  const db = useFetch("view db", `${endPoints.hyperedgeViewDbEndpoint}`, HTTPMethods.POST, { dbId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
