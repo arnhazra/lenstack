@@ -47,8 +47,8 @@ export default function Page() {
           </Show>
           <Show when={dbs?.data?.dbs?.length === 0}>
             <div className="box">
-              <p className="branding">dbs</p>
-              <p className="lead">No dbs to display</p>
+              <p className="branding">Databases</p>
+              <p className="lead">No databases to display</p>
             </div>
           </Show>
         </Container>

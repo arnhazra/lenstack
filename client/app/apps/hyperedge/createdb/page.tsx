@@ -37,7 +37,7 @@ export default function Page() {
 
   return (
     <form className="box" onSubmit={createDb}>
-      <p className="branding">Create Db</p>
+      <p className="branding">Create Database</p>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Db Name</Form.Label>
         <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Db" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />

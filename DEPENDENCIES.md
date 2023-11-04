@@ -9,8 +9,8 @@
 * nodemailer - Sends email from Node.js.
 * ioredis - In-memory data store for caching and session management.
 * ts-node - Dev server for typsecript express app.
-* @radix-ui/react-icons - Icon library.
-* @tanstack/react-query - Query client for react data fetching.
+* radix-ui-react-icons - Icon library.
+* tanstack-query - Query client for react data fetching.
 * axios - Promise-based HTTP client for the browser and Node.js.
 * bootstrap - Popular CSS framework for building responsive, mobile-first websites.
 * lodash.debounce - Debounced searching.
@@ -24,4 +24,6 @@
 * sass - CSS preprocessor that adds power and elegance to traditional CSS.
 * typescript - Typed superset of JavaScript that compiles to plain JavaScript and helps maintaining type safe code.
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
-* react-json-view - Simple JSON View library for React JS.
+* react-json-view-lite - Simple JSON View library for React JS.
+* rxjs - Reactive Extensions Library for JavaScript
+* framer-motion - Framer Motion is a simple yet powerful motion library for React.
