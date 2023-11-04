@@ -16,4 +16,5 @@ export const apiPricing = {
   snowlake: 50,
   swapstream: 10,
   hyperedge: 2,
+  hexscan: 1
 }

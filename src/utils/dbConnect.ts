@@ -8,6 +8,8 @@ export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlak
 export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
 export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
 export const hyperedgeMongoDbConn = mongoose.createConnection(envConfig.hyperedgeMongoDbUri)
+export const hexscanMongoDbConn = mongoose.createConnection(envConfig.hexscanMongoDbUri)
+
 
 const lenstackPlatformDbConnect = async () => {
   lenstackPlatformMongoDbConn.on("connected", () => console.log("Main Lenstack DB Connected"))
@@ -44,6 +46,11 @@ const hyperedgeDbConnect = async () => {
   hyperedgeMongoDbConn.on("error", (err) => console.log("Hyperedge DB Not Connected"))
 }
 
+const hexscanMongoDbConnect = async () => {
+  hexscanMongoDbConn.on("connected", () => console.log("Hexscan DB Connected"))
+  hexscanMongoDbConn.on("error", (err) => console.log("Hexscan DB Not Connected"))
+}
+
 export const dbConnect = async () => {
   lenstackPlatformDbConnect()
   airlakeDbConnect()
@@ -52,4 +59,5 @@ export const dbConnect = async () => {
   snowlakeDbConnect()
   swapstreamDbConnect()
   hyperedgeDbConnect()
+  hexscanMongoDbConnect()
 }

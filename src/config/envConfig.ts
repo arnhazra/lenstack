@@ -11,6 +11,7 @@ export const envConfig = {
   snowlakeMongoDbUri: process.env.SNOWLAKE_DB_URI,
   swapstreamMongoDbUri: process.env.SWAPSTREAM_DB_URI,
   hyperedgeMongoDbUri: process.env.HYPEREDGE_DB_URI,
+  hexscanMongoDbUri: process.env.HEXSCAN_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
@@ -24,5 +25,6 @@ export const envConfig = {
   authPrivateKey: process.env.AUTH_RSA_PRIVATE_KEY,
   authPublicKey: process.env.AUTH_RSA_PUBLIC_KEY,
   nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,
-  lenstackNpaWalletAddress: process.env.LENSTACK_NPA_WALLET_ADDRESS
+  lenstackNpaWalletAddress: process.env.LENSTACK_NPA_WALLET_ADDRESS,
+  polygonscanSecretKey: process.env.POLYGONSCAN_SECRET_KEY
 }

@@ -162,7 +162,7 @@ export default function Page() {
               <Row>
                 <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                   <img
-                    src={hasImage ? selectedNft?.link : "https://cdn-icons-png.flaticon.com/512/8133/8133529.png"}
+                    src={hasImage ? selectedNft?.link : Constants.DefaultNftImage}
                     width={300}
                     height={300}
                     alt="Picture of the NFT"
@@ -180,8 +180,8 @@ export default function Page() {
                     <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
                   </div>
                   <Link className="btn" href={selectedNft?.link ?? ""} passHref target="_blank">View Link<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`https://mumbai.polygonscan.com/nft/${contractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`https://testnets.opensea.io/assets/mumbai/${contractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn" href={`${Constants.PolygonScanBaseUri}/${contractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn" href={`${Constants.OpenseaBaseUri}/${contractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
                   <Button onClick={() => archiveNFT(nftId)}>Archive NFT<ArchiveIcon className="icon-right" /></Button>
                 </Col>
               </Row>

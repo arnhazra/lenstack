@@ -5,6 +5,7 @@ import Show from "./Show"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
+import Constants from "@/_constants/appConstants"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -33,7 +34,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
             <Navbar.Collapse>
               <Nav className="ms-auto">
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
-                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href="https://mumbaifaucet.com/">Fund Wallet</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={Constants.MumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item><Link href="/account">Account</Link></Nav.Item>
                 <Nav.Item onClick={onSignOut}>Sign Out</Nav.Item>
               </Nav>
@@ -52,7 +53,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
-                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href="https://www.linkedin.com/in/arnhazra/">Developer</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={Constants.LinkedinUri}>Developer</Link></Nav.Item>
                 <Nav.Item><Link href="/dashboard">Get Started</Link></Nav.Item>
               </Nav>
             </Navbar.Collapse>
