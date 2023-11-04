@@ -1,8 +1,8 @@
 import { BadRequestException, Controller, Post, Req } from "@nestjs/common"
 import { HexscanService } from "./hexscan.service"
 import { envConfig } from "src/config/envConfig"
-import Constants from "client/_constants/appConstants"
 import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { statusMessages } from "src/constants/statusMessages"
 
 @Controller("hexscan")
 export class HexscanController {
@@ -18,7 +18,7 @@ export class HexscanController {
     }
 
     catch (error) {
-      throw new BadRequestException(Constants.ConnectionErrorMessage)
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 }
