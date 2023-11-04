@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v2.0
+* Introduction of Hexscan - Blockchain Analyzer on Polygon Platform
 * Fixed user registration issues
 * Changes in authentication params, no requirements of name
 * UI Design Changes
