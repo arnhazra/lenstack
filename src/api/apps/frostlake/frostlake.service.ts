@@ -82,11 +82,11 @@ export class FrostlakeService {
 
   async createAnalytics(userId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      const { component, event, info, statusCode, apiKey, clientId, clientSecret } = createAnalyticsDto
+      const { component, event, info, statusCode, clientId, clientSecret } = createAnalyticsDto
       const project = await this.frostlakeRepository.findProject(clientId, clientSecret)
       if (project.owner.toString() === userId) {
         const projectId = project.id
-        await this.frostlakeRepository.createAnalytics(userId, projectId, component, event, info, statusCode, apiKey)
+        await this.frostlakeRepository.createAnalytics(userId, projectId, component, event, info, statusCode)
         return true
       }
 

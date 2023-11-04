@@ -1,6 +1,5 @@
 import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
 import { SnowlakeService } from "./snowlake.service"
-import { CreateTransactionDto } from "./dto/snowlake-tx.dto"
 import { statusMessages } from "../../../constants/statusMessages"
 import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
@@ -9,9 +8,9 @@ export class SnowlakeController {
   constructor(private readonly snowlakeService: SnowlakeService) { }
 
   @Post("createtx")
-  async createTransaction(@ApiKeyAuthorizer() userId: string, @Body() createTransactionDto: CreateTransactionDto) {
+  async createTransaction(@ApiKeyAuthorizer() userId: string) {
     try {
-      await this.snowlakeService.createTransaction(createTransactionDto, userId)
+      await this.snowlakeService.createTransaction(userId)
       return true
     }
 

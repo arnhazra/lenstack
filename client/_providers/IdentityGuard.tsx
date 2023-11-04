@@ -15,7 +15,7 @@ interface IdentityGuardProps {
 
 export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: IdentityGuardProps) {
   const [identityStep, setIdentityStep] = useState(1)
-  const [state, setState] = useState({ name: "", email: "", hash: "", passKey: "", newuser: false })
+  const [state, setState] = useState({ email: "", hash: "", passKey: "" })
   const [alert, setAlert] = useState("")
   const [isLoading, setLoading] = useState(false)
   const [identityAlert, setIdentityAlert] = useState("")
@@ -27,14 +27,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
 
     try {
       const response = await axios.post(endPoints.generatePassKeyEndpoint, state)
-      if (response.data.newuser) {
-        setState({ ...state, hash: response.data.hash, newuser: true })
-      }
-
-      else {
-        setState({ ...state, hash: response.data.hash, newuser: false })
-      }
-
+      setState({ ...state, hash: response.data.hash })
       toast.success(response.data.message)
       setIdentityStep(2)
       setLoading(false)
@@ -88,12 +81,6 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
         <form className="box" onSubmit={verifyPassKey}>
           <p className="branding">Identity</p>
           <p className="boxtext">Please verify your identity by entering the identity passkey we sent to your inbox.</p>
-          <Show when={state.newuser}>
-            <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
-              <Form.Label>Your Name</Form.Label>
-              <Form.Control type="text" disabled={isLoading} placeholder="Your Name" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={3} maxLength={40} />
-            </Form.Group>
-          </Show>
           <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
             <Form.Label>Identity Passkey</Form.Label>
             <Form.Control type="password" disabled={isLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />

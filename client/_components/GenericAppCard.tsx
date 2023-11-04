@@ -15,7 +15,7 @@ export default function GenericAppCard({ genericAppCardProps }: GenericAppCardPr
       <Card onClick={redirectToApp} className={`app-card-${genericAppCardProps.className}`}>
         <Badge bg="dark" pill className="position-absolute mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{genericAppCardProps.badgeText}</Badge>
         <Card.Header className="pb-2 ps-4 app-card-header">
-          <p className="branding app-name pb-2 ps-1 pt-2">{genericAppCardProps.headerText}</p>
+          <p className="branding app-name pb-2 pt-2">{genericAppCardProps.headerText}</p>
         </Card.Header>
         <Card.Footer className="pt-4 ps-4 app-card-footer">
           <div className="d-flex justify-content-between align-items-center">

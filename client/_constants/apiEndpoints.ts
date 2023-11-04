@@ -1,7 +1,6 @@
 const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "https://lenstack.vercel.app"
 
 const endPoints = {
-  polygonScanEndpoint: `https://mumbai.polygonscan.com/tx`,
   infuraEndpoint: `https://polygon-mumbai.infura.io/v3`,
   getdocumentation: `${apiHost}/api/documentation/getallbyappname`,
   generatePassKeyEndpoint: `${apiHost}/api/user/generatepasskey`,
@@ -19,7 +18,7 @@ const endPoints = {
   airlakeViewDatasetsEndpoint: `${apiHost}/api/airlake/viewdataset`,
   airlakeFindSimilarDatasetsEndpoint: `${apiHost}/api/airlake/findsimilardatasets`,
   airlakeDataApiEndpoint: `${apiHost}/api/airlake/dataapi`,
-  dwalletCreateTxEndpoint: `${apiHost}/api/dwallet/createtx`,
+  edgepayCreateTxEndpoint: `${apiHost}/api/edgepay/createtx`,
   frostlakeCreateProjectEndpoint: `${apiHost}/api/frostlake/createproject`,
   frostlakeGetProjectsEndpoint: `${apiHost}/api/frostlake/getprojects`,
   frostlakeViewProjectEndpoint: `${apiHost}/api/frostlake/viewproject`,
@@ -27,12 +26,12 @@ const endPoints = {
   frostlakeCreateAnalyticsEndpoint: `${apiHost}/api/frostlake/createanalytics`,
   snowlakeCreateTxEndpoint: `${apiHost}/api/snowlake/createtx`,
   swapstreamCreateTxEndpoint: `${apiHost}/api/swapstream/createtx`,
-  vuelockCreateVaultEndpoint: `${apiHost}/api/vuelock/createvault`,
-  vuelockGetMyVaultsEndpoint: `${apiHost}/api/vuelock/getmyvaults`,
-  vuelockViewVaultEndpoint: `${apiHost}/api/vuelock/viewvault`,
-  vuelockDeleteVaultEndpoint: `${apiHost}/api/vuelock/deletevault`,
-  vuelockCreateSecretEndpoint: `${apiHost}/api/vuelock/createsecret`,
-  vuelockDeleteSecretEndpoint: `${apiHost}/api/vuelock/deletesecret`,
+  hyperedgeCreateDbEndpoint: `${apiHost}/api/hyperedge/createdb`,
+  hyperedgeGetMyDbsEndpoint: `${apiHost}/api/hyperedge/getmydbs`,
+  hyperedgeViewDbEndpoint: `${apiHost}/api/hyperedge/viewdbfromplatform`,
+  hyperedgeDeleteDbEndpoint: `${apiHost}/api/hyperedge/deletedb`,
+  hyperedgeCreateKvEndpoint: `${apiHost}/api/hyperedge/createkv`,
+  hyperedgeDeleteKvEndpoint: `${apiHost}/api/hyperedge/deletekv`,
   swapstreamTokenConfigEndpoint: `${apiHost}/api/swapstream/getswapstreamtokenconfig`,
 }
 

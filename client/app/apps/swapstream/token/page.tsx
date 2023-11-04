@@ -26,7 +26,7 @@ export default function page() {
   const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST)
   const tokenAddress = searchParams.get("tokenAddress")
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const selectedToken: TokenData = swapstreamTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [balance, setBalance] = useState(0)
@@ -56,6 +56,7 @@ export default function page() {
     if (hasConfirmed && amount > 0) {
       try {
         setTxProcessing(true)
+        await axios.post(endPoints.swapstreamCreateTxEndpoint)
         const { privateKey } = userState
         const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
         const vendor = new web3Provider.eth.Contract(vendorABI as any, selectedToken?.vendorContractAddress)
@@ -75,13 +76,18 @@ export default function page() {
 
         if (signedTransaction.rawTransaction) {
           await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
-          await axios.post(endPoints.swapstreamCreateTxEndpoint, { apiKey: userState.apiKey, tokenContractAddress: tokenAddress, amount: amount, transactionType: "Buy" })
           toast.success(Constants.TokenPurchaseSuccess)
         }
       }
 
-      catch (err) {
-        toast.error(Constants.TokenPurchaseFailure)
+      catch (error: any) {
+        if (error.response && error.response.data.message) {
+          toast.error(error.response.data.message)
+        }
+
+        else {
+          toast.error(Constants.TransactionError)
+        }
       }
 
       finally {
@@ -97,6 +103,7 @@ export default function page() {
       if (amount <= balance) {
         try {
           setTxProcessing(true)
+          await axios.post(endPoints.swapstreamCreateTxEndpoint)
           const { privateKey } = userState
           const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
           const gasPrice = await web3Provider.eth.getGasPrice()
@@ -129,13 +136,18 @@ export default function page() {
           const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
           if (signedSellTx.rawTransaction) {
             await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
-            await axios.post(endPoints.swapstreamCreateTxEndpoint, { apiKey: userState.apiKey, tokenContractAddress: tokenAddress, amount: amount, transactionType: "Sell" })
             toast.success(Constants.TransactionSuccess)
           }
         }
 
-        catch (err) {
-          toast.error(Constants.TransactionError)
+        catch (error: any) {
+          if (error.response && error.response.data.message) {
+            toast.error(error.response.data.message)
+          }
+
+          else {
+            toast.error(Constants.TransactionError)
+          }
         }
 
         finally {

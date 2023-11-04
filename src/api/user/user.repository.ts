@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common"
 
 @Injectable()
 export class UserRepository {
-  async createNewUser(user: NewUser): Promise<User | null> {
+  async createNewUser(user: NewUser) {
     const newUser = new UserModel(user)
     await newUser.save()
     return newUser

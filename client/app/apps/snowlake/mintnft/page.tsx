@@ -13,10 +13,11 @@ import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import Constants from "@/_constants/appConstants"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [{ userState }] = useContext(AppContext)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })
@@ -29,6 +30,7 @@ export default function Page() {
     const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
 
     try {
+      await axios.post(endPoints.snowlakeCreateTxEndpoint)
       const { name, description, link } = state
       const isArchived = false
       const newNFTData = nftContract.methods.createNFT(name, description, link, isArchived).encodeABI()
@@ -44,7 +46,6 @@ export default function Page() {
       const signedNewNFTTx = await web3Provider.eth.accounts.signTransaction(newNFTTx, privateKey)
       if (signedNewNFTTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedNewNFTTx.rawTransaction)
-        await axios.post(endPoints.snowlakeCreateTxEndpoint, { apiKey: userState.apiKey })
         toast.success("NFT Minting Success")
         setState({ ...state, isLoading: false })
         router.push("/apps/snowlake")
@@ -52,9 +53,17 @@ export default function Page() {
     }
 
     catch (error: any) {
-      console.log(error)
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message)
+      }
+
+      else {
+        toast.error(Constants.TransactionError)
+      }
+    }
+
+    finally {
       setState({ ...state, isLoading: false })
-      toast.error("Fund your wallet & try again")
     }
   }
 

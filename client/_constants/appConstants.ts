@@ -18,7 +18,13 @@ enum Constants {
   UnknwonError = "Unknown error",
   CopiedToClipBoard = "Copied to Clipboard",
   InvalidPasskey = "Invalid Pass Key",
-  IdentityVerificationSuccess = "Identity Verified"
+  IdentityVerificationSuccess = "Identity Verified",
+  DefaultNftImage = "https://cdn-icons-png.flaticon.com/512/8133/8133529.png",
+  PolygonScanBaseUri = "https://mumbai.polygonscan.com/nft",
+  OpenseaBaseUri = "https://testnets.opensea.io/assets/mumbai",
+  AppBaseUri = "https://lenstack.vercel.app",
+  MumbaiFaucetUri = "https://mumbaifaucet.com",
+  LinkedinUri = "https://www.linkedin.com/in/arnhazra",
 }
 
 export default Constants

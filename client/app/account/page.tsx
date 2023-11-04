@@ -2,7 +2,6 @@
 import { Fragment, useContext, useState, useEffect } from "react"
 import { Button, Col, Row } from "react-bootstrap"
 import endPoints from "@/_constants/apiEndpoints"
-import { useRouter } from "next/navigation"
 import { AppContext } from "@/_context/appStateProvider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
@@ -17,11 +16,10 @@ import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-ic
 export default function Page() {
   const [{ userState }] = useContext(AppContext)
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")
   const [maticBalance, setMaticBalance] = useState("0")
-  const router = useRouter()
 
   useEffect(() => {
     (async () => {
@@ -46,7 +44,7 @@ export default function Page() {
     try {
       await axios.post(endPoints.signOutEndpoint)
       localStorage.clear()
-      router.push("/")
+      window.location.replace("/")
     } catch (error) {
       toast.error(Constants.ToastError)
     }
@@ -75,7 +73,7 @@ export default function Page() {
               <AvatarIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">Hello, {userState.name.split(" ")[0]}</p>
+              <p className="boxcategorytext">{userState.email}</p>
               <div className="boxcategorytext">
                 Wallet Address {showWalletAddress(accountAddress)}<CopyIcon className="icon-right" onClick={copyWalletAddress} />
               </div>

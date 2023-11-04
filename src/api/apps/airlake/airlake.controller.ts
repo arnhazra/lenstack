@@ -55,9 +55,9 @@ export class AirlakeController {
   }
 
   @Post("dataapi")
-  async getData(@ApiKeyAuthorizer() userId: string, @Body("datasetId") datasetId: string, @Body("apiKey") apiKey: string) {
+  async getData(@ApiKeyAuthorizer() userId: string, @Body("datasetId") datasetId: string) {
     try {
-      const data = await this.airlakeService.getData(userId, datasetId, apiKey)
+      const data = await this.airlakeService.getData(datasetId)
       return { data }
     }
 

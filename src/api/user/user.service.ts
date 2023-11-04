@@ -19,7 +19,7 @@ export class UserService {
 
   constructor(private readonly userRepository: UserRepository) {
     this.authPrivateKey = envConfig.authPrivateKey
-    this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
+    this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraSecret
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
 
@@ -38,7 +38,7 @@ export class UserService {
 
   async verifyIdentityPasskey(verifyIdentityPasskeyDto: VerifyIdentityPasskeyDto) {
     try {
-      const { name, email, hash, passKey } = verifyIdentityPasskeyDto
+      const { email, hash, passKey } = verifyIdentityPasskeyDto
       const isOTPValid = verifyIdentityPasskey(email, hash, passKey)
 
       if (isOTPValid) {
@@ -48,24 +48,24 @@ export class UserService {
           const redisAccessToken = await getTokenFromRedis(user.id)
           if (redisAccessToken) {
             const accessToken = redisAccessToken
-            return { accessToken, newUser: false, success: true, user }
+            return { accessToken, success: true, user }
           }
 
           else {
             const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
             const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
             await setTokenInRedis(user.id, accessToken)
-            return { accessToken, newUser: false, success: true, user }
+            return { accessToken, success: true, user }
           }
         }
 
         else {
           const { privateKey } = this.web3Provider.eth.accounts.create()
-          await this.userRepository.createNewUser({ email, name, privateKey })
-          const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
+          const newUser = await this.userRepository.createNewUser({ email, privateKey })
+          const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-          await setTokenInRedis(user.id, accessToken)
-          return { accessToken, newUser: true, success: true, user }
+          await setTokenInRedis(newUser.id, accessToken)
+          return { accessToken, success: true, user: newUser }
         }
       }
 
@@ -75,7 +75,7 @@ export class UserService {
     }
 
     catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(error)
     }
   }
 

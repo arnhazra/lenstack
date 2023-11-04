@@ -1,7 +1,7 @@
 enum otherConstants {
-  undefinedName = "Undefined Name",
   tokenIssuer = "https://lenstack.vercel.app",
-  infuraEndpoint = "https://polygon-mumbai.infura.io/v3"
+  infuraEndpoint = "https://polygon-mumbai.infura.io/v3",
+  polygonScanApiEndpoint = "https://api-testnet.polygonscan.com"
 }
 
 export { otherConstants }

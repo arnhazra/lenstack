@@ -10,7 +10,7 @@ import Loading from "@/_components/Loading"
 import appConstants from "@/_constants/appConstants"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
-import { LockOpen1Icon, CalendarIcon, BookmarkIcon, BarChartIcon, CopyIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
@@ -20,13 +20,13 @@ import useConfirm from "@/_hooks/useConfirm"
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const [{ userState }] = useContext(AppContext)
+  const [{ userState }, dispatch] = useContext(AppContext)
   const usageDetails = useFetch("usage", endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST, {}, true)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
   const router = useRouter()
   const secretConfig = useFetch("secrets", endPoints.getSecretConfig, HTTPMethods.POST)
   const [selectedPlan] = useState("Pro")
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${secretConfig?.data?.infuraApiKey}`)
+  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${secretConfig?.data?.infuraSecret}`)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
@@ -79,6 +79,18 @@ export default function Page() {
           const res = await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
           const { transactionHash } = res
           await axios.post(`${endPoints.subscribeEndpoint}`, { selectedPlan, transactionHash })
+
+          const response = await axios.post(endPoints.userDetailsEndpoint)
+          const userId = response.data.user._id
+          const { email, privateKey, role, trialAvailable } = response.data.user
+
+          if (response.data.subscription) {
+            const { selectedPlan, apiKey, expiresAt } = response.data.subscription
+            localStorage.setItem("apiKey", apiKey)
+            dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
+          }
+
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable })
           toast.success(Constants.TransactionSuccess)
         }
 
@@ -138,7 +150,7 @@ export default function Page() {
           </Row>
           <Row className="mb-2">
             <Col className="categorycol">
-              <BookmarkIcon />
+              <CubeIcon />
             </Col>
             <Col>
               <p className="boxcategorytext">Selected Plan</p>
@@ -149,7 +161,7 @@ export default function Page() {
           </Row>
           <Row className="mb-2">
             <Col className="categorycol">
-              <BarChartIcon />
+              <PieChartIcon />
             </Col>
             <Col>
               <p className="boxcategorytext">Key Usage</p>

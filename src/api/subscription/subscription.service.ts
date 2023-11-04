@@ -16,7 +16,7 @@ export class SubscriptionService {
 
   constructor(private readonly subscriptionRepository: SubscriptionRepository,
     private readonly userRepository: UserRepository) {
-    this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraApiKey
+    this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraSecret
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
 
