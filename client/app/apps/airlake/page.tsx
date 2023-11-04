@@ -1,6 +1,6 @@
 "use client"
 import { ChangeEvent, useMemo, useState } from "react"
-import { Button, Col, Container, Form, Row } from "react-bootstrap"
+import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
 import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
 import debounce from "lodash.debounce"
@@ -15,7 +15,12 @@ import GenericAppCard from "@/_components/GenericAppCard"
 export default function Page() {
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
-  const dataLibrary = useFetch("data platform", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
+  const dataLibrary = useFetch("find datasets", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
+  const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
+
+  const selectedApp = apps?.data?.find((app: any) => {
+    return app.appName === "airlake"
+  })
 
   const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
     return <option className="options" key={category} value={category}>{category}</option>
@@ -32,7 +37,7 @@ export default function Page() {
     return <GenericAppCard key={dataset._id} genericAppCardProps={genericAppCardProps} />
   })
 
-  const noDatasetsToDisplay = <p className="display-6 text-white">No results !</p>
+  const noDatasetsToDisplay = <h4 className="text-white">No Results</h4>
 
   const prevPage = () => {
     const prevDatasetReqNumber = datasetRequestState.offset - 36
@@ -57,6 +62,12 @@ export default function Page() {
       <Show when={!dataLibrary.isLoading && !filters.isLoading}>
         <Container>
           <div className="jumbotron p-4">
+            <p className="branding">{selectedApp?.appName}</p>
+            <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
+            </div>
             <Row className="g-2">
               <Col xs={12} sm={12} md={6} lg={4} xl={6}>
                 <Form.Group controlId="floatingSearch">
@@ -86,7 +97,6 @@ export default function Page() {
               </Col>
             </Row>
           </div>
-
           <Row className="mt-4 mb-2">
             {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
           </Row>

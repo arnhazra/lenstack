@@ -36,7 +36,7 @@ export default function useConfirm() {
         <h5>{message}</h5>
       </Modal.Header>
       <Modal.Body className="ps-4 pe-4">
-        <p className="boxtext">This Action may not be undone, be sure before you click on continue, you can cancel if you don"t want to proceed</p>
+        <p className="muted-text">This Action may not be undone, be sure before you click on continue, you can cancel if you don"t want to proceed</p>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => handleConfirm(false)}>

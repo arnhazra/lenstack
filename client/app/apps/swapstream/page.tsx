@@ -4,10 +4,15 @@ import { GenericAppCardInterface, TokenData } from "@/_types/Types"
 import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
-import { Container, Row } from "react-bootstrap"
+import { Badge, Container, Row } from "react-bootstrap"
 
 export default function Page() {
   const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST)
+  const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
+
+  const selectedApp = apps?.data?.find((app: any) => {
+    return app.appName === "swapstream"
+  })
 
   const tokensToDisplay = swapstreamTokenConfig?.data?.map((token: TokenData) => {
     const genericAppCardProps: GenericAppCardInterface = {
@@ -23,7 +28,15 @@ export default function Page() {
 
   return (
     <Container>
-      <h4 className="text-white">Start Trading your tokens from here !</h4>
+      <div className="jumbotron p-4">
+        <p className="branding">{selectedApp?.appName}</p>
+        <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
+        <div className="mb-2">
+          <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
+          <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
+        </div>
+      </div>
+      <h4 className="text-white">ERC-20 Tokens</h4>
       <Row>
         {tokensToDisplay}
       </Row>

@@ -65,7 +65,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
       <Show when={identityStep === 1}>
         <form className="box" onSubmit={generatePassKey}>
           <p className="branding">Identity</p>
-          <p className="boxtext">Enter the email address to get started</p>
+          <p className="muted-text">Enter the email address to get started</p>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email address</Form.Label>
             <Form.Control disabled={isLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
@@ -74,13 +74,13 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
             <Show when={!isLoading}>Get Identity Passkey <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
           </Button>
-          <p className="boxtext mt-1">By using Lenstack, you agree to our Terms of Service and Privacy Policy.</p>
+          <p className="muted-text mt-1">By using Lenstack, you agree to our Terms of Service and Privacy Policy.</p>
         </form>
       </Show>
       <Show when={identityStep === 2}>
         <form className="box" onSubmit={verifyPassKey}>
           <p className="branding">Identity</p>
-          <p className="boxtext">Please verify your identity by entering the identity passkey we sent to your inbox.</p>
+          <p className="muted-text">Please verify your identity by entering the identity passkey we sent to your inbox.</p>
           <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
             <Form.Label>Identity Passkey</Form.Label>
             <Form.Control type="password" disabled={isLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />

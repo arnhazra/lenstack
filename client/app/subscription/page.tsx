@@ -115,7 +115,7 @@ export default function Page() {
       <Show when={!usageDetails.isLoading && !pricingDetails.isLoading && !contractAddress.isLoading}>
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
-          <p className="boxtext">Subscribe & Track your API Key usage from here</p>
+          <p className="muted-text">Subscribe & Track your API Key usage from here</p>
           <Row className="mb-2 mt-4">
             <Col className="categorycol">
               <LockOpen1Icon />
