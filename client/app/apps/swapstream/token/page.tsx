@@ -179,9 +179,9 @@ export default function page() {
       <Show when={!swapstreamTokenConfig.isLoading && !contractAddress.isLoading}>
         <div className="jumbotron p-4">
           <p className="branding text-capitalize">{selectedToken?.tokenName}</p>
-          <p className="lead mt-3">{selectedToken?.description}</p>
-          <p className="lead mt-2">My {selectedToken?.tokenName} Balance</p>
+          <p className="muted-text mt-3">{selectedToken?.description}</p>
           <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
+          <p className="muted-text mt-2">{selectedToken?.tokenName} Balance</p>
           <div className="mb-2">
             <Badge bg="dark" pill className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
             <Badge bg="dark" pill className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>

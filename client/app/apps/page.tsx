@@ -5,7 +5,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import useFetch from "@/_hooks/useFetch"
 import Link from "next/link"
-import { ArrowRightIcon, ReaderIcon, RocketIcon } from "@radix-ui/react-icons"
+import { ReaderIcon, RocketIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/_components/ErrorComp"
@@ -52,7 +52,7 @@ export default function Page() {
         <Show when={selectedApp}>
           <div className="jumbotron p-4">
             <p className="branding text-capitalize">{selectedApp?.appName}</p>
-            <p className="lead mt-3">{selectedApp?.description}</p>
+            <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>

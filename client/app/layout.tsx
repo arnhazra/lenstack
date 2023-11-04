@@ -3,7 +3,6 @@ import axios from "axios"
 import IdentityProvider from "@/_providers/IdentityProvider"
 import { AppStateProvider } from "@/_context/appStateProvider"
 import { Toaster } from "react-hot-toast"
-import { motion } from "framer-motion"
 import { Quicksand } from "next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -51,23 +50,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
       </head>
       <body className={quickSand.className}>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <QueryClientProvider client={client}>
-            <AppStateProvider>
-              <IdentityProvider>
-                <main className="mt-2 mb-4 pb-4">
-                  {children}
-                  <Toaster position="bottom-right" />
-                </main>
-              </IdentityProvider>
-            </AppStateProvider>
-          </QueryClientProvider>
-        </motion.div>
+        <QueryClientProvider client={client}>
+          <AppStateProvider>
+            <IdentityProvider>
+              <main className="mt-2 mb-4 pb-4">
+                {children}
+                <Toaster position="bottom-right" />
+              </main>
+            </IdentityProvider>
+          </AppStateProvider>
+        </QueryClientProvider>
       </body>
     </html>
   )

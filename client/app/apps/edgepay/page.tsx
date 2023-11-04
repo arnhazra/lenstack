@@ -67,7 +67,7 @@ export default function Page() {
   return (
     <form className="box" onSubmit={sendMatic}>
       <p className="branding">EdgePay</p>
-      <p className="boxtext">Enter the wallet address to send matic</p>
+      <p className="muted-text">Enter the wallet address to send matic</p>
       <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
         <Form.Label>Wallet address</Form.Label>
         <Form.Control disabled={isLoading} autoFocus type="text" placeholder="Ethereum Wallet Address" onChange={(e) => setReceiverAddress(e.target.value)} required autoComplete={"off"} />

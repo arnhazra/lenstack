@@ -5,7 +5,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useContext, useEffect, useState } from "react"
-import { Container, Row } from "react-bootstrap"
+import { Badge, Container, Row } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { AppContext } from "@/_context/appStateProvider"
 import { nftABI } from "@/_bin/nftABI"
@@ -22,6 +22,11 @@ export default function Page() {
   const [{ userState }] = useContext(AppContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
+  const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
+
+  const selectedApp = apps?.data?.find((app: any) => {
+    return app.appName === "snowlake"
+  })
 
   useEffect(() => {
     (async () => {
@@ -65,18 +70,23 @@ export default function Page() {
     <Fragment>
       <Show when={!isLoading && !contractAddress.isLoading}>
         <Container>
-          <Link className="btn" href={"/apps/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+          <div className="jumbotron p-4">
+            <p className="branding">{selectedApp?.appName}</p>
+            <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
+            </div>
+            <Link className="btn" href={"/apps/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+          </div>
           <Show when={nftList.length > 0}>
             <h4 className="text-white">My Collection</h4>
-            <Row className="mt-4 mb-2">
+            <Row className="mt-2 mb-2">
               {nftsToDisplay}
             </Row>
           </Show>
           <Show when={nftList.length === 0}>
-            <div className="box">
-              <p className="branding">My Collection</p>
-              <p className="lead">No NFTs to display</p>
-            </div>
+            <h4 className="text-white">No NFTs to display</h4>
           </Show>
         </Container>
       </Show>

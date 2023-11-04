@@ -11,7 +11,7 @@ export class HexscanController {
   @Post("analyzer")
   async analyze(@ApiKeyAuthorizer() userId: string, @Req() req: any) {
     try {
-      const queryParams = req.url.split('?')[1]
+      const queryParams = req.url.split("?")[1]
       const queryParamsWithSecretKey = `${queryParams}&apiKey=${envConfig.polygonscanSecretKey}`
       const response = await this.hexscanService.analyze(queryParamsWithSecretKey, userId)
       return response

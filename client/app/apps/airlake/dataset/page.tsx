@@ -54,9 +54,9 @@ export default function Page() {
             <div className="jumbotron p-4">
               <p className="branding text-capitalize">{dataset?.data?.name}</p>
               <p className="lead">{dataset?.data?.category}</p>
-              <p className="lead mt-3">{dataset?.data?.description}</p>
+              <p className="muted-text mt-3">{dataset?.data?.description}</p>
               <div className="mb-3">{datasetTagsToDisplay}</div>
-              <Button onClick={copyDatasetId}>Copy Dataset Id <CopyIcon className="icon-right" /></Button>
+              <Button onClick={copyDatasetId}><CopyIcon className="icon-left" />Copy Dataset ID</Button>
             </div>
             <Row>
               <h4 className="text-white mb-4">Similar Datasets</h4>

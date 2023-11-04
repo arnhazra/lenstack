@@ -2,6 +2,7 @@
 import Header from "@/_components/Header"
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
+import { motion } from "framer-motion"
 import endPoints from "@/_constants/apiEndpoints"
 import Constants from "@/_constants/appConstants"
 import { AppContext } from "@/_context/appStateProvider"
@@ -80,7 +81,9 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
       </Show>
       <Show when={!isLoading}>
         <Show when={isAuthorized}>
-          {children}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+            {children}
+          </motion.div>
         </Show>
         <Show when={!isAuthorized}>
           <Show when={pathname === "/"}>
