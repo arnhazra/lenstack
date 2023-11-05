@@ -23,13 +23,13 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   return (
     <Fragment>
       <Show when={isAuthorized && !isHomePage}>
-        <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
+        <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon />
+              <TextAlignLeftIcon className="icon-large" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
@@ -43,13 +43,13 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
         </Navbar>
       </Show>
       <Show when={!isAuthorized || isHomePage}>
-        <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
+        <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon />
+              <TextAlignLeftIcon className="icon-large" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">

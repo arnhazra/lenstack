@@ -1,13 +1,13 @@
-$navColor: #ffffff
-$textColor: #000000
+$navColor: #000000
+$textColor: #ffffff
 
 .navbar
   background: $navColor
-  box-shadow: 0 2px 2px -2px rgba(0,0,0,.2)
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,.2)
   z-index: 2
 
 .navbar-brand
-  font-size: 0.9rem
+  font-size: 1.2rem
   margin-right: 1.5rem
   cursor: pointer
   color: $textColor
@@ -26,9 +26,13 @@ $textColor: #000000
 .navbar-toggler:active,
 .navbar-toggler-icon:focus
   outline: none
+  box-shadow: none
 
 .header
   padding-bottom: 4.5rem
 
 .navbar-toggler
   border: none
+
+.icon-large
+  zoom: 150%
