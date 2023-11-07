@@ -11,7 +11,7 @@ import { FormEvent, Fragment, useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import toast from "react-hot-toast"
 
-export default function page() {
+export default function Page() {
   const [{ userState }, dispatch] = useContext(AppContext)
   const [queryId, setQueryId] = useState(Math.random().toString())
   const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.POST, {}, true, queryId)
