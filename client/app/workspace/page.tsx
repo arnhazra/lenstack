@@ -13,7 +13,8 @@ import toast from "react-hot-toast"
 
 export default function page() {
   const [{ userState }, dispatch] = useContext(AppContext)
-  const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.POST, {}, true)
+  const [queryId, setQueryId] = useState(Math.random().toString())
+  const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.POST, {}, true, queryId)
   const [newWorkspaceName, setNewWorkspaceName] = useState('')
   const [isLoading, setLoading] = useState(false)
 
@@ -23,6 +24,7 @@ export default function page() {
     try {
       setLoading(true)
       await axios.post(endPoints.createWorkspace, { name: newWorkspaceName })
+      setQueryId(Math.random().toString())
       toast.success('Workspace created')
     }
 
@@ -66,7 +68,7 @@ export default function page() {
           <form onSubmit={createWorkspace}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Create Workspace</Form.Label>
-              <Form.Control disabled={isLoading} type="text" name="name" placeholder="Workspace Name" onChange={(e) => { setNewWorkspaceName(e.target.value) }} required autoComplete={"off"} />
+              <Form.Control disabled={isLoading} type="text" name="name" placeholder="Workspace Name" onChange={(e) => { setNewWorkspaceName(e.target.value) }} maxLength={15} required autoComplete={"off"} />
             </Form.Group>
             <Button disabled={isLoading} type="submit" className="btn-block"><PlusCircledIcon className="icon-left" />Create Workspace</Button>
           </form>
