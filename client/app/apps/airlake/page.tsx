@@ -11,6 +11,7 @@ import endPoints from "@/_constants/apiEndpoints"
 import HTTPMethods from "@/_constants/httpMethods"
 import { DatasetRequestState, GenericAppCardInterface } from "@/_types/Types"
 import GenericAppCard from "@/_components/GenericAppCard"
+import GenericHero from "@/_components/GenericHero"
 
 export default function Page() {
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
@@ -61,7 +62,7 @@ export default function Page() {
     <Fragment>
       <Show when={!dataLibrary.isLoading && !filters.isLoading}>
         <Container>
-          <div className="jumbotron p-4">
+          <GenericHero>
             <p className="branding">{selectedApp?.appName}</p>
             <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
@@ -96,7 +97,7 @@ export default function Page() {
                 </Form.Group>
               </Col>
             </Row>
-          </div>
+          </GenericHero>
           <Row className="mt-4 mb-2">
             {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
           </Row>

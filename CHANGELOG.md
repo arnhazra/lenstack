@@ -1,7 +1,11 @@
 # Lenstack Changelog
 
+### v2.2
+* Introduction of generic hero component
+* Documentation UI changes
+* New & Modern Dark UI layout for Lenstack & all app Home Page
+
 ### v2.1
-* New UI layout for Lenstack & all app Home Page
 * Fixed framer motion animation issue on header
 * Minor UX imporvements & code refactoring
 

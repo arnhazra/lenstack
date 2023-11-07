@@ -13,6 +13,7 @@ import GenericAppCard from "@/_components/GenericAppCard"
 import { GenericAppCardInterface } from "@/_types/Types"
 import { useContext } from "react"
 import { AppContext } from "@/_context/appStateProvider"
+import GenericHero from "@/_components/GenericHero"
 
 export default function Page() {
   const [{ userState }] = useContext(AppContext)
@@ -50,7 +51,7 @@ export default function Page() {
       </Show>
       <Show when={!apps?.isLoading}>
         <Show when={selectedApp}>
-          <div className="jumbotron p-4">
+          <GenericHero>
             <p className="branding text-capitalize">{selectedApp?.appName}</p>
             <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
@@ -61,7 +62,7 @@ export default function Page() {
             <Show when={!!selectedApp?.isDocumentationAvailable}>
               <Link className="btn mt-2" href={`/documentation?appName=${appName}`}><ReaderIcon className="icon-left" />View Documentation</Link>
             </Show>
-          </div>
+          </GenericHero>
           <h4 className="text-white mt-2">Other Apps</h4>
           <Row className="mb-4 mt-2">
             {appsToDisplay}

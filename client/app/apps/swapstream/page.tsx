@@ -28,7 +28,7 @@ export default function Page() {
 
   return (
     <Container>
-      <div className="jumbotron p-4">
+      <div className="generichero p-4">
         <p className="branding">{selectedApp?.appName}</p>
         <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
         <div className="mb-2">
