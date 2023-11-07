@@ -28,10 +28,7 @@ export default function Page() {
             Try for free
           </Show>
         </Link>
-        <Link href={Constants.LinkedinUri} className="btn">
-          <ExternalLinkIcon className="icon-left" />
-          Contact
-        </Link>
+        <Link passHref target="_blank" rel="noopener noreferrer" href={Constants.LinkedinUri} className="btn"><ExternalLinkIcon className="icon-left" />Contact</Link>
       </div>
     </Container>
   )
