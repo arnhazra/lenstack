@@ -25,7 +25,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
         try {
           const response = await axios.post(endPoints.userDetailsEndpoint)
           const userId = response.data.user._id
-          const { email, privateKey, role, trialAvailable } = response.data.user
+          const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
 
           if (response.data.subscription) {
             const { selectedPlan, apiKey, expiresAt } = response.data.subscription
@@ -33,7 +33,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
             dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
           }
 
-          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable })
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
           setAuthorized(true)
         }
 

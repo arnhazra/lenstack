@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { WorkspaceModel } from "./entities/workspace.entity"
+import { UserModel } from "../user/entities/user.entity"
 
 @Injectable()
 export class WorkspaceRepository {
@@ -19,8 +20,8 @@ export class WorkspaceRepository {
     return workspace
   }
 
-  async deleteWorkspaceById(workspaceId: string) {
-    await WorkspaceModel.findByIdAndDelete(workspaceId)
+  async switchWorkspace(userId: string, workspaceId: string) {
+    await UserModel.findByIdAndUpdate(userId, { selectedWorkspaceId: workspaceId })
     return true
   }
 }

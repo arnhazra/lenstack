@@ -17,7 +17,8 @@ export interface UserState {
   selectedPlan: string
   apiKey: string
   subscriptionValidUpto: string
-  trialAvailable: boolean
+  trialAvailable: boolean,
+  selectedWorkspaceId: string
 }
 
 export interface DatasetRequestState {

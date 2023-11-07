@@ -33,6 +33,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
+                <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={Constants.MumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item><Link href="/account">Account</Link></Nav.Item>

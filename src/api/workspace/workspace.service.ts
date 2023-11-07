@@ -30,12 +30,12 @@ export class WorkspaceService {
     }
   }
 
-  async removeWorkspace(userId: string, workspaceId: string) {
+  async switchWorkspace(userId: string, workspaceId: string) {
     try {
       const { ownerId } = await this.workspaceRepository.findWorkspaceById(workspaceId)
 
       if (ownerId.toString() === userId) {
-        await this.workspaceRepository.deleteWorkspaceById(workspaceId)
+        await this.workspaceRepository.switchWorkspace(userId, workspaceId)
         return true
       }
 

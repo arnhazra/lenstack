@@ -17,7 +17,8 @@ const initialState = {
     selectedPlan: "No Subscription",
     apiKey: "",
     subscriptionValidUpto: "",
-    trialAvailable: false
+    trialAvailable: false,
+    selectedWorkspaceId: ""
   },
 }
 

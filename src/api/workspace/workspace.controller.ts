@@ -32,10 +32,10 @@ export class WorkspaceController {
     }
   }
 
-  @Delete("deleteworkspace")
-  async removeWorkspace(@TokenAuthorizer() userId: string, @Query("workspaceId") workspaceId: string) {
+  @Post("switch")
+  async switchWorkspace(@TokenAuthorizer() userId: string, @Query("workspaceId") workspaceId: string) {
     try {
-      await this.workspaceService.removeWorkspace(userId, workspaceId)
+      await this.workspaceService.switchWorkspace(userId, workspaceId)
       return true
     }
 
