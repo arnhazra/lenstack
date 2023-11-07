@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v2.3
+* Introduction of Lenstack workspaces
+
 ### v2.2
 * Introduction of generic hero component
 * Documentation UI changes
