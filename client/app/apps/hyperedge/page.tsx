@@ -9,6 +9,7 @@ import useFetch from "@/_hooks/useFetch"
 import moment from "moment"
 import { ExternalLinkIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
+import GenericHero from "@/_components/GenericHero"
 
 export default function Page() {
   const dbs = useFetch("dbs", endPoints.hyperedgeGetMyDbsEndpoint, HTTPMethods.POST)
@@ -32,7 +33,7 @@ export default function Page() {
     <Fragment>
       <Show when={!dbs.isLoading}>
         <Container>
-          <div className="jumbotron p-4">
+          <GenericHero>
             <p className="branding">{selectedApp?.appName}</p>
             <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
@@ -40,7 +41,7 @@ export default function Page() {
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
             <Link className="btn" href="/apps/hyperedge/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
-          </div>
+          </GenericHero>
           <Show when={dbs?.data?.dbs?.length > 0}>
             <h4 className="text-white">My Databases</h4>
             <Table responsive hover variant="light">

@@ -15,6 +15,7 @@ import useFetch from "@/_hooks/useFetch"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 import GenericAppCard from "@/_components/GenericAppCard"
 import { GenericAppCardInterface } from "@/_types/Types"
+import GenericHero from "@/_components/GenericHero"
 
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -70,7 +71,7 @@ export default function Page() {
     <Fragment>
       <Show when={!isLoading && !contractAddress.isLoading}>
         <Container>
-          <div className="jumbotron p-4">
+          <GenericHero>
             <p className="branding">{selectedApp?.appName}</p>
             <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
@@ -78,7 +79,7 @@ export default function Page() {
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
             <Link className="btn" href={"/apps/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
-          </div>
+          </GenericHero>
           <Show when={nftList.length > 0}>
             <h4 className="text-white">My Collection</h4>
             <Row className="mt-2 mb-2">

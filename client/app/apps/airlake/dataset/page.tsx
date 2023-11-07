@@ -15,6 +15,7 @@ import { useSearchParams } from "next/navigation"
 import { CopyIcon } from "@radix-ui/react-icons"
 import { GenericAppCardInterface } from "@/_types/Types"
 import GenericAppCard from "@/_components/GenericAppCard"
+import GenericHero from "@/_components/GenericHero"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -51,13 +52,13 @@ export default function Page() {
       <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
         <Show when={!dataset.error && !!datasetId}>
           <Container>
-            <div className="jumbotron p-4">
+            <GenericHero>
               <p className="branding text-capitalize">{dataset?.data?.name}</p>
               <p className="lead">{dataset?.data?.category}</p>
               <p className="muted-text mt-3">{dataset?.data?.description}</p>
               <div className="mb-3">{datasetTagsToDisplay}</div>
               <Button onClick={copyDatasetId}><CopyIcon className="icon-left" />Copy Dataset ID</Button>
-            </div>
+            </GenericHero>
             <Row>
               <h4 className="text-white mb-4">Similar Datasets</h4>
               {similarDatasetsToDisplay}

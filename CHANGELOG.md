@@ -1,7 +1,9 @@
 # Lenstack Changelog
 
 ### v2.1
-* New UI layout for Lenstack & all app Home Page
+* New & Modern Dark UI layout for Lenstack & all app Home Page
+
+### v2.1
 * Fixed framer motion animation issue on header
 * Minor UX imporvements & code refactoring
 

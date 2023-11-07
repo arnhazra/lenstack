@@ -2,6 +2,7 @@
 import { nftABI } from "@/_bin/nftABI"
 import Error from "@/_components/ErrorComp"
 import GenericAppCard from "@/_components/GenericAppCard"
+import GenericHero from "@/_components/GenericHero"
 import Loading from "@/_components/Loading"
 import Show from "@/_components/Show"
 import endPoints from "@/_constants/apiEndpoints"
@@ -158,7 +159,7 @@ export default function Page() {
       <Show when={!contractAddress.isLoading && !isLoading && !isArchiving}>
         <Show when={!hasError}>
           <Container>
-            <div className="jumbotron p-4">
+            <GenericHero>
               <Row>
                 <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                   <img
@@ -185,7 +186,7 @@ export default function Page() {
                   <Button onClick={() => archiveNFT(nftId)}>Archive NFT<ArchiveIcon className="icon-right" /></Button>
                 </Col>
               </Row>
-            </div>
+            </GenericHero>
             <Row>
               <h4 className="text-white mb-4">Other NFTs in my collection</h4>
               {nftsToDisplay}

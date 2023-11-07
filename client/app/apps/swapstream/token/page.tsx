@@ -18,6 +18,7 @@ import Show from "@/_components/Show"
 import Loading from "@/_components/Loading"
 import axios from "axios"
 import GenericAppCard from "@/_components/GenericAppCard"
+import GenericHero from "@/_components/GenericHero"
 
 export default function page() {
   const [{ userState }] = useContext(AppContext)
@@ -177,7 +178,7 @@ export default function page() {
   return (
     <Container>
       <Show when={!swapstreamTokenConfig.isLoading && !contractAddress.isLoading}>
-        <div className="jumbotron p-4">
+        <GenericHero>
           <p className="branding text-capitalize">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
           <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
@@ -194,7 +195,7 @@ export default function page() {
             <Show when={!isTxProcessing}>Sell Token <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
           </Button>
-        </div>
+        </GenericHero>
         <Row>
           <h4 className="text-white mb-4">Other Tokens</h4>
           {tokensToDisplay}

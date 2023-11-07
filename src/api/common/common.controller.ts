@@ -7,7 +7,7 @@ export class CommonController {
   constructor(private readonly commonService: CommonService) { }
 
   @Post("getplatformconfig")
-  getPlatformConfig(@TokenAuthorizer() userId: string) {
+  getPlatformConfig() {
     try {
       return this.commonService.getPlatformConfig()
     } catch (error) {
