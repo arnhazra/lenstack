@@ -1,6 +1,6 @@
 # Lenstack Changelog
 
-### v2.1
+### v2.2
 * Introduction of generic hero component
 * Documentation UI changes
 * New & Modern Dark UI layout for Lenstack & all app Home Page
