@@ -1,6 +1,6 @@
 {
   "name": "lenstack",
-  "version": "2.2",
+  "version": "2.3",
   "description": "",
   "author": "",
   "private": true,
@@ -13,7 +13,8 @@
     "dev": "concurrently \"npm run start:dev\" \"npm run start:client\"",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "deploy": "git add . && git commit -m ProdDeploy && git push"
+    "deploy": "git add . && git commit -m ProdDeploy && git push",
+    "cleangit": "git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'); do git branch -D $branch; done"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.1",
