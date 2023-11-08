@@ -83,7 +83,6 @@ export class UserService {
     try {
       const user = await this.userRepository.findUserById(userId)
       if (user) {
-        const userId = user.id
         const subscription = await SubscriptionModel.findOne({ workspaceId })
 
         if (subscription) {
