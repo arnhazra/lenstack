@@ -22,31 +22,38 @@ export const ApiKeyAuthorizer = createParamDecorator(
     else {
       try {
         const subscription = await SubscriptionModel.findOne({ apiKey })
-        const workspaceId = subscription.workspaceId.toString()
-        const workspace = await WorkspaceModel.findById(workspaceId)
-        const userId = workspace.ownerId.toString()
 
         if (subscription) {
-          const currentDate = new Date()
-          const expiryDate = subscription.expiresAt
+          const workspaceId = subscription.workspaceId.toString()
+          const workspace = await WorkspaceModel.findById(workspaceId)
 
-          if (currentDate > expiryDate) {
-            await SubscriptionModel.findOneAndDelete({ apiKey })
-            throw new ForbiddenException(statusMessages.apiKeyExpired)
-          }
+          if (workspace) {
+            const userId = workspace.ownerId.toString()
+            const currentDate = new Date()
+            const expiryDate = subscription.expiresAt
 
-          else {
-            const creditRequiredForCurrentRequest = apiPricing[`${requestedResource}`]
-
-            if (creditRequiredForCurrentRequest > subscription.remainingCredits) {
-              throw new ForbiddenException(statusMessages.apiKeyLimitReached)
+            if (currentDate > expiryDate) {
+              await SubscriptionModel.findOneAndDelete({ apiKey })
+              throw new ForbiddenException(statusMessages.apiKeyExpired)
             }
 
             else {
-              subscription.remainingCredits -= creditRequiredForCurrentRequest
-              await subscription.save()
-              return { userId, workspaceId }
+              const creditRequiredForCurrentRequest = apiPricing[`${requestedResource}`]
+
+              if (creditRequiredForCurrentRequest > subscription.remainingCredits) {
+                throw new ForbiddenException(statusMessages.apiKeyLimitReached)
+              }
+
+              else {
+                subscription.remainingCredits -= creditRequiredForCurrentRequest
+                await subscription.save()
+                return { userId, workspaceId }
+              }
             }
+          }
+
+          else {
+            throw new ForbiddenException(statusMessages.invalidApiKey)
           }
         }
 
