@@ -28,9 +28,9 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
 
           if (response.data.subscription) {
-            const { selectedPlan, apiKey, expiresAt } = response.data.subscription
+            const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
             localStorage.setItem("apiKey", apiKey)
-            dispatch("setUserState", { selectedPlan, apiKey, expiresAt })
+            dispatch("setUserState", { selectedPlan, apiKey, expiresAt, remainingCredits })
           }
 
           else {

@@ -5,6 +5,8 @@
 * Integrated workspaces with UI
 * Removed owner field from app transactions and entities and added workspaceId to separate workspaces
 * Fixed some UI issues where subscription not updated after switching workspace or new subscription
+* Deprecated getUsageByWorkspaceId api as data is already available in userdetails api
+* Added 2 more parameters in the appstate object
 
 ### v2.2
 * Introduction of generic hero component

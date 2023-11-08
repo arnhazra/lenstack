@@ -21,7 +21,6 @@ export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const [{ userState }, dispatch] = useContext(AppContext)
-  const usageDetails = useFetch("usage", endPoints.getUsageByApiKeyEndpoint, HTTPMethods.POST, {}, true)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
   const router = useRouter()
   const secretConfig = useFetch("secrets", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -30,7 +29,6 @@ export default function Page() {
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
-  const remainingCredits = usageDetails.data?.remainingCredits > 0 ? usageDetails.data?.remainingCredits : 0
 
   const showapiKey = (apiKey: string) => {
     const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
@@ -53,9 +51,9 @@ export default function Page() {
         const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
 
         if (response.data.subscription) {
-          const { selectedPlan, apiKey, expiresAt } = response.data.subscription
+          const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
           localStorage.setItem("apiKey", apiKey)
-          dispatch("setUserState", { selectedPlan, apiKey, expiresAt })
+          dispatch("setUserState", { selectedPlan, apiKey, expiresAt, remainingCredits })
         }
 
         else {
@@ -102,9 +100,9 @@ export default function Page() {
           const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
 
           if (response.data.subscription) {
-            const { selectedPlan, apiKey, expiresAt } = response.data.subscription
+            const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
             localStorage.setItem("apiKey", apiKey)
-            dispatch("setUserState", { selectedPlan, apiKey, expiresAt })
+            dispatch("setUserState", { selectedPlan, apiKey, expiresAt, remainingCredits })
           }
 
           else {
@@ -133,7 +131,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!usageDetails.isLoading && !pricingDetails.isLoading && !contractAddress.isLoading}>
+      <Show when={!pricingDetails.isLoading && !contractAddress.isLoading}>
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text">Subscribe & Track your API Key usage from here</p>
@@ -188,7 +186,7 @@ export default function Page() {
               <p className="boxcategorytext">Key Usage</p>
               <div className="boxcategorytext">
                 <Show when={!!userState.apiKey}>
-                  {remainingCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining
+                  {userState.remainingCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining
                 </Show>
                 <Show when={!userState.apiKey}>
                   No API Key Usage Data
@@ -209,7 +207,7 @@ export default function Page() {
           </Fragment>
         </div>
       </Show>
-      <Show when={usageDetails.isLoading || pricingDetails.isLoading || contractAddress.isLoading}>
+      <Show when={pricingDetails.isLoading || contractAddress.isLoading}>
         <Loading />
       </Show>
       {confirmDialog()}

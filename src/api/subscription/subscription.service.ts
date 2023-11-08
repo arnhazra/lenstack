@@ -77,23 +77,4 @@ export class SubscriptionService {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
-
-  async getUsageByWorkspaceId(workspaceId: string) {
-    try {
-      const subscription = await SubscriptionModel.findOne({ workspaceId })
-
-      if (subscription) {
-        const { remainingCredits } = subscription
-        return { remainingCredits }
-      }
-
-      else {
-        return { message: "No Active Subscriptions" }
-      }
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
 }

@@ -18,7 +18,8 @@ export interface UserState {
   apiKey: string
   expiresAt: string
   trialAvailable: boolean,
-  selectedWorkspaceId: string
+  selectedWorkspaceId: string,
+  remainingCredits: number | string
 }
 
 export interface DatasetRequestState {

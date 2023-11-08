@@ -9,7 +9,6 @@ const endPoints = {
   signOutEndpoint: `${apiHost}/api/user/signout`,
   subscribeEndpoint: `${apiHost}/api/subscription/subscribe`,
   activateTrialEndpoint: `${apiHost}/api/subscription/activatetrial`,
-  getUsageByApiKeyEndpoint: `${apiHost}/api/subscription/getusagebyworkspaceid`,
   getPlatformConfigEndpoint: `${apiHost}/api/common/getplatformconfig`,
   getSubscriptionConfigEndpoint: `${apiHost}/api/common/getsubscriptionconfig`,
   getSecretConfig: `${apiHost}/api/common/getsecretconfig`,

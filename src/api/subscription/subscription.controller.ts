@@ -28,16 +28,4 @@ export class SubscriptionController {
       throw error
     }
   }
-
-  @Post("getusagebyworkspaceid")
-  async getUsageByWorkspaceId(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
-    try {
-      const usage = await this.subscriptionService.getUsageByWorkspaceId(uft.workspaceId)
-      return usage
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
 }
