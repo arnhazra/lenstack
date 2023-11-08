@@ -2,9 +2,9 @@ import mongoose from "mongoose"
 import { swapstreamMongoDbConn } from "../../../../utils/dbConnect"
 
 const SwapstreamTransactionSchema = new mongoose.Schema({
-  owner: {
+  workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "workspace",
     required: true
   },
 

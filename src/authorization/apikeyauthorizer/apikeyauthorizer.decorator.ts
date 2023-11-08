@@ -1,10 +1,16 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { SubscriptionModel } from "src/api/subscription/entities/subscription.entity"
+import { WorkspaceModel } from "src/api/workspace/entities/workspace.entity"
 import { apiPricing } from "src/config/subscriptionConfig"
 import { statusMessages } from "src/constants/statusMessages"
 
+export interface ApiKeyAuthorizerReturnType {
+  userId: string,
+  workspaceId: string
+}
+
 export const ApiKeyAuthorizer = createParamDecorator(
-  async (data: unknown, ctx: ExecutionContext) => {
+  async (data: unknown, ctx: ExecutionContext): Promise<ApiKeyAuthorizerReturnType> => {
     const request = ctx.switchToHttp().getRequest()
     const apiKey = request.headers["x-api-key"]
     const requestedResource = String(request.originalUrl).split("/")[2]
@@ -16,6 +22,9 @@ export const ApiKeyAuthorizer = createParamDecorator(
     else {
       try {
         const subscription = await SubscriptionModel.findOne({ apiKey })
+        const workspaceId = subscription.workspaceId.toString()
+        const workspace = await WorkspaceModel.findById(workspaceId)
+        const userId = workspace.ownerId.toString()
 
         if (subscription) {
           const currentDate = new Date()
@@ -36,7 +45,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
             else {
               subscription.remainingCredits -= creditRequiredForCurrentRequest
               await subscription.save()
-              return subscription.owner.toString()
+              return { userId, workspaceId }
             }
           }
         }

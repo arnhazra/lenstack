@@ -1,7 +1,7 @@
 import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
 import { DocumentationService } from "./documentation.service"
 import { CreateDocumentationDto } from "./dto/create-documentation.dto"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
 @Controller("documentation")
 export class DocumentationController {
@@ -21,7 +21,7 @@ export class DocumentationController {
   }
 
   @Post("getallbyappname")
-  async getDocumentationByAppName(@TokenAuthorizer() userId: string, @Body("appName") appName: string) {
+  async getDocumentationByAppName(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("appName") appName: string) {
     try {
       const docList = await this.documentationService.getDocumentationByAppName(appName)
       return { docList }

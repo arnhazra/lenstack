@@ -3,7 +3,7 @@ import { UserService } from "./user.service"
 import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
 import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
 import { statusMessages } from "src/constants/statusMessages"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
 @Controller("user")
 export class UserController {
@@ -41,9 +41,9 @@ export class UserController {
   }
 
   @Post("/userdetails")
-  async getUserDetails(@TokenAuthorizer() userId: string) {
+  async getUserDetails(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      const { user, subscription } = await this.userService.getUserDetails(userId)
+      const { user, subscription } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)
 
       if (user) {
         return { user, subscription }
@@ -60,9 +60,9 @@ export class UserController {
   }
 
   @Post("/signout")
-  async signOut(@TokenAuthorizer() userId: string) {
+  async signOut(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      await this.userService.signOut(userId)
+      await this.userService.signOut(uft.userId)
       return { message: statusMessages.signOutSuccess }
     }
 

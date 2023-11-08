@@ -4,19 +4,19 @@ import { HyperedgeKvModel } from "./entities/hyperedge-kv.entity"
 
 @Injectable()
 export class HyperedgeRepository {
-  async countDbs(userId: string) {
-    const count = await HyperedgeDbModel.find({ owner: userId }).count()
+  async countDbs(workspaceId: string) {
+    const count = await HyperedgeDbModel.find({ workspaceId }).count()
     return count
   }
 
-  async createDb(owner: string, name: string, dbId: string, dbPassword: string) {
-    const db = new HyperedgeDbModel({ owner, name, dbId, dbPassword })
+  async createDb(workspaceId: string, name: string, dbId: string, dbPassword: string) {
+    const db = new HyperedgeDbModel({ workspaceId, name, dbId, dbPassword })
     await db.save()
     return db
   }
 
-  async getDbsByUserId(owner: string) {
-    const dbs = await HyperedgeDbModel.find({ owner })
+  async getDbsByUserId(workspaceId: string) {
+    const dbs = await HyperedgeDbModel.find({ workspaceId })
     return dbs
   }
 
@@ -30,25 +30,25 @@ export class HyperedgeRepository {
     return db
   }
 
-  async findKvsByDbId(owner: string, dbId: string) {
-    const kvs = await HyperedgeKvModel.find({ owner, dbId }).select("-owner -dbId").sort({ createdAt: -1 })
+  async findKvsByDbId(workspaceId: string, dbId: string) {
+    const kvs = await HyperedgeKvModel.find({ workspaceId, dbId }).select("-workspaceId -dbId").sort({ createdAt: -1 })
     return kvs
   }
 
-  async deleteDbById(owner: string, dbId: string) {
-    await HyperedgeKvModel.deleteMany({ owner, dbId })
+  async deleteDbById(workspaceId: string, dbId: string) {
+    await HyperedgeKvModel.deleteMany({ workspaceId, dbId })
     await HyperedgeDbModel.findByIdAndDelete(dbId)
     return true
   }
 
-  async createKv(userId: string, dbId: string, key: string, value: string) {
-    const kvs = new HyperedgeKvModel({ owner: userId, dbId, key, value })
+  async createKv(workspaceId: string, dbId: string, key: string, value: string) {
+    const kvs = new HyperedgeKvModel({ workspaceId, dbId, key, value })
     await kvs.save()
     return true
   }
 
-  async deleteKvById(owner: string, kvId: string) {
-    await HyperedgeKvModel.findOneAndDelete({ owner, _id: kvId })
+  async deleteKvById(workspaceId: string, kvId: string) {
+    await HyperedgeKvModel.findOneAndDelete({ workspaceId, _id: kvId })
     return true
   }
 }

@@ -5,9 +5,9 @@ import { SnowlakeRepository } from "./snowlake.repository"
 export class SnowlakeService {
   constructor(private readonly snowlakeRepository: SnowlakeRepository) { }
 
-  async createTransaction(userId: string) {
+  async createTransaction(workspaceId: string) {
     try {
-      await this.snowlakeRepository.createTransaction(userId)
+      await this.snowlakeRepository.createTransaction(workspaceId)
       return true
     }
 

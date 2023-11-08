@@ -43,7 +43,7 @@ export class SubscriptionService {
     }
   }
 
-  async subscribe(userId: string, subscribeDto: SubscribeDto) {
+  async subscribe(userId: string, workspaceId: string, subscribeDto: SubscribeDto) {
     try {
       const { selectedPlan, transactionHash } = subscribeDto
       const { privateKey } = await this.userRepository.findUserById(userId)
@@ -62,9 +62,9 @@ export class SubscriptionService {
         }
 
         else {
-          await this.subscriptionRepository.findSubscriptionByUserIdAndDelete(userId)
+          await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
           const apiKey = "ak-" + randomBytes(16).toString("hex")
-          await this.subscriptionRepository.createNewSubscription(userId, selectedPlan, apiKey)
+          await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, apiKey)
           return true
         }
       }
@@ -79,9 +79,9 @@ export class SubscriptionService {
     }
   }
 
-  async getUsageByApiKey(userId: string) {
+  async getUsageByWorkspaceId(workspaceId: string) {
     try {
-      const subscription = await SubscriptionModel.findOne({ owner: userId })
+      const subscription = await SubscriptionModel.findOne({ workspaceId })
 
       if (subscription) {
         const { remainingCredits } = subscription

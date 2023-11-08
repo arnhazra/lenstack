@@ -4,19 +4,19 @@ import { FrostlakeAnalyticsModel } from "./entities/frostlake-analytics.entity"
 
 @Injectable()
 export class FrostlakeRepository {
-  async countProjects(userId: string) {
-    const count = await FrostlakeProjectModel.find({ owner: userId }).count()
+  async countProjects(workspaceId: string) {
+    const count = await FrostlakeProjectModel.find({ workspaceId }).count()
     return count
   }
 
-  async createProject(owner: string, name: string, clientId: string, clientSecret: string) {
-    const project = new FrostlakeProjectModel({ owner, name, clientId, clientSecret })
+  async createProject(workspaceId: string, name: string, clientId: string, clientSecret: string) {
+    const project = new FrostlakeProjectModel({ workspaceId, name, clientId, clientSecret })
     await project.save()
     return project
   }
 
-  async getProjectsByUserId(owner: string) {
-    const projects = await FrostlakeProjectModel.find({ owner })
+  async getProjectsByUserId(workspaceId: string) {
+    const projects = await FrostlakeProjectModel.find({ workspaceId })
     return projects
   }
 
@@ -30,19 +30,19 @@ export class FrostlakeRepository {
     return project
   }
 
-  async findAnalyticsByProjectId(owner: string, projectId: string) {
-    const analytics = await FrostlakeAnalyticsModel.find({ owner, projectId }).select("-owner -projectId").sort({ createdAt: -1 })
+  async findAnalyticsByProjectId(workspaceId: string, projectId: string) {
+    const analytics = await FrostlakeAnalyticsModel.find({ workspaceId, projectId }).select("-workspaceId -projectId").sort({ createdAt: -1 })
     return analytics
   }
 
-  async deleteProjectById(owner: string, projectId: string) {
-    await FrostlakeAnalyticsModel.deleteMany({ owner, projectId })
+  async deleteProjectById(workspaceId: string, projectId: string) {
+    await FrostlakeAnalyticsModel.deleteMany({ workspaceId, projectId })
     await FrostlakeProjectModel.findByIdAndDelete(projectId)
     return true
   }
 
-  async createAnalytics(userId: string, projectId: string, component: string, event: string, info: string, statusCode: string) {
-    const analytics = new FrostlakeAnalyticsModel({ owner: userId, projectId, component, event, info, statusCode })
+  async createAnalytics(workspaceId: string, projectId: string, component: string, event: string, info: string, statusCode: string) {
+    const analytics = new FrostlakeAnalyticsModel({ workspaceId, projectId, component, event, info, statusCode })
     await analytics.save()
     return true
   }

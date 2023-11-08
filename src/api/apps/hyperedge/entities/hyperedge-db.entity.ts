@@ -2,9 +2,9 @@ import mongoose from "mongoose"
 import { hyperedgeMongoDbConn } from "../../../../utils/dbConnect"
 
 const HyperedgeDbSchema = new mongoose.Schema({
-  owner: {
+  workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: "workspace"
   },
 
   name: {

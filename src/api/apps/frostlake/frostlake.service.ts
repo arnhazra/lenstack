@@ -8,15 +8,15 @@ import { FrostlakeRepository } from "./frostlake.repository"
 export class FrostlakeService {
   constructor(private readonly frostlakeRepository: FrostlakeRepository) { }
 
-  async createProject(userId: string, createProjectDto: CreateProjectDto) {
+  async createProject(workspaceId: string, createProjectDto: CreateProjectDto) {
     try {
       const { name } = createProjectDto
-      const count = await this.frostlakeRepository.countProjects(userId)
+      const count = await this.frostlakeRepository.countProjects(workspaceId)
 
       if (count < 10) {
         const clientId = randomBytes(16).toString("hex")
         const clientSecret = randomBytes(32).toString("hex")
-        const project = await this.frostlakeRepository.createProject(userId, name, clientId, clientSecret)
+        const project = await this.frostlakeRepository.createProject(workspaceId, name, clientId, clientSecret)
         return project
       }
 
@@ -30,9 +30,9 @@ export class FrostlakeService {
     }
   }
 
-  async getProjects(userId: string) {
+  async getProjects(workspaceId: string) {
     try {
-      const projects = await this.frostlakeRepository.getProjectsByUserId(userId)
+      const projects = await this.frostlakeRepository.getProjectsByUserId(workspaceId)
       return projects
     }
 
@@ -41,13 +41,13 @@ export class FrostlakeService {
     }
   }
 
-  async viewProject(userId: string, projectId: string) {
+  async viewProject(workspaceId: string, projectId: string) {
     try {
       const project = await this.frostlakeRepository.findProjectById(projectId)
-      const { owner } = project
+      const { workspaceId: workspaceIdFromProject } = project
 
-      if (owner.toString() === userId) {
-        const analytics = await this.frostlakeRepository.findAnalyticsByProjectId(userId, project.id)
+      if (workspaceIdFromProject.toString() === workspaceId) {
+        const analytics = await this.frostlakeRepository.findAnalyticsByProjectId(workspaceId, project.id)
         return { project, analytics }
       }
 
@@ -61,12 +61,12 @@ export class FrostlakeService {
     }
   }
 
-  async deleteProject(userId: string, projectId: string) {
+  async deleteProject(workspaceId: string, projectId: string) {
     try {
       const project = await this.frostlakeRepository.findProjectById(projectId)
-      const { owner } = project
-      if (owner.toString() === userId) {
-        await this.frostlakeRepository.deleteProjectById(userId, projectId)
+      const { workspaceId: workspaceIdFromProject } = project
+      if (workspaceIdFromProject.toString() === workspaceId) {
+        await this.frostlakeRepository.deleteProjectById(workspaceId, projectId)
         return true
       }
 
@@ -80,13 +80,13 @@ export class FrostlakeService {
     }
   }
 
-  async createAnalytics(userId: string, createAnalyticsDto: CreateAnalyticsDto) {
+  async createAnalytics(workspaceId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
       const { component, event, info, statusCode, clientId, clientSecret } = createAnalyticsDto
       const project = await this.frostlakeRepository.findProject(clientId, clientSecret)
-      if (project.owner.toString() === userId) {
+      if (project.workspaceId.toString() === workspaceId) {
         const projectId = project.id
-        await this.frostlakeRepository.createAnalytics(userId, projectId, component, event, info, statusCode)
+        await this.frostlakeRepository.createAnalytics(workspaceId, projectId, component, event, info, statusCode)
         return true
       }
 

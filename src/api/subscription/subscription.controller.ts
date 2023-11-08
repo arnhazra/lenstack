@@ -1,16 +1,16 @@
 import { Controller, Post, Body } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
 import { SubscribeDto } from "./dto/subscribe.dto"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
 @Controller("subscription")
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) { }
 
   @Post("activatetrial")
-  async activateTrial(@TokenAuthorizer() userId: string) {
+  async activateTrial(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      return this.subscriptionService.activateTrial(userId)
+      return this.subscriptionService.activateTrial(uft.userId)
     }
 
     catch (error) {
@@ -19,9 +19,9 @@ export class SubscriptionController {
   }
 
   @Post("subscribe")
-  async subscribe(@TokenAuthorizer() userId: string, @Body() subscribeDto: SubscribeDto) {
+  async subscribe(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body() subscribeDto: SubscribeDto) {
     try {
-      return this.subscriptionService.subscribe(userId, subscribeDto)
+      return this.subscriptionService.subscribe(uft.userId, uft.workspaceId, subscribeDto)
     }
 
     catch (error) {
@@ -29,10 +29,10 @@ export class SubscriptionController {
     }
   }
 
-  @Post("getusagebyapikey")
-  async getUsageByApiKey(@TokenAuthorizer() userId: string) {
+  @Post("getusagebyworkspaceid")
+  async getUsageByWorkspaceId(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      const usage = await this.subscriptionService.getUsageByApiKey(userId)
+      const usage = await this.subscriptionService.getUsageByWorkspaceId(uft.workspaceId)
       return usage
     }
 

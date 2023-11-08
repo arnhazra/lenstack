@@ -2,9 +2,9 @@ import mongoose from "mongoose"
 import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
 
 const SubscriptionSchema = new mongoose.Schema({
-  owner: {
+  workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "workspace",
     required: true,
     unique: true
   },

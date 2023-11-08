@@ -3,9 +3,9 @@ import { SwapstreamTransactionModel } from "./entities/swapstream.entity"
 
 @Injectable()
 export class SwapstreamRepository {
-  async createTransaction(owner: string) {
+  async createTransaction(workspaceId: string) {
     try {
-      const transaction = new SwapstreamTransactionModel({ owner })
+      const transaction = new SwapstreamTransactionModel({ workspaceId })
       await transaction.save()
       return true
     }

@@ -1,7 +1,7 @@
-import { Controller, Post, Body, Delete, Query, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, Query, BadRequestException } from "@nestjs/common"
 import { WorkspaceService } from "./workspace.service"
 import { CreateWorkspaceDto } from "./dto/create-workspace.dto"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 import { statusMessages } from "src/constants/statusMessages"
 
 @Controller("workspace")
@@ -9,9 +9,9 @@ export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) { }
 
   @Post("create")
-  async createWorkspace(@TokenAuthorizer() userId: string, @Body() createWorkspaceDto: CreateWorkspaceDto) {
+  async createWorkspace(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body() createWorkspaceDto: CreateWorkspaceDto) {
     try {
-      const workspace = await this.workspaceService.createWorkspace(userId, createWorkspaceDto)
+      const workspace = await this.workspaceService.createWorkspace(uft.userId, createWorkspaceDto)
       return workspace
     }
 
@@ -21,9 +21,9 @@ export class WorkspaceController {
   }
 
   @Post("findmyworkspaces")
-  async findMyWorkspaces(@TokenAuthorizer() userId: string) {
+  async findMyWorkspaces(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      const myWorkspaces = await this.workspaceService.findMyWorkspaces(userId)
+      const myWorkspaces = await this.workspaceService.findMyWorkspaces(uft.userId)
       return { myWorkspaces }
     }
 
@@ -33,9 +33,9 @@ export class WorkspaceController {
   }
 
   @Post("switch")
-  async switchWorkspace(@TokenAuthorizer() userId: string, @Query("workspaceId") workspaceId: string) {
+  async switchWorkspace(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Query("workspaceId") workspaceId: string) {
     try {
-      await this.workspaceService.switchWorkspace(userId, workspaceId)
+      await this.workspaceService.switchWorkspace(uft.userId, workspaceId)
       return true
     }
 

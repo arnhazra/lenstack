@@ -5,9 +5,9 @@ import { EdgepayRepository } from "./edgepay.repository"
 export class EdgepayService {
   constructor(private readonly edgepayRepository: EdgepayRepository) { }
 
-  async createTransaction(userId: string) {
+  async createTransaction(workspaceId: string) {
     try {
-      await this.edgepayRepository.createTransaction(userId)
+      await this.edgepayRepository.createTransaction(workspaceId)
       return true
     }
 
