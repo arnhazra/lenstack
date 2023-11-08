@@ -16,7 +16,7 @@ export interface UserState {
   role: string
   selectedPlan: string
   apiKey: string
-  subscriptionValidUpto: string
+  expiresAt: string
   trialAvailable: boolean,
   selectedWorkspaceId: string
 }

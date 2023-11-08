@@ -48,9 +48,26 @@ export default function Page() {
     if (userConsent) {
       try {
         await axios.post(endPoints.activateTrialEndpoint)
+        const response = await axios.post(endPoints.userDetailsEndpoint)
+        const userId = response.data.user._id
+        const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
+
+        if (response.data.subscription) {
+          const { selectedPlan, apiKey, expiresAt } = response.data.subscription
+          localStorage.setItem("apiKey", apiKey)
+          dispatch("setUserState", { selectedPlan, apiKey, expiresAt })
+        }
+
+        else {
+          dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
+        }
+
+        dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
         setDisplayTrialButton(false)
         toast.success(Constants.ToastSuccess)
-      } catch (error) {
+      }
+
+      catch (error) {
         toast.error(Constants.ToastError)
       }
     }
@@ -82,15 +99,19 @@ export default function Page() {
 
           const response = await axios.post(endPoints.userDetailsEndpoint)
           const userId = response.data.user._id
-          const { email, privateKey, role, trialAvailable } = response.data.user
+          const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
 
           if (response.data.subscription) {
             const { selectedPlan, apiKey, expiresAt } = response.data.subscription
             localStorage.setItem("apiKey", apiKey)
-            dispatch("setUserState", { selectedPlan, apiKey, subscriptionValidUpto: expiresAt })
+            dispatch("setUserState", { selectedPlan, apiKey, expiresAt })
           }
 
-          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable })
+          else {
+            dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
+          }
+
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
           toast.success(Constants.TransactionSuccess)
         }
 
@@ -140,7 +161,7 @@ export default function Page() {
               <p className="boxcategorytext">Validity</p>
               <div className="boxcategorytext">
                 <Show when={!!userState.apiKey}>
-                  <p>Valid upto {moment(userState.subscriptionValidUpto).format("MMM, Do YYYY")}</p>
+                  <p>Valid upto {moment(userState.expiresAt).format("MMM, Do YYYY")}</p>
                 </Show>
                 <Show when={!userState.apiKey}>
                   <p>No Validity Data</p>
