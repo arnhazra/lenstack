@@ -24,7 +24,7 @@ export default function Page() {
       <tr key={project._id}>
         <td>{project.name}</td>
         <td>{moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`/apps/frostlake/project?projectid=${project._id}`}>Open Project<ExternalLinkIcon className="icon-right" /></Link></td>
+        <td><Link href={`/apps/frostlake/project?projectId=${project._id}`}>Open Project<ExternalLinkIcon className="icon-right" /></Link></td>
       </tr>
     )
   })

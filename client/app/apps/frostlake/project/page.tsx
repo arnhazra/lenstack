@@ -18,7 +18,7 @@ import GenericHero from "@/_components/GenericHero"
 
 export default function Page() {
   const searchParams = useSearchParams()
-  const projectId = searchParams.get("projectid")
+  const projectId = searchParams.get("projectId")
   const project = useFetch("view project", `${endPoints.frostlakeViewProjectEndpoint}?projectId`, HTTPMethods.POST, { projectId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()

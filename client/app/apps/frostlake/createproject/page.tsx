@@ -23,7 +23,7 @@ export default function Page() {
       setState({ ...state, isLoading: true })
       const response = await axios.post(endPoints.frostlakeCreateProjectEndpoint, { name })
       toast.success("Project Created")
-      router.push(`/apps/frostlake/project?projectid=${response.data.project._id}`)
+      router.push(`/apps/frostlake/project?projectId=${response.data.project._id}`)
     }
 
     catch (error: any) {
