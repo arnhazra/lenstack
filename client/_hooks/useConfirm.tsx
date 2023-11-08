@@ -40,10 +40,10 @@ export default function useConfirm() {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => handleConfirm(false)}>
-          Cancel <CrossCircledIcon className="icon-right" />
+          <CrossCircledIcon className="icon-left" />Cancel
         </Button>
         <Button onClick={() => handleConfirm(true)}>
-          Continue <CheckCircledIcon className="icon-right" />
+          <CheckCircledIcon className="icon-left" />Continue
         </Button>
       </Modal.Footer>
     </Modal >

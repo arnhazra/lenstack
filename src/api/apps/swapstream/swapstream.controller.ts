@@ -1,15 +1,15 @@
 import { BadRequestException, Controller, Post, Body } from "@nestjs/common"
 import { SwapstreamService } from "./swapstream.service"
-import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 import { statusMessages } from "src/constants/statusMessages"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
 @Controller("swapstream")
 export class SwapstreamController {
   constructor(private readonly swapstreamService: SwapstreamService) { }
 
   @Post("getswapstreamtokenconfig")
-  getSwapStreamTokenList(@TokenAuthorizer() userId: string) {
+  getSwapStreamTokenList(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
       return this.swapstreamService.getSwapStreamTokenList()
     }
@@ -20,9 +20,9 @@ export class SwapstreamController {
   }
 
   @Post("createtx")
-  async createTransaction(@ApiKeyAuthorizer() userId: string) {
+  async createTransaction(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType) {
     try {
-      await this.swapstreamService.createTransaction(userId)
+      await this.swapstreamService.createTransaction(ufak.workspaceId)
       return true
     }
 

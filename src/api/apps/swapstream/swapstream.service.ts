@@ -17,9 +17,9 @@ export class SwapstreamService {
     }
   }
 
-  async createTransaction(userId: string) {
+  async createTransaction(workspaceId: string) {
     try {
-      await this.swapstreamRepository.createTransaction(userId)
+      await this.swapstreamRepository.createTransaction(workspaceId)
       return true
     }
 

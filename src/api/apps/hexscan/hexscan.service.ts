@@ -8,10 +8,10 @@ import { HexscanRepository } from "./hexscan.repository"
 export class HexscanService {
   constructor(private readonly httpService: HttpService, private readonly hexscanRepository: HexscanRepository) { }
 
-  async analyze(params: string, userId: string) {
+  async analyze(params: string, workspaceId: string) {
     try {
       const response = await lastValueFrom(this.httpService.get(`${otherConstants.polygonScanApiEndpoint}/api?${params}`))
-      await this.hexscanRepository.createNewTransaction(userId)
+      await this.hexscanRepository.createNewTransaction(workspaceId)
       return response.data
     }
 

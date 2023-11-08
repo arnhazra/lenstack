@@ -79,19 +79,18 @@ export class UserService {
     }
   }
 
-  async getUserDetails(userId: string) {
+  async getUserDetails(userId: string, workspaceId: string) {
     try {
       const user = await this.userRepository.findUserById(userId)
       if (user) {
-        const userId = user.id
-        const subscription = await SubscriptionModel.findOne({ owner: userId })
+        const subscription = await SubscriptionModel.findOne({ workspaceId })
 
         if (subscription) {
           const currentDate = new Date()
           const expiryDate = subscription.expiresAt
 
           if (currentDate > expiryDate) {
-            await SubscriptionModel.findOneAndDelete({ owner: userId })
+            await SubscriptionModel.findOneAndDelete({ workspaceId })
           }
         }
 

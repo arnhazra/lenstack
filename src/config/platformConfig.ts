@@ -54,7 +54,7 @@ export const platformConfig = [
     description: "A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.",
     largeDescription: `A HTTP data store, this solution serves as a multi-faceted 
       tool for developers worldwide, functioning as a versatile database, cache, streaming engine, and message broker. 
-      Popularly recognized as a 'data structure server,' it offers comprehensive support for various data structures, 
+      Popularly recognized as a "data structure server," it offers comprehensive support for various data structures, 
       including strings, hashes, lists, sets, sorted sets, and streams, among others. Leveraging an http storage approach,
       it ensures swift data access, while simultaneously providing the option to persist all write operations to permanent storage, 
       thereby guaranteeing data resilience against reboots and system failures.`,
@@ -67,7 +67,7 @@ export const platformConfig = [
     description: "An application to Mint, View & Share NFTs seamlessly on Polygon with privacy safeguards through our user-friendly app.",
     largeDescription: `User-friendly application redefines the NFT experience on the Polygon blockchain, enabling seamless 
       minting, viewing, and sharing of digital collectibles. With robust privacy measures in place, users can 
-      trust in the security of their data. Leveraging Polygon's efficiency, our platform ensures fast and cost-effective transactions. 
+      trust in the security of their data. Leveraging Polygon"s efficiency, our platform ensures fast and cost-effective transactions. 
       Users can explore and trade NFTs effortlessly, fostering a vibrant community of creators and collectors. Our streamlined
       interface and privacy-centric approach empower users to manage their collections with ease and confidence, driving the NFT 
       ecosystem toward a future of accessibility and trust.`,

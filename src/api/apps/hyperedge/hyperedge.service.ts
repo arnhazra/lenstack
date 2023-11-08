@@ -8,15 +8,15 @@ import { HyperedgeRepository } from "./hyperedge.repository"
 export class HyperedgeService {
   constructor(private readonly hyperedgeRepository: HyperedgeRepository) { }
 
-  async createDb(userId: string, createDbDto: CreateDbDto) {
+  async createDb(workspaceId: string, createDbDto: CreateDbDto) {
     try {
       const { name } = createDbDto
-      const count = await this.hyperedgeRepository.countDbs(userId)
+      const count = await this.hyperedgeRepository.countDbs(workspaceId)
 
       if (count < 10) {
         const dbId = randomBytes(16).toString("hex")
         const dbPassword = randomBytes(32).toString("hex")
-        const db = await this.hyperedgeRepository.createDb(userId, name, dbId, dbPassword)
+        const db = await this.hyperedgeRepository.createDb(workspaceId, name, dbId, dbPassword)
         return db
       }
 
@@ -30,9 +30,9 @@ export class HyperedgeService {
     }
   }
 
-  async getMyDbs(userId: string) {
+  async getMyDbs(workspaceId: string) {
     try {
-      const dbs = await this.hyperedgeRepository.getDbsByUserId(userId)
+      const dbs = await this.hyperedgeRepository.getDbsByUserId(workspaceId)
       return dbs
     }
 
@@ -41,13 +41,12 @@ export class HyperedgeService {
     }
   }
 
-  async viewDb(userId: string, dbId: string) {
+  async viewDb(workspaceId: string, dbId: string) {
     try {
       const db = await this.hyperedgeRepository.findDbById(dbId)
-      const { owner } = db
 
-      if (owner.toString() === userId) {
-        const kvs = await this.hyperedgeRepository.findKvsByDbId(userId, db.id)
+      if (db.workspaceId.toString() === workspaceId) {
+        const kvs = await this.hyperedgeRepository.findKvsByDbId(workspaceId, db.id)
         return { db, kvs }
       }
 
@@ -61,13 +60,12 @@ export class HyperedgeService {
     }
   }
 
-  async viewDbOutsidePlatform(userId: string, dbId: string, dbPassword: string) {
+  async viewDbOutsidePlatform(workspaceId: string, dbId: string, dbPassword: string) {
     try {
       const db = await this.hyperedgeRepository.findDb(dbId, dbPassword)
-      const { owner } = db
 
-      if (owner.toString() === userId) {
-        const kvs = await this.hyperedgeRepository.findKvsByDbId(userId, db.id)
+      if (db.workspaceId.toString() === workspaceId) {
+        const kvs = await this.hyperedgeRepository.findKvsByDbId(workspaceId, db.id)
         return { db, kvs }
       }
 
@@ -81,12 +79,11 @@ export class HyperedgeService {
     }
   }
 
-  async deleteDb(userId: string, dbId: string) {
+  async deleteDb(workspaceId: string, dbId: string) {
     try {
       const db = await this.hyperedgeRepository.findDbById(dbId)
-      const { owner } = db
-      if (owner.toString() === userId) {
-        await this.hyperedgeRepository.deleteDbById(userId, dbId)
+      if (db.workspaceId.toString() === workspaceId) {
+        await this.hyperedgeRepository.deleteDbById(workspaceId, dbId)
         return true
       }
 
@@ -100,14 +97,14 @@ export class HyperedgeService {
     }
   }
 
-  async createKv(userId: string, createKvDto: CreateKvDto) {
+  async createKv(workspaceId: string, createKvDto: CreateKvDto) {
     try {
       const { key, value, dbId, dbPassword } = createKvDto
       const db = await this.hyperedgeRepository.findDb(dbId, dbPassword)
 
-      if (db.owner.toString() === userId) {
+      if (db.workspaceId.toString() === workspaceId) {
         const dbId = db.id
-        await this.hyperedgeRepository.createKv(userId, dbId, key, value)
+        await this.hyperedgeRepository.createKv(workspaceId, dbId, key, value)
         return true
       }
 
@@ -121,9 +118,9 @@ export class HyperedgeService {
     }
   }
 
-  async deleteKv(userId: string, kvId: string) {
+  async deleteKv(workspaceId: string, kvId: string) {
     try {
-      await this.hyperedgeRepository.deleteKvById(userId, kvId)
+      await this.hyperedgeRepository.deleteKvById(workspaceId, kvId)
       return true
     }
 

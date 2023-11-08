@@ -2,9 +2,9 @@ import mongoose from "mongoose"
 import { frostlakeMongoDbConn } from "../../../../utils/dbConnect"
 
 const FrostlakeProjectSchema = new mongoose.Schema({
-  owner: {
+  workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: "workspace"
   },
 
   name: {

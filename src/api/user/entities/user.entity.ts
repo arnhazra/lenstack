@@ -6,15 +6,7 @@ export interface NewUser {
   privateKey: string
 }
 
-export interface User extends Document {
-  email: string
-  createdAt?: Date
-  role?: string
-  privateKey: string
-  trialAvailable?: boolean
-}
-
-const UserSchema = new mongoose.Schema<User>({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -40,6 +32,11 @@ const UserSchema = new mongoose.Schema<User>({
     type: Boolean,
     default: true
   },
+
+  selectedWorkspaceId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  }
 }, { versionKey: false })
 
 export const UserModel = lenstackPlatformMongoDbConn.model("user", UserSchema)

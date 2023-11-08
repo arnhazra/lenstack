@@ -2,17 +2,17 @@ import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundExc
 import { HyperedgeService } from "./hyperedge.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CreateDbDto } from "./dto/create-db.dto"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
-import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
 @Controller("hyperedge")
 export class HyperedgeController {
   constructor(private readonly hyperedgeService: HyperedgeService) { }
 
   @Post("createdb")
-  async createDb(@TokenAuthorizer() userId: string, @Body() createDbDto: CreateDbDto) {
+  async createDb(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body() createDbDto: CreateDbDto) {
     try {
-      const db = await this.hyperedgeService.createDb(userId, createDbDto)
+      const db = await this.hyperedgeService.createDb(uft.workspaceId, createDbDto)
       return { db }
     }
 
@@ -22,9 +22,9 @@ export class HyperedgeController {
   }
 
   @Post("getmydbs")
-  async getMyDbs(@TokenAuthorizer() userId: string) {
+  async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      const dbs = await this.hyperedgeService.getMyDbs(userId)
+      const dbs = await this.hyperedgeService.getMyDbs(uft.workspaceId)
       return { dbs }
     }
 
@@ -34,9 +34,9 @@ export class HyperedgeController {
   }
 
   @Post("viewdbfromplatform")
-  async viewDbInsidePlatform(@TokenAuthorizer() userId: string, @Body("dbId") dbId: string) {
+  async viewDbInsidePlatform(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("dbId") dbId: string) {
     try {
-      const { db, kvs } = await this.hyperedgeService.viewDb(userId, dbId)
+      const { db, kvs } = await this.hyperedgeService.viewDb(uft.workspaceId, dbId)
       return { db, kvs }
     }
 
@@ -46,9 +46,9 @@ export class HyperedgeController {
   }
 
   @Post("viewdb")
-  async viewDbOutsidePlatform(@ApiKeyAuthorizer() userId: string, @Body("dbId") dbId: string, @Body("dbPassword") dbPassword: string) {
+  async viewDbOutsidePlatform(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType, @Body("dbId") dbId: string, @Body("dbPassword") dbPassword: string) {
     try {
-      const { db, kvs } = await this.hyperedgeService.viewDbOutsidePlatform(userId, dbId, dbPassword)
+      const { db, kvs } = await this.hyperedgeService.viewDbOutsidePlatform(ufak.workspaceId, dbId, dbPassword)
       return { db, kvs }
     }
 
@@ -58,9 +58,9 @@ export class HyperedgeController {
   }
 
   @Delete("deletedb")
-  async deleteDb(@TokenAuthorizer() userId: string, @Query("dbId") dbId: string) {
+  async deleteDb(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Query("dbId") dbId: string) {
     try {
-      await this.hyperedgeService.deleteDb(userId, dbId)
+      await this.hyperedgeService.deleteDb(uft.workspaceId, dbId)
       return true
     }
 
@@ -70,9 +70,9 @@ export class HyperedgeController {
   }
 
   @Post("createkv")
-  async createKv(@ApiKeyAuthorizer() userId: string, @Body() createKvDto: CreateKvDto) {
+  async createKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType, @Body() createKvDto: CreateKvDto) {
     try {
-      await this.hyperedgeService.createKv(userId, createKvDto)
+      await this.hyperedgeService.createKv(ufak.workspaceId, createKvDto)
       return true
     }
 
@@ -82,9 +82,9 @@ export class HyperedgeController {
   }
 
   @Delete("deletekv")
-  async deleteKv(@ApiKeyAuthorizer() userId: string, @Query("kvId") kvId: string) {
+  async deleteKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType, @Query("kvId") kvId: string) {
     try {
-      await this.hyperedgeService.deleteKv(userId, kvId)
+      await this.hyperedgeService.deleteKv(ufak.workspaceId, kvId)
       return true
     }
 

@@ -1,13 +1,13 @@
-import { Controller, Get, Post } from "@nestjs/common"
+import { Controller, Post } from "@nestjs/common"
 import { CommonService } from "./common.service"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
 @Controller("common")
 export class CommonController {
   constructor(private readonly commonService: CommonService) { }
 
   @Post("getplatformconfig")
-  getPlatformConfig() {
+  getPlatformConfig(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
       return this.commonService.getPlatformConfig()
     } catch (error) {
@@ -16,7 +16,7 @@ export class CommonController {
   }
 
   @Post("getsubscriptionconfig")
-  getSubscriptionConfig(@TokenAuthorizer() userId: string) {
+  getSubscriptionConfig(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
       return this.commonService.getSubscriptionConfig()
     } catch (error) {
@@ -25,7 +25,7 @@ export class CommonController {
   }
 
   @Post("getsecretconfig")
-  getSecretConfig(@TokenAuthorizer() userId: string) {
+  getSecretConfig(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
       return this.commonService.getSecretConfig()
     } catch (error) {

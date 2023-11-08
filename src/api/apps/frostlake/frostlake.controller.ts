@@ -2,17 +2,17 @@ import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundExc
 import { FrostlakeService } from "./frostlake.service"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CreateProjectDto } from "./dto/create-project.dto"
-import { TokenAuthorizer } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
-import { ApiKeyAuthorizer } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
 @Controller("frostlake")
 export class FrostlakeController {
   constructor(private readonly frostlakeService: FrostlakeService) { }
 
   @Post("createproject")
-  async createProject(@TokenAuthorizer() userId: string, @Body() createProjectDto: CreateProjectDto) {
+  async createProject(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body() createProjectDto: CreateProjectDto) {
     try {
-      const project = await this.frostlakeService.createProject(userId, createProjectDto)
+      const project = await this.frostlakeService.createProject(uft.workspaceId, createProjectDto)
       return { project }
     }
 
@@ -22,9 +22,9 @@ export class FrostlakeController {
   }
 
   @Post("getprojects")
-  async getProjects(@TokenAuthorizer() userId: string) {
+  async getProjects(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      const projects = await this.frostlakeService.getProjects(userId)
+      const projects = await this.frostlakeService.getProjects(uft.workspaceId)
       return { projects }
     }
 
@@ -34,9 +34,9 @@ export class FrostlakeController {
   }
 
   @Post("viewproject")
-  async viewProject(@TokenAuthorizer() userId: string, @Body("projectId") projectId: string) {
+  async viewProject(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("projectId") projectId: string) {
     try {
-      const { project, analytics } = await this.frostlakeService.viewProject(userId, projectId)
+      const { project, analytics } = await this.frostlakeService.viewProject(uft.workspaceId, projectId)
       return { project, analytics }
     }
 
@@ -46,9 +46,9 @@ export class FrostlakeController {
   }
 
   @Delete("deleteproject")
-  async deleteProject(@TokenAuthorizer() userId: string, @Query("projectId") projectId: string) {
+  async deleteProject(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Query("projectId") projectId: string) {
     try {
-      await this.frostlakeService.deleteProject(userId, projectId)
+      await this.frostlakeService.deleteProject(uft.workspaceId, projectId)
       return true
     }
 
@@ -58,9 +58,9 @@ export class FrostlakeController {
   }
 
   @Post("createanalytics")
-  async createAnalytics(@ApiKeyAuthorizer() userId: string, @Body() createAnalyticsDto: CreateAnalyticsDto) {
+  async createAnalytics(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType, @Body() createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      await this.frostlakeService.createAnalytics(userId, createAnalyticsDto)
+      await this.frostlakeService.createAnalytics(ufak.workspaceId, createAnalyticsDto)
       return true
     }
 

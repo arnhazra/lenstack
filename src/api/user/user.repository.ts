@@ -1,4 +1,4 @@
-import { UserModel, NewUser, User } from "./entities/user.entity"
+import { UserModel, NewUser } from "./entities/user.entity"
 import { Injectable } from "@nestjs/common"
 
 @Injectable()

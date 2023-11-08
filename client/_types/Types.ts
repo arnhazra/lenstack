@@ -16,8 +16,10 @@ export interface UserState {
   role: string
   selectedPlan: string
   apiKey: string
-  subscriptionValidUpto: string
-  trialAvailable: boolean
+  expiresAt: string
+  trialAvailable: boolean,
+  selectedWorkspaceId: string,
+  remainingCredits: number | string
 }
 
 export interface DatasetRequestState {

@@ -20,16 +20,15 @@ export class SubscriptionService {
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
 
-  async activateTrial(userId: string) {
+  async activateTrial(userId: string, workspaceId: string) {
     try {
       const user = await this.userRepository.findUserById(userId)
-      const owner = user.id
 
       if (user.trialAvailable) {
         const selectedPlan = "Trial"
         const apiKey = "ak-" + randomBytes(16).toString("hex")
-        await this.subscriptionRepository.createNewSubscription(owner, selectedPlan, apiKey)
-        await this.userRepository.findUserByIdAndUpdate(owner, "trialAvailable", false)
+        await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, apiKey)
+        await this.userRepository.findUserByIdAndUpdate(userId, "trialAvailable", false)
         return true
       }
 
@@ -43,7 +42,7 @@ export class SubscriptionService {
     }
   }
 
-  async subscribe(userId: string, subscribeDto: SubscribeDto) {
+  async subscribe(userId: string, workspaceId: string, subscribeDto: SubscribeDto) {
     try {
       const { selectedPlan, transactionHash } = subscribeDto
       const { privateKey } = await this.userRepository.findUserById(userId)
@@ -62,34 +61,15 @@ export class SubscriptionService {
         }
 
         else {
-          await this.subscriptionRepository.findSubscriptionByUserIdAndDelete(userId)
+          await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
           const apiKey = "ak-" + randomBytes(16).toString("hex")
-          await this.subscriptionRepository.createNewSubscription(userId, selectedPlan, apiKey)
+          await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, apiKey)
           return true
         }
       }
 
       else {
         throw new BadRequestException(statusMessages.connectionError)
-      }
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async getUsageByApiKey(userId: string) {
-    try {
-      const subscription = await SubscriptionModel.findOne({ owner: userId })
-
-      if (subscription) {
-        const { remainingCredits } = subscription
-        return { remainingCredits }
-      }
-
-      else {
-        return { message: "No Active Subscriptions" }
       }
     }
 
