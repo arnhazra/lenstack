@@ -18,7 +18,8 @@ const initialState = {
     apiKey: "",
     expiresAt: "",
     trialAvailable: false,
-    selectedWorkspaceId: ""
+    selectedWorkspaceId: "",
+    remainingCredits: 0
   },
 }
 
