@@ -15,7 +15,7 @@ export default function Page() {
   const [{ userState }, dispatch] = useContext(AppContext)
   const [queryId, setQueryId] = useState(Math.random().toString())
   const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.POST, {}, true, queryId)
-  const [newWorkspaceName, setNewWorkspaceName] = useState('')
+  const [newWorkspaceName, setNewWorkspaceName] = useState("")
   const [isLoading, setLoading] = useState(false)
 
   const createWorkspace = async (e: FormEvent<HTMLFormElement>) => {
@@ -25,11 +25,11 @@ export default function Page() {
       setLoading(true)
       await axios.post(endPoints.createWorkspace, { name: newWorkspaceName })
       setQueryId(Math.random().toString())
-      toast.success('Workspace created')
+      toast.success("Workspace created")
     }
 
     catch (error) {
-      toast.error('Workspace creation failed')
+      toast.error("Workspace creation failed")
     }
 
     finally {
@@ -55,11 +55,11 @@ export default function Page() {
       }
 
       dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
-      toast.success('Workspace switched')
+      toast.success("Workspace switched")
     }
 
     catch (error) {
-      toast.error('Workspace switching failed')
+      toast.error("Workspace switching failed")
     }
   }
 
