@@ -10,7 +10,7 @@ export class SubscriptionController {
   @Post("activatetrial")
   async activateTrial(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      return this.subscriptionService.activateTrial(uft.userId)
+      return this.subscriptionService.activateTrial(uft.userId, uft.workspaceId)
     }
 
     catch (error) {

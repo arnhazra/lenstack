@@ -20,16 +20,15 @@ export class SubscriptionService {
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
 
-  async activateTrial(userId: string) {
+  async activateTrial(userId: string, workspaceId: string) {
     try {
       const user = await this.userRepository.findUserById(userId)
-      const owner = user.id
 
       if (user.trialAvailable) {
         const selectedPlan = "Trial"
         const apiKey = "ak-" + randomBytes(16).toString("hex")
-        await this.subscriptionRepository.createNewSubscription(owner, selectedPlan, apiKey)
-        await this.userRepository.findUserByIdAndUpdate(owner, "trialAvailable", false)
+        await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, apiKey)
+        await this.userRepository.findUserByIdAndUpdate(userId, "trialAvailable", false)
         return true
       }
 
