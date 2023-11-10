@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { swapstreamTokenConfig } from "src/config/swapstreamTokenConfig"
 import { statusMessages } from "src/constants/statusMessages"
 import { SwapstreamRepository } from "./swapstream.repository"
 
@@ -7,8 +6,9 @@ import { SwapstreamRepository } from "./swapstream.repository"
 export class SwapstreamService {
   constructor(private readonly swapstreamRepository: SwapstreamRepository) { }
 
-  getSwapStreamTokenList() {
+  async getSwapStreamTokenList() {
     try {
+      const swapstreamTokenConfig = await this.swapstreamRepository.getTokens()
       return swapstreamTokenConfig
     }
 
