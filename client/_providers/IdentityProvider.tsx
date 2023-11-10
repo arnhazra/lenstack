@@ -15,7 +15,7 @@ import IdentityGuard from "./IdentityGuard"
 export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
-  const [, dispatch] = useContext(AppContext)
+  const [{ userState }, dispatch] = useContext(AppContext)
   const [isLoading, setLoading] = useState(true)
   const [isAuthorized, setAuthorized] = useState(false)
 
@@ -68,7 +68,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
       setAuthorized(false)
       setLoading(false)
     }
-  }, [isAuthorized])
+  }, [isAuthorized, userState.refreshId])
 
   const onsignOut = () => {
     setAuthorized(false)

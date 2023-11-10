@@ -1,10 +1,13 @@
 # Lenstack Changelog
 
 ### v2.4
-* Fix the issue of subscription auto deletion after expire 
-* Fix issue of apikey change every time after subscription
-* Add workspace object in user details to display in subscription page
-* Added workspace name in context
+* Resolve the problem of automatic subscription deletion upon expiration.
+* Rectify the issue causing the API key to change with every subscription renewal.
+* Incorporate the workspace object within user details for display on the subscription page.
+* Include the workspace name in the context for improved user experience.
+* Implement the automatic creation of a default workspace for new users.
+* Code optimizations, removed userdetails api call method on subscription & workspace changes
+* Added refreshId to revalidate and update context
 
 ### v2.3
 * Introduction of Lenstack workspaces

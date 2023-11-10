@@ -20,7 +20,8 @@ export interface UserState {
   trialAvailable: boolean,
   selectedWorkspaceId: string,
   selectedWorkspaceName: string,
-  remainingCredits: number | string
+  remainingCredits: number | string,
+  refreshId: string
 }
 
 export interface DatasetRequestState {

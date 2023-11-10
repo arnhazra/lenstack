@@ -20,7 +20,8 @@ const initialState: { userState: UserState } = {
     trialAvailable: false,
     selectedWorkspaceId: "",
     selectedWorkspaceName: "",
-    remainingCredits: 0
+    remainingCredits: 0,
+    refreshId: "ABC"
   },
 }
 
