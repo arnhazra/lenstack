@@ -7,6 +7,7 @@ import useFetch from "@/_hooks/useFetch"
 import { RocketIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { Badge, Button, Container, Form } from "react-bootstrap"
 import toast from "react-hot-toast"
@@ -14,6 +15,8 @@ import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import "react-json-view-lite/dist/index.css"
 
 export default function Page() {
+  const searchParams = useSearchParams()
+  const appName = searchParams.get("appName")
   const [api, setApi] = useState("")
   const [response, setReseponse] = useState({})
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
@@ -47,7 +50,7 @@ export default function Page() {
     <Container>
       <GenericHero>
         <p className="branding">{selectedApp?.appName}</p>
-        <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
+        <p className="muted-text mt-3">{selectedApp?.description}</p>
         <div className="mb-2">
           <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
           <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
