@@ -35,7 +35,6 @@ const UserSchema = new mongoose.Schema({
 
   selectedWorkspaceId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
   }
 }, { versionKey: false })
 

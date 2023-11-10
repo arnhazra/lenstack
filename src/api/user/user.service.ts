@@ -11,6 +11,7 @@ import { otherConstants } from "src/constants/otherConstants"
 import { SubscriptionModel } from "../subscription/entities/subscription.entity"
 import { statusMessages } from "src/constants/statusMessages"
 import { WorkspaceModel } from "../workspace/entities/workspace.entity"
+import { WorkspaceRepository } from "../workspace/workspace.repository"
 
 @Injectable()
 export class UserService {
@@ -18,7 +19,7 @@ export class UserService {
   private readonly infuraEndpoint: string
   private readonly web3Provider: Web3
 
-  constructor(private readonly userRepository: UserRepository) {
+  constructor(private readonly userRepository: UserRepository, private readonly workspaceRepository: WorkspaceRepository) {
     this.authPrivateKey = envConfig.authPrivateKey
     this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraSecret
     this.web3Provider = new Web3(this.infuraEndpoint)
@@ -63,6 +64,8 @@ export class UserService {
         else {
           const { privateKey } = this.web3Provider.eth.accounts.create()
           const newUser = await this.userRepository.createNewUser({ email, privateKey })
+          const workspace = await this.workspaceRepository.createWorkspace("Default Workspace", newUser.id)
+          await this.userRepository.findUserByIdAndUpdate(newUser.id, "selectedWorkspaceId", workspace.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await setTokenInRedis(newUser.id, accessToken)

@@ -7,7 +7,7 @@
 * Include the workspace name in the context for improved user experience.
 * Implement the automatic creation of a default workspace for new users.
 * Code optimizations, removed userdetails api call method on subscription & workspace changes
-* Added refreshId to revalidate and update context
+* Added refreshId to revalidate API and update context
 
 ### v2.3
 * Introduction of Lenstack workspaces
