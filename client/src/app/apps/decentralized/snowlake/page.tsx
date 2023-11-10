@@ -73,7 +73,7 @@ export default function Page() {
         <Container>
           <GenericHero>
             <p className="branding">{selectedApp?.appName}</p>
-            <p className="muted-text mt-3">{selectedApp?.description}</p>
+            <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
