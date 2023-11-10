@@ -1,5 +1,14 @@
 # Lenstack Changelog
 
+### v2.5
+* UI Code Refactoring
+* Multiple API Key support for single subscription
+* Hexscan decoupled app generation
+* Move Platformconfig to db
+* Move Subscriptionconfig to db
+* Move Swapstreamtokenconfig to db
+* Random background for generic app card
+
 ### v2.4
 * Resolve the problem of automatic subscription deletion upon expiration.
 * Rectify the issue causing the API key to change with every subscription renewal.
