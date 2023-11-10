@@ -7,7 +7,7 @@ export const platformConfig = [
       enabling you to dictate what, how, and to whom your data is shared, all within an intuitive and user-friendly interface. 
       Share data effortlessly with just a few clicks, or leverage our robust REST API to build customized applications tailored to your specific needs.`,
     appStatus: "Available",
-    dbRegion: "MongoDB",
+    appCategory: "Centralized",
     isDocumentationAvailable: true
   },
   {
@@ -20,7 +20,7 @@ export const platformConfig = [
       MATIC transactions with confidence and ease. With Edgepay, users can enjoy efficient and hassle-free cryptocurrency
       transfers, fostering a seamless and accessible ecosystem for Ethereum interactions on the Polygon Mumbai network.`,
     appStatus: "Available",
-    dbRegion: "Polygon",
+    appCategory: "Decentralized",
     isDocumentationAvailable: false
   },
   {
@@ -32,7 +32,7 @@ export const platformConfig = [
       development time.The most advanced security and privacy features on the market, including column- and row-level security 
       and dynamic data masking.`,
     appStatus: "Available",
-    dbRegion: "MongoDB",
+    appCategory: "Centralized",
     isDocumentationAvailable: true
   },
   {
@@ -46,7 +46,7 @@ export const platformConfig = [
       Obtaining and interpreting precise on-chain data can pose challenges for non-technical users, potentially resulting 
       in documentation and reporting inaccuracies.`,
     appStatus: "Available",
-    dbRegion: "Polygon",
+    appCategory: "Decentralized",
     isDocumentationAvailable: true
   },
   {
@@ -59,7 +59,7 @@ export const platformConfig = [
       it ensures swift data access, while simultaneously providing the option to persist all write operations to permanent storage, 
       thereby guaranteeing data resilience against reboots and system failures.`,
     appStatus: "Available",
-    dbRegion: "MongoDB",
+    appCategory: "Centralized",
     isDocumentationAvailable: true
   },
   {
@@ -72,7 +72,7 @@ export const platformConfig = [
       interface and privacy-centric approach empower users to manage their collections with ease and confidence, driving the NFT 
       ecosystem toward a future of accessibility and trust.`,
     appStatus: "Available",
-    dbRegion: "Polygon",
+    appCategory: "Decentralized",
     isDocumentationAvailable: false
   },
   {
@@ -85,7 +85,7 @@ export const platformConfig = [
       allowing users to navigate the complexities of ERC-20 token transactions with confidence and ease. Join our platform 
       to explore a world of efficient and hassle-free token trading within the Ethereum network.`,
     appStatus: "Available",
-    dbRegion: "Polygon",
+    appCategory: "Decentralized",
     isDocumentationAvailable: false
   }
 ]

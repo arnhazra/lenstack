@@ -2,6 +2,7 @@
 
 ### v2.5
 * UI Code Refactoring
+* Replaced dbRegion field from Platformconfig with appCategory
 * Multiple API Key support for single subscription
 * Hexscan decoupled app generation
 * Move Platformconfig to db
