@@ -4,7 +4,7 @@
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory
 * App Category based image for generic app card
-* Move Swapstreamtokenconfig to db
+* Move Swapstreamtokenconfig to DB
 
 ### v2.4
 * Resolve the problem of automatic subscription deletion upon expiration.
