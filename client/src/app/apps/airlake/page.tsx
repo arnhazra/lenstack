@@ -30,7 +30,7 @@ export default function Page() {
   const datasetsToDisplay = dataLibrary?.data?.datasets?.map((dataset: any) => {
     const genericAppCardProps: GenericAppCardInterface = {
       badgeText: dataset.category,
-      className: "airlake",
+      className: "centralized",
       headerText: dataset.name,
       footerText: `${dataset.description.slice(0, 110)}...`,
       redirectUri: `/apps/airlake/dataset?datasetId=${dataset._id}`

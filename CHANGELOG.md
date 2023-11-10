@@ -3,12 +3,12 @@
 ### v2.5
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory
+* Random background for generic app card
 * Multiple API Key support for single subscription
 * Hexscan decoupled app generation
 * Move Platformconfig to db
 * Move Subscriptionconfig to db
 * Move Swapstreamtokenconfig to db
-* Random background for generic app card
 
 ### v2.4
 * Resolve the problem of automatic subscription deletion upon expiration.
