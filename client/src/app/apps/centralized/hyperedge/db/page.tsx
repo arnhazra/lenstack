@@ -36,7 +36,7 @@ export default function Page() {
 
     if (userConsent) {
       await axios.delete(`${endPoints.hyperedgeDeleteDbEndpoint}?dbId=${dbId}`)
-      router.push("/apps/hyperedge")
+      router.push("/apps/centralized/hyperedge")
     }
   }
 

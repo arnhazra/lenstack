@@ -59,7 +59,7 @@ export default function Page() {
       className: "decentralized",
       headerText: nft.name,
       footerText: `This NFT was minted by you using Snowlake"s NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-      redirectUri: `/apps/snowlake/nft?nftId=${nft.id}`
+      redirectUri: `/apps/decentralized/snowlake/nft?nftId=${nft.id}`
     }
 
     return (
@@ -78,7 +78,7 @@ export default function Page() {
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
-            <Link className="btn" href={"/apps/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+            <Link className="btn" href={"/apps/decentralized/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
           </GenericHero>
           <Show when={nftList.length > 0}>
             <h4 className="text-white">My Collection</h4>

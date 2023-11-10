@@ -15,19 +15,19 @@ export default function Page() {
   const router = useRouter()
   const [{ userState }] = useContext(AppContext)
 
-  const createDb = async (e: any) => {
+  const createProject = async (e: any) => {
     e.preventDefault()
 
     try {
       const { name } = state
       setState({ ...state, isLoading: true })
-      const response = await axios.post(endPoints.hyperedgeCreateDbEndpoint, { name })
-      toast.success("Db Created")
-      router.push(`/apps/hyperedge/db?dbId=${response.data.db._id}`)
+      const response = await axios.post(endPoints.frostlakeCreateProjectEndpoint, { name })
+      toast.success("Project Created")
+      router.push(`/apps/centralized/frostlake/project?projectId=${response.data.project._id}`)
     }
 
     catch (error: any) {
-      toast.error("Unable to create db")
+      toast.error("Unable to create project")
     }
 
     finally {
@@ -36,17 +36,17 @@ export default function Page() {
   }
 
   return (
-    <form className="box" onSubmit={createDb}>
-      <p className="branding">Create Database</p>
+    <form className="box" onSubmit={createProject}>
+      <p className="branding">Create Project</p>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>Db Name</Form.Label>
-        <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Db" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
+        <Form.Label>Project Name</Form.Label>
+        <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Project" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
       </Form.Group>
       <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="btn-block">
-        <Show when={!state.isLoading}>Create Db <ArrowRightIcon className="icon-right" /></Show>
-        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating & Configuring Db</Show>
+        <Show when={!state.isLoading}>Create Project <ArrowRightIcon className="icon-right" /></Show>
+        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating Project</Show>
       </Button>
-      <Link href={"/apps/hyperedge"} className="lead-link">View My Dbs</Link>
+      <Link href={"/apps/centralized/frostlake"} className="lead-link">View My Projects</Link>
     </form>
   )
 }

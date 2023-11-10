@@ -48,7 +48,7 @@ export default function Page() {
         await web3Provider.eth.sendSignedTransaction(signedNewNFTTx.rawTransaction)
         toast.success("NFT Minting Success")
         setState({ ...state, isLoading: false })
-        router.push("/apps/snowlake")
+        router.push("/apps/decentralized/snowlake")
       }
     }
 
@@ -86,7 +86,7 @@ export default function Page() {
         <Show when={!state.isLoading}>Mint NFT <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</Show>
       </Button>
-      <Link href={"/apps/snowlake"} className="lead-link">View My NFTs</Link>
+      <Link href={"/apps/decentralized/snowlake"} className="lead-link">View My NFTs</Link>
     </form>
   )
 }

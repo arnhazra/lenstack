@@ -40,7 +40,7 @@ export default function Page() {
 
   const launchApp = () => {
     if (selectedApp.appStatus === "Available") {
-      router.push(`/apps/${appName}`)
+      router.push(`/apps/${selectedApp.appCategory.toLowerCase()}/${selectedApp.appName}`)
     }
   }
 

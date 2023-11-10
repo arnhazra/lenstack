@@ -93,7 +93,7 @@ export default function Page() {
           await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
         }
         toast.success("NFT archived")
-        router.push("/apps/snowlake")
+        router.push("/apps/decentralized/snowlake")
       }
 
       catch (error) {
@@ -112,7 +112,7 @@ export default function Page() {
       className: "decentralized",
       headerText: nft.name,
       footerText: `This NFT was minted by you using Snowlake"s NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-      redirectUri: `/apps/snowlake/nft?nftId=${nft.id}`
+      redirectUri: `/apps/decentralized/snowlake/nft?nftId=${nft.id}`
     }
 
     return (
@@ -128,16 +128,6 @@ export default function Page() {
   const copyAddress = (address: string): void => {
     navigator.clipboard.writeText(`${address}`)
     toast.success(Constants.CopiedToClipBoard)
-  }
-
-  const verifyImage = (url: string) => {
-    const img = new Image()
-    img.src = url
-
-    return new Promise((resolve) => {
-      img.onload = () => resolve(true)
-      img.onerror = () => resolve(false)
-    })
   }
 
   useEffect(() => {

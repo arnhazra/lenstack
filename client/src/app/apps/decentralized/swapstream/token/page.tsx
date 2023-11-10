@@ -169,7 +169,7 @@ export default function page() {
         className: "decentralized",
         headerText: token.tokenName,
         footerText: token.description,
-        redirectUri: `/apps/swapstream/token?tokenAddress=${token.tokenContractAddress}`
+        redirectUri: `/apps/decentralized/swapstream/token?tokenAddress=${token.tokenContractAddress}`
       }
 
       return <GenericAppCard key={token.tokenContractAddress} genericAppCardProps={genericAppCardProps} />

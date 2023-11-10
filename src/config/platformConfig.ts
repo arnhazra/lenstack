@@ -46,7 +46,7 @@ export const platformConfig = [
       Obtaining and interpreting precise on-chain data can pose challenges for non-technical users, potentially resulting 
       in documentation and reporting inaccuracies.`,
     appStatus: "Available",
-    appCategory: "Decentralized",
+    appCategory: "Hybrid",
     isDocumentationAvailable: true
   },
   {
