@@ -30,7 +30,7 @@ export default function Page() {
   const datasetsToDisplay = dataLibrary?.data?.datasets?.map((dataset: any) => {
     const genericAppCardProps: GenericAppCardInterface = {
       badgeText: dataset.category,
-      className: "airlake",
+      className: "centralized",
       headerText: dataset.name,
       footerText: `${dataset.description.slice(0, 110)}...`,
       redirectUri: `/apps/airlake/dataset?datasetId=${dataset._id}`
@@ -66,7 +66,7 @@ export default function Page() {
             <p className="branding">{selectedApp?.appName}</p>
             <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
-              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
             <Row className="g-2">

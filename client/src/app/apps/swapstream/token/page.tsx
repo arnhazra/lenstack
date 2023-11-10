@@ -166,7 +166,7 @@ export default function page() {
     .map((token: TokenData) => {
       const genericAppCardProps: GenericAppCardInterface = {
         badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
-        className: "swapstream",
+        className: "decentralized",
         headerText: token.tokenName,
         footerText: token.description,
         redirectUri: `/apps/swapstream/token?tokenAddress=${token.tokenContractAddress}`

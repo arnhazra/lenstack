@@ -17,7 +17,7 @@ export default function Page() {
   const tokensToDisplay = swapstreamTokenConfig?.data?.map((token: TokenData) => {
     const genericAppCardProps: GenericAppCardInterface = {
       badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
-      className: "swapstream",
+      className: "decentralized",
       headerText: token.tokenName,
       footerText: token.description,
       redirectUri: `/apps/swapstream/token?tokenAddress=${token.tokenContractAddress}`
@@ -32,7 +32,7 @@ export default function Page() {
         <p className="branding">{selectedApp?.appName}</p>
         <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
         <div className="mb-2">
-          <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
+          <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
           <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
         </div>
       </div>

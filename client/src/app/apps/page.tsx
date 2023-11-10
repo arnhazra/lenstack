@@ -29,7 +29,7 @@ export default function Page() {
   const appsToDisplay = apps?.data?.filter((app: any) => app.appName !== appName).map((app: any) => {
     const genericAppCardProps: GenericAppCardInterface = {
       badgeText: app.appStatus,
-      className: app.appName,
+      className: app.appCategory,
       footerText: app.description,
       headerText: app.appName,
       redirectUri: `/apps/?appName=${app.appName}`
@@ -40,7 +40,7 @@ export default function Page() {
 
   const launchApp = () => {
     if (selectedApp.appStatus === "Available") {
-      router.push(`/apps/${appName}`)
+      router.push(`/apps/${selectedApp.appName}`)
     }
   }
 
@@ -55,7 +55,7 @@ export default function Page() {
             <p className="branding text-capitalize">{selectedApp?.appName}</p>
             <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
-              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.dbRegion}</Badge>
+              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
             <Button className="mt-2" disabled={selectedApp?.appStatus !== "Available" || userState.apiKey === ""} onClick={launchApp}><RocketIcon className="icon-left" />Launch App</Button>

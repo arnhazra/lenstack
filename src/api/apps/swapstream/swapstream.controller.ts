@@ -9,9 +9,10 @@ export class SwapstreamController {
   constructor(private readonly swapstreamService: SwapstreamService) { }
 
   @Post("getswapstreamtokenconfig")
-  getSwapStreamTokenList(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
+  async getSwapStreamTokenList(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      return this.swapstreamService.getSwapStreamTokenList()
+      const swapstreamTokenConfig = await this.swapstreamService.getSwapStreamTokenList()
+      return swapstreamTokenConfig
     }
 
     catch (error) {
