@@ -19,6 +19,7 @@ export interface UserState {
   expiresAt: string
   trialAvailable: boolean,
   selectedWorkspaceId: string,
+  selectedWorkspaceName: string,
   remainingCredits: number | string
 }
 

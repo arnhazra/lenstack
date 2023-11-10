@@ -10,6 +10,7 @@ import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/ut
 import { otherConstants } from "src/constants/otherConstants"
 import { SubscriptionModel } from "../subscription/entities/subscription.entity"
 import { statusMessages } from "src/constants/statusMessages"
+import { WorkspaceModel } from "../workspace/entities/workspace.entity"
 
 @Injectable()
 export class UserService {
@@ -82,19 +83,11 @@ export class UserService {
   async getUserDetails(userId: string, workspaceId: string) {
     try {
       const user = await this.userRepository.findUserById(userId)
+
       if (user) {
         const subscription = await SubscriptionModel.findOne({ workspaceId })
-
-        if (subscription) {
-          const currentDate = new Date()
-          const expiryDate = subscription.expiresAt
-
-          if (currentDate > expiryDate) {
-            await SubscriptionModel.findOneAndDelete({ workspaceId })
-          }
-        }
-
-        return { user, subscription }
+        const workspace = await WorkspaceModel.findById(workspaceId)
+        return { user, subscription, workspace }
       }
 
       else {

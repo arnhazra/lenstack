@@ -1,14 +1,14 @@
 "use client"
 import { FC, createContext, useCallback, useMemo, useReducer } from "react"
 import { AppState, Actions, ActionsMap, AppReducer } from "./appReducer"
-import { AppStateProviderProps } from "@/_types/Types"
+import { AppStateProviderProps, UserState } from "@/_types/Types"
 
 export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsMap[Type]>(type: Type,
   ...payload: Payload extends undefined ? [undefined?] : [Payload]) => void
 
 type AppContextInterface = readonly [AppState, Dispatcher]
 
-const initialState = {
+const initialState: { userState: UserState } = {
   userState: {
     userId: "",
     privateKey: "",
@@ -19,6 +19,7 @@ const initialState = {
     expiresAt: "",
     trialAvailable: false,
     selectedWorkspaceId: "",
+    selectedWorkspaceName: "",
     remainingCredits: 0
   },
 }

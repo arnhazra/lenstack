@@ -10,7 +10,7 @@ import Loading from "@/_components/Loading"
 import appConstants from "@/_constants/appConstants"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
-import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
@@ -49,6 +49,7 @@ export default function Page() {
         const response = await axios.post(endPoints.userDetailsEndpoint)
         const userId = response.data.user._id
         const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
+        const { name: selectedWorkspaceName } = response.data.workspace
 
         if (response.data.subscription) {
           const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
@@ -60,7 +61,7 @@ export default function Page() {
           dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
         }
 
-        dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
+        dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId, selectedWorkspaceName })
         setDisplayTrialButton(false)
         toast.success(Constants.ToastSuccess)
       }
@@ -98,6 +99,7 @@ export default function Page() {
           const response = await axios.post(endPoints.userDetailsEndpoint)
           const userId = response.data.user._id
           const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
+          const { name: selectedWorkspaceName } = response.data.workspace
 
           if (response.data.subscription) {
             const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
@@ -109,7 +111,7 @@ export default function Page() {
             dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
           }
 
-          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId, selectedWorkspaceName })
           toast.success(Constants.TransactionSuccess)
         }
 
@@ -136,6 +138,28 @@ export default function Page() {
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text">Subscribe & Track your API Key usage from here</p>
           <Row className="mb-2 mt-4">
+            <Col className="categorycol">
+              <StackIcon />
+            </Col>
+            <Col>
+              <p className="boxcategorytext">Workspace</p>
+              <div className="boxcategorytext">
+                {userState.selectedWorkspaceName}
+              </div>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col className="categorycol">
+              <CubeIcon />
+            </Col>
+            <Col>
+              <p className="boxcategorytext">Selected Plan</p>
+              <p className="boxcategorytext">
+                {userState.selectedPlan}
+              </p>
+            </Col>
+          </Row>
+          <Row className="mb-2">
             <Col className="categorycol">
               <LockOpen1Icon />
             </Col>
@@ -165,17 +189,6 @@ export default function Page() {
                   <p>No Validity Data</p>
                 </Show>
               </div>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="categorycol">
-              <CubeIcon />
-            </Col>
-            <Col>
-              <p className="boxcategorytext">Selected Plan</p>
-              <p className="boxcategorytext">
-                {userState.selectedPlan}
-              </p>
             </Col>
           </Row>
           <Row className="mb-2">
