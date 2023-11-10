@@ -4,10 +4,7 @@
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory
 * App Category based image for generic app card
-* App Category based decoupling of app routes in UI to create hybrid apps automatically
 * Move Swapstreamtokenconfig to db
-* Hexscan decoupled app generation
-* Move Platformconfig to db
 
 ### v2.4
 * Resolve the problem of automatic subscription deletion upon expiration.

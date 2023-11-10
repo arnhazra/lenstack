@@ -16,7 +16,6 @@ import "react-json-view-lite/dist/index.css"
 
 export default function Page() {
   const searchParams = useSearchParams()
-  const appName = searchParams.get("appName")
   const [api, setApi] = useState("")
   const [response, setReseponse] = useState({})
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)

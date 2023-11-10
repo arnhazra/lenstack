@@ -24,7 +24,7 @@ export const platformConfig = [
     appName: "hexscan",
     description: "Hexscan is blockchain analyzer API platform & analyze data from ledger, including transactions, contracts & blocks.",
     appStatus: "Available",
-    appCategory: "Hybrid",
+    appCategory: "Decentralized",
     isDocumentationAvailable: true
   },
   {
