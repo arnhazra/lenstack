@@ -31,7 +31,7 @@ export default function Page() {
       className: "centralized",
       headerText: dataset.name,
       footerText: `${dataset.description.slice(0, 110)}...`,
-      redirectUri: `/apps/centralized/airlake/dataset?datasetId=${dataset._id}`
+      redirectUri: `/apps/airlake/dataset?datasetId=${dataset._id}`
     }
     return <GenericAppCard key={dataset._id} genericAppCardProps={genericAppCardProps} />
   })

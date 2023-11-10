@@ -40,7 +40,7 @@ export default function Page() {
 
     if (userConsent) {
       await axios.delete(`${endPoints.frostlakeDeleteProjectEndpoint}?projectId=${projectId}`)
-      router.push("/apps/centralized/frostlake")
+      router.push("/apps/frostlake")
     }
   }
 

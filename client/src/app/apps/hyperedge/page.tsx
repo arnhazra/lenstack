@@ -24,7 +24,7 @@ export default function Page() {
       <tr key={db._id}>
         <td>{db.name}</td>
         <td>{moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`/apps/centralized/hyperedge/db?dbId=${db._id}`}>Open db<ExternalLinkIcon className="icon-right" /></Link></td>
+        <td><Link href={`/apps/hyperedge/db?dbId=${db._id}`}>Open db<ExternalLinkIcon className="icon-right" /></Link></td>
       </tr>
     )
   })
@@ -40,7 +40,7 @@ export default function Page() {
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
               <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
-            <Link className="btn" href="/apps/centralized/hyperedge/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
+            <Link className="btn" href="/apps/hyperedge/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
           </GenericHero>
           <Show when={dbs?.data?.dbs?.length > 0}>
             <h4 className="text-white">My Databases</h4>

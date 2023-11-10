@@ -93,7 +93,7 @@ export default function Page() {
           await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
         }
         toast.success("NFT archived")
-        router.push("/apps/decentralized/snowlake")
+        router.push("/apps/snowlake")
       }
 
       catch (error) {
@@ -112,7 +112,7 @@ export default function Page() {
       className: "decentralized",
       headerText: nft.name,
       footerText: `This NFT was minted by you using Snowlake"s NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-      redirectUri: `/apps/decentralized/snowlake/nft?nftId=${nft.id}`
+      redirectUri: `/apps/snowlake/nft?nftId=${nft.id}`
     }
 
     return (
