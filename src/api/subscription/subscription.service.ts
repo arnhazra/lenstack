@@ -7,7 +7,6 @@ import { statusMessages } from "src/constants/statusMessages"
 import { otherConstants } from "src/constants/otherConstants"
 import { envConfig } from "src/config/envConfig"
 import { SubscribeDto } from "./dto/subscribe.dto"
-import { SubscriptionModel } from "./entities/subscription.entity"
 
 @Injectable()
 export class SubscriptionService {
@@ -61,8 +60,7 @@ export class SubscriptionService {
         }
 
         else {
-          await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
-          const apiKey = "ak-" + randomBytes(16).toString("hex")
+          const { apiKey } = await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
           await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, apiKey)
           return true
         }

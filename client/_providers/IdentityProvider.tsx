@@ -15,7 +15,7 @@ import IdentityGuard from "./IdentityGuard"
 export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
-  const [, dispatch] = useContext(AppContext)
+  const [{ userState }, dispatch] = useContext(AppContext)
   const [isLoading, setLoading] = useState(true)
   const [isAuthorized, setAuthorized] = useState(false)
 
@@ -26,6 +26,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           const response = await axios.post(endPoints.userDetailsEndpoint)
           const userId = response.data.user._id
           const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
+          const { name: selectedWorkspaceName } = response.data.workspace
 
           if (response.data.subscription) {
             const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
@@ -37,7 +38,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
             dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
           }
 
-          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId, selectedWorkspaceName })
           setAuthorized(true)
         }
 
@@ -67,7 +68,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
       setAuthorized(false)
       setLoading(false)
     }
-  }, [isAuthorized])
+  }, [isAuthorized, userState.refreshId])
 
   const onsignOut = () => {
     setAuthorized(false)

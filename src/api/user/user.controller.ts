@@ -43,10 +43,10 @@ export class UserController {
   @Post("/userdetails")
   async getUserDetails(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {
-      const { user, subscription } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)
+      const { user, subscription, workspace } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)
 
       if (user) {
-        return { user, subscription }
+        return { user, subscription, workspace }
       }
 
       else {

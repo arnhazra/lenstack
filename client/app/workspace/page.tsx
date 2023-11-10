@@ -40,21 +40,7 @@ export default function Page() {
   const switchWorkspace = async (workspaceId: string) => {
     try {
       await axios.post(`${endPoints.switchWorkspace}?workspaceId=${workspaceId}`)
-      const response = await axios.post(endPoints.userDetailsEndpoint)
-      const userId = response.data.user._id
-      const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
-
-      if (response.data.subscription) {
-        const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
-        localStorage.setItem("apiKey", apiKey)
-        dispatch("setUserState", { selectedPlan, apiKey, expiresAt, remainingCredits })
-      }
-
-      else {
-        dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
-      }
-
-      dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
+      dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
       toast.success("Workspace switched")
     }
 

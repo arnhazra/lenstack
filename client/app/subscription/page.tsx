@@ -10,7 +10,7 @@ import Loading from "@/_components/Loading"
 import appConstants from "@/_constants/appConstants"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
-import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
@@ -46,21 +46,7 @@ export default function Page() {
     if (userConsent) {
       try {
         await axios.post(endPoints.activateTrialEndpoint)
-        const response = await axios.post(endPoints.userDetailsEndpoint)
-        const userId = response.data.user._id
-        const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
-
-        if (response.data.subscription) {
-          const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
-          localStorage.setItem("apiKey", apiKey)
-          dispatch("setUserState", { selectedPlan, apiKey, expiresAt, remainingCredits })
-        }
-
-        else {
-          dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
-        }
-
-        dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
+        dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         setDisplayTrialButton(false)
         toast.success(Constants.ToastSuccess)
       }
@@ -94,22 +80,7 @@ export default function Page() {
           const res = await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
           const { transactionHash } = res
           await axios.post(`${endPoints.subscribeEndpoint}`, { selectedPlan, transactionHash })
-
-          const response = await axios.post(endPoints.userDetailsEndpoint)
-          const userId = response.data.user._id
-          const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
-
-          if (response.data.subscription) {
-            const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
-            localStorage.setItem("apiKey", apiKey)
-            dispatch("setUserState", { selectedPlan, apiKey, expiresAt, remainingCredits })
-          }
-
-          else {
-            dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
-          }
-
-          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId })
+          dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
           toast.success(Constants.TransactionSuccess)
         }
 
@@ -136,6 +107,28 @@ export default function Page() {
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text">Subscribe & Track your API Key usage from here</p>
           <Row className="mb-2 mt-4">
+            <Col className="categorycol">
+              <StackIcon />
+            </Col>
+            <Col>
+              <p className="boxcategorytext">Workspace</p>
+              <div className="boxcategorytext">
+                {userState.selectedWorkspaceName}
+              </div>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col className="categorycol">
+              <CubeIcon />
+            </Col>
+            <Col>
+              <p className="boxcategorytext">Selected Plan</p>
+              <p className="boxcategorytext">
+                {userState.selectedPlan}
+              </p>
+            </Col>
+          </Row>
+          <Row className="mb-2">
             <Col className="categorycol">
               <LockOpen1Icon />
             </Col>
@@ -169,17 +162,6 @@ export default function Page() {
           </Row>
           <Row className="mb-2">
             <Col className="categorycol">
-              <CubeIcon />
-            </Col>
-            <Col>
-              <p className="boxcategorytext">Selected Plan</p>
-              <p className="boxcategorytext">
-                {userState.selectedPlan}
-              </p>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="categorycol">
               <PieChartIcon />
             </Col>
             <Col>
@@ -198,9 +180,9 @@ export default function Page() {
             <Show when={displayTrialButton}>
               <Button className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
             </Show>
-            <Show when={userState.selectedPlan !== "Pro"}>
-              <Button className="btn-block" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={activatePro}>
-                <Show when={!isTxProcessing}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
+            <Show when={userState.selectedPlan === "Trial" || (userState.selectedPlan === "Pro" && new Date() > new Date(userState.expiresAt))}>
+              <Button className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
+                <Show when={!isTxProcessing}>{userState.selectedPlan === "Pro" ? "Reactivate Pro" : "Activate Pro"} {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
                 <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
               </Button>
             </Show>
