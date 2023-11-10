@@ -7,7 +7,6 @@ import useFetch from "@/_hooks/useFetch"
 import { RocketIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { Badge, Button, Container, Form } from "react-bootstrap"
 import toast from "react-hot-toast"
@@ -15,7 +14,6 @@ import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import "react-json-view-lite/dist/index.css"
 
 export default function Page() {
-  const searchParams = useSearchParams()
   const [api, setApi] = useState("")
   const [response, setReseponse] = useState({})
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
