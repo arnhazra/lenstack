@@ -4,6 +4,7 @@
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory
 * App Category based image for generic app card
+* App Category based decoupling of app routes in UI to create hybrid apps automatically
 * Multiple API Key support for single subscription
 * Hexscan decoupled app generation
 * Move Platformconfig to db
