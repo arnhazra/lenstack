@@ -180,9 +180,9 @@ export default function Page() {
             <Show when={displayTrialButton}>
               <Button className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
             </Show>
-            <Show when={userState.selectedPlan !== "Pro"}>
-              <Button className="btn-block" type="submit" disabled={isTxProcessing || userState.selectedPlan === "Pro"} onClick={activatePro}>
-                <Show when={!isTxProcessing}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
+            <Show when={userState.selectedPlan === "Trial" || (userState.selectedPlan === "Pro" && new Date() > new Date(userState.expiresAt))}>
+              <Button className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
+                <Show when={!isTxProcessing}>{userState.selectedPlan === "Pro" ? "Reactivate Pro" : "Activate Pro"} {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
                 <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
               </Button>
             </Show>

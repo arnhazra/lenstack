@@ -8,7 +8,8 @@ import { RocketIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import Link from "next/link"
 import { useState } from "react"
-import { Badge, Button, Container, Form, InputGroup } from "react-bootstrap"
+import { Badge, Button, Container, Form } from "react-bootstrap"
+import toast from "react-hot-toast"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import "react-json-view-lite/dist/index.css"
 
@@ -25,10 +26,20 @@ export default function Page() {
     e.preventDefault()
 
     try {
-      const res = await axios.post(`${Constants.AppBaseUri}/hexscan/analyzer${api}`)
+      const res = await axios.post(`${process.env.NODE_ENV === 'production' ? Constants.AppBaseUri : Constants.AppBaseUriLocal}/hexscan/analyzer${api}`)
       setReseponse(res.data)
-    } catch (error) {
+    }
+
+    catch (error: any) {
       setReseponse({})
+
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message)
+      }
+
+      else {
+        toast.error(Constants.ToastError)
+      }
     }
   }
 
