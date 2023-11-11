@@ -2,6 +2,7 @@
 
 ### v2.7
 * Minor code refactoring
+* UX Improvements
 
 ### v2.6
 * Fixed issus related to new subscription

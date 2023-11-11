@@ -9,15 +9,14 @@ export default function Page() {
   return (
     <Container>
       <div className="hero">
-        <p className="display-1 mt-4 pt-4">
-          {Constants.HomeHeader1}
-        </p>
         <p className="display-5">
+          {Constants.HomeHeader1}<br />
           {Constants.HomeHeader2}
         </p>
         <p className="lead my-4">
           {Constants.HomeIntro1} <br />
           {Constants.HomeIntro2} <br />
+          {Constants.HomeIntro3} <br />
         </p>
         <Link href="/dashboard" className="btn">
           <CubeIcon className="icon-left" />

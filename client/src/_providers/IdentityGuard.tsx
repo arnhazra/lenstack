@@ -70,7 +70,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
             <Form.Label>Email address</Form.Label>
             <Form.Control disabled={isLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
           </Form.Group>
-          <Button type="submit" disabled={isLoading} className="mt-2 btn-block">
+          <Button type="submit" disabled={isLoading} className="mt-1 btn-block">
             <Show when={!isLoading}>Get Identity Passkey <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
           </Button>

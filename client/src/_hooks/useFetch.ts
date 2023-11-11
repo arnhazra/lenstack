@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { toast } from "react-hot-toast"
 import Constants from "@/_constants/appConstants"
 
-function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object, isRealtime?: boolean, queryId?: string) {
+export default function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object, isRealtime?: boolean, queryId?: string) {
   const fetchDataFunction = async () => {
     const { data } = await axios({ method, url: queryUrl, data: requestBody })
     return data
@@ -26,5 +26,3 @@ function useFetch(queryKey: string, queryUrl: string, method: Method, requestBod
 
   return { error, data, isLoading }
 }
-
-export default useFetch

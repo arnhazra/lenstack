@@ -166,9 +166,9 @@ export default function Page() {
                   <p className="lead">NFT Contract: {showAddress(contractAddress?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(contractAddress?.data?.nftContractAddress)} /></p>
                   <p className="lead">Owner: {showAddress(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(selectedNft?.owner)} /></p>
                   <div className="mb-3">
-                    <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
-                    <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>
-                    <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
+                    <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
+                    <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>
+                    <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
                   </div>
                   <Link className="btn" href={selectedNft?.link ?? ""} passHref target="_blank">View Link<OpenInNewWindowIcon className="icon-right" /></Link>
                   <Link className="btn" href={`${Constants.PolygonScanBaseUri}/${contractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>

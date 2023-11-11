@@ -66,8 +66,8 @@ export default function Page() {
             <p className="branding">{selectedApp?.appName}</p>
             <p className="muted-text mt-3">{selectedApp?.largeDescription}</p>
             <div className="mb-2">
-              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
-              <Badge pill bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
+              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appCategory}</Badge>
+              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
             <Row className="g-2">
               <Col xs={12} sm={12} md={6} lg={4} xl={6}>
