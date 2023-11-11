@@ -60,7 +60,16 @@ export class SubscriptionService {
         }
 
         else {
-          const { apiKey } = await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
+          const subscription = await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
+          let apiKey: string = ""
+          if (subscription) {
+            apiKey = subscription.apiKey
+          }
+
+          else {
+            apiKey = "ak-" + randomBytes(16).toString("hex")
+          }
+
           await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, apiKey)
           return true
         }

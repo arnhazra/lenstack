@@ -1,5 +1,9 @@
 # Lenstack Changelog
 
+### v2.6
+* Fixed issus related to new subscription
+* Fixed minor issues in UI
+
 ### v2.5
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory

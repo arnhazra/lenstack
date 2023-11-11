@@ -57,7 +57,7 @@ export default function Page() {
       <GenericHero>
         <p className="branding">API Client (No need to pass Base URI)</p>
         <form onSubmit={hitAPI}>
-          <Form.Label htmlFor="basic-url">Your test API endpoint {Constants.AppBaseUri}/api/hexscan/analyzer</Form.Label>
+          <Form.Label htmlFor="basic-url">Your test API endpoint {process.env.NODE_ENV === 'production' ? Constants.AppBaseUri : Constants.AppBaseUriLocal}/hexscan/analyzer</Form.Label>
           <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
           <Button className="mt-3" type="submit"><RocketIcon className="icon-left" />Hit API</Button>
         </form>

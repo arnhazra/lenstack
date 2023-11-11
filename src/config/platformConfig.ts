@@ -37,7 +37,7 @@ export const platformConfig = [
   },
   {
     appName: "hexscan",
-    description: "Hexscan is blockchain analyzer API platform & analyze data from ledger, including transactions, contracts & blocks.",
+    description: "Hexscan is blockchain analyzer API platform to analyze data from ledger, including transactions, contracts & blocks.",
     largeDescription: `A suite of APIs, integrated within our blockchain platforms, conducts comprehensive analyses 
       of on-chain data across the entire history of a blockchain. Seamlessly connected to the Polygon Infrastructure, 
       our platform provides a unified solution for risk management. In an era where blockchain-enabled transactions are
