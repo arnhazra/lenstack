@@ -1,9 +1,9 @@
 "use client"
-import Constants from "@/_constants/appConstants"
+import Constants from "@/constants/appConstants"
 import Link from "next/link"
 import { CubeIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"
-import Show from "@/_components/Show"
+import Show from "@/components/Show"
 
 export default function Page() {
   return (

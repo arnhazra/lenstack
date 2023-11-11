@@ -1,6 +1,6 @@
 "use client"
-import Show from "@/_components/Show"
-import endPoints from "@/_constants/apiEndpoints"
+import Show from "@/components/Show"
+import endPoints from "@/constants/apiEndpoints"
 import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -8,7 +8,7 @@ import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
-import { AppContext } from "@/_context/appStateProvider"
+import { AppContext } from "@/context/appStateProvider"
 
 export default function Page() {
   const [state, setState] = useState({ name: "", isLoading: false })

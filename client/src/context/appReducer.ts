@@ -1,4 +1,4 @@
-import { UserState } from "@/_types/Types"
+import { UserState } from "@/types/Types"
 
 export type AppState = {
   userState: UserState

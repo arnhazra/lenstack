@@ -2,9 +2,9 @@
 import { Fragment, useState } from "react"
 import axios from "axios"
 import { Button, Form } from "react-bootstrap"
-import Constants from "@/_constants/appConstants"
-import Show from "@/_components/Show"
-import endPoints from "@/_constants/apiEndpoints"
+import Constants from "@/constants/appConstants"
+import Show from "@/components/Show"
+import endPoints from "@/constants/apiEndpoints"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 

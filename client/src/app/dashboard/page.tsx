@@ -1,13 +1,13 @@
 "use client"
-import useFetch from "@/_hooks/useFetch"
-import endPoints from "@/_constants/apiEndpoints"
-import HTTPMethods from "@/_constants/httpMethods"
+import useFetch from "@/hooks/useFetch"
+import endPoints from "@/constants/apiEndpoints"
+import HTTPMethods from "@/constants/httpMethods"
 import { Fragment } from "react"
-import Show from "@/_components/Show"
-import Loading from "@/_components/Loading"
+import Show from "@/components/Show"
+import Loading from "@/components/Loading"
 import { Container, Row } from "react-bootstrap"
-import { GenericAppCardInterface } from "@/_types/Types"
-import GenericAppCard from "@/_components/GenericAppCard"
+import { GenericAppCardInterface } from "@/types/Types"
+import GenericAppCard from "@/components/GenericAppCard"
 
 export default function Page() {
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)

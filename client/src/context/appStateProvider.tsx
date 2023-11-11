@@ -1,7 +1,7 @@
 "use client"
 import { FC, createContext, useCallback, useMemo, useReducer } from "react"
 import { AppState, Actions, ActionsMap, AppReducer } from "./appReducer"
-import { AppStateProviderProps, UserState } from "@/_types/Types"
+import { AppStateProviderProps, UserState } from "@/types/Types"
 
 export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsMap[Type]>(type: Type,
   ...payload: Payload extends undefined ? [undefined?] : [Payload]) => void

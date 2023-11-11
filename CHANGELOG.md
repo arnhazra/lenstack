@@ -3,6 +3,7 @@
 ### v2.7
 * Minor code refactoring
 * UX Improvements
+* Client directory structural changes
 
 ### v2.6
 * Fixed issus related to new subscription

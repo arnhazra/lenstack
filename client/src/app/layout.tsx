@@ -1,16 +1,16 @@
 "use client"
 import axios from "axios"
-import IdentityProvider from "@/_providers/IdentityProvider"
-import { AppStateProvider } from "@/_context/appStateProvider"
+import IdentityProvider from "@/providers/IdentityProvider"
+import { AppStateProvider } from "@/context/appStateProvider"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import "bootstrap/dist/css/bootstrap.min.css"
-import "@/_styles/global.sass"
-import "@/_styles/header.sass"
-import "@/_styles/button.sass"
-import "@/_styles/form.sass"
-import "@/_styles/genericappcard.sass"
+import "@/styles/global.sass"
+import "@/styles/header.sass"
+import "@/styles/button.sass"
+import "@/styles/form.sass"
+import "@/styles/genericappcard.sass"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 

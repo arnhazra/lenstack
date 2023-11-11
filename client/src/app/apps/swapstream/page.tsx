@@ -1,9 +1,9 @@
 "use client"
-import GenericAppCard from "@/_components/GenericAppCard"
-import { GenericAppCardInterface, TokenData } from "@/_types/Types"
-import endPoints from "@/_constants/apiEndpoints"
-import HTTPMethods from "@/_constants/httpMethods"
-import useFetch from "@/_hooks/useFetch"
+import GenericAppCard from "@/components/GenericAppCard"
+import { GenericAppCardInterface, TokenData } from "@/types/Types"
+import endPoints from "@/constants/apiEndpoints"
+import HTTPMethods from "@/constants/httpMethods"
+import useFetch from "@/hooks/useFetch"
 import { Badge, Container, Row } from "react-bootstrap"
 
 export default function Page() {

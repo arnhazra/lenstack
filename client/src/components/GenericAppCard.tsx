@@ -1,6 +1,6 @@
 "use client"
 import { Card, Col, Badge } from "react-bootstrap"
-import { GenericAppCardProps } from "@/_types/Types"
+import { GenericAppCardProps } from "@/types/Types"
 import { useRouter } from "next/navigation"
 
 export default function GenericAppCard({ genericAppCardProps }: GenericAppCardProps) {

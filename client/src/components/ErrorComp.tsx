@@ -1,6 +1,6 @@
 "use client"
-import Constants from "@/_constants/appConstants"
-import { ErrorProps } from "@/_types/Types"
+import Constants from "@/constants/appConstants"
+import { ErrorProps } from "@/types/Types"
 import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"

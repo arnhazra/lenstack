@@ -1,15 +1,15 @@
 "use client"
 import { Fragment } from "react"
-import endPoints from "@/_constants/apiEndpoints"
-import Show from "@/_components/Show"
+import endPoints from "@/constants/apiEndpoints"
+import Show from "@/components/Show"
 import { Badge, Container, Table } from "react-bootstrap"
-import Loading from "@/_components/Loading"
-import HTTPMethods from "@/_constants/httpMethods"
-import useFetch from "@/_hooks/useFetch"
+import Loading from "@/components/Loading"
+import HTTPMethods from "@/constants/httpMethods"
+import useFetch from "@/hooks/useFetch"
 import moment from "moment"
 import { ExternalLinkIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import GenericHero from "@/_components/GenericHero"
+import GenericHero from "@/components/GenericHero"
 
 export default function Page() {
   const projects = useFetch("project", endPoints.frostlakeGetProjectsEndpoint, HTTPMethods.POST)

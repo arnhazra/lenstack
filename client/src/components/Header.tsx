@@ -5,7 +5,7 @@ import Show from "./Show"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
-import Constants from "@/_constants/appConstants"
+import Constants from "@/constants/appConstants"
 
 interface HeaderProps {
   isAuthorized: boolean,

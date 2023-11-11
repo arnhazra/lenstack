@@ -1,5 +1,5 @@
 "use client"
-import Constants from "@/_constants/appConstants"
+import Constants from "@/constants/appConstants"
 import { CrossCircledIcon } from "@radix-ui/react-icons"
 
 export default function Error() {

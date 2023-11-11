@@ -1,16 +1,16 @@
 "use client"
-import Show from "@/_components/Show"
-import Constants from "@/_constants/appConstants"
+import Show from "@/components/Show"
+import Constants from "@/constants/appConstants"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
-import endPoints from "@/_constants/apiEndpoints"
-import HTTPMethods from "@/_constants/httpMethods"
-import useFetch from "@/_hooks/useFetch"
+import endPoints from "@/constants/apiEndpoints"
+import HTTPMethods from "@/constants/httpMethods"
+import useFetch from "@/hooks/useFetch"
 import { useSearchParams } from "next/navigation"
 import { Container, Form } from "react-bootstrap"
 import Loading from "../loading"
-import Error from "@/_components/ErrorComp"
+import Error from "@/components/ErrorComp"
 import "react-json-view-lite/dist/index.css"
-import GenericHero from "@/_components/GenericHero"
+import GenericHero from "@/components/GenericHero"
 
 export default function Page() {
   const searchParams = useSearchParams()

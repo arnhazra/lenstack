@@ -1,5 +1,5 @@
 "use client"
-import { ShowProps } from "@/_types/Types"
+import { ShowProps } from "@/types/Types"
 import { Fragment } from "react"
 
 export default function Show({ when, children }: ShowProps) {
