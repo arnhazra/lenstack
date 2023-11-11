@@ -60,7 +60,7 @@ export default function Page() {
               <Button onClick={copyDatasetId}><CopyIcon className="icon-left" />Copy Dataset ID</Button>
             </GenericHero>
             <Row>
-              <h4 className="text-white mb-4">Similar Datasets</h4>
+              <h4 className="text-white">Similar Datasets</h4>
               {similarDatasetsToDisplay}
             </Row>
           </Container>

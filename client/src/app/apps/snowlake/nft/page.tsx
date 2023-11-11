@@ -178,7 +178,7 @@ export default function Page() {
               </Row>
             </GenericHero>
             <Row>
-              <h4 className="text-white mb-4">Other NFTs in my collection</h4>
+              <h4 className="text-white">Other NFTs in my collection</h4>
               {nftsToDisplay}
             </Row>
           </Container>

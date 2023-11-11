@@ -197,7 +197,7 @@ export default function page() {
           </Button>
         </GenericHero>
         <Row>
-          <h4 className="text-white mb-4">Other Tokens</h4>
+          <h4 className="text-white">Other Tokens</h4>
           {tokensToDisplay}
         </Row>
       </Show>
