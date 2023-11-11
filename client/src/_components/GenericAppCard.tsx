@@ -23,6 +23,6 @@ export default function GenericAppCard({ genericAppCardProps }: GenericAppCardPr
           </div>
         </Card.Footer>
       </Card>
-    </Col >
+    </Col>
   )
 }
