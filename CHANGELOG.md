@@ -1,7 +1,8 @@
 # Lenstack Changelog
 
 ### v2.6
-* Fixed minor issues
+* Fixed issus related to new subscription
+* Fixed minor issues in UI
 
 ### v2.5
 * UI Code Refactoring
