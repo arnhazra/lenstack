@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v2.6
+* Fixed minor issues
+
 ### v2.5
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory
