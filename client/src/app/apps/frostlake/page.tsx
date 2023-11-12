@@ -18,10 +18,7 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(AppContext)
   const projects = useFetch("projects", endPoints.frostlakeGetProjectsEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString })
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
-
-  const selectedApp = apps?.data?.find((app: any) => {
-    return app.appName === "frostlake"
-  })
+  const selectedApp = apps?.data?.find((app: any) => app.appName === "frostlake")
 
   const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
     const genericAppCardProps: GenericAppCardInterface = {

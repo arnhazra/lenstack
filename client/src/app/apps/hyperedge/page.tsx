@@ -1,20 +1,22 @@
 "use client"
-import { Fragment } from "react"
+import { Fragment, useContext } from "react"
 import endPoints from "@/constants/apiEndpoints"
 import Show from "@/components/Show"
-import { Badge, Container, Table, Row } from "react-bootstrap"
+import { Badge, Container, Row } from "react-bootstrap"
 import Loading from "@/components/Loading"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import moment from "moment"
-import { ExternalLinkIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { PlusCircledIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import GenericHero from "@/components/GenericHero"
 import { GenericAppCardInterface } from "@/types/Types"
 import GenericAppCard from "@/components/GenericAppCard"
+import { AppContext } from "@/context/appStateProvider"
 
 export default function Page() {
-  const dbs = useFetch("dbs", endPoints.hyperedgeGetMyDbsEndpoint, HTTPMethods.POST)
+  const [{ globalSearchString }] = useContext(AppContext)
+  const dbs = useFetch("dbs", endPoints.hyperedgeGetMyDbsEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString })
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
 
   const selectedApp = apps?.data?.find((app: any) => {

@@ -30,9 +30,9 @@ export class HyperedgeService {
     }
   }
 
-  async getMyDbs(workspaceId: string) {
+  async getMyDbs(workspaceId: string, searchQuery: string) {
     try {
-      const dbs = await this.hyperedgeRepository.getDbsByUserId(workspaceId)
+      const dbs = await this.hyperedgeRepository.getDbsByWorkspaceId(workspaceId, searchQuery)
       return dbs
     }
 

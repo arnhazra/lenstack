@@ -22,9 +22,9 @@ export class HyperedgeController {
   }
 
   @Post("getmydbs")
-  async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
+  async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("searchQuery") searchQuery: string) {
     try {
-      const dbs = await this.hyperedgeService.getMyDbs(uft.workspaceId)
+      const dbs = await this.hyperedgeService.getMyDbs(uft.workspaceId, searchQuery)
       return { dbs }
     }
 

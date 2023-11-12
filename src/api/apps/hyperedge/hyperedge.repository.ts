@@ -15,8 +15,11 @@ export class HyperedgeRepository {
     return db
   }
 
-  async getDbsByUserId(workspaceId: string) {
-    const dbs = await HyperedgeDbModel.find({ workspaceId })
+  async getDbsByWorkspaceId(workspaceId: string, searchQuery: string) {
+    const dbs = await HyperedgeDbModel.find({
+      name: { $regex: searchQuery, $options: "i" },
+      workspaceId: workspaceId
+    })
     return dbs
   }
 
