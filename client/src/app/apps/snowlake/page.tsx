@@ -4,7 +4,7 @@ import Show from "@/components/Show"
 import endPoints from "@/constants/apiEndpoints"
 import Web3 from "web3"
 import Link from "next/link"
-import { Fragment, useContext, useEffect, useState } from "react"
+import { Fragment, useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Container, Row } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { AppContext } from "@/context/appStateProvider"
@@ -20,7 +20,7 @@ import GenericHero from "@/components/GenericHero"
 export default function Page() {
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
-  const [{ userState }] = useContext(AppContext)
+  const [{ userState, globalSearchString }] = useContext(AppContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
@@ -67,6 +67,30 @@ export default function Page() {
     )
   })
 
+  const displayNfts = useCallback(() => {
+    const nftsToDisplay = nftList?.filter((nft: any) =>
+      nft.name.toLowerCase().includes(globalSearchString)
+    )?.map((nft: any) => {
+      const genericAppCardProps: GenericAppCardInterface = {
+        badgeText: "NFT",
+        className: "decentralized",
+        headerText: nft.name,
+        footerText: `This NFT was minted by you using Snowlake NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        redirectUri: `/apps/snowlake/nft?nftId=${nft.id}`
+      }
+
+      return (
+        <GenericAppCard key={nft.id} genericAppCardProps={genericAppCardProps} />
+      )
+    })
+
+    return (
+      <Row className="mb-4">
+        {nftsToDisplay}
+      </Row>
+    )
+  }, [globalSearchString, nftList])
+
   return (
     <Fragment>
       <Show when={!isLoading && !contractAddress.isLoading}>
@@ -82,9 +106,7 @@ export default function Page() {
           </GenericHero>
           <Show when={nftList.length > 0}>
             <h4 className="text-white">My Collection</h4>
-            <Row className="mt-2 mb-2">
-              {nftsToDisplay}
-            </Row>
+            {displayNfts()}
           </Show>
           <Show when={nftList.length === 0}>
             <h4 className="text-white">No NFTs to display</h4>
