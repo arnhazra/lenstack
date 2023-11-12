@@ -22,9 +22,10 @@ export class FrostlakeController {
   }
 
   @Post("getprojects")
-  async getProjects(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
+  async getProjects(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("searchQuery") searchQuery: string) {
     try {
-      const projects = await this.frostlakeService.getProjects(uft.workspaceId)
+      console.log(searchQuery)
+      const projects = await this.frostlakeService.getProjects(uft.workspaceId, searchQuery)
       return { projects }
     }
 

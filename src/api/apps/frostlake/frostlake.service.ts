@@ -30,9 +30,9 @@ export class FrostlakeService {
     }
   }
 
-  async getProjects(workspaceId: string) {
+  async getProjects(workspaceId: string, searchQuery: string) {
     try {
-      const projects = await this.frostlakeRepository.getProjectsByUserId(workspaceId)
+      const projects = await this.frostlakeRepository.getProjectsByWorkspaceId(workspaceId, searchQuery)
       return projects
     }
 

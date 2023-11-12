@@ -15,8 +15,12 @@ export class FrostlakeRepository {
     return project
   }
 
-  async getProjectsByUserId(workspaceId: string) {
-    const projects = await FrostlakeProjectModel.find({ workspaceId })
+  async getProjectsByWorkspaceId(workspaceId: string, searchQuery: string) {
+    const projects = await FrostlakeProjectModel.find({
+      name: { $regex: searchQuery, $options: "i" },
+      workspaceId: workspaceId
+    })
+
     return projects
   }
 

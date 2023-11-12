@@ -25,7 +25,6 @@ export interface UserState {
 }
 
 export interface DatasetRequestState {
-  searchQuery: string
   selectedFilter: string
   selectedSortOption: string
   offset: number

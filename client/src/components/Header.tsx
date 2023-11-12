@@ -20,13 +20,13 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [, dispatch] = useContext(AppContext)
-  const searchEnabledPathNames = ["/dashboard", "/apps/airlake"]
+  const searchEnabledPathNames = ["/dashboard", "/apps/airlake", "/apps/frostlake"]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
     dispatch("setGlobalSearchString", "")
     if (searchRef && searchRef.current) {
-      searchRef.current.value = ''
+      searchRef.current.value = ""
     }
   }, [pathname, searchParams])
 

@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useState } from "react"
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
 import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
@@ -14,11 +14,11 @@ import GenericHero from "@/components/GenericHero"
 import { AppContext } from "@/context/appStateProvider"
 
 export default function Page() {
-  const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
-  const dataLibrary = useFetch("find datasets", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
-  const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
   const [{ globalSearchString }] = useContext(AppContext)
+  const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
+  const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
+  const dataLibrary = useFetch("find datasets", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
 
   const selectedApp = apps?.data?.find((app: any) => {
     return app.appName === "airlake"
@@ -27,10 +27,6 @@ export default function Page() {
   const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
     return <option className="options" key={category} value={category}>{category}</option>
   })
-
-  useEffect(() => {
-    setDatasetRequestState({ ...datasetRequestState, searchQuery: globalSearchString, offset: 0 })
-  }, [globalSearchString])
 
   const displayDatasets = useCallback(() => {
     const datasetsToDisplay = dataLibrary?.data?.datasets?.map((dataset: any) => {
