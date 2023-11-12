@@ -1,11 +1,13 @@
 import { UserState } from "@/types/Types"
 
 export type AppState = {
-  userState: UserState
+  userState: UserState,
+  globalSearchString: string
 }
 
 export type ActionsMap = {
   setUserState: { [key: string]: string | boolean }
+  setGlobalSearchString: string
 }
 
 export type Actions = {
@@ -20,6 +22,11 @@ export const AppReducer = (state: AppState, action: Actions): AppState => {
     case "setUserState":
       return {
         ...state, userState: { ...state.userState, ...action.payload }
+      }
+
+    case "setGlobalSearchString":
+      return {
+        ...state, globalSearchString: action.payload
       }
 
     default:

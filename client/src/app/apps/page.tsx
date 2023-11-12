@@ -11,22 +11,30 @@ import { Badge, Button, Container, Row } from "react-bootstrap"
 import Error from "@/components/ErrorComp"
 import GenericAppCard from "@/components/GenericAppCard"
 import { GenericAppCardInterface } from "@/types/Types"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/appStateProvider"
 import GenericHero from "@/components/GenericHero"
 
 export default function Page() {
-  const [{ userState }] = useContext(AppContext)
+  const [{ userState, globalSearchString }] = useContext(AppContext)
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
   const searchParams = useSearchParams()
   const router = useRouter()
   const appName = searchParams.get("appName")
+  const [filteredApps, setFilteredApps] = useState([])
+
+  useEffect(() => {
+    const filteredApps = apps?.data?.filter((app: any) =>
+      app.appName.toLowerCase().includes(globalSearchString.toLowerCase())
+    )
+    setFilteredApps(filteredApps)
+  }, [globalSearchString, apps.data])
 
   const selectedApp = apps?.data?.find((app: any) => {
     return app.appName === appName
   })
 
-  const appsToDisplay = apps?.data?.filter((app: any) => app.appName !== appName).map((app: any) => {
+  const appsToDisplay = filteredApps?.filter((app: any) => app.appName !== appName).map((app: any) => {
     const genericAppCardProps: GenericAppCardInterface = {
       badgeText: app.appStatus,
       className: app.appCategory,

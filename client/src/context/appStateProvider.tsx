@@ -8,7 +8,7 @@ export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsM
 
 type AppContextInterface = readonly [AppState, Dispatcher]
 
-const initialState: { userState: UserState } = {
+const initialState: { userState: UserState, globalSearchString: string } = {
   userState: {
     userId: "",
     privateKey: "",
@@ -23,6 +23,8 @@ const initialState: { userState: UserState } = {
     remainingCredits: 0,
     refreshId: "ABC"
   },
+
+  globalSearchString: ""
 }
 
 export const AppContext = createContext<AppContextInterface>([initialState, ((): void => undefined)])

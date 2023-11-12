@@ -1,9 +1,8 @@
 "use client"
-import { ChangeEvent, useMemo, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
 import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
-import debounce from "lodash.debounce"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
 import useFetch from "@/hooks/useFetch"
@@ -12,12 +11,14 @@ import HTTPMethods from "@/constants/httpMethods"
 import { DatasetRequestState, GenericAppCardInterface } from "@/types/Types"
 import GenericAppCard from "@/components/GenericAppCard"
 import GenericHero from "@/components/GenericHero"
+import { AppContext } from "@/context/appStateProvider"
 
 export default function Page() {
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
   const dataLibrary = useFetch("find datasets", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, datasetRequestState)
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
+  const [{ globalSearchString }] = useContext(AppContext)
 
   const selectedApp = apps?.data?.find((app: any) => {
     return app.appName === "airlake"
@@ -52,11 +53,9 @@ export default function Page() {
     window.scrollTo(0, 0)
   }
 
-  const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    setDatasetRequestState({ ...datasetRequestState, searchQuery: event.target.value, offset: 0 })
-  }
-
-  const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])
+  useEffect(() => {
+    setDatasetRequestState({ ...datasetRequestState, searchQuery: globalSearchString, offset: 0 })
+  }, [globalSearchString])
 
   return (
     <Fragment>
@@ -70,12 +69,6 @@ export default function Page() {
               <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedApp?.appStatus}</Badge>
             </div>
             <Row className="g-2">
-              <Col xs={12} sm={12} md={6} lg={4} xl={6}>
-                <Form.Group controlId="floatingSearch">
-                  <Form.Label>Search for Datasets</Form.Label>
-                  <Form.Control size="lg" type="Search" defaultValue={datasetRequestState.searchQuery} onChange={debouncedChangeHandler} placeholder="Search for Datasets" required autoComplete={"off"} minLength={4} maxLength={40} />
-                </Form.Group>
-              </Col>
               <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                 <Form.Group controlId="floatingSelectGrid">
                   <Form.Label>Select Filter Category</Form.Label>

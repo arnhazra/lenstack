@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v2.8
+* Added global search
+
 ### v2.7
 * Minor code refactoring
 * UX Improvements
