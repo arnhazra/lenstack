@@ -6,9 +6,9 @@ import { SwapstreamRepository } from "./swapstream.repository"
 export class SwapstreamService {
   constructor(private readonly swapstreamRepository: SwapstreamRepository) { }
 
-  async getSwapStreamTokenList() {
+  async getSwapStreamTokenList(searchQuery: string) {
     try {
-      const swapstreamTokenConfig = await this.swapstreamRepository.getTokens()
+      const swapstreamTokenConfig = await this.swapstreamRepository.getTokens(searchQuery)
       return swapstreamTokenConfig
     }
 

@@ -5,9 +5,12 @@ import endPoints from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import { Badge, Container, Row } from "react-bootstrap"
+import { useContext } from "react"
+import { AppContext } from "@/context/appStateProvider"
 
 export default function Page() {
-  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST)
+  const [{ globalSearchString }] = useContext(AppContext)
+  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString })
   const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
 
   const selectedApp = apps?.data?.find((app: any) => {

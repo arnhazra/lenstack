@@ -9,9 +9,9 @@ export class SwapstreamController {
   constructor(private readonly swapstreamService: SwapstreamService) { }
 
   @Post("getswapstreamtokenconfig")
-  async getSwapStreamTokenList(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
+  async getSwapStreamTokenList(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("searchQuery") searchQuery: string) {
     try {
-      const swapstreamTokenConfig = await this.swapstreamService.getSwapStreamTokenList()
+      const swapstreamTokenConfig = await this.swapstreamService.getSwapStreamTokenList(searchQuery)
       return swapstreamTokenConfig
     }
 

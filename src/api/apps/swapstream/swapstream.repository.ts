@@ -4,9 +4,14 @@ import { SwapstreamTokenMetadataModel } from "./entities/swapstream-tokens.entit
 
 @Injectable()
 export class SwapstreamRepository {
-  async getTokens() {
+  async getTokens(searchQuery: string) {
     try {
-      const tokens = await SwapstreamTokenMetadataModel.find()
+      const tokens = await SwapstreamTokenMetadataModel.find({
+        $or: [
+          { tokenName: { $regex: searchQuery, $options: "i" } },
+          { tokenSymbol: { $regex: searchQuery, $options: "i" } },
+        ]
+      })
       return tokens
     }
 
