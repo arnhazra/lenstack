@@ -111,7 +111,7 @@ export default function Page() {
       badgeText: "NFT",
       className: "decentralized",
       headerText: nft.name,
-      footerText: `This NFT was minted by you using Snowlake"s NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+      footerText: `This NFT was minted by you using Snowlake NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
       redirectUri: `/apps/snowlake/nft?nftId=${nft.id}`
     }
 
@@ -162,7 +162,7 @@ export default function Page() {
                 </Col>
                 <Col xs={12} sm={12} md={6} lg={8} xl={9}>
                   <p className="branding text-capitalize">{selectedNft?.name}</p>
-                  <p className="lead">{selectedNft?.description}</p>
+                  <p className="muted-text">{selectedNft?.description}</p>
                   <p className="lead">NFT Contract: {showAddress(contractAddress?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(contractAddress?.data?.nftContractAddress)} /></p>
                   <p className="lead">Owner: {showAddress(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(selectedNft?.owner)} /></p>
                   <div className="mb-3">

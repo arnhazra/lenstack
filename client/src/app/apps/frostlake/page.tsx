@@ -2,14 +2,16 @@
 import { Fragment } from "react"
 import endPoints from "@/constants/apiEndpoints"
 import Show from "@/components/Show"
-import { Badge, Container, Table } from "react-bootstrap"
+import { Badge, Container, Row } from "react-bootstrap"
 import Loading from "@/components/Loading"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import moment from "moment"
-import { ExternalLinkIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { PlusCircledIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import GenericHero from "@/components/GenericHero"
+import { GenericAppCardInterface } from "@/types/Types"
+import GenericAppCard from "@/components/GenericAppCard"
 
 export default function Page() {
   const projects = useFetch("project", endPoints.frostlakeGetProjectsEndpoint, HTTPMethods.POST)
@@ -20,12 +22,16 @@ export default function Page() {
   })
 
   const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
+    const genericAppCardProps: GenericAppCardInterface = {
+      badgeText: "Project",
+      className: "centralized",
+      headerText: project.name,
+      footerText: `This Project was started by you using Frostlake Platform on ${moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+      redirectUri: `/apps/frostlake/project?projectId=${project._id}`
+    }
+
     return (
-      <tr key={project._id}>
-        <td>{project.name}</td>
-        <td>{moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`/apps/frostlake/project?projectId=${project._id}`}>Open Project<ExternalLinkIcon className="icon-right" /></Link></td>
-      </tr>
+      <GenericAppCard key={project._id} genericAppCardProps={genericAppCardProps} />
     )
   })
 
@@ -44,18 +50,9 @@ export default function Page() {
           </GenericHero>
           <Show when={projects?.data?.projects?.length > 0}>
             <h4 className="text-white">Projects</h4>
-            <Table responsive hover variant="light">
-              <thead>
-                <tr>
-                  <th>Project Name</th>
-                  <th>Created At</th>
-                  <th>Link</th>
-                </tr>
-              </thead>
-              <tbody>
-                {projectsToDisplay}
-              </tbody>
-            </Table>
+            <Row className="mt-2 mb-2">
+              {projectsToDisplay}
+            </Row>
           </Show>
           <Show when={projects?.data?.projects?.length === 0}>
             <h4 className="text-white">No Projects to display</h4>

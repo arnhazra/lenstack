@@ -56,8 +56,8 @@ export default function Page() {
         <Show when={!db.error || !!dbId}>
           <Container>
             <GenericHero>
-              <p className="display-6 text-capitalize">{db?.data?.db?.name}</p>
-              <p className="lead mt-3">Your Db kvs will be displayed below (if any)</p>
+              <p className="branding text-capitalize">{db?.data?.db?.name}</p>
+              <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
               <Button onClick={copyDbId}>Copy Db Id<CopyIcon className="icon-right" /></Button>
               <Button onClick={copyDbPassword}>Copy Db Password<CopyIcon className="icon-right" /></Button>
               <Button onClick={archiveDb}>Archive Db<ArchiveIcon className="icon-right" /></Button>

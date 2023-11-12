@@ -2,7 +2,7 @@
 import { Fragment } from "react"
 import endPoints from "@/constants/apiEndpoints"
 import Show from "@/components/Show"
-import { Badge, Container, Table } from "react-bootstrap"
+import { Badge, Container, Table, Row } from "react-bootstrap"
 import Loading from "@/components/Loading"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
@@ -10,6 +10,8 @@ import moment from "moment"
 import { ExternalLinkIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import GenericHero from "@/components/GenericHero"
+import { GenericAppCardInterface } from "@/types/Types"
+import GenericAppCard from "@/components/GenericAppCard"
 
 export default function Page() {
   const dbs = useFetch("dbs", endPoints.hyperedgeGetMyDbsEndpoint, HTTPMethods.POST)
@@ -20,12 +22,16 @@ export default function Page() {
   })
 
   const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
+    const genericAppCardProps: GenericAppCardInterface = {
+      badgeText: "Project",
+      className: "centralized",
+      headerText: db.name,
+      footerText: `This Database was created by you using Hyperedge on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+      redirectUri: `/apps/hyperedge/db?dbId=${db._id}`
+    }
+
     return (
-      <tr key={db._id}>
-        <td>{db.name}</td>
-        <td>{moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-        <td><Link href={`/apps/hyperedge/db?dbId=${db._id}`}>Open db<ExternalLinkIcon className="icon-right" /></Link></td>
-      </tr>
+      <GenericAppCard key={db._id} genericAppCardProps={genericAppCardProps} />
     )
   })
 
@@ -44,18 +50,9 @@ export default function Page() {
           </GenericHero>
           <Show when={dbs?.data?.dbs?.length > 0}>
             <h4 className="text-white">My Databases</h4>
-            <Table responsive hover variant="light">
-              <thead>
-                <tr>
-                  <th>db Name</th>
-                  <th>Created At</th>
-                  <th>Link</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dbsToDisplay}
-              </tbody>
-            </Table>
+            <Row className="mt-2 mb-2">
+              {dbsToDisplay}
+            </Row>
           </Show>
           <Show when={dbs?.data?.dbs?.length === 0}>
             <h4 className="text-white">No databases to display</h4>
