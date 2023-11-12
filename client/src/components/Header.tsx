@@ -31,7 +31,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   }, [pathname, searchParams])
 
   const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    dispatch("setGlobalSearchString", event.target.value)
+    dispatch("setGlobalSearchString", event.target.value.toLowerCase())
   }
 
   const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])

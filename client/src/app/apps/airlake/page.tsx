@@ -1,5 +1,5 @@
 "use client"
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
 import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
@@ -28,18 +28,28 @@ export default function Page() {
     return <option className="options" key={category} value={category}>{category}</option>
   })
 
-  const datasetsToDisplay = dataLibrary?.data?.datasets?.map((dataset: any) => {
-    const genericAppCardProps: GenericAppCardInterface = {
-      badgeText: dataset.category,
-      className: "centralized",
-      headerText: dataset.name,
-      footerText: `${dataset.description.slice(0, 110)}...`,
-      redirectUri: `/apps/airlake/dataset?datasetId=${dataset._id}`
-    }
-    return <GenericAppCard key={dataset._id} genericAppCardProps={genericAppCardProps} />
-  })
+  useEffect(() => {
+    setDatasetRequestState({ ...datasetRequestState, searchQuery: globalSearchString, offset: 0 })
+  }, [globalSearchString])
 
-  const noDatasetsToDisplay = <h4 className="text-white">No Results</h4>
+  const displayDatasets = useCallback(() => {
+    const datasetsToDisplay = dataLibrary?.data?.datasets?.map((dataset: any) => {
+      const genericAppCardProps: GenericAppCardInterface = {
+        badgeText: dataset.category,
+        className: "centralized",
+        headerText: dataset.name,
+        footerText: `${dataset.description.slice(0, 110)}...`,
+        redirectUri: `/apps/airlake/dataset?datasetId=${dataset._id}`
+      }
+      return <GenericAppCard key={dataset._id} genericAppCardProps={genericAppCardProps} />
+    })
+
+    return (
+      <Row className="mb-4">
+        {datasetsToDisplay}
+      </Row>
+    )
+  }, [dataLibrary?.data])
 
   const prevPage = () => {
     const prevDatasetReqNumber = datasetRequestState.offset - 36
@@ -52,10 +62,6 @@ export default function Page() {
     setDatasetRequestState({ ...datasetRequestState, offset: nextOffset })
     window.scrollTo(0, 0)
   }
-
-  useEffect(() => {
-    setDatasetRequestState({ ...datasetRequestState, searchQuery: globalSearchString, offset: 0 })
-  }, [globalSearchString])
 
   return (
     <Fragment>
@@ -91,9 +97,7 @@ export default function Page() {
               </Col>
             </Row>
           </GenericHero>
-          <Row className="mt-4 mb-2">
-            {dataLibrary?.data?.datasets?.length ? datasetsToDisplay : noDatasetsToDisplay}
-          </Row>
+          {dataLibrary?.data?.datasets?.length ? displayDatasets() : <h4 className="text-white">No Results</h4>}
           <div className="text-center">
             {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
             {dataLibrary?.data?.datasets?.length === 36 && <Button className="btn" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
