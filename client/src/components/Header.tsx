@@ -20,6 +20,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [, dispatch] = useContext(AppContext)
+  const searchEnabledPathNames = ["/dashboard", "/apps/airlake"]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
@@ -47,9 +48,11 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
               <TextAlignLeftIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
-              <Nav className="ms-auto">
-                <input ref={searchRef} placeholder="What are you looking for ?" type="text" className="header-search" onChange={debouncedChangeHandler} />
-              </Nav>
+              <Show when={searchEnabledPathNames.includes(pathname)}>
+                <Nav className="ms-auto">
+                  <input ref={searchRef} placeholder="What are you looking for ?" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                </Nav>
+              </Show>
               <Nav className="ms-auto">
                 <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>

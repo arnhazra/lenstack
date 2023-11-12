@@ -9,7 +9,6 @@ import { toast } from "react-hot-toast"
 import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/httpMethods"
 import Error from "@/components/ErrorComp"
-import { AppContext } from "@/context/appStateProvider"
 import Constants from "@/constants/appConstants"
 import { useSearchParams } from "next/navigation"
 import { CopyIcon } from "@radix-ui/react-icons"
@@ -20,10 +19,8 @@ import GenericHero from "@/components/GenericHero"
 export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
-  const [{ userState }] = useContext(AppContext)
   const dataset = useFetch("view dataset", endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
   const similarDatasets = useFetch("similar datasets", endPoints.airlakeFindSimilarDatasetsEndpoint, HTTPMethods.POST, { datasetId })
-  const datasetIdForCard = datasetId?.toString() || ""
 
   const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
     const genericAppCardProps: GenericAppCardInterface = {
