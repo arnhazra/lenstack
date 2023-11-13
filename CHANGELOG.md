@@ -2,8 +2,10 @@
 
 ### v2.8
 * Added global search - UI
-* Rebranding of Apps as Products - No Braking API Changes
+* Rebranding of Apps as Products with No Braking API Changes
 * Added similar search feature as Airlake in Dashboard, Frostlake, Hyperedge, Snowlake, Swapstream - API & UI
+* Added useCallback to display search based results for all products and dashboard
+* Removed generic product page
 
 ### v2.7
 * Minor code refactoring
