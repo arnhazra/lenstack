@@ -7,8 +7,8 @@ export class DocumentationService {
   constructor(private readonly documentationRepository: DocumentationRepository) { }
   async createDocumentation(createDocumentationDto: CreateDocumentationDto) {
     try {
-      const { appName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody } = createDocumentationDto
-      await this.documentationRepository.create(appName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody)
+      const { productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody } = createDocumentationDto
+      await this.documentationRepository.create(productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody)
       return true
     }
 
@@ -17,9 +17,9 @@ export class DocumentationService {
     }
   }
 
-  async getDocumentationByAppName(appName: string) {
+  async getDocumentationByProductName(productName: string) {
     try {
-      const docList = await this.documentationRepository.findAllByAppName(appName)
+      const docList = await this.documentationRepository.findAllByProductName(productName)
       return docList
     }
 

@@ -4,8 +4,8 @@ import Loading from "@/components/Loading"
 import Show from "@/components/Show"
 import { motion } from "framer-motion"
 import endPoints from "@/constants/apiEndpoints"
-import Constants from "@/constants/appConstants"
-import { AppContext } from "@/context/appStateProvider"
+import Constants from "@/constants/globalConstants"
+import { GlobalContext } from "@/context/globalStateProvider"
 import axios from "axios"
 import { usePathname, useRouter } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
@@ -15,7 +15,7 @@ import IdentityGuard from "./IdentityGuard"
 export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
-  const [{ userState }, dispatch] = useContext(AppContext)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState(true)
   const [isAuthorized, setAuthorized] = useState(false)
 

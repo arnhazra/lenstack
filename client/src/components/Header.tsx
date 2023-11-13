@@ -5,9 +5,9 @@ import Show from "./Show"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
-import Constants from "@/constants/appConstants"
+import Constants from "@/constants/globalConstants"
 import debounce from "lodash.debounce"
-import { AppContext } from "@/context/appStateProvider"
+import { GlobalContext } from "@/context/globalStateProvider"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -19,8 +19,8 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const searchRef = useRef<HTMLInputElement | null>(null)
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [, dispatch] = useContext(AppContext)
-  const searchEnabledPathNames = ["/dashboard", "/apps/airlake", "/apps/frostlake", "/apps/hyperedge", "/apps/snowlake", "/apps/swapstream"]
+  const [, dispatch] = useContext(GlobalContext)
+  const searchEnabledPathNames = ["/dashboard", "/products/airlake", "/products/frostlake", "/products/hyperedge", "/products/snowlake", "/products/swapstream"]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")

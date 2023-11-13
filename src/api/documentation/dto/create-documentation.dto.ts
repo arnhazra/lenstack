@@ -2,7 +2,7 @@ import { IsNotEmpty } from "class-validator"
 
 export class CreateDocumentationDto {
   @IsNotEmpty()
-  readonly appName: string
+  readonly productName: string
 
   @IsNotEmpty()
   readonly apiName: string

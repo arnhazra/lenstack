@@ -20,10 +20,10 @@ export class DocumentationController {
 
   }
 
-  @Post("getallbyappname")
-  async getDocumentationByAppName(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("appName") appName: string) {
+  @Post("getallbyproductname")
+  async getDocumentationByProductName(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("productName") productName: string) {
     try {
-      const docList = await this.documentationService.getDocumentationByAppName(appName)
+      const docList = await this.documentationService.getDocumentationByProductName(productName)
       return { docList }
     }
 

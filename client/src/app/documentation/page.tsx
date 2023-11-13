@@ -1,6 +1,6 @@
 "use client"
 import Show from "@/components/Show"
-import Constants from "@/constants/appConstants"
+import Constants from "@/constants/globalConstants"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import endPoints from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
@@ -14,8 +14,8 @@ import GenericHero from "@/components/GenericHero"
 
 export default function Page() {
   const searchParams = useSearchParams()
-  const appName = searchParams.get("appName")
-  const documentation = useFetch("docs", `${endPoints.getdocumentation}`, HTTPMethods.POST, { appName })
+  const productName = searchParams.get("productName")
+  const documentation = useFetch("docs", `${endPoints.getdocumentation}`, HTTPMethods.POST, { productName })
 
   const listApiDocumentations = documentation?.data?.docList?.map((apiDoc: any) => {
     return (
@@ -23,7 +23,7 @@ export default function Page() {
         <p className="branding">{apiDoc.apiName}</p>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Method: {apiDoc.apiMethod}</Form.Label>
-          <Form.Control readOnly type="email" defaultValue={`${Constants.AppBaseUri}${apiDoc.apiUri}`} />
+          <Form.Control readOnly type="email" defaultValue={`${Constants.BaseUri}${apiDoc.apiUri}`} />
         </Form.Group>
         <Show when={!!apiDoc.sampleRequestBody}>
           <p>Sample Request Body</p>
@@ -45,7 +45,7 @@ export default function Page() {
       <Show when={!documentation.isLoading}>
         <Show when={!!documentation?.data?.docList.length}>
           <div>
-            <h4 className="text-white">API Documentation - {appName}</h4>
+            <h4 className="text-white">API Documentation - {productName}</h4>
             <p className="lead text-white">Must include your API key under x-api-key in request header</p>
             {listApiDocumentations}
           </div>

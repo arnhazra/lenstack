@@ -1,7 +1,9 @@
 # Lenstack Changelog
 
 ### v2.8
-* Added global search
+* Added global search - UI
+* Rebranding of Apps as Products - No Braking API Changes
+* Added similar search feature as Airlake in Dashboard, Frostlake, Hyperedge, Snowlake, Swapstream - API & UI
 
 ### v2.7
 * Minor code refactoring

@@ -2,14 +2,14 @@ const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000"
 
 const endPoints = {
   infuraEndpoint: `https://polygon-mumbai.infura.io/v3`,
-  getdocumentation: `${apiHost}/api/documentation/getallbyappname`,
+  getdocumentation: `${apiHost}/api/documentation/getallbyproductname`,
   generatePassKeyEndpoint: `${apiHost}/api/user/generatepasskey`,
   verifyPassKeyEndpoint: `${apiHost}/api/user/verifypasskey`,
   userDetailsEndpoint: `${apiHost}/api/user/userdetails`,
   signOutEndpoint: `${apiHost}/api/user/signout`,
   subscribeEndpoint: `${apiHost}/api/subscription/subscribe`,
   activateTrialEndpoint: `${apiHost}/api/subscription/activatetrial`,
-  getPlatformConfigEndpoint: `${apiHost}/api/common/getplatformconfig`,
+  getProductConfigEndpoint: `${apiHost}/api/common/getproductconfig`,
   getSubscriptionConfigEndpoint: `${apiHost}/api/common/getsubscriptionconfig`,
   getSecretConfig: `${apiHost}/api/common/getsecretconfig`,
   createWorkspace: `${apiHost}/api/workspace/create`,

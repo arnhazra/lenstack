@@ -6,45 +6,43 @@ import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/Show"
 import Loading from "@/components/Loading"
 import { Container, Row } from "react-bootstrap"
-import { GenericAppCardInterface } from "@/types/Types"
-import GenericAppCard from "@/components/GenericAppCard"
-import { AppContext } from "@/context/appStateProvider"
+import { GenericProductCardInterface } from "@/types/Types"
+import GenericProductCard from "@/components/GenericProductCard"
+import { GlobalContext } from "@/context/globalStateProvider"
 
 export default function Page() {
-  const [{ globalSearchString }] = useContext(AppContext)
-  const apps = useFetch("get-apps", endPoints.getPlatformConfigEndpoint, HTTPMethods.POST)
+  const [{ globalSearchString }] = useContext(GlobalContext)
+  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString })
 
-  const displayApps = useCallback(() => {
-    const appsToDisplay = apps?.data?.filter((app: any) =>
-      app.appName.toLowerCase().includes(globalSearchString)
-    )?.map((app: any) => {
-      const genericAppCardProps: GenericAppCardInterface = {
-        badgeText: app.appStatus,
-        className: app.appCategory,
-        footerText: app.description,
-        headerText: `${app.appName}`,
-        redirectUri: `/apps/?appName=${app.appName}`
+  const displayProducts = useCallback(() => {
+    const productsToDisplay = products?.data?.map((product: any) => {
+      const genericProductCardProps: GenericProductCardInterface = {
+        badgeText: product.productStatus,
+        className: product.productCategory,
+        footerText: product.description,
+        headerText: `${product.productName}`,
+        redirectUri: `/products/${product.productName}`
       }
 
-      return <GenericAppCard key={app.appName} genericAppCardProps={genericAppCardProps} />
+      return <GenericProductCard key={product.productName} genericProductCardProps={genericProductCardProps} />
     })
 
     return (
       <Row className="mb-4">
-        {appsToDisplay}
+        {productsToDisplay}
       </Row>
     )
-  }, [globalSearchString, apps?.data])
+  }, [globalSearchString, products?.data])
 
   return (
     <Fragment>
-      <Show when={!apps.isLoading}>
+      <Show when={!products.isLoading}>
         <Container>
           <h4 className="text-white">Lenstack Services</h4>
-          {displayApps()}
+          {displayProducts()}
         </Container>
       </Show>
-      <Show when={apps.isLoading}>
+      <Show when={products.isLoading}>
         <Loading />
       </Show>
     </Fragment>

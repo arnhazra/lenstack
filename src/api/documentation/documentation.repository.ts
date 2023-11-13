@@ -3,9 +3,9 @@ import { DocumentationModel } from "./entities/documentation.entity"
 
 @Injectable()
 export class DocumentationRepository {
-  async create(appName: string, apiName: string, apiUri: string, apiMethod: string, sampleRequestBody: any, sampleResponseBody: any) {
+  async create(productName: string, apiName: string, apiUri: string, apiMethod: string, sampleRequestBody: any, sampleResponseBody: any) {
     try {
-      const newDoc = new DocumentationModel({ appName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody })
+      const newDoc = new DocumentationModel({ productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody })
       await newDoc.save()
       return true
     }
@@ -15,9 +15,9 @@ export class DocumentationRepository {
     }
   }
 
-  async findAllByAppName(appName: string) {
+  async findAllByProductName(productName: string) {
     try {
-      const docList = await DocumentationModel.find({ appName })
+      const docList = await DocumentationModel.find({ productName })
       return docList
     }
 

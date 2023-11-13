@@ -1,26 +1,26 @@
 "use client"
 import { Fragment, useContext, useState } from "react"
-import { AppContext } from "@/context/appStateProvider"
+import { GlobalContext } from "@/context/globalStateProvider"
 import Show from "@/components/Show"
 import { toast } from "react-hot-toast"
 import endPoints from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import Loading from "@/components/Loading"
-import appConstants from "@/constants/appConstants"
+import constants from "@/constants/globalConstants"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
 import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
-import Constants from "@/constants/appConstants"
+import Constants from "@/constants/globalConstants"
 import useConfirm from "@/hooks/useConfirm"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const [{ userState }, dispatch] = useContext(AppContext)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
   const router = useRouter()
   const secretConfig = useFetch("secrets", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -37,7 +37,7 @@ export default function Page() {
 
   const copyapiKey = (): void => {
     navigator.clipboard.writeText(`${userState.apiKey}`)
-    toast.success(appConstants.CopiedToClipBoard)
+    toast.success(Constants.CopiedToClipBoard)
   }
 
   const activateTrial = async () => {

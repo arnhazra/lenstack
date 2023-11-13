@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
 
 const DocumentationSchema = new mongoose.Schema({
-  appName: {
+  productName: {
     type: String,
     required: true
   },
