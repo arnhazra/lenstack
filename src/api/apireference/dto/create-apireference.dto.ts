@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator"
 
-export class CreateDocumentationDto {
+export class CreateApiReferenceDto {
   @IsNotEmpty()
   readonly productName: string
 

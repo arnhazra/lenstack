@@ -15,9 +15,9 @@ import GenericHero from "@/components/GenericHero"
 export default function Page() {
   const searchParams = useSearchParams()
   const productName = searchParams.get("productName")
-  const documentation = useFetch("docs", `${endPoints.getdocumentation}`, HTTPMethods.POST, { productName })
+  const apireference = useFetch("docs", `${endPoints.getapireference}`, HTTPMethods.POST, { productName })
 
-  const listApiDocumentations = documentation?.data?.docList?.map((apiDoc: any) => {
+  const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {
     return (
       <GenericHero key={apiDoc._id}>
         <p className="branding">{apiDoc.apiName}</p>
@@ -39,18 +39,18 @@ export default function Page() {
 
   return (
     <Container>
-      <Show when={documentation.isLoading}>
+      <Show when={apireference.isLoading}>
         <Loading />
       </Show>
-      <Show when={!documentation.isLoading}>
-        <Show when={!!documentation?.data?.docList.length}>
+      <Show when={!apireference.isLoading}>
+        <Show when={!!apireference?.data?.docList.length}>
           <div>
-            <h4 className="text-white">API Documentation - {productName}</h4>
+            <h4 className="text-white">API ApiReference - {productName}</h4>
             <p className="lead text-white">Must include your API key under x-api-key in request header</p>
-            {listApiDocumentations}
+            {listApiApiReferences}
           </div>
         </Show>
-        <Show when={!documentation?.data?.docList.length}>
+        <Show when={!apireference?.data?.docList.length}>
           <Error />
         </Show>
       </Show>

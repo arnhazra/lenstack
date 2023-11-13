@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { DocumentationModel } from "./entities/documentation.entity"
+import { ApiReferenceModel } from "./entities/apireference.entity"
 
 @Injectable()
-export class DocumentationRepository {
+export class ApiReferenceRepository {
   async create(productName: string, apiName: string, apiUri: string, apiMethod: string, sampleRequestBody: any, sampleResponseBody: any) {
     try {
-      const newDoc = new DocumentationModel({ productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody })
+      const newDoc = new ApiReferenceModel({ productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody })
       await newDoc.save()
       return true
     }
@@ -17,7 +17,7 @@ export class DocumentationRepository {
 
   async findAllByProductName(productName: string) {
     try {
-      const docList = await DocumentationModel.find({ productName })
+      const docList = await ApiReferenceModel.find({ productName })
       return docList
     }
 

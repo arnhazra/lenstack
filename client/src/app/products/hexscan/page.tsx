@@ -52,7 +52,7 @@ export default function Page() {
             <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
             <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
           </div>
-          <Link className="btn mt-2" href={`/documentation?productName=hexscan`}><ReaderIcon className="icon-left" />View Documentation</Link>
+          <Link className="btn mt-2" href={`/apireference?productName=hexscan`}><ReaderIcon className="icon-left" />View ApiReference</Link>
         </GenericHero>
         <GenericHero>
           <p className="branding">API Client (No need to pass Base URI)</p>

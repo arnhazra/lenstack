@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
 
-const DocumentationSchema = new mongoose.Schema({
+const ApiReferenceSchema = new mongoose.Schema({
   productName: {
     type: String,
     required: true
@@ -33,4 +33,4 @@ const DocumentationSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const DocumentationModel = lenstackPlatformMongoDbConn.model("documentation", DocumentationSchema)
+export const ApiReferenceModel = lenstackPlatformMongoDbConn.model("apireference", ApiReferenceSchema)
