@@ -7,7 +7,7 @@ import Loading from "@/components/Loading"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import moment from "moment"
-import { PlusCircledIcon } from "@radix-ui/react-icons"
+import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import GenericHero from "@/components/GenericHero"
 import { GenericProductCardInterface } from "@/types/Types"
@@ -59,6 +59,9 @@ export default function Page() {
               <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
+              <ReaderIcon className="icon-left" />API Reference
+            </Link>
             <Link className="btn" href="/products/hyperedge/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
           </GenericHero>
           {displayDatabases()}

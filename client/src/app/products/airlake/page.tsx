@@ -1,7 +1,8 @@
 "use client"
 import { useCallback, useContext, useState } from "react"
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
-import { ArrowRightIcon, ArrowLeftIcon } from "@radix-ui/react-icons"
+import Link from "next/link"
+import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
@@ -95,6 +96,9 @@ export default function Page() {
                 </Form.Group>
               </Col>
             </Row>
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn mt-2 mb-2">
+              <ReaderIcon className="icon-left" />API Reference
+            </Link>
           </GenericHero>
           {displayDatasets()}
           <div className="text-center">
