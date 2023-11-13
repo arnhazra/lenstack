@@ -1,5 +1,5 @@
 "use client"
-import Constants from "@/constants/appConstants"
+import Constants from "@/constants/globalConstants"
 import Link from "next/link"
 import { CubeIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"

@@ -1,11 +1,13 @@
 "use client"
-import { Fragment, useEffect, useState } from "react"
+import { ChangeEvent, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
 import Show from "./Show"
-import { usePathname } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
-import Constants from "@/constants/appConstants"
+import Constants from "@/constants/globalConstants"
+import debounce from "lodash.debounce"
+import { GlobalContext } from "@/context/globalStateProvider"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -14,11 +16,26 @@ interface HeaderProps {
 
 export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const [isHomePage, setIsHomePage] = useState(false)
+  const searchRef = useRef<HTMLInputElement | null>(null)
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const [, dispatch] = useContext(GlobalContext)
+  const searchEnabledPathNames = ["/dashboard", "/products/airlake", "/products/frostlake", "/products/hyperedge", "/products/snowlake", "/products/swapstream"]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
-  }, [pathname])
+    dispatch("setGlobalSearchString", "")
+
+    if (searchRef && searchRef.current) {
+      searchRef.current.value = ""
+    }
+  }, [pathname, searchParams])
+
+  const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    dispatch("setGlobalSearchString", event.target.value.toLowerCase())
+  }
+
+  const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])
 
   return (
     <Fragment>
@@ -29,9 +46,14 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon className="icon-large" />
+              <TextAlignLeftIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
+              <Show when={searchEnabledPathNames.includes(pathname)}>
+                <Nav className="ms-auto">
+                  <input ref={searchRef} placeholder="What are you looking for ?" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                </Nav>
+              </Show>
               <Nav className="ms-auto">
                 <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
@@ -50,7 +72,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon className="icon-large" />
+              <TextAlignLeftIcon className="navbar-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">

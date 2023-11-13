@@ -2,10 +2,10 @@
 import { Fragment, useContext, useState, useEffect } from "react"
 import { Button, Col, Row } from "react-bootstrap"
 import endPoints from "@/constants/apiEndpoints"
-import { AppContext } from "@/context/appStateProvider"
+import { GlobalContext } from "@/context/globalStateProvider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
-import Constants from "@/constants/appConstants"
+import Constants from "@/constants/globalConstants"
 import Web3 from "web3"
 import Show from "@/components/Show"
 import Loading from "@/components/Loading"
@@ -14,7 +14,7 @@ import HTTPMethods from "@/constants/httpMethods"
 import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-icons"
 
 export default function Page() {
-  const [{ userState }] = useContext(AppContext)
+  const [{ userState }] = useContext(GlobalContext)
   const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
   const [walletLoading, setWalletLoading] = useState(true)

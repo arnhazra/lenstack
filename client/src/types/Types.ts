@@ -25,13 +25,12 @@ export interface UserState {
 }
 
 export interface DatasetRequestState {
-  searchQuery: string
   selectedFilter: string
   selectedSortOption: string
   offset: number
 }
 
-export interface GenericAppCardInterface {
+export interface GenericProductCardInterface {
   headerText: string
   footerText: string
   badgeText: string
@@ -39,8 +38,8 @@ export interface GenericAppCardInterface {
   className: string
 }
 
-export interface GenericAppCardProps {
-  genericAppCardProps: GenericAppCardInterface
+export interface GenericProductCardProps {
+  genericProductCardProps: GenericProductCardInterface
 }
 
 export interface TokenData {
@@ -52,6 +51,6 @@ export interface TokenData {
   description: string
 }
 
-export interface AppStateProviderProps {
+export interface GlobalStateProviderProps {
   children: ReactNode
 }

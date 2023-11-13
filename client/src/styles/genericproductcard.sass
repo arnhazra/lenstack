@@ -1,0 +1,41 @@
+$white: #ffffff
+
+@mixin categoryContainer
+  color: $white
+  border-radius: 0.8rem
+  border: none
+  animation: transitionIn 0.4s forwards
+  cursor: pointer
+  box-shadow: 0 7px 15px 0 rgba(0, 0, 0, .13), 0 1px 4px 0 rgba(0, 0, 0, .11)
+  width: 100%
+  transition: transform 0.5s ease
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+  background-attachment: fixed
+
+.product-card-header
+  border: none
+  text-align: center
+  height: 7rem
+  width: 12rem
+  display: flex
+  justify-content: space-between
+  padding-top: 0.5rem
+  text-transform: capitalize
+
+.product-card-body
+  border: none
+
+.product-card-footer
+  border: none
+  height: 7rem
+
+.product-card-centralized
+  background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../assets/centralized.jpg)
+  @include categoryContainer
+
+.product-card-decentralized
+  background: linear-gradient(to top, #1a1a1fff, #1a1a1f30), url(../assets/decentralized.jpg)
+  @include categoryContainer

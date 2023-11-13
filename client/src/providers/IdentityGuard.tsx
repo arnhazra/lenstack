@@ -2,7 +2,7 @@
 import { Fragment, useState } from "react"
 import axios from "axios"
 import { Button, Form } from "react-bootstrap"
-import Constants from "@/constants/appConstants"
+import Constants from "@/constants/globalConstants"
 import Show from "@/components/Show"
 import endPoints from "@/constants/apiEndpoints"
 import { toast } from "react-hot-toast"

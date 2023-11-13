@@ -1,14 +1,16 @@
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { envConfig } from "src/config/envConfig"
-import { platformConfig } from "src/config/platformConfig"
 import { subscriptionConfig } from "src/config/subscriptionConfig"
 import { statusMessages } from "src/constants/statusMessages"
+import { CommonRepository } from "./common.repository"
 
 @Injectable()
 export class CommonService {
-  getPlatformConfig() {
+  constructor(private readonly commonRepository: CommonRepository) { }
+  async getProductConfig(searchQuery: string) {
     try {
-      return platformConfig
+      const products = await this.commonRepository.getproductConfig(searchQuery)
+      return products
     }
 
     catch (error) {

@@ -1,5 +1,15 @@
 # Lenstack Changelog
 
+### v2.9
+* Added useCallback to display search based results for all products and dashboard
+* Removed generic product page
+* Added APIReference module replacing Documentation module
+
+### v2.8
+* Added global search - UI
+* Rebranding of Apps as Products with No Braking API Changes
+* Added similar search feature as Airlake in Dashboard, Frostlake, Hyperedge, Snowlake, Swapstream - API & UI
+
 ### v2.7
 * Minor code refactoring
 * UX Improvements

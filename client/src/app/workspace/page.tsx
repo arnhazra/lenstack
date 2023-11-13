@@ -3,7 +3,7 @@ import Loading from "@/components/Loading"
 import Show from "@/components/Show"
 import endPoints from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
-import { AppContext } from "@/context/appStateProvider"
+import { GlobalContext } from "@/context/globalStateProvider"
 import useFetch from "@/hooks/useFetch"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 import axios from "axios"
@@ -12,7 +12,7 @@ import { Button, Form } from "react-bootstrap"
 import toast from "react-hot-toast"
 
 export default function Page() {
-  const [{ userState }, dispatch] = useContext(AppContext)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState(Math.random().toString())
   const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.POST, {}, true, queryId)
   const [newWorkspaceName, setNewWorkspaceName] = useState("")
