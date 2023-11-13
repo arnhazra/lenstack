@@ -1,5 +1,7 @@
 "use client"
 import GenericHero from "@/components/GenericHero"
+import Loading from "@/components/Loading"
+import Show from "@/components/Show"
 import endPoints from "@/constants/apiEndpoints"
 import Constants from "@/constants/globalConstants"
 import HTTPMethods from "@/constants/httpMethods"
@@ -42,25 +44,30 @@ export default function Page() {
 
   return (
     <Container>
-      <GenericHero>
-        <p className="branding">{selectedProduct?.productName}</p>
-        <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-        <div className="mb-2">
-          <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-          <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-        </div>
-        <Link className="btn mt-2" href={`/documentation?productName=hexscan`}><ReaderIcon className="icon-left" />View Documentation</Link>
-      </GenericHero>
-      <GenericHero>
-        <p className="branding">API Client (No need to pass Base URI)</p>
-        <form onSubmit={hitAPI}>
-          <Form.Label htmlFor="basic-url">Your test API endpoint {process.env.NODE_ENV === "production" ? Constants.BaseUri : Constants.BaseUriLocal}/hexscan/analyzer</Form.Label>
-          <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
-          <Button className="mt-3" type="submit"><RocketIcon className="icon-left" />Hit API</Button>
-        </form>
-        <p>Response</p>
-        <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
-      </GenericHero>
+      <Show when={!products.isLoading}>
+        <GenericHero>
+          <p className="branding">{selectedProduct?.productName}</p>
+          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+          <div className="mb-2">
+            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+          </div>
+          <Link className="btn mt-2" href={`/documentation?productName=hexscan`}><ReaderIcon className="icon-left" />View Documentation</Link>
+        </GenericHero>
+        <GenericHero>
+          <p className="branding">API Client (No need to pass Base URI)</p>
+          <form onSubmit={hitAPI}>
+            <Form.Label htmlFor="basic-url">Your test API endpoint {process.env.NODE_ENV === "production" ? Constants.BaseUri : Constants.BaseUriLocal}/hexscan/analyzer</Form.Label>
+            <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
+            <Button className="mt-3" type="submit"><RocketIcon className="icon-left" />Hit API</Button>
+          </form>
+          <p>Response</p>
+          <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
+        </GenericHero>
+      </Show>
+      <Show when={products.isLoading}>
+        <Loading />
+      </Show>
     </Container>
   )
 }

@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, useContext } from "react"
+import { Fragment, useCallback, useContext } from "react"
 import endPoints from "@/constants/apiEndpoints"
 import Show from "@/components/Show"
 import { Badge, Container, Row } from "react-bootstrap"
@@ -20,23 +20,37 @@ export default function Page() {
   const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "hyperedge" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "hyperedge")
 
-  const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
-    const genericProductCardProps: GenericProductCardInterface = {
-      badgeText: "Project",
-      className: "centralized",
-      headerText: db.name,
-      footerText: `This Database was created by you using Hyperedge on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-      redirectUri: `/products/hyperedge/db?dbId=${db._id}`
-    }
+  const displayDatabases = useCallback(() => {
+    const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
+      const genericProductCardProps: GenericProductCardInterface = {
+        badgeText: "Project",
+        className: "centralized",
+        headerText: db.name,
+        footerText: `This Database was created by you using Hyperedge on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        redirectUri: `/products/hyperedge/db?dbId=${db._id}`
+      }
+
+      return (
+        <GenericProductCard key={db._id} genericProductCardProps={genericProductCardProps} />
+      )
+    })
 
     return (
-      <GenericProductCard key={db._id} genericProductCardProps={genericProductCardProps} />
+      <Row className="mt-2 mb-2">
+        <Show when={!!dbs?.data?.dbs?.length}>
+          <h4 className="text-white">My Databases</h4>
+          {dbsToDisplay}
+        </Show >
+        <Show when={!dbs?.data?.dbs?.length}>
+          <h4 className="text-white">No Databases to display</h4>
+        </Show>
+      </Row>
     )
-  })
+  }, [dbs?.data])
 
   return (
     <Fragment>
-      <Show when={!dbs.isLoading}>
+      <Show when={!dbs.isLoading && !products.isLoading}>
         <Container>
           <GenericHero>
             <p className="branding">{selectedProduct?.productName}</p>
@@ -47,18 +61,10 @@ export default function Page() {
             </div>
             <Link className="btn" href="/products/hyperedge/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
           </GenericHero>
-          <Show when={dbs?.data?.dbs?.length > 0}>
-            <h4 className="text-white">My Databases</h4>
-            <Row className="mt-2 mb-2">
-              {dbsToDisplay}
-            </Row>
-          </Show>
-          <Show when={dbs?.data?.dbs?.length === 0}>
-            <h4 className="text-white">No databases to display</h4>
-          </Show>
+          {displayDatabases()}
         </Container>
       </Show>
-      <Show when={dbs.isLoading}>
+      <Show when={dbs.isLoading || products.isLoading}>
         <Loading />
       </Show>
     </Fragment>

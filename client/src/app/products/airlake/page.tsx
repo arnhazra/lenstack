@@ -17,16 +17,12 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
-  const dataLibrary = useFetch("find datasets", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const datasets = useFetch("find datasets", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
   const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "airlake" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "airlake")
 
-  const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
-    return <option className="options" key={category} value={category}>{category}</option>
-  })
-
   const displayDatasets = useCallback(() => {
-    const datasetsToDisplay = dataLibrary?.data?.datasets?.map((dataset: any) => {
+    const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
       const genericProductCardProps: GenericProductCardInterface = {
         badgeText: dataset.category,
         className: "centralized",
@@ -38,11 +34,21 @@ export default function Page() {
     })
 
     return (
-      <Row className="mb-4">
-        {datasetsToDisplay}
+      <Row className="mt-2 mb-2">
+        <Show when={!!datasets?.data?.datasets.length}>
+          <h4 className="text-white">Datasets</h4>
+          {datasetsToDisplay}
+        </Show>
+        <Show when={!datasets?.data?.datasets.length}>
+          <h4 className="text-white">No Datasets to display</h4>
+        </Show>
       </Row>
     )
-  }, [dataLibrary?.data])
+  }, [datasets?.data])
+
+  const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
+    return <option className="options" key={category} value={category}>{category}</option>
+  })
 
   const prevPage = () => {
     const prevDatasetReqNumber = datasetRequestState.offset - 36
@@ -58,7 +64,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!dataLibrary.isLoading && !filters.isLoading}>
+      <Show when={!datasets.isLoading && !filters.isLoading && !products.isLoading}>
         <Container>
           <GenericHero>
             <p className="branding">{selectedProduct?.productName}</p>
@@ -90,14 +96,14 @@ export default function Page() {
               </Col>
             </Row>
           </GenericHero>
-          {dataLibrary?.data?.datasets?.length ? displayDatasets() : <h4 className="text-white">No Results</h4>}
+          {displayDatasets()}
           <div className="text-center">
             {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
-            {dataLibrary?.data?.datasets?.length === 36 && <Button className="btn" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
+            {datasets?.data?.datasets?.length === 36 && <Button className="btn" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
           </div>
         </Container>
       </Show>
-      <Show when={dataLibrary.isLoading || filters.isLoading}>
+      <Show when={datasets.isLoading || filters.isLoading || products.isLoading}>
         <Loading />
       </Show>
     </Fragment >

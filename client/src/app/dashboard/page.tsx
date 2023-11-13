@@ -9,6 +9,7 @@ import { Container, Row } from "react-bootstrap"
 import { GenericProductCardInterface } from "@/types/Types"
 import GenericProductCard from "@/components/GenericProductCard"
 import { GlobalContext } from "@/context/globalStateProvider"
+import Error from "@/components/ErrorComp"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -29,10 +30,15 @@ export default function Page() {
 
     return (
       <Row className="mb-4">
-        {productsToDisplay}
+        <Show when={!!products?.data?.length}>
+          {productsToDisplay}
+        </Show>
+        <Show when={!products?.data?.length}>
+          <Error customMessage="No Products to display" />
+        </Show>
       </Row>
     )
-  }, [globalSearchString, products?.data])
+  }, [products?.data])
 
   return (
     <Fragment>

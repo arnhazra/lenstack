@@ -50,20 +50,6 @@ export default function Page() {
     })()
   }, [contractAddress?.data])
 
-  const nftsToDisplay = nftList?.map((nft: any) => {
-    const genericProductCardProps: GenericProductCardInterface = {
-      badgeText: "NFT",
-      className: "decentralized",
-      headerText: nft.name,
-      footerText: `This NFT was minted by you using Snowlake NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-      redirectUri: `/products/snowlake/nft?nftId=${nft.id}`
-    }
-
-    return (
-      <GenericProductCard key={nft.id} genericProductCardProps={genericProductCardProps} />
-    )
-  })
-
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.filter((nft: any) =>
       nft.name.toLowerCase().includes(globalSearchString)
@@ -82,15 +68,21 @@ export default function Page() {
     })
 
     return (
-      <Row className="mb-4">
-        {nftsToDisplay}
+      <Row className="mt-2 mb-2">
+        <Show when={!!nftsToDisplay?.length}>
+          <h4 className="text-white">My Collection</h4>
+          {nftsToDisplay}
+        </Show >
+        <Show when={!nftsToDisplay?.length}>
+          <h4 className="text-white">No NFTs to display</h4>
+        </Show>
       </Row>
     )
   }, [globalSearchString, nftList])
 
   return (
     <Fragment>
-      <Show when={!isLoading && !contractAddress.isLoading}>
+      <Show when={!isLoading && !contractAddress.isLoading && !products.isLoading}>
         <Container>
           <GenericHero>
             <p className="branding">{selectedProduct?.productName}</p>
@@ -101,16 +93,10 @@ export default function Page() {
             </div>
             <Link className="btn" href={"/products/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
           </GenericHero>
-          <Show when={nftList.length > 0}>
-            <h4 className="text-white">My Collection</h4>
-            {displayNfts()}
-          </Show>
-          <Show when={nftList.length === 0}>
-            <h4 className="text-white">No NFTs to display</h4>
-          </Show>
+          {displayNfts()}
         </Container>
       </Show>
-      <Show when={isLoading || contractAddress.isLoading}>
+      <Show when={isLoading || contractAddress.isLoading || products.isLoading}>
         <Loading />
       </Show>
     </Fragment>
