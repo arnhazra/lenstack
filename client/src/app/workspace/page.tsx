@@ -64,7 +64,6 @@ export default function Page() {
               {workspacesToDisplay}
             </Form.Select>
           </Form.Group>
-          <p className="lead">OR</p>
           <form onSubmit={createWorkspace}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Create Workspace</Form.Label>

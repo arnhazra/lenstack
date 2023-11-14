@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v3.0
+* Minor changes & performance improvements
+
 ### v2.9
 * Added useCallback to display search based results for all products and dashboard
 * Removed generic product page
