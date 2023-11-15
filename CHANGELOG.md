@@ -1,6 +1,8 @@
 # Lenstack Changelog
 
 ### v3.0
+* Fix search not being displayed on PROD
+* Removed Infura secret from env and merged with infura endpoint api to achieve reusability
 * Minor changes & performance improvements
 
 ### v2.9
