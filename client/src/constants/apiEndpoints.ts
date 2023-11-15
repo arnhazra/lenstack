@@ -1,7 +1,6 @@
 const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "https://lenstack.vercel.app"
 
 const endPoints = {
-  infuraEndpoint: `https://polygon-mumbai.infura.io/v3`,
   getapireference: `${apiHost}/api/apireference/getallbyproductname`,
   generatePassKeyEndpoint: `${apiHost}/api/user/generatepasskey`,
   verifyPassKeyEndpoint: `${apiHost}/api/user/verifypasskey`,

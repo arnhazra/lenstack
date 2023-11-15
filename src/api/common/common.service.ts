@@ -30,8 +30,8 @@ export class CommonService {
 
   getSecretConfig() {
     try {
-      const { lenstackNpaWalletAddress, nftContractAddress, infuraSecret } = envConfig
-      return { lenstackNpaWalletAddress, nftContractAddress, infuraSecret }
+      const { lenstackNpaWalletAddress, nftContractAddress, infuraEndpoint } = envConfig
+      return { lenstackNpaWalletAddress, nftContractAddress, infuraEndpoint }
     }
 
     catch (error) {

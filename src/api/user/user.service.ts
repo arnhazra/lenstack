@@ -21,7 +21,7 @@ export class UserService {
 
   constructor(private readonly userRepository: UserRepository, private readonly workspaceRepository: WorkspaceRepository) {
     this.authPrivateKey = envConfig.authPrivateKey
-    this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraSecret
+    this.infuraEndpoint = envConfig.infuraEndpoint
     this.web3Provider = new Web3(this.infuraEndpoint)
   }
 

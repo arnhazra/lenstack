@@ -17,8 +17,8 @@ import Web3 from "web3"
 export default function Page() {
   const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "edgepay" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "edgepay")
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.infuraEndpoint)
   const [{ userState }] = useContext(GlobalContext)
   const [matic, setMatic] = useState(0)
   const [receiverAddress, setReceiverAddress] = useState("")

@@ -25,8 +25,8 @@ export default function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const nftId = searchParams.get("nftId")
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.infuraEndpoint)
   const [{ userState }] = useContext(GlobalContext)
   const [selectedNft, setSelectedNft] = useState<any>()
   const [nftList, setNFTList] = useState([])
@@ -38,8 +38,8 @@ export default function Page() {
 
   useEffect(() => {
     (async () => {
-      if (!contractAddress.isLoading) {
-        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
+      if (!secretConfig.isLoading) {
+        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
         setLoading(true)
         const { privateKey } = userState
         const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
@@ -68,7 +68,7 @@ export default function Page() {
         }
       }
     })()
-  }, [nftId, contractAddress?.data])
+  }, [nftId, secretConfig?.data])
 
   const archiveNFT = async (nftId: any) => {
     const userConsent = await confirm("Are you sure to archive this NFT?")
@@ -76,13 +76,13 @@ export default function Page() {
     if (userConsent) {
       try {
         setArchiving(true)
-        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
+        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
         const { privateKey } = userState
         const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
         const archiveTxData = await nftContract.methods.archiveNFT(nftId).encodeABI()
         const archiveTx = {
           from: owner,
-          to: contractAddress?.data?.nftContractAddress,
+          to: secretConfig?.data?.nftContractAddress,
           data: archiveTxData,
           gasPrice: await web3Provider.eth.getGasPrice(),
           gas: 500000,
@@ -146,7 +146,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!contractAddress.isLoading && !isLoading && !isArchiving}>
+      <Show when={!secretConfig.isLoading && !isLoading && !isArchiving}>
         <Show when={!hasError}>
           <Container>
             <GenericHero>
@@ -163,7 +163,7 @@ export default function Page() {
                 <Col xs={12} sm={12} md={6} lg={8} xl={9}>
                   <p className="branding text-capitalize">{selectedNft?.name}</p>
                   <p className="muted-text">{selectedNft?.description}</p>
-                  <p className="lead">NFT Contract: {showAddress(contractAddress?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(contractAddress?.data?.nftContractAddress)} /></p>
+                  <p className="lead">NFT Contract: {showAddress(secretConfig?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(secretConfig?.data?.nftContractAddress)} /></p>
                   <p className="lead">Owner: {showAddress(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(selectedNft?.owner)} /></p>
                   <div className="mb-3">
                     <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
@@ -171,8 +171,8 @@ export default function Page() {
                     <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
                   </div>
                   <Link className="btn" href={selectedNft?.link ?? ""} passHref target="_blank">View Link<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`${Constants.PolygonScanBaseUri}/${contractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`${Constants.OpenseaBaseUri}/${contractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn" href={`${Constants.PolygonScanBaseUri}/${secretConfig?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn" href={`${Constants.OpenseaBaseUri}/${secretConfig?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
                   <Button onClick={() => archiveNFT(nftId)}>Archive NFT<ArchiveIcon className="icon-right" /></Button>
                 </Col>
               </Row>
@@ -187,7 +187,7 @@ export default function Page() {
           <Error />
         </Show>
       </Show>
-      <Show when={contractAddress.isLoading || isLoading || isArchiving}>
+      <Show when={secretConfig.isLoading || isLoading || isArchiving}>
         <Loading />
       </Show>
       {confirmDialog()}

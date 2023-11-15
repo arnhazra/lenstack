@@ -15,15 +15,15 @@ import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-ic
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.infuraEndpoint)
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")
   const [maticBalance, setMaticBalance] = useState("0")
 
   useEffect(() => {
     (async () => {
-      if (!contractAddress.isLoading) {
+      if (!secretConfig.isLoading) {
         try {
           const { privateKey } = userState
           const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
@@ -38,7 +38,7 @@ export default function Page() {
         }
       }
     })()
-  }, [userState, contractAddress.isLoading])
+  }, [userState, secretConfig.isLoading])
 
   const signOutFromAllDevices = async () => {
     try {

@@ -26,8 +26,8 @@ export default function page() {
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
   const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST, { searchQuery: "" })
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.infuraEndpoint)
   const selectedToken: TokenData = swapstreamTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [balance, setBalance] = useState(0)
@@ -177,7 +177,7 @@ export default function page() {
 
   return (
     <Container>
-      <Show when={!swapstreamTokenConfig.isLoading && !contractAddress.isLoading}>
+      <Show when={!swapstreamTokenConfig.isLoading && !secretConfig.isLoading}>
         <GenericHero>
           <p className="branding text-capitalize">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
@@ -201,7 +201,7 @@ export default function page() {
           {tokensToDisplay}
         </Row>
       </Show>
-      <Show when={swapstreamTokenConfig.isLoading || contractAddress.isLoading}>
+      <Show when={swapstreamTokenConfig.isLoading || secretConfig.isLoading}>
         <Loading />
       </Show>
       {promptDialog()}
