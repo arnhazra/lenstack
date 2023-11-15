@@ -16,13 +16,11 @@ import { WorkspaceRepository } from "../workspace/workspace.repository"
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
-  private readonly infuraEndpoint: string
   private readonly web3Provider: Web3
 
   constructor(private readonly userRepository: UserRepository, private readonly workspaceRepository: WorkspaceRepository) {
     this.authPrivateKey = envConfig.authPrivateKey
-    this.infuraEndpoint = envConfig.infuraEndpoint
-    this.web3Provider = new Web3(this.infuraEndpoint)
+    this.web3Provider = new Web3(envConfig.infuraGateway)
   }
 
   async generateIdentityPasskey(generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {

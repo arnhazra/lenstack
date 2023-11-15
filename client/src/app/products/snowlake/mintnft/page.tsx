@@ -17,7 +17,7 @@ import Constants from "@/constants/globalConstants"
 
 export default function Page() {
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.infuraEndpoint)
+  const web3Provider = new Web3(secretConfig?.data?.quicknodeGateway)
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })

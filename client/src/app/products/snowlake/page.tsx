@@ -19,7 +19,7 @@ import GenericHero from "@/components/GenericHero"
 
 export default function Page() {
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.infuraEndpoint)
+  const web3Provider = new Web3(secretConfig?.data?.quicknodeGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
