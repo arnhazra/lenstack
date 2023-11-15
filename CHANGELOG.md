@@ -1,6 +1,9 @@
 # Lenstack Changelog
 
 ### v3.0
+* Replaced Infura with Alchemy Gateway for Swapstream to distribute load
+* Replaced Infura with Quicknode Gateway for Snowlake to distribute load
+* Added Quicknode & Alchemy Web3 Gateway
 * Fix search not being displayed on PROD
 * Removed Infura secret from env and merged with infura endpoint api to achieve reusability
 * Minor changes & performance improvements
