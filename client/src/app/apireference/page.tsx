@@ -2,7 +2,7 @@
 import Show from "@/components/Show"
 import Constants from "@/constants/globalConstants"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
-import endPoints from "@/constants/apiEndpoints"
+import endPoints, { apiHost } from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import { useSearchParams } from "next/navigation"
@@ -23,7 +23,7 @@ export default function Page() {
         <p className="branding">{apiDoc.apiName}</p>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Method: {apiDoc.apiMethod}</Form.Label>
-          <Form.Control readOnly type="email" defaultValue={`${Constants.BaseUri}${apiDoc.apiUri}`} />
+          <Form.Control readOnly type="email" defaultValue={`${apiHost}${apiDoc.apiUri}`} />
         </Form.Group>
         <Show when={!!apiDoc.sampleRequestBody}>
           <p>Sample Request Body</p>

@@ -2,7 +2,7 @@
 import GenericHero from "@/components/GenericHero"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import endPoints, { apiHost } from "@/constants/apiEndpoints"
 import Constants from "@/constants/globalConstants"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
@@ -20,12 +20,14 @@ export default function Page() {
   const [response, setReseponse] = useState({})
   const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "hexscan" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "hexscan")
+  const [isLoading, setLoading] = useState(false)
 
   const hitAPI = async (e: any) => {
     e.preventDefault()
 
     try {
-      const res = await axios.post(`${process.env.NODE_ENV === "production" ? Constants.BaseUri : Constants.BaseUriLocal}/hexscan/analyzer${api}`)
+      setLoading(true)
+      const res = await axios.post(`${apiHost}/api/hexscan/analyzer${api}`)
       setReseponse(res.data)
     }
 
@@ -39,6 +41,10 @@ export default function Page() {
       else {
         toast.error(Constants.ToastError)
       }
+    }
+
+    finally {
+      setLoading(false)
     }
   }
 
@@ -59,9 +65,16 @@ export default function Page() {
         <GenericHero>
           <p className="branding">API Client (No need to pass Base URI)</p>
           <form onSubmit={hitAPI}>
-            <Form.Label htmlFor="basic-url">Your test API endpoint {process.env.NODE_ENV === "production" ? Constants.BaseUri : Constants.BaseUriLocal}/hexscan/analyzer</Form.Label>
+            <Form.Label htmlFor="basic-url">Your test API endpoint {apiHost}/api/hexscan/analyzer</Form.Label>
             <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
-            <Button className="mt-3" type="submit"><RocketIcon className="icon-left" />Hit API</Button>
+            <Button disabled={isLoading} className="mt-3" type="submit">
+              <Show when={!isLoading}>
+                <RocketIcon className="icon-left" />Hit API
+              </Show>
+              <Show when={isLoading}>
+                <i className="fas fa-circle-notch fa-spin"></i> Loading
+              </Show>
+            </Button>
           </form>
           <p>Response</p>
           <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
