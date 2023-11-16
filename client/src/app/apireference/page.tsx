@@ -1,7 +1,7 @@
 "use client"
 import Show from "@/components/Show"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
-import endPoints, { apiHost } from "@/constants/apiEndpoints"
+import { endPoints, apiHost } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import { useSearchParams } from "next/navigation"

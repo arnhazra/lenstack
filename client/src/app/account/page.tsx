@@ -1,7 +1,7 @@
 "use client"
 import { Fragment, useContext, useState, useEffect } from "react"
 import { Button, Col, Row } from "react-bootstrap"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import { GlobalContext } from "@/context/globalStateProvider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
@@ -42,7 +42,7 @@ export default function Page() {
 
   const signOutFromAllDevices = async () => {
     try {
-      await axios.post(endPoints.signOutEndpoint)
+      await axios.post(endPoints.signOut)
       localStorage.clear()
       window.location.replace("/")
     } catch (error) {

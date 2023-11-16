@@ -1,6 +1,6 @@
 "use client"
 import { Fragment, useCallback, useContext } from "react"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import Show from "@/components/Show"
 import { Badge, Container, Row } from "react-bootstrap"
 import Loading from "@/components/Loading"
@@ -16,8 +16,8 @@ import { GlobalContext } from "@/context/globalStateProvider"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const projects = useFetch("projects", endPoints.frostlakeGetProjectsEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString })
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "frostlake" })
+  const projects = useFetch("projects", endPoints.frostlakeGetProjects, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "frostlake" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "frostlake")
 
   const displayProjects = useCallback(() => {

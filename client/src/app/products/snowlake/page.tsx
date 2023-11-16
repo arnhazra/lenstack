@@ -1,7 +1,7 @@
 "use client"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useCallback, useContext, useEffect, useState } from "react"
@@ -23,7 +23,7 @@ export default function Page() {
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "snowlake" })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "snowlake" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "snowlake")
 
   useEffect(() => {

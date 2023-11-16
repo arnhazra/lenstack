@@ -2,7 +2,7 @@
 import GenericHero from "@/components/GenericHero"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import Constants from "@/constants/globalConstants"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
@@ -18,7 +18,7 @@ import "react-json-view-lite/dist/index.css"
 export default function Page() {
   const [api, setApi] = useState("")
   const [response, setReseponse] = useState({})
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "hexscan" })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "hexscan" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "hexscan")
   const [isLoading, setLoading] = useState(false)
 
@@ -27,7 +27,7 @@ export default function Page() {
 
     try {
       setLoading(true)
-      const res = await axios.post(`${endPoints.hexscanAnalyzerEnpoint}${api}`)
+      const res = await axios.post(`${endPoints.hexscanAnalyzer}${api}`)
       setReseponse(res.data)
     }
 
@@ -65,7 +65,7 @@ export default function Page() {
         <GenericHero>
           <p className="branding">API Client (No need to pass Base URI)</p>
           <form onSubmit={hitAPI}>
-            <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.hexscanAnalyzerEnpoint}</Form.Label>
+            <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.hexscanAnalyzer}</Form.Label>
             <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
             <Button disabled={isLoading} className="mt-3" type="submit">
               <Show when={!isLoading}>

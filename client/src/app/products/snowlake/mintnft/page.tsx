@@ -1,7 +1,7 @@
 "use client"
 import { nftABI } from "@/bin/nftABI"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import { GlobalContext } from "@/context/globalStateProvider"
 import useFetch from "@/hooks/useFetch"
@@ -30,7 +30,7 @@ export default function Page() {
     const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
 
     try {
-      await axios.post(endPoints.snowlakeCreateTxEndpoint)
+      await axios.post(endPoints.snowlakeCreateTx)
       const { name, description, link } = state
       const isArchived = false
       const newNFTData = nftContract.methods.createNFT(name, description, link, isArchived).encodeABI()

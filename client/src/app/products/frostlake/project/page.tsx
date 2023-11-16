@@ -2,7 +2,7 @@
 import Error from "@/components/ErrorComp"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
@@ -19,7 +19,7 @@ import GenericHero from "@/components/GenericHero"
 export default function Page() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectId")
-  const project = useFetch("view project", `${endPoints.frostlakeViewProjectEndpoint}?projectId`, HTTPMethods.POST, { projectId }, true)
+  const project = useFetch("view project", `${endPoints.frostlakeViewProject}?projectId`, HTTPMethods.POST, { projectId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
@@ -39,7 +39,7 @@ export default function Page() {
     const userConsent = await confirm("Are you sure to archive this project?")
 
     if (userConsent) {
-      await axios.delete(`${endPoints.frostlakeDeleteProjectEndpoint}?projectId=${projectId}`)
+      await axios.delete(`${endPoints.frostlakeDeleteProject}?projectId=${projectId}`)
       router.push("/products/frostlake")
     }
   }

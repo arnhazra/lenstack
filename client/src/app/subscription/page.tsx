@@ -3,7 +3,7 @@ import { Fragment, useContext, useState } from "react"
 import { GlobalContext } from "@/context/globalStateProvider"
 import Show from "@/components/Show"
 import { toast } from "react-hot-toast"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import Loading from "@/components/Loading"
@@ -21,7 +21,7 @@ export default function Page() {
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(secretConfig?.data?.infuraGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
+  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfig, HTTPMethods.POST)
   const router = useRouter()
   const [selectedPlan] = useState("Pro")
   const [isTxProcessing, setTxProcessing] = useState(false)
@@ -43,7 +43,7 @@ export default function Page() {
 
     if (userConsent) {
       try {
-        await axios.post(endPoints.activateTrialEndpoint)
+        await axios.post(endPoints.activateTrial)
         dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         setDisplayTrialButton(false)
         toast.success(Constants.ToastSuccess)
@@ -77,7 +77,7 @@ export default function Page() {
         if (signedApprovalTx.rawTransaction) {
           const res = await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
           const { transactionHash } = res
-          await axios.post(`${endPoints.subscribeEndpoint}`, { selectedPlan, transactionHash })
+          await axios.post(`${endPoints.subscribe}`, { selectedPlan, transactionHash })
           dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
           toast.success(Constants.TransactionSuccess)
         }
