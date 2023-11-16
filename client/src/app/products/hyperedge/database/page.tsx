@@ -21,7 +21,6 @@ export default function Page() {
   const db = useFetch("view db", `${endPoints.hyperedgeViewDbEndpoint}`, HTTPMethods.POST, { dbId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
-  console.log(db.error)
 
   const kvsToDisplay = db?.data?.kvs?.map((kv: any) => {
     return (

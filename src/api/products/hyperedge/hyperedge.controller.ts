@@ -5,7 +5,7 @@ import { CreateDbDto } from "./dto/create-db.dto"
 import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
-@Controller("hyperedge")
+@Controller("products/hyperedge")
 export class HyperedgeController {
   constructor(private readonly hyperedgeService: HyperedgeService) { }
 

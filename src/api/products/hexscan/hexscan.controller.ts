@@ -4,7 +4,7 @@ import { envConfig } from "src/config/envConfig"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 import { statusMessages } from "src/constants/statusMessages"
 
-@Controller("hexscan")
+@Controller("products/hexscan")
 export class HexscanController {
   constructor(private readonly hexscanService: HexscanService) { }
 

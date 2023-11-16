@@ -4,7 +4,7 @@ import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/
 import { statusMessages } from "src/constants/statusMessages"
 import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 
-@Controller("swapstream")
+@Controller("products/swapstream")
 export class SwapstreamController {
   constructor(private readonly swapstreamService: SwapstreamService) { }
 

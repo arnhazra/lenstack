@@ -5,7 +5,7 @@ import { CreateProjectDto } from "./dto/create-project.dto"
 import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
-@Controller("frostlake")
+@Controller("products/frostlake")
 export class FrostlakeController {
   constructor(private readonly frostlakeService: FrostlakeService) { }
 

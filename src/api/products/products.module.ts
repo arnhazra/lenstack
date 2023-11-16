@@ -6,8 +6,10 @@ import { EdgepayModule } from "./edgepay/edgepay.module"
 import { SnowlakeModule } from "./snowlake/snowlake.module"
 import { HyperedgeModule } from "./hyperedge/hyperedge.module"
 import { HexscanModule } from "./hexscan/hexscan.module"
+import { ProductsController } from "./products.controller"
 
 @Module({
+  controllers: [ProductsController],
   imports: [AirlakeModule, FrostlakeModule, SwapstreamModule, EdgepayModule, SnowlakeModule, HyperedgeModule, HexscanModule]
 })
 

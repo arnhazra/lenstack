@@ -4,7 +4,7 @@ import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
-@Controller("airlake")
+@Controller("products/airlake")
 export class AirlakeController {
   constructor(private readonly airlakeService: AirlakeService) { }
 

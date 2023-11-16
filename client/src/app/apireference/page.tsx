@@ -1,6 +1,5 @@
 "use client"
 import Show from "@/components/Show"
-import Constants from "@/constants/globalConstants"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import endPoints, { apiHost } from "@/constants/apiEndpoints"
 import HTTPMethods from "@/constants/httpMethods"

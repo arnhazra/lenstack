@@ -3,7 +3,7 @@ import { EdgepayService } from "./edgepay.service"
 import { statusMessages } from "../../../constants/statusMessages"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
-@Controller("edgepay")
+@Controller("products/edgepay")
 export class EdgepayController {
   constructor(private readonly edgepayService: EdgepayService) { }
 

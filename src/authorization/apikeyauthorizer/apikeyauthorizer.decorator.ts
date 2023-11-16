@@ -13,7 +13,7 @@ export const ApiKeyAuthorizer = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext): Promise<ApiKeyAuthorizerReturnType> => {
     const request = ctx.switchToHttp().getRequest()
     const apiKey = request.headers["x-api-key"]
-    const requestedResource = String(request.originalUrl).split("/")[2]
+    const requestedResource = String(request.originalUrl).split("/")[3]
 
     if (!apiKey) {
       throw new ForbiddenException(statusMessages.noApiKey)

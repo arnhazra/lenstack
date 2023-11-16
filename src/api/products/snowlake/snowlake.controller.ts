@@ -3,7 +3,7 @@ import { SnowlakeService } from "./snowlake.service"
 import { statusMessages } from "../../../constants/statusMessages"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
-@Controller("snowlake")
+@Controller("products/snowlake")
 export class SnowlakeController {
   constructor(private readonly snowlakeService: SnowlakeService) { }
 
