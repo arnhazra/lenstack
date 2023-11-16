@@ -12,7 +12,7 @@ import Link from "next/link"
 import GenericHero from "@/components/generichero.component"
 import { GenericProductCardInterface } from "@/types/Types"
 import GenericProductCard from "@/components/genericproductcard.component"
-import { GlobalContext } from "@/context/globalStateProvider"
+import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)

@@ -8,7 +8,7 @@ import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
-import { GlobalContext } from "@/context/globalStateProvider"
+import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
   const [state, setState] = useState({ name: "", isLoading: false })

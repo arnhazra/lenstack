@@ -12,7 +12,7 @@ import HTTPMethods from "@/constants/http.methods"
 import { DatasetRequestState, GenericProductCardInterface } from "@/types/Types"
 import GenericProductCard from "@/components/genericproductcard.component"
 import GenericHero from "@/components/generichero.component"
-import { GlobalContext } from "@/context/globalStateProvider"
+import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)

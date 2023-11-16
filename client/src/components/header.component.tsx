@@ -7,7 +7,7 @@ import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
 import Constants from "@/constants/global.constants"
 import debounce from "lodash.debounce"
-import { GlobalContext } from "@/context/globalStateProvider"
+import { GlobalContext } from "@/context/globalstate.provider"
 
 interface HeaderProps {
   isAuthorized: boolean,

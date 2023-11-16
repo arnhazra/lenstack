@@ -8,7 +8,7 @@ import Loading from "@/components/loading.component"
 import { Container, Row } from "react-bootstrap"
 import { GenericProductCardInterface } from "@/types/Types"
 import GenericProductCard from "@/components/genericproductcard.component"
-import { GlobalContext } from "@/context/globalStateProvider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error.component"
 
 export default function Page() {

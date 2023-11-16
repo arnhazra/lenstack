@@ -1,7 +1,7 @@
 "use client"
 import axios from "axios"
 import IdentityProvider from "@/providers/identity.provider"
-import { GlobalStateProvider } from "@/context/globalStateProvider"
+import { GlobalStateProvider } from "@/context/globalstate.provider"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"

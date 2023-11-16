@@ -1,6 +1,6 @@
 "use client"
 import { FC, createContext, useCallback, useMemo, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer } from "./globalReducer"
+import { GlobalState, Actions, ActionsMap, GlobalReducer } from "./globalstate.reducer"
 import { GlobalStateProviderProps, UserState } from "@/types/Types"
 
 export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsMap[Type]>(type: Type,

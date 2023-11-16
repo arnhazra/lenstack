@@ -1,6 +1,6 @@
 "use client"
 import { Fragment, useContext, useState } from "react"
-import { GlobalContext } from "@/context/globalStateProvider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import Show from "@/components/show.component"
 import { toast } from "react-hot-toast"
 import { endPoints } from "@/constants/api.endpoints"

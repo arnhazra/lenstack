@@ -2,7 +2,7 @@
 import { Fragment, useContext, useState, useEffect } from "react"
 import { Button, Col, Row } from "react-bootstrap"
 import { endPoints } from "@/constants/api.endpoints"
-import { GlobalContext } from "@/context/globalStateProvider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import Constants from "@/constants/global.constants"
