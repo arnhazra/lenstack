@@ -3,7 +3,7 @@ import Header from "@/components/Header"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
 import { motion } from "framer-motion"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import Constants from "@/constants/globalConstants"
 import { GlobalContext } from "@/context/globalStateProvider"
 import axios from "axios"
@@ -23,7 +23,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
     if (localStorage.getItem("accessToken")) {
       (async () => {
         try {
-          const response = await axios.post(endPoints.userDetailsEndpoint)
+          const response = await axios.post(endPoints.userDetails)
           const userId = response.data.user._id
           const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
           const { name: selectedWorkspaceName } = response.data.workspace

@@ -2,7 +2,7 @@
 import GenericHero from "@/components/GenericHero"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import Constants from "@/constants/globalConstants"
 import HTTPMethods from "@/constants/httpMethods"
 import { GlobalContext } from "@/context/globalStateProvider"
@@ -15,10 +15,10 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
 export default function Page() {
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "edgepay" })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "edgepay" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "edgepay")
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.infuraGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [matic, setMatic] = useState(0)
   const [receiverAddress, setReceiverAddress] = useState("")
@@ -30,7 +30,7 @@ export default function Page() {
 
     try {
       setLoading(true)
-      await axios.post(endPoints.edgepayCreateTxEndpoint)
+      await axios.post(endPoints.edgepayCreateTx)
       const gasPrice = await web3Provider.eth.getGasPrice()
 
       const transactionObject = {

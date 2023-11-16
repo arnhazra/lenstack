@@ -1,6 +1,6 @@
 "use client"
 import useFetch from "@/hooks/useFetch"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/Show"
@@ -13,7 +13,7 @@ import Error from "@/components/ErrorComp"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: globalSearchString })
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {

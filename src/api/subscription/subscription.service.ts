@@ -7,16 +7,15 @@ import { statusMessages } from "src/constants/statusMessages"
 import { otherConstants } from "src/constants/otherConstants"
 import { envConfig } from "src/config/envConfig"
 import { SubscribeDto } from "./dto/subscribe.dto"
+import { subscriptionConfig } from "src/config/subscriptionConfig"
 
 @Injectable()
 export class SubscriptionService {
-  private readonly infuraEndpoint: string
   private readonly web3Provider: Web3
 
   constructor(private readonly subscriptionRepository: SubscriptionRepository,
     private readonly userRepository: UserRepository) {
-    this.infuraEndpoint = otherConstants.infuraEndpoint + "/" + envConfig.infuraSecret
-    this.web3Provider = new Web3(this.infuraEndpoint)
+    this.web3Provider = new Web3(envConfig.infuraGateway)
   }
 
   async activateTrial(userId: string, workspaceId: string) {
@@ -78,6 +77,16 @@ export class SubscriptionService {
       else {
         throw new BadRequestException(statusMessages.connectionError)
       }
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  getSubscriptionConfig() {
+    try {
+      return subscriptionConfig
     }
 
     catch (error) {

@@ -1,5 +1,17 @@
 # Lenstack Changelog
 
+### v3.0
+* Created DTO for all controllers wherever required to avoid raw data extraction from request body
+* Code refactoring
+* APIReference updates for products API as per new API Routes
+* Braking API Changes - Added products as prefix on each product api
+* Replaced Infura with Alchemy Gateway for Swapstream to distribute load
+* Replaced Infura with Quicknode Gateway for Snowlake to distribute load
+* Added Quicknode & Alchemy Web3 Gateway
+* Fix search not being displayed on PROD
+* Removed Infura secret from env and merged with infura endpoint api to achieve reusability
+* Minor changes & performance improvements
+
 ### v2.9
 * Added useCallback to display search based results for all products and dashboard
 * Removed generic product page

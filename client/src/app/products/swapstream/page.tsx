@@ -1,7 +1,7 @@
 "use client"
 import GenericProductCard from "@/components/GenericProductCard"
 import { GenericProductCardInterface, TokenData } from "@/types/Types"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import { Badge, Container, Row } from "react-bootstrap"
@@ -13,8 +13,8 @@ import GenericHero from "@/components/GenericHero"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfigEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString })
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "swapstream" })
+  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfig, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "swapstream" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "swapstream")
 
   const displayTokens = useCallback(() => {

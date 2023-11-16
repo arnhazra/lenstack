@@ -1,7 +1,7 @@
 "use client"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints }from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import { GlobalContext } from "@/context/globalStateProvider"
 import useFetch from "@/hooks/useFetch"
@@ -64,7 +64,6 @@ export default function Page() {
               {workspacesToDisplay}
             </Form.Select>
           </Form.Group>
-          <p className="lead">OR</p>
           <form onSubmit={createWorkspace}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Create Workspace</Form.Label>

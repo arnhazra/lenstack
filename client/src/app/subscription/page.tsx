@@ -3,11 +3,10 @@ import { Fragment, useContext, useState } from "react"
 import { GlobalContext } from "@/context/globalStateProvider"
 import Show from "@/components/Show"
 import { toast } from "react-hot-toast"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import Loading from "@/components/Loading"
-import constants from "@/constants/globalConstants"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
 import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
@@ -19,13 +18,12 @@ import useConfirm from "@/hooks/useConfirm"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.infuraGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfigEndpoint, HTTPMethods.POST)
+  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfig, HTTPMethods.POST)
   const router = useRouter()
-  const secretConfig = useFetch("secrets", endPoints.getSecretConfig, HTTPMethods.POST)
   const [selectedPlan] = useState("Pro")
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${secretConfig?.data?.infuraSecret}`)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
@@ -45,7 +43,7 @@ export default function Page() {
 
     if (userConsent) {
       try {
-        await axios.post(endPoints.activateTrialEndpoint)
+        await axios.post(endPoints.activateTrial)
         dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         setDisplayTrialButton(false)
         toast.success(Constants.ToastSuccess)
@@ -79,7 +77,7 @@ export default function Page() {
         if (signedApprovalTx.rawTransaction) {
           const res = await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
           const { transactionHash } = res
-          await axios.post(`${endPoints.subscribeEndpoint}`, { selectedPlan, transactionHash })
+          await axios.post(`${endPoints.subscribe}`, { selectedPlan, transactionHash })
           dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
           toast.success(Constants.TransactionSuccess)
         }
@@ -102,7 +100,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!pricingDetails.isLoading && !contractAddress.isLoading}>
+      <Show when={!pricingDetails.isLoading && !secretConfig.isLoading}>
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text">Subscribe & Track your API Key usage from here</p>
@@ -189,7 +187,7 @@ export default function Page() {
           </Fragment>
         </div>
       </Show>
-      <Show when={pricingDetails.isLoading || contractAddress.isLoading}>
+      <Show when={pricingDetails.isLoading || secretConfig.isLoading}>
         <Loading />
       </Show>
       {confirmDialog()}

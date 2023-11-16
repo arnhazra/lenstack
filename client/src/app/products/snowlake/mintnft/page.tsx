@@ -1,7 +1,7 @@
 "use client"
 import { nftABI } from "@/bin/nftABI"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import { GlobalContext } from "@/context/globalStateProvider"
 import useFetch from "@/hooks/useFetch"
@@ -16,8 +16,8 @@ import { useRouter } from "next/navigation"
 import Constants from "@/constants/globalConstants"
 
 export default function Page() {
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.quicknodeGateway)
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })
@@ -27,17 +27,17 @@ export default function Page() {
     setState({ ...state, isLoading: true })
     const { privateKey } = userState
     const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-    const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
+    const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
 
     try {
-      await axios.post(endPoints.snowlakeCreateTxEndpoint)
+      await axios.post(endPoints.snowlakeCreateTx)
       const { name, description, link } = state
       const isArchived = false
       const newNFTData = nftContract.methods.createNFT(name, description, link, isArchived).encodeABI()
 
       const newNFTTx = {
         from: owner,
-        to: contractAddress?.data?.nftContractAddress,
+        to: secretConfig?.data?.nftContractAddress,
         data: newNFTData,
         gasPrice: await web3Provider.eth.getGasPrice(),
         gas: 500000,

@@ -2,7 +2,7 @@
 import Error from "@/components/ErrorComp"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
@@ -18,7 +18,7 @@ import GenericHero from "@/components/GenericHero"
 export default function Page() {
   const searchParams = useSearchParams()
   const dbId = searchParams.get("dbId")
-  const db = useFetch("view db", `${endPoints.hyperedgeViewDbEndpoint}`, HTTPMethods.POST, { dbId }, true)
+  const db = useFetch("view db", `${endPoints.hyperedgeViewDb}`, HTTPMethods.POST, { dbId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
@@ -35,7 +35,7 @@ export default function Page() {
     const userConsent = await confirm("Are you sure to archive this db?")
 
     if (userConsent) {
-      await axios.delete(`${endPoints.hyperedgeDeleteDbEndpoint}?dbId=${dbId}`)
+      await axios.delete(`${endPoints.hyperedgeDeleteDb}?dbId=${dbId}`)
       router.push("/products/hyperedge")
     }
   }
@@ -53,7 +53,7 @@ export default function Page() {
   return (
     <Fragment>
       <Show when={!db?.isLoading}>
-        <Show when={!db.error || !!dbId}>
+        <Show when={!!dbId && !db.error}>
           <Container>
             <GenericHero>
               <p className="branding text-capitalize">{db?.data?.db?.name}</p>
@@ -79,7 +79,7 @@ export default function Page() {
             {confirmDialog()}
           </Container>
         </Show>
-        <Show when={!!db.error || !dbId}>
+        <Show when={!dbId || !!db.error}>
           <Error />
         </Show>
       </Show>

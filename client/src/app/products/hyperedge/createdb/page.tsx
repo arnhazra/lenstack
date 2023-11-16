@@ -1,6 +1,6 @@
 "use client"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -21,9 +21,9 @@ export default function Page() {
     try {
       const { name } = state
       setState({ ...state, isLoading: true })
-      const response = await axios.post(endPoints.hyperedgeCreateDbEndpoint, { name })
+      const response = await axios.post(endPoints.hyperedgeCreateDb, { name })
       toast.success("Db Created")
-      router.push(`/products/hyperedge/db?dbId=${response.data.db._id}`)
+      router.push(`/products/hyperedge/database?dbId=${response.data.db._id}`)
     }
 
     catch (error: any) {

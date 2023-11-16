@@ -4,7 +4,7 @@ import axios from "axios"
 import { Button, Form } from "react-bootstrap"
 import Constants from "@/constants/globalConstants"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
@@ -26,7 +26,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
     setLoading(true)
 
     try {
-      const response = await axios.post(endPoints.generatePassKeyEndpoint, state)
+      const response = await axios.post(endPoints.generatePassKey, state)
       setState({ ...state, hash: response.data.hash })
       toast.success(response.data.message)
       setIdentityStep(2)
@@ -46,7 +46,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
     setLoading(true)
 
     try {
-      const response = await axios.post(endPoints.verifyPassKeyEndpoint, state)
+      const response = await axios.post(endPoints.verifyPassKey, state)
       localStorage.setItem("accessToken", response.data.accessToken)
       toast.success(Constants.IdentityVerificationSuccess)
       setLoading(false)

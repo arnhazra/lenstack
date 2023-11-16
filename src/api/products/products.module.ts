@@ -8,7 +8,7 @@ import { HyperedgeModule } from "./hyperedge/hyperedge.module"
 import { HexscanModule } from "./hexscan/hexscan.module"
 
 @Module({
-  imports: [AirlakeModule, FrostlakeModule, SwapstreamModule, EdgepayModule, SnowlakeModule, HyperedgeModule, HexscanModule]
+  imports: [AirlakeModule, FrostlakeModule, SwapstreamModule, EdgepayModule, SnowlakeModule, HyperedgeModule, HexscanModule],
 })
 
 export class ProductsModule { }

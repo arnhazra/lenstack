@@ -1,7 +1,7 @@
 "use client"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useCallback, useContext, useEffect, useState } from "react"
@@ -18,18 +18,18 @@ import { GenericProductCardInterface } from "@/types/Types"
 import GenericHero from "@/components/GenericHero"
 
 export default function Page() {
-  const contractAddress = useFetch("contract-address", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(`${endPoints.infuraEndpoint}/${contractAddress?.data?.infuraSecret}`)
+  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
+  const web3Provider = new Web3(secretConfig?.data?.quicknodeGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "snowlake" })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "snowlake" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "snowlake")
 
   useEffect(() => {
     (async () => {
-      if (!contractAddress.isLoading) {
-        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, contractAddress?.data?.nftContractAddress)
+      if (!secretConfig.isLoading) {
+        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
         setLoading(true)
         const { privateKey } = userState
         const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
@@ -48,7 +48,7 @@ export default function Page() {
         }
       }
     })()
-  }, [contractAddress?.data])
+  }, [secretConfig?.data])
 
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.filter((nft: any) =>
@@ -82,7 +82,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!isLoading && !contractAddress.isLoading && !products.isLoading}>
+      <Show when={!isLoading && !secretConfig.isLoading && !products.isLoading}>
         <Container>
           <GenericHero>
             <p className="branding">{selectedProduct?.productName}</p>
@@ -96,7 +96,7 @@ export default function Page() {
           {displayNfts()}
         </Container>
       </Show>
-      <Show when={isLoading || contractAddress.isLoading || products.isLoading}>
+      <Show when={isLoading || secretConfig.isLoading || products.isLoading}>
         <Loading />
       </Show>
     </Fragment>

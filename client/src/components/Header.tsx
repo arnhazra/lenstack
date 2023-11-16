@@ -49,7 +49,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
               <TextAlignLeftIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
-              <Show when={searchEnabledPathNames.includes(pathname)}>
+              <Show when={searchEnabledPathNames.includes(pathname) || searchEnabledPathNames.includes(`${pathname}/`)}>
                 <Nav className="ms-auto">
                   <input ref={searchRef} placeholder="What are you looking for ?" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Nav>
@@ -72,7 +72,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon className="navbar-nav-toggle" />
+              <TextAlignLeftIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">

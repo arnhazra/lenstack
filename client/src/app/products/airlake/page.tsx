@@ -7,7 +7,7 @@ import { Fragment } from "react"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
 import useFetch from "@/hooks/useFetch"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import { DatasetRequestState, GenericProductCardInterface } from "@/types/Types"
 import GenericProductCard from "@/components/GenericProductCard"
@@ -17,9 +17,9 @@ import { GlobalContext } from "@/context/globalStateProvider"
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useFetch("filters", endPoints.airlakeFiltersEndpoint, HTTPMethods.POST)
-  const datasets = useFetch("find datasets", endPoints.airlakeFindDatasetsEndpoint, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
-  const products = useFetch("get-products", endPoints.getProductConfigEndpoint, HTTPMethods.POST, { searchQuery: "airlake" })
+  const filters = useFetch("filters", endPoints.airlakeFilters, HTTPMethods.POST)
+  const datasets = useFetch("find datasets", endPoints.airlakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "airlake" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "airlake")
 
   const displayDatasets = useCallback(() => {

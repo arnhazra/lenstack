@@ -1,10 +1,9 @@
 "use client"
-import { useContext } from "react"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import Loading from "@/components/Loading"
 import Show from "@/components/Show"
-import endPoints from "@/constants/apiEndpoints"
+import { endPoints } from "@/constants/endPoints"
 import { toast } from "react-hot-toast"
 import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/httpMethods"
@@ -19,8 +18,8 @@ import GenericHero from "@/components/GenericHero"
 export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
-  const dataset = useFetch("view dataset", endPoints.airlakeViewDatasetsEndpoint, HTTPMethods.POST, { datasetId })
-  const similarDatasets = useFetch("similar datasets", endPoints.airlakeFindSimilarDatasetsEndpoint, HTTPMethods.POST, { datasetId })
+  const dataset = useFetch("view dataset", endPoints.airlakeViewDatasets, HTTPMethods.POST, { datasetId })
+  const similarDatasets = useFetch("similar datasets", endPoints.airlakeFindSimilarDatasets, HTTPMethods.POST, { datasetId })
 
   const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
     const genericProductCardProps: GenericProductCardInterface = {

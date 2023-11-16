@@ -22,8 +22,6 @@ enum Constants {
   DefaultNftImage = "https://cdn-icons-png.flaticon.com/512/8133/8133529.png",
   PolygonScanBaseUri = "https://mumbai.polygonscan.com/nft",
   OpenseaBaseUri = "https://testnets.opensea.io/assets/mumbai",
-  BaseUri = "https://lenstack.vercel.app/api",
-  BaseUriLocal = "http://localhost:8000/api",
   MumbaiFaucetUri = "https://mumbaifaucet.com",
   LinkedinUri = "https://www.linkedin.com/in/arnhazra",
 }
