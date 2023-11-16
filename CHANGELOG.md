@@ -1,6 +1,8 @@
 # Lenstack Changelog
 
 ### v3.0
+* Created DTO for all controllers wherever required to avoid raw data extraction from request body
+* Code refactoring
 * APIReference updates for products API as per new API Routes
 * Braking API Changes - Added products as prefix on each product api
 * Replaced Infura with Alchemy Gateway for Swapstream to distribute load
