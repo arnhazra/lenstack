@@ -1,5 +1,5 @@
 "use client"
-import { nftABI } from "@/bin/nftABI"
+import { nftABI } from "@/bin/nft.abi"
 import Error from "@/components/error.component"
 import GenericProductCard from "@/components/genericproductcard.component"
 import GenericHero from "@/components/generichero.component"

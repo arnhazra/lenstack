@@ -1,5 +1,5 @@
 "use client"
-import { nftABI } from "@/bin/nftABI"
+import { nftABI } from "@/bin/nft.abi"
 import Show from "@/components/show.component"
 import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
