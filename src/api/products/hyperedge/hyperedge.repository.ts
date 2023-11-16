@@ -5,7 +5,7 @@ import { HyperedgeKvModel } from "./entities/hyperedge-kv.entity"
 @Injectable()
 export class HyperedgeRepository {
   async countDbs(workspaceId: string) {
-    const count = await HyperedgeDbModel.find({ workspaceId }).count()
+    const count = await HyperedgeDbModel.find({ workspaceId }).estimatedDocumentCount()
     return count
   }
 

@@ -5,7 +5,7 @@ import { FrostlakeAnalyticsModel } from "./entities/frostlake-analytics.entity"
 @Injectable()
 export class FrostlakeRepository {
   async countProjects(workspaceId: string) {
-    const count = await FrostlakeProjectModel.find({ workspaceId }).count()
+    const count = await FrostlakeProjectModel.find({ workspaceId }).estimatedDocumentCount()
     return count
   }
 
