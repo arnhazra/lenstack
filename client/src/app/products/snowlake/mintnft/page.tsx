@@ -1,8 +1,8 @@
 "use client"
 import { nftABI } from "@/bin/nftABI"
 import Show from "@/components/show.component"
-import { endPoints } from "@/constants/endPoints"
-import HTTPMethods from "@/constants/httpMethods"
+import { endPoints } from "@/constants/api.endpoints"
+import HTTPMethods from "@/constants/http.methods"
 import { GlobalContext } from "@/context/globalStateProvider"
 import useFetch from "@/hooks/useFetch"
 import Link from "next/link"
@@ -13,7 +13,7 @@ import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import Constants from "@/constants/globalConstants"
+import Constants from "@/constants/global.constants"
 
 export default function Page() {
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)

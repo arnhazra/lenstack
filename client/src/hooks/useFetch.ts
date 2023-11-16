@@ -2,7 +2,7 @@
 import axios, { Method } from "axios"
 import { useQuery } from "@tanstack/react-query"
 import { toast } from "react-hot-toast"
-import Constants from "@/constants/globalConstants"
+import Constants from "@/constants/global.constants"
 
 export default function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object, isRealtime?: boolean, queryId?: string) {
   const fetchDataFunction = async () => {

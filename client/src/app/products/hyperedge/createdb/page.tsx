@@ -1,6 +1,6 @@
 "use client"
 import Show from "@/components/show.component"
-import { endPoints } from "@/constants/endPoints"
+import { endPoints } from "@/constants/api.endpoints"
 import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"

@@ -5,7 +5,7 @@ import Show from "./show.component"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
-import Constants from "@/constants/globalConstants"
+import Constants from "@/constants/global.constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalStateProvider"
 
