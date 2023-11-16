@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v3.0
+* APIReference updates for products API as per new API Routes
 * Braking API Changes - Added products as prefix on each product api
 * Replaced Infura with Alchemy Gateway for Swapstream to distribute load
 * Replaced Infura with Quicknode Gateway for Snowlake to distribute load

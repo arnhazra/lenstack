@@ -14,7 +14,7 @@ import GenericHero from "@/components/GenericHero"
 export default function Page() {
   const searchParams = useSearchParams()
   const productName = searchParams.get("productName")
-  const apireference = useFetch("docs", `${endPoints.getapireference}`, HTTPMethods.POST, { productName })
+  const apireference = useFetch("apireference", `${endPoints.getapireference}`, HTTPMethods.POST, { productName })
 
   const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {
     return (
