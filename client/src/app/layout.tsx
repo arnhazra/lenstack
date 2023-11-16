@@ -6,11 +6,11 @@ import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import "bootstrap/dist/css/bootstrap.min.css"
-import "@/styles/global.sass"
-import "@/styles/header.sass"
-import "@/styles/button.sass"
-import "@/styles/form.sass"
-import "@/styles/genericproductcard.sass"
+import "@/styles/global.style.sass"
+import "@/styles/header.style.sass"
+import "@/styles/button.style.sass"
+import "@/styles/form.style.sass"
+import "@/styles/genericproductcard.style.sass"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
