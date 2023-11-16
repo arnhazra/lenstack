@@ -28,4 +28,15 @@ export class SubscriptionController {
       throw error
     }
   }
+
+  @Post("getsubscriptionconfig")
+  getSubscriptionConfig(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
+    try {
+      return this.subscriptionService.getSubscriptionConfig()
+    }
+
+    catch (error) {
+      throw error
+    }
+  }
 }

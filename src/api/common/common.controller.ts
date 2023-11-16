@@ -18,17 +18,6 @@ export class CommonController {
     }
   }
 
-  @Post("getsubscriptionconfig")
-  getSubscriptionConfig(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
-    try {
-      return this.commonService.getSubscriptionConfig()
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
   @Post("getsecretconfig")
   getSecretConfig(@TokenAuthorizer() uft: TokenAuthorizerReturnType) {
     try {

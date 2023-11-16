@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { envConfig } from "src/config/envConfig"
-import { subscriptionConfig } from "src/config/subscriptionConfig"
 import { statusMessages } from "src/constants/statusMessages"
 import { CommonRepository } from "./common.repository"
 
@@ -11,16 +10,6 @@ export class CommonService {
     try {
       const products = await this.commonRepository.getproductConfig(searchQuery)
       return products
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  getSubscriptionConfig() {
-    try {
-      return subscriptionConfig
     }
 
     catch (error) {

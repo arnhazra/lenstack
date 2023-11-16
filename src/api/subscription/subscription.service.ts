@@ -7,6 +7,7 @@ import { statusMessages } from "src/constants/statusMessages"
 import { otherConstants } from "src/constants/otherConstants"
 import { envConfig } from "src/config/envConfig"
 import { SubscribeDto } from "./dto/subscribe.dto"
+import { subscriptionConfig } from "src/config/subscriptionConfig"
 
 @Injectable()
 export class SubscriptionService {
@@ -76,6 +77,16 @@ export class SubscriptionService {
       else {
         throw new BadRequestException(statusMessages.connectionError)
       }
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  getSubscriptionConfig() {
+    try {
+      return subscriptionConfig
     }
 
     catch (error) {
