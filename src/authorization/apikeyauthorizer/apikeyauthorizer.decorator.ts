@@ -4,13 +4,13 @@ import { WorkspaceModel } from "src/api/workspace/entities/workspace.entity"
 import { apiPricing } from "src/config/subscriptionConfig"
 import { statusMessages } from "src/constants/statusMessages"
 
-export interface ApiKeyAuthorizerReturnType {
+export interface ApiKeyAuthorizerResponse {
   userId: string,
   workspaceId: string
 }
 
 export const ApiKeyAuthorizer = createParamDecorator(
-  async (data: unknown, ctx: ExecutionContext): Promise<ApiKeyAuthorizerReturnType> => {
+  async (data: unknown, ctx: ExecutionContext): Promise<ApiKeyAuthorizerResponse> => {
     const request = ctx.switchToHttp().getRequest()
     const apiKey = request.headers["x-api-key"]
     const requestedResource = String(request.originalUrl).split("/")[3]

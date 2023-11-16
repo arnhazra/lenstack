@@ -4,13 +4,13 @@ import { statusMessages } from "src/constants/statusMessages"
 import { decodeJwt } from "src/utils/decodeJwt"
 import { getTokenFromRedis } from "src/utils/redisHelper"
 
-export interface TokenAuthorizerReturnType {
+export interface TokenAuthorizerResponse {
   userId: string,
   workspaceId: string
 }
 
 export const TokenAuthorizer = createParamDecorator(
-  async (data: unknown, ctx: ExecutionContext): Promise<TokenAuthorizerReturnType> => {
+  async (data: unknown, ctx: ExecutionContext): Promise<TokenAuthorizerResponse> => {
     const request = ctx.switchToHttp().getRequest()
     const accessToken = request.headers["authorization"]?.split(" ")[1]
 

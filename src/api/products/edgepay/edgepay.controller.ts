@@ -1,14 +1,14 @@
 import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
 import { EdgepayService } from "./edgepay.service"
 import { statusMessages } from "../../../constants/statusMessages"
-import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
 @Controller("products/edgepay")
 export class EdgepayController {
   constructor(private readonly edgepayService: EdgepayService) { }
 
   @Post("createtx")
-  async createTransaction(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType) {
+  async createTransaction(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse) {
     try {
       await this.edgepayService.createTransaction(ufak.workspaceId)
       return true

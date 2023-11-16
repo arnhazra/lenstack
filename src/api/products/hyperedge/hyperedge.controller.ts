@@ -2,15 +2,18 @@ import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundExc
 import { HyperedgeService } from "./hyperedge.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CreateDbDto } from "./dto/create-db.dto"
-import { TokenAuthorizer, TokenAuthorizerReturnType } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
-import { ApiKeyAuthorizer, ApiKeyAuthorizerReturnType } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { SearchDbsDto } from "./dto/search-dbs.dto"
+import { ViewDbTokenDto } from "./dto/view-db-token.dto"
+import { ViewDbApiKeyDto } from "./dto/view-db-apikey.dto"
 
 @Controller("products/hyperedge")
 export class HyperedgeController {
   constructor(private readonly hyperedgeService: HyperedgeService) { }
 
   @Post("createdb")
-  async createDb(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body() createDbDto: CreateDbDto) {
+  async createDb(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() createDbDto: CreateDbDto) {
     try {
       const db = await this.hyperedgeService.createDb(uft.workspaceId, createDbDto)
       return { db }
@@ -22,8 +25,9 @@ export class HyperedgeController {
   }
 
   @Post("getmydbs")
-  async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("searchQuery") searchQuery: string) {
+  async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchDbsDto: SearchDbsDto) {
     try {
+      const { searchQuery } = searchDbsDto
       const dbs = await this.hyperedgeService.getMyDbs(uft.workspaceId, searchQuery)
       return { dbs }
     }
@@ -34,8 +38,9 @@ export class HyperedgeController {
   }
 
   @Post("viewdbfromplatform")
-  async viewDbInsidePlatform(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Body("dbId") dbId: string) {
+  async viewDbInsidePlatform(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() viewDbTokenDto: ViewDbTokenDto) {
     try {
+      const { dbId } = viewDbTokenDto
       const { db, kvs } = await this.hyperedgeService.viewDb(uft.workspaceId, dbId)
       return { db, kvs }
     }
@@ -46,8 +51,9 @@ export class HyperedgeController {
   }
 
   @Post("viewdb")
-  async viewDbOutsidePlatform(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType, @Body("dbId") dbId: string, @Body("dbPassword") dbPassword: string) {
+  async viewDbOutsidePlatform(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() viewDbApiKeyDto: ViewDbApiKeyDto) {
     try {
+      const { dbId, dbPassword } = viewDbApiKeyDto
       const { db, kvs } = await this.hyperedgeService.viewDbOutsidePlatform(ufak.workspaceId, dbId, dbPassword)
       return { db, kvs }
     }
@@ -58,7 +64,7 @@ export class HyperedgeController {
   }
 
   @Delete("deletedb")
-  async deleteDb(@TokenAuthorizer() uft: TokenAuthorizerReturnType, @Query("dbId") dbId: string) {
+  async deleteDb(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("dbId") dbId: string) {
     try {
       await this.hyperedgeService.deleteDb(uft.workspaceId, dbId)
       return true
@@ -70,7 +76,7 @@ export class HyperedgeController {
   }
 
   @Post("createkv")
-  async createKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType, @Body() createKvDto: CreateKvDto) {
+  async createKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
     try {
       await this.hyperedgeService.createKv(ufak.workspaceId, createKvDto)
       return true
@@ -82,7 +88,7 @@ export class HyperedgeController {
   }
 
   @Delete("deletekv")
-  async deleteKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerReturnType, @Query("kvId") kvId: string) {
+  async deleteKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Query("kvId") kvId: string) {
     try {
       await this.hyperedgeService.deleteKv(ufak.workspaceId, kvId)
       return true
