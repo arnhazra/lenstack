@@ -20,7 +20,8 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [, dispatch] = useContext(GlobalContext)
-  const searchEnabledPathNames = ["/dashboard", "/products/airlake", "/products/frostlake", "/products/hyperedge", "/products/snowlake", "/products/swapstream"]
+  const searchEnabledPathNames = ["/dashboard", "/products/airlake", "/products/frostlake", "/products/hyperedge", "/products/snowlake", "/products/swapstream",
+    "/dashboard/", "/products/airlake/", "/products/frostlake/", "/products/hyperedge/", "/products/snowlake/", "/products/swapstream/"]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
@@ -49,7 +50,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
               <TextAlignLeftIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
-              <Show when={searchEnabledPathNames.includes(pathname) || searchEnabledPathNames.includes(`${pathname}/`)}>
+              <Show when={searchEnabledPathNames.includes(pathname)}>
                 <Nav className="ms-auto">
                   <input ref={searchRef} placeholder="What are you looking for ?" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Nav>
