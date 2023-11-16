@@ -1,7 +1,7 @@
 "use client"
 import { ChangeEvent, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
-import Show from "./Show"
+import Show from "./show.component"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"

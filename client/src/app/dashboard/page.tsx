@@ -3,13 +3,13 @@ import useFetch from "@/hooks/useFetch"
 import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import { Fragment, useCallback, useContext } from "react"
-import Show from "@/components/Show"
-import Loading from "@/components/Loading"
+import Show from "@/components/show.component"
+import Loading from "@/components/loading.component"
 import { Container, Row } from "react-bootstrap"
 import { GenericProductCardInterface } from "@/types/Types"
-import GenericProductCard from "@/components/GenericProductCard"
+import GenericProductCard from "@/components/genericproductcard.component"
 import { GlobalContext } from "@/context/globalStateProvider"
-import Error from "@/components/ErrorComp"
+import Error from "@/components/error.component"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)

@@ -1,5 +1,5 @@
 "use client"
-import GenericProductCard from "@/components/GenericProductCard"
+import GenericProductCard from "@/components/genericproductcard.component"
 import { GenericProductCardInterface, TokenData } from "@/types/Types"
 import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
@@ -7,9 +7,9 @@ import useFetch from "@/hooks/useFetch"
 import { Badge, Container, Row } from "react-bootstrap"
 import { useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/globalStateProvider"
-import Show from "@/components/Show"
-import Loading from "@/components/Loading"
-import GenericHero from "@/components/GenericHero"
+import Show from "@/components/show.component"
+import Loading from "@/components/loading.component"
+import GenericHero from "@/components/generichero.component"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)

@@ -14,11 +14,11 @@ import { vendorABI } from "@/bin/vendorABI"
 import { toast } from "react-hot-toast"
 import Constants from "@/constants/globalConstants"
 import { tokenABI } from "@/bin/tokenABI"
-import Show from "@/components/Show"
-import Loading from "@/components/Loading"
+import Show from "@/components/show.component"
+import Loading from "@/components/loading.component"
 import axios from "axios"
-import GenericProductCard from "@/components/GenericProductCard"
-import GenericHero from "@/components/GenericHero"
+import GenericProductCard from "@/components/genericproductcard.component"
+import GenericHero from "@/components/generichero.component"
 
 export default function page() {
   const [{ userState }] = useContext(GlobalContext)

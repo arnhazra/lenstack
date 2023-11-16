@@ -1,5 +1,5 @@
 "use client"
-import Show from "@/components/Show"
+import Show from "@/components/show.component"
 import { endPoints } from "@/constants/endPoints"
 import axios from "axios"
 import Link from "next/link"

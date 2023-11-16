@@ -1,7 +1,7 @@
 "use client"
-import Error from "@/components/ErrorComp"
-import Loading from "@/components/Loading"
-import Show from "@/components/Show"
+import Error from "@/components/error.component"
+import Loading from "@/components/loading.component"
+import Show from "@/components/show.component"
 import { endPoints } from "@/constants/endPoints"
 import HTTPMethods from "@/constants/httpMethods"
 import useConfirm from "@/hooks/useConfirm"
@@ -14,7 +14,7 @@ import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import Constants from "@/constants/globalConstants"
-import GenericHero from "@/components/GenericHero"
+import GenericHero from "@/components/generichero.component"
 
 export default function Page() {
   const searchParams = useSearchParams()

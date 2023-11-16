@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios"
-import IdentityProvider from "@/providers/IdentityProvider"
+import IdentityProvider from "@/providers/identity.provider"
 import { GlobalStateProvider } from "@/context/globalStateProvider"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"

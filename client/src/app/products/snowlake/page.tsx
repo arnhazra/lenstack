@@ -1,6 +1,6 @@
 "use client"
-import Loading from "@/components/Loading"
-import Show from "@/components/Show"
+import Loading from "@/components/loading.component"
+import Show from "@/components/show.component"
 import { endPoints } from "@/constants/endPoints"
 import Web3 from "web3"
 import Link from "next/link"
@@ -13,9 +13,9 @@ import moment from "moment"
 import HTTPMethods from "@/constants/httpMethods"
 import useFetch from "@/hooks/useFetch"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
-import GenericProductCard from "@/components/GenericProductCard"
+import GenericProductCard from "@/components/genericproductcard.component"
 import { GenericProductCardInterface } from "@/types/Types"
-import GenericHero from "@/components/GenericHero"
+import GenericHero from "@/components/generichero.component"
 
 export default function Page() {
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)

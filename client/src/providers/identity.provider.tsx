@@ -1,7 +1,7 @@
 "use client"
-import Header from "@/components/Header"
-import Loading from "@/components/Loading"
-import Show from "@/components/Show"
+import Header from "@/components/header.component"
+import Loading from "@/components/loading.component"
+import Show from "@/components/show.component"
 import { motion } from "framer-motion"
 import { endPoints } from "@/constants/endPoints"
 import Constants from "@/constants/globalConstants"
@@ -10,7 +10,7 @@ import axios from "axios"
 import { usePathname, useRouter } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import IdentityGuard from "./IdentityGuard"
+import IdentityGuard from "./identity.guard"
 
 export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
