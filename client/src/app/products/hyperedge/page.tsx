@@ -27,7 +27,7 @@ export default function Page() {
         className: "centralized",
         headerText: db.name,
         footerText: `This Database was created by you using Hyperedge on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-        redirectUri: `/products/hyperedge/db?dbId=${db._id}`
+        redirectUri: `/products/hyperedge/database?dbId=${db._id}`
       }
 
       return (

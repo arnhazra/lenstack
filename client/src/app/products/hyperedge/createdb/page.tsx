@@ -23,7 +23,7 @@ export default function Page() {
       setState({ ...state, isLoading: true })
       const response = await axios.post(endPoints.hyperedgeCreateDbEndpoint, { name })
       toast.success("Db Created")
-      router.push(`/products/hyperedge/db?dbId=${response.data.db._id}`)
+      router.push(`/products/hyperedge/database?dbId=${response.data.db._id}`)
     }
 
     catch (error: any) {

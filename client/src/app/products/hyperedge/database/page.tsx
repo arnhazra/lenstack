@@ -21,6 +21,7 @@ export default function Page() {
   const db = useFetch("view db", `${endPoints.hyperedgeViewDbEndpoint}`, HTTPMethods.POST, { dbId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
+  console.log(db.error)
 
   const kvsToDisplay = db?.data?.kvs?.map((kv: any) => {
     return (
@@ -53,7 +54,7 @@ export default function Page() {
   return (
     <Fragment>
       <Show when={!db?.isLoading}>
-        <Show when={!db.error || !!dbId}>
+        <Show when={!!dbId && !db.error}>
           <Container>
             <GenericHero>
               <p className="branding text-capitalize">{db?.data?.db?.name}</p>
@@ -79,7 +80,7 @@ export default function Page() {
             {confirmDialog()}
           </Container>
         </Show>
-        <Show when={!!db.error || !dbId}>
+        <Show when={!dbId || !!db.error}>
           <Error />
         </Show>
       </Show>
