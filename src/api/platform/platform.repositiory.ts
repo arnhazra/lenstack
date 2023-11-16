@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common"
-import { ProductModel } from "./products.entity"
+import { ProductModel } from "./entity/products.entity"
 
 @Injectable()
-export class ProductsRepository {
+export class PlatformRepository {
   async getproductConfig(searchQuery: string) {
     const products = await ProductModel.find({
       $or: [
