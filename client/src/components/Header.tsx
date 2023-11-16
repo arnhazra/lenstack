@@ -72,7 +72,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
               <Navbar.Brand>Lenstack</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon className="navbar-nav-toggle" />
+              <TextAlignLeftIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
