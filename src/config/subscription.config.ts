@@ -10,7 +10,7 @@ export const subscriptionConfig = {
 }
 
 export const apiPricing = {
-  airlake: 3,
+  datalake: 3,
   pay: 5,
   frostlake: 3,
   nftstudio: 50,

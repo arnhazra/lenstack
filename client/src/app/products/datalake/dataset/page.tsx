@@ -18,8 +18,8 @@ import GenericHero from "@/components/generichero.component"
 export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
-  const dataset = useFetch("view dataset", endPoints.airlakeViewDatasets, HTTPMethods.POST, { datasetId })
-  const similarDatasets = useFetch("similar datasets", endPoints.airlakeFindSimilarDatasets, HTTPMethods.POST, { datasetId })
+  const dataset = useFetch("view dataset", endPoints.datalakeViewDatasets, HTTPMethods.POST, { datasetId })
+  const similarDatasets = useFetch("similar datasets", endPoints.datalakeFindSimilarDatasets, HTTPMethods.POST, { datasetId })
 
   const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
     const genericProductCardProps: GenericProductCardInterface = {
@@ -27,7 +27,7 @@ export default function Page() {
       className: "centralized",
       headerText: dataset.name,
       footerText: `${dataset.description.slice(0, 110)}...`,
-      redirectUri: `/products/airlake/dataset?datasetId=${dataset._id}`
+      redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
     }
     return <GenericProductCard key={dataset._id} genericProductCardProps={genericProductCardProps} />
   })

@@ -1,16 +1,16 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { AirlakeRepository } from "./airlake.repository"
+import { DatalakeRepository } from "./datalake.repository"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { SubscriptionRepository } from "src/api/subscription/subscription.repository"
 
 @Injectable()
-export class AirlakeService {
-  constructor(private readonly airlakeRepository: AirlakeRepository,
+export class DatalakeService {
+  constructor(private readonly datalakeRepository: DatalakeRepository,
     private readonly subscriptionRepository: SubscriptionRepository) { }
 
   async getDatasetFilters() {
     try {
-      const filterCategories = await this.airlakeRepository.findDistinctCategories()
+      const filterCategories = await this.datalakeRepository.findDistinctCategories()
       return filterCategories
     } catch (error) {
       throw new BadRequestException()
@@ -24,7 +24,7 @@ export class AirlakeService {
       const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
       const offset = findDatasetsDto.offset || 0
       const limit = 36
-      const datasets = await this.airlakeRepository.findDatasets(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
+      const datasets = await this.datalakeRepository.findDatasets(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
       return datasets
     }
 
@@ -35,7 +35,7 @@ export class AirlakeService {
 
   async viewDataset(datasetId: string) {
     try {
-      const dataset = await this.airlakeRepository.findDatasetMetadataById(datasetId)
+      const dataset = await this.datalakeRepository.findDatasetMetadataById(datasetId)
       return dataset
     }
 
@@ -46,9 +46,9 @@ export class AirlakeService {
 
   async findSimilarDatasets(datasetId: string) {
     try {
-      const dataset = await this.airlakeRepository.findDatasetMetadataById(datasetId)
+      const dataset = await this.datalakeRepository.findDatasetMetadataById(datasetId)
       const datasetCategory = dataset.category
-      const similarDatasets = await this.airlakeRepository.findDatasets("", datasetCategory, "name", 0, 36)
+      const similarDatasets = await this.datalakeRepository.findDatasets("", datasetCategory, "name", 0, 36)
       return similarDatasets
     }
 
@@ -59,7 +59,7 @@ export class AirlakeService {
 
   async getData(datasetId: string) {
     try {
-      const data = await this.airlakeRepository.findDatasetDataById(datasetId)
+      const data = await this.datalakeRepository.findDatasetDataById(datasetId)
       return data
     }
 

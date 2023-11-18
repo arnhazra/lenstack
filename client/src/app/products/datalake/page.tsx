@@ -17,10 +17,10 @@ import { GlobalContext } from "@/context/globalstate.provider"
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useFetch("filters", endPoints.airlakeFilters, HTTPMethods.POST)
-  const datasets = useFetch("find datasets", endPoints.airlakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "airlake" })
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "airlake")
+  const filters = useFetch("filters", endPoints.datalakeFilters, HTTPMethods.POST)
+  const datasets = useFetch("find datasets", endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "datalake" })
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
 
   const displayDatasets = useCallback(() => {
     const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
@@ -29,7 +29,7 @@ export default function Page() {
         className: "centralized",
         headerText: dataset.name,
         footerText: `${dataset.description.slice(0, 110)}...`,
-        redirectUri: `/products/airlake/dataset?datasetId=${dataset._id}`
+        redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
       }
       return <GenericProductCard key={dataset._id} genericProductCardProps={genericProductCardProps} />
     })

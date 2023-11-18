@@ -1,18 +1,18 @@
 import { Injectable } from "@nestjs/common"
-import { AirlakeDatasetMetaDataModel } from "./entities/airlake-metadata.entity"
-import { AirlakeDatasetDataModel } from "./entities/airlake-dataset.entity"
+import { DatalakeDatasetMetaDataModel } from "./entities/datalake-metadata.entity"
+import { DatalakeDatasetDataModel } from "./entities/datalake-dataset.entity"
 
 @Injectable()
-export class AirlakeRepository {
+export class DatalakeRepository {
   async findDistinctCategories() {
-    const filterCategories = await AirlakeDatasetMetaDataModel.find().distinct("category")
+    const filterCategories = await DatalakeDatasetMetaDataModel.find().distinct("category")
     filterCategories.push("All")
     filterCategories.sort()
     return filterCategories
   }
 
   async findDatasets(searchQuery: string, selectedFilterCategory: string, selectedSortOption: string, offset: number, limit: number) {
-    let datasets = await AirlakeDatasetMetaDataModel.find({
+    let datasets = await DatalakeDatasetMetaDataModel.find({
       $or: [
         { name: { $regex: searchQuery, $options: "i" } },
         { description: { $regex: searchQuery, $options: "i" } }
@@ -26,12 +26,12 @@ export class AirlakeRepository {
   }
 
   async findDatasetMetadataById(datasetId: string) {
-    const metaData = await AirlakeDatasetMetaDataModel.findById(datasetId)
+    const metaData = await DatalakeDatasetMetaDataModel.findById(datasetId)
     return metaData
   }
 
   async findDatasetDataById(datasetId: string) {
-    const dataset = await AirlakeDatasetDataModel.findOne({ datasetRelationId: datasetId })
+    const dataset = await DatalakeDatasetDataModel.findOne({ datasetRelationId: datasetId })
     return dataset
   }
 }

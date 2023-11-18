@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import { envConfig } from "../config/env.config"
 
 export const lenstackPlatformMongoDbConn = mongoose.createConnection(envConfig.lenstackPlatformDbUri)
-export const airlakeMongoDbConn = mongoose.createConnection(envConfig.airlakeMongoDbUri)
+export const datalakeMongoDbConn = mongoose.createConnection(envConfig.datalakeMongoDbUri)
 export const payMongoDbConn = mongoose.createConnection(envConfig.payMongoDbUri)
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
 export const nftstudioMongoDbConn = mongoose.createConnection(envConfig.nftstudioMongoDbUri)
@@ -16,9 +16,9 @@ const lenstackPlatformDbConnect = async () => {
   lenstackPlatformMongoDbConn.on("error", (err) => console.log("Lenstack Platform DB Not Connected"))
 }
 
-const airlakeDbConnect = async () => {
-  airlakeMongoDbConn.on("connected", () => console.log("Airlake DB Connected"))
-  airlakeMongoDbConn.on("error", (err) => console.log("Airlake DB Not Connected"))
+const datalakeDbConnect = async () => {
+  datalakeMongoDbConn.on("connected", () => console.log("Datalake DB Connected"))
+  datalakeMongoDbConn.on("error", (err) => console.log("Datalake DB Not Connected"))
 }
 
 const payDbConnect = async () => {
@@ -53,7 +53,7 @@ const ledgerscanMongoDbConnect = async () => {
 
 export const dbConnect = async () => {
   lenstackPlatformDbConnect()
-  airlakeDbConnect()
+  datalakeDbConnect()
   payDbConnect()
   frostlakeDbConnect()
   nftstudioDbConnect()

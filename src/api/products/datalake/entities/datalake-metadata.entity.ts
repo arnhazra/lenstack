@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { airlakeMongoDbConn } from "../../../../utils/dbConnect"
+import { datalakeMongoDbConn } from "../../../../utils/dbConnect"
 
-const AirlakeDatasetMetadataSchema = new mongoose.Schema({
+const DatalakeDatasetMetadataSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -23,4 +23,4 @@ const AirlakeDatasetMetadataSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const AirlakeDatasetMetaDataModel = airlakeMongoDbConn.model("datasetmetadata", AirlakeDatasetMetadataSchema)
+export const DatalakeDatasetMetaDataModel = datalakeMongoDbConn.model("datasetmetadata", DatalakeDatasetMetadataSchema)

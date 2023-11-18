@@ -5,7 +5,7 @@ export const envConfig = {
   nodeEnv: process.env.NODE_ENV,
   apiPort: process.env.API_PORT,
   lenstackPlatformDbUri: process.env.LENSTACK_PLATFORM_DB_URI,
-  airlakeMongoDbUri: process.env.LENSTACK_DATALAKE_DB_URI,
+  datalakeMongoDbUri: process.env.LENSTACK_DATALAKE_DB_URI,
   frostlakeMongoDbUri: process.env.LENSTACK_INSIGHTS_DB_URI,
   hyperedgeMongoDbUri: process.env.LENSTACK_FABRIC_DB_URI,
   payMongoDbUri: process.env.LENSTACK_PAY_DB_URI,

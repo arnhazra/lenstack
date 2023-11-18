@@ -1,18 +1,18 @@
 import { Controller, Post, Body } from "@nestjs/common"
-import { AirlakeService } from "./airlake.service"
+import { DatalakeService } from "./datalake.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 import { SearchDatasetDto } from "./dto/search-dataset.dto"
 
-@Controller("products/airlake")
-export class AirlakeController {
-  constructor(private readonly airlakeService: AirlakeService) { }
+@Controller("products/datalake")
+export class DatalakeController {
+  constructor(private readonly datalakeService: DatalakeService) { }
 
   @Post("filters")
   async getDatasetFilters(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
-      const filterCategories = await this.airlakeService.getDatasetFilters()
+      const filterCategories = await this.datalakeService.getDatasetFilters()
       return { filterCategories }
     }
 
@@ -24,7 +24,7 @@ export class AirlakeController {
   @Post("finddatasets")
   async findDatasets(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() findDatasetsDto: FindDatasetsDto) {
     try {
-      const datasets = await this.airlakeService.findDatasets(findDatasetsDto)
+      const datasets = await this.datalakeService.findDatasets(findDatasetsDto)
       return { datasets }
     } catch (error) {
       throw error
@@ -35,7 +35,7 @@ export class AirlakeController {
   async viewDataset(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
     try {
       const { datasetId } = searchDatasetDto
-      const data = await this.airlakeService.viewDataset(datasetId)
+      const data = await this.datalakeService.viewDataset(datasetId)
       return data
     }
 
@@ -48,7 +48,7 @@ export class AirlakeController {
   async findSimilarDatasets(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
     try {
       const { datasetId } = searchDatasetDto
-      const similarDatasets = await this.airlakeService.findSimilarDatasets(datasetId)
+      const similarDatasets = await this.datalakeService.findSimilarDatasets(datasetId)
       return { similarDatasets }
     }
 
@@ -61,7 +61,7 @@ export class AirlakeController {
   async getData(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
     try {
       const { datasetId } = searchDatasetDto
-      const data = await this.airlakeService.getData(datasetId)
+      const data = await this.datalakeService.getData(datasetId)
       return { data }
     }
 
