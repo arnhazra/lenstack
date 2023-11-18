@@ -60,7 +60,7 @@ export default function Page() {
         <Show when={!project.error || !!projectId}>
           <Container>
             <Hero>
-              <p className="branding text-capitalize">{project?.data?.project?.name}</p>
+              <p className="branding">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
               <Button onClick={copyClientId}>Copy Client Id<CopyIcon className="icon-right" /></Button>
               <Button onClick={copyClientSecret}>Copy Client Secret<CopyIcon className="icon-right" /></Button>

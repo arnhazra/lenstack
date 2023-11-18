@@ -161,7 +161,7 @@ export default function Page() {
                   />
                 </Col>
                 <Col xs={12} sm={12} md={6} lg={8} xl={9}>
-                  <p className="branding text-capitalize">{selectedNft?.name}</p>
+                  <p className="branding">{selectedNft?.name}</p>
                   <p className="muted-text">{selectedNft?.description}</p>
                   <p className="lead">NFT Contract: {showAddress(secretConfig?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(secretConfig?.data?.nftContractAddress)} /></p>
                   <p className="lead">Owner: {showAddress(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(selectedNft?.owner)} /></p>

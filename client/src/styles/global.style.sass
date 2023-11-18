@@ -1,6 +1,7 @@
 $mainColor: #121212
 $white: #ffffff
 $textBoxColor: #f6f6f6
+$gradientColor: linear-gradient(to right, #284b82, #689aec)
 
 html
   scrollbar-width: none
@@ -36,6 +37,14 @@ body
   border-radius: 0.8rem
   word-break: break-all
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px
+
+.branding
+  background: $gradientColor
+  -webkit-background-clip: text
+  -webkit-text-fill-color: transparent
+  font-size: 150%
+  text-align: left
+  text-transform: capitalize
 
 .lead-link
   cursor: pointer

@@ -179,7 +179,7 @@ export default function page() {
     <Container>
       <Show when={!swapTokenConfig.isLoading && !secretConfig.isLoading}>
         <Hero>
-          <p className="branding text-capitalize">{selectedToken?.tokenName}</p>
+          <p className="branding">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
           <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
           <p className="muted-text mt-2">{selectedToken?.tokenName} Balance</p>

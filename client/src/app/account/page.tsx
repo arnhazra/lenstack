@@ -73,8 +73,8 @@ export default function Page() {
               <AvatarIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">{userState.email}</p>
-              <div className="boxcategorytext">
+              <p className="boxcategory-key">{userState.email}</p>
+              <div className="boxcategory-value">
                 Wallet Address {showWalletAddress(accountAddress)}<CopyIcon className="icon-right" onClick={copyWalletAddress} />
               </div>
             </Col>
@@ -84,8 +84,8 @@ export default function Page() {
               <BookmarkIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">Wallet Balance</p>
-              <div className="boxcategorytext">
+              <p className="boxcategory-key">Wallet Balance</p>
+              <div className="boxcategory-value">
                 {Number(maticBalance).toFixed(2)} MATIC
               </div>
             </Col>
