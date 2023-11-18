@@ -15,6 +15,6 @@ export const apiPricing = {
   insights: 3,
   nftstudio: 50,
   swap: 10,
-  hyperedge: 2,
+  fabric: 2,
   ledgerscan: 2
 }

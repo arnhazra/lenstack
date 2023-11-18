@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException } from "@nestjs/common"
-import { HyperedgeService } from "./hyperedge.service"
+import { FabricService } from "./fabric.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CreateDbDto } from "./dto/create-db.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
@@ -8,14 +8,14 @@ import { SearchDbsDto } from "./dto/search-dbs.dto"
 import { ViewDbTokenDto } from "./dto/view-db-token.dto"
 import { ViewDbApiKeyDto } from "./dto/view-db-apikey.dto"
 
-@Controller("products/hyperedge")
-export class HyperedgeController {
-  constructor(private readonly hyperedgeService: HyperedgeService) { }
+@Controller("products/fabric")
+export class FabricController {
+  constructor(private readonly fabricService: FabricService) { }
 
   @Post("createdb")
   async createDb(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() createDbDto: CreateDbDto) {
     try {
-      const db = await this.hyperedgeService.createDb(uft.workspaceId, createDbDto)
+      const db = await this.fabricService.createDb(uft.workspaceId, createDbDto)
       return { db }
     }
 
@@ -28,7 +28,7 @@ export class HyperedgeController {
   async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchDbsDto: SearchDbsDto) {
     try {
       const { searchQuery } = searchDbsDto
-      const dbs = await this.hyperedgeService.getMyDbs(uft.workspaceId, searchQuery)
+      const dbs = await this.fabricService.getMyDbs(uft.workspaceId, searchQuery)
       return { dbs }
     }
 
@@ -41,7 +41,7 @@ export class HyperedgeController {
   async viewDbInsidePlatform(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() viewDbTokenDto: ViewDbTokenDto) {
     try {
       const { dbId } = viewDbTokenDto
-      const { db, kvs } = await this.hyperedgeService.viewDb(uft.workspaceId, dbId)
+      const { db, kvs } = await this.fabricService.viewDb(uft.workspaceId, dbId)
       return { db, kvs }
     }
 
@@ -54,7 +54,7 @@ export class HyperedgeController {
   async viewDbOutsidePlatform(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() viewDbApiKeyDto: ViewDbApiKeyDto) {
     try {
       const { dbId, dbPassword } = viewDbApiKeyDto
-      const { db, kvs } = await this.hyperedgeService.viewDbOutsidePlatform(ufak.workspaceId, dbId, dbPassword)
+      const { db, kvs } = await this.fabricService.viewDbOutsidePlatform(ufak.workspaceId, dbId, dbPassword)
       return { db, kvs }
     }
 
@@ -66,7 +66,7 @@ export class HyperedgeController {
   @Delete("deletedb")
   async deleteDb(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("dbId") dbId: string) {
     try {
-      await this.hyperedgeService.deleteDb(uft.workspaceId, dbId)
+      await this.fabricService.deleteDb(uft.workspaceId, dbId)
       return true
     }
 
@@ -78,7 +78,7 @@ export class HyperedgeController {
   @Post("createkv")
   async createKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
     try {
-      await this.hyperedgeService.createKv(ufak.workspaceId, createKvDto)
+      await this.fabricService.createKv(ufak.workspaceId, createKvDto)
       return true
     }
 
@@ -90,7 +90,7 @@ export class HyperedgeController {
   @Delete("deletekv")
   async deleteKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Query("kvId") kvId: string) {
     try {
-      await this.hyperedgeService.deleteKv(ufak.workspaceId, kvId)
+      await this.fabricService.deleteKv(ufak.workspaceId, kvId)
       return true
     }
 

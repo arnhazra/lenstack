@@ -1,22 +1,22 @@
 import { Injectable } from "@nestjs/common"
-import { HyperedgeDbModel } from "./entities/hyperedge-db.entity"
-import { HyperedgeKvModel } from "./entities/hyperedge-kv.entity"
+import { FabricDbModel } from "./entities/fabric-db.entity"
+import { FabricKvModel } from "./entities/fabric-kv.entity"
 
 @Injectable()
-export class HyperedgeRepository {
+export class FabricRepository {
   async countDbs(workspaceId: string) {
-    const count = await HyperedgeDbModel.find({ workspaceId }).estimatedDocumentCount()
+    const count = await FabricDbModel.find({ workspaceId }).estimatedDocumentCount()
     return count
   }
 
   async createDb(workspaceId: string, name: string, dbId: string, dbPassword: string) {
-    const db = new HyperedgeDbModel({ workspaceId, name, dbId, dbPassword })
+    const db = new FabricDbModel({ workspaceId, name, dbId, dbPassword })
     await db.save()
     return db
   }
 
   async getDbsByWorkspaceId(workspaceId: string, searchQuery: string) {
-    const dbs = await HyperedgeDbModel.find({
+    const dbs = await FabricDbModel.find({
       name: { $regex: searchQuery, $options: "i" },
       workspaceId: workspaceId
     })
@@ -24,34 +24,34 @@ export class HyperedgeRepository {
   }
 
   async findDbById(dbId: string) {
-    const db = await HyperedgeDbModel.findById(dbId)
+    const db = await FabricDbModel.findById(dbId)
     return db
   }
 
   async findDb(dbId: string, dbPassword: string) {
-    const db = await HyperedgeDbModel.findOne({ dbId, dbPassword })
+    const db = await FabricDbModel.findOne({ dbId, dbPassword })
     return db
   }
 
   async findKvsByDbId(workspaceId: string, dbId: string) {
-    const kvs = await HyperedgeKvModel.find({ workspaceId, dbId }).select("-workspaceId -dbId").sort({ createdAt: -1 })
+    const kvs = await FabricKvModel.find({ workspaceId, dbId }).select("-workspaceId -dbId").sort({ createdAt: -1 })
     return kvs
   }
 
   async deleteDbById(workspaceId: string, dbId: string) {
-    await HyperedgeKvModel.deleteMany({ workspaceId, dbId })
-    await HyperedgeDbModel.findByIdAndDelete(dbId)
+    await FabricKvModel.deleteMany({ workspaceId, dbId })
+    await FabricDbModel.findByIdAndDelete(dbId)
     return true
   }
 
   async createKv(workspaceId: string, dbId: string, key: string, value: string) {
-    const kvs = new HyperedgeKvModel({ workspaceId, dbId, key, value })
+    const kvs = new FabricKvModel({ workspaceId, dbId, key, value })
     await kvs.save()
     return true
   }
 
   async deleteKvById(workspaceId: string, kvId: string) {
-    await HyperedgeKvModel.findOneAndDelete({ workspaceId, _id: kvId })
+    await FabricKvModel.findOneAndDelete({ workspaceId, _id: kvId })
     return true
   }
 }

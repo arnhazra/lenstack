@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { hyperedgeMongoDbConn } from "../../../../utils/dbConnect"
+import { fabricMongoDbConn } from "../../../../utils/dbConnect"
 
-const HyperedgeKvSchema = new mongoose.Schema({
+const FabricKvSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -30,4 +30,4 @@ const HyperedgeKvSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const HyperedgeKvModel = hyperedgeMongoDbConn.model("kv", HyperedgeKvSchema)
+export const FabricKvModel = fabricMongoDbConn.model("kv", FabricKvSchema)

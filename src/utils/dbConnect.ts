@@ -7,7 +7,7 @@ export const payMongoDbConn = mongoose.createConnection(envConfig.payMongoDbUri)
 export const insightsMongoDbConn = mongoose.createConnection(envConfig.insightsMongoDbUri)
 export const nftstudioMongoDbConn = mongoose.createConnection(envConfig.nftstudioMongoDbUri)
 export const swapMongoDbConn = mongoose.createConnection(envConfig.swapMongoDbUri)
-export const hyperedgeMongoDbConn = mongoose.createConnection(envConfig.hyperedgeMongoDbUri)
+export const fabricMongoDbConn = mongoose.createConnection(envConfig.fabricMongoDbUri)
 export const ledgerscanMongoDbConn = mongoose.createConnection(envConfig.ledgerscanMongoDbUri)
 
 
@@ -41,9 +41,9 @@ const swapDbConnect = async () => {
   swapMongoDbConn.on("error", (err) => console.log("Lenstack Swap DB Not Connected"))
 }
 
-const hyperedgeDbConnect = async () => {
-  hyperedgeMongoDbConn.on("connected", () => console.log("Hyperedge DB Connected"))
-  hyperedgeMongoDbConn.on("error", (err) => console.log("Hyperedge DB Not Connected"))
+const fabricDbConnect = async () => {
+  fabricMongoDbConn.on("connected", () => console.log("Fabric DB Connected"))
+  fabricMongoDbConn.on("error", (err) => console.log("Fabric DB Not Connected"))
 }
 
 const ledgerscanMongoDbConnect = async () => {
@@ -58,6 +58,6 @@ export const dbConnect = async () => {
   insightsDbConnect()
   nftstudioDbConnect()
   swapDbConnect()
-  hyperedgeDbConnect()
+  fabricDbConnect()
   ledgerscanMongoDbConnect()
 }

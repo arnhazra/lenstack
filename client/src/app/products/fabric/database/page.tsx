@@ -18,7 +18,7 @@ import GenericHero from "@/components/generichero.component"
 export default function Page() {
   const searchParams = useSearchParams()
   const dbId = searchParams.get("dbId")
-  const db = useFetch("view db", `${endPoints.hyperedgeViewDb}`, HTTPMethods.POST, { dbId }, true)
+  const db = useFetch("view db", `${endPoints.fabricViewDb}`, HTTPMethods.POST, { dbId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
@@ -35,8 +35,8 @@ export default function Page() {
     const userConsent = await confirm("Are you sure to archive this db?")
 
     if (userConsent) {
-      await axios.delete(`${endPoints.hyperedgeDeleteDb}?dbId=${dbId}`)
-      router.push("/products/hyperedge")
+      await axios.delete(`${endPoints.fabricDeleteDb}?dbId=${dbId}`)
+      router.push("/products/fabric")
     }
   }
 

@@ -21,9 +21,9 @@ export default function Page() {
     try {
       const { name } = state
       setState({ ...state, isLoading: true })
-      const response = await axios.post(endPoints.hyperedgeCreateDb, { name })
+      const response = await axios.post(endPoints.fabricCreateDb, { name })
       toast.success("Db Created")
-      router.push(`/products/hyperedge/database?dbId=${response.data.db._id}`)
+      router.push(`/products/fabric/database?dbId=${response.data.db._id}`)
     }
 
     catch (error: any) {
@@ -46,7 +46,7 @@ export default function Page() {
         <Show when={!state.isLoading}>Create Db <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating & Configuring Db</Show>
       </Button>
-      <Link href={"/products/hyperedge"} className="lead-link">View My Dbs</Link>
+      <Link href={"/products/fabric"} className="lead-link">View My Dbs</Link>
     </form>
   )
 }

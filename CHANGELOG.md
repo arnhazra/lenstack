@@ -1,18 +1,19 @@
 # Lenstack Changelog
 
 ### v3.1
+* Rebranding of Airlake as Lenstack Datalake
+* Rebranding of Hyperedge as Lenstack Fabric
+* Rebranding of Frostlake as Lenstack Insights
+* Rebranding of Edgescan as Lenstack Ledgerscan
+* Rebranding of Snowlake as Lenstack NFT Studio
+* Rebranding of Edgepay as Lenstack Pay
+* Rebranding of Swapstream as Lenstack Swap
 * Migration of all mongo databases into Azure from AWS & GCP, existing Azure mongo databases remains same
 * Product config changes as per new product name standards
 * API reference changes as per new product names
 * Subscription configuration changes
 * File naming changes as per new standard
 * Dependency updates & performance improvements
-* Rebranding of Edgepay as Lenstack Pay
-* Rebranding of Swapstream as Lenstack Swap
-* Rebranding of Edgescan as Lenstack Ledgerscan
-* Rebranding of Snowlake as Lenstack NFT Studio
-* Rebranding of Airlake as Lenstack Datalake
-* Rebranding of Frostlake as Lenstack Insights
 
 ### v3.0
 * Created DTO for all controllers wherever required to avoid raw data extraction from request body

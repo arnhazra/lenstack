@@ -16,9 +16,9 @@ import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const dbs = useFetch("dbs", endPoints.hyperedgeGetMyDbs, HTTPMethods.POST, { searchQuery: globalSearchString })
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "hyperedge" })
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "hyperedge")
+  const dbs = useFetch("dbs", endPoints.fabricGetMyDbs, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "fabric" })
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 
   const displayDatabases = useCallback(() => {
     const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
@@ -26,8 +26,8 @@ export default function Page() {
         badgeText: "Project",
         className: "centralized",
         headerText: db.name,
-        footerText: `This Database was created by you using Hyperedge on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-        redirectUri: `/products/hyperedge/database?dbId=${db._id}`
+        footerText: `This Database was created by you using Fabric on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        redirectUri: `/products/fabric/database?dbId=${db._id}`
       }
 
       return (
@@ -62,7 +62,7 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <Link className="btn" href="/products/hyperedge/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
+            <Link className="btn" href="/products/fabric/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
           </GenericHero>
           {displayDatabases()}
         </Container>
