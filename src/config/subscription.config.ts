@@ -10,11 +10,11 @@ export const subscriptionConfig = {
 }
 
 export const apiPricing = {
-  airlake: 2,
-  edgepay: 5,
-  frostlake: 2,
+  airlake: 3,
+  pay: 5,
+  frostlake: 3,
   snowlake: 50,
   swapstream: 10,
   hyperedge: 2,
-  hexscan: 1
+  hexscan: 2
 }

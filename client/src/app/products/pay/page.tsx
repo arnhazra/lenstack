@@ -15,8 +15,8 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
 export default function Page() {
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "edgepay" })
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "edgepay")
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "pay" })
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "pay")
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(secretConfig?.data?.infuraGateway)
   const [{ userState }] = useContext(GlobalContext)
@@ -30,7 +30,7 @@ export default function Page() {
 
     try {
       setLoading(true)
-      await axios.post(endPoints.edgepayCreateTx)
+      await axios.post(endPoints.payCreateTx)
       const gasPrice = await web3Provider.eth.getGasPrice()
 
       const transactionObject = {

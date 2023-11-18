@@ -21,7 +21,7 @@ export default function Page() {
         badgeText: product.productStatus,
         className: product.productCategory,
         footerText: product.description,
-        headerText: `${product.productName}`,
+        headerText: `${product.displayName}`,
         redirectUri: `/products/${product.productName}`
       }
 

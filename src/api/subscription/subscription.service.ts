@@ -5,9 +5,9 @@ import { SubscriptionRepository } from "./subscription.repository"
 import { UserRepository } from "../user/user.repository"
 import { statusMessages } from "src/constants/statusMessages"
 import { otherConstants } from "src/constants/otherConstants"
-import { envConfig } from "src/config/envConfig"
+import { envConfig } from "src/config/env.config"
 import { SubscribeDto } from "./dto/subscribe.dto"
-import { subscriptionConfig } from "src/config/subscriptionConfig"
+import { subscriptionConfig } from "src/config/subscription.config"
 
 @Injectable()
 export class SubscriptionService {

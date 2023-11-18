@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
-import { envConfig } from "../config/envConfig"
+import { envConfig } from "../config/env.config"
 
 export const lenstackPlatformMongoDbConn = mongoose.createConnection(envConfig.lenstackPlatformDbUri)
 export const airlakeMongoDbConn = mongoose.createConnection(envConfig.airlakeMongoDbUri)
-export const edgepayMongoDbConn = mongoose.createConnection(envConfig.edgepayMongoDbUri)
+export const payMongoDbConn = mongoose.createConnection(envConfig.payMongoDbUri)
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
 export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
 export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
@@ -21,9 +21,9 @@ const airlakeDbConnect = async () => {
   airlakeMongoDbConn.on("error", (err) => console.log("Airlake DB Not Connected"))
 }
 
-const edgepayDbConnect = async () => {
-  edgepayMongoDbConn.on("connected", () => console.log("Edgepay DB Connected"))
-  edgepayMongoDbConn.on("error", (err) => console.log("Edgepay DB Not Connected"))
+const payDbConnect = async () => {
+  payMongoDbConn.on("connected", () => console.log("Lenstack Pay DB Connected"))
+  payMongoDbConn.on("error", (err) => console.log("Lenstack Pay DB Not Connected"))
 }
 
 const frostlakeDbConnect = async () => {
@@ -54,7 +54,7 @@ const hexscanMongoDbConnect = async () => {
 export const dbConnect = async () => {
   lenstackPlatformDbConnect()
   airlakeDbConnect()
-  edgepayDbConnect()
+  payDbConnect()
   frostlakeDbConnect()
   snowlakeDbConnect()
   swapstreamDbConnect()

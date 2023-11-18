@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { EdgepayTransactionModel } from "./entities/edgepay.entity"
+import { PayTransactionModel } from "./entities/pay.entity"
 
 @Injectable()
-export class EdgepayRepository {
+export class PayRepository {
   async createTransaction(workspaceId: string) {
     try {
-      const transaction = new EdgepayTransactionModel({ workspaceId })
+      const transaction = new PayTransactionModel({ workspaceId })
       await transaction.save()
-      return true
+      return transaction
     }
 
     catch (error) {

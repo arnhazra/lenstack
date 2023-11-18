@@ -1,6 +1,6 @@
 import * as nodemailer from "nodemailer"
 import { google } from "googleapis"
-import { envConfig } from "../config/envConfig"
+import { envConfig } from "../config/env.config"
 
 const { clientId, clientSecret, redirectUri, refreshToken, mailerEmail } = envConfig
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)

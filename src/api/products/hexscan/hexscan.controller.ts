@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Post, Req } from "@nestjs/common"
 import { HexscanService } from "./hexscan.service"
-import { envConfig } from "src/config/envConfig"
+import { envConfig } from "src/config/env.config"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 import { statusMessages } from "src/constants/statusMessages"
 

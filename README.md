@@ -6,7 +6,7 @@ Lenstack is a comprehensive Software-as-a-Service (SaaS) application. Let"s expl
 #### Airlake
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
 
-#### Edgepay
+#### Lenstack Pay
 An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
 
 #### Frostlake

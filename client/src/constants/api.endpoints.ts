@@ -19,7 +19,7 @@ export const endPoints = {
   airlakeViewDatasets: `${apiHost}/api/products/airlake/viewdataset`,
   airlakeFindSimilarDatasets: `${apiHost}/api/products/airlake/findsimilardatasets`,
   airlakeDataApi: `${apiHost}/api/products/airlake/dataapi`,
-  edgepayCreateTx: `${apiHost}/api/products/edgepay/createtx`,
+  payCreateTx: `${apiHost}/api/products/pay/createtx`,
   frostlakeCreateProject: `${apiHost}/api/products/frostlake/createproject`,
   frostlakeGetProjects: `${apiHost}/api/products/frostlake/getprojects`,
   frostlakeViewProject: `${apiHost}/api/products/frostlake/viewproject`,

@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken"
-import { envConfig } from "src/config/envConfig"
+import { envConfig } from "src/config/env.config"
 
 export function decodeJwt(accessToken: string) {
   try {
