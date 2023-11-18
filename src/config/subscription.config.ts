@@ -13,7 +13,7 @@ export const apiPricing = {
   airlake: 3,
   pay: 5,
   frostlake: 3,
-  snowlake: 50,
+  nftstudio: 50,
   swap: 10,
   hyperedge: 2,
   ledgerscan: 2

@@ -93,7 +93,7 @@ export default function Page() {
           await web3Provider.eth.sendSignedTransaction(signedArchiveTx.rawTransaction)
         }
         toast.success("NFT archived")
-        router.push("/products/snowlake")
+        router.push("/products/nftstudio")
       }
 
       catch (error) {
@@ -111,8 +111,8 @@ export default function Page() {
       badgeText: "NFT",
       className: "decentralized",
       headerText: nft.name,
-      footerText: `This NFT was minted by you using Snowlake NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-      redirectUri: `/products/snowlake/nft?nftId=${nft.id}`
+      footerText: `This NFT was minted by you using NFT Studio on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+      redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
     }
 
     return (

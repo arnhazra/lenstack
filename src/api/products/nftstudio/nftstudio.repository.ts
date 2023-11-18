@@ -1,13 +1,12 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { SnowlakeRepository } from "./snowlake.repository"
+import { NftstudioTransactionModel } from "./entities/nftstudio.entity"
 
 @Injectable()
-export class SnowlakeService {
-  constructor(private readonly snowlakeRepository: SnowlakeRepository) { }
-
+export class NftstudioRepository {
   async createTransaction(workspaceId: string) {
     try {
-      await this.snowlakeRepository.createTransaction(workspaceId)
+      const transaction = new NftstudioTransactionModel({ workspaceId })
+      await transaction.save()
       return true
     }
 

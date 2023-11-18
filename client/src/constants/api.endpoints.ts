@@ -32,7 +32,7 @@ export const endPoints = {
   hyperedgeDeleteDb: `${apiHost}/api/products/hyperedge/deletedb`,
   hyperedgeCreateKv: `${apiHost}/api/products/hyperedge/createkv`,
   hyperedgeDeleteKv: `${apiHost}/api/products/hyperedge/deletekv`,
-  snowlakeCreateTx: `${apiHost}/api/products/snowlake/createtx`,
+  nftstudioCreateTx: `${apiHost}/api/products/nftstudio/createtx`,
   swapCreateTx: `${apiHost}/api/products/swap/createtx`,
   swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
 }

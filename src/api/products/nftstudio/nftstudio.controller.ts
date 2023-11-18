@@ -1,16 +1,16 @@
 import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
-import { SnowlakeService } from "./snowlake.service"
+import { NftstudioService } from "./nftstudio.service"
 import { statusMessages } from "../../../constants/statusMessages"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 
-@Controller("products/snowlake")
-export class SnowlakeController {
-  constructor(private readonly snowlakeService: SnowlakeService) { }
+@Controller("products/nftstudio")
+export class NftstudioController {
+  constructor(private readonly nftstudioService: NftstudioService) { }
 
   @Post("createtx")
   async createTransaction(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse) {
     try {
-      await this.snowlakeService.createTransaction(ufak.workspaceId)
+      await this.nftstudioService.createTransaction(ufak.workspaceId)
       return true
     }
 

@@ -30,7 +30,7 @@ export default function Page() {
     const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
 
     try {
-      await axios.post(endPoints.snowlakeCreateTx)
+      await axios.post(endPoints.nftstudioCreateTx)
       const { name, description, link } = state
       const isArchived = false
       const newNFTData = nftContract.methods.createNFT(name, description, link, isArchived).encodeABI()
@@ -48,7 +48,7 @@ export default function Page() {
         await web3Provider.eth.sendSignedTransaction(signedNewNFTTx.rawTransaction)
         toast.success("NFT Minting Success")
         setState({ ...state, isLoading: false })
-        router.push("/products/snowlake")
+        router.push("/products/nftstudio")
       }
     }
 
@@ -86,7 +86,7 @@ export default function Page() {
         <Show when={!state.isLoading}>Mint NFT <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</Show>
       </Button>
-      <Link href={"/products/snowlake"} className="lead-link">View My NFTs</Link>
+      <Link href={"/products/nftstudio"} className="lead-link">View My NFTs</Link>
     </form>
   )
 }

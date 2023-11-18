@@ -5,7 +5,7 @@ export const lenstackPlatformMongoDbConn = mongoose.createConnection(envConfig.l
 export const airlakeMongoDbConn = mongoose.createConnection(envConfig.airlakeMongoDbUri)
 export const payMongoDbConn = mongoose.createConnection(envConfig.payMongoDbUri)
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
-export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
+export const nftstudioMongoDbConn = mongoose.createConnection(envConfig.nftstudioMongoDbUri)
 export const swapMongoDbConn = mongoose.createConnection(envConfig.swapMongoDbUri)
 export const hyperedgeMongoDbConn = mongoose.createConnection(envConfig.hyperedgeMongoDbUri)
 export const ledgerscanMongoDbConn = mongoose.createConnection(envConfig.ledgerscanMongoDbUri)
@@ -31,9 +31,9 @@ const frostlakeDbConnect = async () => {
   frostlakeMongoDbConn.on("error", (err) => console.log("Frostlake DB Not Connected"))
 }
 
-const snowlakeDbConnect = async () => {
-  snowlakeMongoDbConn.on("connected", () => console.log("Snowlake DB Connected"))
-  snowlakeMongoDbConn.on("error", (err) => console.log("Snowlake DB Not Connected"))
+const nftstudioDbConnect = async () => {
+  nftstudioMongoDbConn.on("connected", () => console.log("Nftstudio DB Connected"))
+  nftstudioMongoDbConn.on("error", (err) => console.log("Nftstudio DB Not Connected"))
 }
 
 const swapDbConnect = async () => {
@@ -56,7 +56,7 @@ export const dbConnect = async () => {
   airlakeDbConnect()
   payDbConnect()
   frostlakeDbConnect()
-  snowlakeDbConnect()
+  nftstudioDbConnect()
   swapDbConnect()
   hyperedgeDbConnect()
   ledgerscanMongoDbConnect()

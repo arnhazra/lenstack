@@ -23,8 +23,8 @@ export default function Page() {
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "snowlake" })
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "snowlake")
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "nftstudio" })
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "nftstudio")
 
   useEffect(() => {
     (async () => {
@@ -58,8 +58,8 @@ export default function Page() {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
-        footerText: `This NFT was minted by you using Snowlake NFT minter on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-        redirectUri: `/products/snowlake/nft?nftId=${nft.id}`
+        footerText: `This NFT was minted by you using NFT Studio on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
       return (
@@ -91,7 +91,7 @@ export default function Page() {
               <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
-            <Link className="btn" href={"/products/snowlake/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+            <Link className="btn" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
           </GenericHero>
           {displayNfts()}
         </Container>
