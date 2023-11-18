@@ -11,9 +11,9 @@ import Error from "@/components/error.component"
 import Constants from "@/constants/global.constants"
 import { useSearchParams } from "next/navigation"
 import { CopyIcon } from "@radix-ui/react-icons"
-import { GenericProductCardInterface } from "@/types/Types"
-import GenericProductCard from "@/components/genericproductcard.component"
-import GenericHero from "@/components/generichero.component"
+import { ProductCardInterface } from "@/types/Types"
+import ProductCard from "@/components/productcard.component"
+import Hero from "@/components/hero.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -22,19 +22,19 @@ export default function Page() {
   const similarDatasets = useFetch("similar datasets", endPoints.datalakeFindSimilarDatasets, HTTPMethods.POST, { datasetId })
 
   const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
-    const genericProductCardProps: GenericProductCardInterface = {
+    const productCardProps: ProductCardInterface = {
       badgeText: dataset.category,
       className: "centralized",
       headerText: dataset.name,
       footerText: `${dataset.description.slice(0, 110)}...`,
       redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
     }
-    return <GenericProductCard key={dataset._id} genericProductCardProps={genericProductCardProps} />
+    return <ProductCard key={dataset._id} productCardProps={productCardProps} />
   })
 
   const datasetTagsToDisplay = dataset?.data?.description?.split(" ").slice(0, 30).map((item: string) => {
     if (item.length > 4) {
-      return <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={Math.random().toString()}>{item}</Badge>
+      return <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={Math.random().toString()}>{item}</Badge>
     }
   })
 
@@ -48,13 +48,13 @@ export default function Page() {
       <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
         <Show when={!dataset.error && !!datasetId}>
           <Container>
-            <GenericHero>
+            <Hero>
               <p className="branding text-capitalize">{dataset?.data?.name}</p>
               <p className="lead">{dataset?.data?.category}</p>
               <p className="muted-text mt-3">{dataset?.data?.description}</p>
               <div className="mb-3">{datasetTagsToDisplay}</div>
               <Button onClick={copyDatasetId}><CopyIcon className="icon-left" />Copy Dataset ID</Button>
-            </GenericHero>
+            </Hero>
             <Row>
               <h4 className="text-white">Similar Datasets</h4>
               {similarDatasetsToDisplay}

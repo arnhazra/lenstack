@@ -13,9 +13,9 @@ import moment from "moment"
 import HTTPMethods from "@/constants/http.methods"
 import useFetch from "@/hooks/useFetch"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
-import GenericProductCard from "@/components/genericproductcard.component"
-import { GenericProductCardInterface } from "@/types/Types"
-import GenericHero from "@/components/generichero.component"
+import ProductCard from "@/components/productcard.component"
+import { ProductCardInterface } from "@/types/Types"
+import Hero from "@/components/hero.component"
 
 export default function Page() {
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
@@ -54,7 +54,7 @@ export default function Page() {
     const nftsToDisplay = nftList?.filter((nft: any) =>
       nft.name.toLowerCase().includes(globalSearchString)
     )?.map((nft: any) => {
-      const genericProductCardProps: GenericProductCardInterface = {
+      const productCardProps: ProductCardInterface = {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
@@ -63,7 +63,7 @@ export default function Page() {
       }
 
       return (
-        <GenericProductCard key={nft.id} genericProductCardProps={genericProductCardProps} />
+        <ProductCard key={nft.id} productCardProps={productCardProps} />
       )
     })
 
@@ -84,15 +84,15 @@ export default function Page() {
     <Fragment>
       <Show when={!isLoading && !secretConfig.isLoading && !products.isLoading}>
         <Container>
-          <GenericHero>
+          <Hero>
             <p className="branding">{selectedProduct?.displayName}</p>
             <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
             <Link className="btn" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
-          </GenericHero>
+          </Hero>
           {displayNfts()}
         </Container>
       </Show>

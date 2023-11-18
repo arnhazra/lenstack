@@ -1,5 +1,5 @@
 "use client"
-import GenericHero from "@/components/generichero.component"
+import Hero from "@/components/hero.component"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
 import { endPoints } from "@/constants/api.endpoints"
@@ -51,18 +51,18 @@ export default function Page() {
   return (
     <Container>
       <Show when={!products.isLoading}>
-        <GenericHero>
+        <Hero>
           <p className="branding">{selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
           <div className="mb-2">
-            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
           </div>
           <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
             <ReaderIcon className="icon-left" />API Reference
           </Link>
-        </GenericHero>
-        <GenericHero>
+        </Hero>
+        <Hero>
           <p className="branding">API Client (No need to pass Base URI)</p>
           <form onSubmit={hitAPI}>
             <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
@@ -78,7 +78,7 @@ export default function Page() {
           </form>
           <p>Response</p>
           <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
-        </GenericHero>
+        </Hero>
       </Show>
       <Show when={products.isLoading}>
         <Loading />

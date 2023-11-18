@@ -8,7 +8,7 @@ import Show from "@/components/show.component"
 export default function Page() {
   return (
     <Container>
-      <div className="hero">
+      <div className="cover">
         <p className="display-4">
           {Constants.HomeHeader1}<br />
           {Constants.HomeHeader2}

@@ -3,7 +3,7 @@ import Web3 from "web3"
 import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import useFetch from "@/hooks/useFetch"
-import { GenericProductCardInterface, TokenData } from "@/types/Types"
+import { ProductCardInterface, TokenData } from "@/types/Types"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
@@ -17,8 +17,8 @@ import { tokenABI } from "@/bin/token.abi"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
 import axios from "axios"
-import GenericProductCard from "@/components/genericproductcard.component"
-import GenericHero from "@/components/generichero.component"
+import ProductCard from "@/components/productcard.component"
+import Hero from "@/components/hero.component"
 
 export default function page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -164,7 +164,7 @@ export default function page() {
 
   const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
     .map((token: TokenData) => {
-      const genericProductCardProps: GenericProductCardInterface = {
+      const productCardProps: ProductCardInterface = {
         badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
         className: "decentralized",
         headerText: token.tokenName,
@@ -172,20 +172,20 @@ export default function page() {
         redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
-      return <GenericProductCard key={token.tokenContractAddress} genericProductCardProps={genericProductCardProps} />
+      return <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
     })
 
   return (
     <Container>
       <Show when={!swapTokenConfig.isLoading && !secretConfig.isLoading}>
-        <GenericHero>
+        <Hero>
           <p className="branding text-capitalize">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
           <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
           <p className="muted-text mt-2">{selectedToken?.tokenName} Balance</p>
           <div className="mb-2">
-            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
-            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
           </div>
           <Button className="mt-2" disabled={isTxProcessing || !userState.apiKey} onClick={buyToken}>
             <Show when={!isTxProcessing}>Buy Token <ArrowRightIcon className="icon-right" /></Show>
@@ -195,7 +195,7 @@ export default function page() {
             <Show when={!isTxProcessing}>Sell Token <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
           </Button>
-        </GenericHero>
+        </Hero>
         <Row>
           <h4 className="text-white">Other Tokens</h4>
           {tokensToDisplay}

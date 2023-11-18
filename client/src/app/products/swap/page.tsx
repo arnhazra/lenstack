@@ -1,6 +1,6 @@
 "use client"
-import GenericProductCard from "@/components/genericproductcard.component"
-import { GenericProductCardInterface, TokenData } from "@/types/Types"
+import ProductCard from "@/components/productcard.component"
+import { ProductCardInterface, TokenData } from "@/types/Types"
 import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import useFetch from "@/hooks/useFetch"
@@ -9,7 +9,7 @@ import { useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
-import GenericHero from "@/components/generichero.component"
+import Hero from "@/components/hero.component"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -19,7 +19,7 @@ export default function Page() {
 
   const displayTokens = useCallback(() => {
     const tokensToDisplay = swapTokenConfig?.data?.map((token: TokenData) => {
-      const genericProductCardProps: GenericProductCardInterface = {
+      const productCardProps: ProductCardInterface = {
         badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
         className: "decentralized",
         headerText: token.tokenName,
@@ -27,7 +27,7 @@ export default function Page() {
         redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
-      return <GenericProductCard key={token.tokenContractAddress} genericProductCardProps={genericProductCardProps} />
+      return <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
     })
 
     return (
@@ -46,14 +46,14 @@ export default function Page() {
   return (
     <Container>
       <Show when={!swapTokenConfig.isLoading && !products.isLoading}>
-        <GenericHero>
+        <Hero>
           <p className="branding">{selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
           <div className="mb-2">
-            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-            <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
           </div>
-        </GenericHero>
+        </Hero>
         {displayTokens()}
       </Show>
       <Show when={swapTokenConfig.isLoading || products.isLoading}>

@@ -10,7 +10,7 @@ import "@/styles/global.style.sass"
 import "@/styles/header.style.sass"
 import "@/styles/button.style.sass"
 import "@/styles/form.style.sass"
-import "@/styles/genericproductcard.style.sass"
+import "@/styles/productcard.style.sass"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 

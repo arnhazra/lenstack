@@ -9,9 +9,9 @@ import useFetch from "@/hooks/useFetch"
 import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import GenericHero from "@/components/generichero.component"
-import { GenericProductCardInterface } from "@/types/Types"
-import GenericProductCard from "@/components/genericproductcard.component"
+import Hero from "@/components/hero.component"
+import { ProductCardInterface } from "@/types/Types"
+import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
@@ -22,8 +22,8 @@ export default function Page() {
 
   const displayDatabases = useCallback(() => {
     const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
-      const genericProductCardProps: GenericProductCardInterface = {
-        badgeText: "Project",
+      const productCardProps: ProductCardInterface = {
+        badgeText: "Database",
         className: "centralized",
         headerText: db.name,
         footerText: `This Database was created by you using Fabric on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
@@ -31,7 +31,7 @@ export default function Page() {
       }
 
       return (
-        <GenericProductCard key={db._id} genericProductCardProps={genericProductCardProps} />
+        <ProductCard key={db._id} productCardProps={productCardProps} />
       )
     })
 
@@ -52,18 +52,18 @@ export default function Page() {
     <Fragment>
       <Show when={!dbs.isLoading && !products.isLoading}>
         <Container>
-          <GenericHero>
+          <Hero>
             <p className="branding">{selectedProduct?.displayName}</p>
             <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
             <Link className="btn" href="/products/fabric/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
-          </GenericHero>
+          </Hero>
           {displayDatabases()}
         </Container>
       </Show>

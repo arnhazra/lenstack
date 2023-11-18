@@ -9,9 +9,9 @@ import Show from "@/components/show.component"
 import useFetch from "@/hooks/useFetch"
 import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
-import { DatasetRequestState, GenericProductCardInterface } from "@/types/Types"
-import GenericProductCard from "@/components/genericproductcard.component"
-import GenericHero from "@/components/generichero.component"
+import { DatasetRequestState, ProductCardInterface } from "@/types/Types"
+import ProductCard from "@/components/productcard.component"
+import Hero from "@/components/hero.component"
 import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
@@ -24,14 +24,14 @@ export default function Page() {
 
   const displayDatasets = useCallback(() => {
     const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
-      const genericProductCardProps: GenericProductCardInterface = {
+      const productCardProps: ProductCardInterface = {
         badgeText: dataset.category,
         className: "centralized",
         headerText: dataset.name,
         footerText: `${dataset.description.slice(0, 110)}...`,
         redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
       }
-      return <GenericProductCard key={dataset._id} genericProductCardProps={genericProductCardProps} />
+      return <ProductCard key={dataset._id} productCardProps={productCardProps} />
     })
 
     return (
@@ -67,12 +67,12 @@ export default function Page() {
     <Fragment>
       <Show when={!datasets.isLoading && !filters.isLoading && !products.isLoading}>
         <Container>
-          <GenericHero>
+          <Hero>
             <p className="branding">{selectedProduct?.displayName}</p>
             <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
             <Row className="g-2">
               <Col xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -99,7 +99,7 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn mt-2 mb-2">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-          </GenericHero>
+          </Hero>
           {displayDatasets()}
           <div className="text-center">
             {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}

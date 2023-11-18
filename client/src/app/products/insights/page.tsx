@@ -9,9 +9,9 @@ import useFetch from "@/hooks/useFetch"
 import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import GenericHero from "@/components/generichero.component"
-import { GenericProductCardInterface } from "@/types/Types"
-import GenericProductCard from "@/components/genericproductcard.component"
+import Hero from "@/components/hero.component"
+import { ProductCardInterface } from "@/types/Types"
+import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
@@ -22,7 +22,7 @@ export default function Page() {
 
   const displayProjects = useCallback(() => {
     const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
-      const genericProductCardProps: GenericProductCardInterface = {
+      const productCardProps: ProductCardInterface = {
         badgeText: "Project",
         className: "centralized",
         headerText: project.name,
@@ -31,7 +31,7 @@ export default function Page() {
       }
 
       return (
-        <GenericProductCard key={project._id} genericProductCardProps={genericProductCardProps} />
+        <ProductCard key={project._id} productCardProps={productCardProps} />
       )
     })
 
@@ -52,18 +52,18 @@ export default function Page() {
     <Fragment>
       <Show when={!projects.isLoading}>
         <Container>
-          <GenericHero>
+          <Hero>
             <p className="branding">{selectedProduct?.displayName}</p>
             <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
             <Link className="btn" href="/products/insights/createproject"><PlusCircledIcon className="icon-left" />Create Project</Link>
-          </GenericHero>
+          </Hero>
           {displayProjects()}
         </Container>
       </Show>

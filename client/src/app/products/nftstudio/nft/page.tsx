@@ -1,8 +1,8 @@
 "use client"
 import { nftABI } from "@/bin/nft.abi"
 import Error from "@/components/error.component"
-import GenericProductCard from "@/components/genericproductcard.component"
-import GenericHero from "@/components/generichero.component"
+import ProductCard from "@/components/productcard.component"
+import Hero from "@/components/hero.component"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
 import { endPoints } from "@/constants/api.endpoints"
@@ -11,7 +11,7 @@ import HTTPMethods from "@/constants/http.methods"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
-import { GenericProductCardInterface } from "@/types/Types"
+import { ProductCardInterface } from "@/types/Types"
 import { ArchiveIcon, CopyIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons"
 import moment from "moment"
 import Link from "next/link"
@@ -107,7 +107,7 @@ export default function Page() {
   }
 
   const nftsToDisplay = nftList?.map((nft: any) => {
-    const genericProductCardProps: GenericProductCardInterface = {
+    const productCardProps: ProductCardInterface = {
       badgeText: "NFT",
       className: "decentralized",
       headerText: nft.name,
@@ -116,7 +116,7 @@ export default function Page() {
     }
 
     return (
-      <GenericProductCard key={nft.id} genericProductCardProps={genericProductCardProps} />
+      <ProductCard key={nft.id} productCardProps={productCardProps} />
     )
   })
 
@@ -149,7 +149,7 @@ export default function Page() {
       <Show when={!secretConfig.isLoading && !isLoading && !isArchiving}>
         <Show when={!hasError}>
           <Container>
-            <GenericHero>
+            <Hero>
               <Row>
                 <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                   <img
@@ -166,9 +166,9 @@ export default function Page() {
                   <p className="lead">NFT Contract: {showAddress(secretConfig?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(secretConfig?.data?.nftContractAddress)} /></p>
                   <p className="lead">Owner: {showAddress(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(selectedNft?.owner)} /></p>
                   <div className="mb-3">
-                    <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
-                    <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>
-                    <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
+                    <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
+                    <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>
+                    <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
                   </div>
                   <Link className="btn" href={selectedNft?.link ?? ""} passHref target="_blank">View Link<OpenInNewWindowIcon className="icon-right" /></Link>
                   <Link className="btn" href={`${Constants.PolygonScanBaseUri}/${secretConfig?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
@@ -176,7 +176,7 @@ export default function Page() {
                   <Button onClick={() => archiveNFT(nftId)}>Archive NFT<ArchiveIcon className="icon-right" /></Button>
                 </Col>
               </Row>
-            </GenericHero>
+            </Hero>
             <Row>
               <h4 className="text-white">Other NFTs in my collection</h4>
               {nftsToDisplay}

@@ -13,7 +13,7 @@ import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import Constants from "@/constants/global.constants"
-import GenericHero from "@/components/generichero.component"
+import Hero from "@/components/hero.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -55,13 +55,13 @@ export default function Page() {
       <Show when={!db?.isLoading}>
         <Show when={!!dbId && !db.error}>
           <Container>
-            <GenericHero>
+            <Hero>
               <p className="branding text-capitalize">{db?.data?.db?.name}</p>
               <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
               <Button onClick={copyDbId}>Copy Db Id<CopyIcon className="icon-right" /></Button>
               <Button onClick={copyDbPassword}>Copy Db Password<CopyIcon className="icon-right" /></Button>
               <Button onClick={archiveDb}>Archive Db<ArchiveIcon className="icon-right" /></Button>
-            </GenericHero>
+            </Hero>
             <Show when={!!db?.data?.kvs && db?.data?.kvs.length}>
               <h4 className="text-white">KVs</h4>
               <Table responsive hover variant="light">

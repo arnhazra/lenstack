@@ -14,7 +14,7 @@ import { Fragment } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import Constants from "@/constants/global.constants"
-import GenericHero from "@/components/generichero.component"
+import Hero from "@/components/hero.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -59,13 +59,13 @@ export default function Page() {
       <Show when={!project?.isLoading}>
         <Show when={!project.error || !!projectId}>
           <Container>
-            <GenericHero>
+            <Hero>
               <p className="branding text-capitalize">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
               <Button onClick={copyClientId}>Copy Client Id<CopyIcon className="icon-right" /></Button>
               <Button onClick={copyClientSecret}>Copy Client Secret<CopyIcon className="icon-right" /></Button>
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
-            </GenericHero>
+            </Hero>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>
               <h4 className="text-white">Analytics</h4>
               <Table responsive hover variant="light">

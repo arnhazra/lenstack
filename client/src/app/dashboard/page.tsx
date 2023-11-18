@@ -6,8 +6,8 @@ import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
 import { Container, Row } from "react-bootstrap"
-import { GenericProductCardInterface } from "@/types/Types"
-import GenericProductCard from "@/components/genericproductcard.component"
+import { ProductCardInterface } from "@/types/Types"
+import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error.component"
 
@@ -17,7 +17,7 @@ export default function Page() {
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
-      const genericProductCardProps: GenericProductCardInterface = {
+      const productCardProps: ProductCardInterface = {
         badgeText: product.productStatus,
         className: product.productCategory,
         footerText: product.description,
@@ -26,7 +26,7 @@ export default function Page() {
         isDisabled: product.productStatus !== "Available"
       }
 
-      return <GenericProductCard key={product.productName} genericProductCardProps={genericProductCardProps} />
+      return <ProductCard key={product.productName} productCardProps={productCardProps} />
     })
 
     return (
