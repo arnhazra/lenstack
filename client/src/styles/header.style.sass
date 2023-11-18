@@ -1,17 +1,22 @@
 $navColor: #ffffff
 $textColor: #121212
 $searchBoxColor: #f6f6f6
+$gradientColor: linear-gradient(to right, #284b82, #689aec)
 
 .navbar
   background: $navColor
   z-index: 2
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2)
 
 .navbar-brand
+  color: $textColor
+  background: $gradientColor
+  -webkit-background-clip: text
+  -webkit-text-fill-color: transparent
   font-size: 1.2rem
   margin-right: 1.5rem
   cursor: pointer
-  color: $textColor
-  letter-spacing: 0.05rem
+  letter-spacing: 0rem
 
 .nav-item
   margin-right: 1.5rem

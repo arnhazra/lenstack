@@ -30,6 +30,18 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
     if (searchRef && searchRef.current) {
       searchRef.current.value = ""
     }
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.altKey && event.key.toLowerCase() === "q" && searchRef.current) {
+        event.preventDefault()
+        searchRef.current.focus()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress)
+    }
   }, [pathname, searchParams])
 
   const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -52,7 +64,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
             <Navbar.Collapse>
               <Show when={searchEnabledPathNames.includes(pathname)}>
                 <Nav className="ms-auto">
-                  <input ref={searchRef} placeholder="What are you looking for ?" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                  <input ref={searchRef} placeholder="What are you looking for ? (Alt + Q)" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Nav>
               </Show>
               <Nav className="ms-auto">

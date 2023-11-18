@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <Container>
       <div className="cover">
-        <p className="display-4">
+        <p className="display-5">
           {Constants.HomeHeader1}<br />
           {Constants.HomeHeader2}
         </p>
@@ -27,7 +27,6 @@ export default function Page() {
             Try for free
           </Show>
         </Link>
-        <Link passHref target="_blank" rel="noopener noreferrer" href={Constants.LinkedinUri} className="btn"><ExternalLinkIcon className="icon-left" />Contact</Link>
       </div>
     </Container>
   )
