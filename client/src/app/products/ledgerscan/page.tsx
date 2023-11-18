@@ -18,8 +18,8 @@ import "react-json-view-lite/dist/index.css"
 export default function Page() {
   const [api, setApi] = useState("")
   const [response, setReseponse] = useState({})
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "hexscan" })
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "hexscan")
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "ledgerscan" })
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "ledgerscan")
   const [isLoading, setLoading] = useState(false)
 
   const hitAPI = async (e: any) => {
@@ -27,7 +27,7 @@ export default function Page() {
 
     try {
       setLoading(true)
-      const res = await axios.post(`${endPoints.hexscanAnalyzer}${api}`)
+      const res = await axios.post(`${endPoints.ledgerscanAnalyzer}${api}`)
       setReseponse(res.data)
     }
 
@@ -65,7 +65,7 @@ export default function Page() {
         <GenericHero>
           <p className="branding">API Client (No need to pass Base URI)</p>
           <form onSubmit={hitAPI}>
-            <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.hexscanAnalyzer}</Form.Label>
+            <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
             <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
             <Button disabled={isLoading} className="mt-3" type="submit">
               <Show when={!isLoading}>

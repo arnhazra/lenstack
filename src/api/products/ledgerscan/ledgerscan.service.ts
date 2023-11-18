@@ -2,16 +2,16 @@ import { HttpService } from "@nestjs/axios"
 import { Injectable } from "@nestjs/common"
 import { lastValueFrom } from "rxjs"
 import { otherConstants } from "src/constants/otherConstants"
-import { HexscanRepository } from "./hexscan.repository"
+import { LedgerscanRepository } from "./ledgerscan.repository"
 
 @Injectable()
-export class HexscanService {
-  constructor(private readonly httpService: HttpService, private readonly hexscanRepository: HexscanRepository) { }
+export class LedgerscanService {
+  constructor(private readonly httpService: HttpService, private readonly ledgerscanRepository: LedgerscanRepository) { }
 
   async analyze(params: string, workspaceId: string) {
     try {
       const response = await lastValueFrom(this.httpService.get(`${otherConstants.polygonScanApiEndpoint}/api?${params}`))
-      await this.hexscanRepository.createNewTransaction(workspaceId)
+      await this.ledgerscanRepository.createNewTransaction(workspaceId)
       return response.data
     }
 

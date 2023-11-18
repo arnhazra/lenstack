@@ -25,7 +25,7 @@ export const endPoints = {
   frostlakeViewProject: `${apiHost}/api/products/frostlake/viewproject`,
   frostlakeDeleteProject: `${apiHost}/api/products/frostlake/deleteproject`,
   frostlakeCreateAnalytics: `${apiHost}/api/products/frostlake/createanalytics`,
-  hexscanAnalyzer: `${apiHost}/api/products/hexscan/analyzer`,
+  ledgerscanAnalyzer: `${apiHost}/api/products/ledgerscan/analyzer`,
   hyperedgeCreateDb: `${apiHost}/api/products/hyperedge/createdb`,
   hyperedgeGetMyDbs: `${apiHost}/api/products/hyperedge/getmydbs`,
   hyperedgeViewDb: `${apiHost}/api/products/hyperedge/viewdbfromplatform`,

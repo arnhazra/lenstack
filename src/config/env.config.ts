@@ -9,7 +9,7 @@ export const envConfig = {
   frostlakeMongoDbUri: process.env.LENSTACK_INSIGHTS_DB_URI,
   hyperedgeMongoDbUri: process.env.LENSTACK_FABRIC_DB_URI,
   payMongoDbUri: process.env.LENSTACK_PAY_DB_URI,
-  hexscanMongoDbUri: process.env.LENSTACK_LEDGERSCAN_DB_URI,
+  ledgerscanMongoDbUri: process.env.LENSTACK_LEDGERSCAN_DB_URI,
   snowlakeMongoDbUri: process.env.LENSTACK_NFTSTUDIO_DB_URI,
   swapMongoDbUri: process.env.LENSTACK_SWAP_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
