@@ -85,7 +85,7 @@ export default function Page() {
       <Show when={!isLoading && !secretConfig.isLoading && !products.isLoading}>
         <Container>
           <GenericHero>
-            <p className="branding">{selectedProduct?.productName}</p>
+            <p className="branding">{selectedProduct?.displayName}</p>
             <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
               <Badge bg="dark" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
