@@ -17,8 +17,8 @@ const lenstackPlatformDbConnect = async () => {
 }
 
 const datalakeDbConnect = async () => {
-  datalakeMongoDbConn.on("connected", () => console.log("Datalake DB Connected"))
-  datalakeMongoDbConn.on("error", (err) => console.log("Datalake DB Not Connected"))
+  datalakeMongoDbConn.on("connected", () => console.log("Lenstack Datalake DB Connected"))
+  datalakeMongoDbConn.on("error", (err) => console.log("Lenstack Datalake DB Not Connected"))
 }
 
 const payDbConnect = async () => {
@@ -27,13 +27,13 @@ const payDbConnect = async () => {
 }
 
 const insightsDbConnect = async () => {
-  insightsMongoDbConn.on("connected", () => console.log("Insights DB Connected"))
-  insightsMongoDbConn.on("error", (err) => console.log("Insights DB Not Connected"))
+  insightsMongoDbConn.on("connected", () => console.log("Lenstack Insights DB Connected"))
+  insightsMongoDbConn.on("error", (err) => console.log("Lenstack Insights DB Not Connected"))
 }
 
 const nftstudioDbConnect = async () => {
-  nftstudioMongoDbConn.on("connected", () => console.log("Nftstudio DB Connected"))
-  nftstudioMongoDbConn.on("error", (err) => console.log("Nftstudio DB Not Connected"))
+  nftstudioMongoDbConn.on("connected", () => console.log("Lenstack NFT Studio DB Connected"))
+  nftstudioMongoDbConn.on("error", (err) => console.log("Lenstack NFT Studio DB Not Connected"))
 }
 
 const swapDbConnect = async () => {
@@ -42,13 +42,13 @@ const swapDbConnect = async () => {
 }
 
 const fabricDbConnect = async () => {
-  fabricMongoDbConn.on("connected", () => console.log("Fabric DB Connected"))
-  fabricMongoDbConn.on("error", (err) => console.log("Fabric DB Not Connected"))
+  fabricMongoDbConn.on("connected", () => console.log("Lenstack Fabric DB Connected"))
+  fabricMongoDbConn.on("error", (err) => console.log("Lenstack Fabric DB Not Connected"))
 }
 
 const ledgerscanMongoDbConnect = async () => {
-  ledgerscanMongoDbConn.on("connected", () => console.log("Ledgerscan DB Connected"))
-  ledgerscanMongoDbConn.on("error", (err) => console.log("Ledgerscan DB Not Connected"))
+  ledgerscanMongoDbConn.on("connected", () => console.log("Lenstack Ledgerscan DB Connected"))
+  ledgerscanMongoDbConn.on("error", (err) => console.log("Lenstack Ledgerscan DB Not Connected"))
 }
 
 export const dbConnect = async () => {
