@@ -33,6 +33,6 @@ export const endPoints = {
   hyperedgeCreateKv: `${apiHost}/api/products/hyperedge/createkv`,
   hyperedgeDeleteKv: `${apiHost}/api/products/hyperedge/deletekv`,
   snowlakeCreateTx: `${apiHost}/api/products/snowlake/createtx`,
-  swapstreamCreateTx: `${apiHost}/api/products/swapstream/createtx`,
-  swapstreamTokenConfig: `${apiHost}/api/products/swapstream/getswapstreamtokenconfig`,
+  swapCreateTx: `${apiHost}/api/products/swap/createtx`,
+  swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
 }

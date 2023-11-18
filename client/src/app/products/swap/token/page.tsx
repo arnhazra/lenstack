@@ -25,10 +25,10 @@ export default function page() {
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
-  const swapstreamTokenConfig = useFetch("swapstreamtokenconfig", endPoints.swapstreamTokenConfig, HTTPMethods.POST, { searchQuery: "" })
+  const swapTokenConfig = useFetch("swaptokenconfig", endPoints.swapTokenConfig, HTTPMethods.POST, { searchQuery: "" })
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(secretConfig?.data?.alchemyGateway)
-  const selectedToken: TokenData = swapstreamTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
+  const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [balance, setBalance] = useState(0)
 
@@ -57,7 +57,7 @@ export default function page() {
     if (hasConfirmed && amount > 0) {
       try {
         setTxProcessing(true)
-        await axios.post(endPoints.swapstreamCreateTx)
+        await axios.post(endPoints.swapCreateTx)
         const { privateKey } = userState
         const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
         const vendor = new web3Provider.eth.Contract(vendorABI as any, selectedToken?.vendorContractAddress)
@@ -104,7 +104,7 @@ export default function page() {
       if (amount <= balance) {
         try {
           setTxProcessing(true)
-          await axios.post(endPoints.swapstreamCreateTx)
+          await axios.post(endPoints.swapCreateTx)
           const { privateKey } = userState
           const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
           const gasPrice = await web3Provider.eth.getGasPrice()
@@ -162,14 +162,14 @@ export default function page() {
     }
   }
 
-  const tokensToDisplay = swapstreamTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
+  const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
     .map((token: TokenData) => {
       const genericProductCardProps: GenericProductCardInterface = {
         badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
         className: "decentralized",
         headerText: token.tokenName,
         footerText: token.description,
-        redirectUri: `/products/swapstream/token?tokenAddress=${token.tokenContractAddress}`
+        redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
       return <GenericProductCard key={token.tokenContractAddress} genericProductCardProps={genericProductCardProps} />
@@ -177,7 +177,7 @@ export default function page() {
 
   return (
     <Container>
-      <Show when={!swapstreamTokenConfig.isLoading && !secretConfig.isLoading}>
+      <Show when={!swapTokenConfig.isLoading && !secretConfig.isLoading}>
         <GenericHero>
           <p className="branding text-capitalize">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
@@ -201,7 +201,7 @@ export default function page() {
           {tokensToDisplay}
         </Row>
       </Show>
-      <Show when={swapstreamTokenConfig.isLoading || secretConfig.isLoading}>
+      <Show when={swapTokenConfig.isLoading || secretConfig.isLoading}>
         <Loading />
       </Show>
       {promptDialog()}

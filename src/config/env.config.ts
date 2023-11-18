@@ -11,7 +11,7 @@ export const envConfig = {
   payMongoDbUri: process.env.LENSTACK_PAY_DB_URI,
   hexscanMongoDbUri: process.env.LENSTACK_LEDGERSCAN_DB_URI,
   snowlakeMongoDbUri: process.env.LENSTACK_NFTSTUDIO_DB_URI,
-  swapstreamMongoDbUri: process.env.LENSTACK_SWAP_DB_URI,
+  swapMongoDbUri: process.env.LENSTACK_SWAP_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,

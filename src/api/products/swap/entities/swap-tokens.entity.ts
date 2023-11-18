@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { swapstreamMongoDbConn } from "../../../../utils/dbConnect"
+import { swapMongoDbConn } from "../../../../utils/dbConnect"
 
-const SwapstreamTokenMetadataSchema = new mongoose.Schema({
+const SwapTokenMetadataSchema = new mongoose.Schema({
   tokenName: {
     type: String,
     required: true
@@ -33,4 +33,4 @@ const SwapstreamTokenMetadataSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const SwapstreamTokenMetadataModel = swapstreamMongoDbConn.model("token", SwapstreamTokenMetadataSchema)
+export const SwapTokenMetadataModel = swapMongoDbConn.model("token", SwapTokenMetadataSchema)

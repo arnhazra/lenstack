@@ -6,14 +6,14 @@ export const airlakeMongoDbConn = mongoose.createConnection(envConfig.airlakeMon
 export const payMongoDbConn = mongoose.createConnection(envConfig.payMongoDbUri)
 export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
 export const snowlakeMongoDbConn = mongoose.createConnection(envConfig.snowlakeMongoDbUri)
-export const swapstreamMongoDbConn = mongoose.createConnection(envConfig.swapstreamMongoDbUri)
+export const swapMongoDbConn = mongoose.createConnection(envConfig.swapMongoDbUri)
 export const hyperedgeMongoDbConn = mongoose.createConnection(envConfig.hyperedgeMongoDbUri)
 export const hexscanMongoDbConn = mongoose.createConnection(envConfig.hexscanMongoDbUri)
 
 
 const lenstackPlatformDbConnect = async () => {
-  lenstackPlatformMongoDbConn.on("connected", () => console.log("Main Lenstack DB Connected"))
-  lenstackPlatformMongoDbConn.on("error", (err) => console.log("Main Lenstack DB Not Connected"))
+  lenstackPlatformMongoDbConn.on("connected", () => console.log("Lenstack Platform DB Connected"))
+  lenstackPlatformMongoDbConn.on("error", (err) => console.log("Lenstack Platform DB Not Connected"))
 }
 
 const airlakeDbConnect = async () => {
@@ -36,9 +36,9 @@ const snowlakeDbConnect = async () => {
   snowlakeMongoDbConn.on("error", (err) => console.log("Snowlake DB Not Connected"))
 }
 
-const swapstreamDbConnect = async () => {
-  swapstreamMongoDbConn.on("connected", () => console.log("Swpastream DB Connected"))
-  swapstreamMongoDbConn.on("error", (err) => console.log("Swpastream DB Not Connected"))
+const swapDbConnect = async () => {
+  swapMongoDbConn.on("connected", () => console.log("Lenstack Swap DB Connected"))
+  swapMongoDbConn.on("error", (err) => console.log("Lenstack Swap DB Not Connected"))
 }
 
 const hyperedgeDbConnect = async () => {
@@ -57,7 +57,7 @@ export const dbConnect = async () => {
   payDbConnect()
   frostlakeDbConnect()
   snowlakeDbConnect()
-  swapstreamDbConnect()
+  swapDbConnect()
   hyperedgeDbConnect()
   hexscanMongoDbConnect()
 }

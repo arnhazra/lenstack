@@ -1,20 +1,20 @@
 import { BadRequestException, Controller, Post, Body } from "@nestjs/common"
-import { SwapstreamService } from "./swapstream.service"
+import { SwapService } from "./swap.service"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
 import { statusMessages } from "src/constants/statusMessages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
-import { SearchTokensDto } from "./entities/search-tokens.dto"
+import { SearchTokensDto } from "./dto/search-tokens.dto"
 
-@Controller("products/swapstream")
-export class SwapstreamController {
-  constructor(private readonly swapstreamService: SwapstreamService) { }
+@Controller("products/swap")
+export class SwapController {
+  constructor(private readonly swapService: SwapService) { }
 
-  @Post("getswapstreamtokenconfig")
-  async getSwapStreamTokenList(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchTokensDto: SearchTokensDto) {
+  @Post("getswaptokenconfig")
+  async getSwapTokenList(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchTokensDto: SearchTokensDto) {
     try {
       const { searchQuery } = searchTokensDto
-      const swapstreamTokenConfig = await this.swapstreamService.getSwapStreamTokenList(searchQuery)
-      return swapstreamTokenConfig
+      const swapTokenConfig = await this.swapService.getSwapTokenList(searchQuery)
+      return swapTokenConfig
     }
 
     catch (error) {
@@ -25,8 +25,8 @@ export class SwapstreamController {
   @Post("createtx")
   async createTransaction(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse) {
     try {
-      await this.swapstreamService.createTransaction(ufak.workspaceId)
-      return true
+      const transaction = await this.swapService.createTransaction(ufak.workspaceId)
+      return transaction
     }
 
     catch (error) {

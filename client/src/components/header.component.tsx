@@ -20,8 +20,8 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [, dispatch] = useContext(GlobalContext)
-  const searchEnabledPathNames = ["/dashboard", "/products/airlake", "/products/frostlake", "/products/hyperedge", "/products/snowlake", "/products/swapstream",
-    "/dashboard/", "/products/airlake/", "/products/frostlake/", "/products/hyperedge/", "/products/snowlake/", "/products/swapstream/"]
+  const searchEnabledPathNames = ["/dashboard", "/products/airlake", "/products/frostlake", "/products/hyperedge", "/products/snowlake", "/products/swap",
+    "/dashboard/", "/products/airlake/", "/products/frostlake/", "/products/hyperedge/", "/products/snowlake/", "/products/swap/"]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
