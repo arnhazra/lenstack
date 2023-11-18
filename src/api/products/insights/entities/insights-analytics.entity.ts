@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { frostlakeMongoDbConn } from "../../../../utils/dbConnect"
+import { insightsMongoDbConn } from "../../../../utils/dbConnect"
 
-const FrostlakeAnalyticsSchema = new mongoose.Schema({
+const InsightsAnalyticsSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -40,4 +40,4 @@ const FrostlakeAnalyticsSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const FrostlakeAnalyticsModel = frostlakeMongoDbConn.model("analytics", FrostlakeAnalyticsSchema)
+export const InsightsAnalyticsModel = insightsMongoDbConn.model("analytics", InsightsAnalyticsSchema)

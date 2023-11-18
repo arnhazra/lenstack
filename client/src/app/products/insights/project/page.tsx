@@ -19,7 +19,7 @@ import GenericHero from "@/components/generichero.component"
 export default function Page() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectId")
-  const project = useFetch("view project", `${endPoints.frostlakeViewProject}?projectId`, HTTPMethods.POST, { projectId }, true)
+  const project = useFetch("view project", `${endPoints.insightsViewProject}?projectId`, HTTPMethods.POST, { projectId }, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
@@ -39,8 +39,8 @@ export default function Page() {
     const userConsent = await confirm("Are you sure to archive this project?")
 
     if (userConsent) {
-      await axios.delete(`${endPoints.frostlakeDeleteProject}?projectId=${projectId}`)
-      router.push("/products/frostlake")
+      await axios.delete(`${endPoints.insightsDeleteProject}?projectId=${projectId}`)
+      router.push("/products/insights")
     }
   }
 

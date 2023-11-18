@@ -16,9 +16,9 @@ import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const projects = useFetch("projects", endPoints.frostlakeGetProjects, HTTPMethods.POST, { searchQuery: globalSearchString })
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "frostlake" })
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "frostlake")
+  const projects = useFetch("projects", endPoints.insightsGetProjects, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "insights" })
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
 
   const displayProjects = useCallback(() => {
     const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
@@ -26,8 +26,8 @@ export default function Page() {
         badgeText: "Project",
         className: "centralized",
         headerText: project.name,
-        footerText: `This Project was started by you using Frostlake Platform on ${moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-        redirectUri: `/products/frostlake/project?projectId=${project._id}`
+        footerText: `This Project was started by you using Insights Platform on ${moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        redirectUri: `/products/insights/project?projectId=${project._id}`
       }
 
       return (
@@ -62,7 +62,7 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <Link className="btn" href="/products/frostlake/createproject"><PlusCircledIcon className="icon-left" />Create Project</Link>
+            <Link className="btn" href="/products/insights/createproject"><PlusCircledIcon className="icon-left" />Create Project</Link>
           </GenericHero>
           {displayProjects()}
         </Container>

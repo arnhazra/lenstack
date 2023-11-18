@@ -2,21 +2,21 @@ import { Injectable, BadRequestException, NotFoundException } from "@nestjs/comm
 import { randomBytes } from "crypto"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CreateProjectDto } from "./dto/create-project.dto"
-import { FrostlakeRepository } from "./frostlake.repository"
+import { InsightsRepository } from "./insights.repository"
 
 @Injectable()
-export class FrostlakeService {
-  constructor(private readonly frostlakeRepository: FrostlakeRepository) { }
+export class InsightsService {
+  constructor(private readonly insightsRepository: InsightsRepository) { }
 
   async createProject(workspaceId: string, createProjectDto: CreateProjectDto) {
     try {
       const { name } = createProjectDto
-      const count = await this.frostlakeRepository.countProjects(workspaceId)
+      const count = await this.insightsRepository.countProjects(workspaceId)
 
       if (count < 10) {
         const clientId = randomBytes(16).toString("hex")
         const clientSecret = randomBytes(32).toString("hex")
-        const project = await this.frostlakeRepository.createProject(workspaceId, name, clientId, clientSecret)
+        const project = await this.insightsRepository.createProject(workspaceId, name, clientId, clientSecret)
         return project
       }
 
@@ -32,7 +32,7 @@ export class FrostlakeService {
 
   async getProjects(workspaceId: string, searchQuery: string) {
     try {
-      const projects = await this.frostlakeRepository.getProjectsByWorkspaceId(workspaceId, searchQuery)
+      const projects = await this.insightsRepository.getProjectsByWorkspaceId(workspaceId, searchQuery)
       return projects
     }
 
@@ -43,11 +43,11 @@ export class FrostlakeService {
 
   async viewProject(workspaceId: string, projectId: string) {
     try {
-      const project = await this.frostlakeRepository.findProjectById(projectId)
+      const project = await this.insightsRepository.findProjectById(projectId)
       const { workspaceId: workspaceIdFromProject } = project
 
       if (workspaceIdFromProject.toString() === workspaceId) {
-        const analytics = await this.frostlakeRepository.findAnalyticsByProjectId(workspaceId, project.id)
+        const analytics = await this.insightsRepository.findAnalyticsByProjectId(workspaceId, project.id)
         return { project, analytics }
       }
 
@@ -63,10 +63,10 @@ export class FrostlakeService {
 
   async deleteProject(workspaceId: string, projectId: string) {
     try {
-      const project = await this.frostlakeRepository.findProjectById(projectId)
+      const project = await this.insightsRepository.findProjectById(projectId)
       const { workspaceId: workspaceIdFromProject } = project
       if (workspaceIdFromProject.toString() === workspaceId) {
-        await this.frostlakeRepository.deleteProjectById(workspaceId, projectId)
+        await this.insightsRepository.deleteProjectById(workspaceId, projectId)
         return true
       }
 
@@ -83,10 +83,10 @@ export class FrostlakeService {
   async createAnalytics(workspaceId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
       const { component, event, info, statusCode, clientId, clientSecret } = createAnalyticsDto
-      const project = await this.frostlakeRepository.findProject(clientId, clientSecret)
+      const project = await this.insightsRepository.findProject(clientId, clientSecret)
       if (project.workspaceId.toString() === workspaceId) {
         const projectId = project.id
-        await this.frostlakeRepository.createAnalytics(workspaceId, projectId, component, event, info, statusCode)
+        await this.insightsRepository.createAnalytics(workspaceId, projectId, component, event, info, statusCode)
         return true
       }
 

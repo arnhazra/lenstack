@@ -4,7 +4,7 @@ import { envConfig } from "../config/env.config"
 export const lenstackPlatformMongoDbConn = mongoose.createConnection(envConfig.lenstackPlatformDbUri)
 export const datalakeMongoDbConn = mongoose.createConnection(envConfig.datalakeMongoDbUri)
 export const payMongoDbConn = mongoose.createConnection(envConfig.payMongoDbUri)
-export const frostlakeMongoDbConn = mongoose.createConnection(envConfig.frostlakeMongoDbUri)
+export const insightsMongoDbConn = mongoose.createConnection(envConfig.insightsMongoDbUri)
 export const nftstudioMongoDbConn = mongoose.createConnection(envConfig.nftstudioMongoDbUri)
 export const swapMongoDbConn = mongoose.createConnection(envConfig.swapMongoDbUri)
 export const hyperedgeMongoDbConn = mongoose.createConnection(envConfig.hyperedgeMongoDbUri)
@@ -26,9 +26,9 @@ const payDbConnect = async () => {
   payMongoDbConn.on("error", (err) => console.log("Lenstack Pay DB Not Connected"))
 }
 
-const frostlakeDbConnect = async () => {
-  frostlakeMongoDbConn.on("connected", () => console.log("Frostlake DB Connected"))
-  frostlakeMongoDbConn.on("error", (err) => console.log("Frostlake DB Not Connected"))
+const insightsDbConnect = async () => {
+  insightsMongoDbConn.on("connected", () => console.log("Insights DB Connected"))
+  insightsMongoDbConn.on("error", (err) => console.log("Insights DB Not Connected"))
 }
 
 const nftstudioDbConnect = async () => {
@@ -55,7 +55,7 @@ export const dbConnect = async () => {
   lenstackPlatformDbConnect()
   datalakeDbConnect()
   payDbConnect()
-  frostlakeDbConnect()
+  insightsDbConnect()
   nftstudioDbConnect()
   swapDbConnect()
   hyperedgeDbConnect()

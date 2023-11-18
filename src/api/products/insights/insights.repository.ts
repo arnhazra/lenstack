@@ -1,22 +1,22 @@
 import { Injectable } from "@nestjs/common"
-import { FrostlakeProjectModel } from "./entities/frostlake-project.entity"
-import { FrostlakeAnalyticsModel } from "./entities/frostlake-analytics.entity"
+import { InsightsProjectModel } from "./entities/insights-project.entity"
+import { InsightsAnalyticsModel } from "./entities/insights-analytics.entity"
 
 @Injectable()
-export class FrostlakeRepository {
+export class InsightsRepository {
   async countProjects(workspaceId: string) {
-    const count = await FrostlakeProjectModel.find({ workspaceId }).estimatedDocumentCount()
+    const count = await InsightsProjectModel.find({ workspaceId }).estimatedDocumentCount()
     return count
   }
 
   async createProject(workspaceId: string, name: string, clientId: string, clientSecret: string) {
-    const project = new FrostlakeProjectModel({ workspaceId, name, clientId, clientSecret })
+    const project = new InsightsProjectModel({ workspaceId, name, clientId, clientSecret })
     await project.save()
     return project
   }
 
   async getProjectsByWorkspaceId(workspaceId: string, searchQuery: string) {
-    const projects = await FrostlakeProjectModel.find({
+    const projects = await InsightsProjectModel.find({
       name: { $regex: searchQuery, $options: "i" },
       workspaceId: workspaceId
     })
@@ -25,28 +25,28 @@ export class FrostlakeRepository {
   }
 
   async findProjectById(projectId: string) {
-    const project = await FrostlakeProjectModel.findById(projectId)
+    const project = await InsightsProjectModel.findById(projectId)
     return project
   }
 
   async findProject(clientId: string, clientSecret: string) {
-    const project = await FrostlakeProjectModel.findOne({ clientId, clientSecret })
+    const project = await InsightsProjectModel.findOne({ clientId, clientSecret })
     return project
   }
 
   async findAnalyticsByProjectId(workspaceId: string, projectId: string) {
-    const analytics = await FrostlakeAnalyticsModel.find({ workspaceId, projectId }).select("-workspaceId -projectId").sort({ createdAt: -1 })
+    const analytics = await InsightsAnalyticsModel.find({ workspaceId, projectId }).select("-workspaceId -projectId").sort({ createdAt: -1 })
     return analytics
   }
 
   async deleteProjectById(workspaceId: string, projectId: string) {
-    await FrostlakeAnalyticsModel.deleteMany({ workspaceId, projectId })
-    await FrostlakeProjectModel.findByIdAndDelete(projectId)
+    await InsightsAnalyticsModel.deleteMany({ workspaceId, projectId })
+    await InsightsProjectModel.findByIdAndDelete(projectId)
     return true
   }
 
   async createAnalytics(workspaceId: string, projectId: string, component: string, event: string, info: string, statusCode: string) {
-    const analytics = new FrostlakeAnalyticsModel({ workspaceId, projectId, component, event, info, statusCode })
+    const analytics = new InsightsAnalyticsModel({ workspaceId, projectId, component, event, info, statusCode })
     await analytics.save()
     return true
   }

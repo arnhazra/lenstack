@@ -12,6 +12,7 @@
 * Rebranding of Edgescan as Lenstack Ledgerscan
 * Rebranding of Snowlake as Lenstack NFT Studio
 * Rebranding of Airlake as Lenstack Datalake
+* Rebranding of Frostlake as Lenstack Insights
 
 ### v3.0
 * Created DTO for all controllers wherever required to avoid raw data extraction from request body

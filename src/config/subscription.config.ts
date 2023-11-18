@@ -12,7 +12,7 @@ export const subscriptionConfig = {
 export const apiPricing = {
   datalake: 3,
   pay: 5,
-  frostlake: 3,
+  insights: 3,
   nftstudio: 50,
   swap: 10,
   hyperedge: 2,
