@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <Container>
       <div className="hero">
-        <p className="display-5">
+        <p className="display-4">
           {Constants.HomeHeader1}<br />
           {Constants.HomeHeader2}
         </p>

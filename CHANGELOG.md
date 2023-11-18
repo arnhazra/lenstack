@@ -8,6 +8,7 @@
 * Rebranding of Snowlake as Lenstack NFT Studio
 * Rebranding of Edgepay as Lenstack Pay
 * Rebranding of Swapstream as Lenstack Swap
+* UI Changes
 * Migration of all mongo databases into Azure from AWS & GCP, existing Azure mongo databases remains same
 * Product config changes as per new product name standards
 * API reference changes as per new product names
