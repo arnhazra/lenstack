@@ -35,7 +35,8 @@ export interface GenericProductCardInterface {
   footerText: string
   badgeText: string
   redirectUri: string
-  className: string
+  className: string,
+  isDisabled?: boolean
 }
 
 export interface GenericProductCardProps {

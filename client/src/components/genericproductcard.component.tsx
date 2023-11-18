@@ -7,7 +7,9 @@ export default function GenericProductCard({ genericProductCardProps }: GenericP
   const router = useRouter()
 
   const redirectToProduct = () => {
-    router.push(genericProductCardProps.redirectUri)
+    if (!genericProductCardProps.isDisabled) {
+      router.push(genericProductCardProps.redirectUri)
+    }
   }
 
   return (

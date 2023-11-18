@@ -22,7 +22,8 @@ export default function Page() {
         className: product.productCategory,
         footerText: product.description,
         headerText: `${product.displayName}`,
-        redirectUri: `/products/${product.productName}`
+        redirectUri: `/products/${product.productName}`,
+        isDisabled: product.productStatus !== "Available"
       }
 
       return <GenericProductCard key={product.productName} genericProductCardProps={genericProductCardProps} />
