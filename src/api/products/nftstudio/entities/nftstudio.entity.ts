@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { nftstudioMongoDbConn } from "../../../../utils/dbConnect"
+import { nftstudioMongoDbConn } from "../../../../utils/db-connect"
 
 const NftstudioTransactionSchema = new mongoose.Schema({
   workspaceId: {

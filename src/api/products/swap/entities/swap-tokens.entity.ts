@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { swapMongoDbConn } from "../../../../utils/dbConnect"
+import { swapMongoDbConn } from "../../../../utils/db-connect"
 
 const SwapTokenMetadataSchema = new mongoose.Schema({
   tokenName: {

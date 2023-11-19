@@ -2,7 +2,7 @@ import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nes
 import { SubscriptionModel } from "src/api/subscription/entities/subscription.entity"
 import { WorkspaceModel } from "src/api/workspace/entities/workspace.entity"
 import { apiPricing } from "src/config/subscription.config"
-import { statusMessages } from "src/constants/statusMessages"
+import { statusMessages } from "src/constants/status-messages"
 
 export interface ApiKeyAuthorizerResponse {
   userId: string,

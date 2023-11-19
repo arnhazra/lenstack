@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { fabricMongoDbConn } from "../../../../utils/dbConnect"
+import { fabricMongoDbConn } from "../../../../utils/db-connect"
 
 const FabricDbSchema = new mongoose.Schema({
   workspaceId: {

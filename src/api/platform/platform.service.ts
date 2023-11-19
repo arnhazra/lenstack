@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { envConfig } from "src/config/env.config"
-import { statusMessages } from "src/constants/statusMessages"
+import { statusMessages } from "src/constants/status-messages"
 import { PlatformRepository } from "./platform.repositiory"
 
 @Injectable()

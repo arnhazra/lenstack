@@ -1,7 +1,7 @@
 import { HttpService } from "@nestjs/axios"
 import { Injectable } from "@nestjs/common"
 import { lastValueFrom } from "rxjs"
-import { otherConstants } from "src/constants/otherConstants"
+import { otherConstants } from "src/constants/other-constants"
 import { LedgerscanRepository } from "./ledgerscan.repository"
 
 @Injectable()

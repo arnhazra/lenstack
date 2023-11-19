@@ -1,6 +1,6 @@
 import { Controller, Post, BadRequestException } from "@nestjs/common"
 import { PayService } from "./pay.service"
-import { statusMessages } from "../../../constants/statusMessages"
+import { statusMessages } from "../../../constants/status-messages"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
 
 @Controller("products/pay")

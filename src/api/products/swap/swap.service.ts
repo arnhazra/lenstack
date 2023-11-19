@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { statusMessages } from "src/constants/statusMessages"
+import { statusMessages } from "src/constants/status-messages"
 import { SwapRepository } from "./swap.repository"
 
 @Injectable()

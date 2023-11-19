@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { ledgerscanMongoDbConn } from "../../../../utils/dbConnect"
+import { ledgerscanMongoDbConn } from "../../../../utils/db-connect"
 
 const LedgerscanTransactionSchema = new mongoose.Schema({
   workspaceId: {

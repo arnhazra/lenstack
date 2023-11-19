@@ -1,8 +1,8 @@
 import { createParamDecorator, ExecutionContext, UnauthorizedException } from "@nestjs/common"
 import { UserModel } from "src/api/user/entities/user.entity"
-import { statusMessages } from "src/constants/statusMessages"
-import { decodeJwt } from "src/utils/decodeJwt"
-import { getTokenFromRedis } from "src/utils/redisHelper"
+import { statusMessages } from "src/constants/status-messages"
+import { decodeJwt } from "src/utils/decode-jwt"
+import { getTokenFromRedis } from "src/utils/redis-helper"
 
 export interface TokenAuthorizerResponse {
   userId: string,

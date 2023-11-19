@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { insightsMongoDbConn } from "../../../../utils/dbConnect"
+import { insightsMongoDbConn } from "../../../../utils/db-connect"
 
 const InsightsAnalyticsSchema = new mongoose.Schema({
   workspaceId: {

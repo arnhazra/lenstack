@@ -2,7 +2,7 @@ import { BadRequestException, Controller, Post, Req } from "@nestjs/common"
 import { LedgerscanService } from "./ledgerscan.service"
 import { envConfig } from "src/config/env.config"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
-import { statusMessages } from "src/constants/statusMessages"
+import { statusMessages } from "src/constants/status-messages"
 
 @Controller("products/ledgerscan")
 export class LedgerscanController {

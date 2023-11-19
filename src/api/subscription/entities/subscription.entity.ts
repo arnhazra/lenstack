@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
+import { lenstackPlatformMongoDbConn } from "../../../utils/db-connect"
 
 const SubscriptionSchema = new mongoose.Schema({
   workspaceId: {

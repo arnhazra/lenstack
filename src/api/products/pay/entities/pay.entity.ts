@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { payMongoDbConn } from "../../../../utils/dbConnect"
+import { payMongoDbConn } from "../../../../utils/db-connect"
 
 const PayTransactionSchema = new mongoose.Schema({
   workspaceId: {

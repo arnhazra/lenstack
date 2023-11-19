@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
+import { lenstackPlatformMongoDbConn } from "../../../utils/db-connect"
 
 export interface NewUser {
   email: string

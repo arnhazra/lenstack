@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { CreateWorkspaceDto } from "./dto/create-workspace.dto"
 import { WorkspaceRepository } from "./workspace.repository"
-import { statusMessages } from "src/constants/statusMessages"
+import { statusMessages } from "src/constants/status-messages"
 
 @Injectable()
 export class WorkspaceService {
