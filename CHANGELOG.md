@@ -16,6 +16,7 @@
 * Subscription configuration changes
 * File naming changes as per new standard
 * Dependency updates & performance improvements
+* Code Refactoring
 
 ### v3.0
 * Created DTO for all controllers wherever required to avoid raw data extraction from request body
