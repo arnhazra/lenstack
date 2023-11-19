@@ -1,4 +1,18 @@
-export const subscriptionConfig = {
+interface CreditType {
+  price: number,
+  grantedCredits: number
+}
+
+export interface SubscriptionConfigType {
+  trial: CreditType,
+  pro: CreditType
+}
+
+interface APIPricingType {
+  [key: string]: number
+}
+
+export const subscriptionConfig: SubscriptionConfigType = {
   trial: {
     price: 0,
     grantedCredits: 10000
@@ -9,7 +23,7 @@ export const subscriptionConfig = {
   }
 }
 
-export const apiPricing = {
+export const apiPricing: APIPricingType = {
   datalake: 3,
   pay: 5,
   insights: 3,

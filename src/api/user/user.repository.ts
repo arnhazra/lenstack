@@ -17,10 +17,13 @@ export class UserRepository {
     return UserModel.findById(userId).exec()
   }
 
-  async findUserByIdAndUpdate(userId: string, property: string, value: string | boolean | number) {
-    const objectToUpdate = {}
-    objectToUpdate[property] = value
-    await UserModel.findByIdAndUpdate(userId, objectToUpdate)
+  async findUserByIdAndUpdateTrialStatus(userId: string, trialAvailable: boolean) {
+    await UserModel.findByIdAndUpdate(userId, { trialAvailable })
+    return true
+  }
+
+  async findUserByIdAndUpdateSelectedWorkspace(userId: string, selectedWorkspaceId: string) {
+    await UserModel.findByIdAndUpdate(userId, { selectedWorkspaceId })
     return true
   }
 }

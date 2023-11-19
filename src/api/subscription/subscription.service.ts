@@ -6,7 +6,7 @@ import { UserRepository } from "../user/user.repository"
 import { statusMessages } from "src/constants/statusMessages"
 import { envConfig } from "src/config/env.config"
 import { SubscribeDto } from "./dto/subscribe.dto"
-import { subscriptionConfig } from "src/config/subscription.config"
+import { SubscriptionConfigType, subscriptionConfig } from "src/config/subscription.config"
 
 @Injectable()
 export class SubscriptionService {
@@ -25,7 +25,7 @@ export class SubscriptionService {
         const selectedPlan = "Trial"
         const apiKey = "ak-" + randomBytes(16).toString("hex")
         await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, apiKey)
-        await this.userRepository.findUserByIdAndUpdate(userId, "trialAvailable", false)
+        await this.userRepository.findUserByIdAndUpdateTrialStatus(userId, false)
         return true
       }
 
@@ -83,7 +83,7 @@ export class SubscriptionService {
     }
   }
 
-  getSubscriptionConfig() {
+  getSubscriptionConfig(): SubscriptionConfigType {
     try {
       return subscriptionConfig
     }

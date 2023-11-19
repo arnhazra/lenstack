@@ -1,8 +1,8 @@
 import { Controller, Post, Body } from "@nestjs/common"
 import { DatalakeService } from "./datalake.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
-import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
 import { SearchDatasetDto } from "./dto/search-dataset.dto"
 
 @Controller("products/datalake")

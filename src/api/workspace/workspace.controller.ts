@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Query, BadRequestException } from "@nestjs/common"
 import { WorkspaceService } from "./workspace.service"
 import { CreateWorkspaceDto } from "./dto/create-workspace.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { statusMessages } from "src/constants/statusMessages"
 
 @Controller("workspace")

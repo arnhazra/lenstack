@@ -1,7 +1,7 @@
 import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
 import { ApiReferenceService } from "./apireference.service"
 import { CreateApiReferenceDto } from "./dto/create-apireference.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { SearchApiReferenceDto } from "./dto/search-apireference.dto"
 
 @Controller("apireference")

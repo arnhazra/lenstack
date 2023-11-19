@@ -63,7 +63,7 @@ export class UserService {
           const { privateKey } = this.web3Provider.eth.accounts.create()
           const newUser = await this.userRepository.createNewUser({ email, privateKey })
           const workspace = await this.workspaceRepository.createWorkspace("Default Workspace", newUser.id)
-          await this.userRepository.findUserByIdAndUpdate(newUser.id, "selectedWorkspaceId", workspace.id)
+          await this.userRepository.findUserByIdAndUpdateSelectedWorkspace(newUser.id, workspace.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await setTokenInRedis(newUser.id, accessToken)

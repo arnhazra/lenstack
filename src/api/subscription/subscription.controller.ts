@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
 import { SubscribeDto } from "./dto/subscribe.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 
 @Controller("subscription")
 export class SubscriptionController {

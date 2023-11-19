@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from "@nestjs/common"
 import { PlatformService } from "./platform.service"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { ProductSearchDto } from "./dto/product-search.dto"
 
 @Controller("platform")

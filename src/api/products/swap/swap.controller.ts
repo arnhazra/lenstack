@@ -1,8 +1,8 @@
 import { BadRequestException, Controller, Post, Body } from "@nestjs/common"
 import { SwapService } from "./swap.service"
-import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"
+import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
 import { statusMessages } from "src/constants/statusMessages"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/tokenauthorizer/tokenauthorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { SearchTokensDto } from "./dto/search-tokens.dto"
 
 @Controller("products/swap")
