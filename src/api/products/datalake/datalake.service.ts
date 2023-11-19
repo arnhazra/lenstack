@@ -1,12 +1,10 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { DatalakeRepository } from "./datalake.repository"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { SubscriptionRepository } from "src/api/subscription/subscription.repository"
 
 @Injectable()
 export class DatalakeService {
-  constructor(private readonly datalakeRepository: DatalakeRepository,
-    private readonly subscriptionRepository: SubscriptionRepository) { }
+  constructor(private readonly datalakeRepository: DatalakeRepository) { }
 
   async getDatasetFilters() {
     try {

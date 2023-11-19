@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
+import { Controller, Post, BadRequestException } from "@nestjs/common"
 import { PayService } from "./pay.service"
 import { statusMessages } from "../../../constants/statusMessages"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikeyauthorizer/apikeyauthorizer.decorator"

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { PlusCircledIcon } from "@radix-ui/react-icons"
 import { GlobalContext } from "@/context/globalstate.provider"
 
 export default function Page() {
@@ -39,11 +39,11 @@ export default function Page() {
     <form className="box" onSubmit={createDb}>
       <p className="branding">Create Database</p>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>Db Name</Form.Label>
+        <Form.Label>Database Name</Form.Label>
         <Form.Control disabled={state.isLoading} type="text" placeholder="Acme Db" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
       </Form.Group>
       <Button type="submit" disabled={state.isLoading || !userState.apiKey} className="btn-block">
-        <Show when={!state.isLoading}>Create Db <ArrowRightIcon className="icon-right" /></Show>
+        <Show when={!state.isLoading}><PlusCircledIcon className="icon-left" />Create Database</Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Creating & Configuring Db</Show>
       </Button>
       <Link href={"/products/fabric"} className="lead-link">View My Dbs</Link>

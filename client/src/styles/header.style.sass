@@ -1,7 +1,6 @@
 $navColor: #ffffff
 $textColor: #121212
 $searchBoxColor: #f6f6f6
-$gradientColor: linear-gradient(to right, #284b82, #689aec)
 
 .navbar
   background: $navColor
@@ -10,9 +9,6 @@ $gradientColor: linear-gradient(to right, #284b82, #689aec)
 
 .navbar-brand
   color: $textColor
-  background: $gradientColor
-  -webkit-background-clip: text
-  -webkit-text-fill-color: transparent
   font-size: 1.2rem
   margin-right: 1.5rem
   cursor: pointer
@@ -54,6 +50,13 @@ $gradientColor: linear-gradient(to right, #284b82, #689aec)
   width: 40rem
   margin-top: -0.9rem
   margin-bottom: -0.9rem
+
+.header-search:focus
+  border: 3px solid #2da3a344
+
+.search-icon-header
+  position: absolute
+  margin-left: 20px
 
 @media only screen and (max-width: 85rem)
   .header-search
