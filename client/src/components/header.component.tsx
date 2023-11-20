@@ -72,7 +72,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={Constants.MumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
-                <button className="btn-user"><Link href="/account" className="text-white">{userInitial}</Link></button>
+                <Link href="/account" className="text-white"><button className="btn-user">{userInitial}</button></Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
