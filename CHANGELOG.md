@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v3.2
+* Header UI Changes
 * Minor changes & performance improvements
 * Minor Bug fixes
 * Branding change on products page
