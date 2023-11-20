@@ -1,5 +1,8 @@
 # Lenstack Changelog
 
+### v3.2
+* Minor changes & performance improvements
+
 ### v3.1
 * Keyboard shortcut for global search
 * Rebranding of Airlake as Lenstack Datalake

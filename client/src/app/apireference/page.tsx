@@ -31,7 +31,7 @@ export default function Page() {
         </Show>
         <Show when={!!apiDoc.sampleResponseBody}>
           <p>Sample Response Body</p>
-          <JsonView data={apiDoc.sampleResponseBody} shouldExpandNode={allExpanded} style={defaultStyles} />
+          <JsonView key={apiDoc._id} data={apiDoc.sampleResponseBody} shouldExpandNode={allExpanded} style={defaultStyles} />
         </Show>
       </Hero>
     )

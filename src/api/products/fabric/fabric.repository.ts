@@ -5,7 +5,7 @@ import { FabricKvModel } from "./entities/fabric-kv.entity"
 @Injectable()
 export class FabricRepository {
   async countDbs(workspaceId: string) {
-    const count = await FabricDbModel.find({ workspaceId }).estimatedDocumentCount()
+    const count = await FabricDbModel.find({ workspaceId }).countDocuments()
     return count
   }
 
