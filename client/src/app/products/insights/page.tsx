@@ -50,7 +50,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!projects.isLoading}>
+      <Show when={!projects.isLoading && !products.isLoading}>
         <Container>
           <Hero>
             <p className="branding">{selectedProduct?.displayName}</p>
@@ -67,7 +67,7 @@ export default function Page() {
           {displayProjects()}
         </Container>
       </Show>
-      <Show when={projects.isLoading}>
+      <Show when={projects.isLoading || products.isLoading}>
         <Loading />
       </Show>
     </Fragment>

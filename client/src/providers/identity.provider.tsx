@@ -7,14 +7,13 @@ import { endPoints } from "@/constants/api.endpoints"
 import Constants from "@/constants/global.constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import axios from "axios"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import IdentityGuard from "./identity.guard"
 
 export default function IdentityProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
-  const router = useRouter()
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState(true)
   const [isAuthorized, setAuthorized] = useState(false)
@@ -70,16 +69,10 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
     }
   }, [isAuthorized, userState.refreshId])
 
-  const onsignOut = () => {
-    setAuthorized(false)
-    localStorage.clear()
-    router.push("/")
-  }
-
   return (
     <Fragment>
       <nav className="header">
-        <Header onSignOut={(): void => onsignOut()} isAuthorized={isAuthorized} />
+        <Header isAuthorized={isAuthorized} />
       </nav>
       <Show when={isLoading}>
         <Loading />

@@ -3,19 +3,19 @@
 ### Introduction
 Lenstack is a comprehensive Software-as-a-Service (SaaS) application. Let"s explore the various applications hosted within Lenstack.
 
-#### Airlake
+#### Lenstack Datalake
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
 
 #### Lenstack Pay
 An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
 
-#### Frostlake
+#### Lenstack Insights
 An analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 
 #### Lenstack Ledgerscan
 Ledgerscan is designed to gather & analyze data from blockchain ledger, including balances, transactions & blocks.
 
-#### Hyperedge
+#### Lenstack Fabric
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
 #### Lenstack NFT Studio

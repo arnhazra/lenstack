@@ -50,6 +50,17 @@ export default function Page() {
     }
   }
 
+  const signOut = () => {
+    try {
+      localStorage.clear()
+      window.location.replace("/")
+    }
+
+    catch (error) {
+      toast.error(Constants.ToastError)
+    }
+  }
+
   const showWalletAddress = (address: string) => {
     const displayAddress = `(${address.substring(0, 3)}...${address.substring(address.length - 3)})`
     return displayAddress
@@ -90,6 +101,7 @@ export default function Page() {
               </div>
             </Col>
           </Row>
+          <Button className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
           <Button className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
         </div>
       </Show>

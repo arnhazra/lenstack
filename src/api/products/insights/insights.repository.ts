@@ -5,7 +5,7 @@ import { InsightsAnalyticsModel } from "./entities/insights-analytics.entity"
 @Injectable()
 export class InsightsRepository {
   async countProjects(workspaceId: string) {
-    const count = await InsightsProjectModel.find({ workspaceId }).estimatedDocumentCount()
+    const count = await InsightsProjectModel.find({ workspaceId }).countDocuments()
     return count
   }
 

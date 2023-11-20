@@ -1,6 +1,8 @@
 $navColor: #ffffff
 $textColor: #121212
 $searchBoxColor: #f6f6f6
+$btnColor: linear-gradient(to right, #575b66, #346bc3)
+$btnTextColor: #ffffff
 
 .navbar
   background: $navColor
@@ -35,6 +37,19 @@ $searchBoxColor: #f6f6f6
 .navbar-toggler
   border: none
 
+.btn-user
+  border: none
+  height: 2.7rem
+  width: 2.7rem
+  border-radius: 50%
+  margin-top: -0.7rem
+  margin-bottom: -0.7rem
+  background: $btnColor
+  color: $btnTextColor
+
+.btn-user-link
+  display: none
+
 .icon-nav-toggle
   zoom: 170%
   color: $textColor
@@ -54,10 +69,6 @@ $searchBoxColor: #f6f6f6
 .header-search:focus
   border: 3px solid #2da3a344
 
-.search-icon-header
-  position: absolute
-  margin-left: 20px
-
 @media only screen and (max-width: 85rem)
   .header-search
     width: 35rem
@@ -75,6 +86,12 @@ $searchBoxColor: #f6f6f6
     width: 20rem
 
 @media only screen and (max-width: 61.95rem)
+  .btn-user
+    display: none
+
+  .btn-user-link
+    display: block
+
   .header-search
     width: 100%
     margin-bottom: 0.5rem

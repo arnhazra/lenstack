@@ -27,3 +27,4 @@
 * react-json-view-lite - Simple JSON View library for React JS.
 * rxjs - Reactive Extensions Library for JavaScript
 * framer-motion - Framer Motion is a simple yet powerful motion library for React.
+* class-validator - Validation Library
