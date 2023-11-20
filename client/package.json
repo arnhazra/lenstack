@@ -21,13 +21,13 @@
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
-    "react-json-view-lite": "^1.2.0",
+    "react-json-view-lite": "^1.2.1",
     "sass": "^1.69.5",
     "web3": "^4.2.2"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",
-    "@types/node": "^20.9.1",
+    "@types/node": "^20.9.2",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "typescript": "^5"
