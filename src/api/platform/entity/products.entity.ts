@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { lenstackPlatformMongoDbConn } from "../../../utils/db-connect"
+import { platformMongoDbConn } from "../../../utils/db-connect"
 
 const ProductSchema = new mongoose.Schema({
   productName: {
@@ -40,4 +40,4 @@ const ProductSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const ProductModel = lenstackPlatformMongoDbConn.model("productconfig", ProductSchema)
+export const ProductModel = platformMongoDbConn.model("productconfig", ProductSchema)

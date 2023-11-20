@@ -1,4 +1,4 @@
-export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "https://lenstack.vercel.app"
+export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : `https://${process.env.NEXT_PUBLIC_BRAND_NAME}.vercel.app`
 
 export const endPoints = {
   getapireference: `${apiHost}/api/apireference/getallbyproductname`,

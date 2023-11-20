@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { lenstackPlatformMongoDbConn } from "../../../utils/db-connect"
+import { platformMongoDbConn } from "../../../utils/db-connect"
 
 export interface NewUser {
   email: string
@@ -38,4 +38,4 @@ const UserSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const UserModel = lenstackPlatformMongoDbConn.model("user", UserSchema)
+export const UserModel = platformMongoDbConn.model("user", UserSchema)

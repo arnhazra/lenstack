@@ -1,6 +1,6 @@
-enum otherConstants {
-  tokenIssuer = "https://lenstack.vercel.app",
-  polygonScanApiEndpoint = "https://api-testnet.polygonscan.com"
-}
+import { envConfig } from "src/config/env.config"
 
-export { otherConstants }
+export const otherConstants = {
+  tokenIssuer: `https://${envConfig.brandName}.vercel.app`,
+  polygonScanApiEndpoint: "https://api-testnet.polygonscan.com"
+}

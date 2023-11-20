@@ -45,7 +45,7 @@ export default function Page() {
     <Fragment>
       <Show when={!products.isLoading}>
         <Container>
-          <h4 className="text-white">Lenstack Services</h4>
+          <h4 className="text-white">{process.env.NEXT_PUBLIC_BRAND_NAME} Services</h4>
           {displayProducts()}
         </Container>
       </Show>

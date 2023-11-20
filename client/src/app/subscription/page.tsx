@@ -66,7 +66,7 @@ export default function Page() {
 
         const transactionObject = {
           from: walletAddress,
-          to: secretConfig?.data?.lenstackNpaWalletAddress,
+          to: secretConfig?.data?.npaWalletAddress,
           value: web3Provider.utils.toWei(pricingDetails?.data?.pro?.price.toString(), "ether"),
           gas: 40000,
           gasPrice: gasPrice,

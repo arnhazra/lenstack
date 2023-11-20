@@ -8,8 +8,8 @@ export class PlatformService {
   constructor(private readonly platformRepository: PlatformRepository) { }
   getSecretConfig() {
     try {
-      const { lenstackNpaWalletAddress, nftContractAddress, infuraGateway, quicknodeGateway, alchemyGateway } = envConfig
-      return { lenstackNpaWalletAddress, nftContractAddress, infuraGateway, quicknodeGateway, alchemyGateway }
+      const { npaWalletAddress, nftContractAddress, infuraGateway, quicknodeGateway, alchemyGateway } = envConfig
+      return { npaWalletAddress, nftContractAddress, infuraGateway, quicknodeGateway, alchemyGateway }
     }
 
     catch (error) {

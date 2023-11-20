@@ -44,7 +44,7 @@ export default function Page() {
       <Show when={!apireference.isLoading}>
         <Show when={!!apireference?.data?.docList.length}>
           <div>
-            <h4 className="text-white text-capitalize">API Reference - Lenstack {productName}</h4>
+            <h4 className="text-white text-capitalize">API Reference - {process.env.NEXT_PUBLIC_BRAND_NAME} {productName}</h4>
             <p className="lead text-white">You must include your API key under "x-api-key" in request header</p>
             {listApiApiReferences}
           </div>

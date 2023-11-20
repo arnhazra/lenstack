@@ -4,14 +4,14 @@ config()
 export const envConfig = {
   nodeEnv: process.env.NODE_ENV,
   apiPort: process.env.API_PORT,
-  lenstackPlatformDbUri: process.env.LENSTACK_PLATFORM_DB_URI,
-  datalakeMongoDbUri: process.env.LENSTACK_DATALAKE_DB_URI,
-  insightsMongoDbUri: process.env.LENSTACK_INSIGHTS_DB_URI,
-  fabricMongoDbUri: process.env.LENSTACK_FABRIC_DB_URI,
-  payMongoDbUri: process.env.LENSTACK_PAY_DB_URI,
-  ledgerscanMongoDbUri: process.env.LENSTACK_LEDGERSCAN_DB_URI,
-  nftstudioMongoDbUri: process.env.LENSTACK_NFTSTUDIO_DB_URI,
-  swapMongoDbUri: process.env.LENSTACK_SWAP_DB_URI,
+  platformDbUri: process.env.PLATFORM_DB_URI,
+  datalakeMongoDbUri: process.env.DATALAKE_DB_URI,
+  insightsMongoDbUri: process.env.INSIGHTS_DB_URI,
+  fabricMongoDbUri: process.env.FABRIC_DB_URI,
+  payMongoDbUri: process.env.PAY_DB_URI,
+  ledgerscanMongoDbUri: process.env.LEDGERSCAN_DB_URI,
+  nftstudioMongoDbUri: process.env.NFTSTUDIO_DB_URI,
+  swapMongoDbUri: process.env.SWAP_DB_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
@@ -27,6 +27,7 @@ export const envConfig = {
   authPrivateKey: process.env.AUTH_RSA_PRIVATE_KEY,
   authPublicKey: process.env.AUTH_RSA_PUBLIC_KEY,
   nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,
-  lenstackNpaWalletAddress: process.env.LENSTACK_NPA_WALLET_ADDRESS,
-  polygonscanSecretKey: process.env.POLYGONSCAN_SECRET_KEY
+  npaWalletAddress: process.env.NPA_WALLET_ADDRESS,
+  polygonscanSecretKey: process.env.POLYGONSCAN_SECRET_KEY,
+  brandName: process.env.NEXT_PUBLIC_BRAND_NAME
 }

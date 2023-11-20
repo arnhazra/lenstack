@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { lenstackPlatformMongoDbConn } from "../../../utils/db-connect"
+import { platformMongoDbConn } from "../../../utils/db-connect"
 
 const WorkspaceSchema = new mongoose.Schema({
   name: {
@@ -19,4 +19,4 @@ const WorkspaceSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const WorkspaceModel = lenstackPlatformMongoDbConn.model("workspace", WorkspaceSchema)
+export const WorkspaceModel = platformMongoDbConn.model("workspace", WorkspaceSchema)

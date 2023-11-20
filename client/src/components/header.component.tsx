@@ -56,7 +56,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
-              <Navbar.Brand>Lenstack</Navbar.Brand>
+              <Navbar.Brand>{process.env.NEXT_PUBLIC_BRAND_NAME}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignLeftIcon className="icon-nav-toggle" />
@@ -82,7 +82,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">
-              <Navbar.Brand>Lenstack</Navbar.Brand>
+              <Navbar.Brand>{process.env.NEXT_PUBLIC_BRAND_NAME}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignLeftIcon className="icon-nav-toggle" />
