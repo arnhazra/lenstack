@@ -10,6 +10,7 @@ import Loading from "../loading"
 import Error from "@/components/error.component"
 import "react-json-view-lite/dist/index.css"
 import Hero from "@/components/hero.component"
+import Constants from "@/constants/global.constants"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -44,7 +45,7 @@ export default function Page() {
       <Show when={!apireference.isLoading}>
         <Show when={!!apireference?.data?.docList.length}>
           <div>
-            <h4 className="text-white text-capitalize">API Reference - {process.env.NEXT_PUBLIC_BRAND_NAME} {productName}</h4>
+            <h4 className="text-white text-capitalize">API Reference - {Constants.BrandName} {productName}</h4>
             <p className="lead text-white">You must include your API key under "x-api-key" in request header</p>
             {listApiApiReferences}
           </div>

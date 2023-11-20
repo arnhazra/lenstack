@@ -74,7 +74,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
             <Show when={!isLoading}>Get Identity Passkey <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
           </Button>
-          <p className="muted-text mt-1">By using {process.env.NEXT_PUBLIC_BRAND_NAME}, you agree to our Terms of Service and Privacy Policy.</p>
+          <p className="muted-text mt-1">By using {Constants.BrandName}, you agree to our Terms of Service and Privacy Policy.</p>
         </form>
       </Show>
       <Show when={identityStep === 2}>

@@ -1,4 +1,5 @@
 enum Constants {
+  BrandName = "Lenstack",
   HomeHeader1 = "Build, Ship & Scale",
   HomeHeader2 = "Powered by Blockchain",
   HomeIntro1 = "Start with 30 days free trial, with 10k credits",

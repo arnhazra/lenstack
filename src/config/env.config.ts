@@ -29,5 +29,5 @@ export const envConfig = {
   nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,
   npaWalletAddress: process.env.NPA_WALLET_ADDRESS,
   polygonscanSecretKey: process.env.POLYGONSCAN_SECRET_KEY,
-  brandName: process.env.NEXT_PUBLIC_BRAND_NAME
+  brandName: process.env.BRAND_NAME
 }
