@@ -10,7 +10,6 @@ import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error.component"
-import Constants from "@/constants/global.constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -46,7 +45,7 @@ export default function Page() {
     <Fragment>
       <Show when={!products.isLoading}>
         <Container>
-          <h4 className="text-white">{Constants.BrandName} Services</h4>
+          <h4 className="text-white">Explore the Experience</h4>
           {displayProducts()}
         </Container>
       </Show>

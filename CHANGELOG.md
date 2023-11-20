@@ -2,6 +2,8 @@
 
 ### v3.2
 * Minor changes & performance improvements
+* Minor Bug fixes
+* Branding change on products page
 
 ### v3.1
 * Keyboard shortcut for global search
