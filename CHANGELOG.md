@@ -1,5 +1,23 @@
 # Lenstack Changelog
 
+### v3.1
+* Keyboard shortcut for global search
+* Rebranding of Airlake as Lenstack Datalake
+* Rebranding of Hyperedge as Lenstack Fabric
+* Rebranding of Frostlake as Lenstack Insights
+* Rebranding of Edgescan as Lenstack Ledgerscan
+* Rebranding of Snowlake as Lenstack NFT Studio
+* Rebranding of Edgepay as Lenstack Pay
+* Rebranding of Swapstream as Lenstack Swap
+* Introduction of new & modern Lenstack UI
+* Migration of all mongo databases into Azure from AWS & GCP, existing Azure mongo databases remains same
+* Product config changes as per new product name standards
+* API reference changes as per new product names
+* Subscription configuration changes
+* File naming changes as per new standard
+* Dependency updates & performance improvements
+* Code Refactoring
+
 ### v3.0
 * Created DTO for all controllers wherever required to avoid raw data extraction from request body
 * Code refactoring
@@ -69,11 +87,11 @@
 * Changes in authentication params, no requirements of name
 * UI Design Changes
 * Documentation Changes
-* Removed Tx records from Decentralized apps as it"s not required
+* Removed Tx records from Decentralized apps
 * Added the api key authorizer call before blockchain transactions to restrict user if no/expired api key
 * Removed APIKey dependency from request body and added in header with x-api-key
 * Fix Hyperedge db view security issue, added dbPassword field as mandatory
-* Removed apiKey from dto as it"s not used in controller/services and only in middleware
+* Removed apiKey from dto as that is no more used in controller/services and only in middleware
 * Rebranded Vuelock to Hyperedge
 * Rebranded Dwallet to Edgepay
 * Implemented significant Performance & Security Enhancements - Eliminated the need for recalculating APIKey dependency from the DB
@@ -86,8 +104,8 @@
 
 ### v1.8
 * Significantly Upgraded Platform API Key Authorizer, enhancing performance and removing the need for API credits calculation
-* Added the "remainingCredits" field in the subscription to prevent recalculation
-* Eliminated the "findUsageByAPIkey" method from apps
+* Added the remainingCredits field in the subscription to prevent recalculation
+* Eliminated the findUsageByAPIkey method from apps
 * Implemented a Global 401 handler on the platform
 
 ### v1.7

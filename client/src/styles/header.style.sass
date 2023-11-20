@@ -1,17 +1,18 @@
-$navColor: #121212
-$textColor: #ffffff
+$navColor: #ffffff
+$textColor: #121212
+$searchBoxColor: #f6f6f6
 
 .navbar
   background: $navColor
-  box-shadow: 2px 2px 2px 2px rgba(0,0,0,.2)
   z-index: 2
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2)
 
 .navbar-brand
+  color: $textColor
   font-size: 1.2rem
   margin-right: 1.5rem
   cursor: pointer
-  color: $textColor
-  letter-spacing: 0.05rem
+  letter-spacing: 0rem
 
 .nav-item
   margin-right: 1.5rem
@@ -39,16 +40,23 @@ $textColor: #ffffff
   color: $textColor
 
 .header-search
-  background: #222223
+  background: $searchBoxColor
   border: none
   color: $textColor
   padding: 0.6rem
   padding-left: 1.5rem
   outline: none
-  border-radius: 0.7em
+  border-radius: 2rem
   width: 40rem
   margin-top: -0.9rem
   margin-bottom: -0.9rem
+
+.header-search:focus
+  border: 3px solid #2da3a344
+
+.search-icon-header
+  position: absolute
+  margin-left: 20px
 
 @media only screen and (max-width: 85rem)
   .header-search

@@ -17,10 +17,10 @@ export interface UserState {
   selectedPlan: string
   apiKey: string
   expiresAt: string
-  trialAvailable: boolean,
-  selectedWorkspaceId: string,
-  selectedWorkspaceName: string,
-  remainingCredits: number | string,
+  trialAvailable: boolean
+  selectedWorkspaceId: string
+  selectedWorkspaceName: string
+  remainingCredits: number | string
   refreshId: string
 }
 
@@ -30,16 +30,17 @@ export interface DatasetRequestState {
   offset: number
 }
 
-export interface GenericProductCardInterface {
+export interface ProductCardInterface {
   headerText: string
   footerText: string
   badgeText: string
   redirectUri: string
   className: string
+  isDisabled?: boolean
 }
 
-export interface GenericProductCardProps {
-  genericProductCardProps: GenericProductCardInterface
+export interface ProductCardProps {
+  productCardProps: ProductCardInterface
 }
 
 export interface TokenData {

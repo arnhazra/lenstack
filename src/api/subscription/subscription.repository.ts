@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { SubscriptionModel } from "./entities/subscription.entity"
-import { subscriptionConfig } from "src/config/subscriptionConfig"
+import { subscriptionConfig } from "src/config/subscription.config"
 
 @Injectable()
 export class SubscriptionRepository {

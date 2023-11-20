@@ -9,7 +9,7 @@ import { Container, Form } from "react-bootstrap"
 import Loading from "../loading"
 import Error from "@/components/error.component"
 import "react-json-view-lite/dist/index.css"
-import GenericHero from "@/components/generichero.component"
+import Hero from "@/components/hero.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -18,7 +18,7 @@ export default function Page() {
 
   const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {
     return (
-      <GenericHero key={apiDoc._id}>
+      <Hero key={apiDoc._id}>
         <p className="branding">{apiDoc.apiName}</p>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Method: {apiDoc.apiMethod}</Form.Label>
@@ -32,7 +32,7 @@ export default function Page() {
           <p>Sample Response Body</p>
           <JsonView data={apiDoc.sampleResponseBody} shouldExpandNode={allExpanded} style={defaultStyles} />
         </Show>
-      </GenericHero>
+      </Hero>
     )
   })
 
@@ -44,8 +44,8 @@ export default function Page() {
       <Show when={!apireference.isLoading}>
         <Show when={!!apireference?.data?.docList.length}>
           <div>
-            <h4 className="text-white">API ApiReference - {productName}</h4>
-            <p className="lead text-white">Must include your API key under x-api-key in request header</p>
+            <h4 className="text-white text-capitalize">API Reference - {process.env.NEXT_PUBLIC_BRAND_NAME} {productName}</h4>
+            <p className="lead text-white">You must include your API key under "x-api-key" in request header</p>
             {listApiApiReferences}
           </div>
         </Show>

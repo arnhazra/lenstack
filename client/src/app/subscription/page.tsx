@@ -66,7 +66,7 @@ export default function Page() {
 
         const transactionObject = {
           from: walletAddress,
-          to: secretConfig?.data?.lenstackNpaWalletAddress,
+          to: secretConfig?.data?.npaWalletAddress,
           value: web3Provider.utils.toWei(pricingDetails?.data?.pro?.price.toString(), "ether"),
           gas: 40000,
           gasPrice: gasPrice,
@@ -109,8 +109,8 @@ export default function Page() {
               <StackIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">Workspace</p>
-              <div className="boxcategorytext">
+              <p className="boxcategory-key">Workspace</p>
+              <div className="boxcategory-value">
                 {userState.selectedWorkspaceName}
               </div>
             </Col>
@@ -120,8 +120,8 @@ export default function Page() {
               <CubeIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">Selected Plan</p>
-              <p className="boxcategorytext">
+              <p className="boxcategory-key">Selected Plan</p>
+              <p className="boxcategory-value">
                 {userState.selectedPlan}
               </p>
             </Col>
@@ -131,8 +131,8 @@ export default function Page() {
               <LockOpen1Icon />
             </Col>
             <Col>
-              <p className="boxcategorytext">API Key</p>
-              <div className="boxcategorytext">
+              <p className="boxcategory-key">API Key</p>
+              <div className="boxcategory-value">
                 <Show when={!!userState.apiKey}>
                   {showapiKey(userState.apiKey)}<CopyIcon className="icon-right" onClick={copyapiKey} />
                 </Show>
@@ -147,8 +147,8 @@ export default function Page() {
               <CalendarIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">Validity</p>
-              <div className="boxcategorytext">
+              <p className="boxcategory-key">Validity</p>
+              <div className="boxcategory-value">
                 <Show when={!!userState.apiKey}>
                   <p>Valid upto {moment(userState.expiresAt).format("MMM, Do YYYY")}</p>
                 </Show>
@@ -163,8 +163,8 @@ export default function Page() {
               <PieChartIcon />
             </Col>
             <Col>
-              <p className="boxcategorytext">Key Usage</p>
-              <div className="boxcategorytext">
+              <p className="boxcategory-key">Key Usage</p>
+              <div className="boxcategory-value">
                 <Show when={!!userState.apiKey}>
                   {userState.remainingCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining
                 </Show>

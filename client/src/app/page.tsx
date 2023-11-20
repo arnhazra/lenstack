@@ -1,14 +1,14 @@
 "use client"
 import Constants from "@/constants/global.constants"
 import Link from "next/link"
-import { CubeIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
+import { CubeIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"
 import Show from "@/components/show.component"
 
 export default function Page() {
   return (
     <Container>
-      <div className="hero">
+      <div className="cover">
         <p className="display-5">
           {Constants.HomeHeader1}<br />
           {Constants.HomeHeader2}
@@ -27,7 +27,6 @@ export default function Page() {
             Try for free
           </Show>
         </Link>
-        <Link passHref target="_blank" rel="noopener noreferrer" href={Constants.LinkedinUri} className="btn"><ExternalLinkIcon className="icon-left" />Contact</Link>
       </div>
     </Container>
   )

@@ -1,8 +1,8 @@
 import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
-import { dbConnect } from "./utils/dbConnect"
+import { dbConnect } from "./utils/db-connect"
 import { ValidationPipe } from "@nestjs/common"
-import { envConfig } from "./config/envConfig"
+import { envConfig } from "./config/env.config"
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)

@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { lenstackPlatformMongoDbConn } from "../../../utils/dbConnect"
+import { platformMongoDbConn } from "../../../utils/db-connect"
 
 const SubscriptionSchema = new mongoose.Schema({
   workspaceId: {
@@ -39,4 +39,4 @@ const SubscriptionSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const SubscriptionModel = lenstackPlatformMongoDbConn.model("subscription", SubscriptionSchema)
+export const SubscriptionModel = platformMongoDbConn.model("subscription", SubscriptionSchema)

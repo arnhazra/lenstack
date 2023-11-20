@@ -3,13 +3,13 @@ import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
 import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import Web3 from "web3"
-import { envConfig } from "src/config/envConfig"
-import { generateIdentityPasskeyAndSendEmail, verifyIdentityPasskey } from "src/utils/passKeyTool"
+import { envConfig } from "src/config/env.config"
+import { generateIdentityPasskeyAndSendEmail, verifyIdentityPasskey } from "src/utils/passkey-tool"
 import { UserRepository } from "./user.repository"
-import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redisHelper"
-import { otherConstants } from "src/constants/otherConstants"
+import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redis-helper"
+import { otherConstants } from "src/constants/other-constants"
 import { SubscriptionModel } from "../subscription/entities/subscription.entity"
-import { statusMessages } from "src/constants/statusMessages"
+import { statusMessages } from "src/constants/status-messages"
 import { WorkspaceModel } from "../workspace/entities/workspace.entity"
 import { WorkspaceRepository } from "../workspace/workspace.repository"
 
@@ -63,7 +63,7 @@ export class UserService {
           const { privateKey } = this.web3Provider.eth.accounts.create()
           const newUser = await this.userRepository.createNewUser({ email, privateKey })
           const workspace = await this.workspaceRepository.createWorkspace("Default Workspace", newUser.id)
-          await this.userRepository.findUserByIdAndUpdate(newUser.id, "selectedWorkspaceId", workspace.id)
+          await this.userRepository.findUserByIdAndUpdateSelectedWorkspace(newUser.id, workspace.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await setTokenInRedis(newUser.id, accessToken)

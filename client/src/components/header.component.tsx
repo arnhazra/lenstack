@@ -20,8 +20,8 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [, dispatch] = useContext(GlobalContext)
-  const searchEnabledPathNames = ["/dashboard", "/products/airlake", "/products/frostlake", "/products/hyperedge", "/products/snowlake", "/products/swapstream",
-    "/dashboard/", "/products/airlake/", "/products/frostlake/", "/products/hyperedge/", "/products/snowlake/", "/products/swapstream/"]
+  const searchEnabledPathNames = ["/dashboard", "/products/datalake", "/products/insights", "/products/fabric", "/products/nftstudio", "/products/swap",
+    "/dashboard/", "/products/datalake/", "/products/insights/", "/products/fabric/", "/products/nftstudio/", "/products/swap/"]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
@@ -29,6 +29,18 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
 
     if (searchRef && searchRef.current) {
       searchRef.current.value = ""
+    }
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.altKey && event.key.toLowerCase() === "q" && searchRef.current) {
+        event.preventDefault()
+        searchRef.current.focus()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress)
     }
   }, [pathname, searchParams])
 
@@ -41,10 +53,10 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
   return (
     <Fragment>
       <Show when={isAuthorized && !isHomePage}>
-        <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
+        <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
-              <Navbar.Brand>Lenstack</Navbar.Brand>
+              <Navbar.Brand>{process.env.NEXT_PUBLIC_BRAND_NAME}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignLeftIcon className="icon-nav-toggle" />
@@ -52,7 +64,7 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
             <Navbar.Collapse>
               <Show when={searchEnabledPathNames.includes(pathname)}>
                 <Nav className="ms-auto">
-                  <input ref={searchRef} placeholder="What are you looking for ?" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                  <input ref={searchRef} placeholder="What are you looking for ? (Alt + Q)" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Nav>
               </Show>
               <Nav className="ms-auto">
@@ -67,10 +79,10 @@ export default function Header({ isAuthorized, onSignOut }: HeaderProps) {
         </Navbar>
       </Show>
       <Show when={!isAuthorized || isHomePage}>
-        <Navbar variant="dark" expand="lg" fixed="top" className="pt-3 pb-3">
+        <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">
-              <Navbar.Brand>Lenstack</Navbar.Brand>
+              <Navbar.Brand>{process.env.NEXT_PUBLIC_BRAND_NAME}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignLeftIcon className="icon-nav-toggle" />
