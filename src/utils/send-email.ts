@@ -6,7 +6,7 @@ const { clientId, clientSecret, redirectUri, refreshToken, mailerEmail } = envCo
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
 oAuth2Client.setCredentials({ refresh_token: refreshToken })
 
-async function sendEmail(email: string, passKey: string) {
+export async function sendEmail(email: string, passKey: string) {
   try {
     const accessToken = await oAuth2Client.getAccessToken()
 
@@ -39,5 +39,3 @@ async function sendEmail(email: string, passKey: string) {
     throw error
   }
 }
-
-export { sendEmail }

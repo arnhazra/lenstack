@@ -7,19 +7,17 @@ const redis = new Redis({
   password: envConfig.redisPassword,
 })
 
-const setTokenInRedis = async (userId: string, accessToken: string) => {
+export const setTokenInRedis = async (userId: string, accessToken: string) => {
   const response = await redis.set(userId, accessToken)
   return response
 }
 
-const getTokenFromRedis = async (userId: string) => {
+export const getTokenFromRedis = async (userId: string) => {
   const response = await redis.get(userId)
   return response
 }
 
-const removeTokenFromRedis = async (userId: string) => {
+export const removeTokenFromRedis = async (userId: string) => {
   const response = await redis.del(userId)
   return response
 }
-
-export { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis }

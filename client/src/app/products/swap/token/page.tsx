@@ -20,7 +20,7 @@ import axios from "axios"
 import ProductCard from "@/components/productcard.component"
 import Hero from "@/components/hero.component"
 
-export default function page() {
+export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()

@@ -1,4 +1,4 @@
-enum statusMessages {
+export enum statusMessages {
   connectionError = "Connection Error",
   transactionCreationSuccess = "New Transaction Created",
   transactionCreationError = "Error Creating ERC20 Transaction",
@@ -21,5 +21,3 @@ enum statusMessages {
   unsubscribeSuccess = "Successfully unsubscribed",
   unsubscribeFailure = "Unsubscribe failed"
 }
-
-export { statusMessages }
