@@ -7,6 +7,8 @@
 * Fix APIKey not removed after switching workspace
 * Removed dependency on Quicknode, Infura and Alchemy from UI
 * Created API services for blockchain transactions to transact securely without exposing the API Keys
+* Deprecated method getSecretConfig as configs are no longer required to be exposed
+* Moved npa wallet address to UI Constants
 
 ### v3.2
 * Header UI Changes
