@@ -1,4 +1,4 @@
-import { Controller, Post, BadRequestException } from "@nestjs/common"
+import { Controller, Post, BadRequestException, Body } from "@nestjs/common"
 import { PayService } from "./pay.service"
 import { statusMessages } from "../../../constants/status-messages"
 import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
@@ -16,6 +16,18 @@ export class PayController {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @Post("signtransactiongateway")
+  async signTransactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.payService.signTransactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
     }
   }
 }

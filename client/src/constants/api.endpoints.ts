@@ -22,6 +22,7 @@ export const endPoints = {
   datalakeFindSimilarDatasets: `${apiHost}/api/products/datalake/findsimilardatasets`,
   datalakeDataApi: `${apiHost}/api/products/datalake/dataapi`,
   payCreateTx: `${apiHost}/api/products/pay/createtx`,
+  paySignTransactionGateway: `${apiHost}/api/products/pay/signtransactiongateway`,
   insightsCreateProject: `${apiHost}/api/products/insights/createproject`,
   insightsGetProjects: `${apiHost}/api/products/insights/getprojects`,
   insightsViewProject: `${apiHost}/api/products/insights/viewproject`,
