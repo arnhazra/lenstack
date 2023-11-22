@@ -65,7 +65,7 @@ export default function Page() {
 
         const transactionObject = {
           from: walletAddress,
-          to: Constants.LenstackNPAWalletAddress,
+          to: Constants.NPAWalletAddress,
           value: web3Provider.utils.toWei(pricingDetails?.data?.pro?.price.toString(), "ether"),
           gas: 40000,
           gasPrice: gasPrice,
