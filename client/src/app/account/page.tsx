@@ -15,7 +15,6 @@ import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-ic
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(endPoints.signAccountTxGateway)
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")
@@ -23,26 +22,24 @@ export default function Page() {
 
   useEffect(() => {
     (async () => {
-      if (!secretConfig.isLoading) {
-        try {
-          const { privateKey } = userState
-          const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-          setAccountAddress(walletAddress)
-          const maticBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
-          const maticBalance = web3Provider.utils.fromWei(maticBalanceInWei, "ether")
-          setMaticBalance(maticBalance)
-        }
+      try {
+        const { privateKey } = userState
+        const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+        setAccountAddress(walletAddress)
+        const maticBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
+        const maticBalance = web3Provider.utils.fromWei(maticBalanceInWei, "ether")
+        setMaticBalance(maticBalance)
+      }
 
-        catch (error) {
-          toast.error(Constants.ErrorMessage)
-        }
+      catch (error) {
+        toast.error(Constants.ErrorMessage)
+      }
 
-        finally {
-          setWalletLoading(false)
-        }
+      finally {
+        setWalletLoading(false)
       }
     })()
-  }, [userState, secretConfig.isLoading])
+  }, [userState])
 
   const signOutFromAllDevices = async () => {
     try {
