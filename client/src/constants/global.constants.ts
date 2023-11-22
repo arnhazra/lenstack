@@ -25,6 +25,7 @@ enum Constants {
   OpenseaBaseUri = "https://testnets.opensea.io/assets/mumbai",
   MumbaiFaucetUri = "https://mumbaifaucet.com",
   LinkedinUri = "https://www.linkedin.com/in/arnhazra",
+  LenstackNPAWalletAddress = "0xC9bd090E7478422eA19cAeE5c9843ED4c1284DdF"
 }
 
 export default Constants

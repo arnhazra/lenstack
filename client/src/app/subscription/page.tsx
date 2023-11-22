@@ -18,7 +18,6 @@ import useConfirm from "@/hooks/useConfirm"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
-  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
   const web3Provider = new Web3(endPoints.signSubscriptionTxGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfig, HTTPMethods.POST)
@@ -66,7 +65,7 @@ export default function Page() {
 
         const transactionObject = {
           from: walletAddress,
-          to: secretConfig?.data?.npaWalletAddress,
+          to: Constants.LenstackNPAWalletAddress,
           value: web3Provider.utils.toWei(pricingDetails?.data?.pro?.price.toString(), "ether"),
           gas: 40000,
           gasPrice: gasPrice,
@@ -100,7 +99,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!pricingDetails.isLoading && !secretConfig.isLoading}>
+      <Show when={!pricingDetails.isLoading}>
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text">Subscribe & Track your API Key usage from here</p>
@@ -187,7 +186,7 @@ export default function Page() {
           </Fragment>
         </div>
       </Show>
-      <Show when={pricingDetails.isLoading || secretConfig.isLoading}>
+      <Show when={pricingDetails.isLoading}>
         <Loading />
       </Show>
       {confirmDialog()}
