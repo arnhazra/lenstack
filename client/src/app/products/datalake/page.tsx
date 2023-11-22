@@ -110,6 +110,6 @@ export default function Page() {
       <Show when={datasets.isLoading || filters.isLoading || products.isLoading}>
         <Loading />
       </Show>
-    </Fragment >
+    </Fragment>
   )
 }
