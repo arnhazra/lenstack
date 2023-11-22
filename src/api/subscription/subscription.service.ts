@@ -7,13 +7,16 @@ import { statusMessages } from "src/constants/status-messages"
 import { envConfig } from "src/config/env.config"
 import { SubscribeDto } from "./dto/subscribe.dto"
 import { SubscriptionConfigType, subscriptionConfig } from "src/config/subscription.config"
+import { lastValueFrom } from "rxjs"
+import { HttpService } from "@nestjs/axios"
 
 @Injectable()
 export class SubscriptionService {
   private readonly web3Provider: Web3
 
   constructor(private readonly subscriptionRepository: SubscriptionRepository,
-    private readonly userRepository: UserRepository) {
+    private readonly userRepository: UserRepository,
+    private readonly httpService: HttpService) {
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
 
@@ -90,6 +93,17 @@ export class SubscriptionService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async signTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
     }
   }
 }

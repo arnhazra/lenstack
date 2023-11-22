@@ -26,7 +26,9 @@ export class DatalakeController {
     try {
       const datasets = await this.datalakeService.findDatasets(findDatasetsDto)
       return { datasets }
-    } catch (error) {
+    }
+
+    catch (error) {
       throw error
     }
   }

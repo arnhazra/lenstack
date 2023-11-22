@@ -18,8 +18,8 @@ import { ProductCardInterface } from "@/types/Types"
 import Hero from "@/components/hero.component"
 
 export default function Page() {
-  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.quicknodeGateway)
+  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.POST)
+  const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
@@ -28,8 +28,8 @@ export default function Page() {
 
   useEffect(() => {
     (async () => {
-      if (!secretConfig.isLoading) {
-        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
+      if (!nftContractAddress.isLoading) {
+        const nftContract: any = new web3Provider.eth.Contract(nftABI as any, nftContractAddress?.data?.nftContractAddress)
         setLoading(true)
         const { privateKey } = userState
         const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
@@ -48,7 +48,7 @@ export default function Page() {
         }
       }
     })()
-  }, [secretConfig?.data])
+  }, [nftContractAddress?.data])
 
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.filter((nft: any) =>
@@ -82,7 +82,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!isLoading && !secretConfig.isLoading && !products.isLoading}>
+      <Show when={!isLoading && !nftContractAddress.isLoading && !products.isLoading}>
         <Container>
           <Hero>
             <p className="branding">{selectedProduct?.displayName}</p>
@@ -96,7 +96,7 @@ export default function Page() {
           {displayNfts()}
         </Container>
       </Show>
-      <Show when={isLoading || secretConfig.isLoading || products.isLoading}>
+      <Show when={isLoading || nftContractAddress.isLoading || products.isLoading}>
         <Loading />
       </Show>
     </Fragment>

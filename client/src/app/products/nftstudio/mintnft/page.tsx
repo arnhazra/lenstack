@@ -16,8 +16,8 @@ import { useRouter } from "next/navigation"
 import Constants from "@/constants/global.constants"
 
 export default function Page() {
-  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.quicknodeGateway)
+  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.POST)
+  const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })
@@ -27,7 +27,7 @@ export default function Page() {
     setState({ ...state, isLoading: true })
     const { privateKey } = userState
     const { address: owner } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-    const nftContract: any = new web3Provider.eth.Contract(nftABI as any, secretConfig?.data?.nftContractAddress)
+    const nftContract: any = new web3Provider.eth.Contract(nftABI as any, nftContractAddress?.data?.nftContractAddress)
 
     try {
       await axios.post(endPoints.nftstudioCreateTx)
@@ -37,7 +37,7 @@ export default function Page() {
 
       const newNFTTx = {
         from: owner,
-        to: secretConfig?.data?.nftContractAddress,
+        to: nftContractAddress?.data?.nftContractAddress,
         data: newNFTData,
         gasPrice: await web3Provider.eth.getGasPrice(),
         gas: 500000,

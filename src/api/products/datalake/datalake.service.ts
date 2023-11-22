@@ -10,7 +10,9 @@ export class DatalakeService {
     try {
       const filterCategories = await this.datalakeRepository.findDistinctCategories()
       return filterCategories
-    } catch (error) {
+    }
+
+    catch (error) {
       throw new BadRequestException()
     }
   }

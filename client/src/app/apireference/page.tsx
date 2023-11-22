@@ -23,7 +23,7 @@ export default function Page() {
         <p className="branding">{apiDoc.apiName}</p>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Method: {apiDoc.apiMethod}</Form.Label>
-          <Form.Control readOnly type="email" defaultValue={`${apiHost}${apiDoc.apiUri}`} />
+          <Form.Control readOnly type="email" defaultValue={`${apiHost.toLowerCase()}${apiDoc.apiUri}`} />
         </Form.Group>
         <Show when={!!apiDoc.sampleRequestBody}>
           <p>Sample Request Body</p>

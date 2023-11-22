@@ -16,7 +16,6 @@ enum Constants {
   TokenPurchaseFailure = "Error purchasing token",
   TokenSellSuccess = "You have successfully sold token",
   TokenSellFailure = "Error selling token",
-  UnknwonError = "Unknown error",
   CopiedToClipBoard = "Copied to Clipboard",
   InvalidPasskey = "Invalid Pass Key",
   IdentityVerificationSuccess = "Identity Verified",
@@ -25,6 +24,7 @@ enum Constants {
   OpenseaBaseUri = "https://testnets.opensea.io/assets/mumbai",
   MumbaiFaucetUri = "https://mumbaifaucet.com",
   LinkedinUri = "https://www.linkedin.com/in/arnhazra",
+  NPAWalletAddress = "0xC9bd090E7478422eA19cAeE5c9843ED4c1284DdF"
 }
 
 export default Constants

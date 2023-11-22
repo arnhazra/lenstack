@@ -19,15 +19,4 @@ export class PlatformController {
       throw error
     }
   }
-
-  @Post("getsecretconfig")
-  getSecretConfig(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
-    try {
-      return this.platformService.getSecretConfig()
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
 }

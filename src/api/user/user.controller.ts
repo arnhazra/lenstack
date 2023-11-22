@@ -70,4 +70,16 @@ export class UserController {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
+
+  @Post("/signtransactiongateway")
+  async signTransactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.userService.signTransactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
 }

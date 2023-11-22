@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { insightsMongoDbConn } from "../../../../utils/db-connect"
 
-const InsightsAnalyticsSchema = new mongoose.Schema({
+const AnalyticsSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -40,4 +40,4 @@ const InsightsAnalyticsSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const InsightsAnalyticsModel = insightsMongoDbConn.model("analytics", InsightsAnalyticsSchema)
+export const AnalyticsModel = insightsMongoDbConn.model("analytics", AnalyticsSchema)

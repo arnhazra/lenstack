@@ -34,6 +34,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           }
 
           else {
+            localStorage.removeItem("apiKey")
             dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
           }
 

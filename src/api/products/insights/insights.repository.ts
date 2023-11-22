@@ -1,22 +1,22 @@
 import { Injectable } from "@nestjs/common"
-import { InsightsProjectModel } from "./entities/insights-project.entity"
-import { InsightsAnalyticsModel } from "./entities/insights-analytics.entity"
+import { ProjectModel } from "./entities/project.entity"
+import { AnalyticsModel } from "./entities/analytics.entity"
 
 @Injectable()
 export class InsightsRepository {
   async countProjects(workspaceId: string) {
-    const count = await InsightsProjectModel.find({ workspaceId }).countDocuments()
+    const count = await ProjectModel.find({ workspaceId }).countDocuments()
     return count
   }
 
   async createProject(workspaceId: string, name: string, clientId: string, clientSecret: string) {
-    const project = new InsightsProjectModel({ workspaceId, name, clientId, clientSecret })
+    const project = new ProjectModel({ workspaceId, name, clientId, clientSecret })
     await project.save()
     return project
   }
 
   async getProjectsByWorkspaceId(workspaceId: string, searchQuery: string) {
-    const projects = await InsightsProjectModel.find({
+    const projects = await ProjectModel.find({
       name: { $regex: searchQuery, $options: "i" },
       workspaceId: workspaceId
     })
@@ -25,28 +25,28 @@ export class InsightsRepository {
   }
 
   async findProjectById(projectId: string) {
-    const project = await InsightsProjectModel.findById(projectId)
+    const project = await ProjectModel.findById(projectId)
     return project
   }
 
   async findProject(clientId: string, clientSecret: string) {
-    const project = await InsightsProjectModel.findOne({ clientId, clientSecret })
+    const project = await ProjectModel.findOne({ clientId, clientSecret })
     return project
   }
 
   async findAnalyticsByProjectId(workspaceId: string, projectId: string) {
-    const analytics = await InsightsAnalyticsModel.find({ workspaceId, projectId }).select("-workspaceId -projectId").sort({ createdAt: -1 })
+    const analytics = await AnalyticsModel.find({ workspaceId, projectId }).select("-workspaceId -projectId").sort({ createdAt: -1 })
     return analytics
   }
 
   async deleteProjectById(workspaceId: string, projectId: string) {
-    await InsightsAnalyticsModel.deleteMany({ workspaceId, projectId })
-    await InsightsProjectModel.findByIdAndDelete(projectId)
+    await AnalyticsModel.deleteMany({ workspaceId, projectId })
+    await ProjectModel.findByIdAndDelete(projectId)
     return true
   }
 
   async createAnalytics(workspaceId: string, projectId: string, component: string, event: string, info: string, statusCode: string) {
-    const analytics = new InsightsAnalyticsModel({ workspaceId, projectId, component, event, info, statusCode })
+    const analytics = new AnalyticsModel({ workspaceId, projectId, component, event, info, statusCode })
     await analytics.save()
     return true
   }

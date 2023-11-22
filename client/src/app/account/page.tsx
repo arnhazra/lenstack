@@ -15,37 +15,40 @@ import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-ic
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.infuraGateway)
+  const web3Provider = new Web3(endPoints.signAccountTxGateway)
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")
   const [maticBalance, setMaticBalance] = useState("0")
 
   useEffect(() => {
     (async () => {
-      if (!secretConfig.isLoading) {
-        try {
-          const { privateKey } = userState
-          const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-          setAccountAddress(walletAddress)
-          const maticBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
-          const maticBalance = web3Provider.utils.fromWei(maticBalanceInWei, "ether")
-          setMaticBalance(maticBalance)
-        } catch (error) {
-          toast.error(Constants.ErrorMessage)
-        } finally {
-          setWalletLoading(false)
-        }
+      try {
+        const { privateKey } = userState
+        const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+        setAccountAddress(walletAddress)
+        const maticBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
+        const maticBalance = web3Provider.utils.fromWei(maticBalanceInWei, "ether")
+        setMaticBalance(maticBalance)
+      }
+
+      catch (error) {
+        toast.error(Constants.ErrorMessage)
+      }
+
+      finally {
+        setWalletLoading(false)
       }
     })()
-  }, [userState, secretConfig.isLoading])
+  }, [userState])
 
   const signOutFromAllDevices = async () => {
     try {
       await axios.post(endPoints.signOut)
       localStorage.clear()
       window.location.replace("/")
-    } catch (error) {
+    }
+
+    catch (error) {
       toast.error(Constants.ToastError)
     }
   }

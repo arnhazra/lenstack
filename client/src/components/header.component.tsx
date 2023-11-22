@@ -8,6 +8,7 @@ import { TextAlignLeftIcon } from "@radix-ui/react-icons"
 import Constants from "@/constants/global.constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
+import { useRouter } from "next/navigation"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -15,13 +16,18 @@ interface HeaderProps {
 
 export default function Header({ isAuthorized }: HeaderProps) {
   const [isHomePage, setIsHomePage] = useState(false)
+  const router = useRouter()
   const searchRef = useRef<HTMLInputElement | null>(null)
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const userInitial = userState.email.slice(0, 2).toUpperCase() ?? 'US'
-  const searchEnabledPathNames = ["/dashboard", "/products/datalake", "/products/insights", "/products/fabric", "/products/nftstudio", "/products/swap",
-    "/dashboard/", "/products/datalake/", "/products/insights/", "/products/fabric/", "/products/nftstudio/", "/products/swap/"]
+  const userInitial = userState.email.slice(0, 2).toUpperCase() ?? "US"
+  const searchEnabledPathNames = [
+    "/dashboard", "/products/datalake", "/products/insights",
+    "/products/fabric", "/products/nftstudio", "/products/swap",
+    "/dashboard/", "/products/datalake/", "/products/insights/",
+    "/products/fabric/", "/products/nftstudio/", "/products/swap/"
+  ]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
@@ -72,7 +78,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={Constants.MumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
-                <Link href="/account" className="text-white"><button className="btn-user">{userInitial}</button></Link>
+                <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>
           </Container>

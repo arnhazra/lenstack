@@ -26,8 +26,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
   const swapTokenConfig = useFetch("swaptokenconfig", endPoints.swapTokenConfig, HTTPMethods.POST, { searchQuery: "" })
-  const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.alchemyGateway)
+  const web3Provider = new Web3(endPoints.swapSignTransactionGateway)
   const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [balance, setBalance] = useState(0)
@@ -137,7 +136,7 @@ export default function Page() {
           const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
           if (signedSellTx.rawTransaction) {
             await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
-            toast.success(Constants.TransactionSuccess)
+            toast.success(Constants.TokenSellSuccess)
           }
         }
 
@@ -147,7 +146,7 @@ export default function Page() {
           }
 
           else {
-            toast.error(Constants.TransactionError)
+            toast.error(Constants.TokenSellFailure)
           }
         }
 
@@ -177,7 +176,7 @@ export default function Page() {
 
   return (
     <Container>
-      <Show when={!swapTokenConfig.isLoading && !secretConfig.isLoading}>
+      <Show when={!swapTokenConfig.isLoading}>
         <Hero>
           <p className="branding">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
@@ -201,7 +200,7 @@ export default function Page() {
           {tokensToDisplay}
         </Row>
       </Show>
-      <Show when={swapTokenConfig.isLoading || secretConfig.isLoading}>
+      <Show when={swapTokenConfig.isLoading}>
         <Loading />
       </Show>
       {promptDialog()}

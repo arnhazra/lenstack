@@ -12,13 +12,15 @@ import { SubscriptionModel } from "../subscription/entities/subscription.entity"
 import { statusMessages } from "src/constants/status-messages"
 import { WorkspaceModel } from "../workspace/entities/workspace.entity"
 import { WorkspaceRepository } from "../workspace/workspace.repository"
+import { lastValueFrom } from "rxjs"
+import { HttpService } from "@nestjs/axios"
 
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
   private readonly web3Provider: Web3
 
-  constructor(private readonly userRepository: UserRepository, private readonly workspaceRepository: WorkspaceRepository) {
+  constructor(private readonly userRepository: UserRepository, private readonly workspaceRepository: WorkspaceRepository, private readonly httpService: HttpService) {
     this.authPrivateKey = envConfig.authPrivateKey
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
@@ -108,6 +110,17 @@ export class UserService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async signTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
     }
   }
 }

@@ -1,12 +1,12 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { SwapTransactionModel } from "./entities/swap-tx.entity"
-import { SwapTokenMetadataModel } from "./entities/swap-tokens.entity"
+import { TransactionModel } from "./entities/transaction.entity"
+import { TokenModel } from "./entities/token.entity"
 
 @Injectable()
 export class SwapRepository {
   async getTokens(searchQuery: string) {
     try {
-      const tokens = await SwapTokenMetadataModel.find({
+      const tokens = await TokenModel.find({
         $or: [
           { tokenName: { $regex: searchQuery, $options: "i" } },
           { tokenSymbol: { $regex: searchQuery, $options: "i" } },
@@ -22,7 +22,7 @@ export class SwapRepository {
 
   async createTransaction(workspaceId: string) {
     try {
-      const transaction = new SwapTransactionModel({ workspaceId })
+      const transaction = new TransactionModel({ workspaceId })
       await transaction.save()
       return transaction
     }

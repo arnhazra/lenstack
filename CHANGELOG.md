@@ -1,5 +1,16 @@
 # Lenstack Changelog
 
+### v3.3
+* Fix header links alignment issue
+* Added wall on products page when user is not subscribed
+* Migrated Redis from AWS to Azure
+* Fix APIKey not removed after switching workspace
+* Removed dependency on Quicknode, Infura and Alchemy from UI
+* Created API services for blockchain transactions to transact securely without exposing the API Keys
+* Deprecated method getSecretConfig as configs are no longer required to be exposed
+* Moved NPA wallet address to UI Constants
+* Renamed schema and models of products with more generic names
+
 ### v3.2
 * Header UI Changes
 * Minor changes & performance improvements
