@@ -16,7 +16,6 @@ enum Constants {
   TokenPurchaseFailure = "Error purchasing token",
   TokenSellSuccess = "You have successfully sold token",
   TokenSellFailure = "Error selling token",
-  UnknwonError = "Unknown error",
   CopiedToClipBoard = "Copied to Clipboard",
   InvalidPasskey = "Invalid Pass Key",
   IdentityVerificationSuccess = "Identity Verified",

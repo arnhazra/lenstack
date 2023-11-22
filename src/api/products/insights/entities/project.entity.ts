@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { fabricMongoDbConn } from "../../../../utils/db-connect"
+import { insightsMongoDbConn } from "../../../../utils/db-connect"
 
-const FabricDbSchema = new mongoose.Schema({
+const ProjectSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace"
@@ -12,13 +12,13 @@ const FabricDbSchema = new mongoose.Schema({
     required: true
   },
 
-  dbId: {
+  clientId: {
     type: String,
     required: true,
     unique: true,
   },
 
-  dbPassword: {
+  clientSecret: {
     type: String,
     required: true,
     unique: true,
@@ -30,4 +30,4 @@ const FabricDbSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const FabricDbModel = fabricMongoDbConn.model("databases", FabricDbSchema)
+export const ProjectModel = insightsMongoDbConn.model("project", ProjectSchema)

@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { ledgerscanMongoDbConn } from "../../../../utils/db-connect"
 
-const LedgerscanTransactionSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -14,4 +14,4 @@ const LedgerscanTransactionSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const LedgerscanTransactionModel = ledgerscanMongoDbConn.model("transaction", LedgerscanTransactionSchema)
+export const TransactionModel = ledgerscanMongoDbConn.model("transaction", TransactionSchema)

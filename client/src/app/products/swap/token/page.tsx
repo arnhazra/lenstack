@@ -136,7 +136,7 @@ export default function Page() {
           const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
           if (signedSellTx.rawTransaction) {
             await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
-            toast.success(Constants.TransactionSuccess)
+            toast.success(Constants.TokenSellSuccess)
           }
         }
 
@@ -146,7 +146,7 @@ export default function Page() {
           }
 
           else {
-            toast.error(Constants.TransactionError)
+            toast.error(Constants.TokenSellFailure)
           }
         }
 

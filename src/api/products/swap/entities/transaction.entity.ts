@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { swapMongoDbConn } from "../../../../utils/db-connect"
 
-const SwapTransactionSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -14,4 +14,4 @@ const SwapTransactionSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const SwapTransactionModel = swapMongoDbConn.model("transaction", SwapTransactionSchema)
+export const TransactionModel = swapMongoDbConn.model("transaction", TransactionSchema)

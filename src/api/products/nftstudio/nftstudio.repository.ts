@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { NftstudioTransactionModel } from "./entities/nftstudio.entity"
+import { TransactionModel } from "./entities/transaction.entity"
 
 @Injectable()
 export class NftstudioRepository {
   async createTransaction(workspaceId: string) {
     try {
-      const transaction = new NftstudioTransactionModel({ workspaceId })
+      const transaction = new TransactionModel({ workspaceId })
       await transaction.save()
       return true
     }

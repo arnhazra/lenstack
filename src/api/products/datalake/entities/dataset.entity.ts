@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { datalakeMongoDbConn } from "../../../../utils/db-connect"
 
-const DatalakeDatasetDataSchema = new mongoose.Schema({
+const DatasetSchema = new mongoose.Schema({
   datasetRelationId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "datasetmetadata",
@@ -15,4 +15,4 @@ const DatalakeDatasetDataSchema = new mongoose.Schema({
 }, { versionKey: false })
 
 
-export const DatalakeDatasetDataModel = datalakeMongoDbConn.model("datasetdata", DatalakeDatasetDataSchema)
+export const DatasetModel = datalakeMongoDbConn.model("datasetdata", DatasetSchema)

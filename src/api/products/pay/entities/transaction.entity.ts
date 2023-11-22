@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { payMongoDbConn } from "../../../../utils/db-connect"
 
-const PayTransactionSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -14,4 +14,4 @@ const PayTransactionSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const PayTransactionModel = payMongoDbConn.model("transaction", PayTransactionSchema)
+export const TransactionModel = payMongoDbConn.model("transaction", TransactionSchema)

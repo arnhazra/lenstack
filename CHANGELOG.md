@@ -8,7 +8,8 @@
 * Removed dependency on Quicknode, Infura and Alchemy from UI
 * Created API services for blockchain transactions to transact securely without exposing the API Keys
 * Deprecated method getSecretConfig as configs are no longer required to be exposed
-* Moved npa wallet address to UI Constants
+* Moved NPA wallet address to UI Constants
+* Renamed schema and models of products with more generic names
 
 ### v3.2
 * Header UI Changes
