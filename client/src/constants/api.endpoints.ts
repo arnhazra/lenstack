@@ -39,4 +39,5 @@ export const endPoints = {
   nftstudioSignTransactionGateway: `${apiHost}/api/products/nftstudio/signtransactiongateway`,
   swapCreateTx: `${apiHost}/api/products/swap/createtx`,
   swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
+  swapSignTransactionGateway: `${apiHost}/api/products/swap/signtransactiongateway`
 }
