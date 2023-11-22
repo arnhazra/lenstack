@@ -3,6 +3,7 @@ import { NftstudioRepository } from "./nftstudio.repository"
 import { HttpService } from "@nestjs/axios"
 import { lastValueFrom } from "rxjs"
 import { envConfig } from "src/config/env.config"
+import { statusMessages } from "src/constants/status-messages"
 
 @Injectable()
 export class NftstudioService {
@@ -27,6 +28,17 @@ export class NftstudioService {
 
     catch (error) {
       throw new BadRequestException()
+    }
+  }
+
+  getNftContractAddress() {
+    try {
+      const { nftContractAddress } = envConfig
+      return { nftContractAddress }
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 }

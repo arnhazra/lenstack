@@ -38,6 +38,7 @@ export const endPoints = {
   fabricCreateKv: `${apiHost}/api/products/fabric/createkv`,
   fabricDeleteKv: `${apiHost}/api/products/fabric/deletekv`,
   nftstudioCreateTx: `${apiHost}/api/products/nftstudio/createtx`,
+  nftstudioGetContractAddress: `${apiHost}/api/products/nftstudio/getnftcontractaddress`,
   nftstudioSignTransactionGateway: `${apiHost}/api/products/nftstudio/signtransactiongateway`,
   swapCreateTx: `${apiHost}/api/products/swap/createtx`,
   swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
