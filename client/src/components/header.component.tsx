@@ -21,9 +21,13 @@ export default function Header({ isAuthorized }: HeaderProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const userInitial = userState.email.slice(0, 2).toUpperCase() ?? 'US'
-  const searchEnabledPathNames = ["/dashboard", "/products/datalake", "/products/insights", "/products/fabric", "/products/nftstudio", "/products/swap",
-    "/dashboard/", "/products/datalake/", "/products/insights/", "/products/fabric/", "/products/nftstudio/", "/products/swap/"]
+  const userInitial = userState.email.slice(0, 2).toUpperCase() ?? "US"
+  const searchEnabledPathNames = [
+    "/dashboard", "/products/datalake", "/products/insights",
+    "/products/fabric", "/products/nftstudio", "/products/swap",
+    "/dashboard/", "/products/datalake/", "/products/insights/",
+    "/products/fabric/", "/products/nftstudio/", "/products/swap/"
+  ]
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
