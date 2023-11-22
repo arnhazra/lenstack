@@ -19,7 +19,7 @@ import useConfirm from "@/hooks/useConfirm"
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.infuraGateway)
+  const web3Provider = new Web3(endPoints.signSubscriptionTxGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfig, HTTPMethods.POST)
   const router = useRouter()

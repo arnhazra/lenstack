@@ -16,7 +16,7 @@ import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-ic
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.infuraGateway)
+  const web3Provider = new Web3(endPoints.signAccountTxGateway)
   const [walletLoading, setWalletLoading] = useState(true)
   const [accountAddress, setAccountAddress] = useState("")
   const [maticBalance, setMaticBalance] = useState("0")
