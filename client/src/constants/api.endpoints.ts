@@ -13,7 +13,6 @@ export const endPoints = {
   activateTrial: `${apiHost}/api/subscription/activatetrial`,
   getSubscriptionConfig: `${apiHost}/api/subscription/getsubscriptionconfig`,
   signSubscriptionTxGateway: `${apiHost}/api/subscription/signtransactiongateway`,
-  getSecretConfig: `${apiHost}/api/platform/getsecretconfig`,
   getProductConfig: `${apiHost}/api/platform/getproductconfig`,
   createWorkspace: `${apiHost}/api/workspace/create`,
   findMyWorkspaces: `${apiHost}/api/workspace/findmyworkspaces`,
