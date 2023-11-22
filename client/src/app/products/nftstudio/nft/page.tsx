@@ -26,7 +26,7 @@ export default function Page() {
   const router = useRouter()
   const nftId = searchParams.get("nftId")
   const secretConfig = useFetch("secret-config", endPoints.getSecretConfig, HTTPMethods.POST)
-  const web3Provider = new Web3(secretConfig?.data?.quicknodeGateway)
+  const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [selectedNft, setSelectedNft] = useState<any>()
   const [nftList, setNFTList] = useState([])

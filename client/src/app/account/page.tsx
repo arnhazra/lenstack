@@ -31,9 +31,13 @@ export default function Page() {
           const maticBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
           const maticBalance = web3Provider.utils.fromWei(maticBalanceInWei, "ether")
           setMaticBalance(maticBalance)
-        } catch (error) {
+        }
+
+        catch (error) {
           toast.error(Constants.ErrorMessage)
-        } finally {
+        }
+
+        finally {
           setWalletLoading(false)
         }
       }
@@ -45,7 +49,9 @@ export default function Page() {
       await axios.post(endPoints.signOut)
       localStorage.clear()
       window.location.replace("/")
-    } catch (error) {
+    }
+
+    catch (error) {
       toast.error(Constants.ToastError)
     }
   }

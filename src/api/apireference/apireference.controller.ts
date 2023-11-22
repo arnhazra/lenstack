@@ -18,7 +18,6 @@ export class ApiReferenceController {
     catch (error) {
       throw new BadRequestException()
     }
-
   }
 
   @Post("getallbyproductname")
