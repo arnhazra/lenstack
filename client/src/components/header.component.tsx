@@ -70,7 +70,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
             <Navbar.Collapse>
               <Show when={searchEnabledPathNames.includes(pathname)}>
                 <Nav className="ms-auto">
-                  <input ref={searchRef} placeholder="What are you looking for ? (Alt + Q)" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                  <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Nav>
               </Show>
               <Nav className="ms-auto">
