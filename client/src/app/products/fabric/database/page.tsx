@@ -6,7 +6,7 @@ import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
-import { ArchiveIcon, CopyIcon } from "@radix-ui/react-icons"
+import { TrashIcon, CopyIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
@@ -31,8 +31,8 @@ export default function Page() {
     )
   })
 
-  const archiveDb = async () => {
-    const userConsent = await confirm("Are you sure to archive this db?")
+  const deleteDb = async () => {
+    const userConsent = await confirm("Are you sure to delete this db?")
 
     if (userConsent) {
       await axios.delete(`${endPoints.fabricDeleteDb}?dbId=${dbId}`)
@@ -60,7 +60,7 @@ export default function Page() {
               <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
               <Button onClick={copyDbId}>Copy Db Id<CopyIcon className="icon-right" /></Button>
               <Button onClick={copyDbPassword}>Copy Db Password<CopyIcon className="icon-right" /></Button>
-              <Button onClick={archiveDb}>Archive Db<ArchiveIcon className="icon-right" /></Button>
+              <Button onClick={deleteDb}>Delete Database<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!db?.data?.kvs && db?.data?.kvs.length}>
               <h4 className="text-white">KVs</h4>

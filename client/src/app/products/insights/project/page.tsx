@@ -6,7 +6,7 @@ import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
-import { ArchiveIcon, CopyIcon } from "@radix-ui/react-icons"
+import { TrashIcon, CopyIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -35,8 +35,8 @@ export default function Page() {
     )
   })
 
-  const archiveProject = async () => {
-    const userConsent = await confirm("Are you sure to archive this project?")
+  const deleteProject = async () => {
+    const userConsent = await confirm("Are you sure to delete this project?")
 
     if (userConsent) {
       await axios.delete(`${endPoints.insightsDeleteProject}?projectId=${projectId}`)
@@ -57,14 +57,14 @@ export default function Page() {
   return (
     <Fragment>
       <Show when={!project?.isLoading}>
-        <Show when={!project.error || !!projectId}>
+        <Show when={!project.error && !!projectId}>
           <Container>
             <Hero>
               <p className="branding">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
               <Button onClick={copyProjectId}>Copy Project Id<CopyIcon className="icon-right" /></Button>
               <Button onClick={copyProjectPasskey}>Copy Project Passkey<CopyIcon className="icon-right" /></Button>
-              <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
+              <Button onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>
               <h4 className="text-white">Analytics</h4>
