@@ -1,6 +1,8 @@
 # Lenstack Changelog
 
 ### v3.4
+* Eliminated the CreateProject Page in Lenstack Insights & added the functionality in prompt modal
+* Eliminated the CreateDatabase Page in Lenstack Fabric & added the functionality in prompt modal
 
 ### v3.3
 * Fix header links alignment issue
