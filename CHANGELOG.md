@@ -1,6 +1,7 @@
 # Lenstack Changelog
 
 ### v3.4
+* Modified the prompt modal to accept string values & make more reusable
 * Eliminated the CreateProject Page in Lenstack Insights & added the functionality in prompt modal
 * Eliminated the CreateDatabase Page in Lenstack Fabric & added the functionality in prompt modal
 
