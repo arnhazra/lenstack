@@ -14,7 +14,12 @@ const SubscriptionSchema = new mongoose.Schema({
     required: true
   },
 
-  apiKey: {
+  clientId: {
+    type: String,
+    required: true,
+  },
+
+  clientSecret: {
     type: String,
     required: true,
   },

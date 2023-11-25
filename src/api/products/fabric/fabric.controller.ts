@@ -3,10 +3,10 @@ import { FabricService } from "./fabric.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CreateDbDto } from "./dto/create-db.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
-import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { SearchDbsDto } from "./dto/search-dbs.dto"
 import { ViewDbTokenDto } from "./dto/view-db-token.dto"
-import { ViewDbApiKeyDto } from "./dto/view-db-apikey.dto"
+import { ViewDbCredentialDto } from "./dto/view-db-credential.dto"
 
 @Controller("products/fabric")
 export class FabricController {
@@ -51,10 +51,10 @@ export class FabricController {
   }
 
   @Post("viewdb")
-  async viewDbOutsidePlatform(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() viewDbApiKeyDto: ViewDbApiKeyDto) {
+  async viewDbOutsidePlatform(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() viewDbCredentialDto: ViewDbCredentialDto) {
     try {
-      const { dbId, dbPassword } = viewDbApiKeyDto
-      const { db, kvs } = await this.fabricService.viewDbOutsidePlatform(ufak.workspaceId, dbId, dbPassword)
+      const { dbId, dbPassword } = viewDbCredentialDto
+      const { db, kvs } = await this.fabricService.viewDbOutsidePlatform(ufc.workspaceId, dbId, dbPassword)
       return { db, kvs }
     }
 
@@ -76,9 +76,9 @@ export class FabricController {
   }
 
   @Post("createkv")
-  async createKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
+  async createKv(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
     try {
-      await this.fabricService.createKv(ufak.workspaceId, createKvDto)
+      await this.fabricService.createKv(ufc.workspaceId, createKvDto)
       return true
     }
 
@@ -88,9 +88,9 @@ export class FabricController {
   }
 
   @Delete("deletekv")
-  async deleteKv(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Query("kvId") kvId: string) {
+  async deleteKv(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Query("kvId") kvId: string) {
     try {
-      await this.fabricService.deleteKv(ufak.workspaceId, kvId)
+      await this.fabricService.deleteKv(ufc.workspaceId, kvId)
       return true
     }
 

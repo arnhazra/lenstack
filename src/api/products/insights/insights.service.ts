@@ -14,9 +14,9 @@ export class InsightsService {
       const count = await this.insightsRepository.countProjects(workspaceId)
 
       if (count < 10) {
-        const clientId = randomBytes(16).toString("hex")
-        const clientSecret = randomBytes(32).toString("hex")
-        const project = await this.insightsRepository.createProject(workspaceId, name, clientId, clientSecret)
+        const projectId = randomBytes(16).toString("hex")
+        const projectPasskey = randomBytes(32).toString("hex")
+        const project = await this.insightsRepository.createProject(workspaceId, name, projectId, projectPasskey)
         return project
       }
 
@@ -82,8 +82,8 @@ export class InsightsService {
 
   async createAnalytics(workspaceId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      const { component, event, info, statusCode, clientId, clientSecret } = createAnalyticsDto
-      const project = await this.insightsRepository.findProject(clientId, clientSecret)
+      const { component, event, info, statusCode, projectId, projectPasskey } = createAnalyticsDto
+      const project = await this.insightsRepository.findProject(projectId, projectPasskey)
       if (project.workspaceId.toString() === workspaceId) {
         const projectId = project.id
         await this.insightsRepository.createAnalytics(workspaceId, projectId, component, event, info, statusCode)

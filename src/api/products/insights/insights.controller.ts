@@ -3,7 +3,7 @@ import { InsightsService } from "./insights.service"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CreateProjectDto } from "./dto/create-project.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
-import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { SearchProjectsDto } from "./dto/search-projects.dto"
 import { viewProjectDto } from "./dto/view-project.dto"
 
@@ -62,9 +62,9 @@ export class InsightsController {
   }
 
   @Post("createanalytics")
-  async createAnalytics(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
+  async createAnalytics(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      await this.insightsService.createAnalytics(ufak.workspaceId, createAnalyticsDto)
+      await this.insightsService.createAnalytics(ufc.workspaceId, createAnalyticsDto)
       return true
     }
 

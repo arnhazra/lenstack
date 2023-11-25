@@ -44,13 +44,13 @@ export default function Page() {
     }
   }
 
-  const copyClientId = (): void => {
-    navigator.clipboard.writeText(`${project?.data?.project?.clientId}`)
+  const copyProjectId = (): void => {
+    navigator.clipboard.writeText(`${project?.data?.project?.projectId}`)
     toast.success(Constants.CopiedToClipBoard)
   }
 
-  const copyClientSecret = (): void => {
-    navigator.clipboard.writeText(`${project?.data?.project?.clientSecret}`)
+  const copyProjectPasskey = (): void => {
+    navigator.clipboard.writeText(`${project?.data?.project?.projectPasskey}`)
     toast.success(Constants.CopiedToClipBoard)
   }
 
@@ -62,8 +62,8 @@ export default function Page() {
             <Hero>
               <p className="branding">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
-              <Button onClick={copyClientId}>Copy Client Id<CopyIcon className="icon-right" /></Button>
-              <Button onClick={copyClientSecret}>Copy Client Secret<CopyIcon className="icon-right" /></Button>
+              <Button onClick={copyProjectId}>Copy Project Id<CopyIcon className="icon-right" /></Button>
+              <Button onClick={copyProjectPasskey}>Copy Project Passkey<CopyIcon className="icon-right" /></Button>
               <Button onClick={archiveProject}>Archive Project<ArchiveIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>

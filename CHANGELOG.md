@@ -1,9 +1,12 @@
 # Lenstack Changelog
 
 ### v3.4
+* Introduction of new Credential authorization with Client Id and Client Secret
+* Braking changes - Deprecation of API Key authorization 
 * Modified the prompt modal to accept string values & make more reusable
 * Eliminated the CreateProject Page in Lenstack Insights & added the functionality in prompt modal
 * Eliminated the CreateDatabase Page in Lenstack Fabric & added the functionality in prompt modal
+* Renamed Lenstack Insights clientId to projectId and clientSecret to projectPasskey
 
 ### v3.3
 * Fix header links alignment issue

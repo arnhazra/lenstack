@@ -15,7 +15,8 @@ export interface UserState {
   email: string
   role: string
   selectedPlan: string
-  apiKey: string
+  clientId: string
+  clientSecret: string
   expiresAt: string
   trialAvailable: boolean
   selectedWorkspaceId: string
