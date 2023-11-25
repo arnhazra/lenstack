@@ -17,8 +17,8 @@ const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 axios.interceptors.request.use((request) => {
   if (localStorage.hasOwnProperty("accessToken")) {
     request.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`
-    request.headers["clientId"] = `${localStorage.getItem("clientId")}`
-    request.headers["clientSecret"] = `${localStorage.getItem("clientSecret")}`
+    request.headers["client_id"] = `${localStorage.getItem("clientId")}`
+    request.headers["client_secret"] = `${localStorage.getItem("clientSecret")}`
   }
   return request
 })

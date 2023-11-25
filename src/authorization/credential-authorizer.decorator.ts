@@ -12,8 +12,8 @@ export interface CredentialAuthorizerResponse {
 export const CredentialAuthorizer = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext): Promise<CredentialAuthorizerResponse> => {
     const request = ctx.switchToHttp().getRequest()
-    const clientId = request.headers["clientId"]
-    const clientSecret = request.headers["clientSecret"]
+    const clientId = request.headers["client_id"]
+    const clientSecret = request.headers["client_secret"]
     const requestedResource = String(request.originalUrl).split("/")[3]
 
     if (!clientId || !clientSecret) {
