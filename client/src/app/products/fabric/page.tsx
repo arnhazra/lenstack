@@ -2,7 +2,7 @@
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api.endpoints"
 import Show from "@/components/show.component"
-import { Badge, Container, Row } from "react-bootstrap"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading.component"
 import HTTPMethods from "@/constants/http.methods"
 import useFetch from "@/hooks/useFetch"
@@ -13,10 +13,16 @@ import Hero from "@/components/hero.component"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
+import usePrompt from "@/hooks/usePrompt"
+import axios from "axios"
+import toast from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const dbs = useFetch("dbs", endPoints.fabricGetMyDbs, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const { prompt, promptDialog } = usePrompt()
+  const router = useRouter()
   const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "fabric" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 
@@ -48,6 +54,22 @@ export default function Page() {
     )
   }, [dbs?.data])
 
+  const createDatabase = async () => {
+    const { hasConfirmed, value } = await prompt("Your Database name")
+
+    if (hasConfirmed && value) {
+      try {
+        const response = await axios.post(endPoints.fabricCreateDb, { name: value })
+        toast.success("Database Created")
+        router.push(`/products/fabric/database?dbId=${response.data.db._id}`)
+      }
+
+      catch (error: any) {
+        toast.error("Unable to create Database")
+      }
+    }
+  }
+
   return (
     <Fragment>
       <Show when={!dbs.isLoading && !products.isLoading}>
@@ -62,7 +84,7 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <Link className="btn" href="/products/fabric/createdb"><PlusCircledIcon className="icon-left" />Create Database</Link>
+            <Button onClick={createDatabase}><PlusCircledIcon className="icon-left" />Create Database</Button>
           </Hero>
           {displayDatabases()}
         </Container>
@@ -70,6 +92,7 @@ export default function Page() {
       <Show when={dbs.isLoading || products.isLoading}>
         <Loading />
       </Show>
+      {promptDialog()}
     </Fragment>
   )
 }
