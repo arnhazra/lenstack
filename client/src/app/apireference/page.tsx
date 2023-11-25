@@ -46,7 +46,7 @@ export default function Page() {
         <Show when={!!apireference?.data?.docList.length}>
           <div>
             <h4 className="text-white text-capitalize">API Reference - {Constants.BrandName} {productName}</h4>
-            <p className="lead text-white">You must include your API key under "x-api-key" in request header</p>
+            <p className="lead text-white">You must include your Client ID under "clientId" & Client Secret under "clientSecret" in request header</p>
             {listApiApiReferences}
           </div>
         </Show>

@@ -12,13 +12,13 @@ const ProjectSchema = new mongoose.Schema({
     required: true
   },
 
-  clientId: {
+  projectId: {
     type: String,
     required: true,
     unique: true,
   },
 
-  clientSecret: {
+  projectPasskey: {
     type: String,
     required: true,
     unique: true,

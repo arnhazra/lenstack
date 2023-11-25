@@ -9,8 +9,8 @@ export class InsightsRepository {
     return count
   }
 
-  async createProject(workspaceId: string, name: string, clientId: string, clientSecret: string) {
-    const project = new ProjectModel({ workspaceId, name, clientId, clientSecret })
+  async createProject(workspaceId: string, name: string, projectId: string, projectPasskey: string) {
+    const project = new ProjectModel({ workspaceId, name, projectId, projectPasskey })
     await project.save()
     return project
   }
@@ -29,8 +29,8 @@ export class InsightsRepository {
     return project
   }
 
-  async findProject(clientId: string, clientSecret: string) {
-    const project = await ProjectModel.findOne({ clientId, clientSecret })
+  async findProject(projectId: string, projectPasskey: string) {
+    const project = await ProjectModel.findOne({ projectId, projectPasskey })
     return project
   }
 

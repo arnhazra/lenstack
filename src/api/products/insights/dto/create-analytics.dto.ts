@@ -14,8 +14,8 @@ export class CreateAnalyticsDto {
   statusCode: string
 
   @IsNotEmpty()
-  clientId: string
+  projectId: string
 
   @IsNotEmpty()
-  clientSecret: string
+  projectPasskey: string
 }

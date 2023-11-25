@@ -28,14 +28,16 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           const { name: selectedWorkspaceName } = response.data.workspace
 
           if (response.data.subscription) {
-            const { selectedPlan, apiKey, expiresAt, remainingCredits } = response.data.subscription
-            localStorage.setItem("apiKey", apiKey)
-            dispatch("setUserState", { selectedPlan, apiKey, expiresAt, remainingCredits })
+            const { selectedPlan, clientId, clientSecret, expiresAt, remainingCredits } = response.data.subscription
+            localStorage.setItem("clientId", clientId)
+            localStorage.setItem("clientSecret", clientSecret)
+            dispatch("setUserState", { selectedPlan, clientId, clientSecret, expiresAt, remainingCredits })
           }
 
           else {
-            localStorage.removeItem("apiKey")
-            dispatch("setUserState", { selectedPlan: "No Subscription", apiKey: "", expiresAt: "" })
+            localStorage.removeItem("clientId")
+            localStorage.removeItem("clientSecret")
+            dispatch("setUserState", { selectedPlan: "No Subscription", clientId: "", clientSecret: "", expiresAt: "" })
           }
 
           dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId, selectedWorkspaceName })

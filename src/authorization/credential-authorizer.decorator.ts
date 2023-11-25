@@ -4,24 +4,25 @@ import { WorkspaceModel } from "src/api/workspace/entities/workspace.entity"
 import { apiPricing } from "src/config/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
 
-export interface ApiKeyAuthorizerResponse {
+export interface CredentialAuthorizerResponse {
   userId: string,
   workspaceId: string
 }
 
-export const ApiKeyAuthorizer = createParamDecorator(
-  async (data: unknown, ctx: ExecutionContext): Promise<ApiKeyAuthorizerResponse> => {
+export const CredentialAuthorizer = createParamDecorator(
+  async (data: unknown, ctx: ExecutionContext): Promise<CredentialAuthorizerResponse> => {
     const request = ctx.switchToHttp().getRequest()
-    const apiKey = request.headers["x-api-key"]
+    const clientId = request.headers["clientId"]
+    const clientSecret = request.headers["clientSecret"]
     const requestedResource = String(request.originalUrl).split("/")[3]
 
-    if (!apiKey) {
-      throw new ForbiddenException(statusMessages.noApiKey)
+    if (!clientId || !clientSecret) {
+      throw new ForbiddenException(statusMessages.noCredentialsProvided)
     }
 
     else {
       try {
-        const subscription = await SubscriptionModel.findOne({ apiKey })
+        const subscription = await SubscriptionModel.findOne({ clientId, clientSecret })
 
         if (subscription) {
           const workspaceId = subscription.workspaceId.toString()
@@ -33,14 +34,14 @@ export const ApiKeyAuthorizer = createParamDecorator(
             const expiryDate = subscription.expiresAt
 
             if (currentDate > expiryDate) {
-              throw new ForbiddenException(statusMessages.apiKeyExpired)
+              throw new ForbiddenException(statusMessages.credentialsExpired)
             }
 
             else {
               const creditRequiredForCurrentRequest = apiPricing[`${requestedResource}`]
 
               if (creditRequiredForCurrentRequest > subscription.remainingCredits) {
-                throw new ForbiddenException(statusMessages.apiKeyLimitReached)
+                throw new ForbiddenException(statusMessages.credentialsLimitReached)
               }
 
               else {
@@ -52,12 +53,12 @@ export const ApiKeyAuthorizer = createParamDecorator(
           }
 
           else {
-            throw new ForbiddenException(statusMessages.invalidApiKey)
+            throw new ForbiddenException(statusMessages.invalidCredentials)
           }
         }
 
         else {
-          throw new ForbiddenException(statusMessages.invalidApiKey)
+          throw new ForbiddenException(statusMessages.invalidCredentials)
         }
       }
 

@@ -27,13 +27,13 @@ export default function Page() {
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
 
-  const showapiKey = (apiKey: string) => {
-    const displayapiKey = `(${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)})`
-    return displayapiKey
+  const maskCredential = (credential: string): string => {
+    const displayCredential = `(${credential.substring(0, 3)}...${credential.substring(credential.length - 3)})`
+    return displayCredential
   }
 
-  const copyapiKey = (): void => {
-    navigator.clipboard.writeText(`${userState.apiKey}`)
+  const copyCredential = (credential: string): void => {
+    navigator.clipboard.writeText(`${credential}`)
     toast.success(Constants.CopiedToClipBoard)
   }
 
@@ -102,7 +102,7 @@ export default function Page() {
       <Show when={!pricingDetails.isLoading}>
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
-          <p className="muted-text">Subscribe & Track your API Key usage from here</p>
+          <p className="muted-text">Subscribe & Track your API Credentials usage from here</p>
           <Row className="mb-2 mt-4">
             <Col className="categorycol">
               <StackIcon />
@@ -130,13 +130,29 @@ export default function Page() {
               <LockOpen1Icon />
             </Col>
             <Col>
-              <p className="boxcategory-key">API Key</p>
+              <p className="boxcategory-key">Client ID</p>
               <div className="boxcategory-value">
-                <Show when={!!userState.apiKey}>
-                  {showapiKey(userState.apiKey)}<CopyIcon className="icon-right" onClick={copyapiKey} />
+                <Show when={!!userState.clientId}>
+                  {maskCredential(userState.clientId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientId)} />
                 </Show>
-                <Show when={!userState.apiKey}>
-                  No API Key
+                <Show when={!userState.clientId}>
+                  No Client ID
+                </Show>
+              </div>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col className="categorycol">
+              <LockOpen1Icon />
+            </Col>
+            <Col>
+              <p className="boxcategory-key">Client Secret</p>
+              <div className="boxcategory-value">
+                <Show when={!!userState.clientSecret}>
+                  {maskCredential(userState.clientSecret)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientSecret)} />
+                </Show>
+                <Show when={!userState.clientSecret}>
+                  No Client Secret
                 </Show>
               </div>
             </Col>
@@ -148,10 +164,10 @@ export default function Page() {
             <Col>
               <p className="boxcategory-key">Validity</p>
               <div className="boxcategory-value">
-                <Show when={!!userState.apiKey}>
+                <Show when={!!userState.clientId}>
                   <p>Valid upto {moment(userState.expiresAt).format("MMM, Do YYYY")}</p>
                 </Show>
-                <Show when={!userState.apiKey}>
+                <Show when={!userState.clientId}>
                   <p>No Validity Data</p>
                 </Show>
               </div>
@@ -162,13 +178,13 @@ export default function Page() {
               <PieChartIcon />
             </Col>
             <Col>
-              <p className="boxcategory-key">Key Usage</p>
+              <p className="boxcategory-key">Credentials Usage</p>
               <div className="boxcategory-value">
-                <Show when={!!userState.apiKey}>
+                <Show when={!!userState.clientId}>
                   {userState.remainingCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining
                 </Show>
-                <Show when={!userState.apiKey}>
-                  No API Key Usage Data
+                <Show when={!userState.clientId}>
+                  No Credentials Usage Data
                 </Show>
               </div>
             </Col>

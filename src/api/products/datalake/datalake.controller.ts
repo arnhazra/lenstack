@@ -2,7 +2,7 @@ import { Controller, Post, Body } from "@nestjs/common"
 import { DatalakeService } from "./datalake.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
-import { ApiKeyAuthorizer, ApiKeyAuthorizerResponse } from "src/authorization/apikey-authorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { SearchDatasetDto } from "./dto/search-dataset.dto"
 
 @Controller("products/datalake")
@@ -60,7 +60,7 @@ export class DatalakeController {
   }
 
   @Post("dataapi")
-  async getData(@ApiKeyAuthorizer() ufak: ApiKeyAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
+  async getData(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
     try {
       const { datasetId } = searchDatasetDto
       const data = await this.datalakeService.getData(datasetId)

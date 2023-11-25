@@ -2,7 +2,7 @@
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api.endpoints"
 import Show from "@/components/show.component"
-import { Badge, Container, Row } from "react-bootstrap"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading.component"
 import HTTPMethods from "@/constants/http.methods"
 import useFetch from "@/hooks/useFetch"
@@ -13,9 +13,15 @@ import Hero from "@/components/hero.component"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
+import usePrompt from "@/hooks/usePrompt"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
+import axios from "axios"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
+  const { prompt, promptDialog } = usePrompt()
+  const router = useRouter()
   const projects = useFetch("projects", endPoints.insightsGetProjects, HTTPMethods.POST, { searchQuery: globalSearchString })
   const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "insights" })
   const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
@@ -48,6 +54,22 @@ export default function Page() {
     )
   }, [projects?.data])
 
+  const createProject = async () => {
+    const { hasConfirmed, value } = await prompt("Your Project name")
+
+    if (hasConfirmed && value) {
+      try {
+        const response = await axios.post(endPoints.insightsCreateProject, { name: value })
+        toast.success("Project Created")
+        router.push(`/products/insights/project?projectId=${response.data.project._id}`)
+      }
+
+      catch (error: any) {
+        toast.error("Unable to create project")
+      }
+    }
+  }
+
   return (
     <Fragment>
       <Show when={!projects.isLoading && !products.isLoading}>
@@ -62,7 +84,7 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <Link className="btn" href="/products/insights/createproject"><PlusCircledIcon className="icon-left" />Create Project</Link>
+            <Button onClick={createProject}><PlusCircledIcon className="icon-left" />Create Project</Button>
           </Hero>
           {displayProjects()}
         </Container>
@@ -70,6 +92,7 @@ export default function Page() {
       <Show when={projects.isLoading || products.isLoading}>
         <Loading />
       </Show>
+      {promptDialog()}
     </Fragment>
   )
 }

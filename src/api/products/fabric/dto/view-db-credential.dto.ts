@@ -1,4 +1,4 @@
-export class ViewDbApiKeyDto {
+export class ViewDbCredentialDto {
   dbId: string
   dbPassword: string
 }
