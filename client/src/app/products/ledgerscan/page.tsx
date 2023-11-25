@@ -63,7 +63,7 @@ export default function Page() {
           </Link>
         </Hero>
         <Hero>
-          <p className="branding">API Client (No need to pass Base URI)</p>
+          <p className="branding">API Client</p>
           <form onSubmit={hitAPI}>
             <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
             <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
