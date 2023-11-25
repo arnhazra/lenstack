@@ -7,27 +7,27 @@ import { Form } from "react-bootstrap"
 
 export default function usePrompt() {
   const [show, setShow] = useState(false)
-  const [message, setMessage] = useState("")
-  const [amount, setAmount] = useState<number>(0)
-  const [resolveCallback, setResolveCallback] = useState<(choice: { hasConfirmed: boolean, amount: number }) => void>(() => { })
+  const [message, setMessage] = useState<string>("")
+  const [value, setValue] = useState<string>("")
+  const [resolveCallback, setResolveCallback] = useState<(choice: { hasConfirmed: boolean, value: string }) => void>(() => { })
 
   const handleClose = () => setShow(false)
 
-  const prompt = (message: string): Promise<{ hasConfirmed: boolean, amount: number }> => {
+  const prompt = (message: string): Promise<{ hasConfirmed: boolean, value: number }> => {
     setMessage(message)
     setShow(true)
 
     return new Promise((resolve) => {
-      setResolveCallback(() => ({ hasConfirmed, amount }: { hasConfirmed: boolean, amount: number }) => {
+      setResolveCallback(() => ({ hasConfirmed, value }: { hasConfirmed: boolean, value: number }) => {
         handleClose()
-        resolve({ hasConfirmed, amount })
+        resolve({ hasConfirmed, value })
       })
     })
   }
 
   const handleConfirm = (choice: boolean) => {
     if (resolveCallback) {
-      resolveCallback({ hasConfirmed: choice, amount })
+      resolveCallback({ hasConfirmed: choice, value })
       setResolveCallback(() => { })
     }
   }
@@ -39,7 +39,7 @@ export default function usePrompt() {
       </Modal.Header>
       <Modal.Body>
         <Form.Group controlId="exampleForm.ControlInput1">
-          <Form.Control autoFocus type="number" placeholder="Amount in number" autoComplete={"off"} onChange={(e) => setAmount(Number(e.target.value))} />
+          <Form.Control autoFocus type="text" placeholder="Enter the value" autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>

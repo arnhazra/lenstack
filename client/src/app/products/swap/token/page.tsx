@@ -51,9 +51,9 @@ export default function Page() {
   }, [selectedToken?.tokenContractAddress, isTxProcessing])
 
   const buyToken = async () => {
-    const { hasConfirmed, amount } = await prompt(`How many ${selectedToken?.tokenSymbol} you want to buy ?`)
+    const { hasConfirmed, value } = await prompt(`How many ${selectedToken?.tokenSymbol} you want to buy ?`)
 
-    if (hasConfirmed && amount > 0) {
+    if (hasConfirmed && Number(value) > 0) {
       try {
         setTxProcessing(true)
         await axios.post(endPoints.swapCreateTx)
@@ -61,7 +61,7 @@ export default function Page() {
         const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
         const vendor = new web3Provider.eth.Contract(vendorABI as any, selectedToken?.vendorContractAddress)
         const gasPrice = await web3Provider.eth.getGasPrice()
-        const weiValue = web3Provider.utils.toWei((amount / selectedToken?.tokensPerMatic).toString(), "ether")
+        const weiValue = web3Provider.utils.toWei((Number(value) / selectedToken?.tokensPerMatic).toString(), "ether")
 
         const transaction = {
           from: walletAddress,
@@ -97,10 +97,10 @@ export default function Page() {
   }
 
   const sellToken = async () => {
-    const { hasConfirmed, amount } = await prompt(`How many ${selectedToken?.tokenSymbol} you want to sell ?`)
+    const { hasConfirmed, value } = await prompt(`How many ${selectedToken?.tokenSymbol} you want to sell ?`)
 
-    if (hasConfirmed && amount > 0) {
-      if (amount <= balance) {
+    if (hasConfirmed && Number(value) > 0) {
+      if (Number(value) <= balance) {
         try {
           setTxProcessing(true)
           await axios.post(endPoints.swapCreateTx)
@@ -109,13 +109,13 @@ export default function Page() {
           const gasPrice = await web3Provider.eth.getGasPrice()
 
           const tokenContract: any = new web3Provider.eth.Contract(tokenABI as any, selectedToken?.tokenContractAddress)
-          const approvalData = tokenContract.methods.approve(selectedToken?.vendorContractAddress, web3Provider.utils.toWei(amount.toString(), "ether")).encodeABI()
+          const approvalData = tokenContract.methods.approve(selectedToken?.vendorContractAddress, web3Provider.utils.toWei(value.toString(), "ether")).encodeABI()
           const approvalTx = {
             from: walletAddress,
             to: selectedToken?.tokenContractAddress,
             data: approvalData,
             gasPrice: gasPrice,
-            gas: await tokenContract.methods.approve(selectedToken?.vendorContractAddress, web3Provider.utils.toWei(amount.toString(), "ether")).estimateGas({ from: walletAddress })
+            gas: await tokenContract.methods.approve(selectedToken?.vendorContractAddress, web3Provider.utils.toWei(value.toString(), "ether")).estimateGas({ from: walletAddress })
           }
 
           const signedApprovalTx = await web3Provider.eth.accounts.signTransaction(approvalTx, privateKey)
@@ -124,13 +124,13 @@ export default function Page() {
           }
 
           const vendor: any = new web3Provider.eth.Contract(vendorABI as any, selectedToken?.vendorContractAddress)
-          const sellData = vendor.methods.sellTokens(web3Provider.utils.toWei(amount.toString(), "ether")).encodeABI()
+          const sellData = vendor.methods.sellTokens(web3Provider.utils.toWei(value.toString(), "ether")).encodeABI()
           const sellTx = {
             from: walletAddress,
             to: selectedToken?.vendorContractAddress,
             data: sellData,
             gasPrice: gasPrice,
-            gas: await vendor.methods.sellTokens(web3Provider.utils.toWei(amount.toString(), "ether")).estimateGas({ from: walletAddress })
+            gas: await vendor.methods.sellTokens(web3Provider.utils.toWei(value.toString(), "ether")).estimateGas({ from: walletAddress })
           }
 
           const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)

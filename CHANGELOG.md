@@ -1,5 +1,7 @@
 # Lenstack Changelog
 
+### v3.4
+
 ### v3.3
 * Fix header links alignment issue
 * Added wall on products page when user is not subscribed
