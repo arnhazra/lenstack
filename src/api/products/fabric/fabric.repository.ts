@@ -51,7 +51,7 @@ export class FabricRepository {
   }
 
   async deleteKvById(workspaceId: string, kvId: string) {
-    await KvModel.findOneAndDelete({ workspaceId, _id: kvId })
-    return true
+    const item = await KvModel.findOneAndDelete({ workspaceId, _id: kvId })
+    return item
   }
 }

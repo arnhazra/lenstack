@@ -120,8 +120,14 @@ export class FabricService {
 
   async deleteKv(workspaceId: string, kvId: string) {
     try {
-      await this.fabricRepository.deleteKvById(workspaceId, kvId)
-      return true
+      const item = await this.fabricRepository.deleteKvById(workspaceId, kvId)
+      if (item) {
+        return true
+      }
+
+      else {
+        throw new BadRequestException()
+      }
     }
 
     catch (error) {
