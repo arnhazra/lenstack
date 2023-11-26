@@ -11,7 +11,7 @@ import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
-import { Button, Col, Container, Row, Table } from "react-bootstrap"
+import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
 import { maskCredential } from "@/utils/mask-credential"
 import { copyCredential } from "@/utils/copy-credential"
@@ -53,7 +53,7 @@ export default function Page() {
               <p className="branding">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
               <Row>
-                <Col xl={6} lg={6} md={6} sm={12} xs={12}>
+                <Stack direction="horizontal" gap={4}>
                   <Row className="mt-2 mb-2">
                     <Col className="categorycol-hero">
                       <CubeIcon />
@@ -65,20 +65,18 @@ export default function Page() {
                       </div>
                     </Col>
                   </Row>
-                </Col>
-                <Col xl={6} lg={6} md={6} sm={12} xs={12}>
                   <Row className="mt-2 mb-2">
                     <Col className="categorycol-hero">
                       <LockOpen2Icon />
                     </Col>
                     <Col>
-                      <p className="herocategory-key">Project Passkey</p>
+                      <p className="herocategory-key">Passkey</p>
                       <div className="herocategory-value">
                         {maskCredential(project?.data?.project?.projectPasskey)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(project?.data?.project?.projectPasskey)} />
                       </div>
                     </Col>
                   </Row>
-                </Col>
+                </Stack>
               </Row>
               <Button onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
             </Hero>

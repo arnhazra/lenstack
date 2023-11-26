@@ -10,7 +10,7 @@ import { TrashIcon, CopyIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-ic
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
-import { Button, Col, Container, Row, Table } from "react-bootstrap"
+import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
 import { maskCredential } from "@/utils/mask-credential"
 import { copyCredential } from "@/utils/copy-credential"
@@ -48,34 +48,30 @@ export default function Page() {
             <Hero>
               <p className="branding text-capitalize">{db?.data?.db?.name}</p>
               <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
-              <Row>
-                <Col xl={6} lg={6} md={6} sm={12} xs={12}>
-                  <Row className="mt-2 mb-2">
-                    <Col className="categorycol-hero">
-                      <CubeIcon />
-                    </Col>
-                    <Col>
-                      <p className="herocategory-key">DB ID</p>
-                      <div className="herocategory-value">
-                        {maskCredential(dbId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(dbId)} />
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xl={6} lg={6} md={6} sm={12} xs={12}>
-                  <Row className="mt-2 mb-2">
-                    <Col className="categorycol-hero">
-                      <LockOpen2Icon />
-                    </Col>
-                    <Col>
-                      <p className="herocategory-key">DB Password</p>
-                      <div className="herocategory-value">
-                        {maskCredential(db?.data?.db?.dbPassword)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(db?.data?.db?.dbPassword)} />
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+              <Stack direction="horizontal" gap={4}>
+                <Row className="mt-2 mb-2">
+                  <Col className="categorycol-hero">
+                    <CubeIcon />
+                  </Col>
+                  <Col>
+                    <p className="herocategory-key">DB ID</p>
+                    <div className="herocategory-value">
+                      {maskCredential(dbId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(dbId)} />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="mt-2 mb-2">
+                  <Col className="categorycol-hero">
+                    <LockOpen2Icon />
+                  </Col>
+                  <Col>
+                    <p className="herocategory-key">Password</p>
+                    <div className="herocategory-value">
+                      {maskCredential(db?.data?.db?.dbPassword)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(db?.data?.db?.dbPassword)} />
+                    </div>
+                  </Col>
+                </Row>
+              </Stack>
               <Button onClick={deleteDb}>Delete Database<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!db?.data?.kvs && db?.data?.kvs.length}>
