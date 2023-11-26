@@ -48,6 +48,13 @@ export class UserService {
 
         if (user) {
           const redisAccessToken = await getTokenFromRedis(user.id)
+          const workspaceCount = (await this.workspaceRepository.findMyWorkspaces(user.id)).length
+
+          if (!workspaceCount) {
+            const workspace = await this.workspaceRepository.createWorkspace("Default Workspace", user.id)
+            await this.userRepository.findUserByIdAndUpdateSelectedWorkspace(user.id, workspace.id)
+          }
+
           if (redisAccessToken) {
             const accessToken = redisAccessToken
             return { accessToken, success: true, user }
