@@ -7,6 +7,7 @@
 * Eliminated the CreateProject Page in Insights & added the functionality in prompt modal
 * Eliminated the CreateDatabase Page in Fabric & added the functionality in prompt modal
 * Renamed Insights clientId to projectId and clientSecret to projectPasskey
+* Minor changes and bug fixes
 
 ### v3.3
 * Fix header links alignment issue
