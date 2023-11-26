@@ -6,15 +6,15 @@ import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
-import { TrashIcon, CopyIcon } from "@radix-ui/react-icons"
+import { TrashIcon, CopyIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
-import { Button, Container, Table } from "react-bootstrap"
-import { toast } from "react-hot-toast"
-import Constants from "@/constants/global.constants"
+import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
+import { maskCredential } from "@/utils/mask-credential"
+import { copyCredential } from "@/utils/copy-credential"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -44,16 +44,6 @@ export default function Page() {
     }
   }
 
-  const copyProjectId = (): void => {
-    navigator.clipboard.writeText(`${project?.data?.project?.projectId}`)
-    toast.success(Constants.CopiedToClipBoard)
-  }
-
-  const copyProjectPasskey = (): void => {
-    navigator.clipboard.writeText(`${project?.data?.project?.projectPasskey}`)
-    toast.success(Constants.CopiedToClipBoard)
-  }
-
   return (
     <Fragment>
       <Show when={!project?.isLoading}>
@@ -62,8 +52,34 @@ export default function Page() {
             <Hero>
               <p className="branding">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
-              <Button onClick={copyProjectId}>Copy Project Id<CopyIcon className="icon-right" /></Button>
-              <Button onClick={copyProjectPasskey}>Copy Project Passkey<CopyIcon className="icon-right" /></Button>
+              <Row>
+                <Col xl={6} lg={6} md={6} sm={12} xs={12}>
+                  <Row className="mt-2 mb-2">
+                    <Col className="categorycol-hero">
+                      <CubeIcon />
+                    </Col>
+                    <Col>
+                      <p className="herocategory-key">Project ID</p>
+                      <div className="herocategory-value">
+                        {maskCredential(projectId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(projectId)} />
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col xl={6} lg={6} md={6} sm={12} xs={12}>
+                  <Row className="mt-2 mb-2">
+                    <Col className="categorycol-hero">
+                      <LockOpen2Icon />
+                    </Col>
+                    <Col>
+                      <p className="herocategory-key">Project Passkey</p>
+                      <div className="herocategory-value">
+                        {maskCredential(project?.data?.project?.projectPasskey)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(project?.data?.project?.projectPasskey)} />
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
               <Button onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>

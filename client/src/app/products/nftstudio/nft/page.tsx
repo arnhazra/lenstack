@@ -12,7 +12,7 @@ import { GlobalContext } from "@/context/globalstate.provider"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
 import { ProductCardInterface } from "@/types/Types"
-import { ArchiveIcon, CopyIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons"
+import { ArchiveIcon, CopyIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix-ui/react-icons"
 import moment from "moment"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -20,6 +20,8 @@ import { Fragment, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
+import { maskCredential } from "@/utils/mask-credential"
+import { copyCredential } from "@/utils/copy-credential"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -120,16 +122,6 @@ export default function Page() {
     )
   })
 
-  const showAddress = (address: string) => {
-    const displayAddress = `(${address?.substring(0, 3)}...${address?.substring(address.length - 3)})`
-    return displayAddress
-  }
-
-  const copyAddress = (address: string): void => {
-    navigator.clipboard.writeText(`${address}`)
-    toast.success(Constants.CopiedToClipBoard)
-  }
-
   useEffect(() => {
     const verifyImage = (url: string): Promise<boolean> => {
       const img = new Image()
@@ -154,8 +146,8 @@ export default function Page() {
                 <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                   <img
                     src={hasImage ? selectedNft?.link : Constants.DefaultNftImage}
-                    width={300}
-                    height={300}
+                    width={270}
+                    height={270}
                     alt="Picture of the NFT"
                     className="image-container"
                   />
@@ -163,8 +155,34 @@ export default function Page() {
                 <Col xs={12} sm={12} md={6} lg={8} xl={9}>
                   <p className="branding">{selectedNft?.name}</p>
                   <p className="muted-text">{selectedNft?.description}</p>
-                  <p className="lead">NFT Contract: {showAddress(nftContractAddress?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(nftContractAddress?.data?.nftContractAddress)} /></p>
-                  <p className="lead">Owner: {showAddress(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyAddress(selectedNft?.owner)} /></p>
+                  <Row>
+                    <Col xl={6} lg={6} md={6} sm={12} xs={12}>
+                      <Row className="mt-2 mb-2">
+                        <Col className="categorycol-hero">
+                          <IdCardIcon />
+                        </Col>
+                        <Col>
+                          <p className="herocategory-key">NFT Contract Address</p>
+                          <div className="herocategory-value">
+                            {maskCredential(nftContractAddress?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(nftContractAddress?.data?.nftContractAddress)} />
+                          </div>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col xl={6} lg={6} md={6} sm={12} xs={12}>
+                      <Row className="mt-2 mb-2">
+                        <Col className="categorycol-hero">
+                          <PersonIcon />
+                        </Col>
+                        <Col>
+                          <p className="herocategory-key">Owner Wallet Address</p>
+                          <div className="herocategory-value">
+                            {maskCredential(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(selectedNft?.owner)} />
+                          </div>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
                   <div className="mb-3">
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>

@@ -1,19 +1,19 @@
 "use client"
-import { Badge, Button, Container, Row } from "react-bootstrap"
+import { Badge, Col, Container, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
 import { endPoints } from "@/constants/api.endpoints"
-import { toast } from "react-hot-toast"
 import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/http.methods"
 import Error from "@/components/error.component"
-import Constants from "@/constants/global.constants"
 import { useSearchParams } from "next/navigation"
-import { CopyIcon } from "@radix-ui/react-icons"
+import { CopyIcon, CubeIcon } from "@radix-ui/react-icons"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import Hero from "@/components/hero.component"
+import { maskCredential } from "@/utils/mask-credential"
+import { copyCredential } from "@/utils/copy-credential"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -38,11 +38,6 @@ export default function Page() {
     }
   })
 
-  const copyDatasetId = (): void => {
-    navigator.clipboard.writeText(`${datasetId}`)
-    toast.success(Constants.CopiedToClipBoard)
-  }
-
   return (
     <Fragment>
       <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
@@ -52,8 +47,18 @@ export default function Page() {
               <p className="branding text-capitalize">{dataset?.data?.name}</p>
               <p className="lead">{dataset?.data?.category}</p>
               <p className="muted-text mt-3">{dataset?.data?.description}</p>
-              <div className="mb-3">{datasetTagsToDisplay}</div>
-              <Button onClick={copyDatasetId}><CopyIcon className="icon-left" />Copy Dataset ID</Button>
+              <div className="mb-4">{datasetTagsToDisplay}</div>
+              <Row className="mt-2 mb-2">
+                <Col className="categorycol-hero">
+                  <CubeIcon />
+                </Col>
+                <Col>
+                  <p className="herocategory-key">Dataset ID</p>
+                  <div className="herocategory-value">
+                    {maskCredential(datasetId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(datasetId)} />
+                  </div>
+                </Col>
+              </Row>
             </Hero>
             <Row>
               <h4 className="text-white">Similar Datasets</h4>

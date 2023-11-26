@@ -1,4 +1,4 @@
-# Lenstack Dependencies
+# Dependencies
 
 * concurrently - Run concurrent servers.
 * dotenv - Loads environment variables from a .env file.

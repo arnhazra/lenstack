@@ -1,12 +1,12 @@
-# Lenstack Changelog
+# Changelog
 
 ### v3.4
 * Introduction of new Credential authorization with Client Id and Client Secret
 * Braking changes - Deprecation of API Key authorization 
 * Modified the prompt modal to accept string values & make more reusable
-* Eliminated the CreateProject Page in Lenstack Insights & added the functionality in prompt modal
-* Eliminated the CreateDatabase Page in Lenstack Fabric & added the functionality in prompt modal
-* Renamed Lenstack Insights clientId to projectId and clientSecret to projectPasskey
+* Eliminated the CreateProject Page in Insights & added the functionality in prompt modal
+* Eliminated the CreateDatabase Page in Fabric & added the functionality in prompt modal
+* Renamed Insights clientId to projectId and clientSecret to projectPasskey
 
 ### v3.3
 * Fix header links alignment issue
@@ -34,7 +34,7 @@
 * Rebranding of Snowlake as Lenstack NFT Studio
 * Rebranding of Edgepay as Lenstack Pay
 * Rebranding of Swapstream as Lenstack Swap
-* Introduction of new & modern Lenstack UI
+* Introduction of new & modern UI
 * Migration of all mongo databases into Azure from AWS & GCP, existing Azure mongo databases remains same
 * Product config changes as per new product name standards
 * API reference changes as per new product names
@@ -90,7 +90,7 @@
 * Added refreshId to revalidate API and update context
 
 ### v2.3
-* Introduction of Lenstack workspaces
+* Introduction of workspaces
 * Integrated workspaces with UI
 * Removed owner field from app transactions and entities and added workspaceId to separate workspaces
 * Fixed some UI issues where subscription not updated after switching workspace or new subscription
@@ -100,7 +100,7 @@
 ### v2.2
 * Introduction of generic hero component
 * Documentation UI changes
-* New & Modern Dark UI layout for Lenstack & all app Home Page
+* New & Modern Dark UI layout for Platform & all app Home Page
 
 ### v2.1
 * Fixed framer motion animation issue on header
@@ -152,7 +152,7 @@
 
 ### v1.4
 * Implemented Major Visual Enhancements
-* Introduced the new Passkey based Identity Provider for IAM - Lenstack Id, replacing the legacy Auth Provider
+* Introduced the new Passkey based Identity Provider for IAM replacing the legacy Auth Provider
 * Conducted Bug Fixes on the API key authorizer & optimized the code
 * Introduced AuthProvider, replacing Auth HOC & Auth Page
 
@@ -164,17 +164,17 @@
 ### v1.2
 * Introduced Auth HOC for authorization within the App
 * Implemented Advanced Cache Controls
-* Integrated Frostlake - Analytics Platform (previously a separate app) into the Lenstack Platform
+* Integrated Frostlake - Analytics Platform (previously a separate app) into the Platform
 * Introduced Auth HOC for authorization within the App
 
 ### v1.1
 * Implemented Advanced Cache Controls
 * Changed Technology Stack - Introduced Next JS, replacing CRA
 * Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
-* Introduced a new app, Snowlake - NFT Toolkit, to the Lenstack Platform
+* Introduced a new app, Snowlake - NFT Toolkit, to the Platform
 
 ### v1.0
 * Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
 * Introduced subscription & subscription key based on Ethereum payment
-* Integrated Airlake - Dataset Marketplace (previously a separate app) into the Lenstack Platform
+* Integrated Airlake - Dataset Marketplace (previously a separate app) into the Platform
 * Introduced the new Lenstack Platform

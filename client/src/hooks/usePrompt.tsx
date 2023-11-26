@@ -35,7 +35,7 @@ export default function usePrompt() {
   const promptDialog = () => (
     <Modal show={show} centered keyboard={false} backdrop="static">
       <Modal.Header>
-        <h6>{message}</h6>
+        <h5>{message}</h5>
       </Modal.Header>
       <Modal.Body>
         <Form.Group controlId="exampleForm.ControlInput1">

@@ -10,6 +10,7 @@ import { GlobalContext } from "@/context/globalstate.provider"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
 import Hero from "@/components/hero.component"
+import Constants from "@/constants/global.constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -47,7 +48,7 @@ export default function Page() {
     <Container>
       <Show when={!swapTokenConfig.isLoading && !products.isLoading}>
         <Hero>
-          <p className="branding">{selectedProduct?.displayName}</p>
+          <p className="branding">{Constants.BrandName} {selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
           <div className="mb-2">
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>

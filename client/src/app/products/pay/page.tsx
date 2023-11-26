@@ -71,7 +71,7 @@ export default function Page() {
     <Container>
       <Show when={!products.isLoading}>
         <Hero>
-          <p className="branding">{selectedProduct?.displayName}</p>
+          <p className="branding">{Constants.BrandName} {selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
           <div className="mb-2">
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>

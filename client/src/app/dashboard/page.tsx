@@ -10,6 +10,7 @@ import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error.component"
+import Constants from "@/constants/global.constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -21,7 +22,7 @@ export default function Page() {
         badgeText: product.productStatus,
         className: product.productCategory,
         footerText: product.description,
-        headerText: `${product.displayName}`,
+        headerText: `${Constants.BrandName} ${product.displayName}`,
         redirectUri: `/products/${product.productName}`,
         isDisabled: product.productStatus !== "Available"
       }

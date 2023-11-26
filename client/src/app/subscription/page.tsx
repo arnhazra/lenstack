@@ -9,12 +9,14 @@ import useFetch from "@/hooks/useFetch"
 import Loading from "@/components/loading.component"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
-import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
+import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon, StackIcon, KeyboardIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
 import Constants from "@/constants/global.constants"
 import useConfirm from "@/hooks/useConfirm"
+import { maskCredential } from "@/utils/mask-credential"
+import { copyCredential } from "@/utils/copy-credential"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
@@ -26,16 +28,6 @@ export default function Page() {
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [displayTrialButton, setDisplayTrialButton] = useState(userState.trialAvailable)
   const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
-
-  const maskCredential = (credential: string): string => {
-    const displayCredential = `(${credential.substring(0, 3)}...${credential.substring(credential.length - 3)})`
-    return displayCredential
-  }
-
-  const copyCredential = (credential: string): void => {
-    navigator.clipboard.writeText(`${credential}`)
-    toast.success(Constants.CopiedToClipBoard)
-  }
 
   const activateTrial = async () => {
     const userConsent = await confirm("Are you sure to activate Trial ?")
@@ -143,7 +135,7 @@ export default function Page() {
           </Row>
           <Row className="mb-2">
             <Col className="categorycol">
-              <LockOpen1Icon />
+              <KeyboardIcon />
             </Col>
             <Col>
               <p className="boxcategory-key">Client Secret</p>

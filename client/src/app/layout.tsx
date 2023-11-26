@@ -11,6 +11,7 @@ import "@/styles/header.style.sass"
 import "@/styles/button.style.sass"
 import "@/styles/form.style.sass"
 import "@/styles/productcard.style.sass"
+import Constants from "@/constants/global.constants"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
@@ -44,10 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <title>Lenstack</title>
+        <title>{Constants.BrandName}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="theme-color" content="#ffffff" />
-        <meta name="description" content="Lenstack" />
+        <meta name="description" content="Nest & Next App" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
       </head>
       <body className={quickSand.className}>
