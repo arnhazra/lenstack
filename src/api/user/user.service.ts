@@ -95,9 +95,15 @@ export class UserService {
       const user = await this.userRepository.findUserById(userId)
 
       if (user) {
-        const subscription = await SubscriptionModel.findOne({ workspaceId })
         const workspace = await WorkspaceModel.findById(workspaceId)
-        return { user, subscription, workspace }
+        const subscription = await SubscriptionModel.findOne({ workspaceId })
+        let hasActiveSubscription = false
+
+        if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {
+          hasActiveSubscription = true
+        }
+
+        return { user, workspace, subscription, hasActiveSubscription }
       }
 
       else {

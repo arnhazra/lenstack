@@ -13,6 +13,16 @@ const WorkspaceSchema = new mongoose.Schema({
     required: true
   },
 
+  clientId: {
+    type: String,
+    required: true
+  },
+
+  clientSecret: {
+    type: String,
+    required: true
+  },
+
   createdAt: {
     type: Date,
     default: Date.now

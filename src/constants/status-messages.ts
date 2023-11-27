@@ -12,9 +12,9 @@ export enum statusMessages {
   mongoDbConnected = "Mongo DB Connected",
   mongoDbConnectionErr = "Mongo DB Connection Error",
   redisConnected = "Redis Connected",
-  credentialsLimitReached = "Credentials Limit Reached",
   invalidCredentials = "Invalid Credentials",
-  credentialsExpired = "Credentials Expired",
   noCredentialsProvided = "No Credentials Provided",
+  subscriptionLimitReached = "Subscription Limit Reached",
+  subscriptionExpired = "Subacription Expired",
   noSubscriptionsFound = "Subscription not found"
 }

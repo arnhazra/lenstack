@@ -9,8 +9,6 @@ import Constants from "@/constants/global.constants"
 import Web3 from "web3"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
-import useFetch from "@/hooks/useFetch"
-import HTTPMethods from "@/constants/http.methods"
 import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-icons"
 
 export default function Page() {

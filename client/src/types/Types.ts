@@ -22,7 +22,8 @@ export interface UserState {
   selectedWorkspaceId: string
   selectedWorkspaceName: string
   remainingCredits: number | string
-  refreshId: string
+  refreshId: string,
+  hasActiveSubscription: boolean
 }
 
 export interface DatasetRequestState {

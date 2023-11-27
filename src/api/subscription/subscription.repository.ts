@@ -9,9 +9,9 @@ export class SubscriptionRepository {
     return subscription
   }
 
-  async createNewSubscription(workspaceId: string, selectedPlan: string, clientId: string, clientSecret: string) {
+  async createNewSubscription(workspaceId: string, selectedPlan: string) {
     const remainingCredits = selectedPlan == "Pro" ? subscriptionConfig.pro.grantedCredits : subscriptionConfig.trial.grantedCredits
-    const subscription = new SubscriptionModel({ workspaceId, selectedPlan, clientId, clientSecret, remainingCredits })
+    const subscription = new SubscriptionModel({ workspaceId, selectedPlan, remainingCredits })
     await subscription.save()
     return subscription
   }

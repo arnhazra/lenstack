@@ -22,7 +22,8 @@ const initialState: { userState: UserState, globalSearchString: string } = {
     selectedWorkspaceId: "",
     selectedWorkspaceName: "",
     remainingCredits: 0,
-    refreshId: "ABC"
+    refreshId: "ABC",
+    hasActiveSubscription: false
   },
 
   globalSearchString: ""

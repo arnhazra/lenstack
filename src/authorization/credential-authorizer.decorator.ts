@@ -22,26 +22,26 @@ export const CredentialAuthorizer = createParamDecorator(
 
     else {
       try {
-        const subscription = await SubscriptionModel.findOne({ clientId, clientSecret })
+        const workspace = await WorkspaceModel.findOne({ clientId, clientSecret })
 
-        if (subscription) {
-          const workspaceId = subscription.workspaceId.toString()
-          const workspace = await WorkspaceModel.findById(workspaceId)
+        if (workspace) {
+          const subscription = await SubscriptionModel.findOne({ workspaceId: workspace.id })
 
-          if (workspace) {
+          if (subscription) {
             const userId = workspace.ownerId.toString()
+            const workspaceId = workspace.id.toString()
             const currentDate = new Date()
             const expiryDate = subscription.expiresAt
 
             if (currentDate > expiryDate) {
-              throw new ForbiddenException(statusMessages.credentialsExpired)
+              throw new ForbiddenException(statusMessages.subscriptionExpired)
             }
 
             else {
               const creditRequiredForCurrentRequest = apiPricing[`${requestedResource}`]
 
               if (creditRequiredForCurrentRequest > subscription.remainingCredits) {
-                throw new ForbiddenException(statusMessages.credentialsLimitReached)
+                throw new ForbiddenException(statusMessages.subscriptionLimitReached)
               }
 
               else {
@@ -53,7 +53,7 @@ export const CredentialAuthorizer = createParamDecorator(
           }
 
           else {
-            throw new ForbiddenException(statusMessages.invalidCredentials)
+            throw new ForbiddenException(statusMessages.noSubscriptionsFound)
           }
         }
 
