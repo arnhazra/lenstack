@@ -9,9 +9,9 @@ export class NftstudioController {
   constructor(private readonly nftstudioService: NftstudioService) { }
 
   @Post("createtx")
-  async createTransaction(@CredentialAuthorizer() uftc: CredentialAuthorizerResponse) {
+  async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
     try {
-      await this.nftstudioService.createTransaction(uftc.workspaceId)
+      await this.nftstudioService.createTransaction(ufc.workspaceId)
       return true
     }
 

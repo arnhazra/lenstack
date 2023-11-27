@@ -23,9 +23,9 @@ export class SwapController {
   }
 
   @Post("createtx")
-  async createTransaction(@CredentialAuthorizer() uftc: CredentialAuthorizerResponse) {
+  async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
     try {
-      const transaction = await this.swapService.createTransaction(uftc.workspaceId)
+      const transaction = await this.swapService.createTransaction(ufc.workspaceId)
       return transaction
     }
 

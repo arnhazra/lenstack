@@ -8,9 +8,9 @@ export class PayController {
   constructor(private readonly payService: PayService) { }
 
   @Post("createtx")
-  async createTransaction(@CredentialAuthorizer() uftc: CredentialAuthorizerResponse) {
+  async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
     try {
-      const transaction = await this.payService.createTransaction(uftc.workspaceId)
+      const transaction = await this.payService.createTransaction(ufc.workspaceId)
       return transaction
     }
 
