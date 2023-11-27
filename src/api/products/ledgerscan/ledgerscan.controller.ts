@@ -21,18 +21,4 @@ export class LedgerscanController {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
-
-  @Post("analyzerui")
-  async analyzeFromUI(@CredentialAuthorizer() uftc: CredentialAuthorizerResponse, @Req() req: any) {
-    try {
-      const queryParams = req.url.split("?")[1]
-      const queryParamsWithSecretKey = `${queryParams}&apiKey=${envConfig.polygonscanSecretKey}`
-      const response = await this.ledgerscanService.analyze(queryParamsWithSecretKey, uftc.workspaceId)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
 }
