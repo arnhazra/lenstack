@@ -6,13 +6,13 @@ import { statusMessages } from "src/constants/status-messages"
 import { decodeJwt } from "src/utils/decode-jwt"
 import { getTokenFromRedis } from "src/utils/redis-helper"
 
-export interface TokenCredAuthorizerResponse {
+export interface DefaultCredentialAuthorizerResponse {
   userId: string,
   workspaceId: string
 }
 
-export const TokenCredAuthorizer = createParamDecorator(
-  async (data: unknown, ctx: ExecutionContext): Promise<TokenCredAuthorizerResponse> => {
+export const DefaultCredentialAuthorizer = createParamDecorator(
+  async (data: unknown, ctx: ExecutionContext): Promise<DefaultCredentialAuthorizerResponse> => {
     const request = ctx.switchToHttp().getRequest()
     const accessToken = request.headers["authorization"]?.split(" ")[1]
     const requestedResource = String(request.originalUrl).split("/")[3]

@@ -3,7 +3,7 @@ import { SwapService } from "./swap.service"
 import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { SearchTokensDto } from "./dto/search-tokens.dto"
-import { TokenCredAuthorizer, TokenCredAuthorizerResponse } from "src/authorization/token-cred-autorizer.decorator"
+import { DefaultCredentialAuthorizer, DefaultCredentialAuthorizerResponse } from "src/authorization/default-credential-autorizer.decorator"
 
 @Controller("products/swap")
 export class SwapController {
@@ -23,7 +23,7 @@ export class SwapController {
   }
 
   @Post("createtx")
-  async createTransaction(@TokenCredAuthorizer() uftc: TokenCredAuthorizerResponse) {
+  async createTransaction(@DefaultCredentialAuthorizer() uftc: DefaultCredentialAuthorizerResponse) {
     try {
       const transaction = await this.swapService.createTransaction(uftc.workspaceId)
       return transaction

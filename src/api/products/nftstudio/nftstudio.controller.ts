@@ -2,14 +2,14 @@ import { Controller, Post, BadRequestException, Body } from "@nestjs/common"
 import { NftstudioService } from "./nftstudio.service"
 import { statusMessages } from "../../../constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
-import { TokenCredAuthorizer, TokenCredAuthorizerResponse } from "src/authorization/token-cred-autorizer.decorator"
+import { DefaultCredentialAuthorizer, DefaultCredentialAuthorizerResponse } from "src/authorization/default-credential-autorizer.decorator"
 
 @Controller("products/nftstudio")
 export class NftstudioController {
   constructor(private readonly nftstudioService: NftstudioService) { }
 
   @Post("createtx")
-  async createTransaction(@TokenCredAuthorizer() uftc: TokenCredAuthorizerResponse) {
+  async createTransaction(@DefaultCredentialAuthorizer() uftc: DefaultCredentialAuthorizerResponse) {
     try {
       await this.nftstudioService.createTransaction(uftc.workspaceId)
       return true
