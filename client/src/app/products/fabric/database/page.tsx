@@ -56,7 +56,7 @@ export default function Page() {
                   <Col>
                     <p className="herocategory-key">DB ID</p>
                     <div className="herocategory-value">
-                      {maskCredential(dbId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(dbId)} />
+                      {maskCredential(db?.data?.db?.dbId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(db?.data?.db?.dbId)} />
                     </div>
                   </Col>
                 </Row>
