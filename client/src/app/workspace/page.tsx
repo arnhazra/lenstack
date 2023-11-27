@@ -5,35 +5,34 @@ import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useFetch from "@/hooks/useFetch"
-import { PlusCircledIcon } from "@radix-ui/react-icons"
+import usePrompt from "@/hooks/usePrompt"
+import { copyCredential } from "@/utils/copy-credential"
+import { maskCredential } from "@/utils/mask-credential"
+import { CopyIcon, KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
 import axios from "axios"
-import { FormEvent, Fragment, useContext, useState } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Fragment, useContext, useState } from "react"
+import { Button, Col, Form, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState(Math.random().toString())
   const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.POST, {}, true, queryId)
-  const [newWorkspaceName, setNewWorkspaceName] = useState("")
-  const [isLoading, setLoading] = useState(false)
+  const { prompt, promptDialog } = usePrompt()
 
-  const createWorkspace = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const createWorkspace = async () => {
+    const { hasConfirmed, value } = await prompt("New Workspace Name")
 
-    try {
-      setLoading(true)
-      await axios.post(endPoints.createWorkspace, { name: newWorkspaceName })
-      setQueryId(Math.random().toString())
-      toast.success("Workspace created")
-    }
+    if (hasConfirmed && value) {
+      try {
+        await axios.post(endPoints.createWorkspace, { name: value })
+        setQueryId(Math.random().toString())
+        toast.success("Workspace created")
+      }
 
-    catch (error) {
-      toast.error("Workspace creation failed")
-    }
-
-    finally {
-      setLoading(false)
+      catch (error) {
+        toast.error("Workspace creation failed")
+      }
     }
   }
 
@@ -64,18 +63,35 @@ export default function Page() {
               {workspacesToDisplay}
             </Form.Select>
           </Form.Group>
-          <form onSubmit={createWorkspace}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Create Workspace</Form.Label>
-              <Form.Control disabled={isLoading} type="text" name="name" placeholder="Workspace Name" onChange={(e) => { setNewWorkspaceName(e.target.value) }} maxLength={15} required autoComplete={"off"} />
-            </Form.Group>
-            <Button disabled={isLoading} type="submit" className="btn-block"><PlusCircledIcon className="icon-left" />Create Workspace</Button>
-          </form>
+          <Row className="mt-2 mb-2">
+            <Col className="categorycol">
+              <LockOpen1Icon />
+            </Col>
+            <Col>
+              <p className="boxcategory-key">Client ID</p>
+              <div className="boxcategory-value">
+                {maskCredential(userState.clientId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientId)} />
+              </div>
+            </Col>
+          </Row>
+          <Row className="mt-2 mb-2">
+            <Col className="categorycol">
+              <KeyboardIcon />
+            </Col>
+            <Col>
+              <p className="boxcategory-key">Client Secret</p>
+              <div className="boxcategory-value">
+                {maskCredential(userState.clientSecret)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientSecret)} />
+              </div>
+            </Col>
+          </Row>
+          <Button onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
         </div>
       </Show>
       <Show when={myWorkspaces.isLoading}>
         <Loading />
       </Show>
+      {promptDialog()}
     </Fragment>
   )
 }

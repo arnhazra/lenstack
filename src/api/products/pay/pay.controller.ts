@@ -1,14 +1,14 @@
 import { Controller, Post, BadRequestException, Body } from "@nestjs/common"
 import { PayService } from "./pay.service"
 import { statusMessages } from "../../../constants/status-messages"
-import { DefaultCredentialAuthorizer, DefaultCredentialAuthorizerResponse } from "src/authorization/default-credential-autorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 
 @Controller("products/pay")
 export class PayController {
   constructor(private readonly payService: PayService) { }
 
   @Post("createtx")
-  async createTransaction(@DefaultCredentialAuthorizer() uftc: DefaultCredentialAuthorizerResponse) {
+  async createTransaction(@CredentialAuthorizer() uftc: CredentialAuthorizerResponse) {
     try {
       const transaction = await this.payService.createTransaction(uftc.workspaceId)
       return transaction

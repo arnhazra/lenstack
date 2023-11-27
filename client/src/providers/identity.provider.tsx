@@ -25,18 +25,21 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           const response = await axios.post(endPoints.userDetails)
           const userId = response.data.user._id
           const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
-          const { name: selectedWorkspaceName } = response.data.workspace
+          const { name: selectedWorkspaceName, clientId, clientSecret } = response.data.workspace
+          const hasActiveSubscription = response.data.hasActiveSubscription
 
           if (response.data.subscription) {
-            const { selectedPlan, clientId, clientSecret, expiresAt, remainingCredits } = response.data.subscription
-            dispatch("setUserState", { selectedPlan, clientId, clientSecret, expiresAt, remainingCredits })
+            const { selectedPlan, expiresAt, remainingCredits } = response.data.subscription
+            dispatch("setUserState", { selectedPlan, expiresAt, remainingCredits })
           }
 
           else {
-            dispatch("setUserState", { selectedPlan: "No Subscription", clientId: "", clientSecret: "", expiresAt: "" })
+            dispatch("setUserState", { selectedPlan: "No Subscription", expiresAt: "" })
           }
 
-          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId, selectedWorkspaceName })
+          localStorage.setItem("clientId", clientId)
+          localStorage.setItem("clientSecret", clientSecret)
+          dispatch("setUserState", { userId, email, privateKey, role, trialAvailable, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription })
           setAuthorized(true)
         }
 

@@ -3,7 +3,6 @@ import { LedgerscanService } from "./ledgerscan.service"
 import { envConfig } from "src/config/env.config"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { statusMessages } from "src/constants/status-messages"
-import { DefaultCredentialAuthorizer, DefaultCredentialAuthorizerResponse } from "src/authorization/default-credential-autorizer.decorator"
 
 @Controller("products/ledgerscan")
 export class LedgerscanController {
@@ -24,7 +23,7 @@ export class LedgerscanController {
   }
 
   @Post("analyzerui")
-  async analyzeFromUI(@DefaultCredentialAuthorizer() uftc: DefaultCredentialAuthorizerResponse, @Req() req: any) {
+  async analyzeFromUI(@CredentialAuthorizer() uftc: CredentialAuthorizerResponse, @Req() req: any) {
     try {
       const queryParams = req.url.split("?")[1]
       const queryParamsWithSecretKey = `${queryParams}&apiKey=${envConfig.polygonscanSecretKey}`

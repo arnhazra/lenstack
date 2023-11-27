@@ -10,10 +10,10 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
 
   return (
     <Fragment>
-      <Show when={!!userState.clientId}>
+      <Show when={userState.hasActiveSubscription}>
         {children}
       </Show>
-      <Show when={!userState.clientId}>
+      <Show when={!userState.hasActiveSubscription}>
         <div className="box">
           <p className="branding">Hold On</p>
           <p className="muted-text">Seems like you are not having an active subscription in this workspace to use/view this Product</p>

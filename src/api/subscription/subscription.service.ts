@@ -25,10 +25,8 @@ export class SubscriptionService {
       const user = await this.userRepository.findUserById(userId)
 
       if (user.trialAvailable) {
-        const clientId = randomBytes(16).toString("hex")
-        const clientSecret = randomBytes(32).toString("hex")
         const selectedPlan = "Trial"
-        await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, clientId, clientSecret)
+        await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan)
         await this.userRepository.findUserByIdAndUpdateTrialStatus(userId, false)
         return true
       }
@@ -62,20 +60,7 @@ export class SubscriptionService {
         }
 
         else {
-          const subscription = await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
-          let clientId: string = ""
-          let clientSecret: string = ""
-          if (subscription) {
-            clientId = subscription.clientId
-            clientSecret = subscription.clientSecret
-          }
-
-          else {
-            clientId = randomBytes(16).toString("hex")
-            clientSecret = randomBytes(32).toString("hex")
-          }
-
-          await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan, clientId, clientSecret)
+          await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan)
           return true
         }
       }

@@ -9,14 +9,12 @@ import useFetch from "@/hooks/useFetch"
 import Loading from "@/components/loading.component"
 import moment from "moment"
 import { Button, Col, Row } from "react-bootstrap"
-import { LockOpen1Icon, CalendarIcon, CubeIcon, PieChartIcon, CopyIcon, ArrowRightIcon, StackIcon, KeyboardIcon } from "@radix-ui/react-icons"
+import { CalendarIcon, CubeIcon, PieChartIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
 import Constants from "@/constants/global.constants"
 import useConfirm from "@/hooks/useConfirm"
-import { maskCredential } from "@/utils/mask-credential"
-import { copyCredential } from "@/utils/copy-credential"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
@@ -119,48 +117,16 @@ export default function Page() {
           </Row>
           <Row className="mb-2">
             <Col className="categorycol">
-              <LockOpen1Icon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Client ID</p>
-              <div className="boxcategory-value">
-                <Show when={!!userState.clientId}>
-                  {maskCredential(userState.clientId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientId)} />
-                </Show>
-                <Show when={!userState.clientId}>
-                  No Client ID
-                </Show>
-              </div>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="categorycol">
-              <KeyboardIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Client Secret</p>
-              <div className="boxcategory-value">
-                <Show when={!!userState.clientSecret}>
-                  {maskCredential(userState.clientSecret)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientSecret)} />
-                </Show>
-                <Show when={!userState.clientSecret}>
-                  No Client Secret
-                </Show>
-              </div>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="categorycol">
               <CalendarIcon />
             </Col>
             <Col>
               <p className="boxcategory-key">Validity</p>
               <div className="boxcategory-value">
-                <Show when={!!userState.clientId}>
+                <Show when={userState.hasActiveSubscription}>
                   <p>Valid upto {moment(userState.expiresAt).format("MMM, Do YYYY")}</p>
                 </Show>
-                <Show when={!userState.clientId}>
-                  <p>No Validity Data</p>
+                <Show when={!userState.hasActiveSubscription}>
+                  No Validity Data
                 </Show>
               </div>
             </Col>
@@ -170,24 +136,24 @@ export default function Page() {
               <PieChartIcon />
             </Col>
             <Col>
-              <p className="boxcategory-key">Credentials Usage</p>
+              <p className="boxcategory-key">Subscription Usage</p>
               <div className="boxcategory-value">
-                <Show when={!!userState.clientId}>
+                <Show when={userState.hasActiveSubscription}>
                   {userState.remainingCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining
                 </Show>
-                <Show when={!userState.clientId}>
-                  No Credentials Usage Data
+                <Show when={!userState.hasActiveSubscription}>
+                  No Subscriptions Usage Data
                 </Show>
               </div>
             </Col>
           </Row>
           <Fragment>
-            <Show when={displayTrialButton}>
+            <Show when={displayTrialButton && !userState.hasActiveSubscription}>
               <Button className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
             </Show>
-            <Show when={userState.selectedPlan === "" || userState.selectedPlan === "No Subscription" || userState.selectedPlan === "Trial" || (userState.selectedPlan === "Pro" && new Date() > new Date(userState.expiresAt))}>
+            <Show when={!userState.hasActiveSubscription}>
               <Button className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
-                <Show when={!isTxProcessing}>{userState.selectedPlan === "Pro" ? "Reactivate Pro" : "Activate Pro"} {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
+                <Show when={!isTxProcessing}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
                 <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
               </Button>
             </Show>
