@@ -29,7 +29,7 @@ export const endPoints = {
   insightsViewProject: `${apiHost}/api/products/insights/viewproject`,
   insightsDeleteProject: `${apiHost}/api/products/insights/deleteproject`,
   insightsCreateAnalytics: `${apiHost}/api/products/insights/createanalytics`,
-  ledgerscanAnalyzer: `${apiHost}/api/products/ledgerscan/analyzer`,
+  ledgerscanAnalyzer: `${apiHost}/api/products/ledgerscan/analyzerui`,
   fabricCreateDb: `${apiHost}/api/products/fabric/createdb`,
   fabricGetMyDbs: `${apiHost}/api/products/fabric/getmydbs`,
   fabricViewDb: `${apiHost}/api/products/fabric/viewdbfromplatform`,

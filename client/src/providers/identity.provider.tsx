@@ -29,14 +29,10 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
 
           if (response.data.subscription) {
             const { selectedPlan, clientId, clientSecret, expiresAt, remainingCredits } = response.data.subscription
-            localStorage.setItem("clientId", clientId)
-            localStorage.setItem("clientSecret", clientSecret)
             dispatch("setUserState", { selectedPlan, clientId, clientSecret, expiresAt, remainingCredits })
           }
 
           else {
-            localStorage.removeItem("clientId")
-            localStorage.removeItem("clientSecret")
             dispatch("setUserState", { selectedPlan: "No Subscription", clientId: "", clientSecret: "", expiresAt: "" })
           }
 

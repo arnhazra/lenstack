@@ -3,6 +3,7 @@ import { LedgerscanService } from "./ledgerscan.service"
 import { envConfig } from "src/config/env.config"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { statusMessages } from "src/constants/status-messages"
+import { TokenCredAuthorizer, TokenCredAuthorizerResponse } from "src/authorization/token-cred-autorizer.decorator"
 
 @Controller("products/ledgerscan")
 export class LedgerscanController {
@@ -14,6 +15,20 @@ export class LedgerscanController {
       const queryParams = req.url.split("?")[1]
       const queryParamsWithSecretKey = `${queryParams}&apiKey=${envConfig.polygonscanSecretKey}`
       const response = await this.ledgerscanService.analyze(queryParamsWithSecretKey, ufc.workspaceId)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @Post("analyzerui")
+  async analyzeFromUI(@TokenCredAuthorizer() uftc: TokenCredAuthorizerResponse, @Req() req: any) {
+    try {
+      const queryParams = req.url.split("?")[1]
+      const queryParamsWithSecretKey = `${queryParams}&apiKey=${envConfig.polygonscanSecretKey}`
+      const response = await this.ledgerscanService.analyze(queryParamsWithSecretKey, uftc.workspaceId)
       return response
     }
 

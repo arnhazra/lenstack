@@ -1,9 +1,9 @@
 import { BadRequestException, Controller, Post, Body } from "@nestjs/common"
 import { SwapService } from "./swap.service"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { SearchTokensDto } from "./dto/search-tokens.dto"
+import { TokenCredAuthorizer, TokenCredAuthorizerResponse } from "src/authorization/token-cred-autorizer.decorator"
 
 @Controller("products/swap")
 export class SwapController {
@@ -23,9 +23,9 @@ export class SwapController {
   }
 
   @Post("createtx")
-  async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  async createTransaction(@TokenCredAuthorizer() uftc: TokenCredAuthorizerResponse) {
     try {
-      const transaction = await this.swapService.createTransaction(ufc.workspaceId)
+      const transaction = await this.swapService.createTransaction(uftc.workspaceId)
       return transaction
     }
 

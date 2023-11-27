@@ -16,8 +16,5 @@ export enum statusMessages {
   invalidCredentials = "Invalid Credentials",
   credentialsExpired = "Credentials Expired",
   noCredentialsProvided = "No Credentials Provided",
-  subscriptionSuccess = "You are subscribed now",
-  subscriptionFailure = "Subscription failed",
-  unsubscribeSuccess = "Successfully unsubscribed",
-  unsubscribeFailure = "Unsubscribe failed"
+  noSubscriptionsFound = "Subscription not found"
 }
