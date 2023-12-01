@@ -1,5 +1,7 @@
 # Release notes
 
+### v5.0
+
 ### v4.5
 * Added credentials by default in workspace instead of subscription
 * Minor bug fixes and performance improvements
