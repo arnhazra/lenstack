@@ -13,8 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
-import { maskCredential } from "@/utils/mask-credential"
-import { copyCredential } from "@/utils/copy-credential"
+import SecretCard from "@/components/secretcard.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -52,32 +51,8 @@ export default function Page() {
             <Hero>
               <p className="branding">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
-              <Row>
-                <Stack direction="horizontal" gap={4}>
-                  <Row className="mt-2 mb-2">
-                    <Col className="categorycol-hero">
-                      <CubeIcon />
-                    </Col>
-                    <Col>
-                      <p className="herocategory-key">Project ID</p>
-                      <div className="herocategory-value">
-                        {maskCredential(project?.data?.project?.projectId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(project?.data?.project?.projectId)} />
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row className="mt-2 mb-2">
-                    <Col className="categorycol-hero">
-                      <LockOpen2Icon />
-                    </Col>
-                    <Col>
-                      <p className="herocategory-key">Passkey</p>
-                      <div className="herocategory-value">
-                        {maskCredential(project?.data?.project?.projectPasskey)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(project?.data?.project?.projectPasskey)} />
-                      </div>
-                    </Col>
-                  </Row>
-                </Stack>
-              </Row>
+              <SecretCard credentialIcon={<CubeIcon />} credentialName="Project ID" credentialValue={project?.data?.project?.projectId} />
+              <SecretCard credentialIcon={<LockOpen2Icon />} credentialName="Project Passkey" credentialValue={project?.data?.project?.projectPasskey} />
               <Button onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>

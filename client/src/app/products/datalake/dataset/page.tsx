@@ -1,5 +1,5 @@
 "use client"
-import { Badge, Col, Container, Row } from "react-bootstrap"
+import { Badge, Container, Row } from "react-bootstrap"
 import { Fragment } from "react"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
@@ -8,12 +8,11 @@ import useFetch from "@/hooks/useFetch"
 import HTTPMethods from "@/constants/http.methods"
 import Error from "@/components/error.component"
 import { useSearchParams } from "next/navigation"
-import { CopyIcon, CubeIcon } from "@radix-ui/react-icons"
+import { CubeIcon } from "@radix-ui/react-icons"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import Hero from "@/components/hero.component"
-import { maskCredential } from "@/utils/mask-credential"
-import { copyCredential } from "@/utils/copy-credential"
+import SecretCard from "@/components/secretcard.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -48,17 +47,7 @@ export default function Page() {
               <p className="lead">{dataset?.data?.category}</p>
               <p className="muted-text mt-3">{dataset?.data?.description}</p>
               <div className="mb-4">{datasetTagsToDisplay}</div>
-              <Row className="mt-2 mb-2">
-                <Col className="categorycol-hero">
-                  <CubeIcon />
-                </Col>
-                <Col>
-                  <p className="herocategory-key">Dataset ID</p>
-                  <div className="herocategory-value">
-                    {maskCredential(datasetId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(datasetId)} />
-                  </div>
-                </Col>
-              </Row>
+              <SecretCard credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
             </Hero>
             <Row>
               <h4 className="text-white">Similar Datasets</h4>

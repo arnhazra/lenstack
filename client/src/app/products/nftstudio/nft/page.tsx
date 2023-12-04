@@ -20,8 +20,7 @@ import { Fragment, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
-import { maskCredential } from "@/utils/mask-credential"
-import { copyCredential } from "@/utils/copy-credential"
+import SecretCard from "@/components/secretcard.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -155,34 +154,8 @@ export default function Page() {
                 <Col xs={12} sm={12} md={6} lg={8} xl={9}>
                   <p className="branding">{selectedNft?.name}</p>
                   <p className="muted-text">{selectedNft?.description}</p>
-                  <Row>
-                    <Col xl={6} lg={6} md={6} sm={12} xs={12}>
-                      <Row className="mt-2 mb-2">
-                        <Col className="categorycol-hero">
-                          <IdCardIcon />
-                        </Col>
-                        <Col>
-                          <p className="herocategory-key">NFT Contract Address</p>
-                          <div className="herocategory-value">
-                            {maskCredential(nftContractAddress?.data?.nftContractAddress)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(nftContractAddress?.data?.nftContractAddress)} />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col xl={6} lg={6} md={6} sm={12} xs={12}>
-                      <Row className="mt-2 mb-2">
-                        <Col className="categorycol-hero">
-                          <PersonIcon />
-                        </Col>
-                        <Col>
-                          <p className="herocategory-key">Owner Wallet Address</p>
-                          <div className="herocategory-value">
-                            {maskCredential(selectedNft?.owner)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(selectedNft?.owner)} />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
+                  <SecretCard credentialIcon={<IdCardIcon />} credentialName="NFT Contract Address" credentialValue={nftContractAddress?.data?.nftContractAddress} />
+                  <SecretCard credentialIcon={<PersonIcon />} credentialName="Owner Wallet Address" credentialValue={selectedNft?.owner} />
                   <div className="mb-3">
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>

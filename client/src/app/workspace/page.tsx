@@ -1,17 +1,16 @@
 "use client"
 import Loading from "@/components/loading.component"
+import SecretCard from "@/components/secretcard.component"
 import Show from "@/components/show.component"
 import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useFetch from "@/hooks/useFetch"
 import usePrompt from "@/hooks/usePrompt"
-import { copyCredential } from "@/utils/copy-credential"
-import { maskCredential } from "@/utils/mask-credential"
-import { CopyIcon, KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { Fragment, useContext, useState } from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import toast from "react-hot-toast"
 
 export default function Page() {
@@ -63,28 +62,8 @@ export default function Page() {
               {workspacesToDisplay}
             </Form.Select>
           </Form.Group>
-          <Row className="mt-2 mb-2">
-            <Col className="categorycol">
-              <LockOpen1Icon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Client ID</p>
-              <div className="boxcategory-value">
-                {maskCredential(userState.clientId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientId)} />
-              </div>
-            </Col>
-          </Row>
-          <Row className="mt-2 mb-2">
-            <Col className="categorycol">
-              <KeyboardIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Client Secret</p>
-              <div className="boxcategory-value">
-                {maskCredential(userState.clientSecret)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(userState.clientSecret)} />
-              </div>
-            </Col>
-          </Row>
+          <SecretCard credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
+          <SecretCard credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
           <Button onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
         </div>
       </Show>

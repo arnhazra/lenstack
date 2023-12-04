@@ -6,14 +6,13 @@ import { endPoints } from "@/constants/api.endpoints"
 import HTTPMethods from "@/constants/http.methods"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
-import { TrashIcon, CopyIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
+import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
-import { maskCredential } from "@/utils/mask-credential"
-import { copyCredential } from "@/utils/copy-credential"
+import SecretCard from "@/components/secretcard.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -48,30 +47,8 @@ export default function Page() {
             <Hero>
               <p className="branding text-capitalize">{db?.data?.db?.name}</p>
               <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
-              <Stack direction="horizontal" gap={4}>
-                <Row className="mt-2 mb-2">
-                  <Col className="categorycol-hero">
-                    <CubeIcon />
-                  </Col>
-                  <Col>
-                    <p className="herocategory-key">DB ID</p>
-                    <div className="herocategory-value">
-                      {maskCredential(db?.data?.db?.dbId)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(db?.data?.db?.dbId)} />
-                    </div>
-                  </Col>
-                </Row>
-                <Row className="mt-2 mb-2">
-                  <Col className="categorycol-hero">
-                    <LockOpen2Icon />
-                  </Col>
-                  <Col>
-                    <p className="herocategory-key">Password</p>
-                    <div className="herocategory-value">
-                      {maskCredential(db?.data?.db?.dbPassword)}<CopyIcon className="icon-right" onClick={(): void => copyCredential(db?.data?.db?.dbPassword)} />
-                    </div>
-                  </Col>
-                </Row>
-              </Stack>
+              <SecretCard credentialIcon={<CubeIcon />} credentialName="DB ID" credentialValue={db?.data?.db?.dbId} />
+              <SecretCard credentialIcon={<LockOpen2Icon />} credentialName="DB Password" credentialValue={db?.data?.db?.dbPassword} />
               <Button onClick={deleteDb}>Delete Database<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!db?.data?.kvs && db?.data?.kvs.length}>

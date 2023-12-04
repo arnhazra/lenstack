@@ -1,6 +1,7 @@
 # Changelog
 
 ### v3.5
+* Generic Secretcard component to use across the app
 * Added credentials by default in workspace instead of subscription
 * Minor bug fixes and performance improvements
 
