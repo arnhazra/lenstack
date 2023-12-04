@@ -93,7 +93,7 @@ export default function Page() {
       <Show when={!pricingDetails.isLoading}>
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
-          <p className="muted-text">Subscribe & Track your API Credentials usage from here</p>
+          <p className="muted-text mb-4">Subscribe & Track your API Credentials usage from here</p>
           <InfoPanel infoIcon={<StackIcon />} infoName="Workspace" infoValue={userState.selectedWorkspaceName} />
           <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.selectedPlan} />
           <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${moment(userState.expiresAt).format("MMM, Do YYYY")}` : "No Validity Data"} />
