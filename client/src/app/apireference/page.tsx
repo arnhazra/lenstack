@@ -1,8 +1,8 @@
 "use client"
 import Show from "@/components/show.component"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
-import { endPoints, apiHost } from "@/constants/api.endpoints"
-import HTTPMethods from "@/constants/http.methods"
+import { endPoints, apiHost } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/useFetch"
 import { useSearchParams } from "next/navigation"
 import { Container, Form } from "react-bootstrap"
@@ -10,7 +10,7 @@ import Loading from "../loading"
 import Error from "@/components/error.component"
 import "react-json-view-lite/dist/index.css"
 import Hero from "@/components/hero.component"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -45,7 +45,7 @@ export default function Page() {
       <Show when={!apireference.isLoading}>
         <Show when={!!apireference?.data?.docList.length}>
           <div>
-            <h4 className="text-white text-capitalize">API Reference - {Constants.BrandName} {productName}</h4>
+            <h4 className="text-white text-capitalize">API Reference - {uiConstants.brandName} {productName}</h4>
             <p className="lead text-white">You must include your Client ID under "client_id" & Client Secret under "client_secret" in request header</p>
             {listApiApiReferences}
           </div>

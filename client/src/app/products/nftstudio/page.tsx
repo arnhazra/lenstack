@@ -1,7 +1,7 @@
 "use client"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
-import { endPoints } from "@/constants/api.endpoints"
+import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useCallback, useContext, useEffect, useState } from "react"
@@ -10,13 +10,13 @@ import { toast } from "react-hot-toast"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { nftABI } from "@/bin/nft.abi"
 import moment from "moment"
-import HTTPMethods from "@/constants/http.methods"
+import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/useFetch"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 import ProductCard from "@/components/productcard.component"
 import { ProductCardInterface } from "@/types/Types"
 import Hero from "@/components/hero.component"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.POST)
@@ -86,7 +86,7 @@ export default function Page() {
       <Show when={!isLoading && !nftContractAddress.isLoading && !products.isLoading}>
         <Container>
           <Hero>
-            <p className="branding">{Constants.BrandName} {selectedProduct?.displayName}</p>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
             <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>

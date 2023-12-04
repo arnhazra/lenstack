@@ -1,12 +1,12 @@
 "use client"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 
 export default function NotFound() {
   return (
     <div className="box">
-      <p className="branding mb-4">{Constants.ErrorMessage}</p>
+      <p className="branding mb-4">{uiConstants.errorMessage}</p>
       <div className="text-center mb-4">
         <CrossCircledIcon className="icon-large" />
       </div>

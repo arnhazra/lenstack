@@ -4,6 +4,7 @@
 * Generic Secretcard component to use across the app
 * Added credentials by default in workspace instead of subscription
 * Minor bug fixes and performance improvements
+* Code refactoring
 
 ### v3.4
 * Introduction of new Credential authorization with Client Id and Client Secret

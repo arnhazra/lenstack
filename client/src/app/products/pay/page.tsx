@@ -2,9 +2,9 @@
 import Hero from "@/components/hero.component"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
-import { endPoints } from "@/constants/api.endpoints"
-import Constants from "@/constants/global.constants"
-import HTTPMethods from "@/constants/http.methods"
+import { endPoints } from "@/constants/api-endpoints"
+import { uiConstants } from "@/constants/global-constants"
+import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useFetch from "@/hooks/useFetch"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
@@ -44,11 +44,11 @@ export default function Page() {
 
       if (signedApprovalTx.rawTransaction) {
         await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
-        toast.success(Constants.TransactionSuccess)
+        toast.success(uiConstants.transactionSuccess)
       }
 
       else {
-        toast.error(Constants.TransactionError)
+        toast.error(uiConstants.transactionError)
       }
     }
 
@@ -58,7 +58,7 @@ export default function Page() {
       }
 
       else {
-        toast.error(Constants.TransactionError)
+        toast.error(uiConstants.transactionError)
       }
     }
 
@@ -71,7 +71,7 @@ export default function Page() {
     <Container>
       <Show when={!products.isLoading}>
         <Hero>
-          <p className="branding">{Constants.BrandName} {selectedProduct?.displayName}</p>
+          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
           <div className="mb-2">
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>

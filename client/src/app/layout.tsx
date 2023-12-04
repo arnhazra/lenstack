@@ -11,7 +11,7 @@ import "@/styles/header.style.sass"
 import "@/styles/button.style.sass"
 import "@/styles/form.style.sass"
 import "@/styles/productcard.style.sass"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <title>{Constants.BrandName}</title>
+        <title>{uiConstants.brandName}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="description" content="Nest & Next App" />

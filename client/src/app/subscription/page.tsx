@@ -3,8 +3,8 @@ import { Fragment, useContext, useState } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Show from "@/components/show.component"
 import { toast } from "react-hot-toast"
-import { endPoints } from "@/constants/api.endpoints"
-import HTTPMethods from "@/constants/http.methods"
+import { endPoints } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/useFetch"
 import Loading from "@/components/loading.component"
 import moment from "moment"
@@ -13,7 +13,7 @@ import { CalendarIcon, CubeIcon, PieChartIcon, ArrowRightIcon, StackIcon } from 
 import { useRouter } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import useConfirm from "@/hooks/useConfirm"
 
 export default function Page() {
@@ -35,11 +35,11 @@ export default function Page() {
         await axios.post(endPoints.activateTrial)
         dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         setDisplayTrialButton(false)
-        toast.success(Constants.ToastSuccess)
+        toast.success(uiConstants.toastSuccess)
       }
 
       catch (error) {
-        toast.error(Constants.ToastError)
+        toast.error(uiConstants.toastError)
       }
     }
   }
@@ -55,7 +55,7 @@ export default function Page() {
 
         const transactionObject = {
           from: walletAddress,
-          to: Constants.NPAWalletAddress,
+          to: uiConstants.npaWalletAddress,
           value: web3Provider.utils.toWei(pricingDetails?.data?.pro?.price.toString(), "ether"),
           gas: 40000,
           gasPrice: gasPrice,
@@ -68,16 +68,16 @@ export default function Page() {
           const { transactionHash } = res
           await axios.post(`${endPoints.subscribe}`, { selectedPlan, transactionHash })
           dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
-          toast.success(Constants.TransactionSuccess)
+          toast.success(uiConstants.transactionSuccess)
         }
 
         else {
-          toast.error(Constants.TransactionError)
+          toast.error(uiConstants.transactionError)
         }
       }
 
       catch (error) {
-        toast.error(Constants.TransactionError)
+        toast.error(uiConstants.transactionError)
       }
 
       finally {

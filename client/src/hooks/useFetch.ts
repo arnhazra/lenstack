@@ -2,7 +2,7 @@
 import axios, { Method } from "axios"
 import { useQuery } from "@tanstack/react-query"
 import { toast } from "react-hot-toast"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function useFetch(queryKey: string, queryUrl: string, method: Method, requestBody?: object, isRealtime?: boolean, queryId?: string) {
   const fetchDataFunction = async () => {
@@ -21,7 +21,7 @@ export default function useFetch(queryKey: string, queryUrl: string, method: Met
   })
 
   if (error) {
-    toast.error(`${Constants.ToastError} fetching ${queryKey}`)
+    toast.error(`${uiConstants.toastError} fetching ${queryKey}`)
   }
 
   return { error, data, isLoading }

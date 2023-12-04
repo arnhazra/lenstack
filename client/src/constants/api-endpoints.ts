@@ -1,6 +1,6 @@
-import Constants from "./global.constants"
+import { uiConstants } from "./global-constants"
 
-export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : `https://${Constants.BrandName}.vercel.app`
+export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : `https://${uiConstants.brandName}.vercel.app`
 
 export const endPoints = {
   getapireference: `${apiHost}/api/apireference/getallbyproductname`,

@@ -1,11 +1,11 @@
 "use client"
 import { Fragment, useContext, useState, useEffect } from "react"
 import { Button, Col, Row } from "react-bootstrap"
-import { endPoints } from "@/constants/api.endpoints"
+import { endPoints } from "@/constants/api-endpoints"
 import { GlobalContext } from "@/context/globalstate.provider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import Web3 from "web3"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
@@ -30,7 +30,7 @@ export default function Page() {
       }
 
       catch (error) {
-        toast.error(Constants.ErrorMessage)
+        toast.error(uiConstants.toastError)
       }
 
       finally {
@@ -47,7 +47,7 @@ export default function Page() {
     }
 
     catch (error) {
-      toast.error(Constants.ToastError)
+      toast.error(uiConstants.toastError)
     }
   }
 
@@ -58,7 +58,7 @@ export default function Page() {
     }
 
     catch (error) {
-      toast.error(Constants.ToastError)
+      toast.error(uiConstants.toastError)
     }
   }
 
@@ -69,7 +69,7 @@ export default function Page() {
 
   const copyWalletAddress = (): void => {
     navigator.clipboard.writeText(`${accountAddress}`)
-    toast.success(Constants.CopiedToClipBoard)
+    toast.success(uiConstants.copiedToClipBoard)
   }
 
   return (

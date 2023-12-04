@@ -1,7 +1,7 @@
 "use client"
 import Web3 from "web3"
-import { endPoints } from "@/constants/api.endpoints"
-import HTTPMethods from "@/constants/http.methods"
+import { endPoints } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/useFetch"
 import { ProductCardInterface, TokenData } from "@/types/Types"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
@@ -12,7 +12,7 @@ import usePrompt from "@/hooks/usePrompt"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { vendorABI } from "@/bin/vendor.abi"
 import { toast } from "react-hot-toast"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import { tokenABI } from "@/bin/token.abi"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
@@ -76,7 +76,7 @@ export default function Page() {
 
         if (signedTransaction.rawTransaction) {
           await web3Provider.eth.sendSignedTransaction(signedTransaction.rawTransaction)
-          toast.success(Constants.TokenPurchaseSuccess)
+          toast.success(uiConstants.tokenPurchaseSuccess)
         }
       }
 
@@ -86,7 +86,7 @@ export default function Page() {
         }
 
         else {
-          toast.error(Constants.TransactionError)
+          toast.error(uiConstants.tokenPurchaseFailure)
         }
       }
 
@@ -136,7 +136,7 @@ export default function Page() {
           const signedSellTx = await web3Provider.eth.accounts.signTransaction(sellTx, privateKey)
           if (signedSellTx.rawTransaction) {
             await web3Provider.eth.sendSignedTransaction(signedSellTx.rawTransaction)
-            toast.success(Constants.TokenSellSuccess)
+            toast.success(uiConstants.tokenSellSuccess)
           }
         }
 
@@ -146,7 +146,7 @@ export default function Page() {
           }
 
           else {
-            toast.error(Constants.TokenSellFailure)
+            toast.error(uiConstants.tokenSellFailure)
           }
         }
 

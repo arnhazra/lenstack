@@ -2,9 +2,9 @@
 import { Fragment, useState } from "react"
 import axios from "axios"
 import { Button, Form } from "react-bootstrap"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import Show from "@/components/show.component"
-import { endPoints } from "@/constants/api.endpoints"
+import { endPoints } from "@/constants/api-endpoints"
 import { toast } from "react-hot-toast"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
@@ -22,7 +22,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
 
   const generatePassKey = async (event: any) => {
     event.preventDefault()
-    setAlert(Constants.IdentityVerificationMessage)
+    setAlert(uiConstants.identityVerificationMessage)
     setLoading(true)
 
     try {
@@ -34,7 +34,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
     }
 
     catch (error) {
-      toast.error(Constants.ConnectionErrorMessage)
+      toast.error(uiConstants.connectionErrorMessage)
       setLoading(false)
     }
   }
@@ -42,19 +42,19 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
   const verifyPassKey = async (event: any) => {
     event.preventDefault()
     setIdentityAlert("")
-    setAlert(Constants.IdentityVerificationMessage)
+    setAlert(uiConstants.identityVerificationMessage)
     setLoading(true)
 
     try {
       const response = await axios.post(endPoints.verifyPassKey, state)
       localStorage.setItem("accessToken", response.data.accessToken)
-      toast.success(Constants.IdentityVerificationSuccess)
+      toast.success(uiConstants.identityVerificationSuccess)
       setLoading(false)
       onIdentitySuccess()
     }
 
     catch (error: any) {
-      setIdentityAlert(Constants.InvalidPasskey)
+      setIdentityAlert(uiConstants.invalidPasskey)
       setLoading(false)
       onIdentityFailure()
     }
@@ -74,7 +74,7 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
             <Show when={!isLoading}>Get Identity Passkey <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> {alert}</Show>
           </Button>
-          <p className="muted-text mt-1">By using {Constants.BrandName}, you agree to our Terms of Service and Privacy Policy.</p>
+          <p className="muted-text mt-1">By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.</p>
         </form>
       </Show>
       <Show when={identityStep === 2}>

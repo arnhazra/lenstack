@@ -5,7 +5,7 @@ import Show from "./show.component"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { TextAlignLeftIcon } from "@radix-ui/react-icons"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { useRouter } from "next/navigation"
@@ -62,7 +62,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
-              <Navbar.Brand>{Constants.BrandName}</Navbar.Brand>
+              <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignLeftIcon className="icon-nav-toggle" />
@@ -76,7 +76,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Nav className="ms-auto">
                 <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
-                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={Constants.MumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.mumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
@@ -88,14 +88,14 @@ export default function Header({ isAuthorized }: HeaderProps) {
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">
-              <Navbar.Brand>{Constants.BrandName}</Navbar.Brand>
+              <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignLeftIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
-                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={Constants.LinkedinUri}>Developer</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer</Link></Nav.Item>
                 <Nav.Item><Link href="/dashboard">Get Started</Link></Nav.Item>
               </Nav>
             </Navbar.Collapse>

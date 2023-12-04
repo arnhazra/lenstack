@@ -1,7 +1,7 @@
 "use client"
 import useFetch from "@/hooks/useFetch"
-import { endPoints } from "@/constants/api.endpoints"
-import HTTPMethods from "@/constants/http.methods"
+import { endPoints } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
 import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
@@ -10,7 +10,7 @@ import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error.component"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -22,7 +22,7 @@ export default function Page() {
         badgeText: product.productStatus,
         className: product.productCategory,
         footerText: product.description,
-        headerText: `${Constants.BrandName} ${product.displayName}`,
+        headerText: `${uiConstants.brandName} ${product.displayName}`,
         redirectUri: `/products/${product.productName}`,
         isDisabled: product.productStatus !== "Available"
       }

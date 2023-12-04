@@ -5,9 +5,9 @@ import ProductCard from "@/components/productcard.component"
 import Hero from "@/components/hero.component"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
-import { endPoints } from "@/constants/api.endpoints"
-import Constants from "@/constants/global.constants"
-import HTTPMethods from "@/constants/http.methods"
+import { endPoints } from "@/constants/api-endpoints"
+import { uiConstants } from "@/constants/global-constants"
+import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useConfirm from "@/hooks/useConfirm"
 import useFetch from "@/hooks/useFetch"
@@ -144,7 +144,7 @@ export default function Page() {
               <Row>
                 <Col xs={12} sm={12} md={6} lg={4} xl={3}>
                   <img
-                    src={hasImage ? selectedNft?.link : Constants.DefaultNftImage}
+                    src={hasImage ? selectedNft?.link : uiConstants.defaultNftImage}
                     width={270}
                     height={270}
                     alt="Picture of the NFT"
@@ -162,8 +162,8 @@ export default function Page() {
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
                   </div>
                   <Link className="btn" href={selectedNft?.link ?? ""} passHref target="_blank">View Link<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`${Constants.PolygonScanBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`${Constants.OpenseaBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn" href={`${uiConstants.polygonScanBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn" href={`${uiConstants.openseaBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
                   <Button onClick={() => archiveNFT(nftId)}>Archive NFT<ArchiveIcon className="icon-right" /></Button>
                 </Col>
               </Row>

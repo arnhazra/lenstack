@@ -1,5 +1,5 @@
 "use client"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import { CopyIcon } from "@radix-ui/react-icons"
 import { ReactNode } from "react"
 import { Col, Row } from "react-bootstrap"
@@ -18,7 +18,7 @@ export default function SecretCard({ credentialIcon, credentialName, credentialV
 
   const copyCredential = (credential: string | null): void => {
     navigator.clipboard.writeText(`${credential}`)
-    toast.success(Constants.CopiedToClipBoard)
+    toast.success(uiConstants.copiedToClipBoard)
   }
 
   return (

@@ -1,8 +1,8 @@
 "use client"
 import { nftABI } from "@/bin/nft.abi"
 import Show from "@/components/show.component"
-import { endPoints } from "@/constants/api.endpoints"
-import HTTPMethods from "@/constants/http.methods"
+import { endPoints } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useFetch from "@/hooks/useFetch"
 import Link from "next/link"
@@ -13,7 +13,7 @@ import Web3 from "web3"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.POST)
@@ -58,7 +58,7 @@ export default function Page() {
       }
 
       else {
-        toast.error(Constants.TransactionError)
+        toast.error(uiConstants.transactionError)
       }
     }
 

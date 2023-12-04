@@ -1,5 +1,5 @@
 "use client"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 import Link from "next/link"
 import { CubeIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"
@@ -10,13 +10,13 @@ export default function Page() {
     <Container>
       <div className="cover">
         <p className="display-5">
-          {Constants.HomeHeader1}<br />
-          {Constants.HomeHeader2}
+          {uiConstants.homeHeader1}<br />
+          {uiConstants.homeHeader2}
         </p>
         <p className="lead my-4">
-          {Constants.HomeIntro1} <br />
-          {Constants.HomeIntro2} <br />
-          {Constants.HomeIntro3} <br />
+          {uiConstants.homeIntro1} <br />
+          {uiConstants.homeIntro2} <br />
+          {uiConstants.homeIntro3} <br />
         </p>
         <Link href="/dashboard" className="btn">
           <CubeIcon className="icon-left" />

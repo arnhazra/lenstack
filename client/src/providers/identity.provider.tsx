@@ -3,8 +3,8 @@ import Header from "@/components/header.component"
 import Loading from "@/components/loading.component"
 import Show from "@/components/show.component"
 import { motion } from "framer-motion"
-import { endPoints } from "@/constants/api.endpoints"
-import Constants from "@/constants/global.constants"
+import { endPoints } from "@/constants/api-endpoints"
+import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import axios from "axios"
 import { usePathname } from "next/navigation"
@@ -50,12 +50,12 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
             }
 
             else {
-              toast.error(Constants.ConnectionErrorMessage)
+              toast.error(uiConstants.connectionErrorMessage)
             }
           }
 
           else {
-            toast.error(Constants.ConnectionErrorMessage)
+            toast.error(uiConstants.connectionErrorMessage)
           }
         }
 

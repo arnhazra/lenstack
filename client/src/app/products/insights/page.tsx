@@ -1,10 +1,10 @@
 "use client"
 import { Fragment, useCallback, useContext } from "react"
-import { endPoints } from "@/constants/api.endpoints"
+import { endPoints } from "@/constants/api-endpoints"
 import Show from "@/components/show.component"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading.component"
-import HTTPMethods from "@/constants/http.methods"
+import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/useFetch"
 import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
@@ -17,7 +17,7 @@ import usePrompt from "@/hooks/usePrompt"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import axios from "axios"
-import Constants from "@/constants/global.constants"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -76,7 +76,7 @@ export default function Page() {
       <Show when={!projects.isLoading && !products.isLoading}>
         <Container>
           <Hero>
-            <p className="branding">{Constants.BrandName} {selectedProduct?.displayName}</p>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
             <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
