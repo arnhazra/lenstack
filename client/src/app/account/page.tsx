@@ -1,6 +1,6 @@
 "use client"
 import { Fragment, useContext, useState, useEffect } from "react"
-import { Button, Col, Row } from "react-bootstrap"
+import { Button } from "react-bootstrap"
 import { endPoints } from "@/constants/api-endpoints"
 import { GlobalContext } from "@/context/globalstate.provider"
 import axios from "axios"
@@ -9,7 +9,9 @@ import { uiConstants } from "@/constants/global-constants"
 import Web3 from "web3"
 import Show from "@/components/show.component"
 import Loading from "@/components/loading.component"
-import { AvatarIcon, BookmarkIcon, CopyIcon, ExitIcon } from "@radix-ui/react-icons"
+import { AvatarIcon, BookmarkIcon, ExitIcon } from "@radix-ui/react-icons"
+import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
+import InfoPanel from "@/components/infopanel.component"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -62,16 +64,6 @@ export default function Page() {
     }
   }
 
-  const showWalletAddress = (address: string) => {
-    const displayAddress = `(${address.substring(0, 3)}...${address.substring(address.length - 3)})`
-    return displayAddress
-  }
-
-  const copyWalletAddress = (): void => {
-    navigator.clipboard.writeText(`${accountAddress}`)
-    toast.success(uiConstants.copiedToClipBoard)
-  }
-
   return (
     <Fragment>
       <Show when={walletLoading}>
@@ -80,28 +72,8 @@ export default function Page() {
       <Show when={!walletLoading}>
         <div className="box">
           <p className="branding">Account</p>
-          <Row className="mb-2 mt-4">
-            <Col className="categorycol">
-              <AvatarIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">{userState.email}</p>
-              <div className="boxcategory-value">
-                Wallet Address {showWalletAddress(accountAddress)}<CopyIcon className="icon-right" onClick={copyWalletAddress} />
-              </div>
-            </Col>
-          </Row>
-          <Row className="mb-2 mt-4">
-            <Col className="categorycol">
-              <BookmarkIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Wallet Balance</p>
-              <div className="boxcategory-value">
-                {Number(maticBalance).toFixed(2)} MATIC
-              </div>
-            </Col>
-          </Row>
+          <SensitiveInfoPanel credentialIcon={<AvatarIcon />} credentialName={userState.email} credentialValue={accountAddress} />
+          <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
           <Button className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
           <Button className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
         </div>

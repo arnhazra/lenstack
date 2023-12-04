@@ -10,7 +10,7 @@ import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
-import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
+import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
 import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
 
