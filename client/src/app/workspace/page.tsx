@@ -1,6 +1,6 @@
 "use client"
 import Loading from "@/components/loading.component"
-import SecretCard from "@/components/secretcard.component"
+import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
 import Show from "@/components/show.component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
@@ -62,8 +62,8 @@ export default function Page() {
               {workspacesToDisplay}
             </Form.Select>
           </Form.Group>
-          <SecretCard credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
-          <SecretCard credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
+          <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
+          <SensitiveInfoPanel credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
           <Button onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
         </div>
       </Show>

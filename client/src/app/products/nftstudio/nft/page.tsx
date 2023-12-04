@@ -20,7 +20,7 @@ import { Fragment, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
-import SecretCard from "@/components/secretcard.component"
+import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -154,8 +154,8 @@ export default function Page() {
                 <Col xs={12} sm={12} md={6} lg={8} xl={9}>
                   <p className="branding">{selectedNft?.name}</p>
                   <p className="muted-text">{selectedNft?.description}</p>
-                  <SecretCard credentialIcon={<IdCardIcon />} credentialName="NFT Contract Address" credentialValue={nftContractAddress?.data?.nftContractAddress} />
-                  <SecretCard credentialIcon={<PersonIcon />} credentialName="Owner Wallet Address" credentialValue={selectedNft?.owner} />
+                  <SensitiveInfoPanel credentialIcon={<IdCardIcon />} credentialName="NFT Contract Address" credentialValue={nftContractAddress?.data?.nftContractAddress} />
+                  <SensitiveInfoPanel credentialIcon={<PersonIcon />} credentialName="Owner Wallet Address" credentialValue={selectedNft?.owner} />
                   <div className="mb-3">
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">NFT</Badge>
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>

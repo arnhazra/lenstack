@@ -13,7 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
-import SecretCard from "@/components/secretcard.component"
+import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -51,8 +51,8 @@ export default function Page() {
             <Hero>
               <p className="branding">{project?.data?.project?.name}</p>
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
-              <SecretCard credentialIcon={<CubeIcon />} credentialName="Project ID" credentialValue={project?.data?.project?.projectId} />
-              <SecretCard credentialIcon={<LockOpen2Icon />} credentialName="Project Passkey" credentialValue={project?.data?.project?.projectPasskey} />
+              <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Project ID" credentialValue={project?.data?.project?.projectId} />
+              <SensitiveInfoPanel credentialIcon={<LockOpen2Icon />} credentialName="Project Passkey" credentialValue={project?.data?.project?.projectPasskey} />
               <Button onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>

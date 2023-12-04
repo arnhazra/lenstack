@@ -12,7 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
 import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
 import Hero from "@/components/hero.component"
-import SecretCard from "@/components/secretcard.component"
+import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -47,8 +47,8 @@ export default function Page() {
             <Hero>
               <p className="branding text-capitalize">{db?.data?.db?.name}</p>
               <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
-              <SecretCard credentialIcon={<CubeIcon />} credentialName="DB ID" credentialValue={db?.data?.db?.dbId} />
-              <SecretCard credentialIcon={<LockOpen2Icon />} credentialName="DB Password" credentialValue={db?.data?.db?.dbPassword} />
+              <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="DB ID" credentialValue={db?.data?.db?.dbId} />
+              <SensitiveInfoPanel credentialIcon={<LockOpen2Icon />} credentialName="DB Password" credentialValue={db?.data?.db?.dbPassword} />
               <Button onClick={deleteDb}>Delete Database<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!db?.data?.kvs && db?.data?.kvs.length}>

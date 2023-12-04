@@ -5,12 +5,13 @@ import { ReactNode } from "react"
 import { Col, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 
-interface SecretCardInterface {
+interface SensitiveInfoPanelInterface {
   credentialIcon: ReactNode
   credentialName: string
   credentialValue: string
 }
-export default function SecretCard({ credentialIcon, credentialName, credentialValue }: SecretCardInterface) {
+
+export default function SensitiveInfoPanel({ credentialIcon, credentialName, credentialValue }: SensitiveInfoPanelInterface) {
   const maskCredential = (credential: string | null): string => {
     const displayCredential = `(${credential?.substring(0, 3)}...${credential?.substring(credential?.length - 3)})`
     return displayCredential

@@ -15,6 +15,7 @@ import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import useConfirm from "@/hooks/useConfirm"
+import InfoPanel from "@/components/infopanel.component"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
@@ -93,60 +94,10 @@ export default function Page() {
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text">Subscribe & Track your API Credentials usage from here</p>
-          <Row className="mb-2 mt-4">
-            <Col className="categorycol">
-              <StackIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Workspace</p>
-              <div className="boxcategory-value">
-                {userState.selectedWorkspaceName}
-              </div>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="categorycol">
-              <CubeIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Selected Plan</p>
-              <p className="boxcategory-value">
-                {userState.selectedPlan}
-              </p>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="categorycol">
-              <CalendarIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Validity</p>
-              <div className="boxcategory-value">
-                <Show when={userState.hasActiveSubscription}>
-                  <p>Valid upto {moment(userState.expiresAt).format("MMM, Do YYYY")}</p>
-                </Show>
-                <Show when={!userState.hasActiveSubscription}>
-                  No Validity Data
-                </Show>
-              </div>
-            </Col>
-          </Row>
-          <Row className="mb-2">
-            <Col className="categorycol">
-              <PieChartIcon />
-            </Col>
-            <Col>
-              <p className="boxcategory-key">Subscription Usage</p>
-              <div className="boxcategory-value">
-                <Show when={userState.hasActiveSubscription}>
-                  {userState.remainingCredits} / {pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining
-                </Show>
-                <Show when={!userState.hasActiveSubscription}>
-                  No Subscriptions Usage Data
-                </Show>
-              </div>
-            </Col>
-          </Row>
+          <InfoPanel infoIcon={<StackIcon />} infoName="Workspace" infoValue={userState.selectedWorkspaceName} />
+          <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.selectedPlan} />
+          <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${moment(userState.expiresAt).format("MMM, Do YYYY")}` : "No Validity Data"} />
+          <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
           <Fragment>
             <Show when={displayTrialButton && !userState.hasActiveSubscription}>
               <Button className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>

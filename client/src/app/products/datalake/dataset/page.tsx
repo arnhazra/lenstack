@@ -12,7 +12,7 @@ import { CubeIcon } from "@radix-ui/react-icons"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard.component"
 import Hero from "@/components/hero.component"
-import SecretCard from "@/components/secretcard.component"
+import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -47,7 +47,7 @@ export default function Page() {
               <p className="lead">{dataset?.data?.category}</p>
               <p className="muted-text mt-3">{dataset?.data?.description}</p>
               <div className="mb-4">{datasetTagsToDisplay}</div>
-              <SecretCard credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
+              <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
             </Hero>
             <Row>
               <h4 className="text-white">Similar Datasets</h4>
