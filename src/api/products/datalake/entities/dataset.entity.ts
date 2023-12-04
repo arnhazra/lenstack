@@ -15,4 +15,4 @@ const DatasetSchema = new mongoose.Schema({
 }, { versionKey: false })
 
 
-export const DatasetModel = datalakeMongoDbConn.model("datasetdata", DatasetSchema)
+export const DatasetModel = datalakeMongoDbConn.model("dataset", DatasetSchema)

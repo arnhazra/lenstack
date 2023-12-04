@@ -23,4 +23,4 @@ const MetadataSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const MetaDataModel = datalakeMongoDbConn.model("datasetmetadata", MetadataSchema)
+export const MetaDataModel = datalakeMongoDbConn.model("metadata", MetadataSchema)
