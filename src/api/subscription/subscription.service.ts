@@ -1,6 +1,5 @@
 import Web3 from "web3"
 import { Injectable, BadRequestException } from "@nestjs/common"
-import { randomBytes } from "crypto"
 import { SubscriptionRepository } from "./subscription.repository"
 import { UserRepository } from "../user/user.repository"
 import { statusMessages } from "src/constants/status-messages"
