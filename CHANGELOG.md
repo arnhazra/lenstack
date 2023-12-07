@@ -34,13 +34,13 @@
 
 ### v3.1
 * Keyboard shortcut for global search
-* Rebranding of Airlake as Lenstack Datalake
-* Rebranding of Hyperedge as Lenstack Fabric
-* Rebranding of Frostlake as Lenstack Insights
-* Rebranding of Edgescan as Lenstack Ledgerscan
-* Rebranding of Snowlake as Lenstack NFT Studio
-* Rebranding of Edgepay as Lenstack Pay
-* Rebranding of Swapstream as Lenstack Swap
+* Rebranding of Airlake as Datalake
+* Rebranding of Hyperedge as Fabric
+* Rebranding of Frostlake as Insights
+* Rebranding of Edgescan as Ledgerscan
+* Rebranding of Snowlake as NFT Studio
+* Rebranding of Edgepay as Pay
+* Rebranding of Swapstream as Swap
 * Introduction of new & modern UI
 * Migration of all mongo databases into Azure from AWS & GCP, existing Azure mongo databases remains same
 * Product config changes as per new product name standards
@@ -184,4 +184,4 @@
 * Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
 * Introduced subscription & subscription key based on Ethereum payment
 * Integrated Airlake - Dataset Marketplace (previously a separate app) into the Platform
-* Introduced the new Lenstack Platform
+* Introduced the new Platform
