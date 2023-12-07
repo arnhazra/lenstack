@@ -33,7 +33,7 @@ export default function usePrompt() {
   }
 
   const promptDialog = () => (
-    <Modal show={show} centered keyboard={false} backdrop="static">
+    <Modal show={show} centered keyboard={false} backdrop="static" className="blurred-background">
       <Modal.Header>
         <h5>{message}</h5>
       </Modal.Header>

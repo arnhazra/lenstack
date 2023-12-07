@@ -10,9 +10,9 @@ import axios from "axios"
 import { usePathname } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import IdentityGuard from "./identity.guard"
+import IdentityGuard from "@/components/identity-guard.component"
 
-export default function IdentityProvider({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState(true)
@@ -86,12 +86,7 @@ export default function IdentityProvider({ children }: { children: ReactNode }) 
           </motion.div>
         </Show>
         <Show when={!isAuthorized}>
-          <Show when={pathname === "/"}>
-            {children}
-          </Show>
-          <Show when={pathname !== "/"} >
-            <IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />
-          </Show>
+          <IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />
         </Show>
       </Show>
     </Fragment>

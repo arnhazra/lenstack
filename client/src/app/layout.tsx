@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios"
-import IdentityProvider from "@/providers/identity.provider"
+import { ReactNode } from "react"
 import { GlobalStateProvider } from "@/context/globalstate.provider"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
@@ -12,8 +12,6 @@ import "@/styles/button.style.sass"
 import "@/styles/form.style.sass"
 import "@/styles/productcard.style.sass"
 import { uiConstants } from "@/constants/global-constants"
-
-const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
 axios.interceptors.request.use((request) => {
   if (localStorage.hasOwnProperty("accessToken")) {
@@ -39,7 +37,9 @@ axios.interceptors.response.use(
   }
 )
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   const client = new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
 
   return (
@@ -54,12 +54,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={quickSand.className}>
         <QueryClientProvider client={client}>
           <GlobalStateProvider>
-            <IdentityProvider>
-              <main className="mt-2 mb-4 pb-4">
-                {children}
-                <Toaster position="bottom-right" />
-              </main>
-            </IdentityProvider>
+            <main className="mt-2 mb-4 pb-4">
+              {children}
+              <Toaster position="bottom-right" />
+            </main>
           </GlobalStateProvider>
         </QueryClientProvider>
       </body>
