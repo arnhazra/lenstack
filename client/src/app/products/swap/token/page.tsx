@@ -186,11 +186,11 @@ export default function Page() {
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
           </div>
-          <Button className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
+          <Button variant="primary" className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
             <Show when={!isTxProcessing}>Buy Token <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
           </Button>
-          <Button className="mt-2" disabled={isTxProcessing || balance === 0} onClick={sellToken}>
+          <Button variant="secondary" className="mt-2" disabled={isTxProcessing || balance === 0} onClick={sellToken}>
             <Show when={!isTxProcessing}>Sell Token <ArrowRightIcon className="icon-right" /></Show>
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
           </Button>

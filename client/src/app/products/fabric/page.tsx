@@ -82,10 +82,10 @@ export default function Page() {
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <Button onClick={createDatabase}><PlusCircledIcon className="icon-left" />Create Database</Button>
+            <Button variant="primary" onClick={createDatabase}><PlusCircledIcon className="icon-left" />Create Database</Button>
           </Hero>
           {displayDatabases()}
         </Container>

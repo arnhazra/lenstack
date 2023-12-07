@@ -82,7 +82,7 @@ export default function Page() {
         <Form.Label>NFT Link/Image URI</Form.Label>
         <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} />
       </Form.Group>
-      <Button type="submit" disabled={state.isLoading} className="mt-3 btn-block">
+      <Button variant="primary" type="submit" disabled={state.isLoading} className="mt-3 btn-block">
         <Show when={!state.isLoading}>Mint NFT <ArrowRightIcon className="icon-right" /></Show>
         <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</Show>
       </Button>

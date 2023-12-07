@@ -94,7 +94,7 @@ export default function Page() {
               </Col>
             </Row>
             <Col xs={12} sm={12} md={12} lg={8} xl={6}>
-              <Button type="submit" disabled={isLoading} className="mt-2 btn-block">
+              <Button variant="warning" type="submit" disabled={isLoading} className="mt-2 btn-block">
                 <Show when={!isLoading}>Send {matic} MATIC <ArrowRightIcon className="icon-right" /></Show>
                 <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</Show>
               </Button>

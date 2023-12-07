@@ -97,14 +97,14 @@ export default function Page() {
                 </Form.Group>
               </Col>
             </Row>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn mt-2 mb-2">
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
           </Hero>
           {displayDatasets()}
           <div className="text-center">
-            {datasetRequestState.offset !== 0 && <Button className="btn" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
-            {datasets?.data?.datasets?.length === 36 && <Button className="btn" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
+            {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
+            {datasets?.data?.datasets?.length === 36 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
           </div>
         </Container>
       </Show>

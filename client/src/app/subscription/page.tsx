@@ -100,10 +100,10 @@ export default function Page() {
           <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
           <Fragment>
             <Show when={displayTrialButton && !userState.hasActiveSubscription}>
-              <Button className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
+              <Button variant="primary" className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
             </Show>
             <Show when={!userState.hasActiveSubscription}>
-              <Button className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
+              <Button variant="primary" className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
                 <Show when={!isTxProcessing}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
                 <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
               </Button>

@@ -64,7 +64,7 @@ export default function Page() {
           </Form.Group>
           <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
           <SensitiveInfoPanel credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
-          <Button onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
+          <Button variant="primary" onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
         </div>
       </Show>
       <Show when={myWorkspaces.isLoading}>

@@ -53,7 +53,7 @@ export default function Page() {
               <p className="muted-text mt-3">Your Project Analytics will be displayed below (if any)</p>
               <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Project ID" credentialValue={project?.data?.project?.projectId} />
               <SensitiveInfoPanel credentialIcon={<LockOpen2Icon />} credentialName="Project Passkey" credentialValue={project?.data?.project?.projectPasskey} />
-              <Button onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
+              <Button variant="danger" onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
             </Hero>
             <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>
               <h4 className="text-white">Analytics</h4>

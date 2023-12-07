@@ -43,10 +43,10 @@ export default function usePrompt() {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => handleConfirm(false)}>
+        <Button variant="secondary" onClick={() => handleConfirm(false)}>
           <CrossCircledIcon className="icon-left" />Cancel
         </Button>
-        <Button onClick={() => handleConfirm(true)}>
+        <Button variant="primary" onClick={() => handleConfirm(true)}>
           <CheckCircledIcon className="icon-left" />Proceed
         </Button>
       </Modal.Footer>

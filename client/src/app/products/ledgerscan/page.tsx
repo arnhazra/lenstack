@@ -58,7 +58,7 @@ export default function Page() {
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
           </div>
-          <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn">
+          <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn-primary">
             <ReaderIcon className="icon-left" />API Reference
           </Link>
         </Hero>
@@ -67,7 +67,7 @@ export default function Page() {
           <form onSubmit={hitAPI}>
             <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
             <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
-            <Button disabled={isLoading} className="mt-3" type="submit">
+            <Button variant="primary" disabled={isLoading} className="mt-3" type="submit">
               <Show when={!isLoading}>
                 <RocketIcon className="icon-left" />Hit API
               </Show>

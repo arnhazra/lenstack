@@ -39,10 +39,10 @@ export default function useConfirm() {
         <p className="muted-text">This Action may not be undone, be sure before you click on continue, you can cancel if you don"t want to proceed</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => handleConfirm(false)}>
+        <Button variant="secondary" onClick={() => handleConfirm(false)}>
           <CrossCircledIcon className="icon-left" />Cancel
         </Button>
-        <Button onClick={() => handleConfirm(true)}>
+        <Button variant="danger" onClick={() => handleConfirm(true)}>
           <CheckCircledIcon className="icon-left" />Continue
         </Button>
       </Modal.Footer>
