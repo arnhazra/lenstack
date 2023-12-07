@@ -4,7 +4,7 @@ import { Container, Navbar, Nav } from "react-bootstrap"
 import Show from "./show.component"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { TextAlignLeftIcon } from "@radix-ui/react-icons"
+import { HamburgerMenuIcon, TextAlignLeftIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -65,7 +65,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon className="icon-nav-toggle" />
+              <HamburgerMenuIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Show when={searchEnabledPathNames.includes(pathname)}>
@@ -91,7 +91,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignLeftIcon className="icon-nav-toggle" />
+              <HamburgerMenuIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">
