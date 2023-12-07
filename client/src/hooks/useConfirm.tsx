@@ -31,7 +31,7 @@ export default function useConfirm() {
   }
 
   const confirmDialog = () => (
-    <Modal show={show} centered keyboard={false} backdrop="static">
+    <Modal show={show} centered keyboard={false} backdrop="static" className="blurred-background">
       <Modal.Header className="ps-4 pe-4">
         <h5>{message}</h5>
       </Modal.Header>
