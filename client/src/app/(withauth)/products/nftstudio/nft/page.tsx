@@ -161,9 +161,9 @@ export default function Page() {
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">ERC-721</Badge>
                     <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">#{nftId}</Badge>
                   </div>
-                  <Link className="btn" href={selectedNft?.link ?? ""} passHref target="_blank">View Link<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`${uiConstants.polygonScanBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
-                  <Link className="btn" href={`${uiConstants.openseaBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn btn-primary" href={selectedNft?.link ?? ""} passHref target="_blank">View Link<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn btn-secondary" href={`${uiConstants.polygonScanBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">PolygonScan<OpenInNewWindowIcon className="icon-right" /></Link>
+                  <Link className="btn btn-secondary" href={`${uiConstants.openseaBaseUri}/${nftContractAddress?.data?.nftContractAddress}/${selectedNft?.id}`} passHref target="_blank">OpenSea<OpenInNewWindowIcon className="icon-right" /></Link>
                   <Button variant="danger" onClick={() => archiveNFT(nftId)}>Archive NFT<ArchiveIcon className="icon-right" /></Button>
                 </Col>
               </Row>

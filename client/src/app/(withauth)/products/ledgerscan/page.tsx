@@ -58,7 +58,7 @@ export default function Page() {
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
           </div>
-          <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn-primary">
+          <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary">
             <ReaderIcon className="icon-left" />API Reference
           </Link>
         </Hero>

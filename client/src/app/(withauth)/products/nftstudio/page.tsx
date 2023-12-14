@@ -92,7 +92,7 @@ export default function Page() {
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
-            <Link className="btn" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+            <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
           </Hero>
           {displayNfts()}
         </Container>

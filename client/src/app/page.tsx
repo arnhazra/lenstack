@@ -12,13 +12,13 @@ export default function Page() {
         <Header isAuthorized={false} />
       </nav>
       <div className="cover">
-        <p className="display-5">
+        <p className="display-2">
           {uiConstants.homeHeader1}<br />
           {uiConstants.homeHeader2}
         </p>
         <p className="lead my-4">
           {uiConstants.homeIntro1} <br />
-          {uiConstants.homeIntro2} <br />
+          {uiConstants.homeIntro2}
           {uiConstants.homeIntro3} <br />
         </p>
         <Link href="/dashboard" className="btn btn-primary">
