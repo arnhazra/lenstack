@@ -71,7 +71,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                   height="30"
                   className="d-inline-block align-top"
                 />{" "}
-                {uiConstants.brandName.toUpperCase()}
+                {uiConstants.brandName}
               </Navbar.Brand>
             </Link>
             <Navbar.Toggle>
@@ -83,8 +83,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.mumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
-                <Nav.Item className="btn-user-link"><Link href="/settings">Settings</Link></Nav.Item>
-                <Nav.Item className="btn-user-link"><Link href="/activity">Activity</Link></Nav.Item>
+                <Nav.Item className="btn-user-link"><Link href="/activities">Activities</Link></Nav.Item>
               </Nav>
               <Show when={searchEnabledPathNames.includes(pathname)}>
                 <Nav className="mr-auto">
@@ -92,8 +91,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 </Nav>
               </Show>
               <Nav className="ms-auto">
-                <GearIcon className="icon-navbar" onClick={() => router.push("/settings")} />
-                <BellIcon className="icon-navbar" onClick={() => router.push("/activity")} />
+                <BellIcon className="icon-navbar" onClick={() => router.push("/activities")} />
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>
@@ -112,7 +110,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                   height="30"
                   className="d-inline-block align-top"
                 />{" "}
-                {uiConstants.brandName.toUpperCase()}
+                {uiConstants.brandName}
               </Navbar.Brand>
             </Link>
             <Navbar.Toggle>
