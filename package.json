@@ -29,7 +29,7 @@
     "googleapis": "^129.0.0",
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.2",
+    "mongoose": "^8.0.3",
     "nodemailer": "^6.9.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
@@ -39,17 +39,17 @@
     "@nestjs/cli": "^10.2.1",
     "@nestjs/schematics": "^10.0.3",
     "@nestjs/testing": "^10.2.10",
-    "@openzeppelin/contracts": "^5.0.0",
+    "@openzeppelin/contracts": "^5.0.1",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
-    "@types/node": "^20.10.3",
+    "@types/node": "^20.10.4",
     "@types/nodemailer": "^6.4.14",
     "concurrently": "^8.2.2",
     "source-map-support": "^0.5.21",
     "ts-loader": "^9.5.1",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   },
   "jest": {
     "moduleFileExtensions": [
