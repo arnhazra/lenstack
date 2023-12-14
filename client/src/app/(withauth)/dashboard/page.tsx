@@ -68,7 +68,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!products.isLoading}>
+      <Show when={!products.isLoading && !activities.isLoading}>
         <SubHeader>
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="text-white">Hey, @{userName}</h4>
@@ -93,7 +93,7 @@ export default function Page() {
           </Row>
         </Container>
       </Show>
-      <Show when={products.isLoading}>
+      <Show when={products.isLoading || activities.isLoading}>
         <Loading />
       </Show>
     </Fragment>
