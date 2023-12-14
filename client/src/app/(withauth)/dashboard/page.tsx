@@ -5,21 +5,25 @@ import HTTPMethods from "@/constants/http-methods"
 import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
-import { Col, Container, Row } from "react-bootstrap"
+import { Button, Col, Container, Row } from "react-bootstrap"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error-component"
 import { uiConstants } from "@/constants/global-constants"
 import ActivityHeader from "@/components/activity-header-component"
-import { CubeIcon } from "@radix-ui/react-icons"
+import { BellIcon, CubeIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
+import Hero from "@/components/hero-component"
+import InfoPanel from "@/components/infopanel-component"
+import moment from "moment"
 
 export default function Page() {
   const [{ globalSearchString, userState }] = useContext(GlobalContext)
   const router = useRouter()
-  const userName = userState.email.split('@')[0].toString().slice(0, 10) ?? ''
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const userName = userState.email.split("@")[0].toString().slice(0, 10) ?? ""
+  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: globalSearchString }, true)
+  const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET, {}, true)
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
@@ -40,7 +44,7 @@ export default function Page() {
     })
 
     return (
-      <Row className="mb-4">
+      <Row className="mb-4" key={Math.random().toString()}>
         <Show when={!!products?.data?.length}>
           {productsToDisplay}
         </Show>
@@ -51,6 +55,17 @@ export default function Page() {
     )
   }, [products?.data])
 
+
+  const displayActivities = useCallback(() => {
+    const activitiesToDisplay = activities?.data?.activities?.slice(0, 6).map((activity: any) => {
+      return (
+        <InfoPanel key={activity._id} infoIcon={<BellIcon />} infoName={activity.activityDescription} infoValue={moment(activity.createdAt).format("MMM, Do YYYY")} />
+      )
+    })
+
+    return activitiesToDisplay
+  }, [products?.data])
+
   return (
     <Fragment>
       <Show when={!products.isLoading}>
@@ -58,7 +73,7 @@ export default function Page() {
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="text-white">Hey, @{userName}</h4>
             <div className="ml-auto">
-              <CubeIcon className="icon-activityheader" onClick={() => router.push('/workspace')} />
+              <CubeIcon className="icon-activityheader" onClick={() => router.push("/workspace")} />
             </div>
           </div>
         </ActivityHeader>
@@ -69,7 +84,11 @@ export default function Page() {
               {displayProducts()}
             </Col>
             <Col xl={3} lg={12} md={12} sm={12} xs={12}>
-              <h4 className="text-white">Your Activities</h4>
+              <h4 className="text-white">Live Activities</h4>
+              <Hero>
+                {displayActivities()}
+                <Button variant="secondary" className="btn-block"><BellIcon className="icon-left" />View All Activities</Button>
+              </Hero>
             </Col>
           </Row>
         </Container>

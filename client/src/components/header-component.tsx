@@ -4,11 +4,12 @@ import { Container, Navbar, Nav } from "react-bootstrap"
 import Show from "./show-component"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { BellIcon, GearIcon, HamburgerMenuIcon, TextAlignLeftIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
+import { BellIcon, GearIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { useRouter } from "next/navigation"
+import { uiHost } from "@/constants/api-endpoints"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -65,11 +66,11 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Navbar.Brand>
                 <img
                   alt=""
-                  src={`${window.location.origin}/favicon.ico`}
+                  src={`${uiHost}/favicon.ico`}
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
-                />{' '}
+                />{" "}
                 {uiConstants.brandName.toUpperCase()}
               </Navbar.Brand>
             </Link>
@@ -91,8 +92,8 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 </Nav>
               </Show>
               <Nav className="ms-auto">
-                <GearIcon className="icon-navbar" onClick={() => router.push('/settings')} />
-                <BellIcon className="icon-navbar" onClick={() => router.push('/activity')} />
+                <GearIcon className="icon-navbar" onClick={() => router.push("/settings")} />
+                <BellIcon className="icon-navbar" onClick={() => router.push("/activity")} />
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>
@@ -106,11 +107,11 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Navbar.Brand>
                 <img
                   alt=""
-                  src={`${window.location.origin}/favicon.ico`}
+                  src={`${uiHost}/favicon.ico`}
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
-                />{' '}
+                />{" "}
                 {uiConstants.brandName.toUpperCase()}
               </Navbar.Brand>
             </Link>
