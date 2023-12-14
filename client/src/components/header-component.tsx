@@ -64,13 +64,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
           <Container>
             <Link href="/dashboard">
               <Navbar.Brand>
-                <img
-                  alt=""
-                  src={`${uiHost}/favicon.ico`}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{" "}
+                <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top" />{" "}
                 {uiConstants.brandName}
               </Navbar.Brand>
             </Link>
@@ -103,13 +97,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
           <Container>
             <Link href="/">
               <Navbar.Brand>
-                <img
-                  alt=""
-                  src={`${uiHost}/favicon.ico`}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{" "}
+                <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top" />{" "}
                 {uiConstants.brandName}
               </Navbar.Brand>
             </Link>

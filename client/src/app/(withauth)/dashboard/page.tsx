@@ -19,9 +19,8 @@ import InfoPanel from "@/components/infopanel-component"
 import moment from "moment"
 
 export default function Page() {
-  const [{ globalSearchString, userState }] = useContext(GlobalContext)
+  const [{ globalSearchString }] = useContext(GlobalContext)
   const router = useRouter()
-  const userName = userState.email.split("@")[0].toString().slice(0, 10) ?? ""
   const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: globalSearchString }, true)
   const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET, {}, true)
 
@@ -71,7 +70,7 @@ export default function Page() {
       <Show when={!products.isLoading && !activities.isLoading}>
         <SubHeader>
           <div className="d-flex justify-content-between align-items-center">
-            <h4 className="text-white">Hey, @{userName}</h4>
+            <h4 className="text-white">Dashboard</h4>
             <div className="ml-auto">
               <CubeIcon className="icon-subheader" onClick={() => router.push("/workspace")} />
             </div>
@@ -80,14 +79,19 @@ export default function Page() {
         <Container>
           <Row>
             <Col xl={9} lg={12} md={12} sm={12} xs={12}>
-              <h4 className="text-white">Browse Products</h4>
+              <h4 className="text-white">Products</h4>
               {displayProducts()}
             </Col>
             <Col xl={3} lg={12} md={12} sm={12} xs={12}>
-              <h4 className="text-white">Live Activities</h4>
+              <h4 className="text-white">Activities</h4>
               <Hero>
-                {displayActivities()}
-                <Button variant="secondary" className="btn-block"><BellIcon className="icon-left" />View All Activities</Button>
+                <Show when={!!activities?.data?.activities?.length}>
+                  {displayActivities()}
+                </Show>
+                <Show when={!activities?.data?.activities?.length}>
+                  <p className="lead">Your activities will appear here once you start using the app more</p>
+                </Show>
+                <Button variant="secondary" className="btn-block" onClick={(): void => router.push("/activities")}><BellIcon className="icon-left" />Explore All Activities</Button>
               </Hero>
             </Col>
           </Row>
