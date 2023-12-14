@@ -17,8 +17,9 @@ jobs:
 
       - name: Build main nest application
         run: |
-          npm install
-          CI=false npm run build --force
+          npm cache clean --force
+          npm install --legacy-peer-deps
+          CI=false npm run build
 
       - name: Build client application
         working-directory: client
