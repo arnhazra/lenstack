@@ -18,7 +18,7 @@ jobs:
       - name: Build main nest application
         run: |
           npm install
-          CI=false npm run build
+          CI=false npm run build --force
 
       - name: Build client application
         working-directory: client
