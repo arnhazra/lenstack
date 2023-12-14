@@ -4,6 +4,7 @@
 * Introduction of new auth layout using Next 14 Route Group Layouts
 * Removed legacy Identity Provider
 * New customized button UI
+* Minor bug fixes and UI Performance improvements
 
 ### v3.6
 * Minor bug fixes and performance improvements
