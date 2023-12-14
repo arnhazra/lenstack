@@ -3,11 +3,14 @@ import { uiConstants } from "@/constants/global-constants"
 import Link from "next/link"
 import { CubeIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"
-import Show from "@/components/show.component"
+import Header from "@/components/header-component"
 
 export default function Page() {
   return (
     <Container>
+      <nav className="header">
+        <Header isAuthorized={false} />
+      </nav>
       <div className="cover">
         <p className="display-5">
           {uiConstants.homeHeader1}<br />
@@ -18,14 +21,9 @@ export default function Page() {
           {uiConstants.homeIntro2} <br />
           {uiConstants.homeIntro3} <br />
         </p>
-        <Link href="/dashboard" className="btn">
+        <Link href="/dashboard" className="btn btn-primary">
           <CubeIcon className="icon-left" />
-          <Show when={!!localStorage.getItem("accessToken")}>
-            Go to dashboard
-          </Show>
-          <Show when={!localStorage.getItem("accessToken")}>
-            Try for free
-          </Show>
+          Try for free
         </Link>
       </div>
     </Container>

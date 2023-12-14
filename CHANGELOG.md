@@ -1,10 +1,17 @@
 # Changelog
 
+### v3.7
+* Introduction of new auth layout using Next 14 Route Group Layouts
+* Removed legacy Identity Provider
+* New customized button UI
+
+### v3.6
+* Minor bug fixes and performance improvements
+* Code refactoring
+
 ### v3.5
 * Generic SensitiveInfoPanel component to use across the app
 * Added credentials by default in workspace instead of subscription
-* Minor bug fixes and performance improvements
-* Code refactoring
 
 ### v3.4
 * Introduction of new Credential authorization with Client Id and Client Secret

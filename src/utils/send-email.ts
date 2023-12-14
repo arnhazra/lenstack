@@ -24,9 +24,9 @@ export async function sendEmail(email: string, passKey: string) {
     const subject = `${envConfig.brandName} Identity Passkey`
     const content = `
     <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
-      <div style="background-color: #f4f4f4; padding: 20px; border-radius: 0.8rem; text-align: center;">
+      <div style="background-color: #f4f4f4; padding: 20px; border-radius: 0.7rem; text-align: center;">
         <p style="font-size: 16px; color: #555; margin-top: 20px;">Use the below key as your ${envConfig.brandName} Identity Passkey. Do not share.</p>
-        <div style="display: inline-block; background-color: #e0e0e0; padding: 10px 20px; border-radius: 0.8rem; font-size: 18px;">
+        <div style="display: inline-block; background-color: #e0e0e0; padding: 10px 20px; border-radius: 0.7rem; font-size: 18px;">
           <span style="color: #333; font-weight: bold;">${passKey}</span>
         </div>
       </div>
