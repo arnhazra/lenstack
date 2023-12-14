@@ -1,5 +1,5 @@
 "use client"
-import Header from "@/components/header.component"
+import Header from "@/components/header-component"
 import { Fragment } from "react"
 
 export default function Loading() {

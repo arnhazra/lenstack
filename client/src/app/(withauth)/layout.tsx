@@ -1,19 +1,17 @@
 "use client"
-import Header from "@/components/header.component"
-import Loading from "@/components/loading.component"
-import Show from "@/components/show.component"
+import Header from "@/components/header-component"
+import Loading from "@/components/loading-component"
+import Show from "@/components/show-component"
 import { motion } from "framer-motion"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import axios from "axios"
-import { usePathname } from "next/navigation"
 import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import IdentityGuard from "@/components/identity-guard.component"
+import IdentityGuard from "@/components/identity-guard-component"
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const pathname = usePathname()
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState(true)
   const [isAuthorized, setAuthorized] = useState(false)

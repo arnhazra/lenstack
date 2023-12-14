@@ -7,11 +7,11 @@ import axios from "axios"
 import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
 import Web3 from "web3"
-import Show from "@/components/show.component"
-import Loading from "@/components/loading.component"
+import Show from "@/components/show-component"
+import Loading from "@/components/loading-component"
 import { AvatarIcon, BookmarkIcon, ExitIcon } from "@radix-ui/react-icons"
-import SensitiveInfoPanel from "@/components/sensitiveinfopanel.component"
-import InfoPanel from "@/components/infopanel.component"
+import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
+import InfoPanel from "@/components/infopanel-component"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)

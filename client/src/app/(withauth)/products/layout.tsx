@@ -1,5 +1,5 @@
 "use client"
-import Show from "@/components/show.component"
+import Show from "@/components/show-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { BookmarkIcon, CubeIcon } from "@radix-ui/react-icons"
 import Link from "next/link"

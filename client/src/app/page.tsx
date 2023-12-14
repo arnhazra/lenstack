@@ -3,7 +3,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Link from "next/link"
 import { CubeIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"
-import Header from "@/components/header.component"
+import Header from "@/components/header-component"
 
 export default function Page() {
   return (
