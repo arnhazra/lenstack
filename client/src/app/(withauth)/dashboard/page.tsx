@@ -59,12 +59,12 @@ export default function Page() {
   const displayActivities = useCallback(() => {
     const activitiesToDisplay = activities?.data?.activities?.slice(0, 6).map((activity: any) => {
       return (
-        <InfoPanel key={activity._id} infoIcon={<BellIcon />} infoName={activity.activityDescription} infoValue={moment(activity.createdAt).format("MMM, Do YYYY")} />
+        <InfoPanel key={activity._id} infoIcon={<BellIcon />} infoName={activity.activityDescription} infoValue={moment(activity.createdAt).fromNow()} />
       )
     })
 
     return activitiesToDisplay
-  }, [products?.data])
+  }, [activities?.data])
 
   return (
     <Fragment>
