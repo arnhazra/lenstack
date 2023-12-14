@@ -5,16 +5,20 @@ import HTTPMethods from "@/constants/http-methods"
 import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
-import { Container, Row } from "react-bootstrap"
+import { Button, Container, Row } from "react-bootstrap"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error-component"
 import { uiConstants } from "@/constants/global-constants"
 import SubHeader from "@/components/subheader-component"
+import { CubeIcon } from "@radix-ui/react-icons"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
-  const [{ globalSearchString }] = useContext(GlobalContext)
+  const [{ globalSearchString, userState }] = useContext(GlobalContext)
+  const router = useRouter()
+  const userName = userState.email.split('@')[0].toString().slice(0, 10) ?? ''
   const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: globalSearchString })
 
   const displayProducts = useCallback(() => {
@@ -47,9 +51,17 @@ export default function Page() {
     <Fragment>
       <Show when={!products.isLoading}>
         <SubHeader>
-          <h4 className="text-white">Explore the Experience</h4>
+          <div className="d-flex justify-content-between align-items-center">
+            <h4 className="text-white">Hey, @{userName}</h4>
+            <div className="ml-auto">
+              <Button variant="secondary" onClick={(): void => router.push('/workspace')}>
+                <CubeIcon className="icon-left" />Workspace
+              </Button>
+            </div>
+          </div>
         </SubHeader>
         <Container>
+          <h4 className="text-white">Lenstack Products</h4>
           {displayProducts()}
         </Container>
       </Show>
