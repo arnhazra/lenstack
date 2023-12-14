@@ -60,7 +60,7 @@ $btnTextColor: #ffffff
   padding: 0.6rem
   padding-left: 1.5rem
   outline: none
-  border-radius: 0.7rem
+  border-radius: 2rem
   width: 40rem
   margin-top: -0.9rem
   margin-bottom: -0.9rem
@@ -68,9 +68,14 @@ $btnTextColor: #ffffff
 .header-search:focus
   border: 3px solid #2da3a344
 
+.icon-navbar
+  zoom: 150%
+  margin-right: 0.7rem
+  cursor: pointer
+
 @media only screen and (max-width: 85rem)
   .header-search
-    width: 35rem
+    width: 30rem
 
 @media only screen and (max-width: 80rem)
   .header-search
@@ -88,7 +93,13 @@ $btnTextColor: #ffffff
   .btn-user
     display: none
 
+  .icon-navbar
+    display: none
+
   .btn-user-link
+    display: block
+
+  .icon-navbar-link
     display: block
 
   .header-search

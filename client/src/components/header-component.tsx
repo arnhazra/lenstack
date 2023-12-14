@@ -4,7 +4,7 @@ import { Container, Navbar, Nav } from "react-bootstrap"
 import Show from "./show-component"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { HamburgerMenuIcon, TextAlignLeftIcon } from "@radix-ui/react-icons"
+import { BellIcon, GearIcon, HamburgerMenuIcon, TextAlignLeftIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -65,19 +65,25 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <HamburgerMenuIcon className="icon-nav-toggle" />
+              <TextAlignRightIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
-              <Show when={searchEnabledPathNames.includes(pathname)}>
-                <Nav className="ms-auto">
-                  <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
-                </Nav>
-              </Show>
-              <Nav className="ms-auto">
+              <Nav className="mr-auto">
                 <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.mumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
+                <Nav.Item className="btn-user-link"><Link href="/settings">Settings</Link></Nav.Item>
+                <Nav.Item className="btn-user-link"><Link href="/activity">Activity</Link></Nav.Item>
+              </Nav>
+              <Show when={searchEnabledPathNames.includes(pathname)}>
+                <Nav className="mr-auto">
+                  <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                </Nav>
+              </Show>
+              <Nav className="ms-auto">
+                <GearIcon className="icon-navbar" onClick={() => router.push('/settings')} />
+                <BellIcon className="icon-navbar" onClick={() => router.push('/activity')} />
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>
@@ -91,7 +97,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <HamburgerMenuIcon className="icon-nav-toggle" />
+              <TextAlignRightIcon className="icon-nav-toggle" />
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">

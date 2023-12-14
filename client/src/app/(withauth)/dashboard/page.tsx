@@ -11,6 +11,7 @@ import ProductCard from "@/components/productcard-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error-component"
 import { uiConstants } from "@/constants/global-constants"
+import SubHeader from "@/components/subheader-component"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -45,8 +46,10 @@ export default function Page() {
   return (
     <Fragment>
       <Show when={!products.isLoading}>
-        <Container>
+        <SubHeader>
           <h4 className="text-white">Explore the Experience</h4>
+        </SubHeader>
+        <Container>
           {displayProducts()}
         </Container>
       </Show>
