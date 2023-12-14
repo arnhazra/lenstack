@@ -5,7 +5,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
-import { Button, Container, Row } from "react-bootstrap"
+import { Col, Container, Row } from "react-bootstrap"
 import { ProductCardInterface } from "@/types/Types"
 import ProductCard from "@/components/productcard-component"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -32,7 +32,11 @@ export default function Page() {
         isDisabled: product.productStatus !== "Available"
       }
 
-      return <ProductCard key={product.productName} productCardProps={productCardProps} />
+      return (
+        <Col xs={12} sm={6} md={6} lg={4} xl={4} className="mb-4">
+          <ProductCard key={product.productName} productCardProps={productCardProps} />
+        </Col>
+      )
     })
 
     return (
@@ -59,8 +63,15 @@ export default function Page() {
           </div>
         </ActivityHeader>
         <Container>
-          <h4 className="text-white">Lenstack Products</h4>
-          {displayProducts()}
+          <Row>
+            <Col xl={9} lg={12} md={12} sm={12} xs={12}>
+              <h4 className="text-white">Browse Products</h4>
+              {displayProducts()}
+            </Col>
+            <Col xl={3} lg={12} md={12} sm={12} xs={12}>
+              <h4 className="text-white">Your Activities</h4>
+            </Col>
+          </Row>
         </Container>
       </Show>
       <Show when={products.isLoading}>

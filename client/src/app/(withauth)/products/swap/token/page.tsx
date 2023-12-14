@@ -7,7 +7,7 @@ import { ProductCardInterface, TokenData } from "@/types/Types"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
-import { Badge, Button, Container, Row } from "react-bootstrap"
+import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import usePrompt from "@/hooks/use-prompt"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { vendorABI } from "@/bin/vendor-abi"
@@ -171,7 +171,11 @@ export default function Page() {
         redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
-      return <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+      return (
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
+          <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+        </Col>
+      )
     })
 
   return (

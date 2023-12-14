@@ -62,7 +62,16 @@ export default function Header({ isAuthorized }: HeaderProps) {
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
-              <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
+              <Navbar.Brand>
+                <img
+                  alt=""
+                  src={`${window.location.origin}/favicon.ico`}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}
+                {uiConstants.brandName.toUpperCase()}
+              </Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignRightIcon className="icon-nav-toggle" />
@@ -94,7 +103,16 @@ export default function Header({ isAuthorized }: HeaderProps) {
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">
-              <Navbar.Brand>{uiConstants.brandName}</Navbar.Brand>
+              <Navbar.Brand>
+                <img
+                  alt=""
+                  src={`${window.location.origin}/favicon.ico`}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}
+                {uiConstants.brandName.toUpperCase()}
+              </Navbar.Brand>
             </Link>
             <Navbar.Toggle>
               <TextAlignRightIcon className="icon-nav-toggle" />
