@@ -11,7 +11,7 @@ import ProductCard from "@/components/productcard-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error-component"
 import { uiConstants } from "@/constants/global-constants"
-import ActivityHeader from "@/components/activity-header-component"
+import SubHeader from "@/components/sub-header-component"
 import { BellIcon, CubeIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import Hero from "@/components/hero-component"
@@ -69,14 +69,14 @@ export default function Page() {
   return (
     <Fragment>
       <Show when={!products.isLoading}>
-        <ActivityHeader>
+        <SubHeader>
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="text-white">Hey, @{userName}</h4>
             <div className="ml-auto">
-              <CubeIcon className="icon-activityheader" onClick={() => router.push("/workspace")} />
+              <CubeIcon className="icon-subheader" onClick={() => router.push("/workspace")} />
             </div>
           </div>
-        </ActivityHeader>
+        </SubHeader>
         <Container>
           <Row>
             <Col xl={9} lg={12} md={12} sm={12} xs={12}>
