@@ -79,12 +79,10 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/activities">Activities</Link></Nav.Item>
               </Nav>
-              <Show when={searchEnabledPathNames.includes(pathname)}>
-                <Nav className="mr-auto">
-                  <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
-                </Nav>
-              </Show>
               <Nav className="ms-auto">
+                <Show when={searchEnabledPathNames.includes(pathname)}>
+                  <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                </Show>
                 <BellIcon className="icon-navbar" onClick={() => router.push("/activities")} />
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
