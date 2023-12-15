@@ -1,15 +1,19 @@
 # Changelog
 
-### v3.8
+### v4.0
 * UI Overhaul with new design
 * Introduction of live activities
 * Introduction of Subheader
 * Changed header icon and link positions
+
+### v3.9
 * Minor bug fixes and performance improvements
 
-### v3.7
+### v3.8
 * Introduction of new auth layout using Next 14 Route Group Layouts
 * Removed legacy Identity Provider
+
+### v3.7
 * New customized button UI
 * Minor bug fixes and UI Performance improvements
 
