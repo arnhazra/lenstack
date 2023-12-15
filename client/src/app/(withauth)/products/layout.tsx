@@ -1,6 +1,5 @@
 "use client"
 import Show from "@/components/show-component"
-import SubHeader from "@/components/sub-header-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { BookmarkIcon, CubeIcon, HomeIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
@@ -21,14 +20,6 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   return (
     <Fragment>
       <Show when={userState.hasActiveSubscription}>
-        <SubHeader>
-          <div className="d-flex justify-content-between align-items-center">
-            <h4 className="text-white">Lenstack {productName}</h4>
-            <div className="ml-auto">
-              <HomeIcon className="icon-subheader" onClick={() => router.push(`/products/${productName}`)} />
-            </div>
-          </div>
-        </SubHeader>
         {children}
       </Show>
       <Show when={!userState.hasActiveSubscription}>

@@ -3,7 +3,7 @@
 ### v4.0
 * UI Overhaul with new design
 * Introduction of live activities
-* Introduction of Subheader
+* Introduction of Data Quality Standard in Datalake
 * Changed header icon and link positions
 
 ### v3.9

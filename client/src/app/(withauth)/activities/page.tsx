@@ -3,7 +3,6 @@ import Hero from "@/components/hero-component"
 import InfoPanel from "@/components/infopanel-component"
 import Loading from "@/components/loading-component"
 import Show from "@/components/show-component"
-import SubHeader from "@/components/sub-header-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/use-fetch"
@@ -30,14 +29,6 @@ export default function Page() {
   return (
     <Fragment>
       <Show when={!activities.isLoading}>
-        <SubHeader>
-          <div className="d-flex justify-content-between align-items-center">
-            <h4 className="text-white">Activities</h4>
-            <div className="ml-auto">
-              <DashboardIcon className="icon-subheader" onClick={() => router.push("/dashboard")} />
-            </div>
-          </div>
-        </SubHeader>
         <Container>
           <Hero>
             {displayActivities()}
