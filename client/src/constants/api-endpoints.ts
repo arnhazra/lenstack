@@ -1,6 +1,7 @@
 import { uiConstants } from "./global-constants"
 
 export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : `https://${uiConstants.brandName}.vercel.app`
+export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://${uiConstants.brandName}.vercel.app`
 
 export const endPoints = {
   getapireference: `${apiHost}/api/apireference/getallbyproductname`,
@@ -41,5 +42,6 @@ export const endPoints = {
   nftstudioSignTransactionGateway: `${apiHost}/api/products/nftstudio/signtransactiongateway`,
   swapCreateTx: `${apiHost}/api/products/swap/createtx`,
   swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
-  swapSignTransactionGateway: `${apiHost}/api/products/swap/signtransactiongateway`
+  swapSignTransactionGateway: `${apiHost}/api/products/swap/signtransactiongateway`,
+  getAllActivities: `${apiHost}/api/activity/getactivities`
 }

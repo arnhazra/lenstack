@@ -1,6 +1,8 @@
 import { createParamDecorator, ExecutionContext, UnauthorizedException } from "@nestjs/common"
+import { ActivityModel } from "src/api/activity/entities/activity.entity"
 import { UserModel } from "src/api/user/entities/user.entity"
 import { statusMessages } from "src/constants/status-messages"
+import getActivityDescription from "src/utils/activity-gen"
 import { decodeJwt } from "src/utils/decode-jwt"
 import { getTokenFromRedis } from "src/utils/redis-helper"
 
@@ -13,6 +15,7 @@ export const TokenAuthorizer = createParamDecorator(
   async (data: unknown, ctx: ExecutionContext): Promise<TokenAuthorizerResponse> => {
     const request = ctx.switchToHttp().getRequest()
     const accessToken = request.headers["authorization"]?.split(" ")[1]
+    const requestUrl = String(request.url)
 
     if (!accessToken) {
       throw new UnauthorizedException(statusMessages.unauthorized)
@@ -24,6 +27,12 @@ export const TokenAuthorizer = createParamDecorator(
         const redisAccessToken = await getTokenFromRedis(userId)
 
         if (redisAccessToken === accessToken) {
+          const activityDescription = getActivityDescription(requestUrl)
+          if (activityDescription !== "Unknown Activity") {
+            const activity = new ActivityModel({ userId, activityDescription })
+            await activity.save()
+          }
+
           const { selectedWorkspaceId } = await UserModel.findById(userId)
           const workspaceId = selectedWorkspaceId.toString()
           return { userId, workspaceId }

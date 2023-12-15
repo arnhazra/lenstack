@@ -4,7 +4,7 @@ import { ProductCardInterface, TokenData } from "@/types/Types"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/use-fetch"
-import { Badge, Container, Row } from "react-bootstrap"
+import { Badge, Col, Container, Row } from "react-bootstrap"
 import { useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Show from "@/components/show-component"
@@ -28,7 +28,11 @@ export default function Page() {
         redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
-      return <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+      return (
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
+          <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+        </Col>
+      )
     })
 
     return (

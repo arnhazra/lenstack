@@ -1,8 +1,19 @@
 # Changelog
 
-### v3.7
+### v4.0
+* UI Overhaul with new design
+* Introduction of live activities
+* Introduction of Data Quality Standard in Datalake
+* Changed header icon and link positions
+
+### v3.9
+* Minor bug fixes and performance improvements
+
+### v3.8
 * Introduction of new auth layout using Next 14 Route Group Layouts
 * Removed legacy Identity Provider
+
+### v3.7
 * New customized button UI
 * Minor bug fixes and UI Performance improvements
 

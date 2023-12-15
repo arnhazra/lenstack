@@ -32,7 +32,11 @@ export default function Page() {
         footerText: `${dataset.description.slice(0, 110)}...`,
         redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
       }
-      return <ProductCard key={dataset._id} productCardProps={productCardProps} />
+      return (
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
+          <ProductCard key={dataset._id} productCardProps={productCardProps} />
+        </Col>
+      )
     })
 
     return (

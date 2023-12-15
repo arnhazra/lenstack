@@ -2,7 +2,7 @@
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api-endpoints"
 import Show from "@/components/show-component"
-import { Badge, Button, Container, Row } from "react-bootstrap"
+import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading-component"
 import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/use-fetch"
@@ -38,7 +38,9 @@ export default function Page() {
       }
 
       return (
-        <ProductCard key={project._id} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
+          <ProductCard key={project._id} productCardProps={productCardProps} />
+        </Col>
       )
     })
 
