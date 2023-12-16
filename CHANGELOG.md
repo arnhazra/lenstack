@@ -1,5 +1,8 @@
 # Changelog
 
+### v4.1
+* Restructure API methods
+
 ### v4.0
 * UI Overhaul with new design
 * Introduction of live activities

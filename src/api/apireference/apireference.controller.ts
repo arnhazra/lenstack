@@ -1,8 +1,7 @@
-import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Query } from "@nestjs/common"
 import { ApiReferenceService } from "./apireference.service"
 import { CreateApiReferenceDto } from "./dto/create-apireference.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
-import { SearchApiReferenceDto } from "./dto/search-apireference.dto"
 
 @Controller("apireference")
 export class ApiReferenceController {
@@ -20,10 +19,9 @@ export class ApiReferenceController {
     }
   }
 
-  @Post("getallbyproductname")
-  async getApiReferenceByProductName(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchApiReferenceDto: SearchApiReferenceDto) {
+  @Get("get")
+  async getApiReferenceByProductName(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("productName") productName: string) {
     try {
-      const { productName } = searchApiReferenceDto
       const docList = await this.apireferenceService.getApiReferenceByProductName(productName)
       return { docList }
     }

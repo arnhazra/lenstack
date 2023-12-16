@@ -15,7 +15,7 @@ import { uiConstants } from "@/constants/global-constants"
 export default function Page() {
   const searchParams = useSearchParams()
   const productName = searchParams.get("productName")
-  const apireference = useFetch("apireference", `${endPoints.getapireference}`, HTTPMethods.POST, { productName })
+  const apireference = useFetch("apireference", `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
 
   const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {
     return (
