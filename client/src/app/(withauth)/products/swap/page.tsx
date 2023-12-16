@@ -14,7 +14,7 @@ import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const swapTokenConfig = useFetch("swaptokenconfig", endPoints.swapTokenConfig, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const swapTokenConfig = useFetch("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
   const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "swap")
 

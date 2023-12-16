@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Post, Body } from "@nestjs/common"
+import { BadRequestException, Controller, Post, Body, Get, Query } from "@nestjs/common"
 import { SwapService } from "./swap.service"
 import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -9,10 +9,9 @@ import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authoriz
 export class SwapController {
   constructor(private readonly swapService: SwapService) { }
 
-  @Post("getswaptokenconfig")
-  async getSwapTokenList(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchTokensDto: SearchTokensDto) {
+  @Get("getswaptokenconfig")
+  async getSwapTokenList(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
     try {
-      const { searchQuery } = searchTokensDto
       const swapTokenConfig = await this.swapService.getSwapTokenList(searchQuery)
       return swapTokenConfig
     }
