@@ -2,6 +2,7 @@
 
 ### v4.1
 * Restructure API methods
+* Bug fixes & Performance improvements
 
 ### v4.0
 * UI Overhaul with new design
