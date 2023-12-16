@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
 import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
@@ -40,7 +40,7 @@ export class UserController {
     }
   }
 
-  @Post("/userdetails")
+  @Get("/userdetails")
   async getUserDetails(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       const { user, subscription, workspace, hasActiveSubscription } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)

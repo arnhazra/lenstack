@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
 import { SubscribeDto } from "./dto/subscribe.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -7,7 +7,7 @@ import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/toke
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) { }
 
-  @Post("activatetrial")
+  @Get("activatetrial")
   async activateTrial(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       return this.subscriptionService.activateTrial(uft.userId, uft.workspaceId)
@@ -29,7 +29,7 @@ export class SubscriptionController {
     }
   }
 
-  @Post("getsubscriptionconfig")
+  @Get("getsubscriptionconfig")
   getSubscriptionConfig(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       return this.subscriptionService.getSubscriptionConfig()

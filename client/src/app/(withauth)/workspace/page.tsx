@@ -16,7 +16,7 @@ import toast from "react-hot-toast"
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState(Math.random().toString())
-  const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.POST, {}, true, queryId)
+  const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.GET, {}, true, queryId)
   const { prompt, promptDialog } = usePrompt()
 
   const createWorkspace = async () => {

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, Query, BadRequestException, Get } from "@nestjs/common"
 import { WorkspaceService } from "./workspace.service"
 import { CreateWorkspaceDto } from "./dto/create-workspace.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -20,7 +20,7 @@ export class WorkspaceController {
     }
   }
 
-  @Post("findmyworkspaces")
+  @Get("findmyworkspaces")
   async findMyWorkspaces(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       const myWorkspaces = await this.workspaceService.findMyWorkspaces(uft.userId)
