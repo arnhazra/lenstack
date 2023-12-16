@@ -23,8 +23,8 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const projects = useFetch("projects", endPoints.insightsGetProjects, HTTPMethods.POST, { searchQuery: globalSearchString })
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "insights" })
+  const projects = useFetch("projects", `${endPoints.insightsGetProjects}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
 
   const displayProjects = useCallback(() => {
@@ -38,8 +38,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-          <ProductCard key={project._id} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={project._id}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

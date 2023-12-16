@@ -21,7 +21,7 @@ export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const web3Provider = new Web3(endPoints.signSubscriptionTxGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfig, HTTPMethods.POST)
+  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const router = useRouter()
   const [selectedPlan] = useState("Pro")
   const [isTxProcessing, setTxProcessing] = useState(false)
@@ -33,7 +33,7 @@ export default function Page() {
 
     if (userConsent) {
       try {
-        await axios.post(endPoints.activateTrial)
+        await axios.get(endPoints.activateTrial)
         dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         setDisplayTrialButton(false)
         toast.success(uiConstants.toastSuccess)

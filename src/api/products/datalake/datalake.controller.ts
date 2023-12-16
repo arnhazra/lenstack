@@ -1,15 +1,15 @@
-import { Controller, Post, Body } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query } from "@nestjs/common"
 import { DatalakeService } from "./datalake.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
-import { SearchDatasetDto } from "./dto/search-dataset.dto"
+import { DataAPIDto } from "./dto/data-api.dto"
 
 @Controller("products/datalake")
 export class DatalakeController {
   constructor(private readonly datalakeService: DatalakeService) { }
 
-  @Post("filters")
+  @Get("filters")
   async getDatasetFilters(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       const filterCategories = await this.datalakeService.getDatasetFilters()
@@ -33,10 +33,9 @@ export class DatalakeController {
     }
   }
 
-  @Post("viewdataset")
-  async viewDataset(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
+  @Get("viewdataset")
+  async viewDataset(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
     try {
-      const { datasetId } = searchDatasetDto
       const data = await this.datalakeService.viewDataset(datasetId)
       return data
     }
@@ -46,10 +45,9 @@ export class DatalakeController {
     }
   }
 
-  @Post("findsimilardatasets")
-  async findSimilarDatasets(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
+  @Get("findsimilardatasets")
+  async findSimilarDatasets(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
     try {
-      const { datasetId } = searchDatasetDto
       const similarDatasets = await this.datalakeService.findSimilarDatasets(datasetId)
       return { similarDatasets }
     }
@@ -60,9 +58,9 @@ export class DatalakeController {
   }
 
   @Post("dataapi")
-  async getData(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() searchDatasetDto: SearchDatasetDto) {
+  async getData(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
     try {
-      const { datasetId } = searchDatasetDto
+      const { datasetId } = dataapiDto
       const data = await this.datalakeService.getData(datasetId)
       return { data }
     }

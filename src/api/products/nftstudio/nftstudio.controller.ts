@@ -1,4 +1,4 @@
-import { Controller, Post, BadRequestException, Body } from "@nestjs/common"
+import { Controller, Post, BadRequestException, Body, Get } from "@nestjs/common"
 import { NftstudioService } from "./nftstudio.service"
 import { statusMessages } from "../../../constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -32,7 +32,7 @@ export class NftstudioController {
     }
   }
 
-  @Post("getnftcontractaddress")
+  @Get("getnftcontractaddress")
   getNftContractAddress(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       return this.nftstudioService.getNftContractAddress()

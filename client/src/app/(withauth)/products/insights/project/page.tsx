@@ -11,14 +11,14 @@ import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment } from "react"
-import { Button, Col, Container, Row, Stack, Table } from "react-bootstrap"
+import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero-component"
 import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
 
 export default function Page() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectId")
-  const project = useFetch("view project", `${endPoints.insightsViewProject}?projectId`, HTTPMethods.POST, { projectId }, true)
+  const project = useFetch("view project", `${endPoints.insightsViewProject}?projectId=${projectId}`, HTTPMethods.GET, {}, true)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 

@@ -14,8 +14,8 @@ import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const swapTokenConfig = useFetch("swaptokenconfig", endPoints.swapTokenConfig, HTTPMethods.POST, { searchQuery: globalSearchString })
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "swap" })
+  const swapTokenConfig = useFetch("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "swap")
 
   const displayTokens = useCallback(() => {
@@ -29,8 +29,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-          <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={token.tokenContractAddress}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

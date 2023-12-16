@@ -25,7 +25,7 @@ export default function Page() {
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
-  const swapTokenConfig = useFetch("swaptokenconfig", endPoints.swapTokenConfig, HTTPMethods.POST, { searchQuery: "" })
+  const swapTokenConfig = useFetch("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.swapSignTransactionGateway)
   const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
@@ -172,8 +172,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-          <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={token.tokenContractAddress}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

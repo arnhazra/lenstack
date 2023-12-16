@@ -26,7 +26,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const nftId = searchParams.get("nftId")
-  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.POST)
+  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [selectedNft, setSelectedNft] = useState<any>()
@@ -117,8 +117,8 @@ export default function Page() {
     }
 
     return (
-      <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-        <ProductCard key={nft.id} productCardProps={productCardProps} />
+      <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={nft.id}>
+        <ProductCard productCardProps={productCardProps} />
       </Col>
     )
   })

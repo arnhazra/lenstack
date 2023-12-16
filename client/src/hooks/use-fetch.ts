@@ -11,7 +11,7 @@ export default function useFetch(queryKey: string, queryUrl: string, method: Met
   }
 
   const { error, data, isLoading } = useQuery({
-    queryKey: [queryKey, requestBody, queryId],
+    queryKey: [queryKey, requestBody, queryId, queryUrl],
     queryFn: () => fetchDataFunction(),
     retry: 2,
     retryDelay: 2500,

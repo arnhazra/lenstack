@@ -1,11 +1,9 @@
-import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException } from "@nestjs/common"
+import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException, Get } from "@nestjs/common"
 import { InsightsService } from "./insights.service"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CreateProjectDto } from "./dto/create-project.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
-import { SearchProjectsDto } from "./dto/search-projects.dto"
-import { viewProjectDto } from "./dto/view-project.dto"
 
 @Controller("products/insights")
 export class InsightsController {
@@ -23,10 +21,9 @@ export class InsightsController {
     }
   }
 
-  @Post("getprojects")
-  async getProjects(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchProjectsDto: SearchProjectsDto) {
+  @Get("getprojects")
+  async getProjects(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
     try {
-      const { searchQuery } = searchProjectsDto
       const projects = await this.insightsService.getProjects(uft.workspaceId, searchQuery)
       return { projects }
     }
@@ -36,10 +33,9 @@ export class InsightsController {
     }
   }
 
-  @Post("viewproject")
-  async viewProject(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() viewProjectDto: viewProjectDto) {
+  @Get("viewproject")
+  async viewProject(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("projectId") projectId: string) {
     try {
-      const { projectId } = viewProjectDto
       const { project, analytics } = await this.insightsService.viewProject(uft.workspaceId, projectId)
       return { project, analytics }
     }

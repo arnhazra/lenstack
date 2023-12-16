@@ -20,7 +20,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     if (localStorage.getItem("accessToken")) {
       (async () => {
         try {
-          const response = await axios.post(endPoints.userDetails)
+          const response = await axios.get(endPoints.userDetails)
           const userId = response.data.user._id
           const { email, privateKey, role, trialAvailable, selectedWorkspaceId } = response.data.user
           const { name: selectedWorkspaceName, clientId, clientSecret } = response.data.workspace

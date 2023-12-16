@@ -17,8 +17,8 @@ import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
 export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
-  const dataset = useFetch("view dataset", endPoints.datalakeViewDatasets, HTTPMethods.POST, { datasetId })
-  const similarDatasets = useFetch("similar datasets", endPoints.datalakeFindSimilarDatasets, HTTPMethods.POST, { datasetId })
+  const dataset = useFetch("view dataset", `${endPoints.datalakeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const similarDatasets = useFetch("similar datasets", `${endPoints.datalakeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
 
   const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
     const productCardProps: ProductCardInterface = {
@@ -30,8 +30,8 @@ export default function Page() {
     }
 
     return (
-      <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-        <ProductCard key={dataset._id} productCardProps={productCardProps} />
+      <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={dataset._id}>
+        <ProductCard productCardProps={productCardProps} />
       </Col>
     )
   })

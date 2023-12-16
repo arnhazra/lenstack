@@ -20,8 +20,8 @@ import moment from "moment"
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const router = useRouter()
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: globalSearchString }, true)
-  const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET, {}, true)
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET)
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
@@ -35,8 +35,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={4} className="mb-4">
-          <ProductCard key={product.productName} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={4} className="mb-4" key={product.productName}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

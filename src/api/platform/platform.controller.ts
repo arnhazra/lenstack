@@ -1,16 +1,14 @@
-import { Controller, Post, Body } from "@nestjs/common"
+import { Controller, Get, Query } from "@nestjs/common"
 import { PlatformService } from "./platform.service"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
-import { ProductSearchDto } from "./dto/product-search.dto"
 
 @Controller("platform")
 export class PlatformController {
   constructor(private readonly platformService: PlatformService) { }
 
-  @Post("getproductconfig")
-  async getProductConfig(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() productSearchDto: ProductSearchDto) {
+  @Get("getproductconfig")
+  async getProductConfig(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
     try {
-      const { searchQuery } = productSearchDto
       const products = await this.platformService.getProductConfig(searchQuery)
       return products
     }

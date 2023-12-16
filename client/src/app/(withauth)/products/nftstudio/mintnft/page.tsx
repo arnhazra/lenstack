@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.POST)
+  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()

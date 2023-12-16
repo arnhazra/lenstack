@@ -19,12 +19,12 @@ import Hero from "@/components/hero-component"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.POST)
+  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "nftstudio" })
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "nftstudio")
 
   useEffect(() => {
@@ -64,8 +64,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-          <ProductCard key={nft.id} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={nft.id}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

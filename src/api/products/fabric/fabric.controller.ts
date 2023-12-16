@@ -1,10 +1,9 @@
-import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException } from "@nestjs/common"
+import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException, Get } from "@nestjs/common"
 import { FabricService } from "./fabric.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CreateDbDto } from "./dto/create-db.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
-import { SearchDbsDto } from "./dto/search-dbs.dto"
 import { ViewDbTokenDto } from "./dto/view-db-token.dto"
 import { ViewDbCredentialDto } from "./dto/view-db-credential.dto"
 
@@ -24,10 +23,9 @@ export class FabricController {
     }
   }
 
-  @Post("getmydbs")
-  async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() searchDbsDto: SearchDbsDto) {
+  @Get("getmydbs")
+  async getMyDbs(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
     try {
-      const { searchQuery } = searchDbsDto
       const dbs = await this.fabricService.getMyDbs(uft.workspaceId, searchQuery)
       return { dbs }
     }

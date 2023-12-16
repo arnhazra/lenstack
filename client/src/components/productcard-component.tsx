@@ -1,5 +1,5 @@
 "use client"
-import { Card, Col, Badge } from "react-bootstrap"
+import { Card, Badge } from "react-bootstrap"
 import { ProductCardProps } from "@/types/Types"
 import { useRouter } from "next/navigation"
 
