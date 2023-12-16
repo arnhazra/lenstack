@@ -23,7 +23,7 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const projects = useFetch("projects", endPoints.insightsGetProjects, HTTPMethods.POST, { searchQuery: globalSearchString })
+  const projects = useFetch("projects", `${endPoints.insightsGetProjects}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
   const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
 
