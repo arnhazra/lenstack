@@ -20,8 +20,8 @@ import moment from "moment"
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const router = useRouter()
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: globalSearchString }, true)
-  const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET, {}, true)
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET)
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {

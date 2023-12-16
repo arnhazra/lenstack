@@ -24,7 +24,7 @@ export default function Page() {
   const dbs = useFetch("dbs", endPoints.fabricGetMyDbs, HTTPMethods.POST, { searchQuery: globalSearchString })
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "fabric" })
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 
   const displayDatabases = useCallback(() => {

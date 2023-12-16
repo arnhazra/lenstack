@@ -24,7 +24,7 @@ export default function Page() {
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "nftstudio" })
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "nftstudio")
 
   useEffect(() => {

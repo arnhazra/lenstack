@@ -24,7 +24,7 @@ export default function Page() {
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
   const projects = useFetch("projects", endPoints.insightsGetProjects, HTTPMethods.POST, { searchQuery: globalSearchString })
-  const products = useFetch("get-products", endPoints.getProductConfig, HTTPMethods.POST, { searchQuery: "insights" })
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
 
   const displayProjects = useCallback(() => {
