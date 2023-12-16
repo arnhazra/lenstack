@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from "@nestjs/common"
+import { Controller, Post, Body, Get } from "@nestjs/common"
 import { DatalakeService } from "./datalake.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -9,7 +9,7 @@ import { SearchDatasetDto } from "./dto/search-dataset.dto"
 export class DatalakeController {
   constructor(private readonly datalakeService: DatalakeService) { }
 
-  @Post("filters")
+  @Get("filters")
   async getDatasetFilters(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       const filterCategories = await this.datalakeService.getDatasetFilters()

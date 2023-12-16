@@ -18,7 +18,7 @@ import { uiConstants } from "@/constants/global-constants"
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useFetch("filters", endPoints.datalakeFilters, HTTPMethods.POST)
+  const filters = useFetch("filters", endPoints.datalakeFilters, HTTPMethods.GET)
   const datasets = useFetch("find datasets", endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
   const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
