@@ -35,8 +35,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={4} className="mb-4">
-          <ProductCard key={product.productName} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={4} className="mb-4" key={product.productName}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

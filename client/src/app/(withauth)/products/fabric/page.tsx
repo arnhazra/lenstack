@@ -38,8 +38,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-          <ProductCard key={db._id} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={db._id}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

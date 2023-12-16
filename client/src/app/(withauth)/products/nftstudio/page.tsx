@@ -64,8 +64,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-          <ProductCard key={nft.id} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={nft.id}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })

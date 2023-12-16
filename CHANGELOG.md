@@ -2,6 +2,7 @@
 
 ### v4.1
 * Restructure API methods
+* Fix key warning issue
 * Bug fixes & Performance improvements
 
 ### v4.0

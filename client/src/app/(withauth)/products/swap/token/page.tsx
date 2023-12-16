@@ -172,8 +172,8 @@ export default function Page() {
       }
 
       return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4">
-          <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={token.tokenContractAddress}>
+          <ProductCard productCardProps={productCardProps} />
         </Col>
       )
     })
