@@ -8,12 +8,10 @@ import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/use-fetch"
 import { BellIcon, DashboardIcon } from "@radix-ui/react-icons"
 import moment from "moment"
-import { useRouter } from "next/navigation"
 import { Fragment, useCallback } from "react"
 import { Container } from "react-bootstrap"
 
 export default function Page() {
-  const router = useRouter()
   const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET, {}, true)
 
   const displayActivities = useCallback(() => {

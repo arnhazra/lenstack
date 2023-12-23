@@ -1,4 +1,3 @@
-"use client"
 import Header from "@/components/header-component"
 import { Fragment } from "react"
 

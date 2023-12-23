@@ -1,5 +1,9 @@
 # Changelog
 
+### v5.2.0
+* Migrated layouts & some components to React Server Component Architecture
+* Introduction of new style provider
+
 ### v5.1.0
 * Dashboard changes
 * Dependency updates
