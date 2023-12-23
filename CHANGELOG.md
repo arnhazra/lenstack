@@ -1,6 +1,7 @@
 # Changelog
 
 ### v5.2.0
+* Component specific types introduction
 * Migrated layouts & some components to React Server Component Architecture
 * Introduction of new style provider
 
