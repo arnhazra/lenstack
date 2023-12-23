@@ -4,6 +4,7 @@
 * Component specific types introduction
 * Migrated layouts & some components to React Server Component Architecture
 * Introduction of new style provider
+* Performance Optimization & Code refactoring
 
 ### v5.1.0
 * Dashboard changes
