@@ -4,7 +4,7 @@ import { Container, Navbar, Nav } from "react-bootstrap"
 import Show from "./show-component"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { BellIcon, GearIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
+import { CountdownTimerIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -83,7 +83,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Show when={searchEnabledPathNames.includes(pathname)}>
                   <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Show>
-                <BellIcon className="icon-navbar" onClick={() => router.push("/activities")} />
+                <CountdownTimerIcon className="icon-navbar" onClick={() => router.push("/activity")} />
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>

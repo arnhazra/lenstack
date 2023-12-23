@@ -1,45 +1,48 @@
 # Changelog
 
-### v4.1
+### v5.1.0
+* Dashboard changes
+* Dependency updates
+* Bug fixes & Performance improvements
+
+### v5.0.1
 * Restructure API methods
 * Fix key warning issue
 * Bug fixes & Performance improvements
 
-### v4.0
+### v5.0.0
 * UI Overhaul with new design
 * Introduction of live activities
 * Introduction of Data Quality Standard in Datalake
 * Changed header icon and link positions
-
-### v3.9
 * Minor bug fixes and performance improvements
-
-### v3.8
 * Introduction of new auth layout using Next 14 Route Group Layouts
 * Removed legacy Identity Provider
 
-### v3.7
+### v4.2.0
 * New customized button UI
 * Minor bug fixes and UI Performance improvements
 
-### v3.6
+### v4.1.1
 * Minor bug fixes and performance improvements
 * Code refactoring
-
-### v3.5
 * Generic SensitiveInfoPanel component to use across the app
 * Added credentials by default in workspace instead of subscription
 
-### v3.4
+### v4.1.0
 * Introduction of new Credential authorization with Client Id and Client Secret
 * Braking changes - Deprecation of API Key authorization 
+
+### v4.0.2
 * Modified the prompt modal to accept string values & make more reusable
 * Eliminated the CreateProject Page in Insights & added the functionality in prompt modal
+
+### v4.0.1
 * Eliminated the CreateDatabase Page in Fabric & added the functionality in prompt modal
 * Renamed Insights clientId to projectId and clientSecret to projectPasskey
 * Minor changes and bug fixes
 
-### v3.3
+### v4.0.0
 * Fix header links alignment issue
 * Added wall on products page when user is not subscribed
 * Migrated Redis from AWS to Azure
@@ -50,68 +53,76 @@
 * Moved NPA wallet address to UI Constants
 * Renamed schema and models of products with more generic names
 
-### v3.2
+### v3.3.2
 * Header UI Changes
 * Minor changes & performance improvements
+
+### v3.3.1
 * Minor Bug fixes
 * Headline change on products page
 
-### v3.1
+### v3.3.0
 * Keyboard shortcut for global search
 * Rebranding of Airlake as Datalake
 * Rebranding of Hyperedge as Fabric
 * Rebranding of Frostlake as Insights
-* Rebranding of Edgescan as Ledgerscan
+* Rebranding of Edgescan as Ledgerscan\
+
+### v3.2.0
 * Rebranding of Snowlake as NFT Studio
 * Rebranding of Edgepay as Pay
 * Rebranding of Swapstream as Swap
 * Introduction of new & modern UI
 * Migration of all mongo databases into Azure from AWS & GCP, existing Azure mongo databases remains same
+
+### v3.1.2
 * Product config changes as per new product name standards
 * API reference changes as per new product names
 * Subscription configuration changes
+
+### v3.1.1
 * File naming changes as per new standard
 * Dependency updates & performance improvements
 * Code Refactoring
 
-### v3.0
+### v3.1.0
 * Created DTO for all controllers wherever required to avoid raw data extraction from request body
 * Code refactoring
 * APIReference updates for products API as per new API Routes
 * Braking API Changes - Added products as prefix on each product api
+
+### v3.0.2
 * Replaced Infura with Alchemy Gateway for Swapstream to distribute load
 * Replaced Infura with Quicknode Gateway for Snowlake to distribute load
 * Added Quicknode & Alchemy Web3 Gateway
+
+### v3.0.1
 * Fix search not being displayed on PROD
 * Removed Infura secret from env and merged with infura endpoint api to achieve reusability
 * Minor changes & performance improvements
 
-### v2.9
+### v3.0.0
 * Added useCallback to display search based results for all products and dashboard
 * Removed generic product page
 * Added APIReference module replacing Documentation module
-
-### v2.8
 * Added global search - UI
 * Rebranding of Apps as Products with No Braking API Changes
 * Added similar search feature as Airlake in Dashboard, Frostlake, Hyperedge, Snowlake, Swapstream - API & UI
-
-### v2.7
 * Minor code refactoring
 * UX Improvements
 * Client directory structural changes
 
-### v2.6
+### v2.4.1
 * Fixed issus related to new subscription
 * Fixed minor issues in UI
 
-### v2.5
+### v2.4.0
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory
 * App Category based image for generic app card
 * Move Swapstreamtokenconfig to DB
 
-### v2.4
+### v2.3.0
 * Resolve the problem of automatic subscription deletion upon expiration.
 * Rectify the issue causing the API key to change with every subscription renewal.
 * Incorporate the workspace object within user details for display on the subscription page.
@@ -120,7 +131,7 @@
 * Code optimizations, removed userdetails api call method on subscription & workspace changes
 * Added refreshId to revalidate API and update context
 
-### v2.3
+### v2.2.0
 * Introduction of workspaces
 * Integrated workspaces with UI
 * Removed owner field from app transactions and entities and added workspaceId to separate workspaces
@@ -128,16 +139,16 @@
 * Deprecated getUsageByWorkspaceId api as data is already available in userdetails api
 * Added 2 more parameters in the appstate object
 
-### v2.2
+### v2.1.0
 * Introduction of generic hero component
 * Documentation UI changes
 * New & Modern Dark UI layout for Platform & all app Home Page
 
-### v2.1
+### v2.0.1
 * Fixed framer motion animation issue on header
 * Minor UX imporvements & code refactoring
 
-### v2.0
+### v2.0.0
 * Introduction of Hexscan - Blockchain Analyzer on Polygon Platform
 * Fixed user registration issues
 * Changes in authentication params, no requirements of name
@@ -152,59 +163,55 @@
 * Rebranded Dwallet to Edgepay
 * Implemented significant Performance & Security Enhancements - Eliminated the need for recalculating APIKey dependency from the DB
 * Implemented Minor Enhancements to the Identity Provider
-
-### v1.9
 * Implemented Minor Performance Improvements
 * Enhanced UX for NFT & Image Support on Snowlake
 * Conducted Codebase Refactoring, eliminating unnecessary components
-
-### v1.8
 * Significantly Upgraded Platform API Key Authorizer, enhancing performance and removing the need for API credits calculation
 * Added the remainingCredits field in the subscription to prevent recalculation
+
+### v1.4.2
 * Eliminated the findUsageByAPIkey method from apps
 * Implemented a Global 401 handler on the platform
 
-### v1.7
+### v1.4.1
 * Conducted Major Dependency Upgrades
 * Upgraded Platform Authorization system significantly, enhancing performance
 * Modified error handling with the new Tanstack query
 
-### v1.6
+### v1.4.0
 * Scaled Subscription charges and replaced tokens used with credits
 * Merged Subscription & Usage Module with API Changes
 * Introduced the new key database manager app - Hyperedge
 * Implemented Minor Bug Fixes & Performance Improvements
 
-### v1.5
+### v1.3.0
 * Conducted Major Codebase Refactoring
 * Added Generic Documentation
 * Implemented Breaking API Changes in Airlake Data API
 * Made Minor Visual Enhancements
 
-### v1.4
+### v1.2.0
 * Implemented Major Visual Enhancements
 * Introduced the new Passkey based Identity Provider for IAM replacing the legacy Auth Provider
 * Conducted Bug Fixes on the API key authorizer & optimized the code
 * Introduced AuthProvider, replacing Auth HOC & Auth Page
 
-### v1.3
+### v1.1.1
 * Re-architected the backend APIs with a New Tech Stack, introducing Nest JS to replace Express
 * Introduced Dwallet and Swapstream
 * Implemented a Direct and Faster Ethereum Payment System, removing the dependency on ERC-20
 
-### v1.2
+### v1.1.0
 * Introduced Auth HOC for authorization within the App
 * Implemented Advanced Cache Controls
 * Integrated Frostlake - Analytics Platform (previously a separate app) into the Platform
 * Introduced Auth HOC for authorization within the App
 
-### v1.1
+### v1.0.0
 * Implemented Advanced Cache Controls
 * Changed Technology Stack - Introduced Next JS, replacing CRA
 * Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
 * Introduced a new app, Snowlake - NFT Toolkit, to the Platform
-
-### v1.0
 * Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
 * Introduced subscription & subscription key based on Ethereum payment
 * Integrated Airlake - Dataset Marketplace (previously a separate app) into the Platform
