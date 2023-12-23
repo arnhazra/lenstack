@@ -1,9 +1,12 @@
 "use client"
 import { uiConstants } from "@/constants/global-constants"
-import { ErrorProps } from "@/types/Types"
 import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
+
+interface ErrorProps {
+  customMessage?: string
+}
 
 export default function Error({ customMessage }: ErrorProps) {
   return (

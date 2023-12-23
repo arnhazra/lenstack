@@ -1,4 +1,19 @@
-import { UserState } from "@/types/Types"
+export interface UserState {
+  userId: string
+  privateKey: string
+  email: string
+  role: string
+  selectedPlan: string
+  clientId: string
+  clientSecret: string
+  expiresAt: string
+  trialAvailable: boolean
+  selectedWorkspaceId: string
+  selectedWorkspaceName: string
+  remainingCredits: number | string
+  refreshId: string,
+  hasActiveSubscription: boolean
+}
 
 export type GlobalState = {
   userState: UserState,

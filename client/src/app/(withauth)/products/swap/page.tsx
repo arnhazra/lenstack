@@ -1,6 +1,5 @@
 "use client"
-import ProductCard from "@/components/productcard-component"
-import { ProductCardInterface, TokenData } from "@/types/Types"
+import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/use-fetch"
@@ -11,6 +10,15 @@ import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
 import Hero from "@/components/hero-component"
 import { uiConstants } from "@/constants/global-constants"
+
+export interface TokenData {
+  tokenName: string
+  tokenSymbol: string
+  tokenContractAddress: string
+  vendorContractAddress: string
+  tokensPerMatic: number
+  description: string
+}
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)

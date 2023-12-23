@@ -3,7 +3,6 @@ import Web3 from "web3"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useFetch from "@/hooks/use-fetch"
-import { ProductCardInterface, TokenData } from "@/types/Types"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
@@ -17,8 +16,17 @@ import { tokenABI } from "@/bin/token-abi"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
 import axios from "axios"
-import ProductCard from "@/components/productcard-component"
+import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import Hero from "@/components/hero-component"
+
+interface TokenData {
+  tokenName: string
+  tokenSymbol: string
+  tokenContractAddress: string
+  vendorContractAddress: string
+  tokensPerMatic: number
+  description: string
+}
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)

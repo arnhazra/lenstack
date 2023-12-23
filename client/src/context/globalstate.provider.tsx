@@ -1,7 +1,6 @@
 "use client"
-import { FC, createContext, useCallback, useMemo, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer } from "./globalstate.reducer"
-import { GlobalStateProviderProps, UserState } from "@/types/Types"
+import { ReactNode, createContext, useCallback, useMemo, useReducer } from "react"
+import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState } from "./globalstate.reducer"
 
 export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsMap[Type]>(type: Type,
   ...payload: Payload extends undefined ? [undefined?] : [Payload]) => void
@@ -31,7 +30,7 @@ const initialState: { userState: UserState, globalSearchString: string } = {
 
 export const GlobalContext = createContext<GlobalContextInterface>([initialState, ((): void => undefined)])
 
-export const GlobalStateProvider: FC<GlobalStateProviderProps> = ({ children }) => {
+export function GlobalStateProvider({ children }: { children: ReactNode }) {
   const [state, _dispatch] = useReducer(GlobalReducer, initialState)
   const dispatch: Dispatcher = useCallback((type, ...payload) => {
     _dispatch({ type, payload: payload[0] } as Actions)
