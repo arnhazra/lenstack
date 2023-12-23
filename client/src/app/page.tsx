@@ -1,4 +1,3 @@
-"use client"
 import { uiConstants } from "@/constants/global-constants"
 import Link from "next/link"
 import { CubeIcon } from "@radix-ui/react-icons"

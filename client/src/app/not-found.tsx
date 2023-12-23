@@ -1,9 +1,8 @@
-"use client"
 import { uiConstants } from "@/constants/global-constants"
-import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
 import Header from "@/components/header-component"
+import Link from "next/link"
 
 export default function NotFound() {
   return (
@@ -14,7 +13,7 @@ export default function NotFound() {
         <div className="text-center mb-4">
           <CrossCircledIcon className="icon-large" />
         </div>
-        <Button variant="primary" onClick={() => window.history.back()} className="btn-block mt-2"><ArrowLeftIcon className="icon-left" />Go Back</Button>
+        <Link className="btn btn-primary btn-block" href={"/dashboard"}><ArrowLeftIcon className="icon-left" />Go to Dashboard</Link>
       </div>
     </Fragment>
   )

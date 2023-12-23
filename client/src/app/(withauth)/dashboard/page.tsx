@@ -6,8 +6,7 @@ import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
 import { Col, Container, Row } from "react-bootstrap"
-import { ProductCardInterface } from "@/types/Types"
-import ProductCard from "@/components/productcard-component"
+import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Error from "@/components/error-component"
 import { uiConstants } from "@/constants/global-constants"
@@ -35,7 +34,7 @@ export default function Page() {
     })
 
     return (
-      <Row className="mb-4" key={Math.random().toString()}>
+      <Row className="mb-4">
         <Show when={!!products?.data?.length}>
           {productsToDisplay}
         </Show>

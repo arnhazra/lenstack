@@ -1,7 +1,19 @@
 "use client"
 import { Card, Badge } from "react-bootstrap"
-import { ProductCardProps } from "@/types/Types"
 import { useRouter } from "next/navigation"
+
+export interface ProductCardInterface {
+  headerText: string
+  footerText: string
+  badgeText: string
+  redirectUri: string
+  className: string
+  isDisabled?: boolean
+}
+
+export interface ProductCardProps {
+  productCardProps: ProductCardInterface
+}
 
 export default function ProductCard({ productCardProps }: ProductCardProps) {
   const router = useRouter()

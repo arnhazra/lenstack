@@ -1,6 +1,4 @@
 ## Lenstack
-
-### Introduction
 Lenstack is a comprehensive Software-as-a-Service (SaaS) application. Explore the various applications hosted within this SaaS.
 
 #### Datalake

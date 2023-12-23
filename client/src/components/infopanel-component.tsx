@@ -10,7 +10,7 @@ interface InfoPanelInterface {
 
 export default function InfoPanel({ infoIcon, infoName, infoValue }: InfoPanelInterface) {
   return (
-    <Row className="mt-3 mb-2" key={Math.random().toString()}>
+    <Row className="mt-3 mb-2">
       <Col className="categorycol">
         {infoIcon}
       </Col>

@@ -10,8 +10,7 @@ import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import Hero from "@/components/hero-component"
-import { ProductCardInterface } from "@/types/Types"
-import ProductCard from "@/components/productcard-component"
+import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import usePrompt from "@/hooks/use-prompt"
 import axios from "axios"
@@ -21,9 +20,9 @@ import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const dbs = useFetch("dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
+  const dbs = useFetch("dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
   const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 

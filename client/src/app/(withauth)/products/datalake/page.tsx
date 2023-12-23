@@ -9,11 +9,16 @@ import Show from "@/components/show-component"
 import useFetch from "@/hooks/use-fetch"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { DatasetRequestState, ProductCardInterface } from "@/types/Types"
-import ProductCard from "@/components/productcard-component"
+import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import Hero from "@/components/hero-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
+
+export interface DatasetRequestState {
+  selectedFilter: string
+  selectedSortOption: string
+  offset: number
+}
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
