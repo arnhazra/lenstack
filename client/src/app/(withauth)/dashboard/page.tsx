@@ -34,7 +34,7 @@ export default function Page() {
     })
 
     return (
-      <Row className="mb-4" key={Math.random().toString()}>
+      <Row className="mb-4">
         <Show when={!!products?.data?.length}>
           {productsToDisplay}
         </Show>
