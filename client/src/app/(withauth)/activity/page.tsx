@@ -12,7 +12,7 @@ import { Fragment, useCallback } from "react"
 import { Container } from "react-bootstrap"
 
 export default function Page() {
-  const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET, {}, true)
+  const activities = useFetch("get-activities", endPoints.getAllActivities, HTTPMethods.GET)
 
   const displayActivities = useCallback(() => {
     const activitiesToDisplay = activities?.data?.activities?.slice(0, 6).map((activity: any) => {

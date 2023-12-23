@@ -20,9 +20,9 @@ import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const dbs = useFetch("dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
+  const dbs = useFetch("dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
   const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 

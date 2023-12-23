@@ -18,7 +18,7 @@ import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
 export default function Page() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectId")
-  const project = useFetch("view project", `${endPoints.insightsViewProject}?projectId=${projectId}`, HTTPMethods.GET, {}, true)
+  const project = useFetch("view project", `${endPoints.insightsViewProject}?projectId=${projectId}`, HTTPMethods.GET)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 

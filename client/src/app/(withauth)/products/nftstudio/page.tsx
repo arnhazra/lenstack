@@ -19,11 +19,11 @@ import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "nftstudio")
 
   useEffect(() => {
