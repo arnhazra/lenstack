@@ -11,15 +11,15 @@ import { GlobalContext } from "@/context/globalstate.provider"
 import { nftABI } from "@/bin/nft-abi"
 import moment from "moment"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import Hero from "@/components/hero-component"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
+  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])

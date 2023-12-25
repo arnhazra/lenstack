@@ -5,7 +5,7 @@ import Show from "@/components/show-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useConfirm from "@/hooks/use-confirm"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
@@ -18,7 +18,7 @@ import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
 export default function Page() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectId")
-  const project = useFetch("view project", `${endPoints.insightsViewProject}?projectId=${projectId}`, HTTPMethods.GET)
+  const project = useQuery("view-project", `${endPoints.insightsViewProject}?projectId=${projectId}`, HTTPMethods.GET)
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 

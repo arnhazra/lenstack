@@ -2,7 +2,7 @@
 import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { Badge, Col, Container, Row } from "react-bootstrap"
 import { useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -22,8 +22,8 @@ export interface TokenData {
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const swapTokenConfig = useFetch("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
+  const swapTokenConfig = useQuery("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "swap")
 
   const displayTokens = useCallback(() => {

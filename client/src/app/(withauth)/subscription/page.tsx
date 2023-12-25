@@ -5,7 +5,7 @@ import Show from "@/components/show-component"
 import { toast } from "react-hot-toast"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading-component"
 import moment from "moment"
 import { Button } from "react-bootstrap"
@@ -21,7 +21,7 @@ export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const web3Provider = new Web3(endPoints.signSubscriptionTxGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const pricingDetails = useFetch("pricing", endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const pricingDetails = useQuery("pricing", endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const router = useRouter()
   const [selectedPlan] = useState("Pro")
   const [isTxProcessing, setTxProcessing] = useState(false)

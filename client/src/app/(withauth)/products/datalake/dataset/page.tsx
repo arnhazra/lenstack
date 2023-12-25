@@ -4,7 +4,7 @@ import { Fragment, useCallback } from "react"
 import Loading from "@/components/loading-component"
 import Show from "@/components/show-component"
 import { endPoints } from "@/constants/api-endpoints"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import Error from "@/components/error-component"
 import { useSearchParams } from "next/navigation"
@@ -16,8 +16,8 @@ import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
 export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
-  const dataset = useFetch("view dataset", `${endPoints.datalakeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
-  const similarDatasets = useFetch("similar datasets", `${endPoints.datalakeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const dataset = useQuery("view-dataset", `${endPoints.datalakeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const similarDatasets = useQuery("view-similar-datasets", `${endPoints.datalakeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
 
   const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
     const productCardProps: ProductCardInterface = {

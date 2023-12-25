@@ -10,7 +10,7 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useConfirm from "@/hooks/use-confirm"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { ArchiveIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix-ui/react-icons"
 import moment from "moment"
 import Link from "next/link"
@@ -25,7 +25,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const nftId = searchParams.get("nftId")
-  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [selectedNft, setSelectedNft] = useState<any>()

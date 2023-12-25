@@ -5,7 +5,7 @@ import Show from "@/components/show-component"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading-component"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
@@ -22,8 +22,8 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const projects = useFetch("projects", `${endPoints.insightsGetProjects}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
+  const projects = useQuery("projects", `${endPoints.insightsGetProjects}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
 
   const displayProjects = useCallback(() => {

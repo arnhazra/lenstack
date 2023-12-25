@@ -4,7 +4,7 @@ import Show from "@/components/show-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import Link from "next/link"
 import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()

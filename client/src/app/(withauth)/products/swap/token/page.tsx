@@ -2,7 +2,7 @@
 import Web3 from "web3"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
@@ -33,7 +33,7 @@ export default function Page() {
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
-  const swapTokenConfig = useFetch("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
+  const swapTokenConfig = useQuery("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.swapSignTransactionGateway)
   const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)

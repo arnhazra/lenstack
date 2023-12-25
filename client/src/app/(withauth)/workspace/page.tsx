@@ -5,7 +5,7 @@ import Show from "@/components/show-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import usePrompt from "@/hooks/use-prompt"
 import { KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
 import axios from "axios"
@@ -16,7 +16,7 @@ import toast from "react-hot-toast"
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState(Math.random().toString())
-  const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.GET, {}, queryId)
+  const myWorkspaces = useQuery("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.GET, {}, queryId)
   const { prompt, promptDialog } = usePrompt()
 
   const createWorkspace = async () => {

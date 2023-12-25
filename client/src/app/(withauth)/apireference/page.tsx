@@ -3,7 +3,7 @@ import Show from "@/components/show-component"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import { endPoints, apiHost } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { useSearchParams } from "next/navigation"
 import { Container, Form } from "react-bootstrap"
 import Loading from "@/components/loading-component"
@@ -15,7 +15,7 @@ import { uiConstants } from "@/constants/global-constants"
 export default function Page() {
   const searchParams = useSearchParams()
   const productName = searchParams.get("productName")
-  const apireference = useFetch("apireference", `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
+  const apireference = useQuery("get-apireference", `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
 
   const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {
     return (

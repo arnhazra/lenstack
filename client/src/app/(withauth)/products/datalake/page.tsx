@@ -6,7 +6,7 @@ import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons
 import { Fragment } from "react"
 import Loading from "@/components/loading-component"
 import Show from "@/components/show-component"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
@@ -23,9 +23,9 @@ export interface DatasetRequestState {
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useFetch("filters", endPoints.datalakeFilters, HTTPMethods.GET)
-  const datasets = useFetch("find datasets", endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
+  const filters = useQuery("filters", endPoints.datalakeFilters, HTTPMethods.GET)
+  const datasets = useQuery("find datasets", endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
 
   const displayDatasets = useCallback(() => {
