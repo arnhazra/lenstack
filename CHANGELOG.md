@@ -1,8 +1,13 @@
 # Changelog
 
-### v5.2.0
+### v5.3.0
+* Minor bug fixes and performance improvements
+
+### v5.2.1
 * Component specific types introduction
 * Migrated layouts & some components to React Server Component Architecture
+
+### v5.2.0
 * Introduction of new style provider
 * Performance Optimization & Code refactoring
 

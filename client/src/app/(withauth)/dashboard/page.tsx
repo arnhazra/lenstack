@@ -36,6 +36,7 @@ export default function Page() {
     return (
       <Row className="mb-4">
         <Show when={!!products?.data?.length}>
+          <h4 className="text-white">Explore the experience</h4>
           {productsToDisplay}
         </Show>
         <Show when={!products?.data?.length}>
@@ -49,7 +50,6 @@ export default function Page() {
     <Fragment>
       <Show when={!products.isLoading}>
         <Container>
-          <h4 className="text-white">Explore the experience</h4>
           {displayProducts()}
         </Container>
       </Show>
