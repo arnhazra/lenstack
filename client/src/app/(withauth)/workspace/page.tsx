@@ -47,10 +47,6 @@ export default function Page() {
     }
   }
 
-  const workspacesToDisplay = myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => {
-    return <option className="text-capitalize" key={workspace._id} value={workspace._id}>{workspace.name}</option>
-  })
-
   return (
     <Fragment>
       <Show when={!myWorkspaces.isLoading}>
@@ -59,7 +55,7 @@ export default function Page() {
           <Form.Group controlId="floatingSelectGrid" className="mb-4">
             <Form.Label>Switch Workspace</Form.Label>
             <Form.Select className="text-capitalize" size="lg" defaultValue={userState.selectedWorkspaceId} onChange={(e): void => { switchWorkspace(e.target.value) }}>
-              {workspacesToDisplay}
+              {myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => <option className="text-capitalize" key={workspace._id} value={workspace._id}>{workspace.name}</option>)}
             </Form.Select>
           </Form.Group>
           <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
