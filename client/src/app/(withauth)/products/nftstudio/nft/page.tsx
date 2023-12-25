@@ -15,7 +15,7 @@ import { ArchiveIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix
 import moment from "moment"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment, useContext, useEffect, useState } from "react"
+import { Fragment, useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
@@ -106,21 +106,28 @@ export default function Page() {
     }
   }
 
-  const nftsToDisplay = nftList?.map((nft: any) => {
-    const productCardProps: ProductCardInterface = {
-      badgeText: "NFT",
-      className: "decentralized",
-      headerText: nft.name,
-      footerText: `This NFT was minted by you using NFT Studio on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
-      redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
-    }
+  const displayNfts = useCallback(() => {
+    const nftsToDisplay = nftList?.map((nft: any) => {
+      const productCardProps: ProductCardInterface = {
+        badgeText: "NFT",
+        className: "decentralized",
+        headerText: nft.name,
+        footerText: `This NFT was minted by you using NFT Studio on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
+      }
+
+      return <ProductCard productCardProps={productCardProps} />
+    })
 
     return (
-      <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={nft.id}>
-        <ProductCard productCardProps={productCardProps} />
-      </Col>
+      <Fragment>
+        <h4 className="text-white">Other NFTs in my collection</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {nftsToDisplay}
+        </Row>
+      </Fragment>
     )
-  })
+  }, [nftList])
 
   useEffect(() => {
     const verifyImage = (url: string): Promise<boolean> => {
@@ -169,10 +176,7 @@ export default function Page() {
                 </Col>
               </Row>
             </Hero>
-            <Row>
-              <h4 className="text-white">Other NFTs in my collection</h4>
-              {nftsToDisplay}
-            </Row>
+            {displayNfts()}
           </Container>
         </Show>
         <Show when={hasError}>

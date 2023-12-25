@@ -62,23 +62,21 @@ export default function Page() {
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={nft.id}>
-          <ProductCard productCardProps={productCardProps} />
-        </Col>
-      )
+      return <ProductCard productCardProps={productCardProps} />
     })
 
     return (
-      <Row className="mt-2 mb-2">
+      <Fragment>
         <Show when={!!nftsToDisplay?.length}>
           <h4 className="text-white">My Collection</h4>
-          {nftsToDisplay}
+          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+            {nftsToDisplay}
+          </Row>
         </Show >
         <Show when={!nftsToDisplay?.length}>
           <h4 className="text-white">No NFTs to display</h4>
         </Show>
-      </Row>
+      </Fragment>
     )
   }, [globalSearchString, nftList])
 

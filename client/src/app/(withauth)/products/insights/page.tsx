@@ -2,7 +2,7 @@
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api-endpoints"
 import Show from "@/components/show-component"
-import { Badge, Button, Col, Container, Row } from "react-bootstrap"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading-component"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
@@ -36,23 +36,21 @@ export default function Page() {
         redirectUri: `/products/insights/project?projectId=${project._id}`
       }
 
-      return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={project._id}>
-          <ProductCard productCardProps={productCardProps} />
-        </Col>
-      )
+      return <ProductCard productCardProps={productCardProps} />
     })
 
     return (
-      <Row className="mt-2 mb-2">
+      <Fragment>
         <Show when={!!projects?.data?.projects?.length}>
-          <h4 className="text-white">Projects</h4>
-          {projectsToDisplay}
+          <h4 className="text-white">My Projects</h4>
+          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+            {projectsToDisplay}
+          </Row>
         </Show >
         <Show when={!projects?.data?.projects?.length}>
           <h4 className="text-white">No Projects to display</h4>
         </Show>
-      </Row>
+      </Fragment>
     )
   }, [projects?.data])
 

@@ -1,5 +1,5 @@
 "use client"
-import { Badge, Col, Container, Row } from "react-bootstrap"
+import { Badge, Container, Row } from "react-bootstrap"
 import { Fragment, useCallback } from "react"
 import Loading from "@/components/loading-component"
 import Show from "@/components/show-component"
@@ -19,27 +19,28 @@ export default function Page() {
   const dataset = useQuery("view-dataset", `${endPoints.datalakeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
   const similarDatasets = useQuery("view-similar-datasets", `${endPoints.datalakeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
 
-  const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
-    const productCardProps: ProductCardInterface = {
-      badgeText: dataset.category,
-      className: "centralized",
-      headerText: dataset.name,
-      footerText: `${dataset.description.slice(0, 110)}...`,
-      redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
-    }
+  const displaySimilarDatasets = useCallback(() => {
+    const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
+      const productCardProps: ProductCardInterface = {
+        badgeText: dataset.category,
+        className: "centralized",
+        headerText: dataset.name,
+        footerText: `${dataset.description.slice(0, 110)}...`,
+        redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
+      }
+
+      return <ProductCard productCardProps={productCardProps} />
+    })
 
     return (
-      <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={dataset._id}>
-        <ProductCard productCardProps={productCardProps} />
-      </Col>
+      <Fragment>
+        <h4 className="text-white">Similar Datasets</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {similarDatasetsToDisplay}
+        </Row>
+      </Fragment>
     )
-  })
-
-  const datasetTagsToDisplay = dataset?.data?.description?.split(" ").slice(0, 30).map((item: string, index: number) => {
-    if (item.length > 4) {
-      return <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={index}>{item}</Badge>
-    }
-  })
+  }, [similarDatasets?.data])
 
   const datasetQuality = useCallback(() => {
     const rating = dataset?.data?.rating
@@ -56,6 +57,16 @@ export default function Page() {
     }
   }, [dataset?.data?.rating])
 
+  const displayDatasetTags = useCallback(() => {
+    const datasetTagsToDisplay = dataset?.data?.description?.split(" ").slice(0, 30).map((item: string, index: number) => {
+      if (item.length > 4) {
+        return <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={index}>{item}</Badge>
+      }
+    })
+
+    return datasetTagsToDisplay
+  }, [dataset?.data?.description])
+
   return (
     <Fragment>
       <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
@@ -66,13 +77,10 @@ export default function Page() {
               <p className="lead">{dataset?.data?.category}</p>
               {datasetQuality()}
               <p className="muted-text mt-3">{dataset?.data?.description}</p>
-              <div className="mb-4">{datasetTagsToDisplay}</div>
+              <div className="mb-4">{displayDatasetTags()}</div>
               <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
             </Hero>
-            <Row>
-              <h4 className="text-white">Similar Datasets</h4>
-              {similarDatasetsToDisplay}
-            </Row>
+            {displaySimilarDatasets()}
           </Container>
         </Show>
         <Show when={!!dataset.error || !datasetId}>
