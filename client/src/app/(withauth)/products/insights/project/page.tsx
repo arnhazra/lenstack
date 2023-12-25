@@ -10,7 +10,7 @@ import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment } from "react"
+import { Fragment, useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero-component"
 import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
@@ -33,6 +33,26 @@ export default function Page() {
       </tr>
     )
   })
+
+  const displayAnalytics = useCallback(() => {
+    const analyticsToDisplay = project?.data?.analytics?.map((ant: any) => {
+      return (
+        <tr key={ant._id}>
+          <td>{ant.component}</td>
+          <td>{ant.event}</td>
+          <td>{ant.info}</td>
+          <td>{ant.statusCode}</td>
+          <td>{moment(ant.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
+        </tr>
+      )
+    })
+
+    return (
+      <tbody>
+        {analyticsToDisplay}
+      </tbody>
+    )
+  }, [project?.data])
 
   const deleteProject = async () => {
     const userConsent = await confirm("Are you sure to delete this project?")
@@ -67,9 +87,7 @@ export default function Page() {
                     <th>Date</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {analyticsToDisplay}
-                </tbody>
+                {displayAnalytics()}
               </Table>
             </Show>
             {confirmDialog()}

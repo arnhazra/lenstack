@@ -9,7 +9,7 @@ import useQuery from "@/hooks/use-query"
 import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment } from "react"
+import { Fragment, useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero-component"
 import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
@@ -21,14 +21,22 @@ export default function Page() {
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
-  const kvsToDisplay = db?.data?.kvs?.map((kv: any) => {
+  const displayKvs = useCallback(() => {
+    const kvsToDisplay = db?.data?.kvs?.map((kv: any) => {
+      return (
+        <tr key={kv._id}>
+          <td>{kv.key}</td>
+          <td>{kv.value}</td>
+        </tr>
+      )
+    })
+
     return (
-      <tr key={kv._id}>
-        <td>{kv.key}</td>
-        <td>{kv.value}</td>
-      </tr>
+      <tbody>
+        {kvsToDisplay}
+      </tbody>
     )
-  })
+  }, [db?.data])
 
   const deleteDb = async () => {
     const userConsent = await confirm("Are you sure to delete this db?")
@@ -60,9 +68,7 @@ export default function Page() {
                     <th>Value</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {kvsToDisplay}
-                </tbody>
+                {displayKvs()}
               </Table>
             </Show>
             {confirmDialog()}
