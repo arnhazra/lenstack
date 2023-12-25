@@ -11,15 +11,15 @@ import { GlobalContext } from "@/context/globalstate.provider"
 import { nftABI } from "@/bin/nft-abi"
 import moment from "moment"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import Hero from "@/components/hero-component"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useFetch("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
+  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
@@ -62,23 +62,21 @@ export default function Page() {
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={nft.id}>
-          <ProductCard productCardProps={productCardProps} />
-        </Col>
-      )
+      return <ProductCard productCardProps={productCardProps} />
     })
 
     return (
-      <Row className="mt-2 mb-2">
+      <Fragment>
         <Show when={!!nftsToDisplay?.length}>
           <h4 className="text-white">My Collection</h4>
-          {nftsToDisplay}
+          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+            {nftsToDisplay}
+          </Row>
         </Show >
         <Show when={!nftsToDisplay?.length}>
           <h4 className="text-white">No NFTs to display</h4>
         </Show>
-      </Row>
+      </Fragment>
     )
   }, [globalSearchString, nftList])
 

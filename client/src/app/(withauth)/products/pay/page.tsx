@@ -6,7 +6,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useContext, useState } from "react"
@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
 export default function Page() {
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=pay`, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=pay`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "pay")
   const web3Provider = new Web3(endPoints.paySignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)

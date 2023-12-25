@@ -5,7 +5,7 @@ import Show from "@/components/show-component"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { RocketIcon, ReaderIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import Link from "next/link"
@@ -18,7 +18,7 @@ import "react-json-view-lite/dist/index.css"
 export default function Page() {
   const [api, setApi] = useState("")
   const [response, setReseponse] = useState({})
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=ledgerscan`, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=ledgerscan`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "ledgerscan")
   const [isLoading, setLoading] = useState(false)
 

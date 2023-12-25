@@ -2,9 +2,9 @@
 import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
-import { Badge, Col, Container, Row } from "react-bootstrap"
-import { useCallback, useContext } from "react"
+import useQuery from "@/hooks/use-query"
+import { Badge, Container, Row } from "react-bootstrap"
+import { Fragment, useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
@@ -22,8 +22,8 @@ export interface TokenData {
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const swapTokenConfig = useFetch("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
+  const swapTokenConfig = useQuery("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "swap")
 
   const displayTokens = useCallback(() => {
@@ -36,23 +36,21 @@ export default function Page() {
         redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
-      return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={token.tokenContractAddress}>
-          <ProductCard productCardProps={productCardProps} />
-        </Col>
-      )
+      return <ProductCard productCardProps={productCardProps} />
     })
 
     return (
-      <Row className="mt-2 mb-2">
+      <Fragment>
         <Show when={!!swapTokenConfig?.data?.length}>
-          <h4 className="text-white">ERC-20 Tokens</h4>
-          {tokensToDisplay}
+          <h4 className="text-white">Explore ERC-20 Tokens</h4>
+          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+            {tokensToDisplay}
+          </Row>
         </Show >
         <Show when={!swapTokenConfig?.data?.length}>
           <h4 className="text-white">No ERC-20 Tokens to display</h4>
         </Show>
-      </Row>
+      </Fragment>
     )
   }, [swapTokenConfig?.data])
 

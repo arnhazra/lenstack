@@ -5,7 +5,7 @@ import Show from "@/components/show-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import usePrompt from "@/hooks/use-prompt"
 import { KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
 import axios from "axios"
@@ -16,7 +16,7 @@ import toast from "react-hot-toast"
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState(Math.random().toString())
-  const myWorkspaces = useFetch("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.GET, {}, queryId)
+  const myWorkspaces = useQuery("my workspaces", endPoints.findMyWorkspaces, HTTPMethods.GET, {}, queryId)
   const { prompt, promptDialog } = usePrompt()
 
   const createWorkspace = async () => {
@@ -47,10 +47,6 @@ export default function Page() {
     }
   }
 
-  const workspacesToDisplay = myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => {
-    return <option className="text-capitalize" key={workspace._id} value={workspace._id}>{workspace.name}</option>
-  })
-
   return (
     <Fragment>
       <Show when={!myWorkspaces.isLoading}>
@@ -59,7 +55,7 @@ export default function Page() {
           <Form.Group controlId="floatingSelectGrid" className="mb-4">
             <Form.Label>Switch Workspace</Form.Label>
             <Form.Select className="text-capitalize" size="lg" defaultValue={userState.selectedWorkspaceId} onChange={(e): void => { switchWorkspace(e.target.value) }}>
-              {workspacesToDisplay}
+              {myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => <option className="text-capitalize" key={workspace._id} value={workspace._id}>{workspace.name}</option>)}
             </Form.Select>
           </Form.Group>
           <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />

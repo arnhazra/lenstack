@@ -5,11 +5,11 @@ import Show from "@/components/show-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useConfirm from "@/hooks/use-confirm"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment } from "react"
+import { Fragment, useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero-component"
 import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
@@ -17,18 +17,26 @@ import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
 export default function Page() {
   const searchParams = useSearchParams()
   const dbId = searchParams.get("dbId")
-  const db = useFetch("view db", `${endPoints.fabricViewDb}`, HTTPMethods.POST, { dbId })
+  const db = useQuery("view-db", `${endPoints.fabricViewDb}`, HTTPMethods.POST, { dbId })
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
-  const kvsToDisplay = db?.data?.kvs?.map((kv: any) => {
+  const displayKvs = useCallback(() => {
+    const kvsToDisplay = db?.data?.kvs?.map((kv: any) => {
+      return (
+        <tr key={kv._id}>
+          <td>{kv.key}</td>
+          <td>{kv.value}</td>
+        </tr>
+      )
+    })
+
     return (
-      <tr key={kv._id}>
-        <td>{kv.key}</td>
-        <td>{kv.value}</td>
-      </tr>
+      <tbody>
+        {kvsToDisplay}
+      </tbody>
     )
-  })
+  }, [db?.data])
 
   const deleteDb = async () => {
     const userConsent = await confirm("Are you sure to delete this db?")
@@ -60,9 +68,7 @@ export default function Page() {
                     <th>Value</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {kvsToDisplay}
-                </tbody>
+                {displayKvs()}
               </Table>
             </Show>
             {confirmDialog()}

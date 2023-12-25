@@ -2,10 +2,10 @@
 import Web3 from "web3"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import usePrompt from "@/hooks/use-prompt"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -33,7 +33,7 @@ export default function Page() {
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
-  const swapTokenConfig = useFetch("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
+  const swapTokenConfig = useQuery("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.swapSignTransactionGateway)
   const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
@@ -169,22 +169,29 @@ export default function Page() {
     }
   }
 
-  const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
-    .map((token: TokenData) => {
-      const productCardProps: ProductCardInterface = {
-        badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
-        className: "decentralized",
-        headerText: token.tokenName,
-        footerText: token.description,
-        redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
-      }
+  const displayOtherTokens = useCallback(() => {
+    const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
+      .map((token: TokenData) => {
+        const productCardProps: ProductCardInterface = {
+          badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
+          className: "decentralized",
+          headerText: token.tokenName,
+          footerText: token.description,
+          redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
+        }
 
-      return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={token.tokenContractAddress}>
-          <ProductCard productCardProps={productCardProps} />
-        </Col>
-      )
-    })
+        return <ProductCard productCardProps={productCardProps} />
+      })
+
+    return (
+      <Row>
+        <h4 className="text-white">Other Tokens</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {tokensToDisplay}
+        </Row>
+      </Row>
+    )
+  }, [swapTokenConfig?.data, tokenAddress])
 
   return (
     <Container>
@@ -207,10 +214,7 @@ export default function Page() {
             <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
           </Button>
         </Hero>
-        <Row>
-          <h4 className="text-white">Other Tokens</h4>
-          {tokensToDisplay}
-        </Row>
+        {displayOtherTokens()}
       </Show>
       <Show when={swapTokenConfig.isLoading}>
         <Loading />

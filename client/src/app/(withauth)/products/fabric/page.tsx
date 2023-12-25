@@ -2,10 +2,10 @@
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api-endpoints"
 import Show from "@/components/show-component"
-import { Badge, Button, Col, Container, Row } from "react-bootstrap"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading-component"
 import HTTPMethods from "@/constants/http-methods"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
@@ -22,8 +22,8 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const dbs = useFetch("dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
+  const dbs = useQuery("get-dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 
   const displayDatabases = useCallback(() => {
@@ -36,23 +36,21 @@ export default function Page() {
         redirectUri: `/products/fabric/database?dbId=${db._id}`
       }
 
-      return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={db._id}>
-          <ProductCard productCardProps={productCardProps} />
-        </Col>
-      )
+      return <ProductCard productCardProps={productCardProps} />
     })
 
     return (
-      <Row className="mt-2 mb-2">
+      <Fragment>
         <Show when={!!dbs?.data?.dbs?.length}>
           <h4 className="text-white">My Databases</h4>
-          {dbsToDisplay}
+          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+            {dbsToDisplay}
+          </Row>
         </Show >
         <Show when={!dbs?.data?.dbs?.length}>
           <h4 className="text-white">No Databases to display</h4>
         </Show>
-      </Row>
+      </Fragment>
     )
   }, [dbs?.data])
 

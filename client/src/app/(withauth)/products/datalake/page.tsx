@@ -1,12 +1,12 @@
 "use client"
-import { useCallback, useContext, useState } from "react"
+import { useCallback, useContext, useMemo, useState } from "react"
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
 import Link from "next/link"
 import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
 import Loading from "@/components/loading-component"
 import Show from "@/components/show-component"
-import useFetch from "@/hooks/use-fetch"
+import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
@@ -23,43 +23,10 @@ export interface DatasetRequestState {
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useFetch("filters", endPoints.datalakeFilters, HTTPMethods.GET)
-  const datasets = useFetch("find datasets", endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
-  const products = useFetch("get-products", `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
+  const filters = useQuery("filters", endPoints.datalakeFilters, HTTPMethods.GET)
+  const datasets = useQuery("find datasets", endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
-
-  const displayDatasets = useCallback(() => {
-    const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
-      const productCardProps: ProductCardInterface = {
-        badgeText: dataset.category,
-        className: "centralized",
-        headerText: dataset.name,
-        footerText: `${dataset.description.slice(0, 110)}...`,
-        redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
-      }
-      return (
-        <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={dataset._id}>
-          <ProductCard productCardProps={productCardProps} />
-        </Col>
-      )
-    })
-
-    return (
-      <Row className="mt-2 mb-2">
-        <Show when={!!datasets?.data?.datasets.length}>
-          <h4 className="text-white">Datasets</h4>
-          {datasetsToDisplay}
-        </Show>
-        <Show when={!datasets?.data?.datasets.length}>
-          <h4 className="text-white">No Datasets to display</h4>
-        </Show>
-      </Row>
-    )
-  }, [datasets?.data])
-
-  const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
-    return <option className="options" key={category} value={category}>{category}</option>
-  })
 
   const prevPage = () => {
     const prevDatasetReqNumber = datasetRequestState.offset - 36
@@ -73,6 +40,68 @@ export default function Page() {
     window.scrollTo(0, 0)
   }
 
+  const displayDatasets = useCallback(() => {
+    const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
+      const productCardProps: ProductCardInterface = {
+        badgeText: dataset.category,
+        className: "centralized",
+        headerText: dataset.name,
+        footerText: `${dataset.description.slice(0, 110)}...`,
+        redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
+      }
+
+      return <ProductCard productCardProps={productCardProps} />
+    })
+
+    return (
+      <Fragment>
+        <Show when={!!datasets?.data?.datasets.length}>
+          <h4 className="text-white">Explore the datasets</h4>
+          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+            {datasetsToDisplay}
+          </Row>
+        </Show>
+        <Show when={!datasets?.data?.datasets.length}>
+          <h4 className="text-white">No Datasets to display</h4>
+        </Show>
+      </Fragment>
+    )
+  }, [datasets?.data])
+
+  const displayFilterCategories = useCallback(() => {
+    const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
+      return <option className="options" key={category} value={category}>{category}</option>
+    })
+
+    return (
+      <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+        <Form.Group controlId="floatingSelectGrid">
+          <Form.Label>Select Filter Category</Form.Label>
+          <Form.Select size="lg" defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: e.target.value, offset: 0 })}>
+            {filterCategoriesToDisplay}
+          </Form.Select>
+        </Form.Group>
+      </Col>
+    )
+  }, [filters?.data, datasetRequestState])
+
+  const displaySortOptions = useMemo(() => {
+    return (
+      <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+        <Form.Group controlId="floatingSelectGrid">
+          <Form.Label>Sort By</Form.Label>
+          <Form.Select size="lg" defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: e.target.value })}>
+            <option className="options" key={"nameAscending"} value={"name"}>Name Ascending</option>
+            <option className="options" key={"nameDescending"} value={"-name"}>Name Descending</option>
+            <option className="options" key={"freshness"} value={"-_id"}>Freshness</option>
+            <option className="options" key={"popularityRatingAscending"} value={"-rating"}>More Popular</option>
+            <option className="options" key={"popularityRatingDescending"} value={"rating"}>Less Popular</option>
+          </Form.Select>
+        </Form.Group>
+      </Col>
+    )
+  }, [datasetRequestState])
+
   return (
     <Fragment>
       <Show when={!datasets.isLoading && !filters.isLoading && !products.isLoading}>
@@ -85,26 +114,8 @@ export default function Page() {
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
             <Row className="g-2">
-              <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                <Form.Group controlId="floatingSelectGrid">
-                  <Form.Label>Select Filter Category</Form.Label>
-                  <Form.Select size="lg" defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: e.target.value, offset: 0 })}>
-                    {filterCategoriesToDisplay}
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-              <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                <Form.Group controlId="floatingSelectGrid">
-                  <Form.Label>Sort By</Form.Label>
-                  <Form.Select size="lg" defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: e.target.value })}>
-                    <option className="options" key={"nameAscending"} value={"name"}>Name Ascending</option>
-                    <option className="options" key={"nameDescending"} value={"-name"}>Name Descending</option>
-                    <option className="options" key={"freshness"} value={"-_id"}>Freshness</option>
-                    <option className="options" key={"popularityRatingAscending"} value={"-rating"}>More Popular</option>
-                    <option className="options" key={"popularityRatingDescending"} value={"rating"}>Less Popular</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
+              {displayFilterCategories()}
+              {displaySortOptions}
             </Row>
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
               <ReaderIcon className="icon-left" />API Reference
