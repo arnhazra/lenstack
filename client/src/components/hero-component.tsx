@@ -1,4 +1,3 @@
-"use client"
 import { ReactNode } from "react"
 
 export default function Hero({ children }: { children: ReactNode }) {

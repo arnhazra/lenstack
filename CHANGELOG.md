@@ -1,14 +1,17 @@
 # Changelog
 
+### v5.3.1
+* Migratred some more components into RSC architecture
+
 ### v5.3.0
 * Bug fixes and performance improvements
 * Fixed all activity not displayed issue
-* Migrated some more components to React Server Component Architecture
+* Migrated some more components to RSC Architecture
 * Introduction of useCallback and useMemo hook for rendering lists and cards in all components
 
 ### v5.2.1
 * Component specific types introduction
-* Migrated layouts & some components to React Server Component Architecture
+* Migrated layouts & some components to RSC Architecture
 
 ### v5.2.0
 * Introduction of new style provider
