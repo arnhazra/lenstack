@@ -1,4 +1,3 @@
-"use client"
 import { ReactNode } from "react"
 import { Col, Row } from "react-bootstrap"
 
