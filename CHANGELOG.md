@@ -1,5 +1,8 @@
 # Changelog
 
+### v5.3.2
+* Node Dependency updates
+
 ### v5.3.1
 * Migratred some more components into RSC architecture
 
