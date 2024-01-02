@@ -7,5 +7,6 @@ export default function getActivityDescription(url: string): string {
   if (matchingKey) {
     return activityConfig[matchingKey]
   }
+
   return defaultDescription
 }

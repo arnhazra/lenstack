@@ -1,8 +1,4 @@
-type ActivityConfig = {
-  [key: string]: string
-}
-
-export const activityConfig: ActivityConfig = {
+export const activityConfig: Record<string, string> = {
   "/api/workspace/create": "Create Workspace",
   "/api/workspace/switch": "Switch Workspace",
   "/api/subscription/activatetrial": "Activate Trial Plan",

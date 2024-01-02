@@ -8,22 +8,18 @@ export interface SubscriptionConfigType {
   pro: CreditType
 }
 
-interface APIPricingType {
-  [key: string]: number
-}
-
 export const subscriptionConfig: SubscriptionConfigType = {
   trial: {
     price: 0,
     grantedCredits: 10000
   },
   pro: {
-    price: 1.99,
+    price: 0.09,
     grantedCredits: 50000
   }
 }
 
-export const apiPricing: APIPricingType = {
+export const apiPricing: Record<string, number> = {
   datalake: 3,
   pay: 5,
   insights: 3,

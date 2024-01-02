@@ -1,7 +1,7 @@
 import { config } from "dotenv"
 config()
 
-export const envConfig = {
+export const envConfig: Record<string, any> = {
   nodeEnv: process.env.NODE_ENV,
   apiPort: process.env.API_PORT,
   platformDbUri: process.env.PLATFORM_DB_URI,

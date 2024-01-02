@@ -59,6 +59,7 @@ export class SubscriptionService {
         }
 
         else {
+          await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
           await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan)
           return true
         }
@@ -70,6 +71,7 @@ export class SubscriptionService {
     }
 
     catch (error) {
+      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

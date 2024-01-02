@@ -45,15 +45,15 @@ export default function Page() {
   const datasetQuality = useCallback(() => {
     const rating = dataset?.data?.rating
     if (rating > 4.5) {
-      return <Badge className="gold-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key="gold"><BookmarkIcon className="icon-left" />Gold</Badge>
+      return <Badge className="gold-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"gold"}><BookmarkIcon className="icon-left" />Gold</Badge>
     }
 
     else if (rating > 4.0 && rating < 4.5) {
-      return <Badge className="silver-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key="silver"><BookmarkIcon className="icon-left" />Silver</Badge>
+      return <Badge className="silver-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"silver"}><BookmarkIcon className="icon-left" />Silver</Badge>
     }
 
     else {
-      return <Badge className="bronze-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key="bronze"><BookmarkIcon className="icon-left" />Bronze</Badge >
+      return <Badge className="bronze-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"bronze"}><BookmarkIcon className="icon-left" />Bronze</Badge >
     }
   }, [dataset?.data?.rating])
 

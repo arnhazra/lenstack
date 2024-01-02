@@ -22,18 +22,6 @@ export default function Page() {
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 
-  const analyticsToDisplay = project?.data?.analytics?.map((ant: any) => {
-    return (
-      <tr key={ant._id}>
-        <td>{ant.component}</td>
-        <td>{ant.event}</td>
-        <td>{ant.info}</td>
-        <td>{ant.statusCode}</td>
-        <td>{moment(ant.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
-      </tr>
-    )
-  })
-
   const displayAnalytics = useCallback(() => {
     const analyticsToDisplay = project?.data?.analytics?.map((ant: any) => {
       return (
