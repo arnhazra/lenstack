@@ -36,7 +36,7 @@ export default function Page() {
         redirectUri: `/products/fabric/database?dbId=${db._id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <ProductCard key={db._id} productCardProps={productCardProps} />
     })
 
     return (

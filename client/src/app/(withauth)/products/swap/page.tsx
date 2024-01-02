@@ -36,7 +36,7 @@ export default function Page() {
         redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
     })
 
     return (

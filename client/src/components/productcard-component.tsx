@@ -16,7 +16,7 @@ export interface ProductCardProps {
 
 export default function ProductCard({ productCardProps }: ProductCardProps) {
   return (
-    <Col className="mb-4" key={productCardProps.redirectUri}>
+    <Col className="mb-4">
       <Link href={productCardProps.redirectUri}>
         <Card className={`product-card-${productCardProps.className.toLowerCase()}`}>
           <Badge bg="light" className="position-absolute mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{productCardProps.badgeText}</Badge>

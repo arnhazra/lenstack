@@ -62,7 +62,7 @@ export default function Page() {
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <ProductCard key={nft.id} productCardProps={productCardProps} />
     })
 
     return (

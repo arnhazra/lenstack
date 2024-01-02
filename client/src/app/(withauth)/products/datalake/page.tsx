@@ -50,7 +50,7 @@ export default function Page() {
         redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <ProductCard key={dataset._id} productCardProps={productCardProps} />
     })
 
     return (

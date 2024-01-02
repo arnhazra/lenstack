@@ -36,7 +36,7 @@ export default function Page() {
         redirectUri: `/products/insights/project?projectId=${project._id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <ProductCard key={project._id} productCardProps={productCardProps} />
     })
 
     return (

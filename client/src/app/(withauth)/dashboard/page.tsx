@@ -25,7 +25,7 @@ export default function Page() {
         isDisabled: product.productStatus !== "Available"
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <ProductCard key={product.productName} productCardProps={productCardProps} />
     })
 
     return (
