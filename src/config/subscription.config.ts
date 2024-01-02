@@ -14,7 +14,7 @@ export const subscriptionConfig: SubscriptionConfigType = {
     grantedCredits: 10000
   },
   pro: {
-    price: 0.09,
+    price: 1.99,
     grantedCredits: 50000
   }
 }
