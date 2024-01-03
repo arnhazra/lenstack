@@ -1,14 +1,14 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { CreateApiReferenceDto } from "./dto/create-apireference.dto"
-import createAPIReference from "./commands/create-apireference.command"
-import findAPIReferencesByProductName from "./queries/find-apireferences"
+import { createAPIReferenceCommand } from "./commands/create-apireference.command"
+import { findAPIReferencesByProductNameQuery } from "./queries/find-apireferences"
 
 @Injectable()
 export class ApiReferenceService {
   async createApiReference(createApiReferenceDto: CreateApiReferenceDto) {
     try {
       const { productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody } = createApiReferenceDto
-      await createAPIReference(productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody)
+      await createAPIReferenceCommand(productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody)
       return true
     }
 
@@ -19,7 +19,7 @@ export class ApiReferenceService {
 
   async getApiReferenceByProductName(productName: string) {
     try {
-      const docList = await findAPIReferencesByProductName(productName)
+      const docList = await findAPIReferencesByProductNameQuery(productName)
       return docList
     }
 

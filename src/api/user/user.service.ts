@@ -12,9 +12,9 @@ import { SubscriptionModel } from "../subscription/entities/subscription.entity"
 import { statusMessages } from "src/constants/status-messages"
 import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
-import findWorkspaceById from "../workspace/queries/find-workspace-by-id.query"
-import createWorkspace from "../workspace/commands/create-workspace.command"
-import findMyWorkspaces from "../workspace/queries/find-workspaces.query"
+import { findWorkspaceByIdQuery } from "../workspace/queries/find-workspace-by-id.query"
+import { createWorkspaceCommand } from "../workspace/commands/create-workspace.command"
+import { findMyWorkspacesQuery } from "../workspace/queries/find-workspaces.query"
 
 @Injectable()
 export class UserService {
@@ -49,10 +49,10 @@ export class UserService {
 
         if (user) {
           const redisAccessToken = await getTokenFromRedis(user.id)
-          const workspaceCount = (await findMyWorkspaces(user.id)).length
+          const workspaceCount = (await findMyWorkspacesQuery(user.id)).length
 
           if (!workspaceCount) {
-            const workspace = await createWorkspace("Default Workspace", user.id)
+            const workspace = await createWorkspaceCommand("Default Workspace", user.id)
             await this.userRepository.findUserByIdAndUpdateSelectedWorkspace(user.id, workspace.id)
           }
 
@@ -72,7 +72,7 @@ export class UserService {
         else {
           const { privateKey } = this.web3Provider.eth.accounts.create()
           const newUser = await this.userRepository.createNewUser({ email, privateKey })
-          const workspace = await createWorkspace("Default Workspace", newUser.id)
+          const workspace = await createWorkspaceCommand("Default Workspace", newUser.id)
           await this.userRepository.findUserByIdAndUpdateSelectedWorkspace(newUser.id, workspace.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
@@ -96,7 +96,7 @@ export class UserService {
       const user = await this.userRepository.findUserById(userId)
 
       if (user) {
-        const workspace = await findWorkspaceById(workspaceId)
+        const workspace = await findWorkspaceByIdQuery(workspaceId)
         const subscription = await SubscriptionModel.findOne({ workspaceId })
         let hasActiveSubscription = false
 

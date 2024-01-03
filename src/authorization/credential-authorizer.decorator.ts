@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { SubscriptionModel } from "src/api/subscription/entities/subscription.entity"
-import { WorkspaceModel } from "src/api/workspace/models/workspace.model"
+import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential"
 import { apiPricing } from "src/config/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
 
@@ -22,7 +22,7 @@ export const CredentialAuthorizer = createParamDecorator(
 
     else {
       try {
-        const workspace = await WorkspaceModel.findOne({ clientId, clientSecret })
+        const workspace = await findWorkspaceByCredentialQuery(clientId, clientSecret)
 
         if (workspace) {
           const subscription = await SubscriptionModel.findOne({ workspaceId: workspace.id })
