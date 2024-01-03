@@ -9,7 +9,7 @@ import HTTPMethods from "@/constants/http-methods"
 import Error from "@/components/error-component"
 import { useSearchParams } from "next/navigation"
 import { BookmarkIcon, CubeIcon } from "@radix-ui/react-icons"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import Hero from "@/components/hero-component"
 import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
 
@@ -21,7 +21,7 @@ export default function Page() {
 
   const displaySimilarDatasets = useCallback(() => {
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: dataset.category,
         className: "centralized",
         headerText: dataset.name,
@@ -29,7 +29,7 @@ export default function Page() {
         redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
       }
 
-      return <ProductCard key={dataset._id} productCardProps={productCardProps} />
+      return <Card key={dataset._id} cardProps={cardProps} />
     })
 
     return (

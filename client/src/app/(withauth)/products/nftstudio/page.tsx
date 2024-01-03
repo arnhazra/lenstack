@@ -13,7 +13,7 @@ import moment from "moment"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import Hero from "@/components/hero-component"
 import { uiConstants } from "@/constants/global-constants"
 
@@ -54,7 +54,7 @@ export default function Page() {
     const nftsToDisplay = nftList?.filter((nft: any) =>
       nft.name.toLowerCase().includes(globalSearchString)
     )?.map((nft: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
@@ -62,7 +62,7 @@ export default function Page() {
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return <ProductCard key={nft.id} productCardProps={productCardProps} />
+      return <Card key={nft.id} cardProps={cardProps} />
     })
 
     return (

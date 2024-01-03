@@ -1,7 +1,7 @@
 "use client"
 import { nftABI } from "@/bin/nft-abi"
 import Error from "@/components/error-component"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import Hero from "@/components/hero-component"
 import Loading from "@/components/loading-component"
 import Show from "@/components/show-component"
@@ -108,7 +108,7 @@ export default function Page() {
 
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.map((nft: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
@@ -116,7 +116,7 @@ export default function Page() {
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return <ProductCard key={nft.id} productCardProps={productCardProps} />
+      return <Card key={nft.id} cardProps={cardProps} />
     })
 
     return (

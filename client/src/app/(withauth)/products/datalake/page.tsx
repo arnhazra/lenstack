@@ -9,7 +9,7 @@ import Show from "@/components/show-component"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import Hero from "@/components/hero-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
@@ -42,7 +42,7 @@ export default function Page() {
 
   const displayDatasets = useCallback(() => {
     const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: dataset.category,
         className: "centralized",
         headerText: dataset.name,
@@ -50,7 +50,7 @@ export default function Page() {
         redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
       }
 
-      return <ProductCard key={dataset._id} productCardProps={productCardProps} />
+      return <Card key={dataset._id} cardProps={cardProps} />
     })
 
     return (

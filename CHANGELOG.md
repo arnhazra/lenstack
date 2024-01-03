@@ -4,6 +4,7 @@
 * Added strict types to functions, constants, returns
 * Fix resubscribe issue
 * Implementation of DDD with CQRS pattern
+* New Card Component
 
 ### v5.3.2
 * Node Dependency updates

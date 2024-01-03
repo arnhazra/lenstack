@@ -10,7 +10,7 @@ import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import Hero from "@/components/hero-component"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import usePrompt from "@/hooks/use-prompt"
 import axios from "axios"
@@ -28,7 +28,7 @@ export default function Page() {
 
   const displayDatabases = useCallback(() => {
     const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: "Database",
         className: "centralized",
         headerText: db.name,
@@ -36,7 +36,7 @@ export default function Page() {
         redirectUri: `/products/fabric/database?dbId=${db._id}`
       }
 
-      return <ProductCard key={db._id} productCardProps={productCardProps} />
+      return <Card key={db._id} cardProps={cardProps} />
     })
 
     return (

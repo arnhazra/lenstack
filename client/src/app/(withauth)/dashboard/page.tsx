@@ -6,7 +6,7 @@ import { Fragment, useCallback, useContext } from "react"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
 import { Container, Row } from "react-bootstrap"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 
@@ -16,7 +16,7 @@ export default function Page() {
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: product.productStatus,
         className: product.productCategory,
         footerText: product.description,
@@ -25,7 +25,7 @@ export default function Page() {
         isDisabled: product.productStatus !== "Available"
       }
 
-      return <ProductCard key={product.productName} productCardProps={productCardProps} />
+      return <Card key={product.productName} cardProps={cardProps} />
     })
 
     return (

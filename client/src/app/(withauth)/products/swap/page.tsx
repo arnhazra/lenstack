@@ -1,5 +1,5 @@
 "use client"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
@@ -28,7 +28,7 @@ export default function Page() {
 
   const displayTokens = useCallback(() => {
     const tokensToDisplay = swapTokenConfig?.data?.map((token: TokenData) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
         className: "decentralized",
         headerText: token.tokenName,
@@ -36,7 +36,7 @@ export default function Page() {
         redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
       }
 
-      return <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+      return <Card key={token.tokenContractAddress} cardProps={cardProps} />
     })
 
     return (

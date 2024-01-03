@@ -16,7 +16,7 @@ import { tokenABI } from "@/bin/token-abi"
 import Show from "@/components/show-component"
 import Loading from "@/components/loading-component"
 import axios from "axios"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Card, { CardInterface } from "@/components/card-component"
 import Hero from "@/components/hero-component"
 
 interface TokenData {
@@ -172,7 +172,7 @@ export default function Page() {
   const displayOtherTokens = useCallback(() => {
     const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
       .map((token: TokenData) => {
-        const productCardProps: ProductCardInterface = {
+        const cardProps: CardInterface = {
           badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
           className: "decentralized",
           headerText: token.tokenName,
@@ -180,7 +180,7 @@ export default function Page() {
           redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
         }
 
-        return <ProductCard key={token.tokenContractAddress} productCardProps={productCardProps} />
+        return <Card key={token.tokenContractAddress} cardProps={cardProps} />
       })
 
     return (
