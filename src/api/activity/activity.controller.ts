@@ -7,9 +7,9 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) { }
 
   @Get("getactivities")
-  async getActivitiesByUserId(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  async getActivitiesByWorkspaceId(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
-      const activities = await this.activityService.getActivitiesByUserId(uft.userId)
+      const activities = await this.activityService.getActivitiesByWorkspaceId(uft.workspaceId)
       return { activities }
     }
 

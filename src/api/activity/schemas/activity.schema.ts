@@ -1,9 +1,9 @@
 import { Schema } from "mongoose"
 
 export const ActivitySchema = new Schema({
-  userId: {
+  workspaceId: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "workspace",
     required: true
   },
 

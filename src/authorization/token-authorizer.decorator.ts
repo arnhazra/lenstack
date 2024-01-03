@@ -28,12 +28,11 @@ export const TokenAuthorizer = createParamDecorator(
 
         if (redisAccessToken === accessToken) {
           const activityDescription = getActivityDescription(requestUrl)
-          if (activityDescription !== "Unknown Activity") {
-            await createActivityCommand(userId, activityDescription)
-          }
-
           const { selectedWorkspaceId } = await findUserByIdQuery(userId)
           const workspaceId = selectedWorkspaceId.toString()
+          if (activityDescription !== "Unknown Activity") {
+            await createActivityCommand(workspaceId, activityDescription)
+          }
           return { userId, workspaceId }
         }
 
