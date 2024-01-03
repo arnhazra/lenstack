@@ -1,7 +1,6 @@
-import mongoose from "mongoose"
-import { platformMongoDbConn } from "../../../utils/db-connect"
+import { Schema } from "mongoose"
 
-const ApiReferenceSchema = new mongoose.Schema({
+export const ApiReferenceSchema = new Schema({
   productName: {
     type: String,
     required: true
@@ -32,5 +31,3 @@ const ApiReferenceSchema = new mongoose.Schema({
     required: true
   },
 }, { versionKey: false })
-
-export const ApiReferenceModel = platformMongoDbConn.model("apireference", ApiReferenceSchema)
