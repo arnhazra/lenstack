@@ -3,6 +3,7 @@
 ### v6.0.0
 * Added strict types to functions, constants, returns
 * Fix resubscribe issue
+* Implementation of DDD with CQRS pattern
 
 ### v5.3.2
 * Node Dependency updates
