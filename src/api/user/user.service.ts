@@ -8,13 +8,13 @@ import { generateIdentityPasskeyAndSendEmail, verifyIdentityPasskey } from "src/
 import { UserRepository } from "./user.repository"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redis-helper"
 import { otherConstants } from "src/constants/other-constants"
-import { SubscriptionModel } from "../subscription/entities/subscription.entity"
 import { statusMessages } from "src/constants/status-messages"
 import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
 import { findWorkspaceByIdQuery } from "../workspace/queries/find-workspace-by-id.query"
 import { createWorkspaceCommand } from "../workspace/commands/create-workspace.command"
 import { findMyWorkspacesQuery } from "../workspace/queries/find-workspaces.query"
+import { findSubscriptionByWorkspaceIdQuery } from "../subscription/queries/find-subscription"
 
 @Injectable()
 export class UserService {
@@ -97,7 +97,7 @@ export class UserService {
 
       if (user) {
         const workspace = await findWorkspaceByIdQuery(workspaceId)
-        const subscription = await SubscriptionModel.findOne({ workspaceId })
+        const subscription = await findSubscriptionByWorkspaceIdQuery(workspaceId)
         let hasActiveSubscription = false
 
         if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {

@@ -1,9 +1,8 @@
-import mongoose from "mongoose"
-import { platformMongoDbConn } from "../../../utils/db-connect"
+import { Schema } from "mongoose"
 
-const SubscriptionSchema = new mongoose.Schema({
+export const SubscriptionSchema = new Schema({
   workspaceId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "workspace",
     required: true,
     unique: true
@@ -33,5 +32,3 @@ const SubscriptionSchema = new mongoose.Schema({
     }
   }
 }, { versionKey: false })
-
-export const SubscriptionModel = platformMongoDbConn.model("subscription", SubscriptionSchema)

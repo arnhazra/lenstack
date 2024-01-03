@@ -1,6 +1,5 @@
 import Web3 from "web3"
 import { Injectable, BadRequestException } from "@nestjs/common"
-import { SubscriptionRepository } from "./subscription.repository"
 import { UserRepository } from "../user/user.repository"
 import { statusMessages } from "src/constants/status-messages"
 import { envConfig } from "src/config/env.config"
@@ -8,12 +7,14 @@ import { SubscribeDto } from "./dto/subscribe.dto"
 import { SubscriptionConfigType, subscriptionConfig } from "src/config/subscription.config"
 import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
+import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
+import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
 
 @Injectable()
 export class SubscriptionService {
   private readonly web3Provider: Web3
 
-  constructor(private readonly subscriptionRepository: SubscriptionRepository,
+  constructor(
     private readonly userRepository: UserRepository,
     private readonly httpService: HttpService) {
     this.web3Provider = new Web3(envConfig.infuraGateway)
@@ -25,7 +26,7 @@ export class SubscriptionService {
 
       if (user.trialAvailable) {
         const selectedPlan = "Trial"
-        await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan)
+        await createNewSubscriptionCommand(workspaceId, selectedPlan)
         await this.userRepository.findUserByIdAndUpdateTrialStatus(userId, false)
         return true
       }
@@ -59,8 +60,8 @@ export class SubscriptionService {
         }
 
         else {
-          await this.subscriptionRepository.findSubscriptionByWorkspaceIdAndDelete(workspaceId)
-          await this.subscriptionRepository.createNewSubscription(workspaceId, selectedPlan)
+          await deleteSubscriptionCommand(workspaceId)
+          await createNewSubscriptionCommand(workspaceId, selectedPlan)
           return true
         }
       }
