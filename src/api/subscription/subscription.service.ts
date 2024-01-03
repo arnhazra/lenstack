@@ -1,6 +1,5 @@
 import Web3 from "web3"
 import { Injectable, BadRequestException } from "@nestjs/common"
-import { UserRepository } from "../user/user.repository"
 import { statusMessages } from "src/constants/status-messages"
 import { envConfig } from "src/config/env.config"
 import { SubscribeDto } from "./dto/subscribe.dto"
@@ -9,25 +8,26 @@ import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
 import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
 import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
+import { findUserByIdQuery } from "../user/queries/find-user-by-id"
+import { updateTrialStatusCommand } from "../user/commands/update-trial-status.command"
 
 @Injectable()
 export class SubscriptionService {
   private readonly web3Provider: Web3
 
   constructor(
-    private readonly userRepository: UserRepository,
     private readonly httpService: HttpService) {
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
 
   async activateTrial(userId: string, workspaceId: string) {
     try {
-      const user = await this.userRepository.findUserById(userId)
+      const user = await findUserByIdQuery(userId)
 
       if (user.trialAvailable) {
         const selectedPlan = "Trial"
         await createNewSubscriptionCommand(workspaceId, selectedPlan)
-        await this.userRepository.findUserByIdAndUpdateTrialStatus(userId, false)
+        await updateTrialStatusCommand(userId, false)
         return true
       }
 
@@ -44,7 +44,7 @@ export class SubscriptionService {
   async subscribe(userId: string, workspaceId: string, subscribeDto: SubscribeDto) {
     try {
       const { selectedPlan, transactionHash } = subscribeDto
-      const { privateKey } = await this.userRepository.findUserById(userId)
+      const { privateKey } = await findUserByIdQuery(userId)
       const { address: walletAddress } = this.web3Provider.eth.accounts.privateKeyToAccount(privateKey)
       const tx = await this.web3Provider.eth.getTransaction(transactionHash)
       const block = await this.web3Provider.eth.getBlock(tx.blockNumber)

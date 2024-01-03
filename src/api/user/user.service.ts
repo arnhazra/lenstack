@@ -5,7 +5,6 @@ import * as jwt from "jsonwebtoken"
 import Web3 from "web3"
 import { envConfig } from "src/config/env.config"
 import { generateIdentityPasskeyAndSendEmail, verifyIdentityPasskey } from "src/utils/passkey-tool"
-import { UserRepository } from "./user.repository"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redis-helper"
 import { otherConstants } from "src/constants/other-constants"
 import { statusMessages } from "src/constants/status-messages"
@@ -15,13 +14,17 @@ import { findWorkspaceByIdQuery } from "../workspace/queries/find-workspace-by-i
 import { createWorkspaceCommand } from "../workspace/commands/create-workspace.command"
 import { findMyWorkspacesQuery } from "../workspace/queries/find-workspaces.query"
 import { findSubscriptionByWorkspaceIdQuery } from "../subscription/queries/find-subscription"
+import { findUserByEmailQuery } from "./queries/find-user-by-email"
+import { updateSelectedWorkspaceCommand } from "./commands/update-selected-workspace.command"
+import { createUserCommand } from "./commands/create-user.command"
+import { findUserByIdQuery } from "./queries/find-user-by-id"
 
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
   private readonly web3Provider: Web3
 
-  constructor(private readonly userRepository: UserRepository, private readonly httpService: HttpService) {
+  constructor(private readonly httpService: HttpService) {
     this.authPrivateKey = envConfig.authPrivateKey
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
@@ -29,7 +32,7 @@ export class UserService {
   async generateIdentityPasskey(generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {
     try {
       const { email } = generateIdentityPasskeyDto
-      let user = await this.userRepository.findUserByEmail(email)
+      let user = await findUserByEmailQuery(email)
       const hash = await generateIdentityPasskeyAndSendEmail(email)
       return { user, hash }
     }
@@ -45,7 +48,7 @@ export class UserService {
       const isOTPValid = verifyIdentityPasskey(email, hash, passKey)
 
       if (isOTPValid) {
-        let user = await this.userRepository.findUserByEmail(email)
+        let user = await findUserByEmailQuery(email)
 
         if (user) {
           const redisAccessToken = await getTokenFromRedis(user.id)
@@ -53,7 +56,7 @@ export class UserService {
 
           if (!workspaceCount) {
             const workspace = await createWorkspaceCommand("Default Workspace", user.id)
-            await this.userRepository.findUserByIdAndUpdateSelectedWorkspace(user.id, workspace.id)
+            await updateSelectedWorkspaceCommand(user.id, workspace.id)
           }
 
           if (redisAccessToken) {
@@ -71,9 +74,9 @@ export class UserService {
 
         else {
           const { privateKey } = this.web3Provider.eth.accounts.create()
-          const newUser = await this.userRepository.createNewUser({ email, privateKey })
+          const newUser = await createUserCommand(email, privateKey)
           const workspace = await createWorkspaceCommand("Default Workspace", newUser.id)
-          await this.userRepository.findUserByIdAndUpdateSelectedWorkspace(newUser.id, workspace.id)
+          await updateSelectedWorkspaceCommand(newUser.id, workspace.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await setTokenInRedis(newUser.id, accessToken)
@@ -93,7 +96,7 @@ export class UserService {
 
   async getUserDetails(userId: string, workspaceId: string) {
     try {
-      const user = await this.userRepository.findUserById(userId)
+      const user = await findUserByIdQuery(userId)
 
       if (user) {
         const workspace = await findWorkspaceByIdQuery(workspaceId)

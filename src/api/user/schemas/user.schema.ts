@@ -1,12 +1,6 @@
-import mongoose from "mongoose"
-import { platformMongoDbConn } from "../../../utils/db-connect"
+import { Schema } from "mongoose"
 
-export interface NewUser {
-  email: string
-  privateKey: string
-}
-
-const UserSchema = new mongoose.Schema({
+export const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
@@ -34,8 +28,7 @@ const UserSchema = new mongoose.Schema({
   },
 
   selectedWorkspaceId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
+    ref: "workspace"
   }
 }, { versionKey: false })
-
-export const UserModel = platformMongoDbConn.model("user", UserSchema)
