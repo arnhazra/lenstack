@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
-import { platformMongoDbConn } from "../../../utils/db-connect"
 
-const ProductSchema = new mongoose.Schema({
+export const ProductSchema = new mongoose.Schema({
   productName: {
     type: String,
     required: true,
@@ -40,4 +39,3 @@ const ProductSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export const ProductModel = platformMongoDbConn.model("productconfig", ProductSchema)
