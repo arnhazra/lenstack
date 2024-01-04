@@ -1,17 +1,17 @@
 "use client"
 import { Badge, Container, Row } from "react-bootstrap"
 import { Fragment, useCallback } from "react"
-import Loading from "@/components/loading-component"
-import Show from "@/components/show-component"
+import Loading from "@/components/loading"
+import Show from "@/components/show"
 import { endPoints } from "@/constants/api-endpoints"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
-import Error from "@/components/error-component"
+import Error from "@/components/error"
 import { useSearchParams } from "next/navigation"
 import { BookmarkIcon, CubeIcon } from "@radix-ui/react-icons"
-import Card, { CardInterface } from "@/components/card-component"
-import Hero from "@/components/hero-component"
-import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
+import Card, { CardInterface } from "@/components/card"
+import Hero from "@/components/hero"
+import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 
 export default function Page() {
   const searchParams = useSearchParams()

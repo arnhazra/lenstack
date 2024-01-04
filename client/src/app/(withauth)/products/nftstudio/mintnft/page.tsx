@@ -1,6 +1,6 @@
 "use client"
 import { nftABI } from "@/bin/nft-abi"
-import Show from "@/components/show-component"
+import Show from "@/components/show"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"

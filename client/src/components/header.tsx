@@ -1,7 +1,7 @@
 "use client"
 import { ChangeEvent, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
-import Show from "./show-component"
+import Show from "./show"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { CountdownTimerIcon, TextAlignRightIcon } from "@radix-ui/react-icons"

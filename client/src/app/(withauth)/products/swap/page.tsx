@@ -1,14 +1,14 @@
 "use client"
-import Card, { CardInterface } from "@/components/card-component"
+import Card, { CardInterface } from "@/components/card"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { Badge, Container, Row } from "react-bootstrap"
 import { Fragment, useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
-import Show from "@/components/show-component"
-import Loading from "@/components/loading-component"
-import Hero from "@/components/hero-component"
+import Show from "@/components/show"
+import Loading from "@/components/loading"
+import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
 
 export interface TokenData {

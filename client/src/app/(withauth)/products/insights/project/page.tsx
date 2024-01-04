@@ -1,7 +1,7 @@
 "use client"
-import Error from "@/components/error-component"
-import Loading from "@/components/loading-component"
-import Show from "@/components/show-component"
+import Error from "@/components/error"
+import Loading from "@/components/loading"
+import Show from "@/components/show"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useConfirm from "@/hooks/use-confirm"
@@ -12,8 +12,8 @@ import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment, useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
-import Hero from "@/components/hero-component"
-import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
+import Hero from "@/components/hero"
+import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 
 export default function Page() {
   const searchParams = useSearchParams()

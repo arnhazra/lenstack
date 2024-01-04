@@ -1,12 +1,12 @@
 "use client"
 import { Fragment, useContext, useState } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
-import Show from "@/components/show-component"
+import Show from "@/components/show"
 import { toast } from "react-hot-toast"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import Loading from "@/components/loading-component"
+import Loading from "@/components/loading"
 import moment from "moment"
 import { Button } from "react-bootstrap"
 import { CalendarIcon, CubeIcon, PieChartIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
@@ -15,7 +15,7 @@ import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import useConfirm from "@/hooks/use-confirm"
-import InfoPanel from "@/components/infopanel-component"
+import InfoPanel from "@/components/infopanel"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()

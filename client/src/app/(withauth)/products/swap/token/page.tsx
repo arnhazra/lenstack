@@ -13,11 +13,11 @@ import { vendorABI } from "@/bin/vendor-abi"
 import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { tokenABI } from "@/bin/token-abi"
-import Show from "@/components/show-component"
-import Loading from "@/components/loading-component"
+import Show from "@/components/show"
+import Loading from "@/components/loading"
 import axios from "axios"
-import Card, { CardInterface } from "@/components/card-component"
-import Hero from "@/components/hero-component"
+import Card, { CardInterface } from "@/components/card"
+import Hero from "@/components/hero"
 
 interface TokenData {
   tokenName: string
