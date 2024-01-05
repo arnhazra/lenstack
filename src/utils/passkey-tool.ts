@@ -3,7 +3,7 @@ import { sendEmail } from "./send-email"
 import { envConfig } from "src/config/env.config"
 const { passkeyHashingKey } = envConfig
 
-function generateRandomPassKey() {
+function generateRandomPassKey(): string {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   let randomPassKey = ""
   for (let i = 0; i < 9; i++) {
@@ -14,10 +14,11 @@ function generateRandomPassKey() {
       randomPassKey += characters.charAt(Math.floor(Math.random() * characters.length))
     }
   }
+
   return randomPassKey
 }
 
-export async function generateIdentityPasskeyAndSendEmail(email: string) {
+export async function generateIdentityPasskeyAndSendEmail(email: string): Promise<string> {
   const passKey = generateRandomPassKey()
   const ttl = 5 * 60 * 1000
   const expires = Date.now() + ttl
@@ -28,7 +29,7 @@ export async function generateIdentityPasskeyAndSendEmail(email: string) {
   return fullHash
 }
 
-export function verifyIdentityPasskey(email: string, hash: string, passKey: string) {
+export function verifyIdentityPasskey(email: string, hash: string, passKey: string): boolean {
   let [hashValue, expires] = hash.split(".")
   let now = Date.now()
   if (now > parseInt(expires)) return false

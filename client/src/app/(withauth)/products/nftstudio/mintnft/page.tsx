@@ -1,6 +1,6 @@
 "use client"
 import { nftABI } from "@/bin/nft-abi"
-import Show from "@/components/show-component"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()
@@ -83,10 +83,11 @@ export default function Page() {
         <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} />
       </Form.Group>
       <Button variant="primary" type="submit" disabled={state.isLoading} className="mt-3 btn-block">
-        <Show when={!state.isLoading}>Mint NFT <ArrowRightIcon className="icon-right" /></Show>
-        <Show when={state.isLoading}><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</Show>
+        <Suspense condition={!state.isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</>}>
+          Mint NFT <ArrowRightIcon className="icon-right" />
+        </Suspense>
       </Button>
       <Link href={"/products/nftstudio"} className="lead-link">View My NFTs</Link>
-    </form>
+    </form >
   )
 }

@@ -1,7 +1,7 @@
 "use client"
-import Hero from "@/components/hero-component"
-import Loading from "@/components/loading-component"
-import Show from "@/components/show-component"
+import Hero from "@/components/hero"
+import Loading from "@/components/loading"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
@@ -18,7 +18,7 @@ import "react-json-view-lite/dist/index.css"
 export default function Page() {
   const [api, setApi] = useState("")
   const [response, setReseponse] = useState({})
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=ledgerscan`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=ledgerscan`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "ledgerscan")
   const [isLoading, setLoading] = useState(false)
 
@@ -50,7 +50,7 @@ export default function Page() {
 
   return (
     <Container>
-      <Show when={!products.isLoading}>
+      <Suspense condition={!products.isLoading} fallback={<Loading />}>
         <Hero>
           <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
@@ -68,21 +68,15 @@ export default function Page() {
             <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
             <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
             <Button variant="primary" disabled={isLoading} className="mt-3" type="submit">
-              <Show when={!isLoading}>
+              <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Loading</>}>
                 <RocketIcon className="icon-left" />Hit API
-              </Show>
-              <Show when={isLoading}>
-                <i className="fas fa-circle-notch fa-spin"></i> Loading
-              </Show>
+              </Suspense>
             </Button>
           </form>
           <p>Response</p>
           <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
         </Hero>
-      </Show>
-      <Show when={products.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
     </Container>
   )
 }

@@ -1,16 +1,16 @@
 "use client"
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api-endpoints"
-import Show from "@/components/show-component"
+import Suspense from "@/components/suspense"
 import { Badge, Button, Container, Row } from "react-bootstrap"
-import Loading from "@/components/loading-component"
+import Loading from "@/components/loading"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import Hero from "@/components/hero-component"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Hero from "@/components/hero"
+import Card, { CardInterface } from "@/components/card"
 import { GlobalContext } from "@/context/globalstate.provider"
 import usePrompt from "@/hooks/use-prompt"
 import { useRouter } from "next/navigation"
@@ -22,13 +22,13 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const projects = useQuery("projects", `${endPoints.insightsGetProjects}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
+  const projects = useQuery(["projects"], `${endPoints.insightsGetProjects}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
 
   const displayProjects = useCallback(() => {
     const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: "Project",
         className: "centralized",
         headerText: project.name,
@@ -36,21 +36,16 @@ export default function Page() {
         redirectUri: `/products/insights/project?projectId=${project._id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <Card key={project._id} cardProps={cardProps} />
     })
 
     return (
-      <Fragment>
-        <Show when={!!projects?.data?.projects?.length}>
-          <h4 className="text-white">My Projects</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {projectsToDisplay}
-          </Row>
-        </Show >
-        <Show when={!projects?.data?.projects?.length}>
-          <h4 className="text-white">No Projects to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!projects?.data?.projects?.length} fallback={<h4 className="text-white">No Projects to display</h4>}>
+        <h4 className="text-white">My Projects</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {projectsToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [projects?.data])
 
@@ -72,7 +67,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!projects.isLoading && !products.isLoading}>
+      <Suspense condition={!projects.isLoading && !products.isLoading} fallback={<Loading />}>
         <Container>
           <Hero>
             <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
@@ -88,10 +83,7 @@ export default function Page() {
           </Hero>
           {displayProjects()}
         </Container>
-      </Show>
-      <Show when={projects.isLoading || products.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
       {promptDialog()}
     </Fragment>
   )

@@ -1,22 +1,22 @@
 "use client"
-import Show from "@/components/show-component"
+import Suspense from "@/components/suspense"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import { endPoints, apiHost } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { useSearchParams } from "next/navigation"
 import { Container, Form } from "react-bootstrap"
-import Loading from "@/components/loading-component"
-import Error from "@/components/error-component"
+import Loading from "@/components/loading"
+import Error from "@/components/error"
 import "react-json-view-lite/dist/index.css"
-import Hero from "@/components/hero-component"
+import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
-import { Fragment, useCallback } from "react"
+import { useCallback } from "react"
 
 export default function Page() {
   const searchParams = useSearchParams()
   const productName = searchParams.get("productName")
-  const apireference = useQuery("get-apireference", `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
+  const apireference = useQuery(["apireference"], `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
 
   const displayAPIReferences = useCallback(() => {
     const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {
@@ -27,47 +27,36 @@ export default function Page() {
             <Form.Label>Method: {apiDoc.apiMethod}</Form.Label>
             <Form.Control readOnly type="text" defaultValue={`${apiHost.toLowerCase()}${apiDoc.apiUri}`} />
           </Form.Group>
-          <Show when={!!apiDoc.sampleRequestBody}>
+          <Suspense condition={!!apiDoc.sampleRequestBody} fallback={null}>
             <p>Sample Request Body</p>
             <JsonView data={apiDoc.sampleRequestBody ?? {}} shouldExpandNode={allExpanded} style={defaultStyles} /><br />
-          </Show>
-          <Show when={!!apiDoc.sampleResponseBody}>
+          </Suspense>
+          <Suspense condition={!!apiDoc.sampleResponseBody} fallback={null}>
             <p>Sample Response Body</p>
             <JsonView key={apiDoc._id} data={apiDoc.sampleResponseBody} shouldExpandNode={allExpanded} style={defaultStyles} />
-          </Show>
+          </Suspense>
         </Hero>
       )
     })
 
     return (
-      <Fragment>
-        <Show when={!!apireference?.data?.docList.length}>
-          <div>
-            <h4 className="text-white text-capitalize">API Reference - {uiConstants.brandName} {productName}</h4>
-            <p className="lead text-white">You must include your Client ID under "client_id" & Client Secret under "client_secret" in request header</p>
-            {listApiApiReferences}
-          </div>
-        </Show>
-        <Show when={!apireference?.data?.docList.length}>
-          <Error />
-        </Show>
-      </Fragment>
+      <Suspense condition={!!apireference?.data?.docList.length} fallback={<Error />}>
+        <div>
+          <h4 className="text-white text-capitalize">API Reference - {uiConstants.brandName} {productName}</h4>
+          <p className="lead text-white">You must include your Client ID under "client_id" & Client Secret under "client_secret" in request header</p>
+          {listApiApiReferences}
+        </div>
+      </Suspense>
     )
   }, [apireference?.data])
 
   return (
     <Container>
-      <Show when={apireference.isLoading}>
-        <Loading />
-      </Show>
-      <Show when={!apireference.isLoading}>
-        <Show when={!!apireference?.data?.docList.length}>
+      <Suspense condition={!apireference.isLoading} fallback={<Loading />}>
+        <Suspense condition={!!apireference?.data?.docList.length} fallback={<Error />}>
           {displayAPIReferences()}
-        </Show>
-        <Show when={!apireference?.data?.docList.length}>
-          <Error />
-        </Show>
-      </Show>
+        </Suspense>
+      </Suspense>
     </Container>
   )
 }

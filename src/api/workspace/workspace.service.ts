@@ -1,16 +1,18 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { CreateWorkspaceDto } from "./dto/create-workspace.dto"
-import { WorkspaceRepository } from "./workspace.repository"
 import { statusMessages } from "src/constants/status-messages"
+import { createWorkspaceCommand } from "./commands/create-workspace.command"
+import { findMyWorkspacesQuery } from "./queries/find-workspaces.query"
+import { findWorkspaceByIdQuery } from "./queries/find-workspace-by-id.query"
+import { switchWorkspaceCommand } from "./commands/switch-workspace.command"
 
 @Injectable()
 export class WorkspaceService {
-  constructor(private readonly workspaceRepository: WorkspaceRepository) { }
 
   async createWorkspace(userId: string, createWorkspaceDto: CreateWorkspaceDto) {
     try {
       const { name } = createWorkspaceDto
-      const workspace = await this.workspaceRepository.createWorkspace(name, userId)
+      const workspace = await createWorkspaceCommand(name, userId)
       return workspace
     }
 
@@ -21,7 +23,7 @@ export class WorkspaceService {
 
   async findMyWorkspaces(userId: string) {
     try {
-      const workspaces = await this.workspaceRepository.findMyWorkspaces(userId)
+      const workspaces = await findMyWorkspacesQuery(userId)
       return workspaces
     }
 
@@ -32,10 +34,10 @@ export class WorkspaceService {
 
   async switchWorkspace(userId: string, workspaceId: string) {
     try {
-      const { ownerId } = await this.workspaceRepository.findWorkspaceById(workspaceId)
+      const { ownerId } = await findWorkspaceByIdQuery(workspaceId)
 
       if (ownerId.toString() === userId) {
-        await this.workspaceRepository.switchWorkspace(userId, workspaceId)
+        await switchWorkspaceCommand(userId, workspaceId)
         return true
       }
 

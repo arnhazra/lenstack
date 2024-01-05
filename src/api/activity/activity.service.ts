@@ -1,13 +1,11 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { ActivityRepository } from "./activity.repository"
+import { findActivitiesByWorkspaceIdQuery } from "./queries/find-activities.query"
 
 @Injectable()
 export class ActivityService {
-  constructor(private readonly activityRepository: ActivityRepository) { }
-
-  async getActivitiesByUserId(userId: string) {
+  async getActivitiesByWorkspaceId(workspaceId: string) {
     try {
-      const activities = await this.activityRepository.findActivitiesByUserId(userId)
+      const activities = await findActivitiesByWorkspaceIdQuery(workspaceId)
       return activities
     }
 

@@ -1,12 +1,12 @@
 "use client"
 import { Fragment, useContext, useState } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
-import Show from "@/components/show-component"
+import Suspense from "@/components/suspense"
 import { toast } from "react-hot-toast"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import Loading from "@/components/loading-component"
+import Loading from "@/components/loading"
 import moment from "moment"
 import { Button } from "react-bootstrap"
 import { CalendarIcon, CubeIcon, PieChartIcon, ArrowRightIcon, StackIcon } from "@radix-ui/react-icons"
@@ -15,13 +15,13 @@ import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import useConfirm from "@/hooks/use-confirm"
-import InfoPanel from "@/components/infopanel-component"
+import InfoPanel from "@/components/infopanel"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const web3Provider = new Web3(endPoints.signSubscriptionTxGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const pricingDetails = useQuery("pricing", endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const router = useRouter()
   const [selectedPlan] = useState("Pro")
   const [isTxProcessing, setTxProcessing] = useState(false)
@@ -90,7 +90,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!pricingDetails.isLoading}>
+      <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text mb-4">Subscribe & Track your API Credentials usage from here</p>
@@ -99,22 +99,19 @@ export default function Page() {
           <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${moment(userState.expiresAt).format("MMM, Do YYYY")}` : "No Validity Data"} />
           <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
           <Fragment>
-            <Show when={displayTrialButton && !userState.hasActiveSubscription}>
+            <Suspense condition={displayTrialButton && !userState.hasActiveSubscription} fallback={null}>
               <Button variant="primary" className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
-            </Show>
-            <Show when={!userState.hasActiveSubscription}>
+            </Suspense>
+            <Suspense condition={!userState.hasActiveSubscription} fallback={null}>
               <Button variant="primary" className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
-                <Show when={!isTxProcessing}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Show>
-                <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Show>
+                <Suspense condition={!isTxProcessing} fallback={null}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Suspense>
+                <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Suspense>
               </Button>
-            </Show>
+            </Suspense>
           </Fragment>
         </div>
-      </Show>
-      <Show when={pricingDetails.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
       {confirmDialog()}
-    </Fragment >
+    </Fragment>
   )
 }

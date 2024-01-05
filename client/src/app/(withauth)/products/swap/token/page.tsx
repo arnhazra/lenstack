@@ -13,11 +13,11 @@ import { vendorABI } from "@/bin/vendor-abi"
 import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { tokenABI } from "@/bin/token-abi"
-import Show from "@/components/show-component"
-import Loading from "@/components/loading-component"
+import Suspense from "@/components/suspense"
+import Loading from "@/components/loading"
 import axios from "axios"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
-import Hero from "@/components/hero-component"
+import Card, { CardInterface } from "@/components/card"
+import Hero from "@/components/hero"
 
 interface TokenData {
   tokenName: string
@@ -33,7 +33,7 @@ export default function Page() {
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
-  const swapTokenConfig = useQuery("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
+  const swapTokenConfig = useQuery(["swaptokenconfig"], `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.swapSignTransactionGateway)
   const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
@@ -172,7 +172,7 @@ export default function Page() {
   const displayOtherTokens = useCallback(() => {
     const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
       .map((token: TokenData) => {
-        const productCardProps: ProductCardInterface = {
+        const cardProps: CardInterface = {
           badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
           className: "decentralized",
           headerText: token.tokenName,
@@ -180,7 +180,7 @@ export default function Page() {
           redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
         }
 
-        return <ProductCard productCardProps={productCardProps} />
+        return <Card key={token.tokenContractAddress} cardProps={cardProps} />
       })
 
     return (
@@ -195,7 +195,7 @@ export default function Page() {
 
   return (
     <Container>
-      <Show when={!swapTokenConfig.isLoading}>
+      <Suspense condition={!swapTokenConfig.isLoading} fallback={<Loading />}>
         <Hero>
           <p className="branding">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
@@ -206,19 +206,16 @@ export default function Page() {
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
           </div>
           <Button variant="primary" className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
-            <Show when={!isTxProcessing}>Buy Token <ArrowRightIcon className="icon-right" /></Show>
-            <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
+            <Suspense condition={!isTxProcessing} fallback={null}>Buy Token <ArrowRightIcon className="icon-right" /></Suspense>
+            <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
           </Button>
           <Button variant="secondary" className="mt-2" disabled={isTxProcessing || balance === 0} onClick={sellToken}>
-            <Show when={!isTxProcessing}>Sell Token <ArrowRightIcon className="icon-right" /></Show>
-            <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
+            <Suspense condition={!isTxProcessing} fallback={null}>Sell Token <ArrowRightIcon className="icon-right" /></Suspense>
+            <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
           </Button>
         </Hero>
         {displayOtherTokens()}
-      </Show>
-      <Show when={swapTokenConfig.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
       {promptDialog()}
     </Container>
   )

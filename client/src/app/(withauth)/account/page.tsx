@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, useContext, useState, useEffect } from "react"
+import { useContext, useState, useEffect } from "react"
 import { Button } from "react-bootstrap"
 import { endPoints } from "@/constants/api-endpoints"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -7,11 +7,11 @@ import axios from "axios"
 import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
 import Web3 from "web3"
-import Show from "@/components/show-component"
-import Loading from "@/components/loading-component"
+import Suspense from "@/components/suspense"
+import Loading from "@/components/loading"
 import { AvatarIcon, BookmarkIcon, ExitIcon } from "@radix-ui/react-icons"
-import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
-import InfoPanel from "@/components/infopanel-component"
+import SensitiveInfoPanel from "@/components/sensitive-infopanel"
+import InfoPanel from "@/components/infopanel"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -65,19 +65,14 @@ export default function Page() {
   }
 
   return (
-    <Fragment>
-      <Show when={walletLoading}>
-        <Loading />
-      </Show>
-      <Show when={!walletLoading}>
-        <div className="box">
-          <p className="branding">Account</p>
-          <SensitiveInfoPanel credentialIcon={<AvatarIcon />} credentialName={userState.email} credentialValue={accountAddress} />
-          <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
-          <Button variant="primary" className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
-          <Button variant="warning" className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
-        </div>
-      </Show>
-    </Fragment >
+    <Suspense condition={!walletLoading} fallback={<Loading />}>
+      <div className="box">
+        <p className="branding">Account</p>
+        <SensitiveInfoPanel credentialIcon={<AvatarIcon />} credentialName={userState.email} credentialValue={accountAddress} />
+        <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
+        <Button variant="primary" className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
+        <Button variant="warning" className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
+      </div>
+    </Suspense>
   )
 }

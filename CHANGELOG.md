@@ -1,5 +1,17 @@
 # Changelog
 
+### v6.0.0
+* Introduction of new suspense component with fallback ui
+* Deprecated Show component
+* Added strict types to functions, constants, returns
+* Fix resubscribe issue
+* Implementation of DDD with CQRS pattern in some modules
+* New Card Component
+* Introduction of new Suspense Component
+* Introduction of Tanstack query default options
+* Component new naming convention
+* Tanstack query dependency modifications
+
 ### v5.3.2
 * Node Dependency updates
 

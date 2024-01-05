@@ -1,10 +1,10 @@
 "use client"
 import { nftABI } from "@/bin/nft-abi"
-import Error from "@/components/error-component"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
-import Hero from "@/components/hero-component"
-import Loading from "@/components/loading-component"
-import Show from "@/components/show-component"
+import Error from "@/components/error"
+import Card, { CardInterface } from "@/components/card"
+import Hero from "@/components/hero"
+import Loading from "@/components/loading"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
@@ -19,13 +19,13 @@ import { Fragment, useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
-import SensitiveInfoPanel from "@/components/sensitiveinfopanel-component"
+import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 
 export default function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const nftId = searchParams.get("nftId")
-  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [selectedNft, setSelectedNft] = useState<any>()
@@ -108,7 +108,7 @@ export default function Page() {
 
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.map((nft: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
@@ -116,7 +116,7 @@ export default function Page() {
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <Card key={nft.id} cardProps={cardProps} />
     })
 
     return (
@@ -145,8 +145,8 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!nftContractAddress.isLoading && !isLoading && !isArchiving}>
-        <Show when={!hasError}>
+      <Suspense condition={!nftContractAddress.isLoading && !isLoading && !isArchiving} fallback={<Loading />}>
+        <Suspense condition={!hasError} fallback={<Error />}>
           <Container>
             <Hero>
               <Row>
@@ -178,15 +178,9 @@ export default function Page() {
             </Hero>
             {displayNfts()}
           </Container>
-        </Show>
-        <Show when={hasError}>
-          <Error />
-        </Show>
-      </Show>
-      <Show when={nftContractAddress.isLoading || isLoading || isArchiving}>
-        <Loading />
-      </Show>
+        </Suspense>
+      </Suspense>
       {confirmDialog()}
-    </Fragment >
+    </Fragment>
   )
 }

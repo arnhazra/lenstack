@@ -1,6 +1,6 @@
 "use client"
-import Loading from "@/components/loading-component"
-import Show from "@/components/show-component"
+import Loading from "@/components/loading"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
@@ -13,13 +13,13 @@ import moment from "moment"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
-import Hero from "@/components/hero-component"
+import Card, { CardInterface } from "@/components/card"
+import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
+  const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
@@ -54,7 +54,7 @@ export default function Page() {
     const nftsToDisplay = nftList?.filter((nft: any) =>
       nft.name.toLowerCase().includes(globalSearchString)
     )?.map((nft: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
@@ -62,43 +62,33 @@ export default function Page() {
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <Card key={nft.id} cardProps={cardProps} />
     })
 
     return (
-      <Fragment>
-        <Show when={!!nftsToDisplay?.length}>
-          <h4 className="text-white">My Collection</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {nftsToDisplay}
-          </Row>
-        </Show >
-        <Show when={!nftsToDisplay?.length}>
-          <h4 className="text-white">No NFTs to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!nftsToDisplay?.length} fallback={<h4 className="text-white">No NFTs to display</h4>}>
+        <h4 className="text-white">My Collection</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {nftsToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [globalSearchString, nftList])
 
   return (
-    <Fragment>
-      <Show when={!isLoading && !nftContractAddress.isLoading && !products.isLoading}>
-        <Container>
-          <Hero>
-            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-            <div className="mb-2">
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-            </div>
-            <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
-          </Hero>
-          {displayNfts()}
-        </Container>
-      </Show>
-      <Show when={isLoading || nftContractAddress.isLoading || products.isLoading}>
-        <Loading />
-      </Show>
-    </Fragment>
+    <Suspense condition={!isLoading && !nftContractAddress.isLoading && !products.isLoading} fallback={<Loading />}>
+      <Container>
+        <Hero>
+          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+          <div className="mb-2">
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+          </div>
+          <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+        </Hero>
+        {displayNfts()}
+      </Container>
+    </Suspense>
   )
 }

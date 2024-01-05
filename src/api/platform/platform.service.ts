@@ -1,13 +1,12 @@
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/constants/status-messages"
-import { PlatformRepository } from "./platform.repositiory"
+import { getproductConfigQuery } from "./queries/get-product-config.query"
 
 @Injectable()
 export class PlatformService {
-  constructor(private readonly platformRepository: PlatformRepository) { }
   async getProductConfig(searchQuery: string) {
     try {
-      const products = await this.platformRepository.getproductConfig(searchQuery)
+      const products = await getproductConfigQuery(searchQuery)
       return products
     }
 

@@ -1,23 +1,23 @@
 import Redis from "ioredis"
 import { envConfig } from "../config/env.config"
 
-const redis = new Redis({
+const redis: Redis = new Redis({
   port: Number(envConfig.redisPort),
   host: envConfig.redisSocketHost,
   password: envConfig.redisPassword,
 })
 
-export const setTokenInRedis = async (userId: string, accessToken: string) => {
+export async function setTokenInRedis(userId: string, accessToken: string): Promise<"OK"> {
   const response = await redis.set(userId, accessToken)
   return response
 }
 
-export const getTokenFromRedis = async (userId: string) => {
+export async function getTokenFromRedis(userId: string): Promise<string> {
   const response = await redis.get(userId)
   return response
 }
 
-export const removeTokenFromRedis = async (userId: string) => {
+export async function removeTokenFromRedis(userId: string): Promise<number> {
   const response = await redis.del(userId)
   return response
 }

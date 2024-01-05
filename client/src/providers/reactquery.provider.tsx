@@ -28,7 +28,18 @@ axios.interceptors.response.use(
 )
 
 export default function ReactQueryProvider({ children }: { children: ReactNode }) {
-  const client = new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 5000,
+        retry: 2,
+        retryDelay: 2500,
+        refetchOnWindowFocus: true,
+        refetchInterval: 60000,
+        enabled: true
+      }
+    }
+  })
 
   return (
     <QueryClientProvider client={client}>{children}</QueryClientProvider>

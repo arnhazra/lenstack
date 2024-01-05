@@ -1,7 +1,7 @@
 import { uiConstants } from "@/constants/global-constants"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { Fragment } from "react"
-import Header from "@/components/header-component"
+import Header from "@/components/header"
 import Link from "next/link"
 
 export default function NotFound() {

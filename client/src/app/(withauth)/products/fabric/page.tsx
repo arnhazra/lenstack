@@ -1,16 +1,16 @@
 "use client"
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api-endpoints"
-import Show from "@/components/show-component"
+import Suspense from "@/components/suspense"
 import { Badge, Button, Container, Row } from "react-bootstrap"
-import Loading from "@/components/loading-component"
+import Loading from "@/components/loading"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import Hero from "@/components/hero-component"
-import ProductCard, { ProductCardInterface } from "@/components/productcard-component"
+import Hero from "@/components/hero"
+import Card, { CardInterface } from "@/components/card"
 import { GlobalContext } from "@/context/globalstate.provider"
 import usePrompt from "@/hooks/use-prompt"
 import axios from "axios"
@@ -22,13 +22,13 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const dbs = useQuery("get-dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
+  const dbs = useQuery(["databases"], `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 
   const displayDatabases = useCallback(() => {
     const dbsToDisplay = dbs?.data?.dbs?.map((db: any) => {
-      const productCardProps: ProductCardInterface = {
+      const cardProps: CardInterface = {
         badgeText: "Database",
         className: "centralized",
         headerText: db.name,
@@ -36,21 +36,16 @@ export default function Page() {
         redirectUri: `/products/fabric/database?dbId=${db._id}`
       }
 
-      return <ProductCard productCardProps={productCardProps} />
+      return <Card key={db._id} cardProps={cardProps} />
     })
 
     return (
-      <Fragment>
-        <Show when={!!dbs?.data?.dbs?.length}>
-          <h4 className="text-white">My Databases</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {dbsToDisplay}
-          </Row>
-        </Show >
-        <Show when={!dbs?.data?.dbs?.length}>
-          <h4 className="text-white">No Databases to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!dbs?.data?.dbs?.length} fallback={<h4 className="text-white">No Databases to display</h4>}>
+        <h4 className="text-white">My Databases</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {dbsToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [dbs?.data])
 
@@ -72,7 +67,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!dbs.isLoading && !products.isLoading}>
+      <Suspense condition={!dbs.isLoading && !products.isLoading} fallback={<Loading />}>
         <Container>
           <Hero>
             <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
@@ -88,10 +83,7 @@ export default function Page() {
           </Hero>
           {displayDatabases()}
         </Container>
-      </Show>
-      <Show when={dbs.isLoading || products.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
       {promptDialog()}
     </Fragment>
   )
