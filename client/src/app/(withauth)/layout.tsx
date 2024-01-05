@@ -74,8 +74,8 @@ export default function Layout({ children }: { children: ReactNode }) {
       <nav className="header">
         <Header isAuthorized={isAuthorized} />
       </nav>
-      <Suspense condition={isLoading} fallback={<Loading />}>
-        <Suspense condition={!isAuthorized} fallback={<IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />}>
+      <Suspense condition={!isLoading} fallback={<Loading />}>
+        <Suspense condition={isAuthorized} fallback={<IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />}>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
             {children}
           </motion.div>

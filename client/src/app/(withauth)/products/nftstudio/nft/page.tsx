@@ -4,7 +4,7 @@ import Error from "@/components/error"
 import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
@@ -145,8 +145,8 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!nftContractAddress.isLoading && !isLoading && !isArchiving}>
-        <Show when={!hasError}>
+      <Suspense condition={!nftContractAddress.isLoading && !isLoading && !isArchiving} fallback={<Loading />}>
+        <Suspense condition={!hasError} fallback={<Error />}>
           <Container>
             <Hero>
               <Row>
@@ -178,15 +178,9 @@ export default function Page() {
             </Hero>
             {displayNfts()}
           </Container>
-        </Show>
-        <Show when={hasError}>
-          <Error />
-        </Show>
-      </Show>
-      <Show when={nftContractAddress.isLoading || isLoading || isArchiving}>
-        <Loading />
-      </Show>
+        </Suspense>
+      </Suspense>
       {confirmDialog()}
-    </Fragment >
+    </Fragment>
   )
 }

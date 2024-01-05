@@ -1,7 +1,7 @@
 "use client"
 import { ChangeEvent, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
-import Show from "./show"
+import Suspense from "./suspense"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { CountdownTimerIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
@@ -59,7 +59,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
 
   return (
     <Fragment>
-      <Show when={isAuthorized && !isHomePage}>
+      <Suspense condition={isAuthorized && !isHomePage} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
@@ -80,17 +80,17 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Nav.Item className="btn-user-link"><Link href="/activities">Activities</Link></Nav.Item>
               </Nav>
               <Nav className="ms-auto">
-                <Show when={searchEnabledPathNames.includes(pathname)}>
+                <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
                   <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
-                </Show>
+                </Suspense>
                 <CountdownTimerIcon className="icon-navbar" onClick={() => router.push("/activity")} />
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </Show>
-      <Show when={!isAuthorized || isHomePage}>
+      </Suspense>
+      <Suspense condition={!isAuthorized || isHomePage} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">
@@ -110,7 +110,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </Show>
+      </Suspense>
     </Fragment >
   )
 }

@@ -1,6 +1,6 @@
 "use client"
 import Loading from "@/components/loading"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
@@ -66,39 +66,29 @@ export default function Page() {
     })
 
     return (
-      <Fragment>
-        <Show when={!!nftsToDisplay?.length}>
-          <h4 className="text-white">My Collection</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {nftsToDisplay}
-          </Row>
-        </Show >
-        <Show when={!nftsToDisplay?.length}>
-          <h4 className="text-white">No NFTs to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!nftsToDisplay?.length} fallback={<h4 className="text-white">No NFTs to display</h4>}>
+        <h4 className="text-white">My Collection</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {nftsToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [globalSearchString, nftList])
 
   return (
-    <Fragment>
-      <Show when={!isLoading && !nftContractAddress.isLoading && !products.isLoading}>
-        <Container>
-          <Hero>
-            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-            <div className="mb-2">
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-            </div>
-            <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
-          </Hero>
-          {displayNfts()}
-        </Container>
-      </Show>
-      <Show when={isLoading || nftContractAddress.isLoading || products.isLoading}>
-        <Loading />
-      </Show>
-    </Fragment>
+    <Suspense condition={!isLoading && !nftContractAddress.isLoading && !products.isLoading} fallback={<Loading />}>
+      <Container>
+        <Hero>
+          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+          <div className="mb-2">
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+          </div>
+          <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+        </Hero>
+        {displayNfts()}
+      </Container>
+    </Suspense>
   )
 }

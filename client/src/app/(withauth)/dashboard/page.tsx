@@ -2,8 +2,8 @@
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { Fragment, useCallback, useContext } from "react"
-import Show from "@/components/show"
+import { useCallback, useContext } from "react"
+import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import { Container, Row } from "react-bootstrap"
 import Card, { CardInterface } from "@/components/card"
@@ -29,30 +29,20 @@ export default function Page() {
     })
 
     return (
-      <Fragment>
-        <Show when={!!products?.data?.length}>
-          <h4 className="text-white">Explore the experience</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {productsToDisplay}
-          </Row>
-        </Show>
-        <Show when={!products?.data?.length}>
-          <h4 className="text-white">No Products to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!products?.data?.length} fallback={<h4 className="text-white">No Products to display</h4>}>
+        <h4 className="text-white">Explore the experience</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {productsToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [products?.data])
 
   return (
-    <Fragment>
-      <Show when={!products.isLoading}>
-        <Container>
-          {displayProducts()}
-        </Container>
-      </Show>
-      <Show when={products.isLoading}>
-        <Loading />
-      </Show>
-    </Fragment>
+    <Suspense condition={!products.isLoading} fallback={<Loading />}>
+      <Container>
+        {displayProducts()}
+      </Container>
+    </Suspense>
   )
 }

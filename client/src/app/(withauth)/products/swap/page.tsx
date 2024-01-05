@@ -4,9 +4,9 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { Badge, Container, Row } from "react-bootstrap"
-import { Fragment, useCallback, useContext } from "react"
+import { useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
@@ -40,23 +40,18 @@ export default function Page() {
     })
 
     return (
-      <Fragment>
-        <Show when={!!swapTokenConfig?.data?.length}>
-          <h4 className="text-white">Explore ERC-20 Tokens</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {tokensToDisplay}
-          </Row>
-        </Show >
-        <Show when={!swapTokenConfig?.data?.length}>
-          <h4 className="text-white">No ERC-20 Tokens to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!swapTokenConfig?.data?.length} fallback={<h4 className="text-white">No ERC-20 Tokens to display</h4>}>
+        <h4 className="text-white">Explore ERC-20 Tokens</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {tokensToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [swapTokenConfig?.data])
 
   return (
     <Container>
-      <Show when={!swapTokenConfig.isLoading && !products.isLoading}>
+      <Suspense condition={!swapTokenConfig.isLoading && !products.isLoading} fallback={<Loading />}>
         <Hero>
           <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
@@ -66,10 +61,7 @@ export default function Page() {
           </div>
         </Hero>
         {displayTokens()}
-      </Show>
-      <Show when={swapTokenConfig.isLoading || products.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
     </Container>
   )
 }

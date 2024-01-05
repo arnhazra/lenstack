@@ -1,7 +1,7 @@
 "use client"
 import Error from "@/components/error"
 import Loading from "@/components/loading"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useConfirm from "@/hooks/use-confirm"
@@ -53,8 +53,8 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!project?.isLoading}>
-        <Show when={!project.error && !!projectId}>
+      <Suspense condition={!project?.isLoading} fallback={<Loading />}>
+        <Suspense condition={!project.error && !!projectId} fallback={<Error />}>
           <Container>
             <Hero>
               <p className="branding">{project?.data?.project?.name}</p>
@@ -63,7 +63,7 @@ export default function Page() {
               <SensitiveInfoPanel credentialIcon={<LockOpen2Icon />} credentialName="Project Passkey" credentialValue={project?.data?.project?.projectPasskey} />
               <Button variant="danger" onClick={deleteProject}>Delete Project<TrashIcon className="icon-right" /></Button>
             </Hero>
-            <Show when={!!project?.data?.analytics && project?.data?.analytics.length}>
+            <Suspense condition={!!project?.data?.analytics && project?.data?.analytics.length} fallback={null}>
               <h4 className="text-white">Analytics</h4>
               <Table responsive hover variant="light">
                 <thead>
@@ -77,17 +77,11 @@ export default function Page() {
                 </thead>
                 {displayAnalytics()}
               </Table>
-            </Show>
+            </Suspense>
             {confirmDialog()}
           </Container>
-        </Show>
-        <Show when={!!project.error || !projectId}>
-          <Error />
-        </Show>
-      </Show>
-      <Show when={project?.isLoading}>
-        <Loading />
-      </Show>
-    </Fragment >
+        </Suspense>
+      </Suspense>
+    </Fragment>
   )
 }

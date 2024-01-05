@@ -13,7 +13,7 @@ import { vendorABI } from "@/bin/vendor-abi"
 import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { tokenABI } from "@/bin/token-abi"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import axios from "axios"
 import Card, { CardInterface } from "@/components/card"
@@ -195,7 +195,7 @@ export default function Page() {
 
   return (
     <Container>
-      <Show when={!swapTokenConfig.isLoading}>
+      <Suspense condition={!swapTokenConfig.isLoading} fallback={<Loading />}>
         <Hero>
           <p className="branding">{selectedToken?.tokenName}</p>
           <p className="muted-text mt-3">{selectedToken?.description}</p>
@@ -206,19 +206,16 @@ export default function Page() {
             <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
           </div>
           <Button variant="primary" className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
-            <Show when={!isTxProcessing}>Buy Token <ArrowRightIcon className="icon-right" /></Show>
-            <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
+            <Suspense condition={!isTxProcessing} fallback={null}>Buy Token <ArrowRightIcon className="icon-right" /></Suspense>
+            <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
           </Button>
           <Button variant="secondary" className="mt-2" disabled={isTxProcessing || balance === 0} onClick={sellToken}>
-            <Show when={!isTxProcessing}>Sell Token <ArrowRightIcon className="icon-right" /></Show>
-            <Show when={isTxProcessing}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Show>
+            <Suspense condition={!isTxProcessing} fallback={null}>Sell Token <ArrowRightIcon className="icon-right" /></Suspense>
+            <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
           </Button>
         </Hero>
         {displayOtherTokens()}
-      </Show>
-      <Show when={swapTokenConfig.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
       {promptDialog()}
     </Container>
   )

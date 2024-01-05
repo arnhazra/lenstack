@@ -1,7 +1,7 @@
 "use client"
 import { Fragment, useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api-endpoints"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading"
 import HTTPMethods from "@/constants/http-methods"
@@ -40,17 +40,12 @@ export default function Page() {
     })
 
     return (
-      <Fragment>
-        <Show when={!!projects?.data?.projects?.length}>
-          <h4 className="text-white">My Projects</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {projectsToDisplay}
-          </Row>
-        </Show >
-        <Show when={!projects?.data?.projects?.length}>
-          <h4 className="text-white">No Projects to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!projects?.data?.projects?.length} fallback={<h4 className="text-white">No Projects to display</h4>}>
+        <h4 className="text-white">My Projects</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {projectsToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [projects?.data])
 
@@ -72,7 +67,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!projects.isLoading && !products.isLoading}>
+      <Suspense condition={!projects.isLoading && !products.isLoading} fallback={<Loading />}>
         <Container>
           <Hero>
             <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
@@ -88,10 +83,7 @@ export default function Page() {
           </Hero>
           {displayProjects()}
         </Container>
-      </Show>
-      <Show when={projects.isLoading || products.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
       {promptDialog()}
     </Fragment>
   )

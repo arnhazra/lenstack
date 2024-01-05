@@ -2,13 +2,13 @@
 import Hero from "@/components/hero"
 import InfoPanel from "@/components/infopanel"
 import Loading from "@/components/loading"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { BellIcon } from "@radix-ui/react-icons"
 import moment from "moment"
-import { Fragment, useCallback } from "react"
+import { useCallback } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 
 export default function Page() {
@@ -31,18 +31,13 @@ export default function Page() {
   }, [activities?.data])
 
   return (
-    <Fragment>
-      <Show when={!activities.isLoading}>
-        <Container>
-          <Hero>
-            <p className="branding text-capitalize">Activities</p>
-            {displayActivities()}
-          </Hero>
-        </Container>
-      </Show>
-      <Show when={activities.isLoading}>
-        <Loading />
-      </Show>
-    </Fragment>
+    <Suspense condition={!activities.isLoading} fallback={<Loading />}>
+      <Container>
+        <Hero>
+          <p className="branding text-capitalize">Activities</p>
+          {displayActivities()}
+        </Hero>
+      </Container>
+    </Suspense>
   )
 }

@@ -3,9 +3,8 @@ import { useCallback, useContext, useMemo, useState } from "react"
 import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
 import Link from "next/link"
 import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons"
-import { Fragment } from "react"
 import Loading from "@/components/loading"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
@@ -54,17 +53,12 @@ export default function Page() {
     })
 
     return (
-      <Fragment>
-        <Show when={!!datasets?.data?.datasets.length}>
-          <h4 className="text-white">Explore the datasets</h4>
-          <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-            {datasetsToDisplay}
-          </Row>
-        </Show>
-        <Show when={!datasets?.data?.datasets.length}>
-          <h4 className="text-white">No Datasets to display</h4>
-        </Show>
-      </Fragment>
+      <Suspense condition={!!datasets?.data?.datasets.length} fallback={<h4 className="text-white">No Datasets to display</h4>}>
+        <h4 className="text-white">Explore the datasets</h4>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+          {datasetsToDisplay}
+        </Row>
+      </Suspense>
     )
   }, [datasets?.data])
 
@@ -103,34 +97,29 @@ export default function Page() {
   }, [datasetRequestState])
 
   return (
-    <Fragment>
-      <Show when={!datasets.isLoading && !filters.isLoading && !products.isLoading}>
-        <Container>
-          <Hero>
-            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-            <div className="mb-2">
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-            </div>
-            <Row className="g-2">
-              {displayFilterCategories()}
-              {displaySortOptions}
-            </Row>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
-              <ReaderIcon className="icon-left" />API Reference
-            </Link>
-          </Hero>
-          {displayDatasets()}
-          <div className="text-center">
-            {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
-            {datasets?.data?.datasets?.length === 36 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
+    <Suspense condition={!datasets.isLoading && !filters.isLoading && !products.isLoading} fallback={<Loading />}>
+      <Container>
+        <Hero>
+          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+          <div className="mb-2">
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
           </div>
-        </Container>
-      </Show>
-      <Show when={datasets.isLoading || filters.isLoading || products.isLoading}>
-        <Loading />
-      </Show>
-    </Fragment>
+          <Row className="g-2">
+            {displayFilterCategories()}
+            {displaySortOptions}
+          </Row>
+          <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
+            <ReaderIcon className="icon-left" />API Reference
+          </Link>
+        </Hero>
+        {displayDatasets()}
+        <div className="text-center">
+          {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
+          {datasets?.data?.datasets?.length === 36 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
+        </div>
+      </Container>
+    </Suspense>
   )
 }

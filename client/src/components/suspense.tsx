@@ -8,5 +8,5 @@ export interface SuspenseProps {
 }
 
 export default function Suspense({ condition, children, fallback }: SuspenseProps) {
-  return condition ? <Fragment>{fallback}</Fragment> : <Fragment>{children}</Fragment>
+  return condition ? <Fragment>{children}</Fragment> : <Fragment>{fallback}</Fragment>
 }

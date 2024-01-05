@@ -1,7 +1,7 @@
 "use client"
 import Loading from "@/components/loading"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -49,7 +49,7 @@ export default function Page() {
 
   return (
     <Fragment>
-      <Show when={!myWorkspaces.isLoading}>
+      <Suspense condition={!myWorkspaces.isLoading} fallback={<Loading />}>
         <div className="box">
           <p className="branding">Workspace</p>
           <Form.Group controlId="floatingSelectGrid" className="mb-4">
@@ -62,10 +62,7 @@ export default function Page() {
           <SensitiveInfoPanel credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
           <Button variant="primary" onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
         </div>
-      </Show>
-      <Show when={myWorkspaces.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
       {promptDialog()}
     </Fragment>
   )

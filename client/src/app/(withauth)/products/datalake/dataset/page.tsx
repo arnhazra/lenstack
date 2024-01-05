@@ -2,7 +2,7 @@
 import { Badge, Container, Row } from "react-bootstrap"
 import { Fragment, useCallback } from "react"
 import Loading from "@/components/loading"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
@@ -68,28 +68,20 @@ export default function Page() {
   }, [dataset?.data?.description])
 
   return (
-    <Fragment>
-      <Show when={!dataset?.isLoading && !similarDatasets?.isLoading}>
-        <Show when={!dataset.error && !!datasetId}>
-          <Container>
-            <Hero>
-              <p className="branding text-capitalize">{dataset?.data?.name}</p>
-              <p className="lead">{dataset?.data?.category}</p>
-              {datasetQuality()}
-              <p className="muted-text mt-3">{dataset?.data?.description}</p>
-              <div className="mb-4">{displayDatasetTags()}</div>
-              <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
-            </Hero>
-            {displaySimilarDatasets()}
-          </Container>
-        </Show>
-        <Show when={!!dataset.error || !datasetId}>
-          <Error />
-        </Show>
-      </Show>
-      <Show when={dataset?.isLoading || similarDatasets?.isLoading}>
-        <Loading />
-      </Show>
-    </Fragment >
+    <Suspense condition={!dataset?.isLoading && !similarDatasets?.isLoading} fallback={<Loading />}>
+      <Suspense condition={!dataset.error && !!datasetId} fallback={<Error />}>
+        <Container>
+          <Hero>
+            <p className="branding text-capitalize">{dataset?.data?.name}</p>
+            <p className="lead">{dataset?.data?.category}</p>
+            {datasetQuality()}
+            <p className="muted-text mt-3">{dataset?.data?.description}</p>
+            <div className="mb-4">{displayDatasetTags()}</div>
+            <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
+          </Hero>
+          {displaySimilarDatasets()}
+        </Container>
+      </Suspense>
+    </Suspense>
   )
 }

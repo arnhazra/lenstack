@@ -1,7 +1,7 @@
 "use client"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
-import Show from "@/components/show"
+import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
@@ -69,7 +69,7 @@ export default function Page() {
 
   return (
     <Container>
-      <Show when={!products.isLoading}>
+      <Suspense condition={!products.isLoading} fallback={<Loading />}>
         <Hero>
           <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
           <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
@@ -95,16 +95,14 @@ export default function Page() {
             </Row>
             <Col xs={12} sm={12} md={12} lg={8} xl={6}>
               <Button variant="warning" type="submit" disabled={isLoading} className="mt-2 btn-block">
-                <Show when={!isLoading}>Send {matic} MATIC <ArrowRightIcon className="icon-right" /></Show>
-                <Show when={isLoading}><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</Show>
+                <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</>}>
+                  Send {matic} MATIC <ArrowRightIcon className="icon-right" />
+                </Suspense>
               </Button>
             </Col>
           </form>
         </Hero>
-      </Show>
-      <Show when={!!products.isLoading}>
-        <Loading />
-      </Show>
+      </Suspense>
     </Container>
   )
 }

@@ -1,6 +1,8 @@
 # Changelog
 
 ### v6.0.0
+* Introduction of new suspense component with fallback ui
+* Deprecated Show component
 * Added strict types to functions, constants, returns
 * Fix resubscribe issue
 * Implementation of DDD with CQRS pattern in some modules
