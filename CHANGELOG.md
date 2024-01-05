@@ -3,7 +3,7 @@
 ### v6.0.0
 * Added strict types to functions, constants, returns
 * Fix resubscribe issue
-* Implementation of DDD with CQRS pattern
+* Implementation of DDD with CQRS pattern in some modules
 * New Card Component
 * Introduction of new Suspense Component
 * Introduction of Tanstack query default options
