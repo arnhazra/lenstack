@@ -5,6 +5,9 @@
 * Fix resubscribe issue
 * Implementation of DDD with CQRS pattern
 * New Card Component
+* Introduction of new Suspense Component
+* Introduction of Tanstack query default options
+* Component new naming convention
 
 ### v5.3.2
 * Node Dependency updates

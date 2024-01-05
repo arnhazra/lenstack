@@ -10,10 +10,8 @@ import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import IdentityGuard from "@/components/identity-guard"
 import Suspense from "@/components/suspense"
-import { useIsFetching } from "@tanstack/react-query"
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const isFetching = useIsFetching()
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState(true)
   const [isAuthorized, setAuthorized] = useState(false)
@@ -76,7 +74,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <nav className="header">
         <Header isAuthorized={isAuthorized} />
       </nav>
-      <Suspense condition={isLoading || !!isFetching} fallback={<Loading />}>
+      <Suspense condition={isLoading} fallback={<Loading />}>
         <Suspense condition={!isAuthorized} fallback={<IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />}>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
             {children}

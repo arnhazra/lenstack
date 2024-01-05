@@ -12,12 +12,7 @@ export default function useQuery(queryKey: string, queryUrl: string, method: Met
 
   const { error, data, isLoading } = useReactQuery({
     queryKey: [queryKey, requestBody, queryId, queryUrl],
-    queryFn: () => fetchDataFunction(),
-    retry: 2,
-    retryDelay: 2500,
-    refetchOnWindowFocus: true,
-    refetchInterval: 60000,
-    enabled: true,
+    queryFn: () => fetchDataFunction()
   })
 
   if (error) {
