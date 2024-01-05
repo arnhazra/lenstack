@@ -8,6 +8,7 @@
 * Introduction of new Suspense Component
 * Introduction of Tanstack query default options
 * Component new naming convention
+* Tanstack query dependency modifications
 
 ### v5.3.2
 * Node Dependency updates

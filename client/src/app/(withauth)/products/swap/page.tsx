@@ -22,8 +22,8 @@ export interface TokenData {
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const swapTokenConfig = useQuery("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
+  const swapTokenConfig = useQuery(["swaptokenconfig"], `${endPoints.swapTokenConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "swap")
 
   const displayTokens = useCallback(() => {

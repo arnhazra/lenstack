@@ -16,8 +16,8 @@ import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
-  const dataset = useQuery("view-dataset", `${endPoints.datalakeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
-  const similarDatasets = useQuery("view-similar-datasets", `${endPoints.datalakeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const dataset = useQuery(["dataset"], `${endPoints.datalakeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const similarDatasets = useQuery(["similardatasets"], `${endPoints.datalakeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
 
   const displaySimilarDatasets = useCallback(() => {
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {

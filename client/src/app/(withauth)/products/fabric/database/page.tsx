@@ -17,7 +17,7 @@ import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 export default function Page() {
   const searchParams = useSearchParams()
   const dbId = searchParams.get("dbId")
-  const db = useQuery("view-db", `${endPoints.fabricViewDb}`, HTTPMethods.POST, { dbId })
+  const db = useQuery(["database"], `${endPoints.fabricViewDb}`, HTTPMethods.POST, { dbId })
   const router = useRouter()
   const { confirmDialog, confirm } = useConfirm()
 

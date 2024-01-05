@@ -18,8 +18,8 @@ import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
-  const nftContractAddress = useQuery("secret-config", endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
+  const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])

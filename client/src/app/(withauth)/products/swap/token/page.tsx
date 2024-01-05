@@ -33,7 +33,7 @@ export default function Page() {
   const { promptDialog, prompt } = usePrompt()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
-  const swapTokenConfig = useQuery("swaptokenconfig", `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
+  const swapTokenConfig = useQuery(["swaptokenconfig"], `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.swapSignTransactionGateway)
   const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)

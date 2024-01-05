@@ -16,7 +16,7 @@ import { Fragment, useCallback } from "react"
 export default function Page() {
   const searchParams = useSearchParams()
   const productName = searchParams.get("productName")
-  const apireference = useQuery("get-apireference", `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
+  const apireference = useQuery(["apireference"], `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
 
   const displayAPIReferences = useCallback(() => {
     const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {

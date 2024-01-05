@@ -22,8 +22,8 @@ export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
   const { prompt, promptDialog } = usePrompt()
   const router = useRouter()
-  const dbs = useQuery("get-dbs", `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
+  const dbs = useQuery(["databases"], `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 
   const displayDatabases = useCallback(() => {

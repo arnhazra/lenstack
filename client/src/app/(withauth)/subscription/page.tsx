@@ -21,7 +21,7 @@ export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
   const web3Provider = new Web3(endPoints.signSubscriptionTxGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const pricingDetails = useQuery("pricing", endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const router = useRouter()
   const [selectedPlan] = useState("Pro")
   const [isTxProcessing, setTxProcessing] = useState(false)

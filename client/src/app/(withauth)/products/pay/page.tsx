@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
 export default function Page() {
-  const products = useQuery("get-products", `${endPoints.getProductConfig}?searchQuery=pay`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=pay`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "pay")
   const web3Provider = new Web3(endPoints.paySignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
