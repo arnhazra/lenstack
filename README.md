@@ -1,5 +1,7 @@
-## Lenstack
-Lenstack is a comprehensive Software-as-a-Service (SaaS) application. Explore the various applications hosted within this SaaS.
+## ArcStack
+This Software-as-a-Service (SaaS) platform offers an extensive array of applications catering to diverse needs. Its ecosystem hosts a multifaceted suite of tools and services, each designed to streamline and enhance various aspects of operations across industries.
+
+Within this comprehensive SaaS application, users gain access to a multitude of functionalities. These may include but are not limited to project management tools for efficient task organization, customer relationship management (CRM) systems for fostering client connections, robust analytics platforms aiding data-driven decision-making, collaborative communication channels for seamless teamwork, and scalable infrastructure services ensuring reliable performance.
 
 #### Datalake
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
@@ -16,11 +18,11 @@ Ledgerscan is designed to gather & analyze data from blockchain ledger, includin
 #### NFT Studio
 A NFT management application that uses Ethereum Blockchain to create and manage prototypes.
 
-#### Pay
-An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
-
 #### Swap
 Effortlessly trade ERC-20 tokens with our platform, ensuring seamless transactions within the Ethereum ecosystem.
+
+#### Wallet
+An app that simplifies MATIC transfers, enabling seamless transactions between accounts on the Polygon network.
 
 
 ### What is the cost of using this platform ?

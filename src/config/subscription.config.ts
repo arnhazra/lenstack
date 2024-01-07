@@ -21,7 +21,7 @@ export const subscriptionConfig: SubscriptionConfigType = {
 
 export const apiPricing: Record<string, number> = {
   datalake: 3,
-  pay: 5,
+  wallet: 5,
   insights: 3,
   nftstudio: 50,
   swap: 10,

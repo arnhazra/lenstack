@@ -15,9 +15,9 @@ import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
 export default function Page() {
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=pay`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "pay")
-  const web3Provider = new Web3(endPoints.paySignTransactionGateway)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=wallet`, HTTPMethods.GET)
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "wallet")
+  const web3Provider = new Web3(endPoints.walletSignTransactionGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [matic, setMatic] = useState(0)
   const [receiverAddress, setReceiverAddress] = useState("")
@@ -29,7 +29,7 @@ export default function Page() {
 
     try {
       setLoading(true)
-      await axios.post(endPoints.payCreateTx)
+      await axios.post(endPoints.walletCreateTx)
       const gasPrice = await web3Provider.eth.getGasPrice()
 
       const transactionObject = {

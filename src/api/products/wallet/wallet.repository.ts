@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { TransactionModel } from "./entities/transaction.entity"
 
 @Injectable()
-export class PayRepository {
+export class WalletRepository {
   async createTransaction(workspaceId: string) {
     try {
       const transaction = new TransactionModel({ workspaceId })

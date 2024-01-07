@@ -8,7 +8,7 @@ export const envConfig: Record<string, any> = {
   datalakeMongoDbUri: process.env.DATALAKE_DB_URI,
   insightsMongoDbUri: process.env.INSIGHTS_DB_URI,
   fabricMongoDbUri: process.env.FABRIC_DB_URI,
-  payMongoDbUri: process.env.PAY_DB_URI,
+  walletMongoDbUri: process.env.WALLET_DB_URI,
   ledgerscanMongoDbUri: process.env.LEDGERSCAN_DB_URI,
   nftstudioMongoDbUri: process.env.NFTSTUDIO_DB_URI,
   swapMongoDbUri: process.env.SWAP_DB_URI,

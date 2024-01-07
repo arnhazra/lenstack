@@ -1,16 +1,16 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { PayRepository } from "./pay.repository"
+import { WalletRepository } from "./wallet.repository"
 import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
 import { envConfig } from "src/config/env.config"
 
 @Injectable()
-export class PayService {
-  constructor(private readonly payRepository: PayRepository, private readonly httpService: HttpService) { }
+export class WalletService {
+  constructor(private readonly walletRepository: WalletRepository, private readonly httpService: HttpService) { }
 
   async createTransaction(workspaceId: string) {
     try {
-      const transaction = await this.payRepository.createTransaction(workspaceId)
+      const transaction = await this.walletRepository.createTransaction(workspaceId)
       return transaction
     }
 

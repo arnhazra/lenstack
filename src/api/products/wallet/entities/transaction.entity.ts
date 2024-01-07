@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { payMongoDbConn } from "../../../../utils/db-connect"
+import { walletMongoDbConn } from "../../../../utils/db-connect"
 
 const TransactionSchema = new mongoose.Schema({
   workspaceId: {
@@ -14,4 +14,4 @@ const TransactionSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-export const TransactionModel = payMongoDbConn.model("transaction", TransactionSchema)
+export const TransactionModel = walletMongoDbConn.model("transaction", TransactionSchema)

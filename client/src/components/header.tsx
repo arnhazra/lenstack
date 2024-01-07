@@ -64,7 +64,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
           <Container>
             <Link href="/dashboard">
               <Navbar.Brand>
-                <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top" />{" "}
+                <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top logo-navbar" />{" "}
                 {uiConstants.brandName}
               </Navbar.Brand>
             </Link>
@@ -76,14 +76,13 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.mumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
+                <Nav.Item><Link href="/activity">Activity</Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
-                <Nav.Item className="btn-user-link"><Link href="/activities">Activities</Link></Nav.Item>
               </Nav>
               <Nav className="ms-auto">
                 <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
                   <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Suspense>
-                <CountdownTimerIcon className="icon-navbar" onClick={() => router.push("/activity")} />
                 <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>
@@ -95,7 +94,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
           <Container>
             <Link href="/">
               <Navbar.Brand>
-                <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top" />{" "}
+                <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top logo-navbar" />{" "}
                 {uiConstants.brandName}
               </Navbar.Brand>
             </Link>
