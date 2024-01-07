@@ -19,7 +19,7 @@ export default function Card({ cardProps }: CardProps) {
     <Col className="mb-4">
       <Link href={cardProps.redirectUri}>
         <BootstrapCard className={`card-${cardProps.className.toLowerCase()}`}>
-          <Badge bg="light" className="position-absolute mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{cardProps.badgeText}</Badge>
+          <Badge className="position-absolute mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2 card-badge">{cardProps.badgeText}</Badge>
           <BootstrapCard.Header className="pb-2 ps-4 card-header">
             <p className="card-header-text pb-2 pt-2">{cardProps.headerText}</p>
           </BootstrapCard.Header>

@@ -1,16 +1,16 @@
 import { Controller, Post, BadRequestException, Body } from "@nestjs/common"
-import { PayService } from "./pay.service"
+import { WalletService } from "./wallet.service"
 import { statusMessages } from "../../../constants/status-messages"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 
-@Controller("products/pay")
-export class PayController {
-  constructor(private readonly payService: PayService) { }
+@Controller("products/wallet")
+export class WalletController {
+  constructor(private readonly walletService: WalletService) { }
 
   @Post("createtx")
   async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
     try {
-      const transaction = await this.payService.createTransaction(ufc.workspaceId)
+      const transaction = await this.walletService.createTransaction(ufc.workspaceId)
       return transaction
     }
 
@@ -22,7 +22,7 @@ export class PayController {
   @Post("signtransactiongateway")
   async signTransactionGateway(@Body() requestBody: any) {
     try {
-      const response = await this.payService.signTransactionGateway(requestBody)
+      const response = await this.walletService.signTransactionGateway(requestBody)
       return response
     }
 

@@ -1,5 +1,5 @@
 export const uiConstants = {
-  brandName: "Lenstack",
+  brandName: "ArcStack",
   homeHeader1: "Build, Ship & Scale",
   homeHeader2: "Powered by Blockchain",
   homeIntro1: "Start with 30 days free trial, with 10k credits",

@@ -3,7 +3,7 @@ import { envConfig } from "../config/env.config"
 
 export const platformMongoDbConn: Connection = mongoose.createConnection(envConfig.platformDbUri)
 export const datalakeMongoDbConn: Connection = mongoose.createConnection(envConfig.datalakeMongoDbUri)
-export const payMongoDbConn: Connection = mongoose.createConnection(envConfig.payMongoDbUri)
+export const walletMongoDbConn: Connection = mongoose.createConnection(envConfig.walletMongoDbUri)
 export const insightsMongoDbConn: Connection = mongoose.createConnection(envConfig.insightsMongoDbUri)
 export const nftstudioMongoDbConn: Connection = mongoose.createConnection(envConfig.nftstudioMongoDbUri)
 export const swapMongoDbConn: Connection = mongoose.createConnection(envConfig.swapMongoDbUri)
@@ -21,9 +21,9 @@ async function datalakeDbConnect(): Promise<void> {
   datalakeMongoDbConn.on("error", () => console.log("Datalake DB Not Connected"))
 }
 
-async function payDbConnect(): Promise<void> {
-  payMongoDbConn.on("connected", () => console.log("Pay DB Connected"))
-  payMongoDbConn.on("error", () => console.log("Pay DB Not Connected"))
+async function walletDbConnect(): Promise<void> {
+  walletMongoDbConn.on("connected", () => console.log("Wallet DB Connected"))
+  walletMongoDbConn.on("error", () => console.log("Wallet DB Not Connected"))
 }
 
 async function insightsDbConnect(): Promise<void> {
@@ -46,7 +46,7 @@ async function fabricDbConnect(): Promise<void> {
   fabricMongoDbConn.on("error", () => console.log("Fabric DB Not Connected"))
 }
 
-async function ledgerscanMongoDbConnect(): Promise<void> {
+async function ledgerscanDbConnect(): Promise<void> {
   ledgerscanMongoDbConn.on("connected", () => console.log("Ledgerscan DB Connected"))
   ledgerscanMongoDbConn.on("error", () => console.log("Ledgerscan DB Not Connected"))
 }
@@ -54,10 +54,10 @@ async function ledgerscanMongoDbConnect(): Promise<void> {
 export async function dbConnect(): Promise<void> {
   platformDbConnect()
   datalakeDbConnect()
-  payDbConnect()
+  walletDbConnect()
   insightsDbConnect()
   nftstudioDbConnect()
   swapDbConnect()
   fabricDbConnect()
-  ledgerscanMongoDbConnect()
+  ledgerscanDbConnect()
 }

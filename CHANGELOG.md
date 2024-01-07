@@ -1,5 +1,9 @@
 # Changelog
 
+### v6.1.0
+* Rebranding of Pay as Wallet
+* Rebranding & Redesigned UI
+
 ### v6.0.0
 * Introduction of new suspense component with fallback ui
 * Deprecated Show component

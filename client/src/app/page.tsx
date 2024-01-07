@@ -1,6 +1,6 @@
 import { uiConstants } from "@/constants/global-constants"
 import Link from "next/link"
-import { CubeIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CubeIcon } from "@radix-ui/react-icons"
 import { Container } from "react-bootstrap"
 import Header from "@/components/header"
 
@@ -21,8 +21,7 @@ export default function Page() {
           {uiConstants.homeIntro3} <br />
         </p>
         <Link href="/dashboard" className="btn btn-primary">
-          <CubeIcon className="icon-left" />
-          Try for free
+          Try {uiConstants.brandName} for free<ArrowRightIcon className="icon-right" />
         </Link>
       </div>
     </Container>
