@@ -16,6 +16,7 @@ import { PlusCircledIcon } from "@radix-ui/react-icons"
 import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
+import Error from "@/components/error"
 
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
@@ -77,18 +78,20 @@ export default function Page() {
 
   return (
     <Suspense condition={!isLoading && !nftContractAddress.isLoading && !products.isLoading} fallback={<Loading />}>
-      <Container>
-        <Hero>
-          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-          <div className="mb-2">
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-          </div>
-          <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
-        </Hero>
-        {displayNfts()}
-      </Container>
+      <Suspense condition={!nftContractAddress.error && !products.error} fallback={<Error />}>
+        <Container>
+          <Hero>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            </div>
+            <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
+          </Hero>
+          {displayNfts()}
+        </Container>
+      </Suspense>
     </Suspense>
   )
 }

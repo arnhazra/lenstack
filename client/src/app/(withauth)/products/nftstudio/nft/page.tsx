@@ -146,7 +146,7 @@ export default function Page() {
   return (
     <Fragment>
       <Suspense condition={!nftContractAddress.isLoading && !isLoading && !isArchiving} fallback={<Loading />}>
-        <Suspense condition={!hasError} fallback={<Error />}>
+        <Suspense condition={!hasError && !nftContractAddress.error} fallback={<Error />}>
           <Container>
             <Hero>
               <Row>

@@ -10,6 +10,7 @@ import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
+import Error from "@/components/error"
 
 export interface TokenData {
   tokenName: string
@@ -52,15 +53,17 @@ export default function Page() {
   return (
     <Container>
       <Suspense condition={!swapTokenConfig.isLoading && !products.isLoading} fallback={<Loading />}>
-        <Hero>
-          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-          <div className="mb-2">
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-          </div>
-        </Hero>
-        {displayTokens()}
+        <Suspense condition={!swapTokenConfig.error && !products.error} fallback={<Error />}>
+          <Hero>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            </div>
+          </Hero>
+          {displayTokens()}
+        </Suspense>
       </Suspense>
     </Container>
   )

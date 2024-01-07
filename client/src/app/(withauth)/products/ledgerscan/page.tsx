@@ -1,4 +1,5 @@
 "use client"
+import Error from "@/components/error"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
@@ -51,31 +52,33 @@ export default function Page() {
   return (
     <Container>
       <Suspense condition={!products.isLoading} fallback={<Loading />}>
-        <Hero>
-          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-          <div className="mb-2">
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-          </div>
-          <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary">
-            <ReaderIcon className="icon-left" />API Reference
-          </Link>
-        </Hero>
-        <Hero>
-          <p className="branding">API Client</p>
-          <form onSubmit={hitAPI}>
-            <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
-            <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
-            <Button variant="primary" disabled={isLoading} className="mt-3" type="submit">
-              <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Loading</>}>
-                <RocketIcon className="icon-left" />Hit API
-              </Suspense>
-            </Button>
-          </form>
-          <p>Response</p>
-          <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
-        </Hero>
+        <Suspense condition={!products.error} fallback={<Error />}>
+          <Hero>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            </div>
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary">
+              <ReaderIcon className="icon-left" />API Reference
+            </Link>
+          </Hero>
+          <Hero>
+            <p className="branding">API Client</p>
+            <form onSubmit={hitAPI}>
+              <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
+              <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
+              <Button variant="primary" disabled={isLoading} className="mt-3" type="submit">
+                <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Loading</>}>
+                  <RocketIcon className="icon-left" />Hit API
+                </Suspense>
+              </Button>
+            </form>
+            <p>Response</p>
+            <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
+          </Hero>
+        </Suspense>
       </Suspense>
     </Container>
   )

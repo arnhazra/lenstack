@@ -12,6 +12,7 @@ import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
+import Error from "@/components/error"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -98,28 +99,30 @@ export default function Page() {
 
   return (
     <Suspense condition={!datasets.isLoading && !filters.isLoading && !products.isLoading} fallback={<Loading />}>
-      <Container>
-        <Hero>
-          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-          <div className="mb-2">
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+      <Suspense condition={!datasets.error && !filters.error && !products.error} fallback={<Error />}>
+        <Container>
+          <Hero>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            </div>
+            <Row className="g-2">
+              {displayFilterCategories()}
+              {displaySortOptions}
+            </Row>
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
+              <ReaderIcon className="icon-left" />API Reference
+            </Link>
+          </Hero>
+          {displayDatasets()}
+          <div className="text-center">
+            {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
+            {datasets?.data?.datasets?.length === 24 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
           </div>
-          <Row className="g-2">
-            {displayFilterCategories()}
-            {displaySortOptions}
-          </Row>
-          <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
-            <ReaderIcon className="icon-left" />API Reference
-          </Link>
-        </Hero>
-        {displayDatasets()}
-        <div className="text-center">
-          {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
-          {datasets?.data?.datasets?.length === 24 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
-        </div>
-      </Container>
+        </Container>
+      </Suspense>
     </Suspense>
   )
 }

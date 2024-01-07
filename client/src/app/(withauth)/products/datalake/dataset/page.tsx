@@ -69,7 +69,7 @@ export default function Page() {
 
   return (
     <Suspense condition={!dataset?.isLoading && !similarDatasets?.isLoading} fallback={<Loading />}>
-      <Suspense condition={!dataset.error && !!datasetId} fallback={<Error />}>
+      <Suspense condition={!dataset.error && !!datasetId && !similarDatasets.error} fallback={<Error />}>
         <Container>
           <Hero>
             <p className="branding text-capitalize">{dataset?.data?.name}</p>

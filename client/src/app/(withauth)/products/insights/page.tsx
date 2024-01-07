@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
+import Error from "@/components/error"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -68,21 +69,23 @@ export default function Page() {
   return (
     <Fragment>
       <Suspense condition={!projects.isLoading && !products.isLoading} fallback={<Loading />}>
-        <Container>
-          <Hero>
-            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-            <div className="mb-2">
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-            </div>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
-              <ReaderIcon className="icon-left" />API Reference
-            </Link>
-            <Button variant="primary" onClick={createProject}><PlusCircledIcon className="icon-left" />Create Project</Button>
-          </Hero>
-          {displayProjects()}
-        </Container>
+        <Suspense condition={!projects.error && !products.error} fallback={<Error />}>
+          <Container>
+            <Hero>
+              <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+              <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+              <div className="mb-2">
+                <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+                <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+              </div>
+              <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
+                <ReaderIcon className="icon-left" />API Reference
+              </Link>
+              <Button variant="primary" onClick={createProject}><PlusCircledIcon className="icon-left" />Create Project</Button>
+            </Hero>
+            {displayProjects()}
+          </Container>
+        </Suspense>
       </Suspense>
       {promptDialog()}
     </Fragment>
