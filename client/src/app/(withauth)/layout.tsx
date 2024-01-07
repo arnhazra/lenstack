@@ -13,8 +13,8 @@ import Suspense from "@/components/suspense"
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const [isLoading, setLoading] = useState(true)
-  const [isAuthorized, setAuthorized] = useState(false)
+  const [isLoading, setLoading] = useState<boolean>(true)
+  const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
