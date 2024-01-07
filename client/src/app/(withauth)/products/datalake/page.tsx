@@ -28,13 +28,13 @@ export default function Page() {
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
 
   const prevPage = () => {
-    const prevDatasetReqNumber = datasetRequestState.offset - 36
+    const prevDatasetReqNumber = datasetRequestState.offset - 24
     setDatasetRequestState({ ...datasetRequestState, offset: prevDatasetReqNumber })
     window.scrollTo(0, 0)
   }
 
   const nextPage = () => {
-    const nextOffset = datasetRequestState.offset + 36
+    const nextOffset = datasetRequestState.offset + 24
     setDatasetRequestState({ ...datasetRequestState, offset: nextOffset })
     window.scrollTo(0, 0)
   }
@@ -117,7 +117,7 @@ export default function Page() {
         {displayDatasets()}
         <div className="text-center">
           {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
-          {datasets?.data?.datasets?.length === 36 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
+          {datasets?.data?.datasets?.length === 24 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}
         </div>
       </Container>
     </Suspense>

@@ -23,7 +23,7 @@ export class DatalakeService {
       const selectedFilterCategory = findDatasetsDto.selectedFilter === "All" ? "" : findDatasetsDto.selectedFilter
       const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
       const offset = findDatasetsDto.offset || 0
-      const limit = 36
+      const limit = 24
       const datasets = await this.datalakeRepository.findDatasets(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
       return datasets
     }
@@ -48,7 +48,7 @@ export class DatalakeService {
     try {
       const dataset = await this.datalakeRepository.findDatasetMetadataById(datasetId)
       const datasetCategory = dataset.category
-      const similarDatasets = await this.datalakeRepository.findDatasets("", datasetCategory, "name", 0, 36)
+      const similarDatasets = await this.datalakeRepository.findDatasets("", datasetCategory, "name", 0, 24)
       return similarDatasets
     }
 
