@@ -1,4 +1,5 @@
 "use client"
+import Error from "@/components/error"
 import Hero from "@/components/hero"
 import InfoPanel from "@/components/infopanel"
 import Loading from "@/components/loading"
@@ -32,12 +33,14 @@ export default function Page() {
 
   return (
     <Suspense condition={!activities.isLoading} fallback={<Loading />}>
-      <Container>
-        <Hero>
-          <p className="branding text-capitalize">Activities</p>
-          {displayActivities()}
-        </Hero>
-      </Container>
+      <Suspense condition={!activities.error} fallback={<Error />}>
+        <Container>
+          <Hero>
+            <p className="branding text-capitalize">Activities</p>
+            {displayActivities()}
+          </Hero>
+        </Container>
+      </Suspense>
     </Suspense>
   )
 }

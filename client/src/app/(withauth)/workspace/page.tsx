@@ -12,6 +12,7 @@ import axios from "axios"
 import { Fragment, useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import toast from "react-hot-toast"
+import Error from "@/components/error"
 
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
@@ -50,18 +51,20 @@ export default function Page() {
   return (
     <Fragment>
       <Suspense condition={!myWorkspaces.isLoading} fallback={<Loading />}>
-        <div className="box">
-          <p className="branding">Workspace</p>
-          <Form.Group controlId="floatingSelectGrid" className="mb-4">
-            <Form.Label>Switch Workspace</Form.Label>
-            <Form.Select className="text-capitalize" size="lg" defaultValue={userState.selectedWorkspaceId} onChange={(e): void => { switchWorkspace(e.target.value) }}>
-              {myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => <option className="text-capitalize" key={workspace._id} value={workspace._id}>{workspace.name}</option>)}
-            </Form.Select>
-          </Form.Group>
-          <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
-          <SensitiveInfoPanel credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
-          <Button variant="primary" onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
-        </div>
+        <Suspense condition={!myWorkspaces.error} fallback={<Error />}>
+          <div className="box">
+            <p className="branding">Workspace</p>
+            <Form.Group controlId="floatingSelectGrid" className="mb-4">
+              <Form.Label>Switch Workspace</Form.Label>
+              <Form.Select className="text-capitalize" size="lg" defaultValue={userState.selectedWorkspaceId} onChange={(e): void => { switchWorkspace(e.target.value) }}>
+                {myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => <option className="text-capitalize" key={workspace._id} value={workspace._id}>{workspace.name}</option>)}
+              </Form.Select>
+            </Form.Group>
+            <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
+            <SensitiveInfoPanel credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
+            <Button variant="primary" onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
+          </div>
+        </Suspense>
       </Suspense>
       {promptDialog()}
     </Fragment>

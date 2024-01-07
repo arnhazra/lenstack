@@ -9,6 +9,7 @@ import { Container, Row } from "react-bootstrap"
 import Card, { CardInterface } from "@/components/card"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
+import Error from "@/components/error"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
@@ -40,9 +41,11 @@ export default function Page() {
 
   return (
     <Suspense condition={!products.isLoading} fallback={<Loading />}>
-      <Container>
-        {displayProducts()}
-      </Container>
+      <Suspense condition={!products.error} fallback={<Error />}>
+        <Container>
+          {displayProducts()}
+        </Container>
+      </Suspense>
     </Suspense>
   )
 }

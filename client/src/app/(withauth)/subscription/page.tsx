@@ -16,6 +16,7 @@ import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import useConfirm from "@/hooks/use-confirm"
 import InfoPanel from "@/components/infopanel"
+import Error from "@/components/error"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
@@ -91,25 +92,27 @@ export default function Page() {
   return (
     <Fragment>
       <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
-        <div className="box">
-          <p className="branding">Subscribe & Usage</p>
-          <p className="muted-text mb-4">Subscribe & Track your API Credentials usage from here</p>
-          <InfoPanel infoIcon={<StackIcon />} infoName="Workspace" infoValue={userState.selectedWorkspaceName} />
-          <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.selectedPlan} />
-          <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${moment(userState.expiresAt).format("MMM, Do YYYY")}` : "No Validity Data"} />
-          <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
-          <Fragment>
-            <Suspense condition={displayTrialButton && !userState.hasActiveSubscription} fallback={null}>
-              <Button variant="primary" className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
-            </Suspense>
-            <Suspense condition={!userState.hasActiveSubscription} fallback={null}>
-              <Button variant="primary" className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
-                <Suspense condition={!isTxProcessing} fallback={null}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Suspense>
-                <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Suspense>
-              </Button>
-            </Suspense>
-          </Fragment>
-        </div>
+        <Suspense condition={!pricingDetails.error} fallback={<Error />}>
+          <div className="box">
+            <p className="branding">Subscribe & Usage</p>
+            <p className="muted-text mb-4">Subscribe & Track your API Credentials usage from here</p>
+            <InfoPanel infoIcon={<StackIcon />} infoName="Workspace" infoValue={userState.selectedWorkspaceName} />
+            <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.selectedPlan} />
+            <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${moment(userState.expiresAt).format("MMM, Do YYYY")}` : "No Validity Data"} />
+            <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${pricingDetails.data?.[`${userState.selectedPlan.toLowerCase()}`]?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
+            <Fragment>
+              <Suspense condition={displayTrialButton && !userState.hasActiveSubscription} fallback={null}>
+                <Button variant="primary" className="btn-block" onClick={activateTrial}>Activate Trial<ArrowRightIcon className="icon-right" /></Button>
+              </Suspense>
+              <Suspense condition={!userState.hasActiveSubscription} fallback={null}>
+                <Button variant="primary" className="btn-block" type="submit" disabled={isTxProcessing} onClick={activatePro}>
+                  <Suspense condition={!isTxProcessing} fallback={null}>Activate Pro {pricingDetails.data?.pro?.price} MATIC<ArrowRightIcon className="icon-right" /></Suspense>
+                  <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Payment</Suspense>
+                </Button>
+              </Suspense>
+            </Fragment>
+          </div>
+        </Suspense>
       </Suspense>
       {confirmDialog()}
     </Fragment>

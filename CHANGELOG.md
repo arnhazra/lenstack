@@ -1,6 +1,7 @@
 # Changelog
 
 ### v6.1.1
+* Better error handlings with suspense
 * Minor changes & performance improvements
 
 ### v6.1.0

@@ -1,4 +1,5 @@
 "use client"
+import Error from "@/components/error"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
@@ -70,38 +71,40 @@ export default function Page() {
   return (
     <Container>
       <Suspense condition={!products.isLoading} fallback={<Loading />}>
-        <Hero>
-          <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-          <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-          <div className="mb-2">
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-            <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-          </div>
-          <form onSubmit={sendMatic}>
-            <p className="muted-text mt-4">Enter the details to send matic</p>
-            <Row className="g-2">
-              <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
-                  <Form.Label>Wallet address</Form.Label>
-                  <Form.Control disabled={isLoading} autoFocus type="text" placeholder="Ethereum Wallet Address" onChange={(e) => setReceiverAddress(e.target.value)} required autoComplete={"off"} />
-                </Form.Group>
+        <Suspense condition={!products.error} fallback={<Error />}>
+          <Hero>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            </div>
+            <form onSubmit={sendMatic}>
+              <p className="muted-text mt-4">Enter the details to send matic</p>
+              <Row className="g-2">
+                <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+                  <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Wallet address</Form.Label>
+                    <Form.Control disabled={isLoading} autoFocus type="text" placeholder="Ethereum Wallet Address" onChange={(e) => setReceiverAddress(e.target.value)} required autoComplete={"off"} />
+                  </Form.Group>
+                </Col>
+                <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>MATIC Amount</Form.Label>
+                    <Form.Control disabled={isLoading} type="text" placeholder="MATIC Amount" onChange={(e) => setMatic(Number(e.target.value))} required autoComplete={"off"} />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Col xs={12} sm={12} md={12} lg={8} xl={6}>
+                <Button variant="primary" type="submit" disabled={isLoading} className="mt-2 btn-block">
+                  <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</>}>
+                    Send {matic} MATIC <ArrowRightIcon className="icon-right" />
+                  </Suspense>
+                </Button>
               </Col>
-              <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label>MATIC Amount</Form.Label>
-                  <Form.Control disabled={isLoading} type="text" placeholder="MATIC Amount" onChange={(e) => setMatic(Number(e.target.value))} required autoComplete={"off"} />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Col xs={12} sm={12} md={12} lg={8} xl={6}>
-              <Button variant="warning" type="submit" disabled={isLoading} className="mt-2 btn-block">
-                <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</>}>
-                  Send {matic} MATIC <ArrowRightIcon className="icon-right" />
-                </Suspense>
-              </Button>
-            </Col>
-          </form>
-        </Hero>
+            </form>
+          </Hero>
+        </Suspense>
       </Suspense>
     </Container>
   )

@@ -53,8 +53,10 @@ export default function Page() {
   return (
     <Container>
       <Suspense condition={!apireference.isLoading} fallback={<Loading />}>
-        <Suspense condition={!!apireference?.data?.docList.length} fallback={<Error />}>
-          {displayAPIReferences()}
+        <Suspense condition={!apireference.error} fallback={<Loading />}>
+          <Suspense condition={!!apireference?.data?.docList.length} fallback={<Error />}>
+            {displayAPIReferences()}
+          </Suspense>
         </Suspense>
       </Suspense>
     </Container>
