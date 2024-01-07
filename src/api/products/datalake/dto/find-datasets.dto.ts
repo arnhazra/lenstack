@@ -3,5 +3,5 @@ export class FindDatasetsDto {
   readonly selectedFilter: string
   readonly selectedSortOption: string
   readonly offset: number
-  readonly limit: number = 36
+  readonly limit: number = 24
 }
