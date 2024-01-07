@@ -1,5 +1,8 @@
 # Changelog
 
+### v6.1.1
+* Minor changes & performance improvements
+
 ### v6.1.0
 * Rebranding of Pay as Wallet
 * Rebranding & Redesigned UI
