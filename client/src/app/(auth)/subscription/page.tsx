@@ -20,7 +20,7 @@ import Error from "@/components/error"
 
 export default function Page() {
   const { confirm, confirmDialog } = useConfirm()
-  const web3Provider = new Web3(endPoints.signSubscriptionTxGateway)
+  const web3Provider = new Web3(endPoints.transactionGatway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const router = useRouter()

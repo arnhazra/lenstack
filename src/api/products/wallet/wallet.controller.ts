@@ -18,16 +18,4 @@ export class WalletController {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
-
-  @Post("signtransactiongateway")
-  async signTransactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.walletService.signTransactionGateway(requestBody)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
 }

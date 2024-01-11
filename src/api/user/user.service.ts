@@ -8,8 +8,6 @@ import { generateIdentityPasskeyAndSendEmail, verifyIdentityPasskey } from "src/
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redis-helper"
 import { otherConstants } from "src/constants/other-constants"
 import { statusMessages } from "src/constants/status-messages"
-import { lastValueFrom } from "rxjs"
-import { HttpService } from "@nestjs/axios"
 import { findWorkspaceByIdQuery } from "../workspace/queries/find-workspace-by-id.query"
 import { createWorkspaceCommand } from "../workspace/commands/create-workspace.command"
 import { findMyWorkspacesQuery } from "../workspace/queries/find-workspaces.query"
@@ -24,7 +22,7 @@ export class UserService {
   private readonly authPrivateKey: string
   private readonly web3Provider: Web3
 
-  constructor(private readonly httpService: HttpService) {
+  constructor() {
     this.authPrivateKey = envConfig.authPrivateKey
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
@@ -127,17 +125,6 @@ export class UserService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async signTransactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
-      return response.data
-    }
-
-    catch (error) {
-      throw new BadRequestException()
     }
   }
 }
