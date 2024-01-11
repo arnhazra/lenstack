@@ -4,12 +4,12 @@ import { Container, Navbar, Nav } from "react-bootstrap"
 import Suspense from "./suspense"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { CountdownTimerIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
+import { TextAlignRightIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
-import { useRouter } from "next/navigation"
 import { uiHost } from "@/constants/api-endpoints"
+import Avatar from "./avatar"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -17,12 +17,10 @@ interface HeaderProps {
 
 export default function Header({ isAuthorized }: HeaderProps) {
   const [isHomePage, setIsHomePage] = useState(false)
-  const router = useRouter()
   const searchRef = useRef<HTMLInputElement | null>(null)
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const userInitial = userState.email.slice(0, 2).toUpperCase() ?? "US"
   const searchEnabledPathNames = [
     "/dashboard", "/products/datalake", "/products/insights",
     "/products/fabric", "/products/nftstudio", "/products/swap",
@@ -83,7 +81,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
                   <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
                 </Suspense>
-                <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
+                <Avatar email={userState.email} />
               </Nav>
             </Navbar.Collapse>
           </Container>
