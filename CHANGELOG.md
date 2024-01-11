@@ -1,5 +1,11 @@
 # Changelog
 
+### v6.2.0
+* Code cleanup
+* Introduction of new transaction gateway
+* Deprecation of separate transation gateways for modules
+* Regular dependency updates & bug fixes
+
 ### v6.1.1
 * Better error handlings with suspense
 * Minor changes & performance improvements

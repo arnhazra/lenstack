@@ -21,7 +21,7 @@ import Error from "@/components/error"
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
-  const web3Provider = new Web3(endPoints.nftstudioSignTransactionGateway)
+  const web3Provider = new Web3(endPoints.transactionGatway)
   const [{ userState, globalSearchString }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)

@@ -16,8 +16,6 @@ export const envConfig: Record<string, any> = {
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
   infuraGateway: process.env.INFURA_WEB3_GATEWAY,
-  quicknodeGateway: process.env.QUICKNODE_WEB3_GATEWAY,
-  alchemyGateway: process.env.ALCHEMY_WEB3_GATEWAY,
   passkeyHashingKey: process.env.PASSKEY_HASHING_KEY,
   redirectUri: process.env.GCLOUD_REDIRECT_URI,
   gcloudClientId: process.env.GCLOUD_CLIENT_ID,
