@@ -1,5 +1,7 @@
 # Changelog
 
+### v7.0.0
+
 ### v6.2.0
 * Code cleanup
 * Introduction of new transaction gateway
