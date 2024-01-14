@@ -25,6 +25,5 @@
 * typescript - Typed superset of JavaScript that compiles to plain JavaScript and helps maintaining type safe code.
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
 * react-json-view-lite - Simple JSON View library for React JS.
-* rxjs - Reactive Extensions Library for JavaScript
-* framer-motion - Framer Motion is a simple yet powerful motion library for React.
-* class-validator - Validation Library
+* rxjs - Reactive Extensions Library for JavaScript.
+* class-validator - Validation Library.
