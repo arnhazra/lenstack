@@ -1,6 +1,6 @@
 # Changelog
 
-### v7.0.0
+### v6.3.0
 * Regular dependency updates
 * Removed dbId conflict in fabric databases
 * Removed projectId conflict in insights projects
