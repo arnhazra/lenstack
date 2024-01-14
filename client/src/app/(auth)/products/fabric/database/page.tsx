@@ -54,7 +54,7 @@ export default function Page() {
           <Hero>
             <p className="branding text-capitalize">{db?.data?.db?.name}</p>
             <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
-            <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="DB ID" credentialValue={db?.data?.db?.dbId} />
+            <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="DB ID" credentialValue={db?.data?.db?._id} />
             <SensitiveInfoPanel credentialIcon={<LockOpen2Icon />} credentialName="DB Password" credentialValue={db?.data?.db?.dbPassword} />
             <Button variant="danger" onClick={deleteDb}>Delete Database<TrashIcon className="icon-right" /></Button>
           </Hero>

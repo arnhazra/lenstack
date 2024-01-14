@@ -9,8 +9,8 @@ export class FabricRepository {
     return count
   }
 
-  async createDb(workspaceId: string, name: string, dbId: string, dbPassword: string) {
-    const db = new DbModel({ workspaceId, name, dbId, dbPassword })
+  async createDb(workspaceId: string, name: string, dbPassword: string) {
+    const db = new DbModel({ workspaceId, name, dbPassword })
     await db.save()
     return db
   }
@@ -29,7 +29,7 @@ export class FabricRepository {
   }
 
   async findDb(dbId: string, dbPassword: string) {
-    const db = await DbModel.findOne({ dbId, dbPassword })
+    const db = await DbModel.findOne({ _id: dbId, dbPassword })
     return db
   }
 

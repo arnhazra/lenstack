@@ -1,21 +1,15 @@
-import mongoose from "mongoose"
+import { Schema } from "mongoose"
 import { fabricMongoDbConn } from "../../../../utils/db-connect"
 
-const DbSchema = new mongoose.Schema({
+const DbSchema = new Schema({
   workspaceId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "workspace"
   },
 
   name: {
     type: String,
     required: true
-  },
-
-  dbId: {
-    type: String,
-    required: true,
-    unique: true,
   },
 
   dbPassword: {

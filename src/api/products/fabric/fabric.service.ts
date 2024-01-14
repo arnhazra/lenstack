@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
-import { randomBytes } from "crypto"
+import { randomUUID } from "crypto"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CreateDbDto } from "./dto/create-db.dto"
 import { FabricRepository } from "./fabric.repository"
@@ -14,9 +14,8 @@ export class FabricService {
       const count = await this.fabricRepository.countDbs(workspaceId)
 
       if (count < 10) {
-        const dbId = randomBytes(16).toString("hex")
-        const dbPassword = randomBytes(32).toString("hex")
-        const db = await this.fabricRepository.createDb(workspaceId, name, dbId, dbPassword)
+        const dbPassword = randomUUID()
+        const db = await this.fabricRepository.createDb(workspaceId, name, dbPassword)
         return db
       }
 
