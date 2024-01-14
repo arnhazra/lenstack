@@ -1,6 +1,7 @@
 # Changelog
 
 ### v7.0.0
+* Regular dependency updates
 
 ### v6.2.0
 * Code cleanup
