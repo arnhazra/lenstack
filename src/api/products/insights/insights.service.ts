@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
-import { randomBytes } from "crypto"
+import { randomUUID } from "crypto"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CreateProjectDto } from "./dto/create-project.dto"
 import { InsightsRepository } from "./insights.repository"
@@ -14,9 +14,8 @@ export class InsightsService {
       const count = await this.insightsRepository.countProjects(workspaceId)
 
       if (count < 10) {
-        const projectId = randomBytes(16).toString("hex")
-        const projectPasskey = randomBytes(32).toString("hex")
-        const project = await this.insightsRepository.createProject(workspaceId, name, projectId, projectPasskey)
+        const projectPasskey = randomUUID()
+        const project = await this.insightsRepository.createProject(workspaceId, name, projectPasskey)
         return project
       }
 

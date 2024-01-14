@@ -12,12 +12,6 @@ const ProjectSchema = new mongoose.Schema({
     required: true
   },
 
-  projectId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-
   projectPasskey: {
     type: String,
     required: true,
