@@ -71,7 +71,7 @@ export default function Page() {
         <InfoPanel infoIcon={<AvatarIcon />} infoName="Email Address" infoValue={userState.email} />
         <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Wallet Address" credentialValue={accountAddress} />
         <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
-        <Button variant="primary" className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
+        <Button variant="secondary" className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
         <Button variant="primary" className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
       </div>
     </Suspense>
