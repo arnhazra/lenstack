@@ -7,7 +7,29 @@ import { envConfig } from "src/env.config"
 export class TransactionService {
   constructor(private readonly httpService: HttpService) { }
 
-  async transactionGateway(requestBody: any) {
+  async alchemyTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async infuraTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async quicknodeTransactionGateway(requestBody: any) {
     try {
       const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
       return response.data

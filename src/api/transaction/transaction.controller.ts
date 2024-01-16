@@ -5,10 +5,34 @@ import { TransactionService } from "./transaction.service"
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) { }
 
-  @Post("gateway")
-  async transactionGateway(@Body() requestBody: any) {
+  @Post("gateway/alchemy")
+  async alchemyTransactionGateway(@Body() requestBody: any) {
     try {
-      const response = await this.transactionService.transactionGateway(requestBody)
+      const response = await this.transactionService.alchemyTransactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  @Post("gateway/infura")
+  async infuraTransactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.transactionService.infuraTransactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  @Post("gateway/quicknode")
+  async quicknodeTransactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.transactionService.quicknodeTransactionGateway(requestBody)
       return response
     }
 
