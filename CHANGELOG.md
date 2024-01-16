@@ -1,6 +1,9 @@
 # Changelog
 
 ### v6.3.0
+* Introduction of new subscription plans 
+* Introduction of new checkout page
+* Introduction of new 3 transaction gateways
 * Regular dependency updates
 * Removed dbId conflict in fabric databases
 * Removed projectId conflict in insights projects
