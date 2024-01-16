@@ -26,7 +26,7 @@ An app that simplifies MATIC transfers, enabling seamless transactions between a
 
 
 ### What is the cost of using this platform ?
-Typically, utilizing this platform incurs no cost. However, a subscription fee of 1.99 MATIC/month is required for the pro subscription. It"s worth noting, as we utilize the Polygon Testnet, allowing you to receive free MATIC tokens daily into your wallet, enabling you to use this platform completely free of charge.
+Typically, utilizing this platform incurs no cost. However, a minimum subscription fee of 1.09 MATIC/month is required for the basic subscription. It is worth noting, as we utilize the Polygon Testnet, allowing you to receive free MATIC tokens daily into your wallet, enabling you to use this platform completely free of charge.
 Upon successfully creating an account on the application, an Ethereum wallet will be promptly allocated to you. This wallet serves as a designated repository for your funds, allowing you to conveniently deposit the desired amount to cover the subscription charges and enable seamless utilization of the platform"s services.
 
 
