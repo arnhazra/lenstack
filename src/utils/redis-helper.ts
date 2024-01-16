@@ -1,5 +1,5 @@
 import Redis from "ioredis"
-import { envConfig } from "../config/env.config"
+import { envConfig } from "../env.config"
 
 const redis: Redis = new Redis({
   port: Number(envConfig.redisPort),

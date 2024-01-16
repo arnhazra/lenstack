@@ -1,7 +1,7 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { findSubscriptionByWorkspaceIdQuery } from "src/api/subscription/queries/find-subscription"
 import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential"
-import { apiPricing } from "src/config/subscription.config"
+import { apiPricing } from "src/api/subscription/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
 
 export interface CredentialAuthorizerResponse {

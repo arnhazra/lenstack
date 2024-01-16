@@ -1,7 +1,7 @@
 import { HttpService } from "@nestjs/axios"
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { lastValueFrom } from "rxjs"
-import { envConfig } from "src/config/env.config"
+import { envConfig } from "src/env.config"
 
 @Injectable()
 export class TransactionService {

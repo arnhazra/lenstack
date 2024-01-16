@@ -1,4 +1,4 @@
-import { activityConfig } from "src/config/activity.config"
+import { activityConfig } from "src/api/activity/activity.config"
 
 export default function getActivityDescription(url: string): string {
   const defaultDescription = "Unknown Activity"
