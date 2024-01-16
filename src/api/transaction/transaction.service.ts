@@ -1,7 +1,7 @@
 import { HttpService } from "@nestjs/axios"
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { lastValueFrom } from "rxjs"
-import { envConfig } from "src/env.config"
+import { envConfig } from "../../env.config"
 
 @Injectable()
 export class TransactionService {
@@ -9,7 +9,7 @@ export class TransactionService {
 
   async alchemyTransactionGateway(requestBody: any) {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
       return response.data
     }
 
@@ -31,7 +31,7 @@ export class TransactionService {
 
   async quicknodeTransactionGateway(requestBody: any) {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      const response = await lastValueFrom(this.httpService.post(envConfig.quicknodeGateway, requestBody))
       return response.data
     }
 
