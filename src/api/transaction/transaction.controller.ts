@@ -5,7 +5,7 @@ import { TransactionService } from "./transaction.service"
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) { }
 
-  @Post("gateway/alchemy")
+  @Post("alchemy-gateway")
   async alchemyTransactionGateway(@Body() requestBody: any) {
     try {
       const response = await this.transactionService.alchemyTransactionGateway(requestBody)
@@ -17,7 +17,7 @@ export class TransactionController {
     }
   }
 
-  @Post("gateway/infura")
+  @Post("infura-gateway")
   async infuraTransactionGateway(@Body() requestBody: any) {
     try {
       const response = await this.transactionService.infuraTransactionGateway(requestBody)
@@ -29,7 +29,7 @@ export class TransactionController {
     }
   }
 
-  @Post("gateway/quicknode")
+  @Post("quicknode-gateway")
   async quicknodeTransactionGateway(@Body() requestBody: any) {
     try {
       const response = await this.transactionService.quicknodeTransactionGateway(requestBody)

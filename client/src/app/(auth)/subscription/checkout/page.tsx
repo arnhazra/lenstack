@@ -18,12 +18,11 @@ import { Button } from "react-bootstrap"
 export default function Page() {
   const [allPlans] = useState<string[]>(["basic", "standard", "premium"])
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const [{ userState }, dispatch] = useContext(GlobalContext)
+  const [{ userState }] = useContext(GlobalContext)
   const searchParams = useSearchParams()
   const planName = searchParams.get("planName")
   const plan = pricingDetails?.data?.find((pricing: any) => pricing.planName === planName)
   const [planNotFoundError] = useState<boolean>(allPlans.find(plan => plan === planName) === undefined)
-
   const [isTxProcessing, setTxProcessing] = useState(false)
   const router = useRouter()
   const [selectedGateway, setSelectedGateway] = useState("alchemy")
@@ -51,7 +50,6 @@ export default function Page() {
         const res = await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
         const { transactionHash } = res
         await axios.post(`${endPoints.subscribe}`, { selectedPlan: planName, transactionHash })
-        dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         toast.success(uiConstants.transactionSuccess)
       }
 
@@ -67,6 +65,7 @@ export default function Page() {
     finally {
       setTxProcessing(false)
       router.refresh()
+      router.push("/subscription")
     }
   }
 
@@ -87,7 +86,7 @@ export default function Page() {
             <input type="radio" checked={selectedGateway === "quicknode"} name="gateway" value="quicknode" onChange={(e) => setSelectedGateway(e.target.value)} />
             <label htmlFor="quicknode">Quicknode</label>
           </div>
-          <Button disabled={userState.hasActiveSubscription} variant="primary" className="btn-block" onClick={activate}>
+          <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block" onClick={activate}>
             <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
               Activate Plan<ArrowRightIcon className="icon-right" />
             </Suspense>
