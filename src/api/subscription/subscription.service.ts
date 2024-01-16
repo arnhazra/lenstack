@@ -1,9 +1,9 @@
 import Web3 from "web3"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/constants/status-messages"
-import { envConfig } from "src/config/env.config"
+import { envConfig } from "src/env.config"
 import { SubscribeDto } from "./dto/subscribe.dto"
-import { SubscriptionConfigType, subscriptionConfig } from "src/config/subscription.config"
+import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
 import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
 import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
 import { findUserByIdQuery } from "../user/queries/find-user-by-id"
@@ -22,7 +22,7 @@ export class SubscriptionService {
       const user = await findUserByIdQuery(userId)
 
       if (user.trialAvailable) {
-        const selectedPlan = "Trial"
+        const selectedPlan = SubscriptionPlans.Trial
         await createNewSubscriptionCommand(workspaceId, selectedPlan)
         await updateTrialStatusCommand(userId, false)
         return true
@@ -73,7 +73,7 @@ export class SubscriptionService {
     }
   }
 
-  getSubscriptionConfig(): SubscriptionConfigType {
+  getSubscriptionConfig() {
     try {
       return subscriptionConfig
     }
