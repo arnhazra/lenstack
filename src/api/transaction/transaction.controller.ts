@@ -17,6 +17,18 @@ export class TransactionController {
     }
   }
 
+  @Post("getblock-gateway")
+  async getblockTransactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.transactionService.getblockTransactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
   @Post("infura-gateway")
   async infuraTransactionGateway(@Body() requestBody: any) {
     try {

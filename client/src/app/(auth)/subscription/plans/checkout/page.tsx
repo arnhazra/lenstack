@@ -7,13 +7,14 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { LockClosedIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { Button } from "react-bootstrap"
+import { Badge, Button, Col, Row } from "react-bootstrap"
+import Option from "@/components/option"
 
 export default function Page() {
   const [allPlans] = useState<string[]>(["basic", "standard", "premium"])
@@ -29,10 +30,33 @@ export default function Page() {
 
   const activate = async (e: any) => {
     e.preventDefault()
+    let selectedGatewayUrl = endPoints.alchemyTransactionGateway
+
+    switch (selectedGateway) {
+      case "alchemy":
+        selectedGatewayUrl = endPoints.alchemyTransactionGateway
+        break
+
+      case "getblock":
+        selectedGatewayUrl = endPoints.getblockTransactionGateway
+        break
+
+      case "infura":
+        selectedGatewayUrl = endPoints.infuraTransactionGateway
+        break
+
+      case "quicknode":
+        selectedGatewayUrl = endPoints.quicknodetransactionGateway
+        break
+
+      default:
+        selectedGatewayUrl = endPoints.alchemyTransactionGateway
+        break
+    }
 
     try {
       setTxProcessing(true)
-      const web3Provider = new Web3(endPoints.infuraTransactionGateway)
+      const web3Provider = new Web3(selectedGatewayUrl)
       const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(userState.privateKey)
       const gasPrice = await web3Provider.eth.getGasPrice()
 
@@ -74,21 +98,30 @@ export default function Page() {
       <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
         <div className="box">
           <p className="branding">Checkout</p>
-          <p className="lead text-capitalize">{plan?.planName} Plan</p>
+          <Badge bg="light" className="mb-2"><LockClosedIcon className="icon-left" />Secure</Badge>
+          <p className="text-capitalize">{plan?.planName} Plan</p>
           <h2>{plan?.price} MATIC</h2>
           <h5 className="mb-3 mt-3">{Number(plan?.grantedCredits).toLocaleString()} Credits</h5>
           <p className="text-secondary">Select Transaction Gateway</p>
           <div className="mt-2 mb-4">
-            <input type="radio" checked={selectedGateway === "alchemy"} name="gateway" value="alchemy" onChange={(e) => setSelectedGateway(e.target.value)} />
-            <label htmlFor="alchemy">Alchemy</label><br />
-            <input type="radio" checked={selectedGateway === "infura"} name="gateway" value="infura" onChange={(e) => setSelectedGateway(e.target.value)} />
-            <label htmlFor="infura">Infura</label><br />
-            <input type="radio" checked={selectedGateway === "quicknode"} name="gateway" value="quicknode" onChange={(e) => setSelectedGateway(e.target.value)} />
-            <label htmlFor="quicknode">Quicknode</label>
+            <Row xl={2} lg={2} md={2} sm={2} xs={2}>
+              <Col>
+                <Option isSelected={selectedGateway === "alchemy"} value="alchemy" handleChange={(value) => setSelectedGateway(value)} />
+              </Col>
+              <Col>
+                <Option isSelected={selectedGateway === "getblock"} value="getblock" handleChange={(value) => setSelectedGateway(value)} />
+              </Col>
+              <Col>
+                <Option isSelected={selectedGateway === "infura"} value="infura" handleChange={(value) => setSelectedGateway(value)} />
+              </Col>
+              <Col>
+                <Option isSelected={selectedGateway === "quicknode"} value="quicknode" handleChange={(value) => setSelectedGateway(value)} />
+              </Col>
+            </Row>
           </div>
-          <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block" onClick={activate}>
+          <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize" onClick={activate}>
             <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
-              Activate Plan<ArrowRightIcon className="icon-right" />
+              Pay with {selectedGateway}<PaperPlaneIcon className="icon-right" />
             </Suspense>
           </Button>
         </div>

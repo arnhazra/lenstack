@@ -47,7 +47,7 @@ export default function Page() {
     }
 
     else {
-      router.push(`/subscription/checkout?planName=${planName}`)
+      router.push(`/subscription/plans/checkout?planName=${planName}`)
     }
   }
 

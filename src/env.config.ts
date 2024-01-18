@@ -16,6 +16,7 @@ export const envConfig = {
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
   alchemyGateway: process.env.ALCHEMY_WEB3_GATEWAY,
+  getblockGateway: process.env.GETBLOCK_WEB3_GATEWAY,
   infuraGateway: process.env.INFURA_WEB3_GATEWAY,
   quicknodeGateway: process.env.QUICKNODE_WEB3_GATEWAY,
   passkeyHashingKey: process.env.PASSKEY_HASHING_KEY,
