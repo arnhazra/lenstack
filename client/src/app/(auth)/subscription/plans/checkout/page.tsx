@@ -1,5 +1,5 @@
 "use client"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Suspense from "@/components/suspense"
 import { toast } from "react-hot-toast"
@@ -20,7 +20,7 @@ import InfoPanel from "@/components/infopanel"
 export default function Page() {
   const [allPlans] = useState<string[]>(["basic", "standard", "premium"])
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
   const searchParams = useSearchParams()
   const planName = searchParams.get("planName")
   const plan = pricingDetails?.data?.find((pricing: any) => pricing.planName === planName)
@@ -28,6 +28,12 @@ export default function Page() {
   const [isTxProcessing, setTxProcessing] = useState(false)
   const router = useRouter()
   const [selectedGateway, setSelectedGateway] = useState("alchemy")
+
+  useEffect(() => {
+    if (userState.hasActiveSubscription) {
+      router.push("/dashboard")
+    }
+  }, [userState])
 
   const activate = async (e: any) => {
     e.preventDefault()
@@ -75,6 +81,7 @@ export default function Page() {
         const res = await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
         const { transactionHash } = res
         await axios.post(`${endPoints.subscribe}`, { selectedPlan: planName, transactionHash })
+        dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         toast.success(uiConstants.transactionSuccess)
       }
 
