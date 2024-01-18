@@ -7,7 +7,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading"
-import { LockClosedIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
+import { CheckCircledIcon, LockClosedIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
@@ -15,6 +15,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import { Badge, Button, Col, Row } from "react-bootstrap"
 import Option from "@/components/option"
+import InfoPanel from "@/components/infopanel"
 
 export default function Page() {
   const [allPlans] = useState<string[]>(["basic", "standard", "premium"])
@@ -98,11 +99,9 @@ export default function Page() {
       <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
         <div className="box">
           <p className="branding">Checkout</p>
-          <Badge bg="light" className="mb-2"><LockClosedIcon className="icon-left" />Secure</Badge>
-          <p className="text-capitalize">{plan?.planName} Plan</p>
-          <h2>{plan?.price} MATIC</h2>
-          <h5 className="mb-3 mt-3">{Number(plan?.grantedCredits).toLocaleString()} Credits</h5>
-          <p className="text-secondary">Select Transaction Gateway</p>
+          <InfoPanel infoIcon={<CheckCircledIcon />} infoName="Your total today" infoValue={`${plan?.price} MATIC`} />
+          <InfoPanel infoIcon={<CheckCircledIcon />} infoName={`You selcted ${plan?.planName} Plan`} infoValue={`${Number(plan?.grantedCredits).toLocaleString()} Credits`} />
+          <p className="boxcategory-key mt-2">Select Transaction Gateway</p>
           <div className="mt-2 mb-4">
             <Row xl={2} lg={2} md={2} sm={2} xs={2}>
               <Col>
@@ -124,6 +123,9 @@ export default function Page() {
               Pay with {selectedGateway}<PaperPlaneIcon className="icon-right" />
             </Suspense>
           </Button>
+          <div className="text-center">
+            <Badge bg="light" className="mb-2"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
+          </div>
         </div>
       </Suspense>
     </Suspense>

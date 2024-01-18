@@ -1,5 +1,5 @@
 "use client"
-import { LockClosedIcon } from "@radix-ui/react-icons"
+import { RocketIcon } from "@radix-ui/react-icons"
 import { Button } from "react-bootstrap"
 
 interface OptionProps {
@@ -11,7 +11,7 @@ interface OptionProps {
 export default function Option({ isSelected, value, handleChange }: OptionProps) {
   return (
     <Button variant={isSelected ? "primary" : "secondary"} className="btn-block text-capitalize" onClick={() => handleChange(value)}>
-      <LockClosedIcon className="icon-left" />{value}
+      <RocketIcon className="icon-left" />{value}
     </Button>
   )
 }
