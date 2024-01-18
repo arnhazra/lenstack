@@ -1,4 +1,4 @@
-export const statusMessages: Record<string, string> = {
+export const statusMessages = {
   connectionError: "Connection Error",
   transactionCreationSuccess: "New Transaction Created",
   transactionCreationError: "Error Creating ERC20 Transaction",

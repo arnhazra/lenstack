@@ -1,6 +1,6 @@
 import { createHmac } from "crypto"
 import { sendEmail } from "./send-email"
-import { envConfig } from "src/config/env.config"
+import { envConfig } from "src/env.config"
 const { passkeyHashingKey } = envConfig
 
 function generateRandomPassKey(): string {

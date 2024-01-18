@@ -15,7 +15,7 @@ import InfoPanel from "@/components/infopanel"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const web3Provider = new Web3(endPoints.transactionGatway)
+  const web3Provider = new Web3(endPoints.infuraTransactionGateway)
   const [walletLoading, setWalletLoading] = useState<boolean>(true)
   const [accountAddress, setAccountAddress] = useState<string>("")
   const [maticBalance, setMaticBalance] = useState<string>("0")
@@ -71,7 +71,7 @@ export default function Page() {
         <InfoPanel infoIcon={<AvatarIcon />} infoName="Email Address" infoValue={userState.email} />
         <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Wallet Address" credentialValue={accountAddress} />
         <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
-        <Button variant="primary" className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
+        <Button variant="secondary" className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
         <Button variant="primary" className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
       </div>
     </Suspense>

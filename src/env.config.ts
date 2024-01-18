@@ -1,7 +1,7 @@
 import { config } from "dotenv"
 config()
 
-export const envConfig: Record<string, any> = {
+export const envConfig = {
   nodeEnv: process.env.NODE_ENV,
   apiPort: process.env.API_PORT,
   platformDbUri: process.env.PLATFORM_DB_URI,
@@ -15,7 +15,10 @@ export const envConfig: Record<string, any> = {
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
+  alchemyGateway: process.env.ALCHEMY_WEB3_GATEWAY,
+  getblockGateway: process.env.GETBLOCK_WEB3_GATEWAY,
   infuraGateway: process.env.INFURA_WEB3_GATEWAY,
+  quicknodeGateway: process.env.QUICKNODE_WEB3_GATEWAY,
   passkeyHashingKey: process.env.PASSKEY_HASHING_KEY,
   redirectUri: process.env.GCLOUD_REDIRECT_URI,
   gcloudClientId: process.env.GCLOUD_CLIENT_ID,

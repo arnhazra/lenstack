@@ -1,5 +1,5 @@
 import mongoose, { Connection } from "mongoose"
-import { envConfig } from "../config/env.config"
+import { envConfig } from "../env.config"
 
 export const platformMongoDbConn: Connection = mongoose.createConnection(envConfig.platformDbUri)
 export const datalakeMongoDbConn: Connection = mongoose.createConnection(envConfig.datalakeMongoDbUri)

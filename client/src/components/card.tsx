@@ -23,7 +23,7 @@ export default function Card({ cardProps }: CardProps) {
           <BootstrapCard.Header className="pb-2 ps-4 card-header">
             <p className="card-header-text pb-2 pt-2">{cardProps.headerText}</p>
           </BootstrapCard.Header>
-          <BootstrapCard.Footer className="pt-4 ps-4 card-footer mb-1">
+          <BootstrapCard.Footer className="pt-4 ps-4 card-footer">
             <div className="d-flex justify-content-between align-items-center">
               <p className="smalltext">{cardProps.footerText}</p>
             </div>

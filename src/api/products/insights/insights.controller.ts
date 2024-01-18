@@ -48,8 +48,7 @@ export class InsightsController {
   @Delete("deleteproject")
   async deleteProject(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("projectId") projectId: string) {
     try {
-      await this.insightsService.deleteProject(uft.workspaceId, projectId)
-      return true
+      return await this.insightsService.deleteProject(uft.workspaceId, projectId)
     }
 
     catch (error) {
@@ -60,8 +59,7 @@ export class InsightsController {
   @Post("createanalytics")
   async createAnalytics(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      await this.insightsService.createAnalytics(ufc.workspaceId, createAnalyticsDto)
-      return true
+      return await this.insightsService.createAnalytics(ufc.workspaceId, createAnalyticsDto)
     }
 
     catch (error) {

@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Post, Req } from "@nestjs/common"
 import { LedgerscanService } from "./ledgerscan.service"
-import { envConfig } from "src/config/env.config"
+import { envConfig } from "src/env.config"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { statusMessages } from "src/constants/status-messages"
 

@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
-import { randomBytes } from "crypto"
+import { randomUUID } from "crypto"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CreateDbDto } from "./dto/create-db.dto"
 import { FabricRepository } from "./fabric.repository"
@@ -14,9 +14,8 @@ export class FabricService {
       const count = await this.fabricRepository.countDbs(workspaceId)
 
       if (count < 10) {
-        const dbId = randomBytes(16).toString("hex")
-        const dbPassword = randomBytes(32).toString("hex")
-        const db = await this.fabricRepository.createDb(workspaceId, name, dbId, dbPassword)
+        const dbPassword = randomUUID()
+        const db = await this.fabricRepository.createDb(workspaceId, name, dbPassword)
         return db
       }
 
@@ -84,7 +83,7 @@ export class FabricService {
       const db = await this.fabricRepository.findDbById(dbId)
       if (db.workspaceId.toString() === workspaceId) {
         await this.fabricRepository.deleteDbById(workspaceId, dbId)
-        return true
+        return { success: true }
       }
 
       else {
@@ -105,7 +104,7 @@ export class FabricService {
       if (db.workspaceId.toString() === workspaceId) {
         const dbId = db.id
         await this.fabricRepository.createKv(workspaceId, dbId, key, value)
-        return true
+        return { success: true }
       }
 
       else {
@@ -122,7 +121,7 @@ export class FabricService {
     try {
       const item = await this.fabricRepository.deleteKvById(workspaceId, kvId)
       if (item) {
-        return true
+        return { success: true }
       }
 
       else {

@@ -9,7 +9,7 @@ import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/toke
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  @Post("/generatepasskey")
+  @Post("generatepasskey")
   async generateIdentityPasskey(@Body() generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {
     try {
       const { hash } = await this.userService.generateIdentityPasskey(generateIdentityPasskeyDto)
@@ -21,7 +21,7 @@ export class UserController {
     }
   }
 
-  @Post("/verifypasskey")
+  @Post("verifypasskey")
   async verifyIdentityPasskey(@Body() verifyIdentityPasskeyDto: VerifyIdentityPasskeyDto) {
     try {
       const response = await this.userService.verifyIdentityPasskey(verifyIdentityPasskeyDto)
@@ -40,7 +40,7 @@ export class UserController {
     }
   }
 
-  @Get("/userdetails")
+  @Get("userdetails")
   async getUserDetails(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       const { user, subscription, workspace, hasActiveSubscription } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)
@@ -59,7 +59,7 @@ export class UserController {
     }
   }
 
-  @Post("/signout")
+  @Post("signout")
   async signOut(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       await this.userService.signOut(uft.userId)

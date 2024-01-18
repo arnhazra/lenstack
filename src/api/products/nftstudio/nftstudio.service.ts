@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { NftstudioRepository } from "./nftstudio.repository"
-import { envConfig } from "src/config/env.config"
+import { envConfig } from "src/env.config"
 import { statusMessages } from "src/constants/status-messages"
 
 @Injectable()
@@ -10,7 +10,7 @@ export class NftstudioService {
   async createTransaction(workspaceId: string) {
     try {
       await this.nftstudioRepository.createTransaction(workspaceId)
-      return true
+      return { success: true }
     }
 
     catch (error) {
