@@ -17,7 +17,7 @@ import toast from "react-hot-toast"
 
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
   const { confirm, confirmDialog } = useConfirm()
   const router = useRouter()
 
@@ -27,6 +27,7 @@ export default function Page() {
     if (userConsent) {
       try {
         await axios.get(endPoints.activateTrial)
+        dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
         toast.success(uiConstants.toastSuccess)
       }
 
