@@ -124,7 +124,7 @@ export default function Page() {
             </Suspense>
           </Button>
           <div className="text-center">
-            <Badge bg="light" className="mb-2"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
+            <Badge bg="light" className="mt-2 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
           </div>
         </div>
       </Suspense>
