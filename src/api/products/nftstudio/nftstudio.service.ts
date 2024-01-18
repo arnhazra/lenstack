@@ -10,7 +10,7 @@ export class NftstudioService {
   async createTransaction(workspaceId: string) {
     try {
       await this.nftstudioRepository.createTransaction(workspaceId)
-      return true
+      return { success: true }
     }
 
     catch (error) {

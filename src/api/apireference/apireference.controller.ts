@@ -10,8 +10,7 @@ export class ApiReferenceController {
   @Post("create")
   async createApiReference(@Body() createApiReferenceDto: CreateApiReferenceDto) {
     try {
-      await this.apireferenceService.createApiReference(createApiReferenceDto)
-      return true
+      return await this.apireferenceService.createApiReference(createApiReferenceDto)
     }
 
     catch (error) {

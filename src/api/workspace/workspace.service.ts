@@ -38,7 +38,7 @@ export class WorkspaceService {
 
       if (ownerId.toString() === userId) {
         await switchWorkspaceCommand(userId, workspaceId)
-        return true
+        return { success: true }
       }
 
       else {

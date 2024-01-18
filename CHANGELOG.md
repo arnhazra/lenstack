@@ -5,6 +5,7 @@
 * Introduction of new checkout page
 * Introduction of 4 new transaction gateways
 * Regular dependency updates
+* Code refactoring
 * Removed dbId conflict in fabric databases
 * Removed projectId conflict in insights projects
 

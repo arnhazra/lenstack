@@ -25,7 +25,7 @@ export class SubscriptionService {
         const selectedPlan = SubscriptionPlans.Trial
         await createNewSubscriptionCommand(workspaceId, selectedPlan)
         await updateTrialStatusCommand(userId, false)
-        return true
+        return { success: true }
       }
 
       else {
@@ -59,7 +59,7 @@ export class SubscriptionService {
         else {
           await deleteSubscriptionCommand(workspaceId)
           await createNewSubscriptionCommand(workspaceId, selectedPlan)
-          return true
+          return { success: true }
         }
       }
 

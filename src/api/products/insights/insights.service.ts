@@ -66,7 +66,7 @@ export class InsightsService {
       const { workspaceId: workspaceIdFromProject } = project
       if (workspaceIdFromProject.toString() === workspaceId) {
         await this.insightsRepository.deleteProjectById(workspaceId, projectId)
-        return true
+        return { success: true }
       }
 
       else {
@@ -86,7 +86,7 @@ export class InsightsService {
       if (project.workspaceId.toString() === workspaceId) {
         const projectId = project.id
         await this.insightsRepository.createAnalytics(workspaceId, projectId, component, event, info, statusCode)
-        return true
+        return { success: true }
       }
 
       else {

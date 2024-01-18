@@ -64,8 +64,7 @@ export class FabricController {
   @Delete("deletedb")
   async deleteDb(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("dbId") dbId: string) {
     try {
-      await this.fabricService.deleteDb(uft.workspaceId, dbId)
-      return true
+      return await this.fabricService.deleteDb(uft.workspaceId, dbId)
     }
 
     catch (error) {
@@ -76,8 +75,7 @@ export class FabricController {
   @Post("createkv")
   async createKv(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
     try {
-      await this.fabricService.createKv(ufc.workspaceId, createKvDto)
-      return true
+      return await this.fabricService.createKv(ufc.workspaceId, createKvDto)
     }
 
     catch (error) {
@@ -88,8 +86,7 @@ export class FabricController {
   @Delete("deletekv")
   async deleteKv(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Query("kvId") kvId: string) {
     try {
-      await this.fabricService.deleteKv(ufc.workspaceId, kvId)
-      return true
+      return await this.fabricService.deleteKv(ufc.workspaceId, kvId)
     }
 
     catch (error) {

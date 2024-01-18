@@ -9,7 +9,7 @@ export class ApiReferenceService {
     try {
       const { productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody } = createApiReferenceDto
       await createAPIReferenceCommand(productName, apiName, apiUri, apiMethod, sampleRequestBody, sampleResponseBody)
-      return true
+      return { success: true }
     }
 
     catch (error) {

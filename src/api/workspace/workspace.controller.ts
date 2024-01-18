@@ -35,8 +35,7 @@ export class WorkspaceController {
   @Post("switch")
   async switchWorkspace(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("workspaceId") workspaceId: string) {
     try {
-      await this.workspaceService.switchWorkspace(uft.userId, workspaceId)
-      return true
+      return await this.workspaceService.switchWorkspace(uft.userId, workspaceId)
     }
 
     catch (error) {

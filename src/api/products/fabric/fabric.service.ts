@@ -83,7 +83,7 @@ export class FabricService {
       const db = await this.fabricRepository.findDbById(dbId)
       if (db.workspaceId.toString() === workspaceId) {
         await this.fabricRepository.deleteDbById(workspaceId, dbId)
-        return true
+        return { success: true }
       }
 
       else {
@@ -104,7 +104,7 @@ export class FabricService {
       if (db.workspaceId.toString() === workspaceId) {
         const dbId = db.id
         await this.fabricRepository.createKv(workspaceId, dbId, key, value)
-        return true
+        return { success: true }
       }
 
       else {
@@ -121,7 +121,7 @@ export class FabricService {
     try {
       const item = await this.fabricRepository.deleteKvById(workspaceId, kvId)
       if (item) {
-        return true
+        return { success: true }
       }
 
       else {
