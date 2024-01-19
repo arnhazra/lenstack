@@ -5,7 +5,7 @@ export const uiConstants = {
   homeHeader3: "Blockchain",
   homeIntro1: "Start with a month of free trial, with 10k credits",
   homeIntro2: "There’s no upfront commitment",
-  homeIntro3: "Upgrade on demand, Starting at 1.99 MATIC/month",
+  homeIntro3: "Upgrade on demand, Starting at 1.09 MATIC/month",
   connectionErrorMessage: "Connection Error",
   identityVerificationMessage: "Verifying Identity",
   errorMessage: "404, Lost",
