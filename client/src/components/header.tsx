@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react"
+import { ChangeEvent, Suspense as RSuspense, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
 import Suspense from "./suspense"
 import { usePathname, useSearchParams } from "next/navigation"
@@ -56,7 +56,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
   const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])
 
   return (
-    <Fragment>
+    <RSuspense fallback={null}>
       <Suspense condition={isAuthorized && !isHomePage} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
@@ -108,6 +108,6 @@ export default function Header({ isAuthorized }: HeaderProps) {
           </Container>
         </Navbar>
       </Suspense>
-    </Fragment >
+    </RSuspense>
   )
 }

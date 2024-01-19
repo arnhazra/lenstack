@@ -9,7 +9,7 @@ import useQuery from "@/hooks/use-query"
 import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment, useCallback } from "react"
+import { useCallback, Suspense as RSuspense } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
@@ -48,31 +48,33 @@ export default function Page() {
   }
 
   return (
-    <Suspense condition={!db?.isLoading} fallback={<Loading />}>
-      <Suspense condition={!!dbId && !db.error} fallback={<Error />}>
-        <Container>
-          <Hero>
-            <p className="branding text-capitalize">{db?.data?.db?.name}</p>
-            <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
-            <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="DB ID" credentialValue={db?.data?.db?._id} />
-            <SensitiveInfoPanel credentialIcon={<LockOpen2Icon />} credentialName="DB Password" credentialValue={db?.data?.db?.dbPassword} />
-            <Button variant="danger" onClick={deleteDb}>Delete Database<TrashIcon className="icon-right" /></Button>
-          </Hero>
-          <Suspense condition={!!db?.data?.kvs && db?.data?.kvs.length} fallback={null}>
-            <h4 className="text-white">KVs</h4>
-            <Table responsive hover variant="light">
-              <thead>
-                <tr>
-                  <th>Key</th>
-                  <th>Value</th>
-                </tr>
-              </thead>
-              {displayKvs()}
-            </Table>
-          </Suspense>
-          {confirmDialog()}
-        </Container>
+    <RSuspense fallback={null}>
+      <Suspense condition={!db?.isLoading} fallback={<Loading />}>
+        <Suspense condition={!!dbId && !db.error} fallback={<Error />}>
+          <Container>
+            <Hero>
+              <p className="branding text-capitalize">{db?.data?.db?.name}</p>
+              <p className="muted-text mt-3">Your Db kvs will be displayed below (if any)</p>
+              <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="DB ID" credentialValue={db?.data?.db?._id} />
+              <SensitiveInfoPanel credentialIcon={<LockOpen2Icon />} credentialName="DB Password" credentialValue={db?.data?.db?.dbPassword} />
+              <Button variant="danger" onClick={deleteDb}>Delete Database<TrashIcon className="icon-right" /></Button>
+            </Hero>
+            <Suspense condition={!!db?.data?.kvs && db?.data?.kvs.length} fallback={null}>
+              <h4 className="text-white">KVs</h4>
+              <Table responsive hover variant="light">
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                {displayKvs()}
+              </Table>
+            </Suspense>
+            {confirmDialog()}
+          </Container>
+        </Suspense>
       </Suspense>
-    </Suspense>
+    </RSuspense>
   )
 }

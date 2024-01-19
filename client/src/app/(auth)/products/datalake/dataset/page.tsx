@@ -1,6 +1,6 @@
 "use client"
 import { Badge, Container, Row } from "react-bootstrap"
-import { Fragment, useCallback } from "react"
+import { Fragment, useCallback, Suspense as RSuspense } from "react"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
@@ -68,20 +68,22 @@ export default function Page() {
   }, [dataset?.data?.description])
 
   return (
-    <Suspense condition={!dataset?.isLoading && !similarDatasets?.isLoading} fallback={<Loading />}>
-      <Suspense condition={!dataset.error && !!datasetId && !similarDatasets.error} fallback={<Error />}>
-        <Container>
-          <Hero>
-            <p className="branding text-capitalize">{dataset?.data?.name}</p>
-            <p className="lead">{dataset?.data?.category}</p>
-            {datasetQuality()}
-            <p className="muted-text mt-3">{dataset?.data?.description}</p>
-            <div className="mb-4">{displayDatasetTags()}</div>
-            <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
-          </Hero>
-          {displaySimilarDatasets()}
-        </Container>
+    <RSuspense fallback={null}>
+      <Suspense condition={!dataset?.isLoading && !similarDatasets?.isLoading} fallback={<Loading />}>
+        <Suspense condition={!dataset.error && !!datasetId && !similarDatasets.error} fallback={<Error />}>
+          <Container>
+            <Hero>
+              <p className="branding text-capitalize">{dataset?.data?.name}</p>
+              <p className="lead">{dataset?.data?.category}</p>
+              {datasetQuality()}
+              <p className="muted-text mt-3">{dataset?.data?.description}</p>
+              <div className="mb-4">{displayDatasetTags()}</div>
+              <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
+            </Hero>
+            {displaySimilarDatasets()}
+          </Container>
+        </Suspense>
       </Suspense>
-    </Suspense>
+    </RSuspense>
   )
 }

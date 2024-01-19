@@ -1,5 +1,5 @@
 "use client"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, Suspense as RSuspense } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Suspense from "@/components/suspense"
 import { toast } from "react-hot-toast"
@@ -102,39 +102,41 @@ export default function Page() {
   }
 
   return (
-    <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
-      <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
-        <div className="box">
-          <p className="branding">Checkout</p>
-          <InfoPanel infoIcon={<CheckCircledIcon />} infoName="Your total today" infoValue={`${plan?.price} MATIC`} />
-          <InfoPanel infoIcon={<CheckCircledIcon />} infoName={`You selcted ${plan?.planName} Plan`} infoValue={`${Number(plan?.grantedCredits).toLocaleString()} Credits`} />
-          <p className="boxcategory-key mt-2">Select Transaction Gateway</p>
-          <div className="mt-2 mb-4">
-            <Row xl={2} lg={2} md={2} sm={2} xs={2}>
-              <Col>
-                <Option isSelected={selectedGateway === "alchemy"} value="alchemy" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
-              <Col>
-                <Option isSelected={selectedGateway === "getblock"} value="getblock" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
-              <Col>
-                <Option isSelected={selectedGateway === "infura"} value="infura" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
-              <Col>
-                <Option isSelected={selectedGateway === "quicknode"} value="quicknode" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
-            </Row>
+    <RSuspense fallback={null}>
+      <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
+        <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
+          <div className="box">
+            <p className="branding">Checkout</p>
+            <InfoPanel infoIcon={<CheckCircledIcon />} infoName="Your total today" infoValue={`${plan?.price} MATIC`} />
+            <InfoPanel infoIcon={<CheckCircledIcon />} infoName={`You selcted ${plan?.planName} Plan`} infoValue={`${Number(plan?.grantedCredits).toLocaleString()} Credits`} />
+            <p className="boxcategory-key mt-2">Select Transaction Gateway</p>
+            <div className="mt-2 mb-4">
+              <Row xl={2} lg={2} md={2} sm={2} xs={2}>
+                <Col>
+                  <Option isSelected={selectedGateway === "alchemy"} value="alchemy" handleChange={(value) => setSelectedGateway(value)} />
+                </Col>
+                <Col>
+                  <Option isSelected={selectedGateway === "getblock"} value="getblock" handleChange={(value) => setSelectedGateway(value)} />
+                </Col>
+                <Col>
+                  <Option isSelected={selectedGateway === "infura"} value="infura" handleChange={(value) => setSelectedGateway(value)} />
+                </Col>
+                <Col>
+                  <Option isSelected={selectedGateway === "quicknode"} value="quicknode" handleChange={(value) => setSelectedGateway(value)} />
+                </Col>
+              </Row>
+            </div>
+            <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize" onClick={activate}>
+              <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
+                Pay with {selectedGateway}<PaperPlaneIcon className="icon-right" />
+              </Suspense>
+            </Button>
+            <div className="text-center">
+              <Badge bg="light" className="mt-2 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
+            </div>
           </div>
-          <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize" onClick={activate}>
-            <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
-              Pay with {selectedGateway}<PaperPlaneIcon className="icon-right" />
-            </Suspense>
-          </Button>
-          <div className="text-center">
-            <Badge bg="light" className="mt-2 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
-          </div>
-        </div>
+        </Suspense>
       </Suspense>
-    </Suspense>
+    </RSuspense>
   )
 }

@@ -15,7 +15,7 @@ import { ArchiveIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix
 import moment from "moment"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment, useCallback, useContext, useEffect, useState } from "react"
+import { Fragment, useCallback, useContext, useEffect, useState, Suspense as RSuspense } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
@@ -144,7 +144,7 @@ export default function Page() {
   }, [selectedNft])
 
   return (
-    <Fragment>
+    <RSuspense fallback={null}>
       <Suspense condition={!nftContractAddress.isLoading && !isLoading && !isArchiving} fallback={<Loading />}>
         <Suspense condition={!hasError && !nftContractAddress.error} fallback={<Error />}>
           <Container>
@@ -181,6 +181,6 @@ export default function Page() {
         </Suspense>
       </Suspense>
       {confirmDialog()}
-    </Fragment>
+    </RSuspense>
   )
 }

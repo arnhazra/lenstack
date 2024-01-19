@@ -5,8 +5,8 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
-import { useCallback, useContext, useEffect, useState } from "react"
-import { Badge, Button, Col, Container, Row } from "react-bootstrap"
+import { useCallback, useContext, useEffect, useState, Suspense as RSuspense } from "react"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import usePrompt from "@/hooks/use-prompt"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { vendorABI } from "@/bin/vendor-abi"
@@ -195,31 +195,33 @@ export default function Page() {
   }, [swapTokenConfig?.data, tokenAddress])
 
   return (
-    <Container>
-      <Suspense condition={!swapTokenConfig.isLoading} fallback={<Loading />}>
-        <Suspense condition={!swapTokenConfig.error} fallback={<Error />}>
-          <Hero>
-            <p className="branding">{selectedToken?.tokenName}</p>
-            <p className="muted-text mt-3">{selectedToken?.description}</p>
-            <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
-            <p className="muted-text mt-2">{selectedToken?.tokenName} Balance</p>
-            <div className="mb-2">
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
-            </div>
-            <Button variant="primary" className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
-              <Suspense condition={!isTxProcessing} fallback={null}>Buy Token <ArrowRightIcon className="icon-right" /></Suspense>
-              <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
-            </Button>
-            <Button variant="secondary" className="mt-2" disabled={isTxProcessing || balance === 0} onClick={sellToken}>
-              <Suspense condition={!isTxProcessing} fallback={null}>Sell Token <ArrowRightIcon className="icon-right" /></Suspense>
-              <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
-            </Button>
-          </Hero>
-          {displayOtherTokens()}
+    <RSuspense fallback={null}>
+      <Container>
+        <Suspense condition={!swapTokenConfig.isLoading} fallback={<Loading />}>
+          <Suspense condition={!swapTokenConfig.error} fallback={<Error />}>
+            <Hero>
+              <p className="branding">{selectedToken?.tokenName}</p>
+              <p className="muted-text mt-3">{selectedToken?.description}</p>
+              <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
+              <p className="muted-text mt-2">{selectedToken?.tokenName} Balance</p>
+              <div className="mb-2">
+                <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
+                <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>
+              </div>
+              <Button variant="primary" className="mt-2" disabled={isTxProcessing} onClick={buyToken}>
+                <Suspense condition={!isTxProcessing} fallback={null}>Buy Token <ArrowRightIcon className="icon-right" /></Suspense>
+                <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
+              </Button>
+              <Button variant="secondary" className="mt-2" disabled={isTxProcessing || balance === 0} onClick={sellToken}>
+                <Suspense condition={!isTxProcessing} fallback={null}>Sell Token <ArrowRightIcon className="icon-right" /></Suspense>
+                <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
+              </Button>
+            </Hero>
+            {displayOtherTokens()}
+          </Suspense>
         </Suspense>
-      </Suspense>
-      {promptDialog()}
-    </Container>
+        {promptDialog()}
+      </Container>
+    </RSuspense>
   )
 }

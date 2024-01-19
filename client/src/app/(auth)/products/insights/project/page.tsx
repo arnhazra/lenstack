@@ -10,7 +10,7 @@ import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
 import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment, useCallback } from "react"
+import { Suspense as RSuspense, useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
@@ -52,7 +52,7 @@ export default function Page() {
   }
 
   return (
-    <Fragment>
+    <RSuspense fallback={null}>
       <Suspense condition={!project?.isLoading} fallback={<Loading />}>
         <Suspense condition={!project.error && !!projectId} fallback={<Error />}>
           <Container>
@@ -82,6 +82,6 @@ export default function Page() {
           </Container>
         </Suspense>
       </Suspense>
-    </Fragment>
+    </RSuspense>
   )
 }
