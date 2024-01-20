@@ -15,6 +15,7 @@ export const envConfig = {
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
+  geminiAPIKey: process.env.GEMINI_API_KEY,
   alchemyGateway: process.env.ALCHEMY_WEB3_GATEWAY,
   getblockGateway: process.env.GETBLOCK_WEB3_GATEWAY,
   infuraGateway: process.env.INFURA_WEB3_GATEWAY,

@@ -1,9 +1,16 @@
-import { Injectable } from "@nestjs/common"
+import { BadRequestException, Injectable } from "@nestjs/common"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
+import { generateResponse } from "./commands/generate-response.command"
 
 @Injectable()
 export class CopilotService {
-  generateRecommendation(aiGenerationDto: AIGenerationDto) {
-    return "This action adds a new copilot"
+  async generateRecommendation(aiGenerationDto: AIGenerationDto) {
+    try {
+      return await generateResponse(aiGenerationDto.prompt)
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
   }
 }
