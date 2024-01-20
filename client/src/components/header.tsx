@@ -4,7 +4,7 @@ import { Container, Navbar, Nav } from "react-bootstrap"
 import Suspense from "./suspense"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { TextAlignRightIcon } from "@radix-ui/react-icons"
+import { ExternalLinkIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/globalstate.provider"
@@ -73,8 +73,8 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Nav className="mr-auto">
                 <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
                 <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
-                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.mumbaiFaucetUri}>Fund Wallet</Link></Nav.Item>
                 <Nav.Item><Link href="/activity">Activity</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.mumbaiFaucetUri}>Fund Wallet<ExternalLinkIcon className="icon-right" /></Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
               </Nav>
               <Nav className="ms-auto">

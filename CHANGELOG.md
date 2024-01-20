@@ -1,5 +1,8 @@
 # Changelog
 
+### v7.0.0
+* Code refactoring
+
 ### v6.3.0
 * Introduction of new subscription plans 
 * Introduction of new checkout page
