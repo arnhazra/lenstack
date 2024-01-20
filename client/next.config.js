@@ -6,7 +6,9 @@ const nextConfig = {
   },
   output: "export",
   trailingSlash: process.env.NODE_ENV === "production" ? true : false,
-  missingSuspenseWithCSRBailout: false
+  experimental: {
+    missingSuspenseWithCSRBailout: false
+  }
 }
 
 module.exports = nextConfig

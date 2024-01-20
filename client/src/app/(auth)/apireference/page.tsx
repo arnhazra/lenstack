@@ -11,7 +11,7 @@ import Error from "@/components/error"
 import "react-json-view-lite/dist/index.css"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
-import { useCallback, Suspense as RSuspense } from "react"
+import { useCallback } from "react"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -40,15 +40,13 @@ export default function Page() {
     })
 
     return (
-      <RSuspense fallback={null}>
-        <Suspense condition={!!apireference?.data?.docList.length} fallback={<Error />}>
-          <div>
-            <h4 className="text-white text-capitalize">API Reference - {uiConstants.brandName} {productName}</h4>
-            <p className="lead text-white">You must include your Client ID under "client_id" & Client Secret under "client_secret" in request header</p>
-            {listApiApiReferences}
-          </div>
-        </Suspense>
-      </RSuspense>
+      <Suspense condition={!!apireference?.data?.docList.length} fallback={<Error />}>
+        <div>
+          <h4 className="text-white text-capitalize">API Reference - {uiConstants.brandName} {productName}</h4>
+          <p className="lead text-white">You must include your Client ID under "client_id" & Client Secret under "client_secret" in request header</p>
+          {listApiApiReferences}
+        </div>
+      </Suspense>
     )
   }, [apireference?.data])
 
