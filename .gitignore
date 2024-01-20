@@ -1,4 +1,5 @@
 # compiled output
+ROADMAP.md
 /dist
 node_modules
 .env

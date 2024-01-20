@@ -35,11 +35,12 @@ export const subscriptionConfig: CreditType[] = [
 ]
 
 export const apiPricing: Record<string, number> = {
+  copilot: 5,
   datalake: 3,
-  wallet: 5,
-  insights: 3,
-  nftstudio: 50,
-  swap: 10,
   fabric: 2,
-  ledgerscan: 2
+  insights: 3,
+  wallet: 5,
+  ledgerscan: 2,
+  nftstudio: 50,
+  swap: 10
 }
