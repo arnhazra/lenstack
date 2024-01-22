@@ -1,7 +1,7 @@
 # Changelog
 
 ### v7.0.0
-* Introduction of Arcstack Copilot based on Google Gemini LLM
+* Introduction of Generative AI based Arcstack Copilot based on Google Gemini LLM
 * Code refactoring & bug fixes
 
 ### v6.3.0
