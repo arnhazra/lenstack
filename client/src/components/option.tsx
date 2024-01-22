@@ -1,6 +1,6 @@
 "use client"
 import { RocketIcon } from "@radix-ui/react-icons"
-import { Button } from "react-bootstrap"
+import { Button, Col } from "react-bootstrap"
 
 interface OptionProps {
   isSelected: boolean
@@ -10,8 +10,10 @@ interface OptionProps {
 
 export default function Option({ isSelected, value, handleChange }: OptionProps) {
   return (
-    <Button variant={isSelected ? "primary" : "secondary"} className="btn-block text-capitalize" onClick={() => handleChange(value)}>
-      <RocketIcon className="icon-left" />{value}
-    </Button>
+    <Col>
+      <Button variant={isSelected ? "primary" : "secondary"} className="btn-block text-capitalize" onClick={() => handleChange(value)}>
+        <RocketIcon className="icon-left" />{value}
+      </Button>
+    </Col>
   )
 }
