@@ -13,7 +13,7 @@ import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { Badge, Button, Col, Row } from "react-bootstrap"
+import { Badge, Button, Row } from "react-bootstrap"
 import Option from "@/components/option"
 import InfoPanel from "@/components/infopanel"
 
@@ -111,18 +111,10 @@ export default function Page() {
           <p className="boxcategory-key mt-2">Select Transaction Gateway</p>
           <div className="mt-2 mb-4">
             <Row xl={2} lg={2} md={2} sm={2} xs={2}>
-              <Col>
-                <Option isSelected={selectedGateway === "alchemy"} value="alchemy" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
-              <Col>
-                <Option isSelected={selectedGateway === "getblock"} value="getblock" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
-              <Col>
-                <Option isSelected={selectedGateway === "infura"} value="infura" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
-              <Col>
-                <Option isSelected={selectedGateway === "quicknode"} value="quicknode" handleChange={(value) => setSelectedGateway(value)} />
-              </Col>
+              <Option isSelected={selectedGateway === "alchemy"} value="alchemy" handleChange={(value) => setSelectedGateway(value)} />
+              <Option isSelected={selectedGateway === "getblock"} value="getblock" handleChange={(value) => setSelectedGateway(value)} />
+              <Option isSelected={selectedGateway === "infura"} value="infura" handleChange={(value) => setSelectedGateway(value)} />
+              <Option isSelected={selectedGateway === "quicknode"} value="quicknode" handleChange={(value) => setSelectedGateway(value)} />
             </Row>
           </div>
           <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize" onClick={activate}>

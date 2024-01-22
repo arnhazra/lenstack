@@ -7,7 +7,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { RocketIcon, ReaderIcon } from "@radix-ui/react-icons"
+import { ReaderIcon, RocketIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import Link from "next/link"
 import { useState } from "react"
@@ -17,9 +17,9 @@ import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import "react-json-view-lite/dist/index.css"
 
 export default function Page() {
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=ledgerscan`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "ledgerscan")
-  const [api, setApi] = useState("")
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=copilot`, HTTPMethods.GET)
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "copilot")
+  const [prompt, setPrompt] = useState("")
   const [response, setReseponse] = useState({})
   const [isLoading, setLoading] = useState(false)
 
@@ -27,8 +27,9 @@ export default function Page() {
     e.preventDefault()
 
     try {
+      setReseponse({})
       setLoading(true)
-      const res = await axios.post(`${endPoints.ledgerscanAnalyzer}${api}`)
+      const res = await axios.post(`${endPoints.copilotGenerateEndpoint}`, { prompt })
       setReseponse(res.data)
     }
 
@@ -60,15 +61,15 @@ export default function Page() {
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary">
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
           </Hero>
           <Hero>
             <p className="branding">API Client</p>
             <form onSubmit={hitAPI}>
-              <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
-              <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
+              <Form.Label htmlFor="basic-url">Your test prompt</Form.Label>
+              <Form.Control placeholder="Your test prompt" required onChange={(e) => setPrompt(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
               <Button variant="primary" disabled={isLoading} className="mt-3" type="submit">
                 <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Loading</>}>
                   <RocketIcon className="icon-left" />Hit API
@@ -76,7 +77,9 @@ export default function Page() {
               </Button>
             </form>
             <p>Response</p>
-            <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
+            <Suspense condition={Object.hasOwn(response, "response")} fallback={null}>
+              <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
+            </Suspense>
           </Hero>
         </Suspense>
       </Suspense>
