@@ -17,10 +17,10 @@ import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import "react-json-view-lite/dist/index.css"
 
 export default function Page() {
-  const [api, setApi] = useState("")
-  const [response, setReseponse] = useState({})
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=ledgerscan`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "ledgerscan")
+  const [api, setApi] = useState("")
+  const [response, setReseponse] = useState({})
   const [isLoading, setLoading] = useState(false)
 
   const hitAPI = async (e: any) => {

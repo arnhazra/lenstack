@@ -8,7 +8,7 @@ export async function generateResponse(prompt: string) {
     const result = await model.generateContent(prompt)
     const response = result.response
     const textResponse = response.text()
-    return textResponse
+    return { response: textResponse }
   }
 
   catch (error) {

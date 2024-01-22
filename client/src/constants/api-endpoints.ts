@@ -20,6 +20,7 @@ export const endPoints = {
   createWorkspace: `${apiHost}/api/workspace/create`,
   findMyWorkspaces: `${apiHost}/api/workspace/findmyworkspaces`,
   switchWorkspace: `${apiHost}/api/workspace/switch`,
+  copilotGenerateEndpoint: `${apiHost}/api/products/copilot/generate`,
   datalakeFilters: `${apiHost}/api/products/datalake/filters`,
   datalakeFindDatasets: `${apiHost}/api/products/datalake/finddatasets`,
   datalakeViewDatasets: `${apiHost}/api/products/datalake/viewdataset`,
