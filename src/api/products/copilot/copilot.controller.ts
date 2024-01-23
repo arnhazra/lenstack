@@ -10,7 +10,7 @@ export class CopilotController {
   @Post("generate")
   async generateRecommendation(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() aiGenerationDto: AIGenerationDto) {
     try {
-      return await this.copilotService.generateRecommendation(aiGenerationDto)
+      return await this.copilotService.generateRecommendation(ufc.workspaceId, aiGenerationDto.prompt)
     }
 
     catch (error) {

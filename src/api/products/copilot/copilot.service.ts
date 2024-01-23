@@ -1,12 +1,15 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { generateResponse } from "./commands/generate-response.command"
+import { saveResponse } from "./commands/save-response.command"
 
 @Injectable()
 export class CopilotService {
-  async generateRecommendation(aiGenerationDto: AIGenerationDto) {
+  async generateRecommendation(workspaceId: string, prompt: string) {
     try {
-      return await generateResponse(aiGenerationDto.prompt)
+      const response = await generateResponse(prompt)
+      await saveResponse(workspaceId, prompt, response.response)
+      return response
     }
 
     catch (error) {

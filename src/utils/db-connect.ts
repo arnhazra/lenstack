@@ -2,18 +2,23 @@ import mongoose, { Connection } from "mongoose"
 import { envConfig } from "../env.config"
 
 export const platformMongoDbConn: Connection = mongoose.createConnection(envConfig.platformDbUri)
-export const datalakeMongoDbConn: Connection = mongoose.createConnection(envConfig.datalakeMongoDbUri)
-export const walletMongoDbConn: Connection = mongoose.createConnection(envConfig.walletMongoDbUri)
-export const insightsMongoDbConn: Connection = mongoose.createConnection(envConfig.insightsMongoDbUri)
-export const nftstudioMongoDbConn: Connection = mongoose.createConnection(envConfig.nftstudioMongoDbUri)
-export const swapMongoDbConn: Connection = mongoose.createConnection(envConfig.swapMongoDbUri)
-export const fabricMongoDbConn = mongoose.createConnection(envConfig.fabricMongoDbUri)
-export const ledgerscanMongoDbConn: Connection = mongoose.createConnection(envConfig.ledgerscanMongoDbUri)
-
+export const copilotMongoDbConn: Connection = mongoose.createConnection(envConfig.copilotDbURI)
+export const datalakeMongoDbConn: Connection = mongoose.createConnection(envConfig.datalakeDbURI)
+export const walletMongoDbConn: Connection = mongoose.createConnection(envConfig.walletDbURI)
+export const insightsMongoDbConn: Connection = mongoose.createConnection(envConfig.insightsDbURI)
+export const nftstudioMongoDbConn: Connection = mongoose.createConnection(envConfig.nftstudioDbURI)
+export const swapMongoDbConn: Connection = mongoose.createConnection(envConfig.swapDbURI)
+export const fabricMongoDbConn = mongoose.createConnection(envConfig.fabricDbURI)
+export const ledgerscanMongoDbConn: Connection = mongoose.createConnection(envConfig.ledgerscanDbURI)
 
 async function platformDbConnect(): Promise<void> {
   platformMongoDbConn.on("connected", () => console.log("Platform DB Connected"))
   platformMongoDbConn.on("error", () => console.log("Platform DB Not Connected"))
+}
+
+async function copilotDbConnect(): Promise<void> {
+  copilotMongoDbConn.on("connected", () => console.log("Copilot DB Connected"))
+  copilotMongoDbConn.on("error", () => console.log("Copilot DB Not Connected"))
 }
 
 async function datalakeDbConnect(): Promise<void> {
@@ -53,6 +58,7 @@ async function ledgerscanDbConnect(): Promise<void> {
 
 export async function dbConnect(): Promise<void> {
   platformDbConnect()
+  copilotDbConnect()
   datalakeDbConnect()
   walletDbConnect()
   insightsDbConnect()
