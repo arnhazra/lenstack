@@ -4,7 +4,6 @@ import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useConfirm from "@/hooks/use-confirm"
 import useQuery from "@/hooks/use-query"
 import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
@@ -14,13 +13,14 @@ import { useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
+import { useConfirmContext } from "@/context/confirm.provider"
 
 export default function Page() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get("projectId")
   const project = useQuery(["project"], `${endPoints.insightsViewProject}?projectId=${projectId}`, HTTPMethods.GET)
   const router = useRouter()
-  const { confirmDialog, confirm } = useConfirm()
+  const { confirm } = useConfirmContext()
 
   const displayAnalytics = useCallback(() => {
     const analyticsToDisplay = project?.data?.analytics?.map((ant: any) => {
@@ -77,7 +77,6 @@ export default function Page() {
               {displayAnalytics()}
             </Table>
           </Suspense>
-          {confirmDialog()}
         </Container>
       </Suspense>
     </Suspense>

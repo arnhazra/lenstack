@@ -51,3 +51,8 @@ export default function useConfirm() {
 
   return { confirmDialog, confirm }
 }
+
+export type ConfirmProps = {
+  confirmDialog: () => React.ReactNode
+  confirm: (message: string) => Promise<boolean>
+}

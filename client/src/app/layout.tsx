@@ -5,6 +5,7 @@ import { uiConstants } from "@/constants/global-constants"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
 import StyleProvider from "@/providers/style.provider"
+import { ConfirmProvider } from "@/context/confirm.provider"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
@@ -22,10 +23,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <StyleProvider>
           <ReactQueryProvider>
             <GlobalStateProvider>
-              <main className="mt-2 mb-4 pb-4">
-                {children}
-                <Toaster position="bottom-right" />
-              </main>
+              <ConfirmProvider>
+                <main className="mt-2 mb-4 pb-4">
+                  {children}
+                  <Toaster position="bottom-right" />
+                </main>
+              </ConfirmProvider>
             </GlobalStateProvider>
           </ReactQueryProvider>
         </StyleProvider>

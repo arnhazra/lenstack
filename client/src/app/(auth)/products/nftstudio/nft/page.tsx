@@ -9,7 +9,6 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useConfirm from "@/hooks/use-confirm"
 import useQuery from "@/hooks/use-query"
 import { ArchiveIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix-ui/react-icons"
 import moment from "moment"
@@ -20,6 +19,7 @@ import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
+import { useConfirmContext } from "@/context/confirm.provider"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -34,7 +34,7 @@ export default function Page() {
   const [hasError, setError] = useState(false)
   const [hasImage, setHasImage] = useState(false)
   const [isArchiving, setArchiving] = useState(false)
-  const { confirm, confirmDialog } = useConfirm()
+  const { confirm } = useConfirmContext()
 
   useEffect(() => {
     (async () => {
@@ -180,7 +180,6 @@ export default function Page() {
           </Container>
         </Suspense>
       </Suspense>
-      {confirmDialog()}
     </Fragment>
   )
 }

@@ -4,7 +4,7 @@ import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useConfirm from "@/hooks/use-confirm"
+import { useConfirmContext } from "@/context/confirm.provider"
 import useQuery from "@/hooks/use-query"
 import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
@@ -19,7 +19,7 @@ export default function Page() {
   const dbId = searchParams.get("dbId")
   const db = useQuery(["database"], `${endPoints.fabricViewDb}`, HTTPMethods.POST, { dbId })
   const router = useRouter()
-  const { confirmDialog, confirm } = useConfirm()
+  const { confirm } = useConfirmContext()
 
   const displayKvs = useCallback(() => {
     const kvsToDisplay = db?.data?.kvs?.map((kv: any) => {
@@ -70,7 +70,6 @@ export default function Page() {
               {displayKvs()}
             </Table>
           </Suspense>
-          {confirmDialog()}
         </Container>
       </Suspense>
     </Suspense>

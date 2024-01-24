@@ -5,8 +5,8 @@ import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
+import { useConfirmContext } from "@/context/confirm.provider"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useConfirm from "@/hooks/use-confirm"
 import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons"
 import axios from "axios"
@@ -18,7 +18,7 @@ import toast from "react-hot-toast"
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const { confirm, confirmDialog } = useConfirm()
+  const { confirm } = useConfirmContext()
   const router = useRouter()
 
   const activateTrial = async () => {
@@ -100,7 +100,6 @@ export default function Page() {
           {displayPricing()}
         </Container>
       </Suspense>
-      {confirmDialog()}
     </Fragment>
   )
 }
