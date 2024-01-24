@@ -1,5 +1,5 @@
 "use client"
-import { ReactNode } from 'react'
+import { ReactNode } from "react"
 import StyleProvider from "./style.provider"
 import ReactQueryProvider from "./reactquery.provider"
 import { GlobalStateProvider } from "./globalstate.provider"
