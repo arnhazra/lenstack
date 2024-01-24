@@ -10,7 +10,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 

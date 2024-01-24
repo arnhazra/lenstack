@@ -2,7 +2,7 @@
 import { useContext, useState, useEffect } from "react"
 import { Button } from "react-bootstrap"
 import { endPoints } from "@/constants/api-endpoints"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"

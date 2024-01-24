@@ -8,7 +8,7 @@ import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { ArchiveIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix-ui/react-icons"
 import moment from "moment"
@@ -19,7 +19,7 @@ import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
-import { useConfirmContext } from "@/providers/confirm.provider"
+import { useConfirmContext } from "@/context/providers/confirm.provider"
 
 export default function Page() {
   const searchParams = useSearchParams()

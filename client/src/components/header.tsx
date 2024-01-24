@@ -7,7 +7,7 @@ import Link from "next/link"
 import { ExternalLinkIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import debounce from "lodash.debounce"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiHost } from "@/constants/api-endpoints"
 import Avatar from "./avatar"
 

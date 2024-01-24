@@ -11,13 +11,13 @@ import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import Hero from "@/components/hero"
 import Card, { CardInterface } from "@/components/card"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { usePromptContext } from "@/providers/prompt.provider"
+import { usePromptContext } from "@/context/providers/prompt.provider"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)

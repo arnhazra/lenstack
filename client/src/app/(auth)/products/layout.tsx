@@ -1,7 +1,7 @@
 "use client"
 import Suspense from "@/components/suspense"
 import SubscriptionWall from "@/components/subscription-wall"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { usePathname } from "next/navigation"
 import { ReactNode, useContext } from "react"
 

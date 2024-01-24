@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { uiConstants } from "@/constants/global-constants"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
-import Providers from "@/providers"
+import Providers from "@/context/providers"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 

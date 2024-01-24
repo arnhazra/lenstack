@@ -7,7 +7,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Button, Container, Row } from "react-bootstrap"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { vendorABI } from "@/bin/vendor-abi"
 import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
@@ -18,7 +18,7 @@ import axios from "axios"
 import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import Error from "@/components/error"
-import { usePromptContext } from "@/providers/prompt.provider"
+import { usePromptContext } from "@/context/providers/prompt.provider"
 
 interface TokenData {
   tokenName: string

@@ -4,7 +4,7 @@ import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
 import axios from "axios"
@@ -12,7 +12,7 @@ import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Error from "@/components/error"
-import { usePromptContext } from "@/providers/prompt.provider"
+import { usePromptContext } from "@/context/providers/prompt.provider"
 
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)

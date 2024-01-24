@@ -2,7 +2,7 @@
 import { ReactNode } from 'react'
 import StyleProvider from "./style.provider"
 import ReactQueryProvider from "./reactquery.provider"
-import { GlobalStateProvider } from "@/context/globalstate.provider"
+import { GlobalStateProvider } from "./globalstate.provider"
 import { ConfirmProvider } from "./confirm.provider"
 import { PromptProvider } from "./prompt.provider"
 

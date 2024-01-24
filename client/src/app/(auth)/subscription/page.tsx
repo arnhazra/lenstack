@@ -1,6 +1,6 @@
 "use client"
 import { useContext } from "react"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"

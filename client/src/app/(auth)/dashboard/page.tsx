@@ -7,7 +7,7 @@ import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import { Container, Row } from "react-bootstrap"
 import Card, { CardInterface } from "@/components/card"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 

@@ -1,6 +1,6 @@
 "use client"
 import { useCallback, useContext, useEffect, useState } from "react"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import Suspense from "@/components/suspense"
 import { toast } from "react-hot-toast"
 import { endPoints } from "@/constants/api-endpoints"
