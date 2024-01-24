@@ -81,7 +81,7 @@ export default function Page() {
         const res = await web3Provider.eth.sendSignedTransaction(signedApprovalTx.rawTransaction)
         const { transactionHash } = res
         await axios.post(`${endPoints.subscribe}`, { selectedPlan: planName, transactionHash })
-        dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
+        dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
         toast.success(uiConstants.transactionSuccess)
       }
 

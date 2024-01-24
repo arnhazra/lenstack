@@ -11,18 +11,22 @@ export interface UserState {
   selectedWorkspaceId: string
   selectedWorkspaceName: string
   remainingCredits: number | string
-  refreshId: string,
   hasActiveSubscription: boolean
+}
+
+export interface AppState {
+  refreshId: string,
+  globalSearchString: string
 }
 
 export type GlobalState = {
   userState: UserState,
-  globalSearchString: string
+  appState: AppState
 }
 
 export type ActionsMap = {
   setUserState: { [key: string]: string | boolean }
-  setGlobalSearchString: string
+  setAppState: { [key: string]: string | boolean }
 }
 
 export type Actions = {
@@ -39,9 +43,9 @@ export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState 
         ...state, userState: { ...state.userState, ...action.payload }
       }
 
-    case "setGlobalSearchString":
+    case "setAppState":
       return {
-        ...state, globalSearchString: action.payload
+        ...state, appState: { ...state.appState, ...action.payload }
       }
 
     default:

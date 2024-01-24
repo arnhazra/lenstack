@@ -30,7 +30,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
 
   useEffect(() => {
     setIsHomePage(pathname === "/")
-    dispatch("setGlobalSearchString", "")
+    dispatch("setAppState", { globalSearchString: "" })
 
     if (searchRef && searchRef.current) {
       searchRef.current.value = ""
@@ -50,7 +50,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
   }, [pathname, searchParams])
 
   const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    dispatch("setGlobalSearchString", event.target.value.toLowerCase())
+    dispatch("setAppState", { globalSearchString: event.target.value.toLowerCase() })
   }
 
   const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])

@@ -39,7 +39,7 @@ export default function Page() {
   const switchWorkspace = async (workspaceId: string) => {
     try {
       await axios.post(`${endPoints.switchWorkspace}?workspaceId=${workspaceId}`)
-      dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
+      dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
       toast.success("Workspace switched")
     }
 

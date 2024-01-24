@@ -21,10 +21,10 @@ export interface DatasetRequestState {
 }
 
 export default function Page() {
-  const [{ globalSearchString }] = useContext(GlobalContext)
+  const [{ appState }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datalakeFilters, HTTPMethods.GET)
-  const datasets = useQuery(["datasets"], endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const datasets = useQuery(["datasets"], endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: appState.globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
 

@@ -22,7 +22,7 @@ export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
   const web3Provider = new Web3(endPoints.infuraTransactionGateway)
-  const [{ userState, globalSearchString }] = useContext(GlobalContext)
+  const [{ userState, appState }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "nftstudio")
@@ -53,7 +53,7 @@ export default function Page() {
 
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.filter((nft: any) =>
-      nft.name.toLowerCase().includes(globalSearchString)
+      nft.name.toLowerCase().includes(appState.globalSearchString)
     )?.map((nft: any) => {
       const cardProps: CardInterface = {
         badgeText: "NFT",
@@ -74,7 +74,7 @@ export default function Page() {
         </Row>
       </Suspense>
     )
-  }, [globalSearchString, nftList])
+  }, [appState.globalSearchString, nftList])
 
   return (
     <Suspense condition={!isLoading && !nftContractAddress.isLoading && !products.isLoading} fallback={<Loading />}>

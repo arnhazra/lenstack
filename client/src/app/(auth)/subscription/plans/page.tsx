@@ -27,7 +27,7 @@ export default function Page() {
     if (userConsent) {
       try {
         await axios.get(endPoints.activateTrial)
-        dispatch("setUserState", { refreshId: Math.random().toString(36).substring(7) })
+        dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
         toast.success(uiConstants.toastSuccess)
       }
 

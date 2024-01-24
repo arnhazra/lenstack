@@ -11,7 +11,7 @@ import IdentityGuard from "@/components/identity-guard"
 import Suspense from "@/components/suspense"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [{ userState }, dispatch] = useContext(GlobalContext)
+  const [{ appState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
@@ -66,7 +66,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       setAuthorized(false)
       setLoading(false)
     }
-  }, [isAuthorized, userState.refreshId])
+  }, [isAuthorized, appState.refreshId])
 
   return (
     <Fragment>

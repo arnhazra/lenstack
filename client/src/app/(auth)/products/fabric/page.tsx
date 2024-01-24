@@ -20,10 +20,10 @@ import Error from "@/components/error"
 import { usePromptContext } from "@/providers/prompt.provider"
 
 export default function Page() {
-  const [{ globalSearchString }] = useContext(GlobalContext)
+  const [{ appState }] = useContext(GlobalContext)
   const { prompt } = usePromptContext()
   const router = useRouter()
-  const dbs = useQuery(["databases"], `${endPoints.fabricGetMyDbs}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const dbs = useQuery(["databases"], `${endPoints.fabricGetMyDbs}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
 

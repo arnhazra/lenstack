@@ -1,13 +1,13 @@
 "use client"
 import { ReactNode, createContext, useCallback, useMemo, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState } from "./globalstate.reducer"
+import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState, AppState } from "./globalstate.reducer"
 
 export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsMap[Type]>(type: Type,
   ...payload: Payload extends undefined ? [undefined?] : [Payload]) => void
 
 type GlobalContextInterface = readonly [GlobalState, Dispatcher]
 
-const initialState: { userState: UserState, globalSearchString: string } = {
+const initialState: { userState: UserState, appState: AppState } = {
   userState: {
     userId: "",
     privateKey: "",
@@ -21,11 +21,13 @@ const initialState: { userState: UserState, globalSearchString: string } = {
     selectedWorkspaceId: "",
     selectedWorkspaceName: "",
     remainingCredits: 0,
-    refreshId: "ABC",
     hasActiveSubscription: false
   },
 
-  globalSearchString: ""
+  appState: {
+    refreshId: "ABC",
+    globalSearchString: ""
+  },
 }
 
 export const GlobalContext = createContext<GlobalContextInterface>([initialState, ((): void => undefined)])

@@ -12,8 +12,8 @@ import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 
 export default function Page() {
-  const [{ globalSearchString }] = useContext(GlobalContext)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
+  const [{ appState }] = useContext(GlobalContext)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
