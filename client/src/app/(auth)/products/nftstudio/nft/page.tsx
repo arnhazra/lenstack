@@ -19,7 +19,7 @@ import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
-import { useConfirmContext } from "@/context/confirm.provider"
+import { useConfirmContext } from "@/providers/confirm.provider"
 
 export default function Page() {
   const searchParams = useSearchParams()

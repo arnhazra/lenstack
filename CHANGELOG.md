@@ -3,6 +3,8 @@
 ### v7.0.0
 * Introduction of Generative AI based Arcstack Copilot based on Google Gemini LLM
 * Code refactoring & bug fixes
+* Custom global confirm provider
+* Custom global prompt provider
 
 ### v6.3.0
 * Introduction of new subscription plans 

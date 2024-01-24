@@ -7,7 +7,6 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Button, Container, Row } from "react-bootstrap"
-import usePrompt from "@/hooks/use-prompt"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { vendorABI } from "@/bin/vendor-abi"
 import { toast } from "react-hot-toast"
@@ -19,6 +18,7 @@ import axios from "axios"
 import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import Error from "@/components/error"
+import { usePromptContext } from "@/providers/prompt.provider"
 
 interface TokenData {
   tokenName: string
@@ -31,7 +31,7 @@ interface TokenData {
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const { promptDialog, prompt } = usePrompt()
+  const { prompt } = usePromptContext()
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
   const swapTokenConfig = useQuery(["swaptokenconfig"], `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
@@ -219,7 +219,6 @@ export default function Page() {
           {displayOtherTokens()}
         </Suspense>
       </Suspense>
-      {promptDialog()}
     </Container>
   )
 }

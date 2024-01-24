@@ -6,11 +6,7 @@ const ConfirmContext = createContext<ConfirmProps | undefined>(undefined)
 
 export const ConfirmProvider = ({ children }: { children: ReactNode }) => {
   const { confirmDialog, confirm } = useConfirm()
-
-  const value = {
-    confirmDialog,
-    confirm,
-  }
+  const value = { confirmDialog, confirm }
 
   return (
     <ConfirmContext.Provider value={value}>

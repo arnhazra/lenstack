@@ -1,11 +1,8 @@
 import { ReactNode } from "react"
-import { GlobalStateProvider } from "@/context/globalstate.provider"
-import ReactQueryProvider from "@/providers/reactquery.provider"
 import { uiConstants } from "@/constants/global-constants"
 import { Toaster } from "react-hot-toast"
 import { Quicksand } from "next/font/google"
-import StyleProvider from "@/providers/style.provider"
-import { ConfirmProvider } from "@/context/confirm.provider"
+import Providers from "@/providers"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
@@ -20,18 +17,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
       </head>
       <body className={quickSand.className}>
-        <StyleProvider>
-          <ReactQueryProvider>
-            <GlobalStateProvider>
-              <ConfirmProvider>
-                <main className="mt-2 mb-4 pb-4">
-                  {children}
-                  <Toaster position="bottom-right" />
-                </main>
-              </ConfirmProvider>
-            </GlobalStateProvider>
-          </ReactQueryProvider>
-        </StyleProvider>
+        <Providers>
+          <main className="mt-2 mb-4 pb-4">
+            {children}
+            <Toaster position="bottom-right" />
+          </main>
+        </Providers>
       </body>
     </html>
   )

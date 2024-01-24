@@ -55,3 +55,8 @@ export default function usePrompt() {
 
   return { promptDialog, prompt }
 }
+
+export type PromptProps = {
+  promptDialog: () => React.ReactNode
+  prompt: (message: string) => Promise<{ hasConfirmed: boolean, value: number }>
+}

@@ -13,7 +13,7 @@ import { useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
-import { useConfirmContext } from "@/context/confirm.provider"
+import { useConfirmContext } from "@/providers/confirm.provider"
 
 export default function Page() {
   const searchParams = useSearchParams()

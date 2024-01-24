@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, useCallback, useContext } from "react"
+import { useCallback, useContext } from "react"
 import { endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
 import { Badge, Button, Container, Row } from "react-bootstrap"
@@ -12,16 +12,16 @@ import Link from "next/link"
 import Hero from "@/components/hero"
 import Card, { CardInterface } from "@/components/card"
 import { GlobalContext } from "@/context/globalstate.provider"
-import usePrompt from "@/hooks/use-prompt"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
+import { usePromptContext } from "@/providers/prompt.provider"
 
 export default function Page() {
   const [{ globalSearchString }] = useContext(GlobalContext)
-  const { prompt, promptDialog } = usePrompt()
+  const { prompt } = usePromptContext()
   const router = useRouter()
   const projects = useQuery(["projects"], `${endPoints.insightsGetProjects}?searchQuery=${globalSearchString}`, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
@@ -67,27 +67,24 @@ export default function Page() {
   }
 
   return (
-    <Fragment>
-      <Suspense condition={!projects.isLoading && !products.isLoading} fallback={<Loading />}>
-        <Suspense condition={!projects.error && !products.error} fallback={<Error />}>
-          <Container>
-            <Hero>
-              <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-              <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
-              <div className="mb-2">
-                <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-                <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-              </div>
-              <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
-                <ReaderIcon className="icon-left" />API Reference
-              </Link>
-              <Button variant="primary" onClick={createProject}><PlusCircledIcon className="icon-left" />Create Project</Button>
-            </Hero>
-            {displayProjects()}
-          </Container>
-        </Suspense>
+    <Suspense condition={!projects.isLoading && !products.isLoading} fallback={<Loading />}>
+      <Suspense condition={!projects.error && !products.error} fallback={<Error />}>
+        <Container>
+          <Hero>
+            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
+            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <div className="mb-2">
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
+              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+            </div>
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
+              <ReaderIcon className="icon-left" />API Reference
+            </Link>
+            <Button variant="primary" onClick={createProject}><PlusCircledIcon className="icon-left" />Create Project</Button>
+          </Hero>
+          {displayProjects()}
+        </Container>
       </Suspense>
-      {promptDialog()}
-    </Fragment>
+    </Suspense>
   )
 }
