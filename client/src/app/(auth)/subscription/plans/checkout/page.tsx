@@ -1,5 +1,5 @@
 "use client"
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Suspense from "@/components/suspense"
 import { toast } from "react-hot-toast"
@@ -28,6 +28,23 @@ export default function Page() {
   const [isTxProcessing, setTxProcessing] = useState(false)
   const router = useRouter()
   const [selectedGateway, setSelectedGateway] = useState("alchemy")
+  const gatewayOptions = [
+    { value: "alchemy", label: "Alchemy" },
+    { value: "getblock", label: "GetBlock" },
+    { value: "infura", label: "Infura" },
+    { value: "quicknode", label: "QuickNode" },
+  ]
+
+  const renderGatewayOptions = useCallback(() => {
+    return gatewayOptions.map((option) => (
+      <Option
+        key={option.value}
+        isSelected={selectedGateway === option.value}
+        value={option.value}
+        handleChange={(value) => setSelectedGateway(value)}
+      />
+    ))
+  }, [gatewayOptions])
 
   useEffect(() => {
     if (userState.hasActiveSubscription) {
@@ -106,15 +123,12 @@ export default function Page() {
       <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
         <div className="box">
           <p className="branding">Checkout</p>
+          <p className="muted-text mb-2">Select a payment gateway to proceed</p>
           <InfoPanel infoIcon={<CheckCircledIcon />} infoName="Your total today" infoValue={`${plan?.price} MATIC`} />
-          <InfoPanel infoIcon={<CheckCircledIcon />} infoName={`You selcted ${plan?.planName} Plan`} infoValue={`${Number(plan?.grantedCredits).toLocaleString()} Credits`} />
           <p className="boxcategory-key mt-2">Select Transaction Gateway</p>
-          <div className="mt-2 mb-4">
+          <div className="mt-2 mb-2">
             <Row xl={2} lg={2} md={2} sm={2} xs={2}>
-              <Option isSelected={selectedGateway === "alchemy"} value="alchemy" handleChange={(value) => setSelectedGateway(value)} />
-              <Option isSelected={selectedGateway === "getblock"} value="getblock" handleChange={(value) => setSelectedGateway(value)} />
-              <Option isSelected={selectedGateway === "infura"} value="infura" handleChange={(value) => setSelectedGateway(value)} />
-              <Option isSelected={selectedGateway === "quicknode"} value="quicknode" handleChange={(value) => setSelectedGateway(value)} />
+              {renderGatewayOptions()}
             </Row>
           </div>
           <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize" onClick={activate}>
@@ -123,7 +137,7 @@ export default function Page() {
             </Suspense>
           </Button>
           <div className="text-center">
-            <Badge bg="light" className="mt-2 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
+            <Badge bg="light" className="mt-1 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
           </div>
         </div>
       </Suspense>
