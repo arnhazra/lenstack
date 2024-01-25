@@ -1,6 +1,7 @@
 # Changelog
 
 ### v7.1.0
+* Updated email template
 * Adding more strict typescript
 * Code refactoring
 * Restructure contract application
