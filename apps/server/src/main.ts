@@ -4,7 +4,7 @@ import { dbConnect } from "./utils/db-connect"
 import { INestApplication, ValidationPipe } from "@nestjs/common"
 import { envConfig } from "./env.config"
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app: INestApplication<any> = await NestFactory.create(AppModule)
   app.setGlobalPrefix("api")
   app.useGlobalPipes(new ValidationPipe())

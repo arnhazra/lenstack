@@ -1,5 +1,9 @@
 # Changelog
 
+### v7.1.0
+* Adding more strict typescript
+* Code refactoring
+
 ### v7.0.0
 * Introduction of new monorepo architecture
 * Introduction of Generative AI based Arcstack Copilot based on Google Gemini LLM
