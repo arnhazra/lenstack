@@ -1,5 +1,7 @@
 # Changelog
 
+### v7.1.1
+
 ### v7.1.0
 * Minor design changes in Copilot, Ledgerscan & Wallet
 * Updated email template
