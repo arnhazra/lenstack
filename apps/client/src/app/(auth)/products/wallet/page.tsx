@@ -95,13 +95,11 @@ export default function Page() {
                   </Form.Group>
                 </Col>
               </Row>
-              <Col xs={12} sm={12} md={12} lg={8} xl={6}>
-                <Button variant="primary" type="submit" disabled={isLoading} className="mt-2 btn-block">
-                  <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</>}>
-                    Send {matic} MATIC <ArrowRightIcon className="icon-right" />
-                  </Suspense>
-                </Button>
-              </Col>
+              <Button variant="primary" type="submit" disabled={isLoading} className="mt-2">
+                <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</>}>
+                  Send {matic} MATIC <ArrowRightIcon className="icon-right" />
+                </Suspense>
+              </Button>
             </form>
           </Hero>
         </Suspense>

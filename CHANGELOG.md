@@ -1,6 +1,7 @@
 # Changelog
 
 ### v7.1.0
+* Minor design changes in Copilot, Ledgerscan & Wallet
 * Updated email template
 * Adding more strict typescript
 * Code refactoring
