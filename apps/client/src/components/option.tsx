@@ -1,18 +1,19 @@
 "use client"
-import { RocketIcon } from "@radix-ui/react-icons"
+import { CodeSandboxLogoIcon } from "@radix-ui/react-icons"
 import { Button, Col } from "react-bootstrap"
 
 interface OptionProps {
   isSelected: boolean
   value: string
+  label: string
   handleChange: (value: string) => void
 }
 
-export default function Option({ isSelected, value, handleChange }: OptionProps) {
+export default function Option({ isSelected, value, label, handleChange }: OptionProps) {
   return (
     <Col>
-      <Button variant={isSelected ? "primary" : "secondary"} className="btn-block text-capitalize" onClick={() => handleChange(value)}>
-        <RocketIcon className="icon-left" />{value}
+      <Button variant={isSelected ? "primary" : "secondary"} className="btn-block" onClick={() => handleChange(value)}>
+        <CodeSandboxLogoIcon className="icon-left" />{label}
       </Button>
     </Col>
   )
