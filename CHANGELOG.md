@@ -3,6 +3,7 @@
 ### v7.1.0
 * Adding more strict typescript
 * Code refactoring
+* Restructure contract application
 
 ### v7.0.0
 * Introduction of new monorepo architecture
