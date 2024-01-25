@@ -45,7 +45,7 @@ export default function Page() {
         handleChange={(value) => setSelectedGateway(value)}
       />
     ))
-  }, [gatewayOptions])
+  }, [gatewayOptions, selectedGateway])
 
   useEffect(() => {
     if (userState.hasActiveSubscription) {
