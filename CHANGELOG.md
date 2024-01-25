@@ -1,8 +1,15 @@
 # Changelog
 
+### v7.1.0
+* Minor design changes in Copilot, Ledgerscan & Wallet
+* Updated email template
+* Adding more strict typescript
+* Code refactoring
+* Restructure contract application
+
 ### v7.0.0
 * Introduction of new monorepo architecture
-* Introduction of Generative AI based Arcstack Copilot based on Google Gemini LLM
+* Introduction of Generative AI - Google Gemini LLM based Copilot application
 * Code refactoring & bug fixes
 * Custom global confirm provider
 * Custom global prompt provider

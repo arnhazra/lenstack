@@ -1,6 +1,6 @@
 "use client"
-import { useCallback, useContext, useMemo, useState } from "react"
-import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
+import { Fragment, useCallback, useContext, useState } from "react"
+import { Badge, Button, Container, Row } from "react-bootstrap"
 import Link from "next/link"
 import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Loading from "@/components/loading"
@@ -13,6 +13,7 @@ import Hero from "@/components/hero"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
+import Option from "@/components/option"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -27,6 +28,13 @@ export default function Page() {
   const datasets = useQuery(["datasets"], endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: appState.globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
+  const [sortOptions] = useState([
+    { value: "name", label: "Name Ascending" },
+    { value: "-name", label: "Name Descending" },
+    { value: "-_id", label: "Freshness" },
+    { value: "-rating", label: "More Popular" },
+    { value: "rating", label: "Less Popular" }
+  ])
 
   const prevPage = () => {
     const prevDatasetReqNumber = datasetRequestState.offset - 24
@@ -40,7 +48,7 @@ export default function Page() {
     window.scrollTo(0, 0)
   }
 
-  const displayDatasets = useCallback(() => {
+  const renderDatasets = useCallback(() => {
     const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
       const cardProps: CardInterface = {
         badgeText: dataset.category,
@@ -63,39 +71,47 @@ export default function Page() {
     )
   }, [datasets?.data])
 
-  const displayFilterCategories = useCallback(() => {
-    const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => {
-      return <option className="options" key={category} value={category}>{category}</option>
-    })
+  const renderFilterCategories = useCallback(() => {
+    const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => (
+      <Option
+        key={category}
+        isSelected={datasetRequestState.selectedFilter === category}
+        label={category}
+        value={category}
+        handleChange={(value) => setDatasetRequestState({ ...datasetRequestState, selectedFilter: value, offset: 0 })}
+      />
+    ))
 
     return (
-      <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-        <Form.Group controlId="floatingSelectGrid">
-          <Form.Label>Select Filter Category</Form.Label>
-          <Form.Select size="lg" defaultValue={datasetRequestState.selectedFilter} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: e.target.value, offset: 0 })}>
-            {filterCategoriesToDisplay}
-          </Form.Select>
-        </Form.Group>
-      </Col>
+      <Fragment>
+        <p className="muted-text ps-2">Select Filter Category</p>
+        <Row xl={5} lg={4} md={3} sm={2} xs={2}>
+          {filterCategoriesToDisplay}
+        </Row>
+      </Fragment>
     )
   }, [filters?.data, datasetRequestState])
 
-  const displaySortOptions = useMemo(() => {
+  const renderSortOptions = useCallback(() => {
+    const sortOptionsToRender = sortOptions.map((option) => (
+      <Option
+        key={option.value}
+        isSelected={datasetRequestState.selectedSortOption === option.value}
+        label={option.label}
+        value={option.value}
+        handleChange={(value) => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: value, offset: 0 })}
+      />
+    ))
+
     return (
-      <Col xs={12} sm={12} md={6} lg={4} xl={3}>
-        <Form.Group controlId="floatingSelectGrid">
-          <Form.Label>Sort By</Form.Label>
-          <Form.Select size="lg" defaultValue={datasetRequestState.selectedSortOption} onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: e.target.value })}>
-            <option className="options" key={"nameAscending"} value={"name"}>Name Ascending</option>
-            <option className="options" key={"nameDescending"} value={"-name"}>Name Descending</option>
-            <option className="options" key={"freshness"} value={"-_id"}>Freshness</option>
-            <option className="options" key={"popularityRatingAscending"} value={"-rating"}>More Popular</option>
-            <option className="options" key={"popularityRatingDescending"} value={"rating"}>Less Popular</option>
-          </Form.Select>
-        </Form.Group>
-      </Col>
+      <Fragment>
+        <p className="muted-text ps-2">Select Sort Option</p>
+        <Row xl={5} lg={4} md={3} sm={2} xs={2}>
+          {sortOptionsToRender}
+        </Row>
+      </Fragment>
     )
-  }, [datasetRequestState])
+  }, [sortOptions, datasetRequestState])
 
   return (
     <Suspense condition={!datasets.isLoading && !filters.isLoading && !products.isLoading} fallback={<Loading />}>
@@ -108,15 +124,17 @@ export default function Page() {
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
-            <Row className="g-2">
-              {displayFilterCategories()}
-              {displaySortOptions}
+            <Row className="g-2 mt-4">
+              {renderFilterCategories()}
+            </Row>
+            <Row className="g-2 mt-3">
+              {renderSortOptions()}
             </Row>
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
           </Hero>
-          {displayDatasets()}
+          {renderDatasets()}
           <div className="text-center">
             {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
             {datasets?.data?.datasets?.length === 24 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}

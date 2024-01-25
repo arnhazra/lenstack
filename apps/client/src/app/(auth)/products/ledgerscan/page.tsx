@@ -63,11 +63,9 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-          </Hero>
-          <Hero>
-            <p className="branding">API Client</p>
+            <p className="text-muted">API Client</p>
             <form onSubmit={hitAPI}>
-              <Form.Label htmlFor="basic-url">Your test API endpoint {endPoints.ledgerscanAnalyzer}</Form.Label>
+              <Form.Label htmlFor="basic-url">Enter test API endpoint</Form.Label>
               <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />
               <Button variant="primary" disabled={isLoading} className="mt-3" type="submit">
                 <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Loading</>}>
@@ -75,8 +73,10 @@ export default function Page() {
                 </Suspense>
               </Button>
             </form>
-            <p>Response</p>
-            <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
+            <Suspense condition={Object.hasOwn(response, "status")} fallback={null}>
+              <p>Response</p>
+              <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
+            </Suspense>
           </Hero>
         </Suspense>
       </Suspense>

@@ -23,14 +23,24 @@ export async function sendEmail(email: string, passKey: string): Promise<void> {
     })
 
     const subject: string = `${envConfig.brandName} Identity Passkey`
-    const content: string = `<div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
-      <div style="background-color: #f4f4f4; padding: 20px; border-radius: 0.8rem; text-align: center;">
-        <p style="font-size: 16px; color: #555; margin-top: 20px;">Use the below key as your ${envConfig.brandName} Identity Passkey. Do not share.</p>
-        <div style="display: inline-block; background-color: #e0e0e0; padding: 10px 20px; border-radius: 0.8rem; font-size: 18px;">
-          <span style="color: #333; font-weight: bold;">${passKey}</span>
-        </div>
+    const content: string = `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+    <div style="margin:50px auto;width:70%;padding:20px 0">
+      <div style="border-bottom:1px solid #f1f3f4">
+        <strong>
+          <h1 style="color: #2b3336;text-decoration:none;font-weight:600">${envConfig.brandName}</h1>
+        </strong>
       </div>
-    </div>`
+      <p style="font-size:1.1em">Hi,</p>
+      <p>Use the below key as your ${envConfig.brandName} Identity Passkey. Do not share with anyone.</p>
+      <h2 style="background: #2b3336;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${passKey}</h2>
+      <p style="font-size:0.9em;">Regards,<br />${envConfig.brandName}</p>
+      <hr style="border:none;border-top:1px solid #f1f3f4" />
+      <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+        <p>${envConfig.brandName}</p>
+        <p>Worldwide</p>
+      </div>
+    </div>
+  </div>`
 
     await transporter.sendMail({ from: mailerEmail, to: email, subject: subject, html: content })
   }

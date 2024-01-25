@@ -28,12 +28,12 @@ export default function Page() {
   const [isTxProcessing, setTxProcessing] = useState(false)
   const router = useRouter()
   const [selectedGateway, setSelectedGateway] = useState("alchemy")
-  const gatewayOptions = [
+  const [gatewayOptions] = useState([
     { value: "alchemy", label: "Alchemy" },
     { value: "getblock", label: "GetBlock" },
     { value: "infura", label: "Infura" },
     { value: "quicknode", label: "QuickNode" },
-  ]
+  ])
 
   const renderGatewayOptions = useCallback(() => {
     return gatewayOptions.map((option) => (
@@ -41,6 +41,7 @@ export default function Page() {
         key={option.value}
         isSelected={selectedGateway === option.value}
         value={option.value}
+        label={option.label}
         handleChange={(value) => setSelectedGateway(value)}
       />
     ))
