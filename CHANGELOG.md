@@ -7,7 +7,7 @@
 
 ### v7.0.0
 * Introduction of new monorepo architecture
-* Introduction of Generative AI based Arcstack Copilot based on Google Gemini LLM
+* Introduction of Generative AI - Google Gemini LLM based Copilot application
 * Code refactoring & bug fixes
 * Custom global confirm provider
 * Custom global prompt provider
