@@ -46,9 +46,13 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
+      - name: Clear NPM Cache
+        working-directory: ./.vercel/output/functions/dist/main.js.func/dist
+        run: npm cache clean --force
+
       - name: Cleanup
         working-directory: ./.vercel/output/functions/dist/main.js.func/dist
         run: npm uninstall arcstack @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
 
       - name: Publish Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --archive=tgz --prod --token=${{ secrets.VERCEL_TOKEN }}
