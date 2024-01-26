@@ -15,30 +15,24 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Build server application
+      - name: Build main nest application
         run: |
-          npm install --prefix apps/server
-          CI=false npm run build --prefix apps/server
+          npm install
+          CI=false npm run build
 
       - name: Build client application
+        working-directory: client
         run: |
-          npm install --prefix apps/client
-          CI=false npm run build --prefix apps/client
+          npm install
+          CI=false npm run build
 
-      - name: Cleanup server
-        working-directory: ./apps/server
-        run: npm uninstall arcstack
-
-      - name: Cleanup client
-        working-directory: ./apps/client
-        run: npm uninstall arcstack
-
-      - name: Build Movement
+      - name: Copy Dependencies to build
         run: |
-          mkdir dist
-          cp -r apps/server/package.json dist
-          cp -r apps/server/dist/. dist
-          mv apps/client/out dist/client
+          cp -r ./package.json dist
+
+      - name: Move client build output to server dist directory
+        run: |
+          mv client/out dist/client
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -46,9 +40,10 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-      # - name: Cleanup
-      #   working-directory: ./.vercel/output/functions/dist/main.js.func/dist
-      #   run: npm uninstall @openzeppelin/contracts @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
+      - name: Cleanup
+        run: |
+          cd .vercel/output/functions/dist/main.js.func/dist
+          npm uninstall @openzeppelin/contracts @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
 
       - name: Publish Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
