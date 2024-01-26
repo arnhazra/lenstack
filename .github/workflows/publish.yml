@@ -18,12 +18,16 @@ jobs:
       - name: Build server application
         run: |
           npm install --prefix apps/server
+          npm uninstall arcstack --prefix apps/server
           CI=false npm run build --prefix apps/server
+          npm uninstall arcstack --prefix apps/server
 
       - name: Build client application
         run: |
           npm install --prefix apps/client
+          npm uninstall arcstack --prefix apps/client
           CI=false npm run build --prefix apps/client
+          npm uninstall arcstack --prefix apps/client
 
       - name: Build Movement
         run: |
@@ -38,10 +42,10 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Cleanup
-        run: |
-          cd .vercel/output/functions/dist/main.js.func/dist
-          npm uninstall @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
+      # - name: Cleanup
+      #   run: |
+      #     cd .vercel/output/functions/dist/main.js.func/dist
+      #     npm uninstall @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
 
       - name: Publish Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
