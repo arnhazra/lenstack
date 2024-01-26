@@ -18,11 +18,13 @@ jobs:
       - name: Build server application
         run: |
           npm install --prefix apps/server
+          npm uninstall arcstack
           CI=false npm run build --prefix apps/server
 
       - name: Build client application
         run: |
           npm install --prefix apps/client
+          npm uninstall arcstack
           CI=false npm run build --prefix apps/client
 
       - name: Build Movement
