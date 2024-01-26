@@ -19,12 +19,14 @@ jobs:
         working-directory: ./apps/server
         run: |
           npm install
+          npm uninstall arcstack
           CI=false npm run build
 
       - name: Build client application
         working-directory: ./apps/client
         run: |
           npm install
+          npm uninstall arcstack
           CI=false npm run build
 
       - name: Build Movement
