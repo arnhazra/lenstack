@@ -36,7 +36,7 @@ jobs:
       - name: Build Movement
         run: |
           mkdir dist
-          # cp -r apps/server/package.json dist
+          cp -r apps/server/package.json dist
           cp -r apps/server/dist/. dist
           mv apps/client/out dist/client
 
@@ -45,10 +45,6 @@ jobs:
 
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      # - name: Clear NPM Cache
-      #   working-directory: ./.vercel/output/functions/dist/main.js.func/dist
-      #   run: npm cache clean --force
 
       # - name: Cleanup
       #   working-directory: ./.vercel/output/functions/dist/main.js.func/dist
