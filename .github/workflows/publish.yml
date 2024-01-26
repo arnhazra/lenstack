@@ -36,6 +36,7 @@ jobs:
       - name: Build Movement
         run: |
           mkdir dist
+          # cp -r apps/server/package.json dist
           cp -r apps/server/dist/. dist
           mv apps/client/out dist/client
 
