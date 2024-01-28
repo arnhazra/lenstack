@@ -17,7 +17,7 @@ jobs:
         run: npm install --global pnpm
 
       - name: Install Vercel CLI
-        run: pnpm install --global vercel
+        run: pnpm add --global vercel
 
       - name: Build server application
         run: |
