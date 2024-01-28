@@ -5,7 +5,7 @@
   "author": "Arnab Hazra",
   "license": "GNU GENERAL PUBLIC LICENSE",
   "scripts": {
-    "dev": "concurrently \"npm run start:dev --prefix apps/server\" \"npm run dev --prefix apps/client\"",
+    "dev": "concurrently \"pnpm run start:dev --prefix apps/server\" \"pnpm run dev --prefix apps/client\"",
     "publish": "git add . && git commit -m publish && git push"
   },
   "devDependencies": {

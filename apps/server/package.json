@@ -9,7 +9,6 @@
     "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:client": "npm run dev --prefix client",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main"
   },
