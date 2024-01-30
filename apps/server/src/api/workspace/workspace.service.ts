@@ -12,8 +12,15 @@ export class WorkspaceService {
   async createWorkspace(userId: string, createWorkspaceDto: CreateWorkspaceDto) {
     try {
       const { name } = createWorkspaceDto
-      const workspace = await createWorkspaceCommand(name, userId)
-      return workspace
+      const workspaceCount = (await findMyWorkspacesQuery(userId)).length
+      if (workspaceCount < 3) {
+        const workspace = await createWorkspaceCommand(name, userId)
+        return workspace
+      }
+
+      else {
+        throw new BadRequestException(statusMessages.workspaceLimitReached)
+      }
     }
 
     catch (error) {

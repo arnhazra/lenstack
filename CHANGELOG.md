@@ -1,6 +1,7 @@
 # Changelog
 
 ### v7.2.0
+* Limiting 3 workspaces per user
 * Removal of one time trial plan and introduction of Free plan
 * Introduction of new interactive pricing plans
 

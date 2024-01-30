@@ -83,7 +83,7 @@ export default function Page() {
 
     return (
       <Suspense condition={!!pricingDetails?.data?.length} fallback={<h4 className="text-white">No Plans to display</h4>}>
-        <h4 className="text-white">Select a Plan</h4>
+        <h4 className="text-white">Find a Plan that works</h4>
         <div>
           <Row xs={1} sm={1} md={2} lg={3} xl={4} className="justify-content-center">
             {productsToDisplay}

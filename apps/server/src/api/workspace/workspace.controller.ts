@@ -16,7 +16,7 @@ export class WorkspaceController {
     }
 
     catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw error
     }
   }
 
