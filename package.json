@@ -1,14 +1,16 @@
 {
   "name": "arcstack",
-  "version": "7.1.0",
-  "description": "This Software-as-a-Service (SaaS) platform offers an extensive array of applications catering to diverse needs. Its ecosystem hosts a multifaceted suite of tools and services, each designed to streamline and enhance various aspects of operations across industries.",
-  "author": "Arnab Hazra",
-  "license": "GNU GENERAL PUBLIC LICENSE",
+  "version": "7.0.0",
+  "description": "arcstack",
   "scripts": {
-    "dev": "concurrently \"pnpm run start:dev --prefix apps/server\" \"pnpm run dev --prefix apps/client\"",
+    "start:server": "npm run start:dev --watch --prefix apps/server",
+    "start:client": "npm run dev --prefix apps/client",
+    "dev": "concurrently \"npm run start:server\" \"npm run start:client\"",
     "publish": "git add . && git commit -m publish && git push"
   },
-  "devDependencies": {
+  "author": "Arnab Hazra",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "dependencies": {
     "concurrently": "^8.2.2"
   }
 }

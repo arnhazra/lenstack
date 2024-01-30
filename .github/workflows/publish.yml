@@ -12,24 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: Install PNPM
-        run: npm install --global pnpm
-
       - name: Install Vercel CLI
-        run: |
-          pnpm setup
-          pnpm add -g vercel
+        run: npm install --global vercel
 
       - name: Build server application
         run: |
-          pnpm install --prefix apps/server
-          CI=false pnpm run build --prefix apps/server
+          npm install --prefix apps/server
+          CI=false npm run build --prefix apps/server
 
       - name: Build client application
         run: |
-          pnpm install --prefix apps/client
-          CI=false pnpm run build --prefix apps/client
+          npm install --prefix apps/client
+          CI=false npm run build --prefix apps/client
 
       - name: Build Movement
         run: |
@@ -47,7 +41,7 @@ jobs:
       - name: Cleanup
         run: |
           cd .vercel/output/functions/dist/main.js.func/dist
-          pnpm uninstall @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
+          npm uninstall @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
 
       - name: Publish Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
