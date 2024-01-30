@@ -17,13 +17,15 @@ jobs:
 
       - name: Build server application
         run: |
-          npm install --prefix apps/server
-          CI=false npm run build --prefix apps/server
+          cd apps/server
+          npm install
+          CI=false npm run build
 
       - name: Build client application
         run: |
-          npm install --prefix apps/client
-          CI=false npm run build --prefix apps/client
+          cd apps/client
+          npm install
+          CI=false npm run build
 
       - name: Build Movement
         run: |
