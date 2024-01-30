@@ -8,7 +8,7 @@
   },
   "author": "Arnab Hazra",
   "license": "GNU GENERAL PUBLIC LICENSE",
-  "dependencies": {
+  "devDependencies": {
     "concurrently": "^8.2.2"
   }
 }
