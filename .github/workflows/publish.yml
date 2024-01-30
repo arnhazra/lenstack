@@ -12,18 +12,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Install Turbo
-        run: npm install --global turbo
+      - name: Build main nest application
+        working-directory: apps/server
+        run: |
+          npm install
+          CI=false npm run build
 
-      - name: Install Workspace Dependencies
-        run: npm install --workspace=apps
+      - name: Build client application
+        working-directory: apps/client
+        run: |
+          npm install
+          CI=false npm run build
 
-      - name: Build Applications
-        run: npm run build
+      - name: Copy Dependencies to build
+        run: |
+          cp -r ./package.json dist
 
       - name: Build Movement
         run: |
@@ -38,5 +44,10 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
+      # - name: Cleanup
+      #   run: |
+      #     cd .vercel/output/functions/dist/main.js.func/dist
+      #     npm uninstall @openzeppelin/contracts @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/node concurrently source-map-support ts-loader ts-node tsconfig-paths typescript
+
       - name: Publish Project Artifacts to Vercel
-        run: vercel deploy --token=${{secrets.VERCEL_TOKEN}} --archive=tgz --prebuilt --prod
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

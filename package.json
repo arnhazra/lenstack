@@ -3,17 +3,12 @@
   "version": "7.0.0",
   "description": "arcstack",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "start": "node apps/server/dist/main",
+    "dev": "concurrently \"npm run dev --prefix apps/server\" \"npm run dev --prefix apps/client\"",
     "publish": "git add . && git commit -m publish && git push"
   },
   "author": "Arnab Hazra",
   "license": "GNU GENERAL PUBLIC LICENSE",
-  "workspaces": [
-    "apps/*"
-  ],
   "dependencies": {
-    "turbo": "^1.11.3"
+    "concurrently": "^8.2.2"
   }
 }
