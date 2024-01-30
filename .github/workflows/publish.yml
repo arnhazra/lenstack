@@ -27,10 +27,6 @@ jobs:
           npm install
           CI=false npm run build
 
-      - name: Copy Dependencies to build
-        run: |
-          cp -r ./package.json dist
-
       - name: Build Movement
         run: |
           mkdir dist
