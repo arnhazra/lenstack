@@ -4,6 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
+  output: "export",
+  trailingSlash: process.env.NODE_ENV === "production" ? true : false,
   experimental: {
     missingSuspenseWithCSRBailout: false
   }
