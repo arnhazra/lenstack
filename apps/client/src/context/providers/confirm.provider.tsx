@@ -1,5 +1,5 @@
 "use client"
-import React, { ReactNode, createContext, useContext } from "react"
+import { ReactNode, createContext, useContext } from "react"
 import useConfirm, { ConfirmProps } from "@/hooks/use-confirm"
 
 const ConfirmContext = createContext<ConfirmProps | undefined>(undefined)

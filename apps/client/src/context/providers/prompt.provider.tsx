@@ -1,5 +1,5 @@
 "use client"
-import React, { ReactNode, createContext, useContext } from "react"
+import { ReactNode, createContext, useContext } from "react"
 import usePrompt, { PromptProps } from "@/hooks/use-prompt"
 
 const PromptContext = createContext<PromptProps | undefined>(undefined)
