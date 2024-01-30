@@ -18,7 +18,7 @@ import Option from "@/components/option"
 import InfoPanel from "@/components/infopanel"
 
 export default function Page() {
-  const [allPlans] = useState<string[]>(["basic", "standard", "premium"])
+  const [allPlans] = useState<string[]>(["starter", "premium", "ultra"])
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const searchParams = useSearchParams()

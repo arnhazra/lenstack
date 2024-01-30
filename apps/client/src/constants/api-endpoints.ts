@@ -14,7 +14,7 @@ export const endPoints = {
   infuraTransactionGateway: `${apiHost}/api/transaction/infura-gateway`,
   quicknodetransactionGateway: `${apiHost}/api/transaction/quicknode-gateway`,
   subscribe: `${apiHost}/api/subscription/subscribe`,
-  activateTrial: `${apiHost}/api/subscription/activatetrial`,
+  activateHobby: `${apiHost}/api/subscription/activatehobby`,
   getSubscriptionConfig: `${apiHost}/api/subscription/getsubscriptionconfig`,
   getProductConfig: `${apiHost}/api/platform/getproductconfig`,
   createWorkspace: `${apiHost}/api/workspace/create`,

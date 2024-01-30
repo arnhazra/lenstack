@@ -17,7 +17,6 @@ const initialState: { userState: UserState, appState: AppState } = {
     clientId: "",
     clientSecret: "",
     expiresAt: "",
-    trialAvailable: false,
     selectedWorkspaceId: "",
     selectedWorkspaceName: "",
     remainingCredits: 0,

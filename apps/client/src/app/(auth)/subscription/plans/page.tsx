@@ -21,12 +21,12 @@ export default function Page() {
   const { confirm } = useConfirmContext()
   const router = useRouter()
 
-  const activateTrial = async () => {
-    const userConsent = await confirm("Are you sure to activate Trial ?")
+  const activateHobby = async () => {
+    const userConsent = await confirm("Are you sure to activate Hobby Plan ?")
 
     if (userConsent) {
       try {
-        await axios.get(endPoints.activateTrial)
+        await axios.get(endPoints.activateHobby)
         dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
         toast.success(uiConstants.toastSuccess)
       }
@@ -43,8 +43,8 @@ export default function Page() {
   }
 
   const selectPlan = (planName: string) => {
-    if (planName === "trial") {
-      activateTrial()
+    if (planName === "hobby") {
+      activateHobby()
     }
 
     else {
@@ -69,11 +69,11 @@ export default function Page() {
             </p>
             <p className="text-secondary"><CheckIcon className="icon-left" />{Number(pricing.grantedCredits).toLocaleString()} Credits</p>
             <p className="text-secondary">
-              <Suspense condition={pricing.price !== 0} fallback={<><CheckIcon className="icon-left" />One month trial</>}>
+              <Suspense condition={pricing.price !== 0} fallback={<><CheckIcon className="icon-left" />Completely free</>}>
                 <CheckIcon className="icon-left" />Discontinue anytime
               </Suspense>
             </p>
-            <Button disabled={(!pricing.price && !userState.trialAvailable) || userState.hasActiveSubscription} variant="primary" className="btn-block" onClick={(): void => selectPlan(pricing.planName)}>
+            <Button disabled={userState.hasActiveSubscription} variant="primary" className="btn-block" onClick={(): void => selectPlan(pricing.planName)}>
               Select & Continue<ArrowRightIcon className="icon-right" />
             </Button>
           </Hero>

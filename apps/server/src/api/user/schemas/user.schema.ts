@@ -22,11 +22,6 @@ export const UserSchema = new Schema({
     required: true
   },
 
-  trialAvailable: {
-    type: Boolean,
-    default: true
-  },
-
   selectedWorkspaceId: {
     type: Schema.Types.ObjectId,
     ref: "workspace"

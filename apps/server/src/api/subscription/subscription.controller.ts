@@ -7,10 +7,10 @@ import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/toke
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) { }
 
-  @Get("activatetrial")
-  async activateTrial(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  @Get("activatehobby")
+  async activateHobby(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
-      return this.subscriptionService.activateTrial(uft.userId, uft.workspaceId)
+      return this.subscriptionService.activateHobby(uft.userId, uft.workspaceId)
     }
 
     catch (error) {

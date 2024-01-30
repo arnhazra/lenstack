@@ -7,7 +7,6 @@ export interface UserState {
   clientId: string
   clientSecret: string
   expiresAt: string
-  trialAvailable: boolean
   selectedWorkspaceId: string
   selectedWorkspaceName: string
   remainingCredits: number | string

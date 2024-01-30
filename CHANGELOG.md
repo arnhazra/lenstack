@@ -1,5 +1,9 @@
 # Changelog
 
+### v7.2.0
+* Removal of one time trial plan and introduction of Free plan
+* Introduction of new interactive pricing plans
+
 ### v7.1.0
 * Minor design changes in Apps - Copilot, Ledgerscan & Wallet
 * Updated email template
