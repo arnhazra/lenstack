@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Build main nest application
+      - name: Build server application
         working-directory: apps/server
         run: |
           npm install
@@ -27,10 +28,16 @@ jobs:
           npm install
           CI=false npm run build
 
+      - name: Configure packages
+        working-directory: apps/server
+        run: |
+          npm install --global json
+          json -I -f package.json -e 'delete this.devDependencies'
+
       - name: Build Movement
         run: |
           mkdir dist
-          cp -r apps/server/package-prod.json dist/package.json
+          cp -r apps/server/package.json dist/package.json
           cp -r apps/server/dist/. dist
           mv apps/client/out dist/client
 
