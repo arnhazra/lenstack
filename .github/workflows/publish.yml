@@ -19,6 +19,9 @@ jobs:
       - name: Install Turbo
         run: npm install --global turbo
 
+      - name: Install Workspace Dependencies
+        run: npm install --workspace=apps
+
       - name: Build Applications
         run: npm run build
 
