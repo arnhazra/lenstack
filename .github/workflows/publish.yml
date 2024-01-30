@@ -5,7 +5,7 @@ env:
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   PROD-CI-CD:
@@ -15,17 +15,8 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Build server application
-        run: |
-          cd apps/server
-          npm install
-          CI=false npm run build
-
-      - name: Build client application
-        run: |
-          cd apps/client
-          npm install
-          CI=false npm run build
+      - name: Build Applications
+        run: npm run build
 
       - name: Build Movement
         run: |
