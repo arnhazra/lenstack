@@ -69,6 +69,11 @@ export default function Page() {
             </p>
             <p className="text-secondary"><CheckIcon className="icon-left" />{Number(pricing.grantedCredits).toLocaleString()} Credits</p>
             <p className="text-secondary">
+              <Suspense condition={pricing.price !== 0} fallback={<><CheckIcon className="icon-left" />Slower API Response</>}>
+                <CheckIcon className="icon-left" />Faster API Response
+              </Suspense>
+            </p>
+            <p className="text-secondary">
               <Suspense condition={pricing.price !== 0} fallback={<><CheckIcon className="icon-left" />Completely free</>}>
                 <CheckIcon className="icon-left" />Discontinue anytime
               </Suspense>

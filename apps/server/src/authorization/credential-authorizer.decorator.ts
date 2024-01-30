@@ -1,8 +1,9 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { findSubscriptionByWorkspaceIdQuery } from "src/api/subscription/queries/find-subscription"
 import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential"
-import { apiPricing } from "src/api/subscription/subscription.config"
+import { apiPricing, SubscriptionPlans } from "src/api/subscription/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
+import { delay } from "src/utils/delay"
 
 export interface CredentialAuthorizerResponse {
   userId: string,
@@ -47,6 +48,11 @@ export const CredentialAuthorizer = createParamDecorator(
               else {
                 subscription.remainingCredits -= creditRequiredForCurrentRequest
                 await subscription.save()
+
+                if (subscription.selectedPlan === SubscriptionPlans.Hobby) {
+                  await delay(500)
+                }
+
                 return { userId, workspaceId }
               }
             }
