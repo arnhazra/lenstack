@@ -12,8 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Install Vercel CLI
         run: npm install --global vercel
+
+      - name: Install Turbo
+        run: npm install --global turbo
 
       - name: Build Applications
         run: npm run build
