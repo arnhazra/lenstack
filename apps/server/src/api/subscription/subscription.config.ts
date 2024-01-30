@@ -1,8 +1,8 @@
 export enum SubscriptionPlans {
-  Trial = "trial",
-  Basic = "basic",
-  Standard = "standard",
-  Premium = "premium"
+  Hobby = "hobby",
+  Starter = "starter",
+  Premium = "premium",
+  Ultra = "ultra",
 }
 
 export interface CreditType {
@@ -13,22 +13,22 @@ export interface CreditType {
 
 export const subscriptionConfig: CreditType[] = [
   {
-    planName: SubscriptionPlans.Trial,
+    planName: SubscriptionPlans.Hobby,
     price: 0,
-    grantedCredits: 10000
+    grantedCredits: 5000
   },
   {
-    planName: SubscriptionPlans.Basic,
+    planName: SubscriptionPlans.Starter,
     price: 1.09,
     grantedCredits: 25000
   },
   {
-    planName: SubscriptionPlans.Standard,
+    planName: SubscriptionPlans.Premium,
     price: 1.99,
     grantedCredits: 50000
   },
   {
-    planName: SubscriptionPlans.Premium,
+    planName: SubscriptionPlans.Ultra,
     price: 3.49,
     grantedCredits: 100000
   },

@@ -7,7 +7,6 @@ import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
 import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
 import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
 import { findUserByIdQuery } from "../user/queries/find-user-by-id"
-import { updateTrialStatusCommand } from "../user/commands/update-trial-status.command"
 
 @Injectable()
 export class SubscriptionService {
@@ -17,20 +16,11 @@ export class SubscriptionService {
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
 
-  async activateTrial(userId: string, workspaceId: string) {
+  async activateHobby(userId: string, workspaceId: string) {
     try {
-      const user = await findUserByIdQuery(userId)
-
-      if (user.trialAvailable) {
-        const selectedPlan = SubscriptionPlans.Trial
-        await createNewSubscriptionCommand(workspaceId, selectedPlan)
-        await updateTrialStatusCommand(userId, false)
-        return { success: true }
-      }
-
-      else {
-        throw new BadRequestException(statusMessages.connectionError)
-      }
+      const selectedPlan = SubscriptionPlans.Hobby
+      await createNewSubscriptionCommand(workspaceId, selectedPlan)
+      return { success: true }
     }
 
     catch (error) {

@@ -3,7 +3,7 @@ export const uiConstants = {
   homeHeader1: "Build, Ship & Scale",
   homeHeader2: "Powered by Polygon",
   homeHeader3: "Blockchain",
-  homeIntro1: "Start with a month of free trial, with 10k credits",
+  homeIntro1: "Start with a hobby plan, for free",
   homeIntro2: "There’s no upfront commitment",
   homeIntro3: "Upgrade on demand, Starting at 1.09 MATIC/month",
   connectionErrorMessage: "Connection Error",
