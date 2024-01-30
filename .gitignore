@@ -9,4 +9,3 @@ apps/client/out
 .vercel
 dist
 api/build
-.turbo
