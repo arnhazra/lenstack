@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "apps/server/dist/main.js",
+      "src": "dist/main.js",
       "use": "@vercel/node",
       "config": {
         "includeFiles": [
@@ -10,14 +10,14 @@
       }
     },
     {
-      "src": "apps/client/out",
+      "src": "./dist/client",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "apps/server/dist/main.js"
+      "dest": "dist/main.js"
     }
   ]
 }
