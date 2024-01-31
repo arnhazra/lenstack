@@ -30,7 +30,7 @@ export class SubscriptionController {
   }
 
   @Get("getsubscriptionconfig")
-  getSubscriptionConfig(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  getSubscriptionConfig() {
     try {
       return this.subscriptionService.getSubscriptionConfig()
     }

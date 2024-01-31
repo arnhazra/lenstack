@@ -1,6 +1,7 @@
 # Changelog
 
 ### v7.2.1
+* Added new pricing page for unauthorized view
 * Regular dependency updates
 * Minor changes & bug fixes
 
@@ -146,7 +147,7 @@
 * Rebranding of Airlake as Datalake
 * Rebranding of Hyperedge as Fabric
 * Rebranding of Frostlake as Insights
-* Rebranding of Edgescan as Ledgerscan\
+* Rebranding of Edgescan as Ledgerscan
 
 ### v3.2.0
 * Rebranding of Snowlake as NFT Studio
@@ -203,11 +204,11 @@
 * Move Swapstreamtokenconfig to DB
 
 ### v2.3.0
-* Resolve the problem of automatic subscription deletion upon expiration.
-* Rectify the issue causing the API key to change with every subscription renewal.
-* Incorporate the workspace object within user details for display on the subscription page.
-* Include the workspace name in the context for improved user experience.
-* Implement the automatic creation of a default workspace for new users.
+* Resolve the problem of automatic subscription deletion upon expiration
+* Rectify the issue causing the API key to change with every subscription renewal
+* Incorporate the workspace object within user details for display on the subscription page
+* Include the workspace name in the context for improved user experience
+* Implement the automatic creation of a default workspace for new users
 * Code optimizations, removed userdetails api call method on subscription & workspace changes
 * Added refreshId to revalidate API and update context
 
