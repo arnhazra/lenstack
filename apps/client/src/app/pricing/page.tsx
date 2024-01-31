@@ -1,57 +1,20 @@
 "use client"
 import Error from "@/components/error"
+import Header from "@/components/header"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
-import { useConfirmContext } from "@/context/providers/confirm.provider"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons"
-import axios from "axios"
-import { useRouter } from "next/navigation"
-import { Fragment, useCallback, useContext } from "react"
+import Link from "next/link"
+import { Fragment, useCallback } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap"
-import toast from "react-hot-toast"
 
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const [{ userState }, dispatch] = useContext(GlobalContext)
-  const { confirm } = useConfirmContext()
-  const router = useRouter()
-
-  const activateHobby = async () => {
-    const userConsent = await confirm("Are you sure to activate Hobby Plan ?")
-
-    if (userConsent) {
-      try {
-        await axios.get(endPoints.activateHobby)
-        dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
-        toast.success(uiConstants.toastSuccess)
-      }
-
-      catch (error) {
-        toast.error(uiConstants.toastError)
-      }
-
-      finally {
-        router.refresh()
-        router.push("/subscription")
-      }
-    }
-  }
-
-  const selectPlan = (planName: string) => {
-    if (planName === "hobby") {
-      activateHobby()
-    }
-
-    else {
-      router.push(`/subscription/plans/checkout?planName=${planName}`)
-    }
-  }
 
   const displayPricing = useCallback(() => {
     const productsToDisplay = pricingDetails?.data?.map((pricing: any) => {
@@ -79,9 +42,9 @@ export default function Page() {
                 <CheckIcon className="icon-left" />Discontinue anytime
               </Suspense>
             </p>
-            <Button disabled={userState.hasActiveSubscription} variant="secondary" className="btn-block" onClick={(): void => selectPlan(pricing.planName)}>
+            <Link className="btn btn-secondary btn-block" href={"/dashboard"}>
               Select & Continue<ArrowRightIcon className="icon-right" />
-            </Button>
+            </Link>
           </Hero>
         </Col >
       )
@@ -103,6 +66,9 @@ export default function Page() {
     <Fragment>
       <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
         <Suspense condition={!pricingDetails.error} fallback={<Error />}>
+          <nav className="header">
+            <Header isAuthorized={false} />
+          </nav>
           <Container>
             {displayPricing()}
           </Container>
