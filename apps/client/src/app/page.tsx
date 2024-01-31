@@ -22,7 +22,7 @@ export default function Page() {
           {uiConstants.homeIntro3} <br />
         </p>
         <Link href="/dashboard" className="btn btn-primary">
-          Try {uiConstants.brandName} free<ArrowRightIcon className="icon-right" />
+          Get Started<ArrowRightIcon className="icon-right" />
         </Link>
       </div>
     </Container>

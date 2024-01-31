@@ -8,9 +8,10 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { CheckIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons"
+import Link from "next/link"
 import { Fragment, useCallback } from "react"
-import { Col, Container, Row } from "react-bootstrap"
+import { Button, Col, Container, Row } from "react-bootstrap"
 
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
@@ -41,6 +42,9 @@ export default function Page() {
                 <CheckIcon className="icon-left" />Discontinue anytime
               </Suspense>
             </p>
+            <Link className="btn btn-secondary btn-block" href={"/dashboard"}>
+              Select & Continue<ArrowRightIcon className="icon-right" />
+            </Link>
           </Hero>
         </Col >
       )
