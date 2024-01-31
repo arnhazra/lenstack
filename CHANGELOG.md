@@ -1,5 +1,9 @@
 # Changelog
 
+### v7.2.1
+* Regular dependency updates
+* Minor changes & bug fixes
+
 ### v7.2.0
 * Introduction of API response delay in hobby plan
 * Limiting 3 workspaces per user

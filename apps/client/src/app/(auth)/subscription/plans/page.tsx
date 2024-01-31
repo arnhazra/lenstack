@@ -1,4 +1,5 @@
 "use client"
+import Error from "@/components/error"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
@@ -69,8 +70,8 @@ export default function Page() {
             </p>
             <p className="text-secondary"><CheckIcon className="icon-left" />{Number(pricing.grantedCredits).toLocaleString()} Credits</p>
             <p className="text-secondary">
-              <Suspense condition={pricing.price !== 0} fallback={<><CheckIcon className="icon-left" />Slower API Response</>}>
-                <CheckIcon className="icon-left" />Faster API Response
+              <Suspense condition={pricing.price !== 0} fallback={<><CheckIcon className="icon-left" />Regular API Response</>}>
+                <CheckIcon className="icon-left" />Priority API Response
               </Suspense>
             </p>
             <p className="text-secondary">
@@ -78,7 +79,7 @@ export default function Page() {
                 <CheckIcon className="icon-left" />Discontinue anytime
               </Suspense>
             </p>
-            <Button disabled={userState.hasActiveSubscription} variant="primary" className="btn-block" onClick={(): void => selectPlan(pricing.planName)}>
+            <Button disabled={userState.hasActiveSubscription} variant="secondary" className="btn-block" onClick={(): void => selectPlan(pricing.planName)}>
               Select & Continue<ArrowRightIcon className="icon-right" />
             </Button>
           </Hero>
@@ -87,8 +88,8 @@ export default function Page() {
     })
 
     return (
-      <Suspense condition={!!pricingDetails?.data?.length} fallback={<h4 className="text-white">No Plans to display</h4>}>
-        <h4 className="text-white">Find a Plan that works</h4>
+      <Suspense condition={!!pricingDetails?.data?.length} fallback={<h4 className="text-white">No plans to display</h4>}>
+        <h4 className="text-white">Find a plan that works</h4>
         <div>
           <Row xs={1} sm={1} md={2} lg={3} xl={4} className="justify-content-center">
             {productsToDisplay}
@@ -101,9 +102,11 @@ export default function Page() {
   return (
     <Fragment>
       <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
-        <Container>
-          {displayPricing()}
-        </Container>
+        <Suspense condition={!pricingDetails.error} fallback={<Error />}>
+          <Container>
+            {displayPricing()}
+          </Container>
+        </Suspense>
       </Suspense>
     </Fragment>
   )
