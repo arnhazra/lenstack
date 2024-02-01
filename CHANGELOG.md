@@ -5,7 +5,7 @@
 * Regular dependency updates & bug fixes
 * Replacement of moment with date-fns library
 * Removal of lodash.debounce
-* Added new @uidotdev/usehooks library
+* Added new usehooks library
 
 ### v7.2.1
 * Added new pricing page for unauthorized view
