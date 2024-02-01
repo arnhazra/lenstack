@@ -1,6 +1,7 @@
 # Changelog
 
 ### v8.0.0
+* UI & API Code refactoring
 * Regular dependency updates & bug fixes
 * Replacement of moment with date-fns library
 * Removal of lodash.debounce

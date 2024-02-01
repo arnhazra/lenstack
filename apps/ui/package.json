@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "ui",
   "version": "8.0.0",
   "private": true,
   "scripts": {
@@ -21,13 +21,13 @@
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
     "react-json-view-lite": "^1.2.1",
-    "sass": "^1.70.0",
     "web3": "^4.4.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.14",
-    "@types/react": "^18.2.48",
-    "@types/react-dom": "^18.2.18",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "sass": "^1.70.0",
     "typescript": "^5"
   }
 }

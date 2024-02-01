@@ -3,7 +3,7 @@
   "version": "8.0.0",
   "description": "arcstack",
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix apps/server\" \"npm run dev --prefix apps/client\"",
+    "dev": "concurrently \"npm run dev --prefix apps/api\" \"npm run dev --prefix apps/ui\"",
     "publish": "git add . && git commit -m publish && git push"
   },
   "author": "Arnab Hazra",

@@ -5,6 +5,6 @@
     "test",
     "dist",
     "**/*spec.ts",
-    "client"
+    "ui"
   ]
 }
