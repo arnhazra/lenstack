@@ -1,17 +1,11 @@
-"use client"
 import { ReactNode } from "react"
 import { uiConstants } from "@/constants/global-constants"
 import { Quicksand } from "next/font/google"
 import Providers from "@/context/providers"
-import { useNetworkState } from "@uidotdev/usehooks"
-import Suspense from "@/components/suspense"
-import Offline from "@/components/offline"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const network = useNetworkState()
-
   return (
     <html lang="en">
       <head>
@@ -22,13 +16,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
       </head>
       <body className={quickSand.className}>
-        <Suspense condition={network.online} fallback={<Offline />}>
-          <Providers>
-            <main className="mt-2 mb-4 pb-4">
-              {children}
-            </main>
-          </Providers>
-        </Suspense>
+        <Providers>
+          <main className="mt-2 mb-4 pb-4">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   )
