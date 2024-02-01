@@ -1,15 +1,15 @@
 "use client"
-import { ChangeEvent, Fragment, useContext, useEffect, useMemo, useRef, useState } from "react"
+import { Fragment, useContext, useEffect, useRef, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
 import Suspense from "./suspense"
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { ExternalLinkIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
-import debounce from "lodash.debounce"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiHost } from "@/constants/api-endpoints"
 import Avatar from "./avatar"
+import { useDebounce } from "@uidotdev/usehooks"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -21,6 +21,9 @@ export default function Header({ isAuthorized }: HeaderProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [{ userState }, dispatch] = useContext(GlobalContext)
+  const [searchString, setSearchString] = useState("")
+  const debouncedSearchTerm = useDebounce(searchString, 1000)
+
   const searchEnabledPathNames = [
     "/dashboard", "/products/datalake", "/products/insights",
     "/products/fabric", "/products/nftstudio", "/products/swap",
@@ -49,11 +52,9 @@ export default function Header({ isAuthorized }: HeaderProps) {
     }
   }, [pathname, searchParams])
 
-  const searchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    dispatch("setAppState", { globalSearchString: event.target.value.toLowerCase() })
-  }
-
-  const debouncedChangeHandler = useMemo(() => debounce(searchChangeHandler, 1000), [])
+  useEffect(() => {
+    dispatch("setAppState", { globalSearchString: debouncedSearchTerm })
+  }, [debouncedSearchTerm])
 
   return (
     <Fragment>
@@ -79,7 +80,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               </Nav>
               <Nav className="ms-auto">
                 <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
-                  <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={debouncedChangeHandler} />
+                  <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={(e) => setSearchString(e.target.value)} />
                 </Suspense>
                 <Avatar email={userState.email} />
               </Nav>
