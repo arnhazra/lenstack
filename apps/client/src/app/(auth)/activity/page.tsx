@@ -8,7 +8,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { BellIcon } from "@radix-ui/react-icons"
-import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from "date-fns"
 import { useCallback } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 

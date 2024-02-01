@@ -30,7 +30,7 @@ export default function Page() {
           <td>{ant.event}</td>
           <td>{ant.info}</td>
           <td>{ant.statusCode}</td>
-          <td>{format(new Date(ant.createdAt), 'MMM, do yyyy, h:mm a')}</td>
+          <td>{format(new Date(ant.createdAt), "MMM, do yyyy, h:mm a")}</td>
         </tr>
       )
     })

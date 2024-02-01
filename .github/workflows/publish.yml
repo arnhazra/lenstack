@@ -32,7 +32,7 @@ jobs:
         working-directory: apps/server
         run: |
           npm install --global json
-          json -I -f package.json -e 'delete this.devDependencies'
+          json -I -f package.json -e "delete this.devDependencies"
 
       - name: Build Movement
         run: |
