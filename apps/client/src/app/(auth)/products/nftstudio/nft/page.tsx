@@ -11,7 +11,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { ArchiveIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix-ui/react-icons"
-import moment from "moment"
+import { formatDistanceToNow } from "date-fns"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Fragment, useCallback, useContext, useEffect, useState } from "react"
@@ -112,7 +112,7 @@ export default function Page() {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
-        footerText: `This NFT was minted by you using NFT Studio on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        footerText: `This NFT was minted by you using NFT Studio on ${formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.`,
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 

@@ -6,7 +6,6 @@ import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import Hero from "@/components/hero"
@@ -18,6 +17,7 @@ import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import { usePromptContext } from "@/context/providers/prompt.provider"
+import { formatDistanceToNow } from "date-fns"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
@@ -33,7 +33,7 @@ export default function Page() {
         badgeText: "Project",
         className: "centralized",
         headerText: project.name,
-        footerText: `This Project was started by you using Insights Platform on ${moment(project.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        footerText: `This Project was started by you using Insights Platform on ${formatDistanceToNow(new Date(project.createdAt), { addSuffix: true })}. To check more click on this card.`,
         redirectUri: `/products/insights/project?projectId=${project._id}`
       }
 

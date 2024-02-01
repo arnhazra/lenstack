@@ -8,7 +8,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { BellIcon } from "@radix-ui/react-icons"
-import moment from "moment"
+import { formatDistanceToNow } from 'date-fns'
 import { useCallback } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 
@@ -19,7 +19,11 @@ export default function Page() {
     const activitiesToDisplay = activities?.data?.activities?.map((activity: any) => {
       return (
         <Col xs={12} sm={6} md={6} lg={4} xl={3} className="mb-4" key={activity._id}>
-          <InfoPanel key={activity._id} infoIcon={<BellIcon />} infoName={activity.activityDescription} infoValue={moment(activity.createdAt).fromNow()} />
+          <InfoPanel
+            key={activity._id} infoIcon={<BellIcon />}
+            infoName={activity.activityDescription}
+            infoValue={formatDistanceToNow(new Date(activity.createdAt), { addSuffix: true })}
+          />
         </Col>
       )
     })

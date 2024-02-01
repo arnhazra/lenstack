@@ -4,12 +4,12 @@ import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
-import { Fragment, useCallback, useContext, useEffect, useState } from "react"
-import { Badge, Col, Container, Row } from "react-bootstrap"
+import { useCallback, useContext, useEffect, useState } from "react"
+import { Badge, Container, Row } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { nftABI } from "@/bin/nft-abi"
-import moment from "moment"
+import { formatDistanceToNow } from "date-fns"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
@@ -59,7 +59,7 @@ export default function Page() {
         badgeText: "NFT",
         className: "decentralized",
         headerText: nft.name,
-        footerText: `This NFT was minted by you using NFT Studio on ${moment(Number(nft.createdAt) * 1000).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        footerText: `This NFT was minted by you using NFT Studio on ${formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.`,
         redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 

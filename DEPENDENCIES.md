@@ -14,7 +14,7 @@
 * axios - Promise-based HTTP client for the browser and Node.js.
 * bootstrap - Popular CSS framework for building responsive, mobile-first websites.
 * lodash.debounce - Debounced searching.
-* moment - Lightweight JavaScript date library for parsing, validating, and formatting dates and times.
+* date-fns - Lightweight JavaScript date library for parsing, validating, and formatting dates and times.
 * next - Popular JavaScript framework for building user interfaces based on react.
 * react - Popular JavaScript library for building user interfaces.
 * react-bootstrap - React components that implement the Bootstrap design language.

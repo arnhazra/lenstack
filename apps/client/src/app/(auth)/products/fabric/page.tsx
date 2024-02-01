@@ -6,7 +6,6 @@ import { Badge, Button, Container, Row } from "react-bootstrap"
 import Loading from "@/components/loading"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import moment from "moment"
 import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import Hero from "@/components/hero"
@@ -18,6 +17,7 @@ import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import { usePromptContext } from "@/context/providers/prompt.provider"
+import { formatDistanceToNow } from "date-fns"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
@@ -33,7 +33,7 @@ export default function Page() {
         badgeText: "Database",
         className: "centralized",
         headerText: db.name,
-        footerText: `This Database was created by you using Fabric on ${moment(db.createdAt).format("MMM, Do YYYY, h:mm a")}. To check more click on this card.`,
+        footerText: `This Database was created by you using Fabric on ${formatDistanceToNow(new Date(db.createdAt), { addSuffix: true })}. To check more click on this card.`,
         redirectUri: `/products/fabric/database?dbId=${db._id}`
       }
 

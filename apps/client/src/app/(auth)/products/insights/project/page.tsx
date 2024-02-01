@@ -7,13 +7,13 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { TrashIcon, CubeIcon, LockOpen2Icon } from "@radix-ui/react-icons"
 import axios from "axios"
-import moment from "moment"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
+import { format } from "date-fns"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -30,7 +30,7 @@ export default function Page() {
           <td>{ant.event}</td>
           <td>{ant.info}</td>
           <td>{ant.statusCode}</td>
-          <td>{moment(ant.createdAt).format("MMM, Do YYYY, h:mm a")}</td>
+          <td>{format(new Date(ant.createdAt), 'MMM, do yyyy, h:mm a')}</td>
         </tr>
       )
     })

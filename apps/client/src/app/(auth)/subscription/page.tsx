@@ -6,7 +6,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading"
-import moment from "moment"
+import { format } from "date-fns"
 import { ArrowRightIcon, CalendarIcon, CubeIcon, PieChartIcon, StackIcon } from "@radix-ui/react-icons"
 import InfoPanel from "@/components/infopanel"
 import Error from "@/components/error"
@@ -25,7 +25,7 @@ export default function Page() {
           <p className="muted-text mb-4">Subscribe & Track your API Credentials usage from here</p>
           <InfoPanel infoIcon={<StackIcon />} infoName="Workspace" infoValue={userState.selectedWorkspaceName} />
           <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.selectedPlan.charAt(0).toUpperCase() + userState.selectedPlan.slice(1)} />
-          <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${moment(userState.expiresAt).format("MMM, Do YYYY")}` : "No Validity Data"} />
+          <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${format(new Date(userState.expiresAt), "MMM, do yyyy")}` : "No Validity Data"} />
           <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
           <Link href="/subscription/plans" className="btn btn-primary btn-block">View Plans<ArrowRightIcon className="icon-right" /></Link>
         </div>
