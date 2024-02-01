@@ -2,7 +2,6 @@
 import { uiConstants } from "@/constants/global-constants"
 import { Button } from "react-bootstrap"
 import { ArrowLeftIcon, CrossCircledIcon } from "@radix-ui/react-icons"
-import { Fragment } from "react"
 
 interface ErrorProps {
   customMessage?: string
