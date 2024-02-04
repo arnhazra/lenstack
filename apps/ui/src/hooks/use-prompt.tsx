@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react"
-import Modal from "react-bootstrap/Modal"
-import Button from "react-bootstrap/Button"
+import { Modal, Button } from "react-bootstrap"
 import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { Form } from "react-bootstrap"
 
