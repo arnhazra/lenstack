@@ -7,7 +7,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading"
-import { LockClosedIcon, RocketIcon } from "@radix-ui/react-icons"
+import { LockClosedIcon, RocketIcon, StarIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
@@ -16,6 +16,7 @@ import Error from "@/components/error"
 import { Badge, Button, Form, Row } from "react-bootstrap"
 import Option from "@/components/option"
 import InfoPanel from "@/components/infopanel"
+import Link from "next/link"
 
 export default function Page() {
   const [allPlans] = useState<string[]>(["hobby", "starter", "premium", "ultra"])
@@ -58,8 +59,7 @@ export default function Page() {
     }
   }
 
-  const activate = async (e: any) => {
-    e.preventDefault()
+  const activateOtherPlans = async () => {
     let selectedGatewayUrl = endPoints.alchemyTransactionGateway
 
     switch (selectedGateway) {
@@ -124,6 +124,18 @@ export default function Page() {
     }
   }
 
+  const activate = async (e: any) => {
+    e.preventDefault()
+
+    if (planName === "hobby") {
+      activateHobby()
+    }
+
+    else {
+      activateOtherPlans()
+    }
+  }
+
   const renderGatewayOptions = useCallback(() => {
     return gatewayOptions.map((option) => (
       <Option
@@ -139,52 +151,33 @@ export default function Page() {
   return (
     <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
       <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
-        <Suspense condition={planName !== "hobby"} fallback={null}>
-          <form className="bigbox" onSubmit={activate}>
-            <p className="branding">Checkout</p>
-            <Form.Group className="mb-4" controlId="exampleForm.ControlInput1">
-              <Form.Label>Your Email</Form.Label>
-              <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
-            </Form.Group>
-            <div className="mb-2">
-              <p className="muted-text mb-2 mt-3">Select a payment gateway to proceed</p>
-              <Row xl={2} lg={2} md={2} sm={2} xs={2}>
-                {renderGatewayOptions()}
-              </Row>
-            </div>
-            <div className="mt-3 mb-2">
-              <InfoPanel infoIcon={<RocketIcon />} infoName="Your Total Today" infoValue={`${plan?.price} MATIC`} />
-            </div>
-            <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
-              <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
+        <form className="bigbox" onSubmit={activate}>
+          <p className="branding">Payment</p>
+          <Form.Group controlId="exampleForm.ControlInput1">
+            <Form.Label>Your Email</Form.Label>
+            <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
+          </Form.Group>
+          <div className="mb-2">
+            <p className="muted-text mb-2 mt-3">Select a payment gateway to proceed</p>
+            <Row xl={2} lg={2} md={2} sm={2} xs={2}>
+              {renderGatewayOptions()}
+            </Row>
+          </div>
+          <div className="mt-3 mb-2">
+            <InfoPanel infoIcon={<RocketIcon />} infoName="Your Total Today" infoValue={`${plan?.price} MATIC`} />
+          </div>
+          <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
+            <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
+              <Suspense condition={planName !== "hobby"} fallback="Activate for Free">
                 Pay {`${plan?.price} MATIC`}
               </Suspense>
-            </Button>
-            <div className="text-center">
-              <Badge bg="light" className="mt-1 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
-            </div>
-          </form>
-        </Suspense>
-        <Suspense condition={planName === "hobby"} fallback={null}>
-          <form className="bigbox" onSubmit={activateHobby}>
-            <p className="branding">Checkout</p>
-            <Form.Group className="mb-4" controlId="exampleForm.ControlInput1">
-              <Form.Label>Your Email</Form.Label>
-              <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
-            </Form.Group>
-            <div className="mt-3 mb-2">
-              <InfoPanel infoIcon={<RocketIcon />} infoName="Your Total Today" infoValue={`${plan?.price} MATIC`} />
-            </div>
-            <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
-              <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
-                Activate for Free
-              </Suspense>
-            </Button>
-            <div className="text-center">
-              <Badge bg="light" className="mt-1 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
-            </div>
-          </form>
-        </Suspense>
+            </Suspense>
+          </Button>
+          <Link href="/subscription/plans" className="btn btn-secondary btn-block">Choose Another Plan<StarIcon className="icon-right" /></Link>
+          <div className="text-center">
+            <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />ArcStack Pay ™ Secured</Badge>
+          </div>
+        </form>
       </Suspense>
     </Suspense>
   )

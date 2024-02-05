@@ -19,7 +19,7 @@ export default function Page() {
   const router = useRouter()
 
   const selectPlan = (planName: string) => {
-    router.push(`/subscription/checkout?planName=${planName}`)
+    router.push(`/subscription/pay?planName=${planName}`)
   }
 
   const displayPricing = useCallback(() => {

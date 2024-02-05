@@ -42,7 +42,7 @@ export default function Page() {
                 <CheckIcon className="icon-left" />Discontinue anytime
               </Suspense>
             </p>
-            <Link className="btn btn-primary btn-block" href={`/subscription/checkout?planName=${pricing.planName}`}>
+            <Link className="btn btn-primary btn-block" href={`/subscription/pay?planName=${pricing.planName}`}>
               Select & Continue<ArrowRightIcon className="icon-right" />
             </Link>
           </Hero>
