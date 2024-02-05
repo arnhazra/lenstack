@@ -1,5 +1,7 @@
 # Changelog
 
+### v8.0.2
+
 ### v8.0.1
 * Minor overall UI Changes
 * Bug fixes and Performance improvements
