@@ -60,10 +60,10 @@ export default function Page() {
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary">
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <p className="text-muted">API Client</p>
+            <p className="muted-text mt-1">API Client</p>
             <form onSubmit={hitAPI}>
               <Form.Label htmlFor="basic-url">Enter test API endpoint</Form.Label>
               <Form.Control placeholder="Your test API endpoint" required onChange={(e) => setApi(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />

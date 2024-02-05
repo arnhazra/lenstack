@@ -7,18 +7,18 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading"
-import { CheckCircledIcon, LockClosedIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
+import { LockClosedIcon, RocketIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { Badge, Button, Row } from "react-bootstrap"
+import { Badge, Button, Form, Row } from "react-bootstrap"
 import Option from "@/components/option"
 import InfoPanel from "@/components/infopanel"
 
 export default function Page() {
-  const [allPlans] = useState<string[]>(["starter", "premium", "ultra"])
+  const [allPlans] = useState<string[]>(["hobby", "starter", "premium", "ultra"])
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const searchParams = useSearchParams()
@@ -35,23 +35,28 @@ export default function Page() {
     { value: "quicknode", label: "QuickNode" },
   ])
 
-  const renderGatewayOptions = useCallback(() => {
-    return gatewayOptions.map((option) => (
-      <Option
-        key={option.value}
-        isSelected={selectedGateway === option.value}
-        value={option.value}
-        label={option.label}
-        handleChange={(value) => setSelectedGateway(value)}
-      />
-    ))
-  }, [gatewayOptions, selectedGateway])
-
   useEffect(() => {
     if (userState.hasActiveSubscription) {
       router.push("/dashboard")
     }
   }, [userState])
+
+  const activateHobby = async () => {
+    try {
+      await axios.get(endPoints.activateHobby)
+      dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
+      toast.success(uiConstants.toastSuccess)
+    }
+
+    catch (error) {
+      toast.error(uiConstants.toastError)
+    }
+
+    finally {
+      router.refresh()
+      router.push("/subscription")
+    }
+  }
 
   const activate = async (e: any) => {
     e.preventDefault()
@@ -119,28 +124,67 @@ export default function Page() {
     }
   }
 
+  const renderGatewayOptions = useCallback(() => {
+    return gatewayOptions.map((option) => (
+      <Option
+        key={option.value}
+        isSelected={selectedGateway === option.value}
+        value={option.value}
+        label={option.label}
+        handleChange={(value) => setSelectedGateway(value)}
+      />
+    ))
+  }, [gatewayOptions, selectedGateway])
+
   return (
     <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
       <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
-        <div className="box">
-          <p className="branding">Checkout</p>
-          <p className="muted-text mb-2">Select a payment gateway to proceed</p>
-          <InfoPanel infoIcon={<CheckCircledIcon />} infoName="Your total today" infoValue={`${plan?.price} MATIC`} />
-          <p className="boxcategory-key mt-2">Select Transaction Gateway</p>
-          <div className="mt-2 mb-2">
-            <Row xl={2} lg={2} md={2} sm={2} xs={2}>
-              {renderGatewayOptions()}
-            </Row>
-          </div>
-          <Button disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize" onClick={activate}>
-            <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
-              Pay with {selectedGateway}<PaperPlaneIcon className="icon-right" />
-            </Suspense>
-          </Button>
-          <div className="text-center">
-            <Badge bg="light" className="mt-1 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
-          </div>
-        </div>
+        <Suspense condition={planName !== "hobby"} fallback={null}>
+          <form className="bigbox" onSubmit={activate}>
+            <p className="branding">Checkout</p>
+            <Form.Group className="mb-4" controlId="exampleForm.ControlInput1">
+              <Form.Label>Your Email</Form.Label>
+              <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
+            </Form.Group>
+            <div className="mb-2">
+              <p className="muted-text mb-2 mt-3">Select a payment gateway to proceed</p>
+              <Row xl={2} lg={2} md={2} sm={2} xs={2}>
+                {renderGatewayOptions()}
+              </Row>
+            </div>
+            <div className="mt-3 mb-2">
+              <InfoPanel infoIcon={<RocketIcon />} infoName="Your Total Today" infoValue={`${plan?.price} MATIC`} />
+            </div>
+            <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
+              <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
+                Pay {`${plan?.price} MATIC`}
+              </Suspense>
+            </Button>
+            <div className="text-center">
+              <Badge bg="light" className="mt-1 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
+            </div>
+          </form>
+        </Suspense>
+        <Suspense condition={planName === "hobby"} fallback={null}>
+          <form className="bigbox" onSubmit={activateHobby}>
+            <p className="branding">Checkout</p>
+            <Form.Group className="mb-4" controlId="exampleForm.ControlInput1">
+              <Form.Label>Your Email</Form.Label>
+              <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
+            </Form.Group>
+            <div className="mt-3 mb-2">
+              <InfoPanel infoIcon={<RocketIcon />} infoName="Your Total Today" infoValue={`${plan?.price} MATIC`} />
+            </div>
+            <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
+              <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
+                Activate for Free
+              </Suspense>
+            </Button>
+            <div className="text-center">
+              <Badge bg="light" className="mt-1 mb-1 p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />Blockchain Secured</Badge>
+            </div>
+          </form>
+        </Suspense>
       </Suspense>
     </Suspense>
   )

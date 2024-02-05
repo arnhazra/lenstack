@@ -11,7 +11,7 @@ import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { Fragment, useCallback } from "react"
-import { Button, Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Row } from "react-bootstrap"
 
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
@@ -42,7 +42,7 @@ export default function Page() {
                 <CheckIcon className="icon-left" />Discontinue anytime
               </Suspense>
             </p>
-            <Link className="btn btn-secondary btn-block" href={"/dashboard"}>
+            <Link className="btn btn-primary btn-block" href={`/subscription/checkout?planName=${pricing.planName}`}>
               Select & Continue<ArrowRightIcon className="icon-right" />
             </Link>
           </Hero>

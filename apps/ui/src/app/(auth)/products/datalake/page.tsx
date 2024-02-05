@@ -130,7 +130,7 @@ export default function Page() {
             <Row className="g-2 mt-3">
               {renderSortOptions()}
             </Row>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-primary mt-2 mb-2">
+            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary mt-1 mb-2">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
           </Hero>

@@ -1,5 +1,10 @@
 # Changelog
 
+### v8.0.1
+* Minor overall UI Changes
+* Bug fixes and Performance improvements
+* Payment gateway UI Changes
+
 ### v8.0.0
 * UI & API Codebase refactoring
 * Regular dependency updates & bug fixes
