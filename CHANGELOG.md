@@ -1,5 +1,8 @@
 # Changelog
 
+### v8.1.0
+* Renaming apps
+
 ### v8.0.2
 * Update prompt implementation to make to value a required field
 * Fix issue - unable to create a project in insights
