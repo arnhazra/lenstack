@@ -38,7 +38,7 @@ export default function usePrompt() {
       </Modal.Header>
       <Modal.Body>
         <Form.Group controlId="exampleForm.ControlInput1">
-          <Form.Control autoFocus type="text" placeholder="Enter the value" autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
+          <Form.Control autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>

@@ -4,6 +4,7 @@
 * Minor overall UI Changes
 * Bug fixes and Performance improvements
 * Payment gateway UI Changes
+* Prompt UX improvements
 * Rebranding of Checkout page as Pay page
 
 ### v8.0.0
