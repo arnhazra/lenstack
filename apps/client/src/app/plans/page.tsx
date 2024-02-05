@@ -46,7 +46,7 @@ export default function Page() {
               Select & Continue<ArrowRightIcon className="icon-right" />
             </Link>
           </Hero>
-        </Col >
+        </Col>
       )
     })
 

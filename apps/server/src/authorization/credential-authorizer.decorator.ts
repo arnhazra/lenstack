@@ -53,6 +53,10 @@ export const CredentialAuthorizer = createParamDecorator(
                   await delay(500)
                 }
 
+                if (subscription.selectedPlan === SubscriptionPlans.Starter) {
+                  await delay(200)
+                }
+
                 return { userId, workspaceId }
               }
             }

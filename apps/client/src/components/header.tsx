@@ -103,7 +103,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
             <Navbar.Collapse>
               <Nav className="ms-auto">
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer</Link></Nav.Item>
-                <Nav.Item><Link href="/pricing">Pricing</Link></Nav.Item>
+                <Nav.Item><Link href="/plans">Plans</Link></Nav.Item>
                 <Nav.Item><Link href="/dashboard">Get Started</Link></Nav.Item>
               </Nav>
             </Navbar.Collapse>
