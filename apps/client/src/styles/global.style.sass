@@ -1,0 +1,189 @@
+@tailwind base
+@tailwind components
+@tailwind utilities
+
+$mainColor: #2b3336
+$white: #ffffff
+$slate: #64748b
+$textBoxColor: #f6f6f6
+
+html
+  scrollbar-width: none
+
+::-webkit-scrollbar
+  width: 0
+
+body
+  background: linear-gradient(to right, #2b333668, #2b333668), url(../assets/hero.jpg)
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+  background-attachment: fixed
+  font-family: "Tilt Neon", cursive
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
+
+.cover
+  width: 100vw
+  height: 82vh
+  color: $white
+  vertical-align: middle
+  display: table-cell
+  text-align: left
+  animation: transitionIn 0.4s forwards
+
+.hero
+  margin-bottom: 1rem
+  background: $white
+  color: $mainColor
+  border-radius: 0.8rem
+  word-break: break-all
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px
+
+.herocategory-key
+  text-align: left
+  margin-top: -0.6rem
+  margin-bottom: 0.6rem
+
+.herocategory-value
+  text-align: left
+  color: $slate
+  margin-top: -0.6rem
+  margin-bottom: 0.6rem
+
+.categorycol-hero
+  max-width: 2rem
+  zoom: 120%
+
+.branding
+  color: $mainColor
+  font-size: 150%
+  text-align: left
+  text-transform: capitalize
+
+.lead-link
+  cursor: pointer
+  color: $mainColor
+
+.smalltext
+  font-size: 80%
+
+.container
+  min-width: 97%
+
+.loading-container
+  top: 54%
+  left: 50%
+  position: absolute
+  transform: translate(-50%,-50%)
+  box-sizing: border-box
+  background: transparent
+  color: $white
+  width: 20rem
+  text-align: center
+
+table tr:first-child th:first-child
+  border-top-left-radius: 1rem
+
+table tr:first-child th:last-child
+  border-top-right-radius: 1rem
+
+table tr:last-child td:first-child
+  border-bottom-left-radius: 1rem
+
+table tr:last-child td:last-child
+  border-bottom-right-radius: 1rem
+
+th,td,tr
+  background: $white
+  height: 3.75rem
+  border: none
+  vertical-align: middle
+  text-align: center
+  cursor: pointer
+
+.link-table,
+.link-table:hover,
+.link-table:focus,
+.link-table:active
+  color: $mainColor
+
+.toaster
+  font-family: inherit
+
+@keyframes transitionIn
+  from
+    opacity: 0
+    transform: rotateX(5deg)
+
+  to
+    opacity: 1
+    transform: rotateX(0)
+
+h4
+  padding-bottom: 0.5rem
+
+.modal-footer,
+.modal-header
+  border: none
+
+.modal-footer
+  padding: 0
+
+.blurred-background
+  &::before
+    content: ""
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    backdrop-filter: blur(0.25rem)
+    z-index: -1
+
+.icon-right
+  margin-left: 0.45rem
+  margin-top: -0.15rem
+  cursor: pointer
+
+.icon-left
+  margin-right: 0.45rem
+  margin-top: -0.15rem
+  cursor: pointer
+
+.icon-large
+  zoom: 500%
+
+.footer
+  position: fixed
+  bottom: 0
+  width: 100%
+  height: 3rem
+  padding-top: 0.8rem
+  background-color: #f5f5f5
+
+.image-container
+  border-radius: 0.8rem
+
+@keyframes modal-pop-in
+  0%
+    transform: scale(0)
+
+  100%
+    transform: scale(1)
+
+.modal.fade .modal-dialog
+  animation: modal-pop-in 0.2s
+
+._2IvMF,
+._GzYRV
+  border-radius: 0.4rem
+
+@media only screen and (max-width: 61.95rem)
+  .lead
+    font-size: 80%
+
+  .cover
+    height: 76vh

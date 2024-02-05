@@ -6,6 +6,10 @@ apps/ui/.next
 apps/ui/.vercel
 apps/ui/*.tsbuildinfo
 apps/ui/out
+apps/client/.next
+apps/client/.vercel
+apps/client/*.tsbuildinfo
+apps/client/out
 .vercel
 dist
 api/build
