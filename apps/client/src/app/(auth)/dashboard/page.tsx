@@ -10,7 +10,6 @@ import Card, { CardInterface } from "@/components/card"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import Grid from "@/components/grid"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
@@ -33,9 +32,9 @@ export default function Page() {
     return (
       <Suspense condition={!!products?.data?.length} fallback={<h4 className="text-white">No Products to display</h4>}>
         <h4 className="text-white">Explore unified experience</h4>
-        <Grid sm={1} md={2} lg={3} xl={4}>
+        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
           {productsToDisplay}
-        </Grid>
+        </Row>
       </Suspense>
     )
   }, [products?.data])

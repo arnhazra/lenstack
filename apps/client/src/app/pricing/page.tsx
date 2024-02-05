@@ -1,6 +1,5 @@
 "use client"
 import Error from "@/components/error"
-import Grid from "@/components/grid"
 import Header from "@/components/header"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
@@ -12,15 +11,16 @@ import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { Fragment, useCallback } from "react"
+import { Col, Container, Row } from "react-bootstrap"
 
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
 
   const displayPricing = useCallback(() => {
-    const princingToDisplay = pricingDetails?.data?.map((pricing: any) => {
+    const productsToDisplay = pricingDetails?.data?.map((pricing: any) => {
       return (
-        <Hero key={pricing.planName}>
-          <div>
+        <Col key={pricing.planName}>
+          <Hero>
             <p className="text-secondary">{uiConstants.brandName}</p>
             <h4 className="branding">{pricing.planName}</h4>
             <h2>{pricing.price} MATIC</h2>
@@ -45,17 +45,19 @@ export default function Page() {
             <Link className="btn btn-primary btn-block" href={`/subscription/pay?planName=${pricing.planName}`}>
               Select & Continue<ArrowRightIcon className="icon-right" />
             </Link>
-          </div>
-        </Hero>
+          </Hero>
+        </Col >
       )
     })
 
     return (
       <Suspense condition={!!pricingDetails?.data?.length} fallback={<h4 className="text-white">No plans to display</h4>}>
         <h4 className="text-white">Find a plan that works</h4>
-        <Grid sm={1} md={2} lg={3} xl={4}>
-          {princingToDisplay}
-        </Grid>
+        <div>
+          <Row xs={1} sm={1} md={2} lg={3} xl={4} className="justify-content-center">
+            {productsToDisplay}
+          </Row>
+        </div>
       </Suspense>
     )
   }, [pricingDetails?.data])
@@ -67,9 +69,9 @@ export default function Page() {
           <nav className="header">
             <Header isAuthorized={false} />
           </nav>
-          <div className="container mx-auto px-3">
+          <Container>
             {displayPricing()}
-          </div>
+          </Container>
         </Suspense>
       </Suspense>
     </Fragment>
