@@ -1,7 +1,8 @@
 # Changelog
 
 ### v8.1.0
-* Renaming apps
+* Renaming apps api-server, ui-client
+* Regular dependency updates
 
 ### v8.0.2
 * Update prompt implementation to make to value a required field
