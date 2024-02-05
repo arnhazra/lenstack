@@ -64,7 +64,7 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <p className="text-muted">API Client</p>
+            <p className="muted-text mt-1">API Client</p>
             <form onSubmit={hitAPI}>
               <Form.Label htmlFor="basic-url">Your test prompt</Form.Label>
               <Form.Control placeholder="Your test prompt" required onChange={(e) => setPrompt(e.target.value)} id="basic-url" aria-describedby="basic-addon3" />

@@ -68,7 +68,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               </Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignRightIcon className="icon-nav-toggle" />
+              <i className="fa-solid fa-equals"></i>
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="mr-auto">
@@ -98,7 +98,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               </Navbar.Brand>
             </Link>
             <Navbar.Toggle>
-              <TextAlignRightIcon className="icon-nav-toggle" />
+              <i className="fa-solid fa-equals"></i>
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="ms-auto">

@@ -1,5 +1,12 @@
 # Changelog
 
+### v8.0.1
+* Minor overall UI Changes
+* Bug fixes and Performance improvements
+* Payment gateway UI Changes
+* Prompt UX improvements
+* Rebranding of Checkout page as Pay page
+
 ### v8.0.0
 * UI & API Codebase refactoring
 * Regular dependency updates & bug fixes

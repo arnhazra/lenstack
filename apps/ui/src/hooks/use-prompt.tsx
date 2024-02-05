@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react"
-import Modal from "react-bootstrap/Modal"
-import Button from "react-bootstrap/Button"
+import { Modal, Button } from "react-bootstrap"
 import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { Form } from "react-bootstrap"
 
@@ -39,7 +38,7 @@ export default function usePrompt() {
       </Modal.Header>
       <Modal.Body>
         <Form.Group controlId="exampleForm.ControlInput1">
-          <Form.Control autoFocus type="text" placeholder="Enter the value" autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
+          <Form.Control autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
