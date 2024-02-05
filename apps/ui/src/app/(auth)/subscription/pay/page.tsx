@@ -151,7 +151,7 @@ export default function Page() {
   return (
     <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
       <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
-        <form className="bigbox" onSubmit={activate}>
+        <form className="box" onSubmit={activate}>
           <p className="branding">Payment</p>
           <Form.Group controlId="exampleForm.ControlInput1">
             <Form.Label>Your Email</Form.Label>
