@@ -33,22 +33,24 @@ export default function usePrompt() {
 
   const promptDialog = () => (
     <Modal show={show} centered keyboard={false} backdrop="static" className="blurred-background">
-      <Modal.Header>
-        <h5>{message}</h5>
-      </Modal.Header>
-      <Modal.Body>
-        <Form.Group controlId="exampleForm.ControlInput1">
-          <Form.Control autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
-        </Form.Group>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleConfirm(false)}>
-          <CrossCircledIcon className="icon-left" />Cancel
-        </Button>
-        <Button variant="primary" onClick={() => handleConfirm(true)}>
-          <CheckCircledIcon className="icon-left" />Proceed
-        </Button>
-      </Modal.Footer>
+      <form onSubmit={(e) => { e.preventDefault(); handleConfirm(true) }}>
+        <Modal.Header>
+          <h5>{message}</h5>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="exampleForm.ControlInput1">
+            <Form.Control required autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleConfirm(false)}>
+            <CrossCircledIcon className="icon-left" />Cancel
+          </Button>
+          <Button type="submit" variant="primary">
+            <CheckCircledIcon className="icon-left" />Proceed
+          </Button>
+        </Modal.Footer>
+      </form>
     </Modal>
   )
 

@@ -1,6 +1,7 @@
 # Changelog
 
 ### v8.0.2
+* Update prompt implementation to make to value a required field
 
 ### v8.0.1
 * Minor overall UI Changes
