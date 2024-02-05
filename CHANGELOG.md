@@ -2,6 +2,8 @@
 
 ### v8.0.2
 * Update prompt implementation to make to value a required field
+* Fix issue - unable to create a project in insights
+* Fix issue - unable to create a db in fabric
 
 ### v8.0.1
 * Minor overall UI Changes
