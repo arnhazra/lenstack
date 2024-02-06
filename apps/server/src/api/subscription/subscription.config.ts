@@ -8,29 +8,39 @@ export enum SubscriptionPlans {
 export interface CreditType {
   planName: SubscriptionPlans
   price: number,
-  grantedCredits: number
+  grantedCredits: number,
+  features: string[],
+  isMostEfficient: boolean
 }
 
 export const subscriptionConfig: CreditType[] = [
   {
     planName: SubscriptionPlans.Hobby,
     price: 0,
-    grantedCredits: 5000
+    grantedCredits: 5000,
+    features: ["Valid for a month", "Try all features", "Regular API response", "Completely free", "Good for individuals"],
+    isMostEfficient: false
   },
   {
     planName: SubscriptionPlans.Starter,
     price: 1.09,
-    grantedCredits: 25000
+    grantedCredits: 25000,
+    features: ["Valid for a month", "Exclusive access", "Priority API response", "Discontinue anytime", "Good for developers"],
+    isMostEfficient: false
   },
   {
     planName: SubscriptionPlans.Premium,
     price: 1.99,
-    grantedCredits: 50000
+    grantedCredits: 50000,
+    features: ["Valid for a month", "Exclusive access", "Faster API response", "Discontinue anytime", "Good for startups"],
+    isMostEfficient: true
   },
   {
     planName: SubscriptionPlans.Ultra,
     price: 3.49,
-    grantedCredits: 100000
+    grantedCredits: 100000,
+    features: ["Valid for a month", "Exclusive access", "Fastest API response", "Discontinue anytime", "The best plan"],
+    isMostEfficient: false
   },
 ]
 

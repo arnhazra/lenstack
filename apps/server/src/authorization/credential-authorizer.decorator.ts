@@ -46,9 +46,6 @@ export const CredentialAuthorizer = createParamDecorator(
               }
 
               else {
-                subscription.remainingCredits -= creditRequiredForCurrentRequest
-                await subscription.save()
-
                 if (subscription.selectedPlan === SubscriptionPlans.Hobby) {
                   await delay(500)
                 }
@@ -57,6 +54,12 @@ export const CredentialAuthorizer = createParamDecorator(
                   await delay(200)
                 }
 
+                if (subscription.selectedPlan === SubscriptionPlans.Premium) {
+                  await delay(100)
+                }
+
+                subscription.remainingCredits -= creditRequiredForCurrentRequest
+                await subscription.save()
                 return { userId, workspaceId }
               }
             }

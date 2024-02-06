@@ -1,6 +1,8 @@
 # Changelog
 
 ### v8.1.0
+* Adeed dynamic details - plans page
+* Reuse of pricing component in plans page
 * Renaming apps api-server, ui-client
 * Regular dependency updates
 
