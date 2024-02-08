@@ -1,5 +1,8 @@
 # Changelog
 
+### v8.3.0
+* Minor bug fixes and performance improvements
+
 ### v8.2.0
 * Regular Dependency Updates
 * New develop branch
