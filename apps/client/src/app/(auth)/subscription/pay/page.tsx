@@ -175,7 +175,7 @@ export default function Page() {
           </Button>
           <Link href="/subscription/plans" className="btn btn-secondary btn-block">Choose Another Plan<StarIcon className="icon-right" /></Link>
           <div className="text-center">
-            <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />ArcStack Pay ™ Secured</Badge>
+            <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />{uiConstants.brandName} Pay ™ Secured</Badge>
           </div>
         </form>
       </Suspense>

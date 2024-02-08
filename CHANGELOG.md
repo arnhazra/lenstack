@@ -1,5 +1,10 @@
 # Changelog
 
+### v8.1.1
+* Regular Dependency Updates
+* New develop branch
+* New dev environment integration
+
 ### v8.1.0
 * Adeed dynamic details - plans page
 * Reuse of pricing component in plans page
