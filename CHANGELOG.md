@@ -1,6 +1,8 @@
 # Changelog
 
 ### v8.3.0
+* Removed monthly subscription plans
+* Added yearly subscription plans
 * Minor bug fixes and performance improvements
 
 ### v8.2.0

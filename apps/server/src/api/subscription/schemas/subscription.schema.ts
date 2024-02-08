@@ -27,7 +27,7 @@ export const SubscriptionSchema = new Schema({
     type: Date,
     default: function () {
       const expirationDate = new Date()
-      expirationDate.setDate(expirationDate.getDate() + 30)
+      expirationDate.setDate(expirationDate.getDate() + 365)
       return expirationDate
     }
   }
