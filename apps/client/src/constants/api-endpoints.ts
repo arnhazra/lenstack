@@ -1,7 +1,5 @@
-import { uiConstants } from "./global-constants"
-
-export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "/"
-export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/"
+export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : window.origin
+export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : window.origin
 
 export const endPoints = {
   getapireference: `${apiHost}/api/apireference/get`,
