@@ -1,13 +1,11 @@
 # Changelog
 
-### v10.0.0
-
-### v9.1.0
+### v8.2.0
 * Regular Dependency Updates
 * New develop branch
 * New dev environment integration
 
-### v9.0.0
+### v8.1.1
 * Adeed dynamic details - plans page
 * Reuse of pricing component in plans page
 * Renaming apps api-server, ui-client
