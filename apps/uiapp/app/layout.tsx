@@ -1,10 +1,10 @@
-import "@/styles/globals.css"
+import "@/styles/globals.sass"
 import { Metadata } from "next"
 import { siteConfig } from "@/config/site"
 import { Quicksand } from "next/font/google"
 import { Providers } from "./providers"
 import { Navbar } from "@/components/navbar"
-import { Link } from "@nextui-org/link"
+import { Link } from "@nextui-org/react"
 import clsx from "clsx"
 
 export const metadata: Metadata = {
