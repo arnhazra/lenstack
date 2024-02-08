@@ -14,6 +14,8 @@ import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
 import { format } from "date-fns"
+import toast from "react-hot-toast"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -46,8 +48,14 @@ export default function Page() {
     const userConsent = await confirm("Are you sure to delete this project?")
 
     if (userConsent) {
-      await axios.delete(`${endPoints.insightsDeleteProject}?projectId=${projectId}`)
-      router.push("/products/insights")
+      try {
+        await axios.delete(`${endPoints.insightsDeleteProject}?projectId=${projectId}`)
+        router.push("/products/insights")
+      }
+
+      catch (error) {
+        toast.error(uiConstants.toastError)
+      }
     }
   }
 

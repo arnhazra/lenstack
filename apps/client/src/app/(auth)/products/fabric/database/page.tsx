@@ -13,6 +13,8 @@ import { useCallback } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
+import toast from "react-hot-toast"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -42,8 +44,14 @@ export default function Page() {
     const userConsent = await confirm("Are you sure to delete this db?")
 
     if (userConsent) {
-      await axios.delete(`${endPoints.fabricDeleteDb}?dbId=${dbId}`)
-      router.push("/products/fabric")
+      try {
+        await axios.delete(`${endPoints.fabricDeleteDb}?dbId=${dbId}`)
+        router.push("/products/fabric")
+      }
+
+      catch (error) {
+        toast.error(uiConstants.toastError)
+      }
     }
   }
 

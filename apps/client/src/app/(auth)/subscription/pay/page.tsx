@@ -7,7 +7,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading"
-import { LockClosedIcon, RocketIcon, StarIcon } from "@radix-ui/react-icons"
+import { LockClosedIcon, RocketIcon } from "@radix-ui/react-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import Web3 from "web3"
 import axios from "axios"
@@ -173,7 +173,7 @@ export default function Page() {
               </Suspense>
             </Suspense>
           </Button>
-          <Link href="/subscription/plans" className="btn btn-secondary btn-block">Choose Another Plan<StarIcon className="icon-right" /></Link>
+          <Link href="/subscription/plans" className="btn btn-secondary btn-block">Choose Another Plan</Link>
           <div className="text-center">
             <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />{uiConstants.brandName} Pay ™ Secured</Badge>
           </div>
