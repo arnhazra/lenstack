@@ -1,11 +1,11 @@
 name: PROD CI-CD
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_DEV }}
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   PROD-CI-CD:
