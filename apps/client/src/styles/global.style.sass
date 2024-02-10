@@ -2,6 +2,7 @@ $mainColor: #2b3336
 $white: #ffffff
 $slate: #64748b
 $textBoxColor: #f6f6f6
+$background: #fafafa
 
 html
   scrollbar-width: none
@@ -10,32 +11,23 @@ html
   width: 0
 
 body
-  background: linear-gradient(to right, #2b333668, #2b333668), url(../assets/hero.jpg)
-  -webkit-background-size: cover
-  -moz-background-size: cover
-  -o-background-size: cover
-  background-size: cover
-  background-attachment: fixed
+  background: $background
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   -webkit-font-smoothing: antialiased
 
-.cover
-  width: 100vw
-  height: 82vh
-  color: $white
-  vertical-align: middle
-  display: table-cell
-  text-align: left
-  animation: transitionIn 0.4s forwards
+.rounded
+  border-radius: 3rem !important
 
 .hero
   margin-bottom: 1rem
+  padding-bottom: 1.5rem !important
   background: $white
   color: $mainColor
   border-radius: 0.8rem
   word-break: break-all
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px
+  box-shadow: none
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 3px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1.4px
 
 .herocategory-key
   text-align: left
@@ -75,7 +67,7 @@ body
   transform: translate(-50%,-50%)
   box-sizing: border-box
   background: transparent
-  color: $white
+  color: $mainColor
   width: 20rem
   text-align: center
 

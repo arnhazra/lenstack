@@ -5,19 +5,18 @@ $warningBtnColor: linear-gradient(to right, #ecb511, #ecb511)
 $successBtnColor: linear-gradient(to right, #12976b, #12976b)
 $textColor: #ffffff
 $black: #2b3336
-$borderColor: #f1f3f4
+$borderColor: #ebebeb
 
 .btn
-  border-radius: 2rem
-  padding: 0.7rem
+  padding: 0.4rem
+  border-radius: 0.5rem
   padding-left: 1rem
   padding-right: 1.1rem
   margin-right: 1rem
-  margin-bottom: 1rem
   color: $textColor
   font-size: 0.9rem
   border: none
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .13), 0 1px 1px 0 rgba(0, 0, 0, .11)
+  box-shadow: none
 
 .gold-badge
   background: #e2c675 !important
@@ -61,14 +60,12 @@ a:active
 
 .btn-secondary
   background: $secondaryBtnColor
-  box-shadow: none
   color: $black
-  border: 1px solid $borderColor
+  border: 2px solid $borderColor
 
   &:disabled
     background: $secondaryBtnColor
     color: $black
-    box-shadow: none
     border: 1px solid $borderColor
 
 .btn-secondary:hover,
@@ -76,7 +73,6 @@ a:active
 .btn-secondary:active
   background-color: $secondaryBtnColor !important
   color: $black !important
-  box-shadow: none !important
   border: 1px solid $borderColor !important
 
 .btn-success

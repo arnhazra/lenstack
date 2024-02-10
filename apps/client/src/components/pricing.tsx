@@ -35,7 +35,7 @@ export default function Pricing({ readonly }: PricingProps) {
             <h2>{pricing.price} MATIC</h2>
             <h5 className="mb-3 mt-3">{Number(pricing.grantedCredits).toLocaleString()} Credits</h5>
             {pricing?.features?.map((feature: string) => <p className="text-secondary"><CheckIcon className="icon-left" />{feature}</p>)}
-            <Button variant="primary" disabled={readonly} className="btn-block" onClick={(): void => router.push(`/subscription/pay?planName=${pricing.planName}`)}>
+            <Button variant="primary" disabled={readonly} className="btn-block pt-3 pb-3" onClick={(): void => router.push(`/subscription/pay?planName=${pricing.planName}`)}>
               Select & Continue<ArrowRightIcon className="icon-right" />
             </Button>
           </Hero>
@@ -44,8 +44,8 @@ export default function Pricing({ readonly }: PricingProps) {
     })
 
     return (
-      <Suspense condition={!!pricingDetails?.data?.length} fallback={<h4 className="text-white">No plans to display</h4>}>
-        <h4 className="text-white">Find a plan that works</h4>
+      <Suspense condition={!!pricingDetails?.data?.length} fallback={<h4>No plans to display</h4>}>
+        <p className="display-4 text-center mb-4">Find a plan to <br />Power your projects</p>
         <div>
           <Row xs={1} sm={1} md={2} lg={3} xl={4} className="justify-content-center">
             {productsToDisplay}
