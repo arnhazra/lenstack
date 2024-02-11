@@ -8,12 +8,6 @@ const KvSchema = new mongoose.Schema({
     required: true
   },
 
-  dbId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "database",
-    required: true
-  },
-
   key: {
     type: String,
     required: true
