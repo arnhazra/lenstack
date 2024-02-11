@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import "./style.sass"
 
 export default function Hero({ children }: { children: ReactNode }) {
   return (
