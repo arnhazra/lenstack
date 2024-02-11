@@ -101,9 +101,14 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <i className="fa-solid fa-equals"></i>
             </Navbar.Toggle>
             <Navbar.Collapse>
+              <Nav className="mr-auto">
+                <Nav.Item><Link href="/products">Products</Link></Nav.Item>
+                <Nav.Item><Link href="/solutions">Solutions</Link></Nav.Item>
+                <Nav.Item><Link href="/docs">Docs</Link></Nav.Item>
+                <Nav.Item><Link href="/plans">Plans</Link></Nav.Item>
+              </Nav>
               <Nav className="ms-auto">
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer</Link></Nav.Item>
-                <Nav.Item><Link href="/plans">Plans</Link></Nav.Item>
                 <Nav.Item><Link href="/dashboard">Get Started</Link></Nav.Item>
               </Nav>
             </Navbar.Collapse>

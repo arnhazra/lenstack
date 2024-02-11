@@ -1,0 +1,31 @@
+$background: #ffffff
+$white: #f2f2f2
+$textColor: #000000
+
+.product-card
+  background: $background
+  color: $textColor
+  border-radius: 0.7rem
+  word-break: break-all
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px
+  display: flex
+  flex-direction: column
+  height: 100%
+
+  &:hover,
+  &:focus,
+  &:active
+    background: $white
+
+.product-card-header
+  font-size: 115%
+  word-break: break-word
+
+.icon-product
+  margin-right: 0.45rem
+  margin-top: -0.2rem
+  zoom: 120%
+
+.product-card-header,
+.product-card-footer
+  flex: 1
