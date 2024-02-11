@@ -8,12 +8,6 @@ const AnalyticsSchema = new mongoose.Schema({
     required: true
   },
 
-  projectId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "project",
-    required: true
-  },
-
   component: {
     type: String,
     required: true
