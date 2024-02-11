@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException } from "@nestjs/common"
+import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException, Get } from "@nestjs/common"
 import { FabricService } from "./fabric.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -19,8 +19,8 @@ export class FabricController {
     }
   }
 
-  @Post("viewdbfromplatform")
-  async viewDbInsidePlatform(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  @Get("readkvlistfromplatform")
+  async readKvListInsidePlatform(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
       const { kvs } = await this.fabricService.readKvList(uft.workspaceId)
       return { kvs }
@@ -31,8 +31,8 @@ export class FabricController {
     }
   }
 
-  @Post("viewdb")
-  async viewDbOutsidePlatform(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  @Get("readkvlist")
+  async readKvListOutsidePlatform(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
     try {
       const { kvs } = await this.fabricService.readKvList(ufc.workspaceId)
       return { kvs }
