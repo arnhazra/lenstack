@@ -1,7 +1,6 @@
 "use client"
 import { nftABI } from "@/bin/nft-abi"
 import Error from "@/components/error"
-import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
@@ -20,6 +19,7 @@ import toast from "react-hot-toast"
 import Web3 from "web3"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
+import ProductCard, { ProductCardInterface } from "@/components/card"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -108,21 +108,24 @@ export default function Page() {
 
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.map((nft: any) => {
-      const cardProps: CardInterface = {
-        badgeText: "NFT",
-        className: "decentralized",
+      const productCardProps: ProductCardInterface = {
         headerText: nft.name,
         footerText: `This NFT was minted by you using NFT Studio on ${formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.`,
-        redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
       }
 
-      return <Card key={nft.id} cardProps={cardProps} />
+      return (
+        <Col className="mb-4">
+          <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
+            <ProductCard key={nft.id} productCardProps={productCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (
       <Fragment>
         <h4 className="text-white">Other NFTs in my collection</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Row xs={1} sm={2} md={2} lg={3} xl={4}>
           {nftsToDisplay}
         </Row>
       </Fragment>

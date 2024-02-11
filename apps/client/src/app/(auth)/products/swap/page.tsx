@@ -1,5 +1,4 @@
 "use client"
-import Card, { CardInterface } from "@/components/card"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"

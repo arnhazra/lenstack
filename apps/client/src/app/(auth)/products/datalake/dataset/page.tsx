@@ -9,7 +9,6 @@ import HTTPMethods from "@/constants/http-methods"
 import Error from "@/components/error"
 import { useSearchParams } from "next/navigation"
 import { BookmarkIcon, CubeIcon } from "@radix-ui/react-icons"
-import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 

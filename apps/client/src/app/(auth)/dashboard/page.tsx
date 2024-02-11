@@ -9,7 +9,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import ProductCard, { ProductCardInterface } from "@/components/product-card"
+import ProductCard, { ProductCardInterface } from "@/components/card"
 import Link from "next/link"
 
 export default function Page() {
