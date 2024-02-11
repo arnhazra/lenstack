@@ -5,11 +5,12 @@ import HTTPMethods from "@/constants/http-methods"
 import { useCallback, useContext } from "react"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import { Container, Row } from "react-bootstrap"
-import Card, { CardInterface } from "@/components/card"
+import { Col, Container, Row } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
+import ProductCard, { ProductCardInterface } from "@/components/product-card"
+import Link from "next/link"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
@@ -17,22 +18,24 @@ export default function Page() {
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
-      const cardProps: CardInterface = {
-        badgeText: product.productStatus,
-        className: product.productCategory,
+      const productCardProps: ProductCardInterface = {
         footerText: product.description,
         headerText: `${uiConstants.brandName} ${product.displayName}`,
-        redirectUri: `/products/${product.productName}`,
-        isDisabled: product.productStatus !== "Available"
       }
 
-      return <Card key={product.productName} cardProps={cardProps} />
+      return (
+        <Col className="mb-4">
+          <Link href={`/products/${product.productName}`}>
+            <ProductCard key={product.productName} productCardProps={productCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (
       <Suspense condition={!!products?.data?.length} fallback={<h4 className="text-white">No Products to display</h4>}>
         <h4 className="text-white">Explore unified experience</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Row xs={1} sm={2} md={2} lg={3} xl={4}>
           {productsToDisplay}
         </Row>
       </Suspense>

@@ -4,7 +4,6 @@ import "./style.sass"
 export interface ProductCardInterface {
   headerText: string
   footerText: string
-  redirectUri: string
 }
 
 export interface ProductCardProps {

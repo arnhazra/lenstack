@@ -22,7 +22,6 @@ export default function Page() {
       const productCardProps: ProductCardInterface = {
         footerText: product.description,
         headerText: `${uiConstants.brandName} ${product.displayName}`,
-        redirectUri: `/products/${product.productName}`,
       }
 
       return (

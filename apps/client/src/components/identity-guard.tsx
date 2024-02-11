@@ -6,7 +6,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { toast } from "react-hot-toast"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, RocketIcon } from "@radix-ui/react-icons"
 
 interface IdentityGuardProps {
   onIdentitySuccess: () => void
