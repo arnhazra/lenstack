@@ -1,6 +1,6 @@
 "use client"
 import { Fragment, useCallback, useContext, useState } from "react"
-import { Badge, Button, Container, Row } from "react-bootstrap"
+import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import Link from "next/link"
 import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Loading from "@/components/loading"
@@ -14,6 +14,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import Option from "@/components/option"
 import Grid from "@/components/grid"
+import { GenericCard, GenericCardProps } from "@/components/card"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -50,15 +51,21 @@ export default function Page() {
 
   const renderDatasets = useCallback(() => {
     const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
-      const cardProps: CardInterface = {
-        badgeText: dataset.category,
-        className: "centralized",
-        headerText: dataset.name,
-        footerText: `${dataset.description.slice(0, 110)}...`,
-        redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
+      const datasetCardProps: GenericCardProps = {
+        header: dataset.name,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{dataset.category}</Badge>
+          <p className="muted-text">{dataset.description.slice(0, 150)}...</p>
+        </Fragment>
       }
 
-      return <Card key={dataset._id} cardProps={cardProps} />
+      return (
+        <Col className="mb-3">
+          <Link href={`/products/datalake/dataset?datasetId=${dataset._id}`}>
+            <GenericCard key={dataset._id} {...datasetCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (
