@@ -13,6 +13,7 @@ import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import Option from "@/components/option"
+import Grid from "@/components/grid"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -63,9 +64,9 @@ export default function Page() {
     return (
       <Suspense condition={!!datasets?.data?.datasets.length} fallback={<h4 className="text-white">No Datasets to display</h4>}>
         <h4 className="text-white">Explore the datasets</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Grid>
           {datasetsToDisplay}
-        </Row>
+        </Grid>
       </Suspense>
     )
   }, [datasets?.data])

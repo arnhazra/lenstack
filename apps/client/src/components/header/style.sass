@@ -47,6 +47,23 @@ $slate: #64748b
   background: $textColor
   color: $navColor
 
+.nav-btn
+  border: none
+  height: 2.7rem
+  margin-top: -0.7rem
+  margin-bottom: -0.7rem
+  margin-left: 1rem
+  padding-top: 0.6rem
+  border-radius: 0.5rem
+  background: $textColor
+  color: $navColor
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px
+
+  &:hover,
+  &:focus,
+  &:active
+    color: $navColor
+
 .btn-user-link
   display: none
 
@@ -96,10 +113,12 @@ $slate: #64748b
   .btn-user
     display: none
 
-  .icon-navbar
+  .icon-navbar,
+  .nav-btn
     display: none
 
   .btn-user-link
+  .btn-nav-link
     display: block
 
   .icon-navbar-link

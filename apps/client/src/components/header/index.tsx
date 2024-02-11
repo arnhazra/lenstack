@@ -1,15 +1,15 @@
 "use client"
 import { Fragment, useContext, useEffect, useRef, useState } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
-import Suspense from "./suspense"
-import { usePathname, useSearchParams } from "next/navigation"
+import Suspense from "../suspense"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { ExternalLinkIcon, TextAlignRightIcon } from "@radix-ui/react-icons"
+import { ExternalLinkIcon } from "@radix-ui/react-icons"
 import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiHost } from "@/constants/api-endpoints"
-import Avatar from "./avatar"
 import { useDebounce } from "@uidotdev/usehooks"
+import "./style.sass"
 
 interface HeaderProps {
   isAuthorized: boolean,
@@ -22,7 +22,9 @@ export default function Header({ isAuthorized }: HeaderProps) {
   const searchParams = useSearchParams()
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [searchString, setSearchString] = useState("")
+  const userInitial = userState.email.slice(0, 2).toUpperCase() ?? "US"
   const debouncedSearchTerm = useDebounce(searchString, 1000)
+  const router = useRouter()
 
   const searchEnabledPathNames = [
     "/dashboard", "/products/datalake", "/products/insights",
@@ -82,7 +84,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
                 <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
                   <input ref={searchRef} placeholder="Press (Alt + Q) or click here to search" type="text" className="header-search" onChange={(e) => setSearchString(e.target.value)} />
                 </Suspense>
-                <Avatar email={userState.email} />
+                <button className="btn-user" onClick={(): void => router.push("/account")}>{userInitial}</button>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -103,13 +105,12 @@ export default function Header({ isAuthorized }: HeaderProps) {
             <Navbar.Collapse>
               <Nav className="mr-auto">
                 <Nav.Item><Link href="/products">Products</Link></Nav.Item>
-                <Nav.Item><Link href="/solutions">Solutions</Link></Nav.Item>
-                <Nav.Item><Link href="/docs">Docs</Link></Nav.Item>
                 <Nav.Item><Link href="/plans">Plans</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer</Link></Nav.Item>
+                <Nav.Item className="btn-nav-link"><Link href="/dashboard">Get Started</Link></Nav.Item>
               </Nav>
               <Nav className="ms-auto">
-                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer</Link></Nav.Item>
-                <Nav.Item><Link href="/dashboard">Get Started</Link></Nav.Item>
+                <Link className="nav-btn ps-4 pe-4" href="/dashboard">Get Started</Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

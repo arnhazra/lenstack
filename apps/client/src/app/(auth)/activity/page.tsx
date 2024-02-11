@@ -1,5 +1,6 @@
 "use client"
 import Error from "@/components/error"
+import Grid from "@/components/grid"
 import Hero from "@/components/hero"
 import InfoPanel from "@/components/infopanel"
 import Loading from "@/components/loading"
@@ -27,9 +28,9 @@ export default function Page() {
     })
 
     return (
-      <Row xs={1} sm={2} lg={3} xl={4}>
+      <Grid>
         {activitiesToDisplay}
-      </Row>
+      </Grid>
     )
   }, [activities?.data])
 

@@ -5,13 +5,14 @@ import HTTPMethods from "@/constants/http-methods"
 import { useCallback, useContext } from "react"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import Header from "@/components/header"
-import ProductCard, { ProductCardInterface } from "@/components/card"
+import { GenericCard, GenericCardProps } from "@/components/card"
 import Link from "next/link"
+import Grid from "@/components/grid"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
@@ -19,15 +20,15 @@ export default function Page() {
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
-      const productCardProps: ProductCardInterface = {
-        footerText: product.description,
-        headerText: `${uiConstants.brandName} ${product.displayName}`,
+      const productCardProps: GenericCardProps = {
+        header: `${uiConstants.brandName} ${product.displayName}`,
+        footer: <p className="muted-text">{product.description}</p>,
       }
 
       return (
-        <Col className="mb-4">
+        <Col className="mb-3" key={product.productName}>
           <Link href={`/products/${product.productName}`}>
-            <ProductCard key={product.productName} productCardProps={productCardProps} />
+            <GenericCard {...productCardProps} />
           </Link>
         </Col>
       )
@@ -36,9 +37,9 @@ export default function Page() {
     return (
       <Suspense condition={!!products?.data?.length} fallback={<h4 className="text-white">No Products to display</h4>}>
         <h4 className="text-white">Explore products within {uiConstants.brandName}</h4>
-        <Row xs={1} sm={2} md={2} lg={3} xl={4}>
+        <Grid>
           {productsToDisplay}
-        </Row>
+        </Grid>
       </Suspense>
     )
   }, [products?.data])
