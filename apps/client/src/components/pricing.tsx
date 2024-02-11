@@ -26,9 +26,9 @@ export default function Pricing({ readonly }: PricingProps) {
         <Col key={pricing.planName}>
           <Hero>
             <div className="d-flex justify-content-between align-items-start">
-              <p className="text-muted">{uiConstants.brandName}</p>
+              <p className="lead">{uiConstants.brandName}</p>
               <Suspense condition={pricing.isMostEfficient} fallback={null}>
-                <Badge className="ps-3 pe-3 p-2 pricing-badge ps-3 pe-3 p-2 pricing-badge align-self-start">Most Efficient</Badge>
+                <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start">Most Efficient</Badge>
               </Suspense>
             </div>
             <h4 className="branding">{pricing.planName}</h4>
