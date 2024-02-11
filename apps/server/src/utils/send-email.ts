@@ -32,7 +32,7 @@ export async function sendEmail(email: string, passKey: string): Promise<void> {
       </div>
       <p style="font-size:1.1em">Hi,</p>
       <p>Use the below key as your ${envConfig.brandName} Identity Passkey. Do not share with anyone.</p>
-      <h2 style="background: #2b3336;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${passKey}</h2>
+      <h2 style="background: #2b3336;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 0.8rem;">${passKey}</h2>
       <p style="font-size:0.9em;">Regards,<br />${envConfig.brandName}</p>
       <hr style="border:none;border-top:1px solid #f1f3f4" />
       <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
