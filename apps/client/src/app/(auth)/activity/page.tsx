@@ -11,7 +11,7 @@ import useQuery from "@/hooks/use-query"
 import { BellIcon } from "@radix-ui/react-icons"
 import { formatDistanceToNow } from "date-fns"
 import { useCallback } from "react"
-import { Container, Row } from "react-bootstrap"
+import { Col, Container } from "react-bootstrap"
 
 export default function Page() {
   const activities = useQuery(["activities"], endPoints.getAllActivities, HTTPMethods.GET)
@@ -19,11 +19,13 @@ export default function Page() {
   const displayActivities = useCallback(() => {
     const activitiesToDisplay = activities?.data?.activities?.map((activity: any) => {
       return (
-        <InfoPanel
-          key={activity._id} infoIcon={<BellIcon />}
-          infoName={activity.activityDescription}
-          infoValue={formatDistanceToNow(new Date(activity.createdAt), { addSuffix: true })}
-        />
+        <Col>
+          <InfoPanel
+            key={activity._id} infoIcon={<BellIcon />}
+            infoName={activity.activityDescription}
+            infoValue={formatDistanceToNow(new Date(activity.createdAt), { addSuffix: true })}
+          />
+        </Col>
       )
     })
 

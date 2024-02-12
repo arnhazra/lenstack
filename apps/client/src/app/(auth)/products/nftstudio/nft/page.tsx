@@ -19,7 +19,7 @@ import toast from "react-hot-toast"
 import Web3 from "web3"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
-import ProductCard, { ProductCardInterface } from "@/components/card"
+import { GenericCard, GenericCardProps } from "@/components/card"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -108,15 +108,18 @@ export default function Page() {
 
   const displayNfts = useCallback(() => {
     const nftsToDisplay = nftList?.map((nft: any) => {
-      const productCardProps: ProductCardInterface = {
-        headerText: nft.name,
-        footerText: `This NFT was minted by you using NFT Studio on ${formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.`,
+      const nftCardProps: GenericCardProps = {
+        header: nft.name,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
+          <p className="muted-text">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
+        </Fragment>
       }
 
       return (
         <Col className="mb-4">
           <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
-            <ProductCard key={nft.id} productCardProps={productCardProps} />
+            <GenericCard key={nft.id} {...nftCardProps} />
           </Link>
         </Col>
       )

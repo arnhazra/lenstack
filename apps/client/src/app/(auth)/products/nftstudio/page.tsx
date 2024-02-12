@@ -4,7 +4,7 @@ import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
-import { useCallback, useContext, useEffect, useState } from "react"
+import { Fragment, useCallback, useContext, useEffect, useState } from "react"
 import { Badge, Col, Container, Row } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -16,7 +16,8 @@ import { PlusCircledIcon } from "@radix-ui/react-icons"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import ProductCard, { ProductCardInterface } from "@/components/card"
+import { GenericCard, GenericCardProps } from "@/components/card"
+import Grid from "@/components/grid"
 
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
@@ -55,15 +56,18 @@ export default function Page() {
     const nftsToDisplay = nftList?.filter((nft: any) =>
       nft.name.toLowerCase().includes(appState.globalSearchString)
     )?.map((nft: any) => {
-      const productCardProps: ProductCardInterface = {
-        headerText: nft.name,
-        footerText: `This NFT was minted by you using NFT Studio on ${formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.`,
+      const nftCardProps: GenericCardProps = {
+        header: nft.name,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
+          <p className="muted-text">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
+        </Fragment>
       }
 
       return (
         <Col className="mb-4">
           <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
-            <ProductCard key={nft.id} productCardProps={productCardProps} />
+            <GenericCard {...nftCardProps} />
           </Link>
         </Col>
       )
@@ -72,9 +76,9 @@ export default function Page() {
     return (
       <Suspense condition={!!nftsToDisplay?.length} fallback={<h4 className="text-white">No NFTs to display</h4>}>
         <h4 className="text-white">My Collection</h4>
-        <Row xs={1} sm={2} md={2} lg={3} xl={4}>
+        <Grid>
           {nftsToDisplay}
-        </Row>
+        </Grid>
       </Suspense>
     )
   }, [appState.globalSearchString, nftList])

@@ -2,14 +2,16 @@
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { Badge, Container, Row } from "react-bootstrap"
-import { useCallback, useContext } from "react"
+import { Badge, Col, Container, Row } from "react-bootstrap"
+import { Fragment, useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
+import { GenericCard, GenericCardProps } from "@/components/card"
+import Link from "next/link"
 
 export interface TokenData {
   tokenName: string
@@ -28,15 +30,21 @@ export default function Page() {
 
   const displayTokens = useCallback(() => {
     const tokensToDisplay = swapTokenConfig?.data?.map((token: TokenData) => {
-      const cardProps: CardInterface = {
-        badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
-        className: "decentralized",
-        headerText: token.tokenName,
-        footerText: token.description,
-        redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
+      const tokenCardProps: GenericCardProps = {
+        header: token.tokenName,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-20</Badge>
+          <p className="muted-text">{token.description}</p>
+        </Fragment>
       }
 
-      return <Card key={token.tokenContractAddress} cardProps={cardProps} />
+      return (
+        <Col className="mb-3">
+          <Link href={`/products/swap/token?tokenAddress=${token.tokenContractAddress}`}>
+            <GenericCard key={token.tokenContractAddress} {...tokenCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (

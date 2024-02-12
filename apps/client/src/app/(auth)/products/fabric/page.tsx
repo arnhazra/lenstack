@@ -1,7 +1,7 @@
 "use client"
 import { endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
-import { Badge, Button, Container, Row, Table } from "react-bootstrap"
+import { Badge, Container, Table } from "react-bootstrap"
 import Loading from "@/components/loading"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
