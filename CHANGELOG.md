@@ -1,6 +1,7 @@
 # Changelog
 
 ### v9.0.0
+* Header rendring logic changes
 * Regular dependency updates
 * Removal of activity module
 * Introduction of new UI design

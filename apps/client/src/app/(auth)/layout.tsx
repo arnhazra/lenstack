@@ -6,7 +6,7 @@ import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import IdentityGuard from "@/components/identity-guard"
+import IdentityGuard from "./identity-guard"
 import Suspense from "@/components/suspense"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
