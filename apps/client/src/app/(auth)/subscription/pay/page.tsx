@@ -36,12 +36,6 @@ export default function Page() {
     { value: "quicknode", label: "QuickNode" },
   ])
 
-  useEffect(() => {
-    if (userState.hasActiveSubscription) {
-      router.push("/dashboard")
-    }
-  }, [userState])
-
   const activateHobby = async () => {
     try {
       await axios.get(endPoints.activateHobby)

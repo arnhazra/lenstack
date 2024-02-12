@@ -27,7 +27,7 @@ export default function Page() {
           <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.hasActiveSubscription ? userState.selectedPlan.charAt(0).toUpperCase() + userState.selectedPlan.slice(1) : "No Active Subscription"} />
           <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${format(new Date(userState.expiresAt), "MMM, do yyyy")}` : "No Validity Data"} />
           <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
-          <Link href="/plans" className="btn btn-primary btn-block">View Plans<ArrowRightIcon className="icon-right" /></Link>
+          <Link href="/subscription/plans" className="btn btn-primary btn-block">View Plans<ArrowRightIcon className="icon-right" /></Link>
         </div>
       </Suspense>
     </Suspense>

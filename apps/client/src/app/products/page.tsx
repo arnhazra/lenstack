@@ -2,21 +2,33 @@
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import { Col, Container } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import Header from "@/components/header"
 import { GenericCard, GenericCardProps } from "@/components/card"
 import Link from "next/link"
 import Grid from "@/components/grid"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/dashboard")
+    }
+
+    else {
+      setIsLoading(false)
+    }
+  }, [])
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
@@ -45,11 +57,8 @@ export default function Page() {
   }, [products?.data])
 
   return (
-    <Suspense condition={!products.isLoading} fallback={<Loading />}>
+    <Suspense condition={!products.isLoading || !isLoading} fallback={<Loading />}>
       <Suspense condition={!products.error} fallback={<Error />}>
-        <nav className="header">
-          <Header isAuthorized={false} />
-        </nav>
         <Container>
           {displayProducts()}
         </Container>

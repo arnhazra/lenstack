@@ -41,20 +41,11 @@ export default function Page() {
     })()
   }, [userState])
 
-  const signOutFromAllDevices = async () => {
+  const signOut = async (device: string) => {
     try {
-      await axios.post(endPoints.signOut)
-      localStorage.clear()
-      window.location.replace("/")
-    }
-
-    catch (error) {
-      toast.error(uiConstants.toastError)
-    }
-  }
-
-  const signOut = () => {
-    try {
+      if (device === "all") {
+        await axios.post(endPoints.signOut)
+      }
       localStorage.clear()
       window.location.replace("/")
     }
@@ -71,8 +62,8 @@ export default function Page() {
         <InfoPanel infoIcon={<AvatarIcon />} infoName="Email Address" infoValue={userState.email} />
         <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Wallet Address" credentialValue={accountAddress} />
         <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
-        <Button variant="secondary" className="btn-block" onClick={signOut}>Sign Out<ExitIcon className="icon-right" /></Button>
-        <Button variant="primary" className="btn-block" onClick={signOutFromAllDevices}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
+        <Button variant="secondary" className="btn-block" onClick={(): Promise<void> => signOut("this")}>Sign Out<ExitIcon className="icon-right" /></Button>
+        <Button variant="primary" className="btn-block" onClick={(): Promise<void> => signOut("all")}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
       </div>
     </Suspense>
   )

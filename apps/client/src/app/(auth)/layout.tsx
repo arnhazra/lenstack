@@ -1,5 +1,4 @@
 "use client"
-import Header from "@/components/header"
 import Loading from "@/components/loading"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
@@ -69,15 +68,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }, [isAuthorized, appState.refreshId])
 
   return (
-    <Fragment>
-      <nav className="header">
-        <Header isAuthorized={isAuthorized} />
-      </nav>
-      <Suspense condition={!isLoading} fallback={<Loading />}>
-        <Suspense condition={isAuthorized} fallback={<IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />}>
-          {children}
-        </Suspense>
+    <Suspense condition={!isLoading} fallback={<Loading />}>
+      <Suspense condition={isAuthorized} fallback={<IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />}>
+        {children}
       </Suspense>
-    </Fragment>
+    </Suspense>
   )
 }

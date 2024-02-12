@@ -11,35 +11,35 @@ import { uiHost } from "@/constants/api-endpoints"
 import { useDebounce } from "@uidotdev/usehooks"
 import "./style.sass"
 
-interface HeaderProps {
-  isAuthorized: boolean,
-}
-
-export default function Header({ isAuthorized }: HeaderProps) {
-  const [isHomePage, setIsHomePage] = useState(false)
+export default function Header() {
   const searchRef = useRef<HTMLInputElement | null>(null)
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [isAuthorized, setAuthorized] = useState(false)
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [searchString, setSearchString] = useState("")
   const userInitial = userState.email.slice(0, 2).toUpperCase() ?? "US"
   const debouncedSearchTerm = useDebounce(searchString, 1000)
   const router = useRouter()
 
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setAuthorized(true)
+    }
+  }, [pathname])
+
   const searchEnabledPathNames = [
     "/dashboard", "/products/datalake", "/products/insights",
-    "/products/fabric", "/products/nftstudio", "/products/swap",
-    "/dashboard/", "/products/datalake/", "/products/insights/",
-    "/products/fabric/", "/products/nftstudio/", "/products/swap/"
+    "/products/fabric", "/products/nftstudio", "/products/swap"
   ]
 
   useEffect(() => {
-    setIsHomePage(pathname === "/")
     dispatch("setAppState", { globalSearchString: "" })
 
     if (searchRef && searchRef.current) {
       searchRef.current.value = ""
     }
+
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.altKey && event.key.toLowerCase() === "q" && searchRef.current) {
         event.preventDefault()
@@ -60,7 +60,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
 
   return (
     <Fragment>
-      <Suspense condition={isAuthorized && !isHomePage} fallback={null}>
+      <Suspense condition={isAuthorized} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
@@ -89,7 +89,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
           </Container>
         </Navbar>
       </Suspense>
-      <Suspense condition={!isAuthorized || isHomePage} fallback={null}>
+      <Suspense condition={!isAuthorized} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">

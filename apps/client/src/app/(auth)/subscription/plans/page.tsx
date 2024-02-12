@@ -7,7 +7,7 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
-import { Fragment, useCallback, useEffect, useState } from "react"
+import { Fragment, useCallback } from "react"
 import { Badge, Button, Col, Container } from "react-bootstrap"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
@@ -16,17 +16,6 @@ import { GenericCard, GenericCardProps } from "@/components/card"
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      router.push("/subscription/plans")
-    }
-
-    else {
-      setIsLoading(false)
-    }
-  }, [])
 
   const displayPricing = useCallback(() => {
     const productsToDisplay = pricingDetails?.data?.map((pricing: any) => {
@@ -69,7 +58,7 @@ export default function Page() {
 
   return (
     <Container>
-      <Suspense condition={!pricingDetails.isLoading || !isLoading} fallback={<Loading />}>
+      <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
         <Suspense condition={!pricingDetails.error} fallback={<Error />}>
           {displayPricing()}
         </Suspense>
