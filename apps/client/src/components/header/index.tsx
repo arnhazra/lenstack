@@ -23,7 +23,9 @@ export default function Header() {
 
   const searchEnabledPathNames = [
     "/dashboard", "/products/datalake", "/products/insights",
-    "/products/fabric", "/products/nftstudio", "/products/swap"
+    "/products/fabric", "/products/nftstudio", "/products/swap",
+    "/dashboard/", "/products/datalake/", "/products/insights/",
+    "/products/fabric/", "/products/nftstudio/", "/products/swap/"
   ]
 
   useEffect(() => {
