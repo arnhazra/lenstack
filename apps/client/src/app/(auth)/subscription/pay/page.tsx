@@ -15,7 +15,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import { Badge, Button, Form, Row } from "react-bootstrap"
 import Option from "@/components/option"
-import InfoPanel from "@/components/infopanel"
+import InfoPanel from "@/components/infopanel/infopanel"
 import Link from "next/link"
 
 export default function Page() {

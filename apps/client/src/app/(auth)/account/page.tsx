@@ -10,8 +10,8 @@ import Web3 from "web3"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import { AvatarIcon, BookmarkIcon, CubeIcon, ExitIcon } from "@radix-ui/react-icons"
-import SensitiveInfoPanel from "@/components/sensitive-infopanel"
-import InfoPanel from "@/components/infopanel"
+import SensitiveInfoPanel from "@/components/infopanel/sensitive-infopanel"
+import InfoPanel from "@/components/infopanel/infopanel"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)

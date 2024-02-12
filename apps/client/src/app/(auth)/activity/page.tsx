@@ -2,7 +2,7 @@
 import Error from "@/components/error"
 import Grid from "@/components/grid"
 import Hero from "@/components/hero"
-import InfoPanel from "@/components/infopanel"
+import InfoPanel from "@/components/infopanel/infopanel"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
