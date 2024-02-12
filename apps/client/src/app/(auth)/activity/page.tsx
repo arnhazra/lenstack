@@ -19,9 +19,9 @@ export default function Page() {
   const displayActivities = useCallback(() => {
     const activitiesToDisplay = activities?.data?.activities?.map((activity: any) => {
       return (
-        <Col>
+        <Col key={activity._id}>
           <InfoPanel
-            key={activity._id} infoIcon={<BellIcon />}
+            infoIcon={<BellIcon />}
             infoName={activity.activityDescription}
             infoValue={formatDistanceToNow(new Date(activity.createdAt), { addSuffix: true })}
           />
