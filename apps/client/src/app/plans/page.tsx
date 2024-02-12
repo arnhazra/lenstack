@@ -69,7 +69,7 @@ export default function Page() {
 
   return (
     <Container>
-      <Suspense condition={!pricingDetails.isLoading || !isLoading} fallback={<Loading />}>
+      <Suspense condition={!pricingDetails.isLoading && !isLoading} fallback={<Loading />}>
         <Suspense condition={!pricingDetails.error} fallback={<Error />}>
           {displayPricing()}
         </Suspense>

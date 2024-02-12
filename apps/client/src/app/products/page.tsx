@@ -2,10 +2,10 @@
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { useCallback, useContext, useEffect, useState } from "react"
+import { Fragment, useCallback, useContext, useEffect, useState } from "react"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import { Col, Container } from "react-bootstrap"
+import { Badge, Col, Container } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
@@ -34,7 +34,10 @@ export default function Page() {
     const productsToDisplay = products?.data?.map((product: any) => {
       const productCardProps: GenericCardProps = {
         header: `${uiConstants.brandName} ${product.displayName}`,
-        footer: <p className="muted-text">{product.description}</p>,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{product.productCategory}</Badge>
+          <p className="muted-text">{product.description}</p>
+        </Fragment>,
       }
 
       return (
@@ -57,7 +60,7 @@ export default function Page() {
   }, [products?.data])
 
   return (
-    <Suspense condition={!products.isLoading || !isLoading} fallback={<Loading />}>
+    <Suspense condition={!products.isLoading && !isLoading} fallback={<Loading />}>
       <Suspense condition={!products.error} fallback={<Error />}>
         <Container>
           {displayProducts()}
