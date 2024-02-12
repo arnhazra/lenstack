@@ -4,7 +4,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
-import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
+import { ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import IdentityGuard from "@/components/identity-guard"
 import Suspense from "@/components/suspense"
@@ -36,6 +36,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           localStorage.setItem("clientId", clientId)
           localStorage.setItem("clientSecret", clientSecret)
           dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription })
+          dispatch("setUserState", { isAuthorized: true })
           setAuthorized(true)
         }
 

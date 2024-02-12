@@ -15,18 +15,11 @@ export default function Header() {
   const searchRef = useRef<HTMLInputElement | null>(null)
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [isAuthorized, setAuthorized] = useState(false)
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [searchString, setSearchString] = useState("")
   const userInitial = userState.email.slice(0, 2).toUpperCase() ?? "US"
   const debouncedSearchTerm = useDebounce(searchString, 1000)
   const router = useRouter()
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      setAuthorized(true)
-    }
-  }, [pathname])
 
   const searchEnabledPathNames = [
     "/dashboard", "/products/datalake", "/products/insights",
@@ -60,7 +53,7 @@ export default function Header() {
 
   return (
     <Fragment>
-      <Suspense condition={isAuthorized} fallback={null}>
+      <Suspense condition={userState.isAuthorized} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/dashboard">
@@ -89,7 +82,7 @@ export default function Header() {
           </Container>
         </Navbar>
       </Suspense>
-      <Suspense condition={!isAuthorized} fallback={null}>
+      <Suspense condition={!userState.isAuthorized} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
             <Link href="/">

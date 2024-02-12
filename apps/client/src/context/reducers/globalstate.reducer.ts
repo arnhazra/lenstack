@@ -10,7 +10,8 @@ export interface UserState {
   selectedWorkspaceId: string
   selectedWorkspaceName: string
   remainingCredits: number | string
-  hasActiveSubscription: boolean
+  hasActiveSubscription: boolean,
+  isAuthorized: boolean
 }
 
 export interface AppState {
