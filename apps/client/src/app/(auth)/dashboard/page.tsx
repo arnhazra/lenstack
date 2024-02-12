@@ -38,7 +38,7 @@ export default function Page() {
 
     return (
       <Suspense condition={!!products?.data?.length} fallback={<h4 className="text-white">No Products to display</h4>}>
-        <h4 className="text-white">Explore unified experience</h4>
+        <h4 className="text-white">Explore the experience</h4>
         <Grid>
           {productsToDisplay}
         </Grid>
