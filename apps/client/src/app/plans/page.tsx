@@ -49,7 +49,7 @@ export default function Page() {
       }
 
       return (
-        <Col key={pricing.planName}>
+        <Col key={pricing.planName} className="mb-3">
           <GenericCard {...pricingCardProps} />
         </Col>
       )
