@@ -12,10 +12,4 @@ export class CreateAnalyticsDto {
 
   @IsNotEmpty()
   statusCode: string
-
-  @IsNotEmpty()
-  projectId: string
-
-  @IsNotEmpty()
-  projectPasskey: string
 }

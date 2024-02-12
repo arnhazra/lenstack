@@ -20,7 +20,8 @@ const initialState: { userState: UserState, appState: AppState } = {
     selectedWorkspaceId: "",
     selectedWorkspaceName: "",
     remainingCredits: 0,
-    hasActiveSubscription: false
+    hasActiveSubscription: false,
+    isAuthorized: false
   },
 
   appState: {

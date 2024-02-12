@@ -2,14 +2,16 @@
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { useCallback, useContext } from "react"
+import { Fragment, useCallback, useContext } from "react"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import { Container, Row } from "react-bootstrap"
-import Card, { CardInterface } from "@/components/card"
+import { Badge, Col, Container } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
+import { GenericCard, GenericCardProps } from "@/components/card"
+import Link from "next/link"
+import Grid from "@/components/grid"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
@@ -17,24 +19,29 @@ export default function Page() {
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
-      const cardProps: CardInterface = {
-        badgeText: product.productStatus,
-        className: product.productCategory,
-        footerText: product.description,
-        headerText: `${uiConstants.brandName} ${product.displayName}`,
-        redirectUri: `/products/${product.productName}`,
-        isDisabled: product.productStatus !== "Available"
+      const productCardProps: GenericCardProps = {
+        header: `${uiConstants.brandName} ${product.displayName}`,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{product.productCategory}</Badge>
+          <p className="muted-text">{product.description}</p>
+        </Fragment>,
       }
 
-      return <Card key={product.productName} cardProps={cardProps} />
+      return (
+        <Col key={product.productName} className="mb-3">
+          <Link href={`/products/${product.productName}`}>
+            <GenericCard {...productCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (
       <Suspense condition={!!products?.data?.length} fallback={<h4 className="text-white">No Products to display</h4>}>
-        <h4 className="text-white">Explore unified experience</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <h4 className="text-white">Explore the experience</h4>
+        <Grid>
           {productsToDisplay}
-        </Row>
+        </Grid>
       </Suspense>
     )
   }, [products?.data])

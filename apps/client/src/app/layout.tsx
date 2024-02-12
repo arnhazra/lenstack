@@ -2,6 +2,7 @@ import { ReactNode } from "react"
 import { uiConstants } from "@/constants/global-constants"
 import { Quicksand } from "next/font/google"
 import Providers from "@/context/providers"
+import Header from "@/components/header"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 
@@ -17,6 +18,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={quickSand.className}>
         <Providers>
+          <nav className="header">
+            <Header />
+          </nav>
           <main className="mt-2 mb-4 pb-4">
             {children}
           </main>

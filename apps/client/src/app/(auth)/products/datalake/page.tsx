@@ -1,6 +1,6 @@
 "use client"
 import { Fragment, useCallback, useContext, useState } from "react"
-import { Badge, Button, Container, Row } from "react-bootstrap"
+import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import Link from "next/link"
 import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons"
 import Loading from "@/components/loading"
@@ -8,12 +8,13 @@ import Suspense from "@/components/suspense"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import Option from "@/components/option"
+import Grid from "@/components/grid"
+import { GenericCard, GenericCardProps } from "@/components/card"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -50,23 +51,29 @@ export default function Page() {
 
   const renderDatasets = useCallback(() => {
     const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
-      const cardProps: CardInterface = {
-        badgeText: dataset.category,
-        className: "centralized",
-        headerText: dataset.name,
-        footerText: `${dataset.description.slice(0, 110)}...`,
-        redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
+      const datasetCardProps: GenericCardProps = {
+        header: dataset.name,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{dataset.category}</Badge>
+          <p className="muted-text">{dataset.description.slice(0, 150)}...</p>
+        </Fragment>
       }
 
-      return <Card key={dataset._id} cardProps={cardProps} />
+      return (
+        <Col key={dataset._id} className="mb-3">
+          <Link href={`/products/datalake/dataset?datasetId=${dataset._id}`}>
+            <GenericCard {...datasetCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (
       <Suspense condition={!!datasets?.data?.datasets.length} fallback={<h4 className="text-white">No Datasets to display</h4>}>
         <h4 className="text-white">Explore the datasets</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Grid>
           {datasetsToDisplay}
-        </Row>
+        </Grid>
       </Suspense>
     )
   }, [datasets?.data])

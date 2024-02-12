@@ -17,29 +17,29 @@ export const subscriptionConfig: CreditType[] = [
   {
     planName: SubscriptionPlans.Hobby,
     price: 0,
-    grantedCredits: 50000,
-    features: ["Valid for a year", "Try all features", "Regular API response", "Completely free", "Good for individuals"],
+    grantedCredits: 5000,
+    features: ["Valid for a month", "Regular API response", "Good for individuals"],
     isMostEfficient: false
   },
   {
     planName: SubscriptionPlans.Starter,
-    price: 11.99,
-    grantedCredits: 300000,
-    features: ["Valid for a year", "Exclusive access", "Priority API response", "Discontinue anytime", "Good for developers"],
+    price: 1.09,
+    grantedCredits: 25000,
+    features: ["Valid for a month", "Priority API response", "Good for developers"],
     isMostEfficient: false
   },
   {
     planName: SubscriptionPlans.Premium,
-    price: 21.99,
-    grantedCredits: 600000,
-    features: ["Valid for a year", "Exclusive access", "Faster API response", "Discontinue anytime", "Good for startups"],
+    price: 1.99,
+    grantedCredits: 50000,
+    features: ["Valid for a month", "Faster API response", "Good for startups"],
     isMostEfficient: true
   },
   {
     planName: SubscriptionPlans.Ultra,
-    price: 41.99,
-    grantedCredits: 1500000,
-    features: ["Valid for a year", "Exclusive access", "Fastest API response", "Discontinue anytime", "The best plan"],
+    price: 3.49,
+    grantedCredits: 100000,
+    features: ["Valid for a month", "Fastest API response", "The best plan"],
     isMostEfficient: false
   },
 ]

@@ -1,5 +1,5 @@
 "use client"
-import { Badge, Container, Row } from "react-bootstrap"
+import { Badge, Col, Container, Row } from "react-bootstrap"
 import { Fragment, useCallback } from "react"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
@@ -9,9 +9,11 @@ import HTTPMethods from "@/constants/http-methods"
 import Error from "@/components/error"
 import { useSearchParams } from "next/navigation"
 import { BookmarkIcon, CubeIcon } from "@radix-ui/react-icons"
-import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
-import SensitiveInfoPanel from "@/components/sensitive-infopanel"
+import SensitiveInfoPanel from "@/components/infopanel/sensitive-infopanel"
+import { GenericCard, GenericCardProps } from "@/components/card"
+import Grid from "@/components/grid"
+import Link from "next/link"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -21,23 +23,29 @@ export default function Page() {
 
   const displaySimilarDatasets = useCallback(() => {
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
-      const cardProps: CardInterface = {
-        badgeText: dataset.category,
-        className: "centralized",
-        headerText: dataset.name,
-        footerText: `${dataset.description.slice(0, 110)}...`,
-        redirectUri: `/products/datalake/dataset?datasetId=${dataset._id}`
+      const datasetCardProps: GenericCardProps = {
+        header: dataset.name,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{dataset.category}</Badge>
+          <p className="muted-text">{dataset.description.slice(0, 150)}...</p>
+        </Fragment>
       }
 
-      return <Card key={dataset._id} cardProps={cardProps} />
+      return (
+        <Col key={dataset._id} className="mb-3">
+          <Link href={`/products/datalake/dataset?datasetId=${dataset._id}`}>
+            <GenericCard {...datasetCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (
       <Fragment>
         <h4 className="text-white">Similar Datasets</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Grid>
           {similarDatasetsToDisplay}
-        </Row>
+        </Grid>
       </Fragment>
     )
   }, [similarDatasets?.data])
@@ -45,15 +53,15 @@ export default function Page() {
   const datasetQuality = useCallback(() => {
     const rating = dataset?.data?.rating
     if (rating > 4.5) {
-      return <Badge className="gold-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"gold"}><BookmarkIcon className="icon-left" />Gold</Badge>
+      return <Badge pill className="gold-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"gold"}><BookmarkIcon className="icon-left" />Gold</Badge>
     }
 
     else if (rating > 4.0 && rating < 4.5) {
-      return <Badge className="silver-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"silver"}><BookmarkIcon className="icon-left" />Silver</Badge>
+      return <Badge pill className="silver-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"silver"}><BookmarkIcon className="icon-left" />Silver</Badge>
     }
 
     else {
-      return <Badge className="bronze-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"bronze"}><BookmarkIcon className="icon-left" />Bronze</Badge >
+      return <Badge pill className="bronze-badge mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2" key={"bronze"}><BookmarkIcon className="icon-left" />Bronze</Badge >
     }
   }, [dataset?.data?.rating])
 

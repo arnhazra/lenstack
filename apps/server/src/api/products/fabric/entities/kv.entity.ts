@@ -1,16 +1,10 @@
 import mongoose from "mongoose"
-import { fabricMongoDbConn } from "../../../../utils/db-connect"
+import { fabricMongoDbConn } from "../../../../lib/db-connect"
 
 const KvSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
-    required: true
-  },
-
-  dbId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "database",
     required: true
   },
 

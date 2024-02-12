@@ -1,13 +1,11 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { WalletRepository } from "./wallet.repository"
+import { createTransactionCommand } from "./commands/create-tx.command"
 
 @Injectable()
 export class WalletService {
-  constructor(private readonly walletRepository: WalletRepository) { }
-
   async createTransaction(workspaceId: string) {
     try {
-      const transaction = await this.walletRepository.createTransaction(workspaceId)
+      const transaction = await createTransactionCommand(workspaceId)
       return transaction
     }
 

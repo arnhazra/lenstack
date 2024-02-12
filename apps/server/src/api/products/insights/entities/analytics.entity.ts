@@ -1,16 +1,10 @@
 import mongoose from "mongoose"
-import { insightsMongoDbConn } from "../../../../utils/db-connect"
+import { insightsMongoDbConn } from "../../../../lib/db-connect"
 
 const AnalyticsSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
-    required: true
-  },
-
-  projectId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "project",
     required: true
   },
 

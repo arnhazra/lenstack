@@ -1,6 +1,6 @@
 "use client"
 import Loading from "@/components/loading"
-import SensitiveInfoPanel from "@/components/sensitive-infopanel"
+import SensitiveInfoPanel from "@/components/infopanel/sensitive-infopanel"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"

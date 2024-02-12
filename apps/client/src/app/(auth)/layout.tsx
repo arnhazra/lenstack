@@ -1,13 +1,12 @@
 "use client"
-import Header from "@/components/header"
 import Loading from "@/components/loading"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
-import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
+import { ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import IdentityGuard from "@/components/identity-guard"
+import IdentityGuard from "./identity-guard"
 import Suspense from "@/components/suspense"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -37,6 +36,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           localStorage.setItem("clientId", clientId)
           localStorage.setItem("clientSecret", clientSecret)
           dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription })
+          dispatch("setUserState", { isAuthorized: true })
           setAuthorized(true)
         }
 
@@ -69,15 +69,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }, [isAuthorized, appState.refreshId])
 
   return (
-    <Fragment>
-      <nav className="header">
-        <Header isAuthorized={isAuthorized} />
-      </nav>
-      <Suspense condition={!isLoading} fallback={<Loading />}>
-        <Suspense condition={isAuthorized} fallback={<IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />}>
-          {children}
-        </Suspense>
+    <Suspense condition={!isLoading} fallback={<Loading />}>
+      <Suspense condition={isAuthorized} fallback={<IdentityGuard onIdentitySuccess={(): void => setAuthorized(true)} onIdentityFailure={(): void => setAuthorized(false)} />}>
+        {children}
       </Suspense>
-    </Fragment>
+    </Suspense>
   )
 }

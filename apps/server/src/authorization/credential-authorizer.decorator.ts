@@ -3,7 +3,7 @@ import { findSubscriptionByWorkspaceIdQuery } from "src/api/subscription/queries
 import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential"
 import { apiPricing, SubscriptionPlans } from "src/api/subscription/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
-import { delay } from "src/utils/delay"
+import { delay } from "src/lib/delay"
 
 export interface CredentialAuthorizerResponse {
   userId: string,

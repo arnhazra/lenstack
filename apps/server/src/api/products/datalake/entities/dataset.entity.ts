@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { datalakeMongoDbConn } from "../../../../utils/db-connect"
+import { datalakeMongoDbConn } from "../../../../lib/db-connect"
 
 const DatasetSchema = new mongoose.Schema({
   datasetRelationId: {

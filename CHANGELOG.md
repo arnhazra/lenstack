@@ -1,5 +1,21 @@
 # Changelog
 
+### v9.0.0
+* Header rendring logic changes
+* Regular dependency updates
+* Removal of activity module
+* Introduction of new UI design
+* Removal of old Product card
+* Introduction of new Generic card
+* Changes in styling
+* Migrated Wallet API to CQRS pattern
+* Code refactoring
+* Introduction of grid component
+* Removal of project dependency in insights
+* Removal of db dependency in fabric
+* Added Client credentials as new way of authentication for fabric & insights
+* Added new component based styling system
+
 ### v8.3.0
 * Removed monthly subscription plans
 * Added yearly subscription plans

@@ -1,0 +1,31 @@
+$background: #ffffff
+$white: #f2f2f2
+$textColor: #000000
+
+.generic-card
+  background: $background
+  color: $textColor
+  border-radius: 0.8rem
+  word-break: break-all
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px
+  display: flex
+  flex-direction: column
+  height: 100%
+
+  &:hover,
+  &:focus,
+  &:active
+    background: $white
+
+.generic-card-header
+  font-size: 115%
+  word-break: break-word
+
+.icon-generic
+  margin-right: 0.45rem
+  margin-top: -0.2rem
+  zoom: 120%
+
+.generic-card-header,
+.generic-card-footer
+  flex: 1

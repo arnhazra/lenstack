@@ -1,5 +1,6 @@
 "use client"
 import Error from "@/components/error"
+import Grid from "@/components/grid"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
@@ -11,7 +12,7 @@ import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import axios from "axios"
 import { useContext, useState } from "react"
-import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
+import { Badge, Button, Col, Container, Form } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import Web3 from "web3"
 
@@ -81,20 +82,20 @@ export default function Page() {
             </div>
             <form onSubmit={sendMatic}>
               <p className="muted-text mt-4">Enter the details to send matic</p>
-              <Row className="g-2">
-                <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+              <Grid>
+                <Col>
                   <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
                     <Form.Label>Wallet address</Form.Label>
                     <Form.Control disabled={isLoading} autoFocus type="text" placeholder="Ethereum Wallet Address" onChange={(e) => setReceiverAddress(e.target.value)} required autoComplete={"off"} />
                   </Form.Group>
                 </Col>
-                <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+                <Col>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>MATIC Amount</Form.Label>
                     <Form.Control disabled={isLoading} type="text" placeholder="MATIC Amount" onChange={(e) => setMatic(Number(e.target.value))} required autoComplete={"off"} />
                   </Form.Group>
                 </Col>
-              </Row>
+              </Grid>
               <Button variant="primary" type="submit" disabled={isLoading} className="mt-2">
                 <Suspense condition={!isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Sending MATIC</>}>
                   Send {matic} MATIC <ArrowRightIcon className="icon-right" />

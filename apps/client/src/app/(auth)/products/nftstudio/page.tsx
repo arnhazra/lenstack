@@ -4,8 +4,8 @@ import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
-import { useCallback, useContext, useEffect, useState } from "react"
-import { Badge, Container, Row } from "react-bootstrap"
+import { Fragment, useCallback, useContext, useEffect, useState } from "react"
+import { Badge, Col, Container, Row } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { nftABI } from "@/bin/nft-abi"
@@ -13,10 +13,11 @@ import { formatDistanceToNow } from "date-fns"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
-import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
+import { GenericCard, GenericCardProps } from "@/components/card"
+import Grid from "@/components/grid"
 
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
@@ -55,23 +56,29 @@ export default function Page() {
     const nftsToDisplay = nftList?.filter((nft: any) =>
       nft.name.toLowerCase().includes(appState.globalSearchString)
     )?.map((nft: any) => {
-      const cardProps: CardInterface = {
-        badgeText: "NFT",
-        className: "decentralized",
-        headerText: nft.name,
-        footerText: `This NFT was minted by you using NFT Studio on ${formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.`,
-        redirectUri: `/products/nftstudio/nft?nftId=${nft.id}`
+      const nftCardProps: GenericCardProps = {
+        header: nft.name,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
+          <p className="muted-text">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
+        </Fragment>
       }
 
-      return <Card key={nft.id} cardProps={cardProps} />
+      return (
+        <Col key={nft.id} className="mb-3">
+          <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
+            <GenericCard {...nftCardProps} />
+          </Link>
+        </Col>
+      )
     })
 
     return (
       <Suspense condition={!!nftsToDisplay?.length} fallback={<h4 className="text-white">No NFTs to display</h4>}>
         <h4 className="text-white">My Collection</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Grid>
           {nftsToDisplay}
-        </Row>
+        </Grid>
       </Suspense>
     )
   }, [appState.globalSearchString, nftList])

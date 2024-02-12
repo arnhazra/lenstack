@@ -15,7 +15,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import { Badge, Button, Form, Row } from "react-bootstrap"
 import Option from "@/components/option"
-import InfoPanel from "@/components/infopanel"
+import InfoPanel from "@/components/infopanel/infopanel"
 import Link from "next/link"
 
 export default function Page() {
@@ -35,12 +35,6 @@ export default function Page() {
     { value: "infura", label: "Infura" },
     { value: "quicknode", label: "QuickNode" },
   ])
-
-  useEffect(() => {
-    if (userState.hasActiveSubscription) {
-      router.push("/dashboard")
-    }
-  }, [userState])
 
   const activateHobby = async () => {
     try {
@@ -173,12 +167,12 @@ export default function Page() {
               </Suspense>
             </Suspense>
           </Button>
-          <Link href="/subscription/plans" className="btn btn-secondary btn-block">Choose Another Plan</Link>
+          <Link href="/plans" className="btn btn-secondary btn-block">Choose Another Plan</Link>
           <div className="text-center">
             <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />{uiConstants.brandName} Pay ™ Secured</Badge>
           </div>
         </form>
       </Suspense>
-    </Suspense>
+    </Suspense >
   )
 }

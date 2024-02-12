@@ -6,10 +6,4 @@ export class CreateKvDto {
 
   @IsNotEmpty()
   value: string
-
-  @IsNotEmpty()
-  dbId: string
-
-  @IsNotEmpty()
-  dbPassword: string
 }

@@ -1,74 +1,46 @@
 "use client"
-import { useCallback, useContext } from "react"
+import { useCallback } from "react"
 import { endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
-import { Badge, Button, Container, Row } from "react-bootstrap"
+import { Badge, Container, Table } from "react-bootstrap"
 import Loading from "@/components/loading"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { PlusCircledIcon, ReaderIcon } from "@radix-ui/react-icons"
+import { ReaderIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import Hero from "@/components/hero"
-import Card, { CardInterface } from "@/components/card"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
-import { useRouter } from "next/navigation"
-import toast from "react-hot-toast"
-import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { usePromptContext } from "@/context/providers/prompt.provider"
-import { formatDistanceToNow } from "date-fns"
+import { format } from "date-fns"
 
 export default function Page() {
-  const [{ appState }] = useContext(GlobalContext)
-  const { prompt } = usePromptContext()
-  const router = useRouter()
-  const projects = useQuery(["projects"], `${endPoints.insightsGetProjects}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
+  const analytics = useQuery(["analytics"], endPoints.insightsViewAnalytics, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
 
-  const displayProjects = useCallback(() => {
-    const projectsToDisplay = projects?.data?.projects?.map((project: any) => {
-      const cardProps: CardInterface = {
-        badgeText: "Project",
-        className: "centralized",
-        headerText: project.name,
-        footerText: `This Project was started by you using Insights Platform on ${formatDistanceToNow(new Date(project.createdAt), { addSuffix: true })}. To check more click on this card.`,
-        redirectUri: `/products/insights/project?projectId=${project._id}`
-      }
-
-      return <Card key={project._id} cardProps={cardProps} />
+  const displayAnalytics = useCallback(() => {
+    const analyticsToDisplay = analytics?.data?.analytics?.map((ant: any) => {
+      return (
+        <tr key={ant._id}>
+          <td>{ant.component}</td>
+          <td>{ant.event}</td>
+          <td>{ant.info}</td>
+          <td>{ant.statusCode}</td>
+          <td>{format(new Date(ant.createdAt), "MMM, do yyyy, h:mm a")}</td>
+        </tr>
+      )
     })
 
     return (
-      <Suspense condition={!!projects?.data?.projects?.length} fallback={<h4 className="text-white">No Projects to display</h4>}>
-        <h4 className="text-white">My Projects</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
-          {projectsToDisplay}
-        </Row>
-      </Suspense>
+      <tbody>
+        {analyticsToDisplay}
+      </tbody>
     )
-  }, [projects?.data])
-
-  const createProject = async () => {
-    const { hasConfirmed, value } = await prompt("Your Project name")
-
-    if (hasConfirmed && value) {
-      try {
-        const response = await axios.post(endPoints.insightsCreateProject, { name: value })
-        toast.success("Project Created")
-        router.push(`/products/insights/project?projectId=${response.data.project._id}`)
-      }
-
-      catch (error: any) {
-        toast.error("Unable to create project")
-      }
-    }
-  }
+  }, [analytics?.data])
 
   return (
-    <Suspense condition={!projects.isLoading && !products.isLoading} fallback={<Loading />}>
-      <Suspense condition={!projects.error && !products.error} fallback={<Error />}>
+    <Suspense condition={!analytics.isLoading && !products.isLoading} fallback={<Loading />}>
+      <Suspense condition={!analytics.error && !products.error} fallback={<Error />}>
         <Container>
           <Hero>
             <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
@@ -80,9 +52,22 @@ export default function Page() {
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
-            <Button variant="primary" onClick={createProject}><PlusCircledIcon className="icon-left" />Create Project</Button>
           </Hero>
-          {displayProjects()}
+          <Suspense condition={!!analytics?.data?.analytics && analytics?.data?.analytics.length} fallback={null}>
+            <h4 className="text-white">Analytics</h4>
+            <Table responsive hover variant="light">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Event</th>
+                  <th>Info</th>
+                  <th>Status Code</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              {displayAnalytics()}
+            </Table>
+          </Suspense>
         </Container>
       </Suspense>
     </Suspense>

@@ -8,7 +8,7 @@ import useQuery from "@/hooks/use-query"
 import Loading from "@/components/loading"
 import { format } from "date-fns"
 import { ArrowRightIcon, CalendarIcon, CubeIcon, PieChartIcon, StackIcon } from "@radix-ui/react-icons"
-import InfoPanel from "@/components/infopanel"
+import InfoPanel from "@/components/infopanel/infopanel"
 import Error from "@/components/error"
 import Link from "next/link"
 

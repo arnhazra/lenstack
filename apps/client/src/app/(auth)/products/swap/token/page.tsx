@@ -5,8 +5,8 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
-import { useCallback, useContext, useEffect, useState } from "react"
-import { Badge, Button, Container, Row } from "react-bootstrap"
+import { Fragment, useCallback, useContext, useEffect, useState } from "react"
+import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { vendorABI } from "@/bin/vendor-abi"
 import { toast } from "react-hot-toast"
@@ -15,10 +15,12 @@ import { tokenABI } from "@/bin/token-abi"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import axios from "axios"
-import Card, { CardInterface } from "@/components/card"
 import Hero from "@/components/hero"
 import Error from "@/components/error"
 import { usePromptContext } from "@/context/providers/prompt.provider"
+import { GenericCard, GenericCardProps } from "@/components/card"
+import Link from "next/link"
+import Grid from "@/components/grid"
 
 interface TokenData {
   tokenName: string
@@ -173,24 +175,30 @@ export default function Page() {
   const displayOtherTokens = useCallback(() => {
     const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
       .map((token: TokenData) => {
-        const cardProps: CardInterface = {
-          badgeText: `${token.tokensPerMatic} Tokens/MATIC`,
-          className: "decentralized",
-          headerText: token.tokenName,
-          footerText: token.description,
-          redirectUri: `/products/swap/token?tokenAddress=${token.tokenContractAddress}`
+        const tokenCardProps: GenericCardProps = {
+          header: token.tokenName,
+          footer: <Fragment>
+            <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-20</Badge>
+            <p className="muted-text">{token.description}</p>
+          </Fragment>
         }
 
-        return <Card key={token.tokenContractAddress} cardProps={cardProps} />
+        return (
+          <Col key={token.tokenContractAddress} className="mb-3">
+            <Link href={`/products/swap/token?tokenAddress=${token.tokenContractAddress}`}>
+              <GenericCard  {...tokenCardProps} />
+            </Link>
+          </Col>
+        )
       })
 
     return (
-      <Row>
+      <Fragment>
         <h4 className="text-white">Other Tokens</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Grid>
           {tokensToDisplay}
-        </Row>
-      </Row>
+        </Grid>
+      </Fragment>
     )
   }, [swapTokenConfig?.data, tokenAddress])
 
