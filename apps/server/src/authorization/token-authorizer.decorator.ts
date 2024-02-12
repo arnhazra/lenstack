@@ -1,8 +1,8 @@
 import { createParamDecorator, ExecutionContext, UnauthorizedException } from "@nestjs/common"
 import { findUserByIdQuery } from "src/api/user/queries/find-user-by-id"
 import { statusMessages } from "src/constants/status-messages"
-import { decodeJwt } from "src/utils/decode-jwt"
-import { getTokenFromRedis } from "src/utils/redis-helper"
+import { decodeJwt } from "src/lib/decode-jwt"
+import { getTokenFromRedis } from "src/lib/redis-helper"
 
 export interface TokenAuthorizerResponse {
   userId: string,

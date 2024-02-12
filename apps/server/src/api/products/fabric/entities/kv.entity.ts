@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { fabricMongoDbConn } from "../../../../utils/db-connect"
+import { fabricMongoDbConn } from "../../../../lib/db-connect"
 
 const KvSchema = new mongoose.Schema({
   workspaceId: {

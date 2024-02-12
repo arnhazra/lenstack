@@ -8,6 +8,8 @@
 * Removal of old Product card
 * Introduction of new Generic card
 * Changes in styling
+* Migrated Wallet API to CQRS pattern
+* Code refactoring
 * Introduction of grid component
 * Removal of project dependency in insights
 * Removal of db dependency in fabric

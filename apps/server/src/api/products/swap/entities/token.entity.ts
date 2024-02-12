@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { swapMongoDbConn } from "../../../../utils/db-connect"
+import { swapMongoDbConn } from "../../../../lib/db-connect"
 
 const TokenSchema = new mongoose.Schema({
   tokenName: {

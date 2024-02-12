@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { walletMongoDbConn } from "../../../../utils/db-connect"
+import { walletMongoDbConn } from "../../../../lib/db-connect"
 
-const TransactionSchema = new mongoose.Schema({
+export const TransactionSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -13,5 +13,3 @@ const TransactionSchema = new mongoose.Schema({
     default: Date.now
   },
 }, { versionKey: false })
-
-export const TransactionModel = walletMongoDbConn.model("transaction", TransactionSchema)

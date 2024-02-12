@@ -1,6 +1,6 @@
 import * as nodemailer from "nodemailer"
 import { google } from "googleapis"
-import { envConfig } from "../env.config"
+import { envConfig } from "../../../env.config"
 import SMTPTransport from "nodemailer/lib/smtp-transport"
 
 const { gcloudClientId, gcloudClientSecret, redirectUri, refreshToken, mailerEmail } = envConfig
