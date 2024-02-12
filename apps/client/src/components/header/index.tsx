@@ -106,8 +106,7 @@ export default function Header({ isAuthorized }: HeaderProps) {
               <Nav className="mr-auto">
                 <Nav.Item><Link href="/products">Products</Link></Nav.Item>
                 <Nav.Item><Link href="/plans">Plans</Link></Nav.Item>
-                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer</Link></Nav.Item>
-                <Nav.Item className="btn-nav-link"><Link href="/dashboard">Get Started</Link></Nav.Item>
+                <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer<ExternalLinkIcon className="icon-right" /></Link></Nav.Item>
               </Nav>
               <Nav className="ms-auto">
                 <Link className="nav-btn ps-4 pe-4" href="/dashboard">Get Started</Link>
