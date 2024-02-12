@@ -20,6 +20,7 @@ import Web3 from "web3"
 import SensitiveInfoPanel from "@/components/sensitive-infopanel"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
 import { GenericCard, GenericCardProps } from "@/components/card"
+import Grid from "@/components/grid"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -128,9 +129,9 @@ export default function Page() {
     return (
       <Fragment>
         <h4 className="text-white">Other NFTs in my collection</h4>
-        <Row xs={1} sm={2} md={2} lg={3} xl={4}>
+        <Grid>
           {nftsToDisplay}
-        </Row>
+        </Grid>
       </Fragment>
     )
   }, [nftList])

@@ -2,7 +2,7 @@
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { Badge, Col, Container, Row } from "react-bootstrap"
+import { Badge, Col, Container } from "react-bootstrap"
 import { Fragment, useCallback, useContext } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import Suspense from "@/components/suspense"
@@ -12,6 +12,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import { GenericCard, GenericCardProps } from "@/components/card"
 import Link from "next/link"
+import Grid from "@/components/grid"
 
 export interface TokenData {
   tokenName: string
@@ -50,9 +51,9 @@ export default function Page() {
     return (
       <Suspense condition={!!swapTokenConfig?.data?.length} fallback={<h4 className="text-white">No ERC-20 Tokens to display</h4>}>
         <h4 className="text-white">Explore ERC-20 Tokens</h4>
-        <Row xs={1} sm={1} md={2} lg={3} xl={4}>
+        <Grid>
           {tokensToDisplay}
-        </Row>
+        </Grid>
       </Suspense>
     )
   }, [swapTokenConfig?.data])
