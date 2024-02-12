@@ -37,5 +37,4 @@ export const endPoints = {
   nftstudioGetContractAddress: `${apiHost}/api/products/nftstudio/getnftcontractaddress`,
   swapCreateTx: `${apiHost}/api/products/swap/createtx`,
   swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
-  getAllActivities: `${apiHost}/api/activity/getactivities`
 }
