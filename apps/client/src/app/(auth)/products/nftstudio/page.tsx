@@ -65,7 +65,7 @@ export default function Page() {
       }
 
       return (
-        <Col className="mb-4">
+        <Col key={nft.id} className="mb-3">
           <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
             <GenericCard {...nftCardProps} />
           </Link>

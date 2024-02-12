@@ -41,7 +41,7 @@ export default function Page() {
       return (
         <Col key={pricing.planName}>
           <GenericCard {...pricingCardProps} />
-        </Col >
+        </Col>
       )
     })
 

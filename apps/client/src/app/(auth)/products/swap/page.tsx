@@ -40,9 +40,9 @@ export default function Page() {
       }
 
       return (
-        <Col className="mb-3">
+        <Col key={token.tokenContractAddress} className="mb-3">
           <Link href={`/products/swap/token?tokenAddress=${token.tokenContractAddress}`}>
-            <GenericCard key={token.tokenContractAddress} {...tokenCardProps} />
+            <GenericCard {...tokenCardProps} />
           </Link>
         </Col>
       )

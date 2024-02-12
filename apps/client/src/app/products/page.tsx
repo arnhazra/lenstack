@@ -26,7 +26,7 @@ export default function Page() {
       }
 
       return (
-        <Col className="mb-3" key={product.productName}>
+        <Col key={product.productName} className="mb-3">
           <Link href={`/products/${product.productName}`}>
             <GenericCard {...productCardProps} />
           </Link>

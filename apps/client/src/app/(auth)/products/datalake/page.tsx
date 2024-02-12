@@ -60,9 +60,9 @@ export default function Page() {
       }
 
       return (
-        <Col className="mb-3">
+        <Col key={dataset._id} className="mb-3">
           <Link href={`/products/datalake/dataset?datasetId=${dataset._id}`}>
-            <GenericCard key={dataset._id} {...datasetCardProps} />
+            <GenericCard {...datasetCardProps} />
           </Link>
         </Col>
       )
