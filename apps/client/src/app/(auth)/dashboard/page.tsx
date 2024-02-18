@@ -12,17 +12,10 @@ import Error from "@/components/error"
 import { GenericCard, GenericCardProps } from "@/components/card"
 import Link from "next/link"
 import Grid from "@/components/grid"
-import { usePathname, useRouter } from "next/navigation"
 
 export default function Page() {
-  const [{ appState, userState }] = useContext(GlobalContext)
-  const router = useRouter()
-  const pathname = usePathname()
+  const [{ appState }] = useContext(GlobalContext)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
-
-  useEffect(() => {
-    router.replace(`/dashboard?workspaceId=${userState.selectedWorkspaceId}`)
-  }, [pathname, userState.selectedWorkspaceId])
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {

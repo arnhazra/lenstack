@@ -58,7 +58,7 @@ export default function Header() {
       <Suspense condition={userState.isAuthorized} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
-            <Link href={`/dashboard?workspaceId=${userState.selectedWorkspaceId}`}>
+            <Link href={`/dashboard`}>
               <Navbar.Brand>
                 <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top" />{" "}
                 {uiConstants.brandName}
