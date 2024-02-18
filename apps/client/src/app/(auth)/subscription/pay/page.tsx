@@ -173,6 +173,6 @@ export default function Page() {
           </div>
         </form>
       </Suspense>
-    </Suspense >
+    </Suspense>
   )
 }

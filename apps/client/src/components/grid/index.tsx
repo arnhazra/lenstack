@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode } from "react"
 import { Row } from "react-bootstrap"
 
 interface GridProps {

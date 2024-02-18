@@ -88,6 +88,6 @@ export default function Page() {
         </Suspense>
       </Button>
       <Link href={"/products/nftstudio"} className="lead-link">View My NFTs</Link>
-    </form >
+    </form>
   )
 }

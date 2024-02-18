@@ -94,6 +94,6 @@ export default function IdentityGuard({ onIdentitySuccess, onIdentityFailure }: 
           <p id="alert" className="mt-1 mb-1">{identityAlert}</p>
         </form>
       </Suspense>
-    </Fragment >
+    </Fragment>
   )
 }

@@ -2,7 +2,7 @@
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { Fragment, useCallback, useContext } from "react"
+import { Fragment, useCallback, useContext, useEffect } from "react"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import { Badge, Col, Container } from "react-bootstrap"
@@ -12,10 +12,17 @@ import Error from "@/components/error"
 import { GenericCard, GenericCardProps } from "@/components/card"
 import Link from "next/link"
 import Grid from "@/components/grid"
+import { usePathname, useRouter } from "next/navigation"
 
 export default function Page() {
-  const [{ appState }] = useContext(GlobalContext)
+  const [{ appState, userState }] = useContext(GlobalContext)
+  const router = useRouter()
+  const pathname = usePathname()
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
+
+  useEffect(() => {
+    router.replace(`/dashboard?workspaceId=${userState.selectedWorkspaceId}`)
+  }, [pathname, userState.selectedWorkspaceId])
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {

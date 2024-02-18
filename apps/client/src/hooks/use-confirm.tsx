@@ -45,7 +45,7 @@ export default function useConfirm() {
           <CheckCircledIcon className="icon-left" />Continue
         </Button>
       </Modal.Footer>
-    </Modal >
+    </Modal>
   )
 
   return { confirmDialog, confirm }
