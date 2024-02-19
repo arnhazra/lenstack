@@ -1,6 +1,8 @@
 # Changelog
 
 # v9.1.0
+* Regular dependency updates & bug fixes
+* Introduction of improved cache busting mechanism
 
 ### v9.0.0
 * Header rendring logic changes
