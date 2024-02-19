@@ -1,5 +1,7 @@
 # Changelog
 
+# v9.1.0
+
 ### v9.0.0
 * Header rendring logic changes
 * Regular dependency updates
