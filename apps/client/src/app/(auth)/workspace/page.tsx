@@ -6,13 +6,15 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
-import { KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CheckCircledIcon, KeyboardIcon, LockOpen1Icon, PlusCircledIcon } from "@radix-ui/react-icons"
 import axios from "axios"
-import { useContext, useState } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Fragment, useCallback, useContext, useState } from "react"
+import { Badge, Button, Col, Container } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Error from "@/components/error"
 import { usePromptContext } from "@/context/providers/prompt.provider"
+import { GenericCard, GenericCardProps } from "@/components/card"
+import Grid from "@/components/grid"
 
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
@@ -48,21 +50,46 @@ export default function Page() {
     }
   }
 
+  const displayWorkspaces = useCallback(() => {
+    const workspacesToDisplay = myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => {
+      const workspaceCardProps: GenericCardProps = {
+        header: workspace.name,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">Workspace</Badge>
+          <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={workspace.clientId} />
+          <SensitiveInfoPanel credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={workspace.clientSecret} />
+          <Button variant="primary" disabled={userState.selectedWorkspaceId === workspace._id} className="btn-block" onClick={(): Promise<void> => switchWorkspace(workspace._id)}>
+            <Suspense condition={userState.selectedWorkspaceId !== workspace._id} fallback={<>Selected Workspace<CheckCircledIcon className="icon-right" /></>}>
+              Select Workspace<ArrowRightIcon className="icon-right" />
+            </Suspense>
+          </Button>
+        </Fragment >,
+      }
+
+      return (
+        <Col key={workspace._id} className="mb-3" >
+          <GenericCard {...workspaceCardProps} />
+        </Col>
+      )
+    })
+
+    return (
+      <Fragment>
+        <h4 className="text-white">Workspace Manager</h4>
+        <Grid>
+          {workspacesToDisplay}
+        </Grid>
+      </Fragment>
+    )
+  }, [myWorkspaces?.data, userState.selectedWorkspaceId])
+
   return (
     <Suspense condition={!myWorkspaces.isLoading} fallback={<Loading />}>
       <Suspense condition={!myWorkspaces.error} fallback={<Error />}>
-        <div className="box">
-          <p className="branding">Workspace</p>
-          <Form.Group controlId="floatingSelectGrid" className="mb-4">
-            <Form.Label>Switch Workspace</Form.Label>
-            <Form.Select className="text-capitalize" size="lg" defaultValue={userState.selectedWorkspaceId} onChange={(e): void => { switchWorkspace(e.target.value) }}>
-              {myWorkspaces?.data?.myWorkspaces?.map((workspace: any) => <option className="text-capitalize" key={workspace._id} value={workspace._id}>{workspace.name}</option>)}
-            </Form.Select>
-          </Form.Group>
-          <SensitiveInfoPanel credentialIcon={<LockOpen1Icon />} credentialName="Client ID" credentialValue={userState.clientId} />
-          <SensitiveInfoPanel credentialIcon={<KeyboardIcon />} credentialName="Client Secret" credentialValue={userState.clientSecret} />
-          <Button variant="primary" onClick={createWorkspace} className="btn-block"><PlusCircledIcon className="icon-left" />Create New Workspace</Button>
-        </div>
+        <Container>
+          {displayWorkspaces()}
+          <Button onClick={createWorkspace}>Create Workspace <PlusCircledIcon className="icon-right" /></Button>
+        </Container>
       </Suspense>
     </Suspense>
   )
