@@ -26,7 +26,7 @@ export default function Page() {
     <Suspense condition={!isLoading} fallback={<Loading />}>
       <Container>
         <div className="cover">
-          <p className="display-2">
+          <p className="display-3">
             {uiConstants.homeHeader1}<br />
             {uiConstants.homeHeader2} {uiConstants.brandName}<br />
           </p>

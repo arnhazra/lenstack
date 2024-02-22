@@ -1,21 +1,27 @@
 "use client"
+import { Fragment, useCallback, useContext, useEffect } from "react"
+import { Badge, Col, Container } from "react-bootstrap"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { Fragment, useCallback, useContext, useEffect } from "react"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import { Badge, Col, Container } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
 import { GenericCard, GenericCardProps } from "@/components/card"
-import Link from "next/link"
 import Grid from "@/components/grid"
 
 export default function Page() {
-  const [{ appState }] = useContext(GlobalContext)
+  const [{ appState, userState }] = useContext(GlobalContext)
+  const router = useRouter()
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
+
+  useEffect(() => {
+    router.push(`/dashboard?workspaceId=${userState.selectedWorkspaceId}`)
+  }, [userState.selectedWorkspaceId])
 
   const displayProducts = useCallback(() => {
     const productsToDisplay = products?.data?.map((product: any) => {
