@@ -15,10 +15,12 @@ import Error from "@/components/error"
 import { usePromptContext } from "@/context/providers/prompt.provider"
 import { GenericCard, GenericCardProps } from "@/components/card"
 import Grid from "@/components/grid"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState("DQID")
+  const router = useRouter()
   const myWorkspaces = useQuery(["workspaces", queryId], endPoints.findMyWorkspaces, HTTPMethods.GET)
   const { prompt } = usePromptContext()
 
@@ -42,6 +44,7 @@ export default function Page() {
     try {
       await axios.post(`${endPoints.switchWorkspace}?workspaceId=${workspaceId}`)
       dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
+      router.push(`/dashboard?workspaceId=${userState.selectedWorkspaceId}`)
       toast.success("Workspace switched")
     }
 
