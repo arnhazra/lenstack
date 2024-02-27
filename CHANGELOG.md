@@ -1,6 +1,9 @@
 # Changelog
 
 ### v9.3.0
+* Removal of multiple workspace based subscription for a single user
+* Introduction of unified user based subscription
+* Removal of ownerId property & introduction of new userId property
 * Changes in identity passkey email template
 
 ### v9.2.0
