@@ -6,7 +6,7 @@ export const WorkspaceSchema = new Schema({
     required: true,
   },
 
-  ownerId: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "user",
     required: true
