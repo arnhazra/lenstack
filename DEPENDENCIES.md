@@ -20,10 +20,11 @@
 * react-bootstrap - React components that implement the Bootstrap design language.
 * react-dom - React package for working with the DOM.
 * react-hot-toast - Simple and customizable toast messages for React.
-* react-simple-star-rating - Rating component for React.
+* react-cache-buster - Cache busting for React.
 * sass - CSS preprocessor that adds power and elegance to traditional CSS.
 * typescript - Typed superset of JavaScript that compiles to plain JavaScript and helps maintaining type safe code.
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
 * react-json-view-lite - Simple JSON View library for React JS.
 * rxjs - Reactive Extensions Library for JavaScript.
 * class-validator - Validation Library.
+* @google/generative-ai - Gen AI library.
