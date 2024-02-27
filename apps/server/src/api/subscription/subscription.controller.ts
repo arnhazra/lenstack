@@ -10,7 +10,7 @@ export class SubscriptionController {
   @Get("activatehobby")
   async activateHobby(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
-      return this.subscriptionService.activateHobby(uft.userId, uft.workspaceId)
+      return this.subscriptionService.activateHobby(uft.userId)
     }
 
     catch (error) {
@@ -21,7 +21,7 @@ export class SubscriptionController {
   @Post("subscribe")
   async subscribe(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() subscribeDto: SubscribeDto) {
     try {
-      return this.subscriptionService.subscribe(uft.userId, uft.workspaceId, subscribeDto)
+      return this.subscriptionService.subscribe(uft.userId, subscribeDto)
     }
 
     catch (error) {
