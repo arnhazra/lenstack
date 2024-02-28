@@ -1,5 +1,8 @@
 # Changelog
 
+### v9.3.1
+* Minor bug fixes & performance improvements
+
 ### v9.3.0
 * Removal of multiple workspace based subscription for a single user
 * Introduction of unified user based subscription
