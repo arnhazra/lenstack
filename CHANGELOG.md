@@ -1,5 +1,7 @@
 # Changelog
 
+### v10.0.0
+
 ### v9.3.1
 * Minor bug fixes & performance improvements
 
