@@ -11,7 +11,7 @@ import { statusMessages } from "src/constants/status-messages"
 import { findWorkspaceByIdQuery } from "../workspace/queries/find-workspace-by-id.query"
 import { createWorkspaceCommand } from "../workspace/commands/create-workspace.command"
 import { findMyWorkspacesQuery } from "../workspace/queries/find-workspaces.query"
-import { findSubscriptionByWorkspaceIdQuery } from "../subscription/queries/find-subscription"
+import { findSubscriptionByUserIdQuery } from "../subscription/queries/find-subscription"
 import { findUserByEmailQuery } from "./queries/find-user-by-email"
 import { updateSelectedWorkspaceCommand } from "./commands/update-selected-workspace.command"
 import { createUserCommand } from "./commands/create-user.command"
@@ -98,7 +98,7 @@ export class UserService {
 
       if (user) {
         const workspace = await findWorkspaceByIdQuery(workspaceId)
-        const subscription = await findSubscriptionByWorkspaceIdQuery(workspaceId)
+        const subscription = await findSubscriptionByUserIdQuery(user.id)
         let hasActiveSubscription = false
 
         if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {

@@ -70,7 +70,8 @@ export default function Header() {
             <Navbar.Collapse>
               <Nav className="mr-auto">
                 <Nav.Item><Link href="/workspace">Workspace</Link></Nav.Item>
-                <Nav.Item><Link href="/subscription">Subscription</Link></Nav.Item>
+                <Nav.Item><Link href="/subscription/usage">Usage</Link></Nav.Item>
+                <Nav.Item><Link href="/subscription/plans">Plans</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.mumbaiFaucetUri}>Fund Wallet<ExternalLinkIcon className="icon-right" /></Link></Nav.Item>
                 <Nav.Item className="btn-user-link"><Link href="/account">Account</Link></Nav.Item>
               </Nav>
