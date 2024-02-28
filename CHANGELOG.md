@@ -1,6 +1,7 @@
 # Changelog
 
 ### v10.0.0
+* Added type safety for dispatcher in context
 
 ### v9.3.1
 * Minor bug fixes & performance improvements

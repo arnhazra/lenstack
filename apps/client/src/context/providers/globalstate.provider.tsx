@@ -2,8 +2,7 @@
 import { ReactNode, createContext, useCallback, useMemo, useReducer } from "react"
 import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState, AppState } from "../reducers/globalstate.reducer"
 
-export type Dispatcher = <Type extends Actions["type"], Payload extends ActionsMap[Type]>(type: Type,
-  ...payload: Payload extends undefined ? [undefined?] : [Payload]) => void
+export type Dispatcher = <Type extends keyof ActionsMap>(type: Type, payload: ActionsMap[Type]) => void
 
 type GlobalContextInterface = readonly [GlobalState, Dispatcher]
 
