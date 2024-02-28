@@ -16,10 +16,10 @@ export class SubscriptionService {
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
 
-  async activateHobby(userId: string, workspaceId: string) {
+  async activateHobby(userId: string) {
     try {
       const selectedPlan = SubscriptionPlans.Hobby
-      await createNewSubscriptionCommand(workspaceId, selectedPlan)
+      await createNewSubscriptionCommand(userId, selectedPlan)
       return { success: true }
     }
 
@@ -28,7 +28,7 @@ export class SubscriptionService {
     }
   }
 
-  async subscribe(userId: string, workspaceId: string, subscribeDto: SubscribeDto) {
+  async subscribe(userId: string, subscribeDto: SubscribeDto) {
     try {
       const { selectedPlan, transactionHash } = subscribeDto
       const { privateKey } = await findUserByIdQuery(userId)
@@ -47,8 +47,8 @@ export class SubscriptionService {
         }
 
         else {
-          await deleteSubscriptionCommand(workspaceId)
-          await createNewSubscriptionCommand(workspaceId, selectedPlan)
+          await deleteSubscriptionCommand(userId)
+          await createNewSubscriptionCommand(userId, selectedPlan)
           return { success: true }
         }
       }

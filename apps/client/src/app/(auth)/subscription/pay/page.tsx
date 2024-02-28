@@ -49,7 +49,7 @@ export default function Page() {
 
     finally {
       router.refresh()
-      router.push("/subscription")
+      router.push("/subscription/usage")
     }
   }
 
@@ -114,7 +114,7 @@ export default function Page() {
     finally {
       setTxProcessing(false)
       router.refresh()
-      router.push("/subscription")
+      router.push("/subscription/usage")
     }
   }
 

@@ -23,7 +23,6 @@ export default function Page() {
         <div className="box">
           <p className="branding">Subscribe & Usage</p>
           <p className="muted-text mb-4">Subscribe & Track your API Credentials usage from here</p>
-          <InfoPanel infoIcon={<StackIcon />} infoName="Workspace" infoValue={userState.selectedWorkspaceName} />
           <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.hasActiveSubscription ? userState.selectedPlan.charAt(0).toUpperCase() + userState.selectedPlan.slice(1) : "No Active Subscription"} />
           <InfoPanel infoIcon={<CalendarIcon />} infoName="Validity" infoValue={userState.hasActiveSubscription ? `Valid upto ${format(new Date(userState.expiresAt), "MMM, do yyyy")}` : "No Validity Data"} />
           <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />

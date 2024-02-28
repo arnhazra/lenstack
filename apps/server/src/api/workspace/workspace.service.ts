@@ -13,7 +13,7 @@ export class WorkspaceService {
     try {
       const { name } = createWorkspaceDto
       const workspaceCount = (await findMyWorkspacesQuery(userId)).length
-      if (workspaceCount < 3) {
+      if (workspaceCount < 10) {
         const workspace = await createWorkspaceCommand(name, userId)
         return workspace
       }
@@ -39,12 +39,12 @@ export class WorkspaceService {
     }
   }
 
-  async switchWorkspace(userId: string, workspaceId: string) {
+  async switchWorkspace(reqUserId: string, workspaceId: string) {
     try {
-      const { ownerId } = await findWorkspaceByIdQuery(workspaceId)
+      const { userId } = await findWorkspaceByIdQuery(workspaceId)
 
-      if (ownerId.toString() === userId) {
-        await switchWorkspaceCommand(userId, workspaceId)
+      if (userId.toString() === reqUserId) {
+        await switchWorkspaceCommand(reqUserId, workspaceId)
         return { success: true }
       }
 

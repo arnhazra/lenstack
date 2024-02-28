@@ -1,9 +1,9 @@
 import { Schema } from "mongoose"
 
 export const SubscriptionSchema = new Schema({
-  workspaceId: {
+  userId: {
     type: Schema.Types.ObjectId,
-    ref: "workspace",
+    ref: "user",
     required: true,
     unique: true
   },

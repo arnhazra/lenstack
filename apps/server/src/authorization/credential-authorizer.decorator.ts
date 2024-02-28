@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
-import { findSubscriptionByWorkspaceIdQuery } from "src/api/subscription/queries/find-subscription"
+import { findSubscriptionByUserIdQuery } from "src/api/subscription/queries/find-subscription"
 import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential"
 import { apiPricing, SubscriptionPlans } from "src/api/subscription/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
@@ -26,10 +26,10 @@ export const CredentialAuthorizer = createParamDecorator(
         const workspace = await findWorkspaceByCredentialQuery(clientId, clientSecret)
 
         if (workspace) {
-          const subscription = await findSubscriptionByWorkspaceIdQuery(workspace.id)
+          const subscription = await findSubscriptionByUserIdQuery(workspace.userId.toString())
 
           if (subscription) {
-            const userId = workspace.ownerId.toString()
+            const userId = workspace.userId.toString()
             const workspaceId = workspace.id.toString()
             const currentDate = new Date()
             const expiryDate = subscription.expiresAt
