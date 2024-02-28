@@ -98,7 +98,7 @@ export class UserService {
 
       if (user) {
         const workspace = await findWorkspaceByIdQuery(workspaceId)
-        const subscription = await findSubscriptionByUserIdQuery(user.id)
+        const subscription = await findSubscriptionByUserIdQuery(userId)
         let hasActiveSubscription = false
 
         if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {
