@@ -4,11 +4,12 @@
 * Migrated entire backend to DDD with CQRS pattern
 * Added type safety for dispatcher in context
 * Deprecation of Insights 
-* Introduction of Analytics with new CQRS architecture
+* Introduction of Analytics
 * Deprecation of Datalake 
-* Introduction of Data Exchange with new CQRS architecture
+* Introduction of Data Exchange
 * Deprecation of Fabric 
-* Introduction of KV Store with new CQRS architecture
+* Introduction of KV Store
+* Minor bug fixes & performance improvements
 
 ### v9.3.1
 * Minor bug fixes & performance improvements
