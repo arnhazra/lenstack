@@ -4,7 +4,7 @@ import { envConfig } from "../env.config"
 export const platformMongoDbConn: Connection = mongoose.createConnection(envConfig.platformDbURI)
 export const analyticsMongoDbConn: Connection = mongoose.createConnection(envConfig.analyticsDbURI)
 export const copilotMongoDbConn: Connection = mongoose.createConnection(envConfig.copilotDbURI)
-export const datalakeMongoDbConn: Connection = mongoose.createConnection(envConfig.datalakeDbURI)
+export const dataexchangeMongoDbConn: Connection = mongoose.createConnection(envConfig.dataexchangeDbURI)
 export const walletMongoDbConn: Connection = mongoose.createConnection(envConfig.walletDbURI)
 export const nftstudioMongoDbConn: Connection = mongoose.createConnection(envConfig.nftstudioDbURI)
 export const swapMongoDbConn: Connection = mongoose.createConnection(envConfig.swapDbURI)
@@ -26,9 +26,9 @@ async function copilotDbConnect(): Promise<void> {
   copilotMongoDbConn.on("error", () => console.log("Copilot DB Not Connected"))
 }
 
-async function datalakeDbConnect(): Promise<void> {
-  datalakeMongoDbConn.on("connected", () => console.log("Datalake DB Connected"))
-  datalakeMongoDbConn.on("error", () => console.log("Datalake DB Not Connected"))
+async function dataexchangeDbConnect(): Promise<void> {
+  dataexchangeMongoDbConn.on("connected", () => console.log("Data Exchange DB Connected"))
+  dataexchangeMongoDbConn.on("error", () => console.log("Data Exchange DB Not Connected"))
 }
 
 async function walletDbConnect(): Promise<void> {
@@ -60,7 +60,7 @@ export async function dbConnect(): Promise<void> {
   platformDbConnect()
   analyticsDbConnect()
   copilotDbConnect()
-  datalakeDbConnect()
+  dataexchangeDbConnect()
   walletDbConnect()
   nftstudioDbConnect()
   swapDbConnect()

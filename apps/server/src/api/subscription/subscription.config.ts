@@ -47,7 +47,7 @@ export const subscriptionConfig: CreditType[] = [
 export const apiPricing: Record<string, number> = {
   analytics: 2,
   copilot: 5,
-  datalake: 2,
+  dataexchange: 2,
   fabric: 2,
   wallet: 5,
   ledgerscan: 2,

@@ -25,10 +25,10 @@ export interface DatasetRequestState {
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useQuery(["filters"], endPoints.datalakeFilters, HTTPMethods.GET)
-  const datasets = useQuery(["datasets"], endPoints.datalakeFindDatasets, HTTPMethods.POST, { searchQuery: appState.globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=datalake`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "datalake")
+  const filters = useQuery(["filters"], endPoints.dataexchangeFilters, HTTPMethods.GET)
+  const datasets = useQuery(["datasets"], endPoints.dataexchangeFindDatasets, HTTPMethods.POST, { searchQuery: appState.globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=dataexchange`, HTTPMethods.GET)
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "dataexchange")
   const [sortOptions] = useState([
     { value: "name", label: "Name Ascending" },
     { value: "-name", label: "Name Descending" },
@@ -61,7 +61,7 @@ export default function Page() {
 
       return (
         <Col key={dataset._id} className="mb-3">
-          <Link href={`/products/datalake/dataset?datasetId=${dataset._id}`}>
+          <Link href={`/products/dataexchange/dataset?datasetId=${dataset._id}`}>
             <GenericCard {...datasetCardProps} />
           </Link>
         </Col>

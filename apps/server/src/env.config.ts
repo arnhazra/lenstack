@@ -7,7 +7,7 @@ export const envConfig = {
   platformDbURI: process.env.PLATFORM_DB_URI,
   analyticsDbURI: process.env.ANALYTICS_DB_URI,
   copilotDbURI: process.env.COPILOT_DB_URI,
-  datalakeDbURI: process.env.DATALAKE_DB_URI,
+  dataexchangeDbURI: process.env.DATAEXCHANGE_DB_URI,
   fabricDbURI: process.env.FABRIC_DB_URI,
   ledgerscanDbURI: process.env.LEDGERSCAN_DB_URI,
   nftstudioDbURI: process.env.NFTSTUDIO_DB_URI,

@@ -1,14 +1,15 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { DatalakeRepository } from "./datalake.repository"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
+import { findDistinctCategories } from "./queries/find-categories.query"
+import { findDatasetDataById } from "./queries/find-data.query"
+import { findDatasets } from "./queries/find-datasets.query"
+import { findDatasetMetadataById } from "./queries/find-metadata.query"
 
 @Injectable()
-export class DatalakeService {
-  constructor(private readonly datalakeRepository: DatalakeRepository) { }
-
+export class DataexchangeService {
   async getDatasetFilters() {
     try {
-      const filterCategories = await this.datalakeRepository.findDistinctCategories()
+      const filterCategories = await findDistinctCategories()
       return filterCategories
     }
 
@@ -24,7 +25,7 @@ export class DatalakeService {
       const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
       const offset = findDatasetsDto.offset || 0
       const limit = 24
-      const datasets = await this.datalakeRepository.findDatasets(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
+      const datasets = await findDatasets(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
       return datasets
     }
 
@@ -35,7 +36,7 @@ export class DatalakeService {
 
   async viewDataset(datasetId: string) {
     try {
-      const dataset = await this.datalakeRepository.findDatasetMetadataById(datasetId)
+      const dataset = await findDatasetMetadataById(datasetId)
       return dataset
     }
 
@@ -46,9 +47,9 @@ export class DatalakeService {
 
   async findSimilarDatasets(datasetId: string) {
     try {
-      const dataset = await this.datalakeRepository.findDatasetMetadataById(datasetId)
+      const dataset = await findDatasetMetadataById(datasetId)
       const datasetCategory = dataset.category
-      const similarDatasets = await this.datalakeRepository.findDatasets("", datasetCategory, "name", 0, 24)
+      const similarDatasets = await findDatasets("", datasetCategory, "name", 0, 24)
       return similarDatasets
     }
 
@@ -59,7 +60,7 @@ export class DatalakeService {
 
   async getData(datasetId: string) {
     try {
-      const data = await this.datalakeRepository.findDatasetDataById(datasetId)
+      const data = await findDatasetDataById(datasetId)
       return data
     }
 

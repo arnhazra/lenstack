@@ -18,8 +18,8 @@ import Link from "next/link"
 export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
-  const dataset = useQuery(["dataset"], `${endPoints.datalakeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
-  const similarDatasets = useQuery(["similardatasets"], `${endPoints.datalakeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const dataset = useQuery(["dataset"], `${endPoints.dataexchangeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const similarDatasets = useQuery(["similardatasets"], `${endPoints.dataexchangeFindSimilarDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
 
   const displaySimilarDatasets = useCallback(() => {
     const similarDatasetsToDisplay = similarDatasets?.data?.similarDatasets?.map((dataset: any) => {
@@ -33,7 +33,7 @@ export default function Page() {
 
       return (
         <Col key={dataset._id} className="mb-3">
-          <Link href={`/products/datalake/dataset?datasetId=${dataset._id}`}>
+          <Link href={`/products/dataexchange/dataset?datasetId=${dataset._id}`}>
             <GenericCard {...datasetCardProps} />
           </Link>
         </Col>

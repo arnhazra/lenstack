@@ -9,7 +9,7 @@ A lightweight analytics provider for web applications. It empowers you to make i
 #### Copilot
 An application that seamlessly integrates with Google Gemini large language models developed by Google DeepMind.
 
-#### Datalake
+#### Data Exchange
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
 
 #### Fabric
