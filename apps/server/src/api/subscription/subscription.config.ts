@@ -45,10 +45,10 @@ export const subscriptionConfig: CreditType[] = [
 ]
 
 export const apiPricing: Record<string, number> = {
+  analytics: 2,
   copilot: 5,
   datalake: 2,
   fabric: 2,
-  insights: 2,
   wallet: 5,
   ledgerscan: 2,
   nftstudio: 50,

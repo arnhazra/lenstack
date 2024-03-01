@@ -22,10 +22,8 @@ export default function Header() {
   const router = useRouter()
 
   const searchEnabledPathNames = [
-    "/dashboard", "/products/datalake", "/products/insights",
-    "/products/fabric", "/products/nftstudio", "/products/swap",
-    "/dashboard/", "/products/datalake/", "/products/insights/",
-    "/products/fabric/", "/products/nftstudio/", "/products/swap/"
+    "/dashboard", "/products/datalake", "/products/nftstudio", "/products/swap",
+    "/dashboard/", "/products/datalake/", "/products/nftstudio/", "/products/swap/"
   ]
 
   useEffect(() => {

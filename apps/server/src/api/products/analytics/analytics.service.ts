@@ -1,14 +1,13 @@
 import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
-import { InsightsRepository } from "./insights.repository"
+import { createAnalyticsCommand } from "./commands/create-analytics.command"
+import { getAnalyticsByWorkspaceIdQuery } from "./queries/get-analytics.query"
 
 @Injectable()
-export class InsightsService {
-  constructor(private readonly insightsRepository: InsightsRepository) { }
-
+export class AnalyticsService {
   async getAnalytics(workspaceId: string) {
     try {
-      const analytics = await this.insightsRepository.findAnalyticsByWorkspaceId(workspaceId)
+      const analytics = await getAnalyticsByWorkspaceIdQuery(workspaceId)
       return { analytics }
     }
 
@@ -19,8 +18,7 @@ export class InsightsService {
 
   async createAnalytics(workspaceId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      const { component, event, info, statusCode } = createAnalyticsDto
-      await this.insightsRepository.createAnalytics(workspaceId, component, event, info, statusCode)
+      await createAnalyticsCommand(workspaceId, createAnalyticsDto)
       return { success: true }
     }
 

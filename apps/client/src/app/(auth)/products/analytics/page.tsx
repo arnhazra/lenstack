@@ -14,9 +14,9 @@ import Error from "@/components/error"
 import { format } from "date-fns"
 
 export default function Page() {
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=insights`, HTTPMethods.GET)
-  const analytics = useQuery(["analytics"], endPoints.insightsViewAnalytics, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=analytics`, HTTPMethods.GET)
+  const analytics = useQuery(["analytics"], endPoints.analyticsView, HTTPMethods.GET)
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "analytics")
 
   const displayAnalytics = useCallback(() => {
     const analyticsToDisplay = analytics?.data?.analytics?.map((ant: any) => {
