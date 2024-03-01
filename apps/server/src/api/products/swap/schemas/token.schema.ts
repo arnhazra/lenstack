@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
-import { swapMongoDbConn } from "../../../../lib/db-connect"
 
-const TokenSchema = new mongoose.Schema({
+export const TokenSchema = new mongoose.Schema({
   tokenName: {
     type: String,
     required: true
@@ -32,5 +31,3 @@ const TokenSchema = new mongoose.Schema({
     required: true
   },
 }, { versionKey: false })
-
-export const TokenModel = swapMongoDbConn.model("token", TokenSchema)

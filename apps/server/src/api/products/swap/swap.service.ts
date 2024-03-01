@@ -1,14 +1,13 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { statusMessages } from "src/constants/status-messages"
-import { SwapRepository } from "./swap.repository"
+import { getTokens } from "./queries/get-tokens.query"
+import { createTransaction } from "./commands/create-tx.command"
 
 @Injectable()
 export class SwapService {
-  constructor(private readonly swapRepository: SwapRepository) { }
-
   async getSwapTokenList(searchQuery: string) {
     try {
-      const swapTokenConfig = await this.swapRepository.getTokens(searchQuery)
+      const swapTokenConfig = await getTokens(searchQuery)
       return swapTokenConfig
     }
 
@@ -19,7 +18,7 @@ export class SwapService {
 
   async createTransaction(workspaceId: string) {
     try {
-      const transaction = await this.swapRepository.createTransaction(workspaceId)
+      const transaction = await createTransaction(workspaceId)
       return transaction
     }
 
