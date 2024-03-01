@@ -1,15 +1,17 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { NftstudioRepository } from "./nftstudio.repository"
 import { envConfig } from "src/env.config"
 import { statusMessages } from "src/constants/status-messages"
+import { createTransaction } from "./commands/create-tx.command"
+import { lastValueFrom } from "rxjs"
+import { HttpService } from "@nestjs/axios"
 
 @Injectable()
 export class NftstudioService {
-  constructor(private readonly nftstudioRepository: NftstudioRepository) { }
+  constructor(private readonly httpService: HttpService) { }
 
   async createTransaction(workspaceId: string) {
     try {
-      await this.nftstudioRepository.createTransaction(workspaceId)
+      await createTransaction(workspaceId)
       return { success: true }
     }
 
@@ -26,6 +28,17 @@ export class NftstudioService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async transactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.getblockGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
     }
   }
 }

@@ -25,8 +25,8 @@ export type GlobalState = {
 }
 
 export type ActionsMap = {
-  setUserState: { [key: string]: string | boolean }
-  setAppState: { [key: string]: string | boolean }
+  setUserState: Partial<UserState>
+  setAppState: Partial<AppState>
 }
 
 export type Actions = {

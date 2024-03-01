@@ -1,4 +1,4 @@
-import { Controller, Post, BadRequestException, Get } from "@nestjs/common"
+import { Controller, Post, BadRequestException, Get, Body } from "@nestjs/common"
 import { NftstudioService } from "./nftstudio.service"
 import { statusMessages } from "../../../constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -27,6 +27,18 @@ export class NftstudioController {
 
     catch (error) {
       throw error
+    }
+  }
+
+  @Post("txgateway")
+  async transactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.nftstudioService.transactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
     }
   }
 }

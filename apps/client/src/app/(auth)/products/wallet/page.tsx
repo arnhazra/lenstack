@@ -19,7 +19,7 @@ import Web3 from "web3"
 export default function Page() {
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=wallet`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "wallet")
-  const web3Provider = new Web3(endPoints.infuraTransactionGateway)
+  const web3Provider = new Web3(endPoints.walletTxGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [matic, setMatic] = useState(0)
   const [receiverAddress, setReceiverAddress] = useState("")

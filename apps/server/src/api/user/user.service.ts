@@ -16,15 +16,17 @@ import { findUserByEmailQuery } from "./queries/find-user-by-email"
 import { updateSelectedWorkspaceCommand } from "./commands/update-selected-workspace.command"
 import { createUserCommand } from "./commands/create-user.command"
 import { findUserByIdQuery } from "./queries/find-user-by-id"
+import { lastValueFrom } from "rxjs"
+import { HttpService } from "@nestjs/axios"
 
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
   private readonly web3Provider: Web3
 
-  constructor() {
+  constructor(private readonly httpService: HttpService) {
     this.authPrivateKey = envConfig.authPrivateKey
-    this.web3Provider = new Web3(envConfig.infuraGateway)
+    this.web3Provider = new Web3(envConfig.alchemyGateway)
   }
 
   async generateIdentityPasskey(generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {
@@ -125,6 +127,18 @@ export class UserService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async transactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      console.log(error)
+      throw new BadRequestException()
     }
   }
 }

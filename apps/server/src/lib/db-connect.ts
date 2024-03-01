@@ -1,14 +1,14 @@
 import mongoose, { Connection } from "mongoose"
 import { envConfig } from "../env.config"
 
-export const platformMongoDbConn: Connection = mongoose.createConnection(envConfig.platformDbUri)
+export const platformMongoDbConn: Connection = mongoose.createConnection(envConfig.platformDbURI)
+export const analyticsMongoDbConn: Connection = mongoose.createConnection(envConfig.analyticsDbURI)
 export const copilotMongoDbConn: Connection = mongoose.createConnection(envConfig.copilotDbURI)
-export const datalakeMongoDbConn: Connection = mongoose.createConnection(envConfig.datalakeDbURI)
+export const dataexchangeMongoDbConn: Connection = mongoose.createConnection(envConfig.dataexchangeDbURI)
 export const walletMongoDbConn: Connection = mongoose.createConnection(envConfig.walletDbURI)
-export const insightsMongoDbConn: Connection = mongoose.createConnection(envConfig.insightsDbURI)
 export const nftstudioMongoDbConn: Connection = mongoose.createConnection(envConfig.nftstudioDbURI)
 export const swapMongoDbConn: Connection = mongoose.createConnection(envConfig.swapDbURI)
-export const fabricMongoDbConn = mongoose.createConnection(envConfig.fabricDbURI)
+export const kvstoreMongoDbConn = mongoose.createConnection(envConfig.kvstoreDbURI)
 export const ledgerscanMongoDbConn: Connection = mongoose.createConnection(envConfig.ledgerscanDbURI)
 
 async function platformDbConnect(): Promise<void> {
@@ -16,24 +16,24 @@ async function platformDbConnect(): Promise<void> {
   platformMongoDbConn.on("error", () => console.log("Platform DB Not Connected"))
 }
 
+async function analyticsDbConnect(): Promise<void> {
+  analyticsMongoDbConn.on("connected", () => console.log("Analytics DB Connected"))
+  analyticsMongoDbConn.on("error", () => console.log("Analytics DB Not Connected"))
+}
+
 async function copilotDbConnect(): Promise<void> {
   copilotMongoDbConn.on("connected", () => console.log("Copilot DB Connected"))
   copilotMongoDbConn.on("error", () => console.log("Copilot DB Not Connected"))
 }
 
-async function datalakeDbConnect(): Promise<void> {
-  datalakeMongoDbConn.on("connected", () => console.log("Datalake DB Connected"))
-  datalakeMongoDbConn.on("error", () => console.log("Datalake DB Not Connected"))
+async function dataexchangeDbConnect(): Promise<void> {
+  dataexchangeMongoDbConn.on("connected", () => console.log("Data Exchange DB Connected"))
+  dataexchangeMongoDbConn.on("error", () => console.log("Data Exchange DB Not Connected"))
 }
 
 async function walletDbConnect(): Promise<void> {
   walletMongoDbConn.on("connected", () => console.log("Wallet DB Connected"))
   walletMongoDbConn.on("error", () => console.log("Wallet DB Not Connected"))
-}
-
-async function insightsDbConnect(): Promise<void> {
-  insightsMongoDbConn.on("connected", () => console.log("Insights DB Connected"))
-  insightsMongoDbConn.on("error", () => console.log("Insights DB Not Connected"))
 }
 
 async function nftstudioDbConnect(): Promise<void> {
@@ -46,9 +46,9 @@ async function swapDbConnect(): Promise<void> {
   swapMongoDbConn.on("error", () => console.log("Swap DB Not Connected"))
 }
 
-async function fabricDbConnect(): Promise<void> {
-  fabricMongoDbConn.on("connected", () => console.log("Fabric DB Connected"))
-  fabricMongoDbConn.on("error", () => console.log("Fabric DB Not Connected"))
+async function kvstoreDbConnect(): Promise<void> {
+  kvstoreMongoDbConn.on("connected", () => console.log("KV Store DB Connected"))
+  kvstoreMongoDbConn.on("error", () => console.log("KV Store DB Not Connected"))
 }
 
 async function ledgerscanDbConnect(): Promise<void> {
@@ -58,12 +58,12 @@ async function ledgerscanDbConnect(): Promise<void> {
 
 export async function dbConnect(): Promise<void> {
   platformDbConnect()
+  analyticsDbConnect()
   copilotDbConnect()
-  datalakeDbConnect()
+  dataexchangeDbConnect()
   walletDbConnect()
-  insightsDbConnect()
   nftstudioDbConnect()
   swapDbConnect()
-  fabricDbConnect()
+  kvstoreDbConnect()
   ledgerscanDbConnect()
 }

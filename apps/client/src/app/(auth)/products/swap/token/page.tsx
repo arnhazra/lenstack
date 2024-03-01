@@ -37,7 +37,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const tokenAddress = searchParams.get("tokenAddress")
   const swapTokenConfig = useQuery(["swaptokenconfig"], `${endPoints.swapTokenConfig}?searchQuery=`, HTTPMethods.GET)
-  const web3Provider = new Web3(endPoints.infuraTransactionGateway)
+  const web3Provider = new Web3(endPoints.swapTxGateway)
   const selectedToken: TokenData = swapTokenConfig?.data?.find((token: TokenData) => token.tokenContractAddress === tokenAddress)
   const [isTxProcessing, setTxProcessing] = useState(false)
   const [balance, setBalance] = useState(0)

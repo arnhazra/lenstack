@@ -1,15 +1,15 @@
 import { Module } from "@nestjs/common"
-import { DatalakeModule } from "./datalake/datalake.module"
-import { InsightsModule } from "./insights/insights.module"
+import { DataexchangeModule } from "./dataexchange/dataexchange.module"
 import { SwapModule } from "./swap/swap.module"
 import { WalletModule } from "./wallet/wallet.module"
 import { NftstudioModule } from "./nftstudio/nftstudio.module"
-import { FabricModule } from "./fabric/fabric.module"
+import { KvstoreModule } from "./kvstore/kvstore.module"
 import { LedgerscanModule } from "./ledgerscan/ledgerscan.module"
 import { CopilotModule } from "./copilot/copilot.module"
+import { AnalyticsModule } from './analytics/analytics.module'
 
 @Module({
-  imports: [DatalakeModule, InsightsModule, SwapModule, WalletModule, NftstudioModule, FabricModule, LedgerscanModule, CopilotModule],
+  imports: [DataexchangeModule, SwapModule, WalletModule, NftstudioModule, KvstoreModule, LedgerscanModule, CopilotModule, AnalyticsModule],
 })
 
 export class ProductsModule { }

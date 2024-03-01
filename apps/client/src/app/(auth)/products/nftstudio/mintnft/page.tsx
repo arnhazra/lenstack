@@ -17,7 +17,7 @@ import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
-  const web3Provider = new Web3(endPoints.infuraTransactionGateway)
+  const web3Provider = new Web3(endPoints.nftstudioTxGateway)
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })

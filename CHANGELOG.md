@@ -1,11 +1,24 @@
 # Changelog
 
+### v10.0.0
+* Migrated entire backend to DDD with CQRS pattern
+* Added type safety for dispatcher in context
+* Deprecation of Insights 
+* Introduction of Analytics
+* Deprecation of Datalake 
+* Introduction of Data Exchange
+* Deprecation of Fabric 
+* Introduction of KV Store
+* Minor bug fixes & performance improvements
+* Deprecated generic transaction gateways
+* Introduction of module specific gateways with load distribution
+
 ### v9.3.1
 * Minor bug fixes & performance improvements
 
 ### v9.3.0
 * Removal of multiple workspace based subscription for a single user
-* Introduction of unified user based subscription
+* Introduction of unified user subscription
 * Removal of ownerId property & introduction of new userId property
 * Changes in identity passkey email template
 

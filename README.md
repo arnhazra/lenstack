@@ -3,14 +3,17 @@ This Software-as-a-Service (SaaS) platform offers an extensive array of applicat
 
 Within this comprehensive SaaS application, users gain access to a multitude of functionalities. These may include but are not limited to project management tools for efficient task organization, customer relationship management (CRM) systems for fostering client connections, robust analytics platforms aiding data-driven decision-making, collaborative communication channels for seamless teamwork, and scalable infrastructure services ensuring reliable performance.
 
-#### Datalake
+#### Analytics
+A lightweight analytics provider for web applications. It empowers you to make informed analysis and better decisions.
+
+#### Copilot
+An application that seamlessly integrates with Google Gemini large language models developed by Google DeepMind.
+
+#### Data Exchange
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
 
-#### Fabric
+#### KV Store
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
-
-#### Insights
-An analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 
 #### Ledgerscan
 Ledgerscan is designed to gather & analyze data from blockchain ledger, including balances, transactions & blocks.
