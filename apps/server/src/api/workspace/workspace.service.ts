@@ -8,7 +8,6 @@ import { switchWorkspaceCommand } from "./commands/switch-workspace.command"
 
 @Injectable()
 export class WorkspaceService {
-
   async createWorkspace(userId: string, createWorkspaceDto: CreateWorkspaceDto) {
     try {
       const { name } = createWorkspaceDto
