@@ -1,5 +1,5 @@
 import { createHmac } from "crypto"
-import { sendEmail } from "./send-email"
+import { sendEmail } from "../events/send-email"
 import { envConfig } from "src/env.config"
 const { passkeyHashingKey } = envConfig
 
