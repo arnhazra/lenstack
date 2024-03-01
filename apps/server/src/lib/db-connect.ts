@@ -47,8 +47,8 @@ async function swapDbConnect(): Promise<void> {
 }
 
 async function kvstoreDbConnect(): Promise<void> {
-  kvstoreMongoDbConn.on("connected", () => console.log("Kv Store DB Connected"))
-  kvstoreMongoDbConn.on("error", () => console.log("Kv Store DB Not Connected"))
+  kvstoreMongoDbConn.on("connected", () => console.log("KV Store DB Connected"))
+  kvstoreMongoDbConn.on("error", () => console.log("KV Store DB Not Connected"))
 }
 
 async function ledgerscanDbConnect(): Promise<void> {
