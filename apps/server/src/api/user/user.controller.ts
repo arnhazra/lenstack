@@ -70,4 +70,16 @@ export class UserController {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
+
+  @Post("txgateway")
+  async transactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.userService.transactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
 }

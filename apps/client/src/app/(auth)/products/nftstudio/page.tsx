@@ -5,7 +5,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
 import { Fragment, useCallback, useContext, useEffect, useState } from "react"
-import { Badge, Col, Container, Row } from "react-bootstrap"
+import { Badge, Col, Container } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { nftABI } from "@/bin/nft-abi"
@@ -22,7 +22,7 @@ import Grid from "@/components/grid"
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=nftstudio`, HTTPMethods.GET)
-  const web3Provider = new Web3(endPoints.infuraTransactionGateway)
+  const web3Provider = new Web3(endPoints.nftstudioTxGateway)
   const [{ userState, appState }] = useContext(GlobalContext)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)

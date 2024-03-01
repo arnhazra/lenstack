@@ -15,7 +15,7 @@ import InfoPanel from "@/components/infopanel/infopanel"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const web3Provider = new Web3(endPoints.infuraTransactionGateway)
+  const web3Provider = new Web3(endPoints.userTxGateway)
   const [walletLoading, setWalletLoading] = useState<boolean>(true)
   const [accountAddress, setAccountAddress] = useState<string>("")
   const [maticBalance, setMaticBalance] = useState<string>("0")

@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Post, Get, Query } from "@nestjs/common"
+import { BadRequestException, Controller, Post, Get, Query, Body } from "@nestjs/common"
 import { SwapService } from "./swap.service"
 import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -29,6 +29,18 @@ export class SwapController {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @Post("txgateway")
+  async transactionGateway(@Body() requestBody: any) {
+    try {
+      const response = await this.swapService.transactionGateway(requestBody)
+      return response
+    }
+
+    catch (error) {
+      throw new BadRequestException()
     }
   }
 }

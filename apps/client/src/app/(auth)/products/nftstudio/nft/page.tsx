@@ -27,7 +27,7 @@ export default function Page() {
   const router = useRouter()
   const nftId = searchParams.get("nftId")
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
-  const web3Provider = new Web3(endPoints.infuraTransactionGateway)
+  const web3Provider = new Web3(endPoints.nftstudioTxGateway)
   const [{ userState }] = useContext(GlobalContext)
   const [selectedNft, setSelectedNft] = useState<any>()
   const [nftList, setNFTList] = useState([])

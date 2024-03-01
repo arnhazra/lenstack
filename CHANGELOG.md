@@ -10,6 +10,8 @@
 * Deprecation of Fabric 
 * Introduction of KV Store
 * Minor bug fixes & performance improvements
+* Deprecated generic transaction gateways
+* Introduction of module specific gateways with load distribution
 
 ### v9.3.1
 * Minor bug fixes & performance improvements

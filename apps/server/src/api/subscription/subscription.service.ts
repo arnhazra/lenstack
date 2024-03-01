@@ -7,12 +7,14 @@ import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
 import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
 import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
 import { findUserByIdQuery } from "../user/queries/find-user-by-id"
+import { HttpService } from "@nestjs/axios"
+import { lastValueFrom } from "rxjs"
 
 @Injectable()
 export class SubscriptionService {
   private readonly web3Provider: Web3
 
-  constructor() {
+  constructor(private readonly httpService: HttpService) {
     this.web3Provider = new Web3(envConfig.infuraGateway)
   }
 
@@ -70,6 +72,50 @@ export class SubscriptionService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async alchemyTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async getblockTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.getblockGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async infuraTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async quicknodeTransactionGateway(requestBody: any) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.quicknodeGateway, requestBody))
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
     }
   }
 }

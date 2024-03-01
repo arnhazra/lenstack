@@ -54,27 +54,27 @@ export default function Page() {
   }
 
   const activateOtherPlans = async () => {
-    let selectedGatewayUrl = endPoints.alchemyTransactionGateway
+    let selectedGatewayUrl = endPoints.subscriptionAlchemyGateway
 
     switch (selectedGateway) {
       case "alchemy":
-        selectedGatewayUrl = endPoints.alchemyTransactionGateway
+        selectedGatewayUrl = endPoints.subscriptionAlchemyGateway
         break
 
       case "getblock":
-        selectedGatewayUrl = endPoints.getblockTransactionGateway
+        selectedGatewayUrl = endPoints.subscriptionGetblockGateway
         break
 
       case "infura":
-        selectedGatewayUrl = endPoints.infuraTransactionGateway
+        selectedGatewayUrl = endPoints.subscriptionInfuraGateway
         break
 
       case "quicknode":
-        selectedGatewayUrl = endPoints.quicknodetransactionGateway
+        selectedGatewayUrl = endPoints.subscriptionQuicknodeGateway
         break
 
       default:
-        selectedGatewayUrl = endPoints.alchemyTransactionGateway
+        selectedGatewayUrl = endPoints.subscriptionAlchemyGateway
         break
     }
 
