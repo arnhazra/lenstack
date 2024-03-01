@@ -15,9 +15,9 @@ import { useCallback } from "react"
 
 export default function Page() {
   const { prompt } = usePromptContext()
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=fabric`, HTTPMethods.GET)
-  const kvList = useQuery(["kvlist"], `${endPoints.fabricReadKvList}`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "fabric")
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=kvstore`, HTTPMethods.GET)
+  const kvList = useQuery(["kvlist"], `${endPoints.kvstoreReadKvList}`, HTTPMethods.GET)
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "kvstore")
 
   const displayKvs = useCallback(() => {
     const kvsToDisplay = kvList?.data?.kvs?.map((kv: any) => {

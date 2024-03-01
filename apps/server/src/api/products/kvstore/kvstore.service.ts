@@ -1,15 +1,15 @@
 import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
 import { CreateKvDto } from "./dto/create-kv.dto"
-import { FabricRepository } from "./fabric.repository"
+import { createKv } from "./commands/create-kv.command"
+import { readKvsByWorkspaceId } from "./commands/delete-kv.command"
+import { deleteKvById } from "./queries/get-kv-list.query"
 
 @Injectable()
-export class FabricService {
-  constructor(private readonly fabricRepository: FabricRepository) { }
-
+export class KvstoreService {
   async createKv(workspaceId: string, createKvDto: CreateKvDto) {
     try {
       const { key, value } = createKvDto
-      await this.fabricRepository.createKv(workspaceId, key, value)
+      await createKv(workspaceId, key, value)
       return { success: true }
     }
 
@@ -20,7 +20,7 @@ export class FabricService {
 
   async readKvList(workspaceId: string) {
     try {
-      const kvs = await this.fabricRepository.readKvsByWorkspaceId(workspaceId)
+      const kvs = await readKvsByWorkspaceId(workspaceId)
       return { kvs }
     }
 
@@ -31,7 +31,7 @@ export class FabricService {
 
   async deleteKv(workspaceId: string, kvId: string) {
     try {
-      const item = await this.fabricRepository.deleteKvById(workspaceId, kvId)
+      const item = await deleteKvById(workspaceId, kvId)
 
       if (item) {
         return { success: true }

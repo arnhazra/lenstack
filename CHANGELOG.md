@@ -1,11 +1,14 @@
 # Changelog
 
 ### v10.0.0
+* Migrated entire backend to DDD with CQRS pattern
 * Added type safety for dispatcher in context
 * Deprecation of Insights 
 * Introduction of Analytics with new CQRS architecture
 * Deprecation of Datalake 
 * Introduction of Data Exchange with new CQRS architecture
+* Deprecation of Fabric 
+* Introduction of KV Store with new CQRS architecture
 
 ### v9.3.1
 * Minor bug fixes & performance improvements

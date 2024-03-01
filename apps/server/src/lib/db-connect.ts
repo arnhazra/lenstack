@@ -8,7 +8,7 @@ export const dataexchangeMongoDbConn: Connection = mongoose.createConnection(env
 export const walletMongoDbConn: Connection = mongoose.createConnection(envConfig.walletDbURI)
 export const nftstudioMongoDbConn: Connection = mongoose.createConnection(envConfig.nftstudioDbURI)
 export const swapMongoDbConn: Connection = mongoose.createConnection(envConfig.swapDbURI)
-export const fabricMongoDbConn = mongoose.createConnection(envConfig.fabricDbURI)
+export const kvstoreMongoDbConn = mongoose.createConnection(envConfig.kvstoreDbURI)
 export const ledgerscanMongoDbConn: Connection = mongoose.createConnection(envConfig.ledgerscanDbURI)
 
 async function platformDbConnect(): Promise<void> {
@@ -46,9 +46,9 @@ async function swapDbConnect(): Promise<void> {
   swapMongoDbConn.on("error", () => console.log("Swap DB Not Connected"))
 }
 
-async function fabricDbConnect(): Promise<void> {
-  fabricMongoDbConn.on("connected", () => console.log("Fabric DB Connected"))
-  fabricMongoDbConn.on("error", () => console.log("Fabric DB Not Connected"))
+async function kvstoreDbConnect(): Promise<void> {
+  kvstoreMongoDbConn.on("connected", () => console.log("Kv Store DB Connected"))
+  kvstoreMongoDbConn.on("error", () => console.log("Kv Store DB Not Connected"))
 }
 
 async function ledgerscanDbConnect(): Promise<void> {
@@ -64,6 +64,6 @@ export async function dbConnect(): Promise<void> {
   walletDbConnect()
   nftstudioDbConnect()
   swapDbConnect()
-  fabricDbConnect()
+  kvstoreDbConnect()
   ledgerscanDbConnect()
 }

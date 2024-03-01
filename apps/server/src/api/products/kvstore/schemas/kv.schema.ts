@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
-import { fabricMongoDbConn } from "../../../../lib/db-connect"
 
-const KvSchema = new mongoose.Schema({
+export const KvSchema = new mongoose.Schema({
   workspaceId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "workspace",
@@ -23,5 +22,3 @@ const KvSchema = new mongoose.Schema({
     default: Date.now
   }
 }, { versionKey: false })
-
-export const KvModel = fabricMongoDbConn.model("kv", KvSchema)
