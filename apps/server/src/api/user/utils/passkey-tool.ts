@@ -18,7 +18,7 @@ function generateRandomPassKey(): string {
   return randomPassKey
 }
 
-export async function generateIdentityPasskeyAndSendEmail(email: string): Promise<string> {
+export async function generateAuthPasskeyAndSendEmail(email: string): Promise<string> {
   const passKey = generateRandomPassKey()
   const ttl = 5 * 60 * 1000
   const expires = Date.now() + ttl
@@ -29,7 +29,7 @@ export async function generateIdentityPasskeyAndSendEmail(email: string): Promis
   return fullHash
 }
 
-export function verifyIdentityPasskey(email: string, hash: string, passKey: string): boolean {
+export function verifyAuthPasskey(email: string, hash: string, passKey: string): boolean {
   let [hashValue, expires] = hash.split(".")
   let now = Date.now()
   if (now > parseInt(expires)) return false

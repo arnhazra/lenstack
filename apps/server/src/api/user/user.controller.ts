@@ -1,7 +1,7 @@
 import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
 import { UserService } from "./user.service"
-import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
-import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
+import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
+import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 
@@ -10,9 +10,9 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post("generatepasskey")
-  async generateIdentityPasskey(@Body() generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {
+  async generateAuthPasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
     try {
-      const { hash } = await this.userService.generateIdentityPasskey(generateIdentityPasskeyDto)
+      const { hash } = await this.userService.generateAuthPasskey(generateAuthPasskeyDto)
       return { hash, message: statusMessages.passKeyEmail }
     }
 
@@ -22,9 +22,9 @@ export class UserController {
   }
 
   @Post("verifypasskey")
-  async verifyIdentityPasskey(@Body() verifyIdentityPasskeyDto: VerifyIdentityPasskeyDto) {
+  async verifyAuthPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
-      const response = await this.userService.verifyIdentityPasskey(verifyIdentityPasskeyDto)
+      const response = await this.userService.verifyAuthPasskey(verifyAuthPasskeyDto)
 
       if (response.success) {
         return { accessToken: response.accessToken, user: response.user }
