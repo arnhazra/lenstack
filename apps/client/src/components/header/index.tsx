@@ -22,8 +22,8 @@ export default function Header() {
   const router = useRouter()
 
   const searchEnabledPathNames = [
-    "/dashboard", "/products/dataexchange", "/products/nftstudio", "/products/swap",
-    "/dashboard/", "/products/dataexchange/", "/products/nftstudio/", "/products/swap/"
+    "/products", "/products/dataexchange", "/products/nftstudio", "/products/swap",
+    "/products/", "/products/dataexchange/", "/products/nftstudio/", "/products/swap/"
   ]
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function Header() {
       <Suspense condition={userState.isAuthorized} fallback={null}>
         <Navbar variant="light" expand="lg" fixed="top" className="pt-3 pb-3">
           <Container>
-            <Link href={`/dashboard?workspaceId=${userState.selectedWorkspaceId}`}>
+            <Link href={`/products?workspaceId=${userState.selectedWorkspaceId}`}>
               <Navbar.Brand>
                 <img alt="" src={`${uiHost}/favicon.ico`} width="30" height="30" className="d-inline-block align-top" />{" "}
                 {uiConstants.brandName}
@@ -97,12 +97,12 @@ export default function Header() {
             </Navbar.Toggle>
             <Navbar.Collapse>
               <Nav className="mr-auto">
-                <Nav.Item><Link href="/products">Products</Link></Nav.Item>
+                <Nav.Item><Link href="/exploreproducts">Explore Products</Link></Nav.Item>
                 <Nav.Item><Link href="/plans">Plans</Link></Nav.Item>
                 <Nav.Item><Link target="_blank" passHref rel="noopener noreferrer" href={uiConstants.linkedinUri}>Developer<ExternalLinkIcon className="icon-right" /></Link></Nav.Item>
               </Nav>
               <Nav className="ms-auto">
-                <Link className="nav-btn ps-4 pe-4" href="/dashboard">Get Started</Link>
+                <Link className="nav-btn ps-4 pe-4" href="/products">Get Started</Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

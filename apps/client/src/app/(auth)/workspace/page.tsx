@@ -44,7 +44,7 @@ export default function Page() {
     try {
       await axios.post(`${endPoints.switchWorkspace}?workspaceId=${workspaceId}`)
       dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
-      router.push(`/dashboard?workspaceId=${userState.selectedWorkspaceId}`)
+      router.push(`/products?workspaceId=${userState.selectedWorkspaceId}`)
       toast.success("Workspace switched")
     }
 

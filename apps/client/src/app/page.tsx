@@ -14,7 +14,7 @@ export default function Page() {
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
-      router.push("/dashboard")
+      router.push("/products")
     }
 
     else {
@@ -34,7 +34,7 @@ export default function Page() {
             {uiConstants.homeIntro1} <br />
             {uiConstants.homeIntro2} <br />
           </p>
-          <Link href="/dashboard" className="btn btn-primary">
+          <Link href="/products" className="btn btn-primary">
             Get Started<ArrowRightIcon className="icon-right" />
           </Link>
           <Link href="/products" className="btn btn-secondary">

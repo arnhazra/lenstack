@@ -22,7 +22,7 @@ export default function Page() {
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
-      router.push("/dashboard")
+      router.push("/products")
     }
 
     else {

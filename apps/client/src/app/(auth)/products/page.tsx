@@ -20,7 +20,7 @@ export default function Page() {
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
 
   useEffect(() => {
-    router.push(`/dashboard?workspaceId=${userState.selectedWorkspaceId}`)
+    router.push(`/products?workspaceId=${userState.selectedWorkspaceId}`)
   }, [userState.selectedWorkspaceId])
 
   const displayProducts = useCallback(() => {
