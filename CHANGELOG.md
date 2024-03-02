@@ -1,5 +1,7 @@
 # Changelog
 
+### v10.1.0
+
 ### v10.0.2
 * Removal of getblock gateway
 * Minor bug fixes
