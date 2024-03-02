@@ -1,5 +1,7 @@
 # Changelog
 
+### v10.0.1
+
 ### v10.0.0
 * Migrated entire backend to DDD with CQRS pattern
 * Added type safety for dispatcher in context
