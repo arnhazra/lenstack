@@ -31,7 +31,6 @@ export default function Page() {
   const [selectedGateway, setSelectedGateway] = useState("alchemy")
   const [gatewayOptions] = useState([
     { value: "alchemy", label: "Alchemy" },
-    { value: "getblock", label: "GetBlock" },
     { value: "infura", label: "Infura" },
     { value: "quicknode", label: "QuickNode" },
   ])
@@ -59,10 +58,6 @@ export default function Page() {
     switch (selectedGateway) {
       case "alchemy":
         selectedGatewayUrl = endPoints.subscriptionAlchemyGateway
-        break
-
-      case "getblock":
-        selectedGatewayUrl = endPoints.subscriptionGetblockGateway
         break
 
       case "infura":
@@ -153,12 +148,7 @@ export default function Page() {
           </Form.Group>
           <div className="mb-2">
             <p className="muted-text mb-2 mt-3">Select a payment gateway to proceed</p>
-            <Row xl={2} lg={2} md={2} sm={2} xs={2}>
-              {renderGatewayOptions()}
-            </Row>
-          </div>
-          <div className="mt-3 mb-2">
-            <InfoPanel infoIcon={<RocketIcon />} infoName="Your Total Today" infoValue={`${plan?.price} MATIC`} />
+            {renderGatewayOptions()}
           </div>
           <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
             <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
@@ -167,7 +157,6 @@ export default function Page() {
               </Suspense>
             </Suspense>
           </Button>
-          <Link href="/plans" className="btn btn-secondary btn-block">Choose Another Plan</Link>
           <div className="text-center">
             <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />{uiConstants.brandName} Pay ™ Secured</Badge>
           </div>

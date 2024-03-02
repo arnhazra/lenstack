@@ -86,17 +86,6 @@ export class SubscriptionService {
     }
   }
 
-  async getblockTransactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.getblockGateway, requestBody))
-      return response.data
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
   async infuraTransactionGateway(requestBody: any) {
     try {
       const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))

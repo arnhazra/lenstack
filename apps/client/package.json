@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "10.0.1",
+  "version": "10.0.2",
   "private": true,
   "scripts": {
     "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js",
@@ -16,7 +16,7 @@
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "date-fns": "^3.3.1",
-    "next": "14.1.0",
+    "next": "14.1.1",
     "react": "^18",
     "react-bootstrap": "^2.10.1",
     "react-cache-buster": "^0.1.8",

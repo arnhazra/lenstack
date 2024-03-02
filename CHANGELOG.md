@@ -1,5 +1,10 @@
 # Changelog
 
+### v10.0.2
+* Removal of getblock gateway
+* Minor bug fixes
+* Regular dependency updates
+
 ### v10.0.1
 * Deprecation of platform module
 * Integrated product config in products module

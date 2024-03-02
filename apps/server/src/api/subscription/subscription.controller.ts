@@ -52,18 +52,6 @@ export class SubscriptionController {
     }
   }
 
-  @Post("gateway/getblock")
-  async getblockTransactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.subscriptionService.getblockTransactionGateway(requestBody)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
   @Post("gateway/infura")
   async infuraTransactionGateway(@Body() requestBody: any) {
     try {

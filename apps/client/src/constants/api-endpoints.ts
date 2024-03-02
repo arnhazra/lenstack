@@ -14,7 +14,6 @@ export const endPoints = {
   activateHobby: `${apiHost}/api/subscription/activatehobby`,
   getSubscriptionConfig: `${apiHost}/api/subscription/getsubscriptionconfig`,
   subscriptionAlchemyGateway: `${apiHost}/api/subscription/gateway/alchemy`,
-  subscriptionGetblockGateway: `${apiHost}/api/subscription/gateway/getblock`,
   subscriptionInfuraGateway: `${apiHost}/api/subscription/gateway/infura`,
   subscriptionQuicknodeGateway: `${apiHost}/api/subscription/gateway/quicknode`,
   createWorkspace: `${apiHost}/api/workspace/create`,
