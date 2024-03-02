@@ -15,6 +15,7 @@ const initialState: { userState: UserState, appState: AppState } = {
     selectedPlan: "No Subscription",
     clientId: "",
     clientSecret: "",
+    createdAt: "",
     expiresAt: "",
     selectedWorkspaceId: "",
     selectedWorkspaceName: "",

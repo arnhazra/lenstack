@@ -74,8 +74,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           const hasActiveSubscription = response.data.hasActiveSubscription
 
           if (response.data.subscription) {
-            const { selectedPlan, expiresAt, remainingCredits } = response.data.subscription
-            dispatch("setUserState", { selectedPlan, expiresAt, remainingCredits })
+            const { selectedPlan, createdAt, expiresAt, remainingCredits } = response.data.subscription
+            dispatch("setUserState", { selectedPlan, createdAt, expiresAt, remainingCredits })
           }
 
           else {
