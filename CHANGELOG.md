@@ -1,6 +1,8 @@
 # Changelog
 
 ### v10.0.1
+* Deprecation of platform module
+* Integrated product config in products module
 
 ### v10.0.0
 * Migrated entire backend to DDD with CQRS pattern

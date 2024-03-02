@@ -1,6 +1,6 @@
 import { Controller, Post, BadRequestException, Body } from "@nestjs/common"
 import { WalletService } from "./wallet.service"
-import { statusMessages } from "../../../constants/status-messages"
+import { statusMessages } from "../../../../constants/status-messages"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 
 @Controller("products/wallet")

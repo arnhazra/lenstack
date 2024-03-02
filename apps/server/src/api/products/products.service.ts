@@ -3,7 +3,7 @@ import { statusMessages } from "src/constants/status-messages"
 import { getproductConfigQuery } from "./queries/get-product-config.query"
 
 @Injectable()
-export class PlatformService {
+export class ProductsService {
   async getProductConfig(searchQuery: string) {
     try {
       const products = await getproductConfigQuery(searchQuery)

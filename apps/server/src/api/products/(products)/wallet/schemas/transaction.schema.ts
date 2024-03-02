@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { walletMongoDbConn } from "../../../../lib/db-connect"
+import { walletMongoDbConn } from "../../../../../lib/db-connect"
 
 export const TransactionSchema = new mongoose.Schema({
   workspaceId: {
