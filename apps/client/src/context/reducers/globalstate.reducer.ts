@@ -6,6 +6,7 @@ export interface UserState {
   selectedPlan: string
   clientId: string
   clientSecret: string
+  createdAt: string
   expiresAt: string
   selectedWorkspaceId: string
   selectedWorkspaceName: string

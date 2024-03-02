@@ -11,7 +11,7 @@ export default function NotFound() {
         <div className="text-center mb-4">
           <CrossCircledIcon className="icon-large" />
         </div>
-        <Link className="btn btn-primary btn-block" href={"/dashboard"}><ArrowLeftIcon className="icon-left" />Go to Dashboard</Link>
+        <Link className="btn btn-primary btn-block" href={"/products"}><ArrowLeftIcon className="icon-left" />Go to Products Page</Link>
       </div>
     </Fragment>
   )

@@ -1,5 +1,13 @@
 # Changelog
 
+### v10.0.1
+* Deprecation of platform module
+* Integrated product config in products module
+* Integrated identity-guard component in auth layout
+* Deprecation of dashboard page
+* Introduction of new products & exploreproducts page
+* Changes in layouts
+
 ### v10.0.0
 * Migrated entire backend to DDD with CQRS pattern
 * Added type safety for dispatcher in context
