@@ -6,6 +6,7 @@
 * Integrated identity-guard component in auth layout
 * Deprecation of dashboard page
 * Introduction of new products & exploreproducts page
+* Changes in layouts
 
 ### v10.0.0
 * Migrated entire backend to DDD with CQRS pattern
