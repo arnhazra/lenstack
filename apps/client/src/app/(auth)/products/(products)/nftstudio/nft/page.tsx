@@ -1,5 +1,5 @@
 "use client"
-import { nftABI } from "@/bin/nft-abi"
+import { nftABI } from "../nft-abi"
 import Error from "@/components/error"
 import Hero from "@/components/hero"
 import Loading from "@/components/loading"
