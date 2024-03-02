@@ -8,7 +8,7 @@ import { LedgerscanModule } from "./(products)/ledgerscan/ledgerscan.module"
 import { CopilotModule } from "./(products)/copilot/copilot.module"
 import { AnalyticsModule } from './(products)/analytics/analytics.module'
 import { ProductsController } from "./products.controller"
-import { ProductsService } from "./Products.service"
+import { ProductsService } from "./products.service"
 
 @Module({
   controllers: [ProductsController],
