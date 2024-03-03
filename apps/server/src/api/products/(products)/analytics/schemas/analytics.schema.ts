@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
+import { Schema } from "mongoose"
 
-export const AnalyticsSchema = new mongoose.Schema({
+export const AnalyticsSchema = new Schema({
   workspaceId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "workspace",
     required: true
   },

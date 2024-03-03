@@ -1,6 +1,6 @@
-import mongoose from "mongoose"
+import { Schema } from "mongoose"
 
-export const TokenSchema = new mongoose.Schema({
+export const TokenSchema = new Schema({
   tokenName: {
     type: String,
     required: true
