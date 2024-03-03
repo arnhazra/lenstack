@@ -22,7 +22,7 @@ export async function sendEmail(email: string, passKey: string): Promise<void> {
       }
     })
 
-    const subject: string = `${envConfig.brandName} Identity Passkey`
+    const subject: string = `${envConfig.brandName} Auth Passkey`
     const content: string = `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
     <div style="margin:50px auto;width:70%;padding:20px 0">
       <div style="border-bottom:1px solid #f1f3f4">
@@ -31,7 +31,7 @@ export async function sendEmail(email: string, passKey: string): Promise<void> {
         </strong>
       </div>
       <p style="font-size:1rem">Hello there, ✌️</p>
-      <p style="font-size:1rem">Use the below key as your ${envConfig.brandName} Identity Passkey. Do not share with anyone.</p>
+      <p style="font-size:1rem">Use the below key as your ${envConfig.brandName} Auth Passkey. Do not share with anyone.</p>
       <h2 style="background: #2b3336;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 0.8rem;">${passKey}</h2>
       <p style="font-size:0.9rem;">Warm Regards,<br />${envConfig.brandName} Team</p>
       <hr style="border:none;border-top:1px solid #f1f3f4" />

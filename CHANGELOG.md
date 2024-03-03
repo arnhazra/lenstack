@@ -1,5 +1,10 @@
 # Changelog
 
+### v10.1.0
+* Rebranding of identity as auth
+* Removed unused code & dependencies
+* Bug fixes on auth step
+
 ### v10.0.2
 * Removal of getblock gateway
 * Minor bug fixes

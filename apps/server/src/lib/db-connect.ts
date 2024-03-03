@@ -1,15 +1,15 @@
-import mongoose, { Connection } from "mongoose"
+import { Connection, createConnection } from "mongoose"
 import { envConfig } from "../env.config"
 
-export const platformMongoDbConn: Connection = mongoose.createConnection(envConfig.platformDbURI)
-export const analyticsMongoDbConn: Connection = mongoose.createConnection(envConfig.analyticsDbURI)
-export const copilotMongoDbConn: Connection = mongoose.createConnection(envConfig.copilotDbURI)
-export const dataexchangeMongoDbConn: Connection = mongoose.createConnection(envConfig.dataexchangeDbURI)
-export const walletMongoDbConn: Connection = mongoose.createConnection(envConfig.walletDbURI)
-export const nftstudioMongoDbConn: Connection = mongoose.createConnection(envConfig.nftstudioDbURI)
-export const swapMongoDbConn: Connection = mongoose.createConnection(envConfig.swapDbURI)
-export const kvstoreMongoDbConn = mongoose.createConnection(envConfig.kvstoreDbURI)
-export const ledgerscanMongoDbConn: Connection = mongoose.createConnection(envConfig.ledgerscanDbURI)
+export const platformMongoDbConn: Connection = createConnection(envConfig.platformDbURI)
+export const analyticsMongoDbConn: Connection = createConnection(envConfig.analyticsDbURI)
+export const copilotMongoDbConn: Connection = createConnection(envConfig.copilotDbURI)
+export const dataexchangeMongoDbConn: Connection = createConnection(envConfig.dataexchangeDbURI)
+export const walletMongoDbConn: Connection = createConnection(envConfig.walletDbURI)
+export const nftstudioMongoDbConn: Connection = createConnection(envConfig.nftstudioDbURI)
+export const swapMongoDbConn: Connection = createConnection(envConfig.swapDbURI)
+export const kvstoreMongoDbConn = createConnection(envConfig.kvstoreDbURI)
+export const ledgerscanMongoDbConn: Connection = createConnection(envConfig.ledgerscanDbURI)
 
 async function platformDbConnect(): Promise<void> {
   platformMongoDbConn.on("connected", () => console.log("Platform DB Connected"))

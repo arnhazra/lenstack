@@ -6,7 +6,7 @@ import Loading from "@/components/loading"
 export function CachebustingProvider({ children }: { children: ReactNode }) {
   return (
     <CacheBuster
-      currentVersion="10.0.2"
+      currentVersion="10.1.0"
       isEnabled={process.env.NODE_ENV === "production"}
       isVerboseMode={false}
       loadingComponent={<Loading />}

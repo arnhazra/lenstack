@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { GenerateIdentityPasskeyDto } from "./dto/generate-identity-passkey.dto"
-import { VerifyIdentityPasskeyDto } from "./dto/verify-identity-passkey.dto"
+import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
+import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import Web3 from "web3"
 import { envConfig } from "src/env.config"
-import { generateIdentityPasskeyAndSendEmail, verifyIdentityPasskey } from "src/api/user/utils/passkey-tool"
+import { generateAuthPasskeyAndSendEmail, verifyAuthPasskey } from "src/api/user/utils/passkey-tool"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/lib/redis-helper"
 import { otherConstants } from "src/constants/other-constants"
 import { statusMessages } from "src/constants/status-messages"
@@ -29,11 +29,11 @@ export class UserService {
     this.web3Provider = new Web3(envConfig.alchemyGateway)
   }
 
-  async generateIdentityPasskey(generateIdentityPasskeyDto: GenerateIdentityPasskeyDto) {
+  async generateAuthPasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
     try {
-      const { email } = generateIdentityPasskeyDto
+      const { email } = generateAuthPasskeyDto
       let user = await findUserByEmailQuery(email)
-      const hash = await generateIdentityPasskeyAndSendEmail(email)
+      const hash = await generateAuthPasskeyAndSendEmail(email)
       return { user, hash }
     }
 
@@ -42,10 +42,10 @@ export class UserService {
     }
   }
 
-  async verifyIdentityPasskey(verifyIdentityPasskeyDto: VerifyIdentityPasskeyDto) {
+  async verifyAuthPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
-      const { email, hash, passKey } = verifyIdentityPasskeyDto
-      const isOTPValid = verifyIdentityPasskey(email, hash, passKey)
+      const { email, hash, passKey } = verifyAuthPasskeyDto
+      const isOTPValid = verifyAuthPasskey(email, hash, passKey)
 
       if (isOTPValid) {
         let user = await findUserByEmailQuery(email)
