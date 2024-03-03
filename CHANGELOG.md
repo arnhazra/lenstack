@@ -1,5 +1,8 @@
 # Changelog
 
+### v10.2.0
+* Minor bug fixes & performance improvements
+
 ### v10.1.0
 * Rebranding of identity as auth
 * Removed unused code & dependencies

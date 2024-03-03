@@ -13,8 +13,9 @@ import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { Badge, Button, Form, Row } from "react-bootstrap"
+import { Badge, Button, Form } from "react-bootstrap"
 import Option from "@/components/option"
+import { useMutation } from "@tanstack/react-query"
 
 export default function Page() {
   const [allPlans] = useState<string[]>(["hobby", "starter", "premium", "ultra"])
@@ -33,22 +34,18 @@ export default function Page() {
     { value: "quicknode", label: "QuickNode" },
   ])
 
-  const activateHobby = async () => {
-    try {
-      await axios.get(endPoints.activateHobby)
+  const { mutate: activateHobby } = useMutation({
+    mutationFn: () => axios.get(endPoints.activateHobby),
+    onSuccess() {
       dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
       toast.success(uiConstants.toastSuccess)
-    }
-
-    catch (error) {
-      toast.error(uiConstants.toastError)
-    }
-
-    finally {
       router.refresh()
       router.push("/subscription/usage")
+    },
+    onError() {
+      toast.error(uiConstants.toastError)
     }
-  }
+  })
 
   const activateOtherPlans = async () => {
     let selectedGatewayUrl = endPoints.subscriptionAlchemyGateway
