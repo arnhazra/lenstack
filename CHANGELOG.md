@@ -5,6 +5,7 @@
 * Deprecated Usage Page
 * Integrated Usage details in New Accounts Page
 * Minor bug fixes & performance improvements
+* Pricing details changes
 
 ### v10.1.0
 * Rebranding of identity as auth
