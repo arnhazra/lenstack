@@ -1,6 +1,7 @@
 # Changelog
 
 ### v10.2.0
+* Design changes in Account, Pay & Usage page
 * Minor bug fixes & performance improvements
 
 ### v10.1.0

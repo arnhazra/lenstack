@@ -1,6 +1,6 @@
 "use client"
 import { useContext, useState, useEffect } from "react"
-import { Button } from "react-bootstrap"
+import { Button, Col, Container, Row } from "react-bootstrap"
 import { endPoints } from "@/constants/api-endpoints"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
@@ -12,6 +12,7 @@ import Loading from "@/components/loading"
 import { AvatarIcon, BookmarkIcon, CubeIcon, ExitIcon } from "@radix-ui/react-icons"
 import SensitiveInfoPanel from "@/components/infopanel/sensitive-infopanel"
 import InfoPanel from "@/components/infopanel/infopanel"
+import Hero from "@/components/hero"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -57,14 +58,20 @@ export default function Page() {
 
   return (
     <Suspense condition={!walletLoading} fallback={<Loading />}>
-      <div className="box">
-        <p className="branding">Account</p>
-        <InfoPanel infoIcon={<AvatarIcon />} infoName="Email Address" infoValue={userState.email} />
-        <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Wallet Address" credentialValue={accountAddress} />
-        <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
-        <Button variant="secondary" className="btn-block" onClick={(): Promise<void> => signOut("this")}>Sign Out<ExitIcon className="icon-right" /></Button>
-        <Button variant="primary" className="btn-block" onClick={(): Promise<void> => signOut("all")}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
-      </div>
+      <Container>
+        <Row className="justify-content-center">
+          <Col xl={7} lg={8} md={9} sm={9} xs={12}>
+            <Hero>
+              <p className="branding">Account</p>
+              <InfoPanel infoIcon={<AvatarIcon />} infoName="Email Address" infoValue={userState.email} />
+              <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Wallet Address" credentialValue={accountAddress} />
+              <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
+              <Button variant="secondary" className="btn-block" onClick={(): Promise<void> => signOut("this")}>Sign Out<ExitIcon className="icon-right" /></Button>
+              <Button variant="primary" className="btn-block" onClick={(): Promise<void> => signOut("all")}>Sign out from all devices<ExitIcon className="icon-right" /></Button>
+            </Hero>
+          </Col>
+        </Row>
+      </Container>
     </Suspense>
   )
 }

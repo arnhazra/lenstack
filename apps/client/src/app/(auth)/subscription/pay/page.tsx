@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import Suspense from "@/components/suspense"
 import { toast } from "react-hot-toast"
@@ -13,9 +13,10 @@ import Web3 from "web3"
 import axios from "axios"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { Badge, Button, Form } from "react-bootstrap"
+import { Badge, Button, Col, Container, Form, Row } from "react-bootstrap"
 import Option from "@/components/option"
 import { useMutation } from "@tanstack/react-query"
+import Hero from "@/components/hero"
 
 export default function Page() {
   const [allPlans] = useState<string[]>(["hobby", "starter", "premium", "ultra"])
@@ -120,42 +121,48 @@ export default function Page() {
     }
   }
 
-  const renderGatewayOptions = useCallback(() => {
-    return gatewayOptions.map((option) => (
-      <Option
-        key={option.value}
-        isSelected={selectedGateway === option.value}
-        value={option.value}
-        label={option.label}
-        handleChange={(value) => setSelectedGateway(value)}
-      />
-    ))
-  }, [gatewayOptions, selectedGateway])
+  const renderGatewayOptions = gatewayOptions.map((option) => (
+    <Option
+      key={option.value}
+      isSelected={selectedGateway === option.value}
+      value={option.value}
+      label={option.label}
+      handleChange={(value) => setSelectedGateway(value)}
+    />
+  ))
 
   return (
     <Suspense condition={!pricingDetails.isLoading} fallback={<Loading />}>
       <Suspense condition={!pricingDetails.error && !planNotFoundError} fallback={<Error />}>
-        <form className="box" onSubmit={activate}>
-          <p className="branding">Payment</p>
-          <Form.Group controlId="exampleForm.ControlInput1">
-            <Form.Label>Your Email</Form.Label>
-            <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
-          </Form.Group>
-          <div className="mb-2">
-            <p className="muted-text mb-2 mt-3">Select a payment gateway to proceed</p>
-            {renderGatewayOptions()}
-          </div>
-          <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
-            <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
-              <Suspense condition={planName !== "hobby"} fallback="Activate for Free">
-                Pay {`${plan?.price} MATIC`}
-              </Suspense>
-            </Suspense>
-          </Button>
-          <div className="text-center">
-            <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />{uiConstants.brandName} Pay ™ Secured</Badge>
-          </div>
-        </form>
+        <Container>
+          <Row className="justify-content-center">
+            <Col xl={7} lg={8} md={9} sm={9} xs={12}>
+              <Hero>
+                <form onSubmit={activate}>
+                  <p className="branding">Payment</p>
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label>Your Email</Form.Label>
+                    <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
+                  </Form.Group>
+                  <div className="mb-2">
+                    <p className="muted-text mb-2 mt-3">Select a payment gateway to proceed</p>
+                    {renderGatewayOptions}
+                  </div>
+                  <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">
+                    <Suspense condition={!isTxProcessing} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Activating Plan</>}>
+                      <Suspense condition={planName !== "hobby"} fallback="Activate for Free">
+                        Pay {`${plan?.price} MATIC`}
+                      </Suspense>
+                    </Suspense>
+                  </Button>
+                  <div className="text-center">
+                    <Badge bg="light" className="p-2 ps-3 pe-3"><LockClosedIcon className="icon-left" />{uiConstants.brandName} Pay ™ Secured</Badge>
+                  </div>
+                </form>
+              </Hero>
+            </Col>
+          </Row>
+        </Container>
       </Suspense>
     </Suspense>
   )
