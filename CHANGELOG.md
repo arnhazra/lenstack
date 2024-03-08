@@ -2,6 +2,8 @@
 
 ### v10.2.0
 * Design changes in Account, Pay & Usage page
+* Deprecated Usage Page
+* Integrated Usage details in New Accounts Page
 * Minor bug fixes & performance improvements
 
 ### v10.1.0

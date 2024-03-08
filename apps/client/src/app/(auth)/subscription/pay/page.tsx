@@ -42,7 +42,7 @@ export default function Page() {
       dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
       toast.success(uiConstants.toastSuccess)
       router.refresh()
-      router.push("/subscription/usage")
+      router.push("/account")
     },
     onError() {
       toast.error(uiConstants.toastError)
@@ -106,7 +106,7 @@ export default function Page() {
     finally {
       setTxProcessing(false)
       router.refresh()
-      router.push("/subscription/usage")
+      router.push("/account")
     }
   }
 
