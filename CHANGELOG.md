@@ -1,5 +1,13 @@
 # Changelog
 
+### v10.2.0
+* Design changes in Account, Pay & Usage page
+* Deprecated Usage Page
+* Integrated Usage details in New Accounts Page
+* Pricing details changes
+* Minor bug fixes & performance improvements
+* Minor styling changes - merged text-muted and muted-text classnames
+
 ### v10.1.0
 * Rebranding of identity as auth
 * Removed unused code & dependencies

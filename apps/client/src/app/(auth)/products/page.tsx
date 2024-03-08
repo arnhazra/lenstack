@@ -29,7 +29,7 @@ export default function Page() {
         header: `${uiConstants.brandName} ${product.displayName}`,
         footer: <Fragment>
           <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{product.productCategory}</Badge>
-          <p className="muted-text">{product.description}</p>
+          <p className="text-muted">{product.description}</p>
         </Fragment>,
       }
 

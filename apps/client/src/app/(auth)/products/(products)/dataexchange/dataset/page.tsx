@@ -27,7 +27,7 @@ export default function Page() {
         header: dataset.name,
         footer: <Fragment>
           <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{dataset.category}</Badge>
-          <p className="muted-text">{dataset.description.slice(0, 150)}...</p>
+          <p className="text-muted">{dataset.description.slice(0, 150)}...</p>
         </Fragment>
       }
 
@@ -83,7 +83,7 @@ export default function Page() {
             <p className="branding text-capitalize">{dataset?.data?.name}</p>
             <p className="lead">{dataset?.data?.category}</p>
             {datasetQuality()}
-            <p className="muted-text mt-3">{dataset?.data?.description}</p>
+            <p className="text-muted mt-3">{dataset?.data?.description}</p>
             <div className="mb-4">{displayDatasetTags()}</div>
             <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Dataset ID" credentialValue={datasetId ?? ""} />
           </Hero>

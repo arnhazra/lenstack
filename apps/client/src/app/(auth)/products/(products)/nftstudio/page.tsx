@@ -60,7 +60,7 @@ export default function Page() {
         header: nft.name,
         footer: <Fragment>
           <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
-          <p className="muted-text">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
+          <p className="text-muted">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
         </Fragment>
       }
 
@@ -89,7 +89,7 @@ export default function Page() {
         <Container>
           <Hero>
             <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <p className="text-muted mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
