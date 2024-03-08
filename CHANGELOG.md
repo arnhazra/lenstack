@@ -1,5 +1,9 @@
 # Changelog
 
+### v10.2.1
+* Regular Dependency updates
+* Minor bug fixes
+
 ### v10.2.0
 * Design changes in Account, Pay & Usage page
 * Deprecated Usage Page
