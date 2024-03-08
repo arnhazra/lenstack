@@ -124,9 +124,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <Suspense condition={authStep === 1} fallback={null}>
           <form className="box" onSubmit={generatePassKey}>
             <p className="branding">Auth</p>
-            <p className="text-muted">Enter the email address to get started</p>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Enter your email to get started</Form.Label>
               <Form.Control disabled={isAuthLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
             </Form.Group>
             <Button variant="primary" type="submit" disabled={isAuthLoading} className="mt-1 btn-block">
