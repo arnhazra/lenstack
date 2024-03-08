@@ -113,7 +113,7 @@ export default function Page() {
         header: nft.name,
         footer: <Fragment>
           <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
-          <p className="muted-text">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
+          <p className="text-muted">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
         </Fragment>
       }
 
@@ -168,7 +168,7 @@ export default function Page() {
                 </Col>
                 <Col xs={12} sm={12} md={6} lg={8} xl={9}>
                   <p className="branding">{selectedNft?.name}</p>
-                  <p className="muted-text">{selectedNft?.description}</p>
+                  <p className="text-muted">{selectedNft?.description}</p>
                   <SensitiveInfoPanel credentialIcon={<IdCardIcon />} credentialName="NFT Contract Address" credentialValue={nftContractAddress?.data?.nftContractAddress} />
                   <SensitiveInfoPanel credentialIcon={<PersonIcon />} credentialName="Owner Wallet Address" credentialValue={selectedNft?.owner} />
                   <div className="mb-3">

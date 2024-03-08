@@ -144,7 +144,7 @@ export default function Page() {
                 <Form.Control type="email" required placeholder="Your Email" autoComplete={"off"} />
               </Form.Group>
               <div className="mb-2">
-                <p className="muted-text mb-2 mt-3">Select a payment gateway to proceed</p>
+                <p className="text-muted mb-2 mt-3">Select a payment gateway to proceed</p>
                 {renderGatewayOptions}
               </div>
               <Button type="submit" disabled={userState.hasActiveSubscription || isTxProcessing} variant="primary" className="btn-block text-capitalize">

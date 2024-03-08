@@ -4,8 +4,9 @@
 * Design changes in Account, Pay & Usage page
 * Deprecated Usage Page
 * Integrated Usage details in New Accounts Page
-* Minor bug fixes & performance improvements
 * Pricing details changes
+* Minor bug fixes & performance improvements
+* Minor styling changes - merged text-muted and muted-text classnames
 
 ### v10.1.0
 * Rebranding of identity as auth

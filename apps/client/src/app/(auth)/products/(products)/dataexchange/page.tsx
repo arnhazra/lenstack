@@ -55,7 +55,7 @@ export default function Page() {
         header: dataset.name,
         footer: <Fragment>
           <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{dataset.category}</Badge>
-          <p className="muted-text">{dataset.description.slice(0, 150)}...</p>
+          <p className="text-muted">{dataset.description.slice(0, 150)}...</p>
         </Fragment>
       }
 
@@ -91,7 +91,7 @@ export default function Page() {
 
     return (
       <Fragment>
-        <p className="muted-text ps-2">Select Filter Category</p>
+        <p className="text-muted ps-2">Select Filter Category</p>
         <Row xl={5} lg={4} md={3} sm={2} xs={2}>
           {filterCategoriesToDisplay}
         </Row>
@@ -112,7 +112,7 @@ export default function Page() {
 
     return (
       <Fragment>
-        <p className="muted-text ps-2">Select Sort Option</p>
+        <p className="text-muted ps-2">Select Sort Option</p>
         <Row xl={5} lg={4} md={3} sm={2} xs={2}>
           {sortOptionsToRender}
         </Row>
@@ -126,7 +126,7 @@ export default function Page() {
         <Container>
           <Hero>
             <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="muted-text mt-3">{selectedProduct?.largeDescription}</p>
+            <p className="text-muted mt-3">{selectedProduct?.largeDescription}</p>
             <div className="mb-2">
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>

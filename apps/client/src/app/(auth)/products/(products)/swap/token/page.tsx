@@ -179,7 +179,7 @@ export default function Page() {
           header: token.tokenName,
           footer: <Fragment>
             <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-20</Badge>
-            <p className="muted-text">{token.description}</p>
+            <p className="text-muted">{token.description}</p>
           </Fragment>
         }
 
@@ -208,9 +208,9 @@ export default function Page() {
         <Suspense condition={!swapTokenConfig.error} fallback={<Error />}>
           <Hero>
             <p className="branding">{selectedToken?.tokenName}</p>
-            <p className="muted-text mt-3">{selectedToken?.description}</p>
+            <p className="text-muted mt-3">{selectedToken?.description}</p>
             <p className="display-4">{balance} {selectedToken?.tokenSymbol}</p>
-            <p className="muted-text mt-2">{selectedToken?.tokenName} Balance</p>
+            <p className="text-muted mt-2">{selectedToken?.tokenName} Balance</p>
             <div className="mb-2">
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokenSymbol}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedToken?.tokensPerMatic} Tokens/MATIC</Badge>

@@ -124,7 +124,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <Suspense condition={authStep === 1} fallback={null}>
           <form className="box" onSubmit={generatePassKey}>
             <p className="branding">Auth</p>
-            <p className="muted-text">Enter the email address to get started</p>
+            <p className="text-muted">Enter the email address to get started</p>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Email address</Form.Label>
               <Form.Control disabled={isAuthLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
@@ -134,13 +134,13 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 Get Auth Passkey <ArrowRightIcon className="icon-right" />
               </Suspense>
             </Button>
-            <p className="muted-text mt-1">By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.</p>
+            <p className="text-muted mt-1">By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.</p>
           </form>
         </Suspense>
         <Suspense condition={authStep === 2} fallback={null}>
           <form className="box" onSubmit={verifyPassKey}>
             <p className="branding">Auth</p>
-            <p className="muted-text">Please verify your auth by entering the auth passkey we sent to your inbox.</p>
+            <p className="text-muted">Please verify your auth by entering the auth passkey we sent to your inbox.</p>
             <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
               <Form.Label>Auth Passkey</Form.Label>
               <Form.Control type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
