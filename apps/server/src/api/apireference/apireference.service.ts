@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { CreateApiReferenceDto } from "./dto/create-apireference.dto"
 import { createAPIReferenceCommand } from "./commands/create-apireference.command"
-import { findAPIReferencesByProductNameQuery } from "./queries/find-apireferences"
+import { findAPIReferencesByProductNameQuery } from "./queries/find-apireferences.query"
 
 @Injectable()
 export class ApiReferenceService {

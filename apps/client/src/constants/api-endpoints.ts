@@ -16,6 +16,7 @@ export const endPoints = {
   subscriptionAlchemyGateway: `${apiHost}/api/subscription/gateway/alchemy`,
   subscriptionInfuraGateway: `${apiHost}/api/subscription/gateway/infura`,
   subscriptionQuicknodeGateway: `${apiHost}/api/subscription/gateway/quicknode`,
+  sustainabilityUpdateSettings: `${apiHost}/api/sustainability/updatesettings`,
   createWorkspace: `${apiHost}/api/workspace/create`,
   findMyWorkspaces: `${apiHost}/api/workspace/findmyworkspaces`,
   switchWorkspace: `${apiHost}/api/workspace/switch`,

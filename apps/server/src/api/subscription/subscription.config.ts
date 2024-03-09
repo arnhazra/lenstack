@@ -10,7 +10,7 @@ interface ValueItem {
   value: string
 }
 
-interface CreditType {
+export interface CreditType {
   planName: SubscriptionPlans
   price: number,
   grantedCredits: number,

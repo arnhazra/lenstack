@@ -21,7 +21,11 @@ const initialState: { userState: UserState, appState: AppState } = {
     selectedWorkspaceName: "",
     remainingCredits: 0,
     hasActiveSubscription: false,
-    isAuthorized: false
+    isAuthorized: false,
+    useDarkMode: false,
+    useFastestNode: true,
+    useLessEnergy: false,
+    useOptimizedAPICalls: true
   },
 
   appState: {

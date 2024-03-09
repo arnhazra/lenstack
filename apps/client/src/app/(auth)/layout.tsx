@@ -73,6 +73,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           const { email, privateKey, role, selectedWorkspaceId } = response.data.user
           const { name: selectedWorkspaceName, clientId, clientSecret } = response.data.workspace
           const hasActiveSubscription = response.data.hasActiveSubscription
+          const { useLessEnergy, useOptimizedAPICalls, useDarkMode, useFastestNode } = response.data.sustainabilitySettings
 
           if (response.data.subscription) {
             const { selectedPlan, createdAt, expiresAt, remainingCredits } = response.data.subscription
@@ -85,7 +86,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
           localStorage.setItem("clientId", clientId)
           localStorage.setItem("clientSecret", clientSecret)
-          dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription })
+          dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription, useLessEnergy, useOptimizedAPICalls, useDarkMode, useFastestNode })
           dispatch("setUserState", { isAuthorized: true })
           setAuthorized(true)
         }

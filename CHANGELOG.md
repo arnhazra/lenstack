@@ -1,6 +1,7 @@
 # Changelog
 
 ### v10.4.0
+* Integration of sustainability settings
 * Code optimization for sustainable development to reduce carbon emissions
 * New modern way to put items in page center applied for loading & box classes
 * Subscription configuration changes

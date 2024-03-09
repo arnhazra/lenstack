@@ -12,7 +12,11 @@ export interface UserState {
   selectedWorkspaceName: string
   remainingCredits: number | string
   hasActiveSubscription: boolean,
-  isAuthorized: boolean
+  isAuthorized: boolean,
+  useDarkMode: boolean,
+  useFastestNode: boolean,
+  useLessEnergy: boolean,
+  useOptimizedAPICalls: boolean
 }
 
 export interface AppState {

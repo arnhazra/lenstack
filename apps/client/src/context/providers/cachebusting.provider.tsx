@@ -10,7 +10,7 @@ export function CachebustingProvider({ children }: { children: ReactNode }) {
       isEnabled={process.env.NODE_ENV === "production"}
       isVerboseMode={false}
       loadingComponent={<Loading />}
-      metaFileDirectory={'.'}
+      metaFileDirectory={"."}
     >
       {children}
     </CacheBuster>
