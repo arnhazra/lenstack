@@ -6,12 +6,14 @@ import Link from "next/link"
 export default function NotFound() {
   return (
     <Fragment>
-      <div className="box">
-        <p className="branding mb-4">{uiConstants.errorMessage}</p>
-        <div className="text-center mb-4">
-          <CrossCircledIcon className="icon-large" />
+      <div className="container-center">
+        <div className="box">
+          <p className="branding mb-4">{uiConstants.errorMessage}</p>
+          <div className="text-center mb-4">
+            <CrossCircledIcon className="icon-large" />
+          </div>
+          <Link className="btn btn-primary btn-block" href={"/products"}><ArrowLeftIcon className="icon-left" />Go Back</Link>
         </div>
-        <Link className="btn btn-primary btn-block" href={"/products"}><ArrowLeftIcon className="icon-left" />Go Back</Link>
       </div>
     </Fragment>
   )

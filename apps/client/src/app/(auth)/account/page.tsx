@@ -81,6 +81,10 @@ export default function Page() {
               <InfoPanel infoIcon={<CalendarIcon />} infoName="Valid Upto" infoValue={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
               <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
             </Suspense>
+            <p className="text-muted mt-2 mb-4">
+              {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints. Change your sustainability settings
+              <Link href="/sustainability" className="link-underlined"> here.</Link>
+            </p>
             <Link className="btn btn-primary btn-block" href="/subscription/plans">Browse Plans<ExternalLinkIcon className="icon-right" /></Link>
             <Row className="justify-content-center" >
               <Col xl={6} lg={6} md={12} sm={12} xs={12}>

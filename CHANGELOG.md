@@ -1,5 +1,11 @@
 # Changelog
 
+### v10.4.0
+* Integration of sustainability settings
+* Code optimization for sustainable development to reduce carbon emissions
+* New modern way to put items in page center applied for loading & box classes
+* Subscription configuration changes
+
 ### v10.3.0
 * Removal of all useCallback & useMemo as these will be deprecated in React 19 & beyond
 * Fix hobby subscription not activating after one time

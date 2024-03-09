@@ -4,7 +4,7 @@ import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import Web3 from "web3"
 import { envConfig } from "src/env.config"
-import { generateAuthPasskeyAndSendEmail, verifyAuthPasskey } from "src/api/user/utils/passkey-tool"
+import { generateAuthPasskeyAndSendEmail, verifyAuthPasskey } from "src/api/user/utils/passkey.util"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/lib/redis-helper"
 import { otherConstants } from "src/constants/other-constants"
 import { statusMessages } from "src/constants/status-messages"
@@ -18,6 +18,8 @@ import { createUserCommand } from "./commands/create-user.command"
 import { findUserByIdQuery } from "./queries/find-user-by-id"
 import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
+import createSustainabilitySettingsCommand from "../sustainability/commands/create-settings.command"
+import fetchSustainabilitySettings from "../sustainability/queries/fetch-sustainability-settings.query"
 
 @Injectable()
 export class UserService {
@@ -57,6 +59,7 @@ export class UserService {
           if (!workspaceCount) {
             const workspace = await createWorkspaceCommand("Default Workspace", user.id)
             await updateSelectedWorkspaceCommand(user.id, workspace.id)
+            await createSustainabilitySettingsCommand(user.id, false, true)
           }
 
           if (redisAccessToken) {
@@ -101,13 +104,14 @@ export class UserService {
       if (user) {
         const workspace = await findWorkspaceByIdQuery(workspaceId)
         const subscription = await findSubscriptionByUserIdQuery(userId)
+        const sustainabilitySettings = await fetchSustainabilitySettings(userId)
         let hasActiveSubscription = false
 
         if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {
           hasActiveSubscription = true
         }
 
-        return { user, workspace, subscription, hasActiveSubscription }
+        return { user, workspace, subscription, hasActiveSubscription, sustainabilitySettings }
       }
 
       else {

@@ -6,7 +6,7 @@ import { NftstudioModule } from "./(products)/nftstudio/nftstudio.module"
 import { KvstoreModule } from "./(products)/kvstore/kvstore.module"
 import { LedgerscanModule } from "./(products)/ledgerscan/ledgerscan.module"
 import { CopilotModule } from "./(products)/copilot/copilot.module"
-import { AnalyticsModule } from './(products)/analytics/analytics.module'
+import { AnalyticsModule } from "./(products)/analytics/analytics.module"
 import { ProductsController } from "./products.controller"
 import { ProductsService } from "./products.service"
 

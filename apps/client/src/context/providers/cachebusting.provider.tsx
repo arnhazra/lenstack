@@ -6,11 +6,11 @@ import Loading from "@/components/loading"
 export function CachebustingProvider({ children }: { children: ReactNode }) {
   return (
     <CacheBuster
-      currentVersion="10.3.0"
+      currentVersion="10.4.0"
       isEnabled={process.env.NODE_ENV === "production"}
       isVerboseMode={false}
       loadingComponent={<Loading />}
-      metaFileDirectory={'.'}
+      metaFileDirectory={"."}
     >
       {children}
     </CacheBuster>

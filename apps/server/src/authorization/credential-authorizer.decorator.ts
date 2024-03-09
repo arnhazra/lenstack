@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { findSubscriptionByUserIdQuery } from "src/api/subscription/queries/find-subscription"
-import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential"
+import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential.query"
 import { apiPricing, SubscriptionPlans } from "src/api/subscription/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
 import { delay } from "src/lib/delay"

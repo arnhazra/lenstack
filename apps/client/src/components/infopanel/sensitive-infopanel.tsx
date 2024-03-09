@@ -1,3 +1,4 @@
+"use client"
 import { uiConstants } from "@/constants/global-constants"
 import { CopyIcon } from "@radix-ui/react-icons"
 import { useCopyToClipboard } from "@uidotdev/usehooks"

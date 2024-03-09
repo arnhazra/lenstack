@@ -5,13 +5,14 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { ArrowRightIcon, CheckIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon, CheckCircledIcon, CheckIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import { Fragment } from "react"
 import { Badge, Button, Col, Container } from "react-bootstrap"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
 import { GenericCard, GenericCardProps } from "@/components/card"
+import InfoPanel from "@/components/infopanel/infopanel"
 
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
@@ -28,8 +29,8 @@ export default function Page() {
           </Suspense>
         </div>
         <h2>{pricing.price} MATIC</h2>
-        <h5 className="mb-3 mt-3">{Number(pricing.grantedCredits).toLocaleString()} Credits</h5>
-        {pricing?.features?.map((feature: string) => <p className="text-secondary"><CheckIcon className="icon-left" />{feature}</p>)}
+        <h5 className="mb-4 mt-3">{Number(pricing.grantedCredits).toLocaleString()} Credits</h5>
+        {pricing?.features?.map((feature: any) => <InfoPanel key={feature.key} infoIcon={<CheckCircledIcon />} infoName={feature.key} infoValue={feature.value} />)}
         <Button variant="primary" className="btn-block" onClick={(): void => router.push(`/subscription/pay?planName=${pricing.planName}`)}>
           Select & Continue<ArrowRightIcon className="icon-right" />
         </Button>
