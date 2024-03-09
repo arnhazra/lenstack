@@ -2,6 +2,7 @@
 
 ### v10.3.0
 * Fix hobby subscription not activating after one time
+* Option component improvements
 * Improvements in accounts page
 
 ### v10.2.1
