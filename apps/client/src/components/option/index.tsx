@@ -1,5 +1,5 @@
 "use client"
-import { CheckCircledIcon, CircleIcon, CodeSandboxLogoIcon } from "@radix-ui/react-icons"
+import { CheckCircledIcon, CircleIcon } from "@radix-ui/react-icons"
 import { Button, Col } from "react-bootstrap"
 
 interface OptionProps {

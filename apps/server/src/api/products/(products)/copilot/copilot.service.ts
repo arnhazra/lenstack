@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { generateResponse } from "./commands/generate-response.command"
 import { saveResponse } from "./commands/save-response.command"
 
