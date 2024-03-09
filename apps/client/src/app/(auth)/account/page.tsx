@@ -9,7 +9,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Web3 from "web3"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import { AvatarIcon, BookmarkIcon, CalendarIcon, CubeIcon, ExitIcon, ExternalLinkIcon, PieChartIcon } from "@radix-ui/react-icons"
+import { AvatarIcon, BookmarkIcon, CalendarIcon, CubeIcon, DashboardIcon, ExitIcon, ExternalLinkIcon, PieChartIcon } from "@radix-ui/react-icons"
 import SensitiveInfoPanel from "@/components/infopanel/sensitive-infopanel"
 import InfoPanel from "@/components/infopanel/infopanel"
 import Hero from "@/components/hero"
@@ -75,7 +75,7 @@ export default function Page() {
             <SensitiveInfoPanel credentialIcon={<CubeIcon />} credentialName="Wallet Address" credentialValue={accountAddress} />
             <InfoPanel infoIcon={<BookmarkIcon />} infoName="Wallet Balance" infoValue={`${Number(maticBalance).toFixed(2)} MATIC`} />
             <p className="text-muted mt-2 mb-4">Your Subscription Details</p>
-            <InfoPanel infoIcon={<CubeIcon />} infoName="Selected Plan" infoValue={userState.hasActiveSubscription ? userState.selectedPlan.charAt(0).toUpperCase() + userState.selectedPlan.slice(1) : "No Active Subscription"} />
+            <InfoPanel infoIcon={<DashboardIcon />} infoName="Selected Plan" infoValue={userState.hasActiveSubscription ? userState.selectedPlan.charAt(0).toUpperCase() + userState.selectedPlan.slice(1) : "No Active Subscription"} />
             <Suspense condition={userState.hasActiveSubscription} fallback={null}>
               <InfoPanel infoIcon={<CalendarIcon />} infoName="Start Date" infoValue={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
               <InfoPanel infoIcon={<CalendarIcon />} infoName="Valid Upto" infoValue={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
