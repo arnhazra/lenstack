@@ -1,6 +1,6 @@
 {
   "name": "arcstack",
-  "version": "10.2.1",
+  "version": "10.3.0",
   "description": "arcstack",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix apps/server\" \"npm run dev --prefix apps/client\"",

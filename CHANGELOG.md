@@ -1,5 +1,11 @@
 # Changelog
 
+### v10.3.0
+* Removal of all useCallback & useMemo as these will be deprecated in React 19 & beyond
+* Fix hobby subscription not activating after one time
+* Option component improvements
+* Improvements in accounts page
+
 ### v10.2.1
 * Regular Dependency updates
 * Minor bug fixes

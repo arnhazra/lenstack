@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, useCallback, useContext, useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import Link from "next/link"
 import { ArrowRightIcon, ArrowLeftIcon, ReaderIcon } from "@radix-ui/react-icons"
@@ -49,79 +49,46 @@ export default function Page() {
     window.scrollTo(0, 0)
   }
 
-  const renderDatasets = useCallback(() => {
-    const datasetsToDisplay = datasets?.data?.datasets?.map((dataset: any) => {
-      const datasetCardProps: GenericCardProps = {
-        header: dataset.name,
-        footer: <Fragment>
-          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{dataset.category}</Badge>
-          <p className="text-muted">{dataset.description.slice(0, 150)}...</p>
-        </Fragment>
-      }
-
-      return (
-        <Col key={dataset._id} className="mb-3">
-          <Link href={`/products/dataexchange/dataset?datasetId=${dataset._id}`}>
-            <GenericCard {...datasetCardProps} />
-          </Link>
-        </Col>
-      )
-    })
-
-    return (
-      <Suspense condition={!!datasets?.data?.datasets.length} fallback={<h4 className="text-white">No Datasets to display</h4>}>
-        <h4 className="text-white">Explore the datasets</h4>
-        <Grid>
-          {datasetsToDisplay}
-        </Grid>
-      </Suspense>
-    )
-  }, [datasets?.data])
-
-  const renderFilterCategories = useCallback(() => {
-    const filterCategoriesToDisplay = filters?.data?.filterCategories?.map((category: string) => (
-      <Option
-        key={category}
-        isSelected={datasetRequestState.selectedFilter === category}
-        label={category}
-        value={category}
-        handleChange={(value) => setDatasetRequestState({ ...datasetRequestState, selectedFilter: value, offset: 0 })}
-      />
-    ))
-
-    return (
-      <Fragment>
-        <p className="text-muted ps-2">Select Filter Category</p>
-        <Row xl={5} lg={4} md={3} sm={2} xs={2}>
-          {filterCategoriesToDisplay}
-        </Row>
+  const renderDatasets = datasets?.data?.datasets?.map((dataset: any) => {
+    const datasetCardProps: GenericCardProps = {
+      header: dataset.name,
+      footer: <Fragment>
+        <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">{dataset.category}</Badge>
+        <p className="text-muted">{dataset.description.slice(0, 150)}...</p>
       </Fragment>
-    )
-  }, [filters?.data, datasetRequestState])
-
-  const renderSortOptions = useCallback(() => {
-    const sortOptionsToRender = sortOptions.map((option) => (
-      <Option
-        key={option.value}
-        isSelected={datasetRequestState.selectedSortOption === option.value}
-        label={option.label}
-        value={option.value}
-        handleChange={(value) => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: value, offset: 0 })}
-      />
-    ))
+    }
 
     return (
-      <Fragment>
-        <p className="text-muted ps-2">Select Sort Option</p>
-        <Row xl={5} lg={4} md={3} sm={2} xs={2}>
-          {sortOptionsToRender}
-        </Row>
-      </Fragment>
+      <Col key={dataset._id} className="mb-3">
+        <Link href={`/products/dataexchange/dataset?datasetId=${dataset._id}`}>
+          <GenericCard {...datasetCardProps} />
+        </Link>
+      </Col>
     )
-  }, [sortOptions, datasetRequestState])
+  })
+
+  const renderFilterCategories = filters?.data?.filterCategories?.map((category: string) => (
+    <Option
+      key={category}
+      isSelected={datasetRequestState.selectedFilter === category}
+      label={category}
+      value={category}
+      handleChange={(value) => setDatasetRequestState({ ...datasetRequestState, selectedFilter: value, offset: 0 })}
+    />
+  ))
+
+  const renderSortOptions = sortOptions.map((option) => (
+    <Option
+      key={option.value}
+      isSelected={datasetRequestState.selectedSortOption === option.value}
+      label={option.label}
+      value={option.value}
+      handleChange={(value) => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: value, offset: 0 })}
+    />
+  ))
 
   return (
-    <Suspense condition={!datasets.isLoading && !filters.isLoading && !products.isLoading} fallback={<Loading />}>
+    <Suspense condition={!filters.isLoading && !products.isLoading} fallback={<Loading />}>
       <Suspense condition={!datasets.error && !filters.error && !products.error} fallback={<Error />}>
         <Container>
           <Hero>
@@ -132,16 +99,33 @@ export default function Page() {
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
             </div>
             <Row className="g-2 mt-4">
-              {renderFilterCategories()}
+              <Fragment>
+                <p className="text-muted ps-2">Select Filter Category</p>
+                <Row xl={5} lg={4} md={3} sm={2} xs={2}>
+                  {renderFilterCategories}
+                </Row>
+              </Fragment>
             </Row>
             <Row className="g-2 mt-3">
-              {renderSortOptions()}
+              <Fragment>
+                <p className="text-muted ps-2">Select Sort Option</p>
+                <Row xl={5} lg={4} md={3} sm={2} xs={2}>
+                  {renderSortOptions}
+                </Row>
+              </Fragment>
             </Row>
             <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary mt-1 mb-2">
               <ReaderIcon className="icon-left" />API Reference
             </Link>
           </Hero>
-          {renderDatasets()}
+          <Suspense condition={!datasets?.isLoading} fallback={<h4 className="text-white">Loading Datasets</h4>}>
+            <Suspense condition={!!datasets?.data?.datasets.length} fallback={<h4 className="text-white">No Datasets to display</h4>}>
+              <h4 className="text-white">Explore the datasets</h4>
+              <Grid>
+                {renderDatasets}
+              </Grid>
+            </Suspense>
+          </Suspense>
           <div className="text-center">
             {datasetRequestState.offset !== 0 && <Button variant="primary" onClick={prevPage}><ArrowLeftIcon className="icon-left" />Show Prev</Button>}
             {datasets?.data?.datasets?.length === 24 && <Button variant="primary" onClick={nextPage}>Show Next<ArrowRightIcon className="icon-right" /></Button>}

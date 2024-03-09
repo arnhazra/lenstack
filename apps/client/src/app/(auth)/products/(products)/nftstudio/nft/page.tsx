@@ -13,7 +13,7 @@ import { ArchiveIcon, IdCardIcon, OpenInNewWindowIcon, PersonIcon } from "@radix
 import { formatDistanceToNow } from "date-fns"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Fragment, useCallback, useContext, useEffect, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container, Row } from "react-bootstrap"
 import toast from "react-hot-toast"
 import Web3 from "web3"
@@ -107,34 +107,23 @@ export default function Page() {
     }
   }
 
-  const displayNfts = useCallback(() => {
-    const nftsToDisplay = nftList?.map((nft: any) => {
-      const nftCardProps: GenericCardProps = {
-        header: nft.name,
-        footer: <Fragment>
-          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
-          <p className="text-muted">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
-        </Fragment>
-      }
-
-      return (
-        <Col key={nft.id} className="mb-3">
-          <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
-            <GenericCard {...nftCardProps} />
-          </Link>
-        </Col>
-      )
-    })
+  const nftsToDisplay = nftList?.map((nft: any) => {
+    const nftCardProps: GenericCardProps = {
+      header: nft.name,
+      footer: <Fragment>
+        <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
+        <p className="text-muted">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
+      </Fragment>
+    }
 
     return (
-      <Fragment>
-        <h4 className="text-white">Other NFTs in my collection</h4>
-        <Grid>
-          {nftsToDisplay}
-        </Grid>
-      </Fragment>
+      <Col key={nft.id} className="mb-3">
+        <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
+          <GenericCard {...nftCardProps} />
+        </Link>
+      </Col>
     )
-  }, [nftList])
+  })
 
   useEffect(() => {
     const verifyImage = (url: string): Promise<boolean> => {
@@ -183,7 +172,12 @@ export default function Page() {
                 </Col>
               </Row>
             </Hero>
-            {displayNfts()}
+            <Fragment>
+              <h4 className="text-white">Other NFTs in my collection</h4>
+              <Grid>
+                {nftsToDisplay}
+              </Grid>
+            </Fragment>
           </Container>
         </Suspense>
       </Suspense>

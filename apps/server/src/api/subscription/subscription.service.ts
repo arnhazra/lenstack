@@ -21,6 +21,7 @@ export class SubscriptionService {
   async activateHobby(userId: string) {
     try {
       const selectedPlan = SubscriptionPlans.Hobby
+      await deleteSubscriptionCommand(userId)
       await createNewSubscriptionCommand(userId, selectedPlan)
       return { success: true }
     }
