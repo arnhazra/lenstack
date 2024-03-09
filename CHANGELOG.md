@@ -1,5 +1,8 @@
 # Changelog
 
+### v10.3.0
+* Fix hobby subscription not activating after one time
+
 ### v10.2.1
 * Regular Dependency updates
 * Minor bug fixes
