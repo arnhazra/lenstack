@@ -122,35 +122,39 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <Suspense condition={!isLoading} fallback={<Loading />}>
       <Suspense condition={!isAuthorized} fallback={children}>
         <Suspense condition={authStep === 1} fallback={null}>
-          <form className="box" onSubmit={generatePassKey}>
-            <p className="branding">Auth</p>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Enter your email to get started</Form.Label>
-              <Form.Control disabled={isAuthLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
-            </Form.Group>
-            <Button variant="primary" type="submit" disabled={isAuthLoading} className="mt-1 btn-block">
-              <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
-                Get Auth Passkey <ArrowRightIcon className="icon-right" />
-              </Suspense>
-            </Button>
-            <p className="text-muted mt-1">By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.</p>
-          </form>
+          <div className="container-center">
+            <form className="box" onSubmit={generatePassKey}>
+              <p className="branding">Auth</p>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Enter your email to get started</Form.Label>
+                <Form.Control disabled={isAuthLoading} autoFocus type="email" placeholder="someone@example.com" onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={40} />
+              </Form.Group>
+              <Button variant="primary" type="submit" disabled={isAuthLoading} className="mt-1 btn-block">
+                <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
+                  Get Auth Passkey <ArrowRightIcon className="icon-right" />
+                </Suspense>
+              </Button>
+              <p className="text-muted mt-1">By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.</p>
+            </form>
+          </div>
         </Suspense>
         <Suspense condition={authStep === 2} fallback={null}>
-          <form className="box" onSubmit={verifyPassKey}>
-            <p className="branding">Auth</p>
-            <p className="text-muted">Please verify your auth by entering the auth passkey we sent to your inbox.</p>
-            <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
-              <Form.Label>Auth Passkey</Form.Label>
-              <Form.Control type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
-            </Form.Group>
-            <Button variant="primary" type="submit" disabled={isAuthLoading} className="mt-4 btn-block">
-              <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
-                Continue <ArrowRightIcon className="icon-right" />
-              </Suspense>
-            </Button>
-            <p id="alert" className="mt-1 mb-1">{authAlert}</p>
-          </form>
+          <div className="container-center">
+            <form className="box" onSubmit={verifyPassKey}>
+              <p className="branding">Auth</p>
+              <p className="text-muted">Please verify your auth by entering the auth passkey we sent to your inbox.</p>
+              <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                <Form.Label>Auth Passkey</Form.Label>
+                <Form.Control type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
+              </Form.Group>
+              <Button variant="primary" type="submit" disabled={isAuthLoading} className="mt-4 btn-block">
+                <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
+                  Continue <ArrowRightIcon className="icon-right" />
+                </Suspense>
+              </Button>
+              <p id="alert" className="mt-1 mb-1">{authAlert}</p>
+            </form>
+          </div>
         </Suspense>
       </Suspense>
     </Suspense>

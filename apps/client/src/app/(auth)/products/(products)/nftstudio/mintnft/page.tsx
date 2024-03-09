@@ -68,26 +68,28 @@ export default function Page() {
   }
 
   return (
-    <form className="box" onSubmit={mintNFT}>
-      <p className="branding">Mint NFT</p>
-      <Form.Group controlId="floatingtext">
-        <Form.Label>NFT Name</Form.Label>
-        <Form.Control disabled={state.isLoading} type="text" placeholder="Acme NFT" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
-      </Form.Group>
-      <Form.Group controlId="floatingtext" className="mt-2">
-        <Form.Label>Short Description</Form.Label>
-        <Form.Control disabled={state.isLoading} type="text" placeholder="Lorem Ipsum Dolor ..." onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
-      </Form.Group>
-      <Form.Group controlId="floatingtext" className="mt-2">
-        <Form.Label>NFT Link/Image URI</Form.Label>
-        <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} />
-      </Form.Group>
-      <Button variant="primary" type="submit" disabled={state.isLoading} className="mt-3 btn-block">
-        <Suspense condition={!state.isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</>}>
-          Mint NFT <ArrowRightIcon className="icon-right" />
-        </Suspense>
-      </Button>
-      <Link href={"/products/nftstudio"} className="lead-link">View My NFTs</Link>
-    </form>
+    <div className="container-center">
+      <form className="box" onSubmit={mintNFT}>
+        <p className="branding">Mint NFT</p>
+        <Form.Group controlId="floatingtext">
+          <Form.Label>NFT Name</Form.Label>
+          <Form.Control disabled={state.isLoading} type="text" placeholder="Acme NFT" onChange={(e) => setState({ ...state, name: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
+        </Form.Group>
+        <Form.Group controlId="floatingtext" className="mt-2">
+          <Form.Label>Short Description</Form.Label>
+          <Form.Control disabled={state.isLoading} type="text" placeholder="Lorem Ipsum Dolor ..." onChange={(e) => setState({ ...state, description: e.target.value })} required autoComplete={"off"} minLength={4} maxLength={20} />
+        </Form.Group>
+        <Form.Group controlId="floatingtext" className="mt-2">
+          <Form.Label>NFT Link/Image URI</Form.Label>
+          <Form.Control disabled={state.isLoading} type="url" placeholder="https://acme.com/" onChange={(e) => setState({ ...state, link: e.target.value })} required autoComplete={"off"} />
+        </Form.Group>
+        <Button variant="primary" type="submit" disabled={state.isLoading} className="mt-3 btn-block">
+          <Suspense condition={!state.isLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> Minting NFT</>}>
+            Mint NFT <ArrowRightIcon className="icon-right" />
+          </Suspense>
+        </Button>
+        <Link href={"/products/nftstudio"} className="lead-link">View My NFTs</Link>
+      </form>
+    </div>
   )
 }

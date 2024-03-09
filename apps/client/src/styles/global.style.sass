@@ -42,15 +42,14 @@ body
 .container
   min-width: 96%
 
+.container-center
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 80vh
+
 .loading-container
-  top: 54%
-  left: 50%
-  position: absolute
-  transform: translate(-50%,-50%)
-  box-sizing: border-box
-  background: transparent
   color: $white
-  width: 20rem
   text-align: center
 
 table tr:first-child th:first-child
@@ -150,6 +149,12 @@ h4
 ._GzYRV
   border-radius: 0.8rem
   padding: 1rem
+
+.link-underlined
+  text-decoration: none
+  margin-left: 0.25rem
+  display: inline-block
+  border-bottom: 1px solid #000
 
 @media only screen and (max-width: 61.95rem)
   .lead
