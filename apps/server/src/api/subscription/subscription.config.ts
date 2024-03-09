@@ -5,11 +5,16 @@ export enum SubscriptionPlans {
   Ultra = "ultra",
 }
 
-export interface CreditType {
+interface ValueItem {
+  key: string,
+  value: string
+}
+
+interface CreditType {
   planName: SubscriptionPlans
   price: number,
   grantedCredits: number,
-  features: string[],
+  features: ValueItem[],
   isMostEfficient: boolean
 }
 
@@ -18,28 +23,76 @@ export const subscriptionConfig: CreditType[] = [
     planName: SubscriptionPlans.Hobby,
     price: 0,
     grantedCredits: 5000,
-    features: ["Valid for a month", "Regular API response", "Good for a start"],
+    features: [
+      {
+        key: "Validity",
+        value: "Valid for a month"
+      },
+      {
+        key: "API Response Latency",
+        value: "Regular API response"
+      },
+      {
+        key: "Target Audience",
+        value: "Good for a start"
+      }],
     isMostEfficient: false
   },
   {
     planName: SubscriptionPlans.Starter,
     price: 1.99,
     grantedCredits: 50000,
-    features: ["Valid for a month", "Priority API response", "Good for developers"],
+    features: [
+      {
+        key: "Validity",
+        value: "Valid for a month"
+      },
+      {
+        key: "API Response Latency",
+        value: "Priority API response"
+      },
+      {
+        key: "Target Audience",
+        value: "Good for developers"
+      }],
     isMostEfficient: false
   },
   {
     planName: SubscriptionPlans.Premium,
     price: 3.99,
     grantedCredits: 150000,
-    features: ["Valid for a month", "Faster API response", "Good for startups"],
+    features: [
+      {
+        key: "Validity",
+        value: "Valid for a month"
+      },
+      {
+        key: "API Response Latency",
+        value: "Faster API response"
+      },
+      {
+        key: "Target Audience",
+        value: "Good for startups"
+      }],
     isMostEfficient: true
   },
   {
     planName: SubscriptionPlans.Ultra,
     price: 7.99,
     grantedCredits: 500000,
-    features: ["Valid for a month", "Fastest API response", "The enterprise plan"],
+    features: [
+      {
+        key: "Validity",
+        value: "Valid for a month"
+      },
+      {
+        key: "API Response Latency",
+        value: "Fastest API response"
+      },
+      {
+        key: "Target Audience",
+        value: "Good for enterprises"
+      }],
     isMostEfficient: false
   },
 ]
