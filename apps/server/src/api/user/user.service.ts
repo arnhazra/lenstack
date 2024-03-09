@@ -59,7 +59,7 @@ export class UserService {
           if (!workspaceCount) {
             const workspace = await createWorkspaceCommand("Default Workspace", user.id)
             await updateSelectedWorkspaceCommand(user.id, workspace.id)
-            await createSustainabilitySettingsCommand(user.id, false, true, false, true)
+            await createSustainabilitySettingsCommand(user.id, false, true)
           }
 
           if (redisAccessToken) {

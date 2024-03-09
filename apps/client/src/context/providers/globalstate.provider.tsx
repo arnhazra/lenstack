@@ -22,9 +22,7 @@ const initialState: { userState: UserState, appState: AppState } = {
     remainingCredits: 0,
     hasActiveSubscription: false,
     isAuthorized: false,
-    useDarkMode: false,
-    useFastestNode: true,
-    useLessEnergy: false,
+    useEnergySaver: false,
     useOptimizedAPICalls: true
   },
 

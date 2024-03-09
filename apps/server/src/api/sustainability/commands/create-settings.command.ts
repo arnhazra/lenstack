@@ -1,11 +1,7 @@
 import { SustainabilityModel } from "../models/sustainability.model"
 
-export default async function createSustainabilitySettingsCommand(userId: string,
-  useDarkMode: boolean,
-  useFastestNode: boolean,
-  useLessEnergy: boolean,
-  useOptimizedAPICalls: boolean) {
-  const sustainability = new SustainabilityModel({ userId, useDarkMode, useFastestNode, useLessEnergy, useOptimizedAPICalls })
+export default async function createSustainabilitySettingsCommand(userId: string, useEnergySaver: boolean, useOptimizedAPICalls: boolean) {
+  const sustainability = new SustainabilityModel({ userId, useEnergySaver, useOptimizedAPICalls })
   await sustainability.save()
   return true
 }

@@ -13,9 +13,7 @@ export interface UserState {
   remainingCredits: number | string
   hasActiveSubscription: boolean,
   isAuthorized: boolean,
-  useDarkMode: boolean,
-  useFastestNode: boolean,
-  useLessEnergy: boolean,
+  useEnergySaver: boolean,
   useOptimizedAPICalls: boolean
 }
 

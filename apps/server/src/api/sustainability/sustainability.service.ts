@@ -6,8 +6,8 @@ import updateSustainabilitySettingsCommand from "./commands/update-settings.comm
 export class SustainabilityService {
   async updateSettings(userId: string, updateSustainabilityDto: UpdateSustainabilityDto) {
     try {
-      const { useDarkMode, useFastestNode, useLessEnergy, useOptimizedAPICalls } = updateSustainabilityDto
-      return await updateSustainabilitySettingsCommand(userId, useDarkMode, useFastestNode, useLessEnergy, useOptimizedAPICalls)
+      const { useEnergySaver, useOptimizedAPICalls } = updateSustainabilityDto
+      return await updateSustainabilitySettingsCommand(userId, useEnergySaver, useOptimizedAPICalls)
     }
 
     catch (error) {

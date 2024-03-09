@@ -34,8 +34,6 @@ export default function ReactQueryProvider({ children }: { children: ReactNode }
         staleTime: 5000,
         retry: 2,
         retryDelay: 2500,
-        refetchOnWindowFocus: true,
-        refetchInterval: 60000,
         enabled: true
       }
     }

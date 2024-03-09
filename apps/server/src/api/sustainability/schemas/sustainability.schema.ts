@@ -7,25 +7,13 @@ export const SustainabilitySettingsSchema = new Schema({
     required: true
   },
 
-  useLessEnergy: {
+  useEnergySaver: {
     type: Boolean,
     required: true,
     default: false
   },
 
   useOptimizedAPICalls: {
-    type: Boolean,
-    required: true,
-    default: true
-  },
-
-  useDarkMode: {
-    type: Boolean,
-    required: true,
-    default: false
-  },
-
-  useFastestNode: {
     type: Boolean,
     required: true,
     default: true

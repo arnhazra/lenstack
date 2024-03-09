@@ -11,7 +11,7 @@ import { Button, Form } from "react-bootstrap"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [{ appState }, dispatch] = useContext(GlobalContext)
+  const [{ appState, userState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthLoading, setAuthLoading] = useState<boolean>(false)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
@@ -73,7 +73,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           const { email, privateKey, role, selectedWorkspaceId } = response.data.user
           const { name: selectedWorkspaceName, clientId, clientSecret } = response.data.workspace
           const hasActiveSubscription = response.data.hasActiveSubscription
-          const { useLessEnergy, useOptimizedAPICalls, useDarkMode, useFastestNode } = response.data.sustainabilitySettings
+          const { useEnergySaver, useOptimizedAPICalls } = response.data.sustainabilitySettings
 
           if (response.data.subscription) {
             const { selectedPlan, createdAt, expiresAt, remainingCredits } = response.data.subscription
@@ -86,7 +86,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
           localStorage.setItem("clientId", clientId)
           localStorage.setItem("clientSecret", clientSecret)
-          dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription, useLessEnergy, useOptimizedAPICalls, useDarkMode, useFastestNode })
+          dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription, useEnergySaver, useOptimizedAPICalls })
           dispatch("setUserState", { isAuthorized: true })
           setAuthorized(true)
         }
@@ -121,7 +121,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   return (
     <Suspense condition={!isLoading} fallback={<Loading />}>
-      <Suspense condition={!isAuthorized} fallback={children}>
+      <Suspense condition={!isAuthorized} fallback={<div style={userState.useEnergySaver ? { filter: "brightness(60%) contrast(80%)" } : {}}>{children}</div>}>
         <Suspense condition={authStep === 1} fallback={null}>
           <div className="container-center">
             <form className="box" onSubmit={generatePassKey}>
