@@ -1,5 +1,8 @@
 # Changelog
 
+### v10.4.0
+* Code optimization for sustainable development to reduce carbon emissions
+
 ### v10.3.0
 * Removal of all useCallback & useMemo as these will be deprecated in React 19 & beyond
 * Fix hobby subscription not activating after one time
