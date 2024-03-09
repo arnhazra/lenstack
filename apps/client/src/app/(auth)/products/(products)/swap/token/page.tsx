@@ -5,7 +5,7 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "next/navigation"
-import { Fragment, useCallback, useContext, useEffect, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import { Badge, Button, Col, Container } from "react-bootstrap"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { vendorABI } from "../vendor-abi"
@@ -172,35 +172,24 @@ export default function Page() {
     }
   }
 
-  const displayOtherTokens = useCallback(() => {
-    const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
-      .map((token: TokenData) => {
-        const tokenCardProps: GenericCardProps = {
-          header: token.tokenName,
-          footer: <Fragment>
-            <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-20</Badge>
-            <p className="text-muted">{token.description}</p>
-          </Fragment>
-        }
+  const tokensToDisplay = swapTokenConfig?.data?.filter((token: any) => token.tokenContractAddress !== tokenAddress)
+    .map((token: TokenData) => {
+      const tokenCardProps: GenericCardProps = {
+        header: token.tokenName,
+        footer: <Fragment>
+          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-20</Badge>
+          <p className="text-muted">{token.description}</p>
+        </Fragment>
+      }
 
-        return (
-          <Col key={token.tokenContractAddress} className="mb-3">
-            <Link href={`/products/swap/token?tokenAddress=${token.tokenContractAddress}`}>
-              <GenericCard  {...tokenCardProps} />
-            </Link>
-          </Col>
-        )
-      })
-
-    return (
-      <Fragment>
-        <h4 className="text-white">Other Tokens</h4>
-        <Grid>
-          {tokensToDisplay}
-        </Grid>
-      </Fragment>
-    )
-  }, [swapTokenConfig?.data, tokenAddress])
+      return (
+        <Col key={token.tokenContractAddress} className="mb-3">
+          <Link href={`/products/swap/token?tokenAddress=${token.tokenContractAddress}`}>
+            <GenericCard  {...tokenCardProps} />
+          </Link>
+        </Col>
+      )
+    })
 
   return (
     <Container>
@@ -224,7 +213,12 @@ export default function Page() {
               <Suspense condition={isTxProcessing} fallback={null}><i className="fas fa-circle-notch fa-spin"></i> Processing Tx</Suspense>
             </Button>
           </Hero>
-          {displayOtherTokens()}
+          <Fragment>
+            <h4 className="text-white">Other Tokens</h4>
+            <Grid>
+              {tokensToDisplay}
+            </Grid>
+          </Fragment>
         </Suspense>
       </Suspense>
     </Container>

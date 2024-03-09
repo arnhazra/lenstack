@@ -4,7 +4,7 @@ import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import Web3 from "web3"
 import Link from "next/link"
-import { Fragment, useCallback, useContext, useEffect, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import { Badge, Col, Container } from "react-bootstrap"
 import { toast } from "react-hot-toast"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -52,36 +52,23 @@ export default function Page() {
     })()
   }, [nftContractAddress?.data])
 
-  const displayNfts = useCallback(() => {
-    const nftsToDisplay = nftList?.filter((nft: any) =>
-      nft.name.toLowerCase().includes(appState.globalSearchString)
-    )?.map((nft: any) => {
-      const nftCardProps: GenericCardProps = {
-        header: nft.name,
-        footer: <Fragment>
-          <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
-          <p className="text-muted">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
-        </Fragment>
-      }
-
-      return (
-        <Col key={nft.id} className="mb-3">
-          <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
-            <GenericCard {...nftCardProps} />
-          </Link>
-        </Col>
-      )
-    })
+  const nftsToDisplay = nftList?.filter((nft: any) => nft.name.toLowerCase().includes(appState.globalSearchString))?.map((nft: any) => {
+    const nftCardProps: GenericCardProps = {
+      header: nft.name,
+      footer: <Fragment>
+        <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-721</Badge>
+        <p className="text-muted">This NFT was minted using NFT Studio on {formatDistanceToNow(new Date(Number(nft.createdAt) * 1000), { addSuffix: true })}. To check more click on this card.</p>
+      </Fragment>
+    }
 
     return (
-      <Suspense condition={!!nftsToDisplay?.length} fallback={<h4 className="text-white">No NFTs to display</h4>}>
-        <h4 className="text-white">My Collection</h4>
-        <Grid>
-          {nftsToDisplay}
-        </Grid>
-      </Suspense>
+      <Col key={nft.id} className="mb-3">
+        <Link href={`/products/nftstudio/nft?nftId=${nft.id}`}>
+          <GenericCard {...nftCardProps} />
+        </Link>
+      </Col>
     )
-  }, [appState.globalSearchString, nftList])
+  })
 
   return (
     <Suspense condition={!isLoading && !nftContractAddress.isLoading && !products.isLoading} fallback={<Loading />}>
@@ -96,7 +83,12 @@ export default function Page() {
             </div>
             <Link className="btn btn-primary" href={"/products/nftstudio/mintnft"}><PlusCircledIcon className="icon-left" />Mint New NFT</Link>
           </Hero>
-          {displayNfts()}
+          <Suspense condition={!!nftsToDisplay?.length} fallback={<h4 className="text-white">No NFTs to display</h4>}>
+            <h4 className="text-white">My Collection</h4>
+            <Grid>
+              {nftsToDisplay}
+            </Grid>
+          </Suspense>
         </Container>
       </Suspense>
     </Suspense>

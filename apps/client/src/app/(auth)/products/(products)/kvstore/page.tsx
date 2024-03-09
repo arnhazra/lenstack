@@ -10,31 +10,18 @@ import Link from "next/link"
 import Hero from "@/components/hero"
 import { uiConstants } from "@/constants/global-constants"
 import Error from "@/components/error"
-import { usePromptContext } from "@/context/providers/prompt.provider"
-import { useCallback } from "react"
 
 export default function Page() {
-  const { prompt } = usePromptContext()
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=kvstore`, HTTPMethods.GET)
   const kvList = useQuery(["kvlist"], `${endPoints.kvstoreReadKvList}`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "kvstore")
 
-  const displayKvs = useCallback(() => {
-    const kvsToDisplay = kvList?.data?.kvs?.map((kv: any) => {
-      return (
-        <tr key={kv._id}>
-          <td>{kv.key}</td>
-          <td>{kv.value}</td>
-        </tr>
-      )
-    })
-
-    return (
-      <tbody>
-        {kvsToDisplay}
-      </tbody>
-    )
-  }, [kvList?.data])
+  const kvsToDisplay = kvList?.data?.kvs?.map((kv: any) => (
+    <tr key={kv._id}>
+      <td>{kv.key}</td>
+      <td>{kv.value}</td>
+    </tr>
+  ))
 
   return (
     <Suspense condition={!kvList.isLoading && !products.isLoading} fallback={<Loading />}>
@@ -60,7 +47,9 @@ export default function Page() {
                   <th>Value</th>
                 </tr>
               </thead>
-              {displayKvs()}
+              <tbody>
+                {kvsToDisplay}
+              </tbody>
             </Table>
           </Suspense>
         </Container>
