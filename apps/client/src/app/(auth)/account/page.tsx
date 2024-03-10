@@ -95,7 +95,7 @@ export default function Page() {
               <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
             </Suspense>
             <p className="text-muted mt-2 mb-4">
-              {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints. Change your sustainability settings below.
+              <i className="fa-brands fa-envira"></i> {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints. Change your sustainability settings below.
             </p>
             <Option
               key="reduceCarbonEmissions"
