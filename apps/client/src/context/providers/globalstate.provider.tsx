@@ -22,8 +22,7 @@ const initialState: { userState: UserState, appState: AppState } = {
     remainingCredits: 0,
     hasActiveSubscription: false,
     isAuthorized: false,
-    useEnergySaver: false,
-    useOptimizedAPICalls: true
+    reduceCarbonEmissions: true,
   },
 
   appState: {

@@ -18,8 +18,7 @@ import { createUserCommand } from "./commands/create-user.command"
 import { findUserByIdQuery } from "./queries/find-user-by-id"
 import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
-import createSustainabilitySettingsCommand from "../sustainability/commands/create-settings.command"
-import fetchSustainabilitySettings from "../sustainability/queries/fetch-sustainability-settings.query"
+import updateCarbonSettings from "./commands/update-carbon-settings.command"
 
 @Injectable()
 export class UserService {
@@ -59,7 +58,6 @@ export class UserService {
           if (!workspaceCount) {
             const workspace = await createWorkspaceCommand("Default Workspace", user.id)
             await updateSelectedWorkspaceCommand(user.id, workspace.id)
-            await createSustainabilitySettingsCommand(user.id, false, true)
           }
 
           if (redisAccessToken) {
@@ -104,14 +102,13 @@ export class UserService {
       if (user) {
         const workspace = await findWorkspaceByIdQuery(workspaceId)
         const subscription = await findSubscriptionByUserIdQuery(userId)
-        const sustainabilitySettings = await fetchSustainabilitySettings(userId)
         let hasActiveSubscription = false
 
         if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {
           hasActiveSubscription = true
         }
 
-        return { user, workspace, subscription, hasActiveSubscription, sustainabilitySettings }
+        return { user, workspace, subscription, hasActiveSubscription }
       }
 
       else {
@@ -141,8 +138,17 @@ export class UserService {
     }
 
     catch (error) {
-      console.log(error)
       throw new BadRequestException()
+    }
+  }
+
+  async updateCarbonSettings(userId: string, value: boolean) {
+    try {
+      await updateCarbonSettings(userId, value)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 }

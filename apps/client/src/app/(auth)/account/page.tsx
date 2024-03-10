@@ -9,7 +9,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Web3 from "web3"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import { AvatarIcon, BookmarkIcon, CalendarIcon, CubeIcon, DashboardIcon, ExitIcon, ExternalLinkIcon, PieChartIcon } from "@radix-ui/react-icons"
+import { AvatarIcon, BookmarkIcon, CalendarIcon, CheckCircledIcon, CubeIcon, DashboardIcon, ExitIcon, PieChartIcon } from "@radix-ui/react-icons"
 import SensitiveInfoPanel from "@/components/infopanel/sensitive-infopanel"
 import InfoPanel from "@/components/infopanel/infopanel"
 import Hero from "@/components/hero"
@@ -17,11 +17,11 @@ import CenterGrid from "@/components/centergrid"
 import { format } from "date-fns"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
-import Link from "next/link"
 import Error from "@/components/error"
+import Option from "@/components/option"
 
 export default function Page() {
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
   const web3Provider = new Web3(endPoints.userTxGateway)
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
@@ -48,7 +48,7 @@ export default function Page() {
         setWalletLoading(false)
       }
     })()
-  }, [userState])
+  }, [userState.privateKey, userState.userId])
 
   const signOut = async (device: string) => {
     try {
@@ -57,6 +57,19 @@ export default function Page() {
       }
       localStorage.clear()
       window.location.replace("/")
+    }
+
+    catch (error) {
+      toast.error(uiConstants.toastError)
+    }
+  }
+
+  const saveSettings = async (reduceCarbonEmissions: boolean) => {
+    try {
+      dispatch("setUserState", { reduceCarbonEmissions: !userState.reduceCarbonEmissions })
+      await axios.patch(endPoints.updateCarbonSettings, { reduceCarbonEmissions })
+      dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
+      toast.success(uiConstants.toastSuccess)
     }
 
     catch (error) {
@@ -82,10 +95,15 @@ export default function Page() {
               <InfoPanel infoIcon={<PieChartIcon />} infoName="Subscription Usage" infoValue={userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits} Credits remaining` : "No Subscriptions Usage Data"} />
             </Suspense>
             <p className="text-muted mt-2 mb-4">
-              {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints. Change your sustainability settings
-              <Link href="/sustainability" className="link-underlined"> here.</Link>
+              {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints. Change your sustainability settings below.
             </p>
-            <Link className="btn btn-primary btn-block" href="/subscription/plans">Browse Plans<ExternalLinkIcon className="icon-right" /></Link>
+            <Option
+              key="reduceCarbonEmissions"
+              isSelected={userState?.reduceCarbonEmissions}
+              value="reduceCarbonEmissions"
+              label="Reduce Carbon Emissions"
+              handleChange={(): Promise<void> => saveSettings(!userState.reduceCarbonEmissions)}
+            />
             <Row className="justify-content-center" >
               <Col xl={6} lg={6} md={12} sm={12} xs={12}>
                 <Button variant="secondary" className="btn-block" onClick={(): Promise<void> => signOut("this")}>Sign Out<ExitIcon className="icon-right" /></Button>

@@ -1,9 +1,10 @@
-import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Patch } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { UpdateCarbonSettingsDto } from "./dto/update-carbon-settings.dto"
 
 @Controller("user")
 export class UserController {
@@ -43,10 +44,10 @@ export class UserController {
   @Get("userdetails")
   async getUserDetails(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
-      const { user, subscription, workspace, hasActiveSubscription, sustainabilitySettings } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)
+      const { user, subscription, workspace, hasActiveSubscription } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)
 
       if (user) {
-        return { user, subscription, workspace, hasActiveSubscription, sustainabilitySettings }
+        return { user, subscription, workspace, hasActiveSubscription }
       }
 
       else {
@@ -80,6 +81,17 @@ export class UserController {
 
     catch (error) {
       throw new BadRequestException()
+    }
+  }
+
+  @Patch("updatecarbonsettings")
+  async updateCarbonSettings(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
+    try {
+      return await this.userService.updateCarbonSettings(uft.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.invalidUser)
     }
   }
 }

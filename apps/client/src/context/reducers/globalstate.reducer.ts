@@ -13,8 +13,7 @@ export interface UserState {
   remainingCredits: number | string
   hasActiveSubscription: boolean,
   isAuthorized: boolean,
-  useEnergySaver: boolean,
-  useOptimizedAPICalls: boolean
+  reduceCarbonEmissions: boolean,
 }
 
 export interface AppState {

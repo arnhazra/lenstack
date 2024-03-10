@@ -22,6 +22,11 @@ export const UserSchema = new Schema({
     required: true
   },
 
+  reduceCarbonEmissions: {
+    type: Boolean,
+    default: true
+  },
+
   selectedWorkspaceId: {
     type: Schema.Types.ObjectId,
     ref: "workspace"

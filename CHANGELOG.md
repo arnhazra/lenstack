@@ -1,5 +1,12 @@
 # Changelog
 
+### v10.5.0
+* Update sustainability settings for better performance
+* Integrated reduceCarbonEmissions in users collection
+* Removed sustainability settings model & module
+* Updated UI for changing sustainability settings
+* Removed sustainability page & integrated settings in accounts page
+
 ### v10.4.0
 * Integration of sustainability settings
 * Code optimization for sustainable development to reduce carbon emissions
