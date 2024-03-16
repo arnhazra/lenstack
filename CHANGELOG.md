@@ -1,5 +1,9 @@
 # Changelog
 
+### v10.5.1
+* Minor dependency updates
+* Bug fixes
+
 ### v10.5.0
 * Update sustainability settings for better performance
 * Integrated reduceCarbonEmissions in users collection
