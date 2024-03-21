@@ -1,5 +1,7 @@
 # Changelog
 
+### v11.0.0
+
 ### v10.5.1
 * Minor dependency updates
 * Bug fixes
