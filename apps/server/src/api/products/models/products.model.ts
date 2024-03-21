@@ -1,4 +1,4 @@
-import { platformMongoDbConn } from "src/lib/db-connect"
+import { platformDatabaseConn } from "src/lib/db-connect"
 import { ProductSchema } from "../schemas/products.schema"
 
-export const ProductModel = platformMongoDbConn.model("productconfig", ProductSchema)
+export const ProductModel = platformDatabaseConn.model("productconfig", ProductSchema)

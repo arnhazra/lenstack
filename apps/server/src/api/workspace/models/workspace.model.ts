@@ -1,4 +1,4 @@
-import { platformMongoDbConn } from "src/lib/db-connect"
+import { platformDatabaseConn } from "src/lib/db-connect"
 import { WorkspaceSchema } from "../schemas/workspace.schema"
 
-export const WorkspaceModel = platformMongoDbConn.model("workspace", WorkspaceSchema)
+export const WorkspaceModel = platformDatabaseConn.model("workspace", WorkspaceSchema)

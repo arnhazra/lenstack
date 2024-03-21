@@ -1,4 +1,4 @@
-import { platformMongoDbConn } from "src/lib/db-connect"
+import { platformDatabaseConn } from "src/lib/db-connect"
 import { ApiReferenceSchema } from "../schemas/apireference.schema"
 
-export const ApiReferenceModel = platformMongoDbConn.model("apireference", ApiReferenceSchema)
+export const ApiReferenceModel = platformDatabaseConn.model("apireference", ApiReferenceSchema)

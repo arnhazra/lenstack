@@ -1,4 +1,4 @@
-import { kvstoreMongoDbConn } from "../../../../../lib/db-connect"
+import { kvstoreDatabaseConn } from "../../../../../lib/db-connect"
 import { KvSchema } from "../schemas/kv.schema"
 
-export const KvModel = kvstoreMongoDbConn.model("kv", KvSchema)
+export const KvModel = kvstoreDatabaseConn.model("kv", KvSchema)

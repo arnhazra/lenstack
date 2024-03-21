@@ -1,4 +1,4 @@
-import { analyticsMongoDbConn } from "src/lib/db-connect"
+import { analyticsDatabaseConn } from "src/lib/db-connect"
 import { AnalyticsSchema } from "../schemas/analytics.schema"
 
-export const AnalyticsModel = analyticsMongoDbConn.model("analytics", AnalyticsSchema)
+export const AnalyticsModel = analyticsDatabaseConn.model("analytics", AnalyticsSchema)

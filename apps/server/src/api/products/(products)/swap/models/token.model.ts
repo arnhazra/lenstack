@@ -1,4 +1,4 @@
-import { swapMongoDbConn } from "../../../../../lib/db-connect"
+import { swapDatabaseConn } from "../../../../../lib/db-connect"
 import { TokenSchema } from "../schemas/token.schema"
 
-export const TokenModel = swapMongoDbConn.model("token", TokenSchema)
+export const TokenModel = swapDatabaseConn.model("token", TokenSchema)
