@@ -1,6 +1,9 @@
 # Changelog
 
 ### v11.0.0
+* More generic terms introduction
+* Minor dependency updates
+* Bug fixes
 
 ### v10.5.1
 * Minor dependency updates

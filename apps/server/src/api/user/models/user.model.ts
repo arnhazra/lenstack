@@ -1,4 +1,4 @@
-import { platformDatabaseConn } from "../../../lib/db-connect"
+import { platformDatabaseConn } from "../../../lib/connect-databases"
 import { UserSchema } from "../schemas/user.schema"
 
 export const UserModel = platformDatabaseConn.model("user", UserSchema)

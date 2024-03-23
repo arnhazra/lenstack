@@ -1,6 +1,6 @@
 import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
-import { dbConnect } from "./lib/db-connect"
+import { connectDatabases } from "./lib/connect-databases"
 import { INestApplication, ValidationPipe } from "@nestjs/common"
 import { envConfig } from "./env.config"
 
@@ -9,7 +9,7 @@ async function bootstrap(): Promise<void> {
   app.setGlobalPrefix("api")
   app.useGlobalPipes(new ValidationPipe())
   app.enableCors()
-  dbConnect()
+  connectDatabases()
   await app.listen(envConfig.apiPort)
 }
 
