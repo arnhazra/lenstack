@@ -6,6 +6,10 @@ apps/client/.next
 apps/client/.vercel
 apps/client/*.tsbuildinfo
 apps/client/out
+apps/my-app/.next
+apps/my-app/.vercel
+apps/my-app/*.tsbuildinfo
+apps/my-app/out
 .vercel
 dist
 api/build
