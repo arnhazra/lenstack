@@ -109,7 +109,7 @@ export default function Dashboard() {
             <Card className="xl:col-span-2">
               <CardHeader className="flex flex-row items-center">
                 <div className="grid gap-2">
-                  <CardTitle>Transactions</CardTitle>
+                  <CardTitle>Products</CardTitle>
                   <CardDescription>
                     Recent transactions from your store.
                   </CardDescription>
@@ -245,7 +245,7 @@ export default function Dashboard() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Recent Sales</CardTitle>
+                <CardTitle>Workspaces</CardTitle>
               </CardHeader>
               <CardContent className="grid gap-8">
                 <div className="flex items-center gap-4">
