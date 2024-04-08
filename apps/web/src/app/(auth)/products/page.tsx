@@ -22,7 +22,6 @@ enum Filters {
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
-  console.log(appState.globalSearchString)
   const products = useQuery(["products", appState.globalSearchString], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
   const router = useRouter()
   const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
