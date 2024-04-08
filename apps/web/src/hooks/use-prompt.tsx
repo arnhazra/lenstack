@@ -1,8 +1,9 @@
 "use client"
 import { useState } from "react"
-import { Modal, Button } from "react-bootstrap"
-import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
-import { Form } from "react-bootstrap"
+import { CheckCircle, CircleX } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { AlertDialog, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
+import { Input } from "@/components/ui/input"
 
 export default function usePrompt() {
   const [show, setShow] = useState(false)
@@ -32,26 +33,22 @@ export default function usePrompt() {
   }
 
   const promptDialog = () => (
-    <Modal show={show} centered keyboard={false} backdrop="static" className="blurred-background">
+    <AlertDialog open={show}>
       <form onSubmit={(e) => { e.preventDefault(); handleConfirm(true) }}>
-        <Modal.Header>
-          <h5>{message}</h5>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Group controlId="exampleForm.ControlInput1">
-            <Form.Control required autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{message}</AlertDialogTitle>
+          <Input required autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
+        </AlertDialogHeader>
+        <AlertDialogFooter>
           <Button variant="secondary" onClick={() => handleConfirm(false)}>
-            <CrossCircledIcon className="icon-left" />Cancel
+            <CircleX className="icon-left" />Cancel
           </Button>
-          <Button type="submit" variant="primary">
-            <CheckCircledIcon className="icon-left" />Proceed
+          <Button type="submit" variant="default">
+            <CheckCircle className="icon-left" />Proceed
           </Button>
-        </Modal.Footer>
+        </AlertDialogFooter>
       </form>
-    </Modal>
+    </AlertDialog>
   )
 
   return { promptDialog, prompt }
