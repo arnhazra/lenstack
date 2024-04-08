@@ -31,7 +31,7 @@ export default function useConfirm() {
   }
 
   const confirmDialog = () => (
-    <AlertDialog open={show}>
+    <AlertDialog open={false} defaultOpen={false}>
       <AlertDialogHeader>
         <AlertDialogTitle>{message}</AlertDialogTitle>
         <AlertDialogDescription>

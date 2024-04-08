@@ -33,7 +33,7 @@ export default function usePrompt() {
   }
 
   const promptDialog = () => (
-    <AlertDialog open={show}>
+    <AlertDialog open={false} defaultOpen={false}>
       <form onSubmit={(e) => { e.preventDefault(); handleConfirm(true) }}>
         <AlertDialogHeader>
           <AlertDialogTitle>{message}</AlertDialogTitle>

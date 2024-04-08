@@ -10,12 +10,8 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <ReactQueryProvider>
       <GlobalStateProvider>
-        <ConfirmProvider>
-          <PromptProvider>
-            {children}
-            <Toaster position="bottom-right" />
-          </PromptProvider>
-        </ConfirmProvider>
+        {children}
+        <Toaster position="bottom-right" />
       </GlobalStateProvider>
     </ReactQueryProvider>
   )
