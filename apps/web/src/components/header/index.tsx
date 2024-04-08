@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { CircleUser, Hexagon, AlignLeft, Search } from "lucide-react"
+import { CircleUser, Hexagon, Equal, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
@@ -61,7 +61,7 @@ export default function Header() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-                <AlignLeft className="h-5 w-5" />
+                <Equal className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
@@ -118,7 +118,7 @@ export default function Header() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-                <AlignLeft className="h-5 w-5" />
+                <Equal className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="left">

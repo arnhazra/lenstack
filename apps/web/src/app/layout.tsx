@@ -19,9 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={quickSand.className}>
         <Providers>
-          <nav>
-            <Header />
-          </nav>
+          <Header />
           <main>
             {children}
           </main>
