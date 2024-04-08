@@ -1,14 +1,24 @@
 "use client"
 import Link from "next/link"
-import { Activity, ArrowUpRight, CreditCard, DollarSign, Users, } from "lucide-react"
+import { ArrowUpRight, BarChart2, Calendar, CalendarCheck2Icon, OrbitIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Avatar } from "@/components/ui/avatar"
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
+import { useContext } from "react"
+import { format } from "date-fns"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
+import useQuery from "@/hooks/use-query"
+import { endPoints } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
 
-export default function Dashboard() {
+export default function Page() {
+  const [{ userState }] = useContext(GlobalContext)
+  const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 bg-neutral-50">
@@ -16,52 +26,52 @@ export default function Dashboard() {
           <Card x-chunk="dashboard-01-chunk-0">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Revenue
+                Selected Subscription
               </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <OrbitIcon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold capitalize">{userState.hasActiveSubscription ? userState.selectedPlan : "No Active Subscription"}</div>
               <p className="text-xs text-muted-foreground">
-                +20.1% from last month
+                Your current plan
               </p>
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-1">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Subscriptions
+                Start Date
               </CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <CalendarCheck2Icon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+2350</div>
+              <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"}</div>
               <p className="text-xs text-muted-foreground">
-                +180.1% from last month
+                Plan start date
               </p>
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-2">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sales</CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Valid Upto</CardTitle>
+              <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+12,234</div>
+              <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"}</div>
               <p className="text-xs text-muted-foreground">
-                +19% from last month
+                Plan end date
               </p>
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-3">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Now</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Subscription Usage</CardTitle>
+              <BarChart2 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+573</div>
+              <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits}` : "No Subscriptions Usage Data"}</div>
               <p className="text-xs text-muted-foreground">
-                +201 since last hour
+                Credits remaining
               </p>
             </CardContent>
           </Card>
@@ -78,7 +88,7 @@ export default function Dashboard() {
                 </CardDescription>
               </div>
               <Button asChild size="sm" className="ml-auto gap-1">
-                <Link href="#">
+                <Link href="/products">
                   View All
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
