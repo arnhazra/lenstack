@@ -5,16 +5,11 @@ export enum SubscriptionPlans {
   Ultra = "ultra",
 }
 
-interface ValueItem {
-  key: string,
-  value: string
-}
-
 export interface CreditType {
   planName: SubscriptionPlans
   price: number,
   grantedCredits: number,
-  features: ValueItem[],
+  features: string[],
   isMostEfficient: boolean
 }
 
@@ -24,18 +19,12 @@ export const subscriptionConfig: CreditType[] = [
     price: 0,
     grantedCredits: 5000,
     features: [
-      {
-        key: "Validity",
-        value: "Valid for a month"
-      },
-      {
-        key: "API Response Latency",
-        value: "Regular API response"
-      },
-      {
-        key: "Target Audience",
-        value: "Good for a start"
-      }],
+      "Upto three workspaces",
+      "Valid for a month",
+      "Regular API response",
+      "Good for a start",
+      "Free forever plan"
+    ],
     isMostEfficient: false
   },
   {
@@ -43,18 +32,12 @@ export const subscriptionConfig: CreditType[] = [
     price: 1.99,
     grantedCredits: 50000,
     features: [
-      {
-        key: "Validity",
-        value: "Valid for a month"
-      },
-      {
-        key: "API Response Latency",
-        value: "Priority API response"
-      },
-      {
-        key: "Target Audience",
-        value: "Good for developers"
-      }],
+      "Upto three workspaces",
+      "Valid for a month",
+      "Priority API response",
+      "Good for developers",
+      "The value plan"
+    ],
     isMostEfficient: false
   },
   {
@@ -62,18 +45,12 @@ export const subscriptionConfig: CreditType[] = [
     price: 3.99,
     grantedCredits: 150000,
     features: [
-      {
-        key: "Validity",
-        value: "Valid for a month"
-      },
-      {
-        key: "API Response Latency",
-        value: "Faster API response"
-      },
-      {
-        key: "Target Audience",
-        value: "Good for startups"
-      }],
+      "Upto three workspaces",
+      "Valid for a month",
+      "Faster API response",
+      "Good for startups",
+      "The efficient plan"
+    ],
     isMostEfficient: true
   },
   {
@@ -81,18 +58,12 @@ export const subscriptionConfig: CreditType[] = [
     price: 7.99,
     grantedCredits: 500000,
     features: [
-      {
-        key: "Validity",
-        value: "Valid for a month"
-      },
-      {
-        key: "API Response Latency",
-        value: "Fastest API response"
-      },
-      {
-        key: "Target Audience",
-        value: "Good for enterprises"
-      }],
+      "Upto three workspaces",
+      "Valid for a month",
+      "Fastest API response",
+      "Good for enterprises",
+      "The ultra plan"
+    ],
     isMostEfficient: false
   },
 ]

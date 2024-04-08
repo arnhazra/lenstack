@@ -1,109 +1,55 @@
 "use client"
-
-import { useState } from 'react'
-import { CheckIcon } from "lucide-react"
-
+import { CircleCheckIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger
-} from '@/components/ui/tabs'
-
-export const description =
-  "A pricing page with 3 tiers. You can also customize it with 4 tiers or less than 3 tiers - it always looks good. The monthly plan is highlighted with a 20% discount nudging users to pick the annual plan."
-
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import useQuery from "@/hooks/use-query"
+import { endPoints } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
+import { useRouter } from "next/navigation"
 export const iframeHeight = "640px"
-
 export const containerClassName = "w-full h-full p-4 lg:p-0"
 
 type TierCardComponentProps = {
-  className?: string
-  cta: string
-  description: string
   features: string[]
-  mostPopular?: boolean
-  name: string
-  price: string
-  priceSuffix?: string
+  grantedCredits: number
+  isMostEfficient?: boolean
+  planName: string
+  price: number
 }
 
-function TierCardComponent({
-  className,
-  cta,
-  description,
-  features,
-  mostPopular = false,
-  name,
-  price,
-  priceSuffix,
-}: TierCardComponentProps) {
+function TierCardComponent({ grantedCredits, features, isMostEfficient = false, planName, price }: TierCardComponentProps) {
+  const router = useRouter()
+
   return (
-    <Card
-      className={cn(
-        'w-full',
-        mostPopular && 'ring-2 ring-primary dark:bg-border/50',
-        className,
-      )}
-    >
+    <Card className={cn('w-full cursor-pointer', isMostEfficient && 'ring-2 ring-primary dark:bg-border/50')} onClick={(): void => router.push(`subscription/pay?planName=${planName}`)}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle
-            className={cn(
-              'text-lg font-semibold',
-              mostPopular && 'text-primary',
-            )}
-          >
-            {name}
+          <CardTitle className={cn('text-lg font-semibold capitalize', isMostEfficient && 'text-primary')}>
+            {planName}
           </CardTitle>
-
-          {mostPopular && (
+          {isMostEfficient && (
             <Badge
               className="rounded-full border-primary bg-primary/10 text-primary dark:border-transparent dark:bg-primary dark:text-primary-foreground"
               variant="outline"
             >
-              Most popular
+              Most Efficient
             </Badge>
           )}
         </div>
-
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>{grantedCredits} Credits</CardDescription>
       </CardHeader>
-
       <CardContent className="space-y-6">
         <p className="flex items-baseline gap-x-1">
           <span className="text-4xl font-bold tracking-tight">{price}</span>
-
-          {priceSuffix && (
-            <span className="text-sm font-semibold text-muted-foreground">
-              {priceSuffix}
-            </span>
-          )}
+          <span className="text-sm font-semibold text-muted-foreground">
+            MATIC/month
+          </span>
         </p>
-
-        <Button className="w-full">{cta}</Button>
-
         <ul className="space-y-3">
           {features.map(feature => (
-            <li
-              key={feature}
-              className="flex items-center gap-x-3 text-sm text-muted-foreground"
-            >
-              <CheckIcon
-                aria-hidden="true"
-                className="size-5 flex-none text-primary dark:text-foreground"
-              />
-
+            <li key={feature} className="flex items-center gap-x-3 text-sm text-muted-foreground">
+              <CircleCheckIcon aria-hidden="true" className="size-5 flex-none text-primary dark:text-foreground" />
               {feature}
             </li>
           ))}
@@ -113,120 +59,36 @@ function TierCardComponent({
   )
 }
 
-type PricingChartComponentProps = {
-  tiers: TierCardComponentProps[]
-}
+export default function Page() {
+  const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
 
-function PricingChartComponent({ tiers }: PricingChartComponentProps) {
-  return (
-    <ul
-      className={cn(
-        'mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3',
-        tiers.length > 3 && '2xl:grid-cols-4',
-      )}
-    >
-      {tiers.map(tier => (
-        <li className="flex" key={tier.name}>
-          <TierCardComponent
-            className={cn(tiers.length === 1 && 'xl-col-span-2 xl:col-start-2')}
-            {...tier}
-          />
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-const createTiers = (billingPeriod: 'monthly' | 'annually') => [
-  {
-    cta: 'Subscribe now',
-    description: 'For hobbyists and beginners who want to learn.',
-    features: ['Unlimited public projects', 'Community support'],
-    name: 'Starter',
-    price: 'Free',
-  },
-  {
-    cta: 'Subscribe now',
-    description: 'For professionals and businesses who want to grow.',
-    features: [
-      'Unlimited public and private projects',
-      'Priority support',
-      'Remove branding',
-    ],
-    mostPopular: true,
-    name: 'Pro',
-    price: billingPeriod === 'monthly' ? '49.99' : '39.99',
-    priceSuffix:
-      billingPeriod === 'monthly' ? 'per month' : 'per month billed anually',
-  },
-  {
-    cta: 'Contact sales',
-    description: 'For large organizations who need custom solutions.',
-    features: [
-      'Unlimited public and private projects',
-      'Dedicated support',
-      'Custom branding',
-    ],
-    name: 'Enterprise',
-    price: 'Custom',
-  },
-  {
-    cta: 'Contact sales',
-    description: 'For large organizations who need custom solutions.',
-    features: [
-      'Unlimited public and private projects',
-      'Dedicated support',
-      'Custom branding',
-    ],
-    name: 'Enterprise',
-    price: 'Custom',
-  },
-]
-
-export default function Pricing() {
-  const [billingPeriod, setBillingPeriod] = useState('annually')
+  const displayPricing = pricingDetails?.data?.map((pricing: any) => {
+    return (
+      <li className="flex" key={pricing.planName}>
+        <TierCardComponent
+          className={cn(pricing.length === 1 && 'xl-col-span-2 xl:col-start-2')}
+          {...pricing}
+        />
+      </li>
+    )
+  })
 
   return (
-    <div className="bg-neutral-50">
+    <div >
       <main className="mx-auto max-w-7xl space-y-8 px-6 py-4 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-
           <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
-            Choose your plan
+            Choose Your Plan
           </h2>
-
           <p className="mt-6 text-pretty text-lg text-muted-foreground">
-            Choose the plan that fits your needs. All plans come with a 30-day money-back guarantee.
+            Find a plan that works
           </p>
         </div>
-
-        <Tabs
-          className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none"
-          value={billingPeriod}
-          onValueChange={setBillingPeriod}
-        >
-          <div className="mb-4 flex flex-col items-center gap-3 sm:flex-row">
-            <TabsList>
-              <TabsTrigger value="monthly">Monthly</TabsTrigger>
-
-              <TabsTrigger value="annually">Annually</TabsTrigger>
-            </TabsList>
-
-            {billingPeriod === 'monthly' && (
-              <p className="text-sm leading-6 text-primary">
-                Save 20% on the annual plan.
-              </p>
-            )}
-          </div>
-
-          <TabsContent value="monthly">
-            <PricingChartComponent tiers={createTiers('monthly')} />
-          </TabsContent>
-
-          <TabsContent value="annually">
-            <PricingChartComponent tiers={createTiers('annually')} />
-          </TabsContent>
-        </Tabs>
+        <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none">
+          <ul className={cn('mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3', pricingDetails?.data?.length > 3 && '2xl:grid-cols-4')}>
+            {displayPricing}
+          </ul>
+        </div>
       </main>
     </div>
   )
