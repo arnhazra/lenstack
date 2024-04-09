@@ -41,8 +41,8 @@ export default function Settings() {
         className="container space-y-6 bg-neutral-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-          <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-            Features
+          <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
+            Products
           </h2>
           <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
             This project is an experiment to see how a modern app, with features
@@ -150,7 +150,7 @@ export default function Settings() {
       <section id="open-source" className="container py-8 md:py-12 lg:py-24">
         <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
           <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-            Proudly Open Source
+            Open Source
           </h2>
           <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
             {uiConstants.brandName} is open source and powered by open source software. <br />{" "}
