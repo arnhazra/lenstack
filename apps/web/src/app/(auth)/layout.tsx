@@ -141,7 +141,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                   </div>
                   <Button type="submit" className="w-full" disabled={isAuthLoading}>
                     <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
-                      Get Auth Passkey <ArrowRightIcon className="icon-right" />
+                      Get Auth Passkey
                     </Suspense>
                   </Button>
                 </div>

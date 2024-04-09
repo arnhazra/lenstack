@@ -26,6 +26,10 @@ export default function Page() {
   const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
   const router = useRouter()
 
+  const switchWorkspace = async (workspaceId: string): Promise<void> => {
+
+  }
+
   const renderProducts = products?.data?.slice(0, 3).map((product: any) => {
     return (
       <TableRow className="cursor-pointer" key={product.displayName} onClick={(): void => router.push(`/products/${product.productName}`)}>
@@ -67,7 +71,7 @@ export default function Page() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 bg-neutral-50">
+      <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card x-chunk="dashboard-01-chunk-0">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -161,7 +165,7 @@ export default function Page() {
             </CardContent>
           </Card>
         </div>
-      </main>
+      </div>
     </div>
   )
 }

@@ -75,7 +75,7 @@ export default function Page() {
 
   return (
     <div >
-      <main className="mx-auto max-w-7xl space-y-8 px-6 py-4 lg:px-8">
+      <div className="mx-auto max-w-7xl space-y-8 px-6 py-4 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
             Choose Your Plan
@@ -89,7 +89,7 @@ export default function Page() {
             {displayPricing}
           </ul>
         </div>
-      </main>
+      </div>
     </div>
   )
 }
