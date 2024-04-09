@@ -5,7 +5,7 @@ import Providers from "@/context/providers"
 import Header from "@/components/header"
 import "@/styles/globals.sass"
 
-const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
+const quickSand = Quicksand({ subsets: ["latin"], weight: ["700"] })
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={quickSand.className}>
         <Providers>
           <Header />
-          <main className="min-h-screen w-full bg-neutral-50">
+          <main className="min-h-screen w-full bg-slate-50">
             {children}
           </main>
         </Providers>
