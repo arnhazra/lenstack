@@ -23,16 +23,15 @@ export default function Settings() {
             {uiConstants.homeIntro}
           </p>
           <div className="space-x-4">
-            <Link href="/login" className={cn(buttonVariants({ size: "lg" }))}>
+            <Link href="/dashboard" className={cn(buttonVariants({ size: "lg" }))}>
               Get Started
             </Link>
             <Link
-              href={""}
-              target="_blank"
+              href="/exploreproducts"
               rel="noreferrer"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
-              GitHub
+              Explore Products
             </Link>
           </div>
         </div>
@@ -157,7 +156,7 @@ export default function Settings() {
             {uiConstants.brandName} is open source and powered by open source software. <br />{" "}
             The code is available on{" "}
             <Link
-              href={""}
+              href={uiConstants.githubRepoUri}
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-4"
@@ -167,7 +166,7 @@ export default function Settings() {
             .{" "}
           </p>
           <Link
-            href={""}
+            href={uiConstants.githubRepoUri}
             target="_blank"
             rel="noreferrer"
             className="flex"
