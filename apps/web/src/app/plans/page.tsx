@@ -7,6 +7,8 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
+import Suspense from "@/components/suspense"
+import SkeletonLoading from "@/components/skeleton"
 export const iframeHeight = "640px"
 export const containerClassName = "w-full h-full p-4 lg:p-0"
 
@@ -74,7 +76,7 @@ export default function Page() {
   })
 
   return (
-    <div >
+    <Suspense condition={!pricingDetails.isLoading} fallback={<SkeletonLoading />}>
       <div className="mx-auto max-w-7xl space-y-8 px-6 py-4 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
@@ -90,6 +92,6 @@ export default function Page() {
           </ul>
         </div>
       </div>
-    </div>
+    </Suspense>
   )
 }
