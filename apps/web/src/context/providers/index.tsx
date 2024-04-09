@@ -5,14 +5,17 @@ import { GlobalStateProvider } from "./globalstate.provider"
 import { ConfirmProvider } from "./confirm.provider"
 import { PromptProvider } from "./prompt.provider"
 import { Toaster } from "react-hot-toast"
+import { CachebustingProvider } from "./cachebusting.provider"
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <ReactQueryProvider>
-      <GlobalStateProvider>
-        {children}
-        <Toaster position="bottom-right" />
-      </GlobalStateProvider>
-    </ReactQueryProvider>
+    <CachebustingProvider>
+      <ReactQueryProvider>
+        <GlobalStateProvider>
+          {children}
+          <Toaster position="bottom-right" />
+        </GlobalStateProvider>
+      </ReactQueryProvider>
+    </CachebustingProvider>
   )
 }

@@ -12,6 +12,7 @@ import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Skeleton from "@/components/skeleton"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ appState, userState }, dispatch] = useContext(GlobalContext)
@@ -122,35 +123,40 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }, [isAuthorized, appState.refreshId])
 
   return (
-    <Suspense condition={!isLoading} fallback={<h1>Loading</h1>}>
+    <Suspense condition={!isLoading} fallback={<Skeleton />}>
       <Suspense condition={!isAuthorized} fallback={children}>
         <Suspense condition={authStep === 1} fallback={null}>
-          <Card className="mx-auto max-w-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl">Auth</CardTitle>
-              <CardDescription>
-                Enter your email to get started
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form className="box" onSubmit={generatePassKey}>
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input type="email" placeholder="someone@example.com" required disabled={isAuthLoading} autoFocus onChange={(e) => setState({ ...state, email: e.target.value })} autoComplete={"off"} minLength={4} maxLength={40} />
+          <div className="flex justify-center items-center min-h-screen">
+            <Card className="mx-auto max-w-sm">
+              <CardHeader>
+                <CardTitle className="text-2xl">Auth</CardTitle>
+                <CardDescription>
+                  Enter your email to get started
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="box" onSubmit={generatePassKey}>
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input type="email" placeholder="someone@example.com" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, email: e.target.value })} autoComplete={"off"} minLength={4} maxLength={40} />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={isAuthLoading}>
+                      <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
+                        Get Auth Passkey
+                      </Suspense>
+                    </Button>
+                    <Button variant="outline" className="w-full" disabled={isAuthLoading}>
+                      Sign In with Magic Link
+                    </Button>
                   </div>
-                  <Button type="submit" className="w-full" disabled={isAuthLoading}>
-                    <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
-                      Get Auth Passkey
-                    </Suspense>
-                  </Button>
+                </form>
+                <div className="mt-4 text-center text-sm">
+                  By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
                 </div>
-              </form>
-              <div className="mt-4 text-center text-sm">
-                By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </Suspense>
         <Suspense condition={authStep === 2} fallback={null}>
           <div className="container-center">
