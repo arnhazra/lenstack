@@ -24,7 +24,7 @@ export default function SkeletonLoading() {
         <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-              <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
+              <Card className="sm:col-span-2 p-3" x-chunk="dashboard-05-chunk-0">
                 <div className="p-3">
                   <div className="flex flex-col space-y-3">
                     <Skeleton className="h-[125px] w-[max] rounded-xl" />
@@ -39,7 +39,7 @@ export default function SkeletonLoading() {
                   <Skeleton className="h-8" />
                 </div>
               </Card>
-              <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
+              <Card className="sm:col-span-2 p-3" x-chunk="dashboard-05-chunk-0">
                 <div className="p-3">
                   <div className="flex flex-col space-y-3">
                     <Skeleton className="h-[125px] w-[max] rounded-xl" />
@@ -100,24 +100,6 @@ export default function SkeletonLoading() {
                           </TableCell>
                           <TableCell className="text-right"><Skeleton className="h-4 w-[80px]" /></TableCell>
                         </TableRow>
-                        <TableRow className="bg-accent">
-                          <TableCell>
-                            <div className="font-medium"><Skeleton className="h-4 w-[80px]" /></div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              <Skeleton className="h-4 mt-2 w-[120px]" />
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Skeleton className="h-4 w-[80px]" />
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Skeleton className="h-4 w-[80px]" />
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            <Skeleton className="h-4 w-[80px]" />
-                          </TableCell>
-                          <TableCell className="text-right"><Skeleton className="h-4 w-[80px]" /></TableCell>
-                        </TableRow>
                       </TableBody>
                     </Table>
                   </div>
@@ -160,12 +142,6 @@ export default function SkeletonLoading() {
                   </ul>
                   <Separator className="my-2" />
                   <ul className="grid gap-3">
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">
-                        <Skeleton className="h-6 mt-2 w-[120px]" />
-                      </span>
-                      <Skeleton className="h-6 mt-2 w-[80px]" />
-                    </li>
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
                         <Skeleton className="h-6 mt-2 w-[120px]" />
