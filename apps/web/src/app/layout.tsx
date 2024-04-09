@@ -3,7 +3,7 @@ import { uiConstants } from "@/constants/global-constants"
 import { Quicksand } from "next/font/google"
 import Providers from "@/context/providers"
 import Header from "@/components/header"
-import "./globals.sass"
+import "@/styles/globals.sass"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["600"] })
 

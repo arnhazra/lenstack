@@ -1,6 +1,6 @@
 "use client"
 import { uiConstants } from "@/constants/global-constants"
-import { CrossCircledIcon } from "@radix-ui/react-icons"
+import { CircleX } from "lucide-react"
 
 export default function Error() {
   return (
@@ -8,7 +8,7 @@ export default function Error() {
       <div className="box">
         <p className="branding mb-4">{uiConstants.errorMessage}</p>
         <div className="text-center mb-4">
-          <CrossCircledIcon className="icon-large" />
+          <CircleX className="icon-large" />
         </div>
       </div>
     </div>
