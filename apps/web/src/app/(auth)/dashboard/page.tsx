@@ -1,12 +1,12 @@
 "use client"
 import Link from "next/link"
-import { ArrowUpRight, BarChart2, Calendar, CalendarCheck2Icon, CheckCircle, OrbitIcon } from "lucide-react"
+import { ArrowUpRight, BarChart2, Calendar, CalendarCheck2Icon, OrbitIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Avatar } from "@/components/ui/avatar"
-import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
+import { AvatarFallback } from "@radix-ui/react-avatar"
 import { useContext, useState } from "react"
 import { format } from "date-fns"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -16,6 +16,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
+import SkeletonLoading from "@/components/skeleton"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -70,102 +71,104 @@ export default function Page() {
   })
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-          <Card x-chunk="dashboard-01-chunk-0">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Selected Subscription
-              </CardTitle>
-              <OrbitIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold capitalize">{userState.hasActiveSubscription ? userState.selectedPlan : "No Active Subscription"}</div>
-              <p className="text-xs text-muted-foreground">
-                Your current plan
-              </p>
-            </CardContent>
-          </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Start Date
-              </CardTitle>
-              <CalendarCheck2Icon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"}</div>
-              <p className="text-xs text-muted-foreground">
-                Plan start date
-              </p>
-            </CardContent>
-          </Card>
-          <Card x-chunk="dashboard-01-chunk-2">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Valid Upto</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"}</div>
-              <p className="text-xs text-muted-foreground">
-                Plan end date
-              </p>
-            </CardContent>
-          </Card>
-          <Card x-chunk="dashboard-01-chunk-3">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Subscription Usage</CardTitle>
-              <BarChart2 className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits}` : "No Subscriptions Usage Data"}</div>
-              <p className="text-xs text-muted-foreground">
-                Credits remaining
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
-            <CardHeader className="flex flex-row items-center">
-              <div className="grid gap-2">
-                <CardTitle>Products</CardTitle>
-                <CardDescription>
-                  Our Offerings
-                </CardDescription>
-              </div>
-              <Button asChild size="sm" className="ml-auto gap-1">
-                <Link href="/products">
-                  View All
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead className="text-right">Category</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {renderProducts}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-          <Card x-chunk="dashboard-01-chunk-5">
-            <CardHeader>
-              <CardTitle>Workspaces</CardTitle>
-            </CardHeader>
-            <CardContent className="grid gap-8">
-              {renderWorkspaces}
-            </CardContent>
-          </Card>
+    <Suspense condition={!products.isLoading && !myWorkspaces.isLoading && !pricingDetails.isLoading} fallback={<SkeletonLoading />}>
+      <div className="flex min-h-screen w-full flex-col">
+        <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+            <Card x-chunk="dashboard-01-chunk-0">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Selected Subscription
+                </CardTitle>
+                <OrbitIcon className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold capitalize">{userState.hasActiveSubscription ? userState.selectedPlan : "No Active Subscription"}</div>
+                <p className="text-xs text-muted-foreground">
+                  Your current plan
+                </p>
+              </CardContent>
+            </Card>
+            <Card x-chunk="dashboard-01-chunk-1">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Start Date
+                </CardTitle>
+                <CalendarCheck2Icon className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"}</div>
+                <p className="text-xs text-muted-foreground">
+                  Plan start date
+                </p>
+              </CardContent>
+            </Card>
+            <Card x-chunk="dashboard-01-chunk-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Valid Upto</CardTitle>
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"}</div>
+                <p className="text-xs text-muted-foreground">
+                  Plan end date
+                </p>
+              </CardContent>
+            </Card>
+            <Card x-chunk="dashboard-01-chunk-3">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Subscription Usage</CardTitle>
+                <BarChart2 className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits}` : "No Subscriptions Usage Data"}</div>
+                <p className="text-xs text-muted-foreground">
+                  Credits remaining
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+            <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
+              <CardHeader className="flex flex-row items-center">
+                <div className="grid gap-2">
+                  <CardTitle>Products</CardTitle>
+                  <CardDescription>
+                    Our Offerings
+                  </CardDescription>
+                </div>
+                <Button asChild size="sm" className="ml-auto gap-1">
+                  <Link href="/products">
+                    View All
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead className="text-right">Category</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {renderProducts}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+            <Card x-chunk="dashboard-01-chunk-5">
+              <CardHeader>
+                <CardTitle>Workspaces</CardTitle>
+              </CardHeader>
+              <CardContent className="grid gap-8">
+                {renderWorkspaces}
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
+    </Suspense>
   )
 }
