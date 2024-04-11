@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { CheckCircle, CircleX } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { AlertDialog, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
+import { AlertDialog, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
 import { Input } from "@/components/ui/input"
 
 export default function usePrompt() {
@@ -32,32 +32,24 @@ export default function usePrompt() {
     }
   }
 
-  const promptDialog = () => {
-    if (show) {
-      return (
-        <AlertDialog>
-          <form onSubmit={(e) => { e.preventDefault(); handleConfirm(true) }}>
-            <AlertDialogHeader>
-              <AlertDialogTitle>{message}</AlertDialogTitle>
-              <Input required autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <Button variant="secondary" onClick={() => handleConfirm(false)}>
-                <CircleX className="icon-left" />Cancel
-              </Button>
-              <Button type="submit" variant="default">
-                <CheckCircle className="icon-left" />Proceed
-              </Button>
-            </AlertDialogFooter>
-          </form>
-        </AlertDialog>
-      )
-    }
-
-    else {
-      <div />
-    }
-  }
+  const promptDialog = () => (
+    <AlertDialog open={show}>
+      <AlertDialogContent>
+        <AlertDialogHeader className="mb-2">
+          <AlertDialogTitle className="mb-2">{message}</AlertDialogTitle>
+          <Input required type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <Button variant="outline" onClick={() => handleConfirm(false)}>
+            Cancel
+          </Button>
+          <Button type="submit" variant="default" onClick={() => handleConfirm(true)}>
+            Proceed
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
 
   return { promptDialog, prompt }
 }

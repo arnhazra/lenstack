@@ -24,7 +24,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main className="min-h-screen w-full bg-slate-50">
             {children}
           </main>
-          <Footer />
         </Providers>
       </body>
     </html>

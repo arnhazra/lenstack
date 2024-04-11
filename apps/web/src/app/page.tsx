@@ -10,6 +10,7 @@ import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
 import SkeletonLoading from "@/components/skeleton"
 import { TierCardComponent } from "@/components/tiercard"
+import { Footer } from "@/components/footer"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
@@ -175,6 +176,7 @@ export default function Page() {
           </div>
         </section>
       </main>
+      <Footer />
     </Suspense>
   )
 }

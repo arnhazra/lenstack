@@ -19,7 +19,7 @@ export const subscriptionConfig: CreditType[] = [
     price: 0,
     grantedCredits: 5000,
     features: [
-      "Upto three workspaces",
+      "Upto 10 workspaces",
       "Valid for a month",
       "Regular API response",
       "Good for a start",
@@ -32,7 +32,7 @@ export const subscriptionConfig: CreditType[] = [
     price: 149,
     grantedCredits: 50000,
     features: [
-      "Upto three workspaces",
+      "Upto 10 workspaces",
       "Valid for a month",
       "Priority API response",
       "Good for developers",
@@ -45,7 +45,7 @@ export const subscriptionConfig: CreditType[] = [
     price: 299,
     grantedCredits: 150000,
     features: [
-      "Upto three workspaces",
+      "Upto 10 workspaces",
       "Valid for a month",
       "Faster API response",
       "Good for startups",
@@ -58,7 +58,7 @@ export const subscriptionConfig: CreditType[] = [
     price: 499,
     grantedCredits: 500000,
     features: [
-      "Upto three workspaces",
+      "Upto 10 workspaces",
       "Valid for a month",
       "Fastest API response",
       "Good for enterprises",

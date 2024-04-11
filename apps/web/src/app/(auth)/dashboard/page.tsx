@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Avatar } from "@/components/ui/avatar"
-import { AvatarFallback } from "@radix-ui/react-avatar"
 import { useContext, useState } from "react"
 import { format } from "date-fns"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -29,11 +27,10 @@ enum Filters {
 
 export default function Page() {
   const [{ userState, appState }, dispatch] = useContext(GlobalContext)
-  const [queryId, setQueryId] = useState("DQID")
   const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}&category=${selectedFilter}`, HTTPMethods.GET)
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const myWorkspaces = useQuery(["workspaces", queryId], endPoints.findMyWorkspaces, HTTPMethods.GET)
+  const myWorkspaces = useQuery(["workspaces", appState.refreshId], endPoints.findMyWorkspaces, HTTPMethods.GET)
   const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
   const router = useRouter()
   const { prompt } = usePromptContext()
@@ -44,7 +41,7 @@ export default function Page() {
     if (hasConfirmed && value) {
       try {
         await axios.post(endPoints.createWorkspace, { name: value })
-        setQueryId(Math.random().toString())
+        dispatch("setAppState", { refreshId: Math.random().toString() })
         toast.success("Workspace created")
       }
 
@@ -106,7 +103,7 @@ export default function Page() {
     <Suspense condition={!products.isLoading && !myWorkspaces.isLoading && !pricingDetails.isLoading} fallback={<SkeletonLoading />}>
       <div className="flex min-h-screen w-full flex-col">
         <div className="flex flex-1 flex-col gap-4 p-4">
-          <Button variant="outline" className="ml-auto flex items-center">Create Workspace</Button>
+          <Button variant="default" className="ml-auto flex items-center" onClick={createWorkspace}>Create Workspace</Button>
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
             <Card x-chunk="dashboard-01-chunk-0">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

@@ -1,8 +1,8 @@
 "use client"
 import { useState } from "react"
-import { CheckCircle, CircleX } from "lucide-react"
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
+import { AlertDialogAction, AlertDialogCancel } from "@radix-ui/react-alert-dialog"
 import { Button } from "@/components/ui/button"
-import { AlertDialog, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
 
 export default function useConfirm() {
   const [show, setShow] = useState(false)
@@ -12,6 +12,7 @@ export default function useConfirm() {
   const handleClose = () => setShow(false)
 
   const confirm = (message: string): Promise<boolean> => {
+    console.log("here")
     setMessage(message)
     setShow(true)
 
@@ -31,21 +32,20 @@ export default function useConfirm() {
   }
 
   const confirmDialog = () => (
-    <AlertDialog open={false} defaultOpen={false}>
-      <AlertDialogHeader>
-        <AlertDialogTitle>{message}</AlertDialogTitle>
-        <AlertDialogDescription>
-          This Action may not be undone, be sure before you click on continue, you can cancel if you do not want to proceed
-        </AlertDialogDescription>
-      </AlertDialogHeader>
-      <AlertDialogFooter>
-        <Button variant="secondary" onClick={() => handleConfirm(false)}>
-          <CircleX className="icon-left" />Cancel
-        </Button>
-        <Button variant="default" onClick={() => handleConfirm(true)}>
-          <CheckCircle className="icon-left" />Continue
-        </Button>
-      </AlertDialogFooter>
+    <AlertDialog open={show}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{message}</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone.
+            Be sure before you click on continue, you can cancel if you do not want to proceed.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <Button variant="outline" onClick={() => handleConfirm(false)}>Cancel</Button>
+          <Button variant="destructive" onClick={() => handleConfirm(true)}>Continue</Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
     </AlertDialog>
   )
 
