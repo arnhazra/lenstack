@@ -21,6 +21,7 @@ export const endPoints = {
   findMyWorkspaces: `${apiHost}/api/workspace/findmyworkspaces`,
   switchWorkspace: `${apiHost}/api/workspace/switch`,
   getProductConfig: `${apiHost}/api/products/getproductconfig`,
+  getSolutionConfig: `${apiHost}/api/products/getsolutionconfig`,
   analyticsView: `${apiHost}/api/products/analytics/get`,
   analyticsCreate: `${apiHost}/api/products/analytics/create`,
   copilotGenerateEndpoint: `${apiHost}/api/products/copilot/generate`,

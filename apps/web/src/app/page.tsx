@@ -13,10 +13,11 @@ import SkeletonLoading from "@/components/skeleton"
 import { TierCardComponent } from "@/components/tiercard"
 
 export default function Page() {
-  const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=`, HTTPMethods.GET)
+  const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
+  const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
 
-  const renderPricing = pricingDetails?.data?.map((pricing: any) => {
+  const renderPricing = pricing?.data?.map((pricing: any) => {
     return (
       <li className="flex" key={pricing.planName}>
         <TierCardComponent
@@ -31,11 +32,27 @@ export default function Page() {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-background p-2">
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-          <HexagonIcon className="scale-150" />
+          <div dangerouslySetInnerHTML={{ __html: product?.productIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">
             <h3 className="font-bold">{uiConstants.brandName} {product?.displayName}</h3>
             <p className="text-sm text-gray-600">
-              {String(product?.description).slice(0, 40)}...
+              {product?.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  })
+
+  const renderSolutions = solutions?.data?.map((solution: any) => {
+    return (
+      <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+        <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+          <div dangerouslySetInnerHTML={{ __html: solution?.solutionIcon }} style={{ zoom: "150%" }}></div>
+          <div className="space-y-2">
+            <h3 className="font-bold">{solution?.solutionName}</h3>
+            <p className="text-sm text-gray-600">
+              {solution?.description}
             </p>
           </div>
         </div>
@@ -44,7 +61,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!pricingDetails.isLoading && !products.isLoading} fallback={<SkeletonLoading />}>
+    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading} fallback={<SkeletonLoading />}>
       <main className="min-h-screen w-full bg-white">
         <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-20">
           <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
@@ -81,50 +98,7 @@ export default function Page() {
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <PieChartIcon className="scale-150" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">Analytics</h3>
-                  <p className="text-sm text-gray-600">
-                    Analytics provider for web applications.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <BrainCircuitIcon className="scale-150" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">Generative AI</h3>
-                  <p className="text-sm text-gray-600">
-                    Easily integrate Generative AI models through HTTP
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <BracesIcon className="scale-150" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">Data</h3>
-                  <p className="text-sm text-gray-600">
-                    Data marketplace & HTTP Database for your apps
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <HexagonIcon className="scale-150" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">Blockchain</h3>
-                  <p className="text-sm text-gray-600">
-                    One stop blockchain solutions including ERC-20 & ERC-721 standards
-                  </p>
-                </div>
-              </div>
-            </div>
+            {renderSolutions}
           </div>
         </section>
         <section id="opensource" className="container py-8 md:py-12 lg:py-24">
@@ -180,7 +154,7 @@ export default function Page() {
               Access all products for different needs with just a free account.
             </p>
           </div>
-          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
             {renderProducts}
           </div>
         </section>
@@ -196,7 +170,7 @@ export default function Page() {
             </p>
           </div>
           <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none">
-            <ul className={cn('mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3', pricingDetails?.data?.length > 3 && '2xl:grid-cols-4')}>
+            <ul className={cn('mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3', pricing?.data?.length > 3 && '2xl:grid-cols-4')}>
               {renderPricing}
             </ul>
           </div>

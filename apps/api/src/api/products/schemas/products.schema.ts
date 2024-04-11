@@ -36,6 +36,11 @@ export const ProductSchema = new Schema({
   isAPIReferenceAvailable: {
     type: Boolean,
     required: true
+  },
+
+  productIcon: {
+    type: String,
+    required: true
   }
 }, { versionKey: false })
 
