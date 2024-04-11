@@ -4,7 +4,6 @@ import { Quicksand } from "next/font/google"
 import Providers from "@/context/providers"
 import Header from "@/components/header"
 import "@/styles/globals.sass"
-import { Footer } from "@/components/footer"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["700"] })
 
@@ -21,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={quickSand.className}>
         <Providers>
           <Header />
-          <main className="min-h-screen w-full bg-slate-50">
+          <main className="min-h-screen w-full bg-zinc-50">
             {children}
           </main>
         </Providers>

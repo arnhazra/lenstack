@@ -21,6 +21,11 @@ export default function Header() {
   const debouncedSearchTerm = useDebounce(searchString, 1000)
   const router = useRouter()
 
+  const signOut = async () => {
+    localStorage.clear()
+    window.location.replace("/")
+  }
+
   useEffect(() => {
     dispatch("setAppState", { globalSearchString: "" })
 
@@ -95,12 +100,8 @@ export default function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={(): void => router.push("/account")}>My Account</DropdownMenuItem>
+                <DropdownMenuItem onClick={signOut}>Sign Out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

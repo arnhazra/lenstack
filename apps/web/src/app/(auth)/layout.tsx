@@ -9,7 +9,7 @@ import Suspense from "@/components/suspense"
 import { ArrowRightIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Skeleton from "@/components/skeleton"
@@ -125,8 +125,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <Suspense condition={!isLoading} fallback={<Skeleton />}>
       <Suspense condition={!isAuthorized} fallback={children}>
-        <Suspense condition={authStep === 1} fallback={null}>
-          <div className="flex justify-center items-center min-h-screen">
+        <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
+          <Suspense condition={authStep === 1} fallback={null}>
             <Card className="mx-auto max-w-sm">
               <CardHeader>
                 <CardTitle className="text-2xl">Auth</CardTitle>
@@ -135,46 +135,59 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="box" onSubmit={generatePassKey}>
+                <form onSubmit={generatePassKey}>
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="email">Email</Label>
                       <Input type="email" placeholder="someone@example.com" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, email: e.target.value })} autoComplete={"off"} minLength={4} maxLength={40} />
                     </div>
-                    <Button type="submit" className="w-full" disabled={isAuthLoading}>
-                      <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
+                    <Button type="submit" size="lg" className="w-full" disabled={isAuthLoading}>
+                      <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin mr-2"></i> {alert}</>}>
                         Get Auth Passkey
                       </Suspense>
                     </Button>
-                    <Button variant="outline" className="w-full" disabled={isAuthLoading}>
-                      Sign In with Magic Link
+                  </div>
+                </form>
+              </CardContent>
+              <CardFooter>
+                <div className="mt-4 text-center text-sm text-gray-600">
+                  By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
+                </div>
+              </CardFooter>
+            </Card>
+          </Suspense>
+          <Suspense condition={authStep === 2} fallback={null}>
+            <Card className="mx-auto max-w-sm ">
+              <CardHeader>
+                <CardTitle className="text-2xl">Auth</CardTitle>
+                <CardDescription>
+                  Please verify your auth by entering the auth passkey we sent to your inbox
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={verifyPassKey}>
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="email">Auth Passkey</Label>
+                      <Input type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
+                    </div>
+                    <Button variant="default" type="submit" disabled={isAuthLoading} className="mt-4 btn-block">
+                      <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin mr-2"></i> {alert}</>}>
+                        Continue
+                      </Suspense>
                     </Button>
                   </div>
                 </form>
-                <div className="mt-4 text-center text-sm">
-                  By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
-                </div>
               </CardContent>
+              <CardFooter>
+                <p id="alert" className="mt-4 text-center text-sm text-gray-600">
+                  {authAlert}
+                </p>
+              </CardFooter>
             </Card>
-          </div>
-        </Suspense>
-        <Suspense condition={authStep === 2} fallback={null}>
-          <div className="container-center">
-            <form className="box" onSubmit={verifyPassKey}>
-              <p className="branding">Auth</p>
-              <p className="text-muted">Please verify your auth by entering the auth passkey we sent to your inbox.</p>
-              <label>Auth Passkey</label>
-              <input type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
-              <Button variant="default" type="submit" disabled={isAuthLoading} className="mt-4 btn-block">
-                <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin"></i> {alert}</>}>
-                  Continue <ArrowRightIcon className="icon-right" />
-                </Suspense>
-              </Button>
-              <p id="alert" className="mt-1 mb-1">{authAlert}</p>
-            </form>
-          </div>
-        </Suspense>
-      </Suspense>
+          </Suspense>
+        </div>
+      </Suspense >
     </Suspense >
   )
 }
