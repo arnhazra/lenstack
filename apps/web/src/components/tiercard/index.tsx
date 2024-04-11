@@ -17,10 +17,10 @@ export function TierCardComponent({ grantedCredits, features, isMostEfficient = 
   const router = useRouter()
 
   return (
-    <Card className={cn('w-full cursor-pointer', isMostEfficient && 'ring-2 ring-primary dark:bg-border/50')} onClick={(): void => router.push(`subscription/pay?planName=${planName}`)}>
+    <Card className={cn("w-full cursor-pointer", isMostEfficient && "ring-2 ring-primary dark:bg-border/50")} onClick={(): void => router.push(`subscription/pay?planName=${planName}`)}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className={cn('text-lg font-semibold capitalize', isMostEfficient && 'text-primary')}>
+          <CardTitle className={cn("text-lg font-semibold capitalize", isMostEfficient && "text-primary")}>
             {planName}
           </CardTitle>
           {isMostEfficient && (

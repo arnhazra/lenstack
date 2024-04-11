@@ -21,7 +21,7 @@ export default function Page() {
     return (
       <li className="flex" key={pricing.planName}>
         <TierCardComponent
-          className={cn(pricing.length === 1 && 'xl-col-span-2 xl:col-start-2')}
+          className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
           {...pricing}
         />
       </li>
@@ -164,13 +164,13 @@ export default function Page() {
               Pricing
             </h2>
             <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
-              Choose an {uiConstants.brandName} subscription plan that's right for you.
+              Choose an {uiConstants.brandName} subscription plan that"s right for you.
               Downgrade, upgrade or cancel any time.{" "}
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
           </div>
           <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none">
-            <ul className={cn('mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3', pricing?.data?.length > 3 && '2xl:grid-cols-4')}>
+            <ul className={cn("mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3", pricing?.data?.length > 3 && "2xl:grid-cols-4")}>
               {renderPricing}
             </ul>
           </div>
