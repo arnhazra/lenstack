@@ -107,7 +107,7 @@ export default function Header() {
         </header>
       </Suspense>
       <Suspense condition={!userState.isAuthorized} fallback={null}>
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-white px-4 md:px-6 z-50">
+        <header className={`top-0 flex h-16 items-center gap-4 ${pathname !== "/" ? "border-b sticky" : ""} bg-white px-4 md:px-6 z-50`}>
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <Link key="home" href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base"><Hexagon className="h-6 w-6" /></Link>
             {generalUserLinks.map((item, index) =>

@@ -15,11 +15,15 @@ export const generalUserLinks: LinkData[] = [
   },
   {
     displayName: "Products",
-    link: "/exploreproducts"
+    link: "/#products"
   },
   {
-    displayName: "Plans",
-    link: "/plans"
+    displayName: "Solutions",
+    link: "/#solutions"
+  },
+  {
+    displayName: "Pricing",
+    link: "/#pricing"
   },
   {
     displayName: "Developer",

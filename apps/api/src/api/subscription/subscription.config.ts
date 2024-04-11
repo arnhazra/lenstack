@@ -29,7 +29,7 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.Starter,
-    price: 1.99,
+    price: 149,
     grantedCredits: 50000,
     features: [
       "Upto three workspaces",
@@ -42,7 +42,7 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.Premium,
-    price: 3.99,
+    price: 299,
     grantedCredits: 150000,
     features: [
       "Upto three workspaces",
@@ -55,7 +55,7 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.Ultra,
-    price: 7.99,
+    price: 499,
     grantedCredits: 500000,
     features: [
       "Upto three workspaces",
