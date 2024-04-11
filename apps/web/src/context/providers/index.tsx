@@ -12,7 +12,9 @@ export default function Providers({ children }: { children: ReactNode }) {
     <CachebustingProvider>
       <ReactQueryProvider>
         <GlobalStateProvider>
-          {children}
+          <PromptProvider>
+            {children}
+          </PromptProvider>
           <Toaster position="bottom-right" />
         </GlobalStateProvider>
       </ReactQueryProvider>

@@ -32,24 +32,32 @@ export default function usePrompt() {
     }
   }
 
-  const promptDialog = () => (
-    <AlertDialog open={false} defaultOpen={false}>
-      <form onSubmit={(e) => { e.preventDefault(); handleConfirm(true) }}>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{message}</AlertDialogTitle>
-          <Input required autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <Button variant="secondary" onClick={() => handleConfirm(false)}>
-            <CircleX className="icon-left" />Cancel
-          </Button>
-          <Button type="submit" variant="default">
-            <CheckCircle className="icon-left" />Proceed
-          </Button>
-        </AlertDialogFooter>
-      </form>
-    </AlertDialog>
-  )
+  const promptDialog = () => {
+    if (show) {
+      return (
+        <AlertDialog>
+          <form onSubmit={(e) => { e.preventDefault(); handleConfirm(true) }}>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{message}</AlertDialogTitle>
+              <Input required autoFocus type="text" placeholder={`Enter ${message}`} autoComplete={"off"} onChange={(e) => setValue(e.target.value)} />
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <Button variant="secondary" onClick={() => handleConfirm(false)}>
+                <CircleX className="icon-left" />Cancel
+              </Button>
+              <Button type="submit" variant="default">
+                <CheckCircle className="icon-left" />Proceed
+              </Button>
+            </AlertDialogFooter>
+          </form>
+        </AlertDialog>
+      )
+    }
+
+    else {
+      <div />
+    }
+  }
 
   return { promptDialog, prompt }
 }
