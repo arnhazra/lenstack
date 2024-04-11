@@ -1,6 +1,6 @@
 export const uiConstants = {
   brandName: "ArcStack",
-  homeHeader: "Build, ship & scale Powered by",
+  homeHeader: "Build, Ship & Scale with",
   homeIntro: "Start with a hobby plan, for free, no upfront commitment, Upgrade on demand, Starting at ₹149/month",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Auth",

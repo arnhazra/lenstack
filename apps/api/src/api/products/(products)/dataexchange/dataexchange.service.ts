@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { findDistinctCategories } from "./queries/find-categories.query"
 import { findDatasetDataById } from "./queries/find-data.query"
-import { findDatasets } from "./queries/find-datasets.query"
+import { findDatasetsQuery } from "./queries/find-datasets.query"
 import { findDatasetMetadataById } from "./queries/find-metadata.query"
 
 @Injectable()
@@ -25,7 +25,7 @@ export class DataexchangeService {
       const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
       const offset = findDatasetsDto.offset || 0
       const limit = 24
-      const datasets = await findDatasets(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
+      const datasets = await findDatasetsQuery(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
       return datasets
     }
 
@@ -49,7 +49,7 @@ export class DataexchangeService {
     try {
       const dataset = await findDatasetMetadataById(datasetId)
       const datasetCategory = dataset.category
-      const similarDatasets = await findDatasets("", datasetCategory, "name", 0, 24)
+      const similarDatasets = await findDatasetsQuery("", datasetCategory, "name", 0, 24)
       return similarDatasets
     }
 

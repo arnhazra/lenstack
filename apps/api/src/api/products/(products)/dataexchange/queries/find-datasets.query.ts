@@ -1,6 +1,6 @@
 import { MetaDataModel } from "../models/metadata.model"
 
-export async function findDatasets(searchQuery: string, selectedFilterCategory: string, selectedSortOption: string, offset: number, limit: number) {
+export async function findDatasetsQuery(searchQuery: string, selectedFilterCategory: string, selectedSortOption: string, offset: number, limit: number) {
   let datasets = await MetaDataModel.find({
     $or: [
       { name: { $regex: searchQuery, $options: "i" } },

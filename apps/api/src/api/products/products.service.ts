@@ -4,9 +4,10 @@ import { getproductConfigQuery } from "./queries/get-product-config.query"
 
 @Injectable()
 export class ProductsService {
-  async getProductConfig(searchQuery: string) {
+  async getProductConfig(searchQuery: string, category: string) {
     try {
-      const products = await getproductConfigQuery(searchQuery)
+      const selectedFilterCategory = category === "All" || "" ? "" : category
+      const products = await getproductConfigQuery(searchQuery, selectedFilterCategory)
       return products
     }
 

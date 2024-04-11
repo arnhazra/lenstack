@@ -6,9 +6,9 @@ export class ProductsController {
   constructor(private readonly ProductsService: ProductsService) { }
 
   @Get("getproductconfig")
-  async getProductConfig(@Query("searchQuery") searchQuery: string) {
+  async getProductConfig(@Query("searchQuery") searchQuery: string, @Query("category") category: string) {
     try {
-      const products = await this.ProductsService.getProductConfig(searchQuery)
+      const products = await this.ProductsService.getProductConfig(searchQuery, category)
       return products
     }
 

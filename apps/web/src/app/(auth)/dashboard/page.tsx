@@ -1,9 +1,9 @@
 "use client"
-import Link from "next/link"
-import { ArrowUpRight, BarChart2, Calendar, CalendarCheck2Icon, OrbitIcon } from "lucide-react"
+import { BarChart2, Calendar, CalendarCheck2Icon, ListFilterIcon, OrbitIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Avatar } from "@/components/ui/avatar"
 import { AvatarFallback } from "@radix-ui/react-avatar"
@@ -18,10 +18,17 @@ import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import SkeletonLoading from "@/components/skeleton"
 
+enum Filters {
+  ALL = "All",
+  CEN = "Centralized",
+  DCE = "Decentralized"
+}
+
 export default function Page() {
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ userState, appState }] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState("DQID")
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=`, HTTPMethods.GET)
+  const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}&category=${selectedFilter.toLowerCase()}`, HTTPMethods.GET)
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const myWorkspaces = useQuery(["workspaces", queryId], endPoints.findMyWorkspaces, HTTPMethods.GET)
   const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
@@ -31,7 +38,7 @@ export default function Page() {
 
   }
 
-  const renderProducts = products?.data?.slice(0, 3).map((product: any) => {
+  const renderProducts = products?.data?.map((product: any) => {
     return (
       <TableRow className="cursor-pointer" key={product.displayName} onClick={(): void => router.push(`/products/${product.productName}`)}>
         <TableCell>
@@ -137,12 +144,25 @@ export default function Page() {
                     Our Offerings
                   </CardDescription>
                 </div>
-                <Button asChild size="sm" className="ml-auto gap-1">
-                  <Link href="/products">
-                    View All
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </Button>
+                <div className="ml-auto flex items-center gap-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="sm" className="h-8 gap-1">
+                        <ListFilterIcon className="h-3.5 w-3.5" />
+                        <span>
+                          Filter
+                        </span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Filter</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.ALL} onClick={(): void => setSelectedFilter(Filters.ALL)}>All</DropdownMenuCheckboxItem>
+                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.CEN} onClick={(): void => setSelectedFilter(Filters.CEN)}>Centralized</DropdownMenuCheckboxItem>
+                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.DCE} onClick={(): void => setSelectedFilter(Filters.DCE)}>Decentralized</DropdownMenuCheckboxItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -165,6 +185,9 @@ export default function Page() {
               <CardContent className="grid gap-8">
                 {renderWorkspaces}
               </CardContent>
+              <CardFooter>
+                <Button>Create Workspace</Button>
+              </CardFooter>
             </Card>
           </div>
         </div>
