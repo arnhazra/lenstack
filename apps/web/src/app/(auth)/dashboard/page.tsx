@@ -28,7 +28,7 @@ export default function Page() {
   const [{ userState, appState }] = useContext(GlobalContext)
   const [queryId, setQueryId] = useState("DQID")
   const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}&category=${selectedFilter.toLowerCase()}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}&category=${selectedFilter}`, HTTPMethods.GET)
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const myWorkspaces = useQuery(["workspaces", queryId], endPoints.findMyWorkspaces, HTTPMethods.GET)
   const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
