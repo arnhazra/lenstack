@@ -1,16 +1,17 @@
 "use client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
 import { useContext, useEffect, useState } from "react"
 import Web3 from "web3"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { endPoints } from "@/constants/api-endpoints"
-import toast from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
 import axios from "axios"
 import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
+import InfoPanel from "@/components/infopanel"
+import { toast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 export default function Page() {
   const web3Provider = new Web3(endPoints.userTxGateway)
@@ -33,7 +34,11 @@ export default function Page() {
       }
 
       catch (error) {
-        toast.error(uiConstants.toastError)
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
+          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        })
       }
     })()
   }, [userState.privateKey, userState.userId])
@@ -43,11 +48,19 @@ export default function Page() {
       const updatedSettings = sustainabilitySettings === "true" ? true : false
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
       await axios.patch(endPoints.updateCarbonSettings, { reduceCarbonEmissions: updatedSettings })
-      toast.success(uiConstants.toastSuccess)
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
     }
 
     catch (error) {
-      toast.error(uiConstants.toastError)
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
     }
   }
 
@@ -61,7 +74,11 @@ export default function Page() {
     }
 
     catch (error) {
-      toast.error(uiConstants.toastError)
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
     }
   }
 
@@ -79,105 +96,26 @@ export default function Page() {
             <p className="cursor-pointer" onClick={(): void => setSelectedTab("sustainability")}>Sustainability </p>
             <p className="cursor-pointer" onClick={(): void => setSelectedTab("advanced")}>Advanced</p>
           </nav>
-          <div className="grid gap-6">
+          <div>
             <Suspense condition={selectedTab === "general"} fallback={null}>
               <section className="grid gap-6">
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>User ID</CardTitle>
-                    <CardDescription>
-                      Your unique identity inside platform
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={userState.userId} disabled />
-                  </CardContent>
-                </Card>
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>Email</CardTitle>
-                    <CardDescription>
-                      Your email address
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={userState.email} disabled />
-                  </CardContent>
-                </Card>
+                <InfoPanel title="User ID" desc="Your unique identity inside platform" value={userState.userId} />
+                <InfoPanel title="Email" desc="Your email address" value={userState.email} />
               </section>
             </Suspense>
             <Suspense condition={selectedTab === "wallet"} fallback={null}>
               <section className="grid gap-6">
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>Network</CardTitle>
-                    <CardDescription>
-                      Current selected Network & Chain
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={"Polygon Amoy"} disabled />
-                  </CardContent>
-                </Card>
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>Wallet Addresss</CardTitle>
-                    <CardDescription>
-                      Your blockchain wallet address
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={walletAddress} disabled />
-                  </CardContent>
-                </Card>
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>Wallet Balance</CardTitle>
-                    <CardDescription>
-                      Your blockchain wallet address
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={`${walletBalance} MATIC`} disabled />
-                  </CardContent>
-                </Card>
+                <InfoPanel title="Network" desc="Current selected Network & Chain" value="Polygon Amoy" />
+                <InfoPanel title="Wallet Addresss" desc="Your blockchain wallet address" value={walletAddress} />
+                <InfoPanel title="Wallet Balance" desc="Your blockchain wallet address" value={`${walletBalance} MATIC`} />
+                <InfoPanel title="Private Key" desc="Your blockchain private key" value={userState.privateKey} masked />
               </section>
             </Suspense>
             <Suspense condition={selectedTab === "subscription"} fallback={null}>
               <section className="grid gap-6">
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>Selected Subscription</CardTitle>
-                    <CardDescription>
-                      Your current active subscription
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={userState.selectedPlan} disabled className="capitalize" />
-                  </CardContent>
-                </Card>
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>Subscription Usage</CardTitle>
-                    <CardDescription>
-                      Your subscription usage for this month
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={`${userState.remainingCredits} credits remaining`} disabled />
-                  </CardContent>
-                </Card>
-                <Card x-chunk="dashboard-04-chunk-1">
-                  <CardHeader>
-                    <CardTitle>Subscription Validity</CardTitle>
-                    <CardDescription>
-                      Your subscription is valid upto
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input value={userState.expiresAt} disabled />
-                  </CardContent>
-                </Card>
+                <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.selectedPlan} />
+                <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
+                <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.expiresAt} />
               </section>
             </Suspense>
             <Suspense condition={selectedTab === "sustainability"} fallback={null}>

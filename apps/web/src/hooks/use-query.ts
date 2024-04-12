@@ -1,10 +1,10 @@
 "use client"
 import axios, { Method } from "axios"
 import { useQuery as useReactQuery } from "@tanstack/react-query"
-import { toast } from "react-hot-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { toast } from "@/components/ui/use-toast"
 
 export default function useQuery(queryKey: string[], queryUrl: string, method: Method, requestBody?: object) {
   const [{ userState }] = useContext(GlobalContext)
@@ -21,7 +21,10 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: M
   })
 
   if (error) {
-    toast.error(`${uiConstants.toastError} fetching ${queryKey[0]}`)
+    toast({
+      title: "Notification",
+      description: `${uiConstants.toastError} fetching ${queryKey[0]}`
+    })
   }
 
   return { error, data, isLoading }

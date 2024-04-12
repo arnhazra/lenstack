@@ -16,8 +16,9 @@ import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import SkeletonLoading from "@/components/skeleton"
 import axios from "axios"
-import toast from "react-hot-toast"
 import { usePromptContext } from "@/context/providers/prompt.provider"
+import { toast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 enum Filters {
   ALL = "All",
@@ -42,11 +43,19 @@ export default function Page() {
       try {
         await axios.post(endPoints.createWorkspace, { name: value })
         dispatch("setAppState", { refreshId: Math.random().toString() })
-        toast.success("Workspace created")
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">Workspace created</p>,
+          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        })
       }
 
       catch (error) {
-        toast.error("Workspace creation failed")
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">Creating workspace failed</p>,
+          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        })
       }
     }
   }
@@ -55,11 +64,19 @@ export default function Page() {
     try {
       await axios.post(`${endPoints.switchWorkspace}?workspaceId=${workspaceId}`)
       dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
-      toast.success("Workspace switched")
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">Workspace switched</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
     }
 
     catch (error) {
-      toast.error("Workspace switching failed")
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">Workspace switching failed</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
     }
   }
 

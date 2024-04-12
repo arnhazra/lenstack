@@ -4,8 +4,8 @@ import ReactQueryProvider from "./reactquery.provider"
 import { GlobalStateProvider } from "./globalstate.provider"
 import { ConfirmProvider } from "./confirm.provider"
 import { PromptProvider } from "./prompt.provider"
-import { Toaster } from "react-hot-toast"
 import { CachebustingProvider } from "./cachebusting.provider"
+import { Toaster } from "@/components/ui/toaster"
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
@@ -17,7 +17,7 @@ export default function Providers({ children }: { children: ReactNode }) {
               {children}
             </PromptProvider>
           </ConfirmProvider>
-          <Toaster position="bottom-right" />
+          <Toaster />
         </GlobalStateProvider>
       </ReactQueryProvider>
     </CachebustingProvider>

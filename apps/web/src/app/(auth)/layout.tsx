@@ -4,18 +4,17 @@ import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
 import { ReactNode, useContext, useEffect, useState } from "react"
-import { toast } from "react-hot-toast"
+import { useToast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
-import { ArrowRightIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Skeleton from "@/components/skeleton"
+import { ToastAction } from "@/components/ui/toast"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [{ appState, userState }, dispatch] = useContext(GlobalContext)
+  const [{ appState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthLoading, setAuthLoading] = useState<boolean>(false)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
@@ -23,6 +22,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const [state, setState] = useState({ email: "", hash: "", passKey: "" })
   const [alert, setAlert] = useState("")
   const [authAlert, setAuthAlert] = useState("")
+  const { toast } = useToast()
 
   const generatePassKey = async (event: any) => {
     event.preventDefault()
@@ -32,12 +32,20 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     try {
       const response = await axios.post(endPoints.generatePassKey, state)
       setState({ ...state, hash: response.data.hash })
-      toast.success(response.data.message)
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{response.data.message}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
       setAuthStep(2)
     }
 
     catch (error) {
-      toast.error(uiConstants.connectionErrorMessage)
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
     }
 
     finally {
@@ -54,7 +62,11 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     try {
       const response = await axios.post(endPoints.verifyPassKey, state)
       localStorage.setItem("accessToken", response.data.accessToken)
-      toast.success(uiConstants.authVerificationSuccess)
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.authVerificationSuccess}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
       setAuthorized(true)
     }
 
@@ -101,12 +113,20 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             }
 
             else {
-              toast.error(uiConstants.connectionErrorMessage)
+              toast({
+                title: "Notification",
+                description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
+                action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+              })
             }
           }
 
           else {
-            toast.error(uiConstants.connectionErrorMessage)
+            toast({
+              title: "Notification",
+              description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
+              action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+            })
           }
         }
 
