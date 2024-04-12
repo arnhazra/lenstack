@@ -12,6 +12,8 @@ import Suspense from "@/components/suspense"
 import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
+import { Tabs, tabsList } from "./data"
+import { format } from "date-fns"
 
 export default function Page() {
   const web3Provider = new Web3(endPoints.userTxGateway)
@@ -20,7 +22,7 @@ export default function Page() {
   const [walletBalance, setWalletBalance] = useState<string>("0")
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
-  const [selectedTab, setSelectedTab] = useState<string>("general")
+  const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.General)
 
   useEffect(() => {
     (async () => {
@@ -82,28 +84,31 @@ export default function Page() {
     }
   }
 
+  const renderTabs = tabsList.map((tab: Tabs) => {
+    return (
+      <p className={`cursor-pointer capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>{tab}</p>
+    )
+  })
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
         <div className="mx-auto grid w-full max-w-6xl gap-2">
-          <h1 className="text-3xl font-semibold">Account</h1>
+          <h1 className="text-3xl font-semibold">Account Settings</h1>
         </div>
         <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
           <nav className="grid gap-4 text-sm" x-chunk="dashboard-04-chunk-0">
-            <p className="cursor-pointer" onClick={(): void => setSelectedTab("general")}>General</p>
-            <p className="cursor-pointer" onClick={(): void => setSelectedTab("wallet")}>Wallet</p>
-            <p className="cursor-pointer" onClick={(): void => setSelectedTab("subscription")}>Subscription</p>
-            <p className="cursor-pointer" onClick={(): void => setSelectedTab("sustainability")}>Sustainability </p>
-            <p className="cursor-pointer" onClick={(): void => setSelectedTab("advanced")}>Advanced</p>
+            {renderTabs}
           </nav>
           <div>
-            <Suspense condition={selectedTab === "general"} fallback={null}>
+            <Suspense condition={selectedTab === Tabs.General} fallback={null}>
               <section className="grid gap-6">
-                <InfoPanel title="User ID" desc="Your unique identity inside platform" value={userState.userId} />
-                <InfoPanel title="Email" desc="Your email address" value={userState.email} />
+                <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
+                <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
+                <InfoPanel title="Display Name" desc="Your full name" value={userState.email} />
               </section>
             </Suspense>
-            <Suspense condition={selectedTab === "wallet"} fallback={null}>
+            <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
               <section className="grid gap-6">
                 <InfoPanel title="Network" desc="Current selected Network & Chain" value="Polygon Amoy" />
                 <InfoPanel title="Wallet Addresss" desc="Your blockchain wallet address" value={walletAddress} />
@@ -111,14 +116,15 @@ export default function Page() {
                 <InfoPanel title="Private Key" desc="Your blockchain private key" value={userState.privateKey} masked />
               </section>
             </Suspense>
-            <Suspense condition={selectedTab === "subscription"} fallback={null}>
+            <Suspense condition={selectedTab === Tabs.Subscription} fallback={null}>
               <section className="grid gap-6">
-                <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.selectedPlan} />
+                <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan : "No Active Subscription"} capitalize />
                 <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
-                <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.expiresAt} />
+                <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
+                <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
               </section>
             </Suspense>
-            <Suspense condition={selectedTab === "sustainability"} fallback={null}>
+            <Suspense condition={selectedTab === Tabs.Sustainability} fallback={null}>
               <section className="grid gap-6">
                 <Card x-chunk="dashboard-04-chunk-1">
                   <CardHeader>
@@ -147,11 +153,12 @@ export default function Page() {
                 </Card>
               </section>
             </Suspense>
-            <Suspense condition={selectedTab === "advanced"} fallback={null}>
+            <Suspense condition={selectedTab === Tabs.Advanced} fallback={null}>
               <section className="grid gap-6">
+                <InfoPanel title="Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
                 <Card x-chunk="dashboard-04-chunk-1">
                   <CardHeader>
-                    <CardTitle>Advanced</CardTitle>
+                    <CardTitle>Sign Out</CardTitle>
                     <CardDescription>
                       This is your advanced sign out settings
                     </CardDescription>
