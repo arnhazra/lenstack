@@ -111,8 +111,8 @@ export default function Page() {
                     </CardHeader>
                     <CardContent>
                       <div className="text-xs text-muted-foreground">
-                        Total number of events
-                        in this workspace
+                        Total number of dataset
+                        results shown
                       </div>
                     </CardContent>
                     <CardFooter>
