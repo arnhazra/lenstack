@@ -1,5 +1,5 @@
 "use client"
-import { BarChart2, Calendar, CalendarCheck2Icon, ListFilterIcon, OrbitIcon } from "lucide-react"
+import { BarChart2, Calendar, CalendarCheck2Icon, Layers2, ListFilterIcon, OrbitIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -36,7 +36,7 @@ export default function Page() {
         <TableCell><div className="font-medium">{uiConstants.brandName} {product?.displayName}</div></TableCell>
         <TableCell className="text-neutral-500 hidden md:table-cell">{product?.description}</TableCell>
         <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
-        <TableCell className="text-right">{product?.productCategory}</TableCell>
+        <TableCell className="text-right"><Badge variant="default"><Layers2 className="scale-50" />{product?.productCategory}</Badge></TableCell>
       </TableRow >
     )
   })
