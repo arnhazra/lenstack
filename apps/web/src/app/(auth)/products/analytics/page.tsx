@@ -28,6 +28,7 @@ export default function Page() {
       </TableRow>
     )
   })
+
   return (
     <Suspense condition={!analytics.isLoading && !products.isLoading} fallback={<SkeletonLoading />}>
       <Suspense condition={!analytics.error && !products.error} fallback={<Error />}>
@@ -64,8 +65,10 @@ export default function Page() {
                   <Card>
                     <CardHeader className="pb-2">
                       <CardDescription>Latest Event</CardDescription>
-                      <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt), "MMM, do yyyy")}</CardTitle>
-                      <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt), "h:mm a")}</CardTitle>
+                      <Suspense condition={analytics?.data?.analytics?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
+                        <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "MMM, do yyyy")}</CardTitle>
+                        <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "h:mm a")}</CardTitle>
+                      </Suspense>
                     </CardHeader>
                     <CardContent>
                       <div className="text-xs text-muted-foreground">
@@ -85,20 +88,22 @@ export default function Page() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Component</TableHead>
-                            <TableHead>Event</TableHead>
-                            <TableHead className="hidden md:table-cell">Info</TableHead>
-                            <TableHead className="hidden md:table-cell">Status Code</TableHead>
-                            <TableHead className="text-right hidden md:table-cell">Date</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {renderAnalytics}
-                        </TableBody>
-                      </Table>
+                      <Suspense condition={analytics?.data?.analytics.length > 0} fallback={<p className="text-center">No data to display</p>}>
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>Component</TableHead>
+                              <TableHead>Event</TableHead>
+                              <TableHead className="hidden md:table-cell">Info</TableHead>
+                              <TableHead className="hidden md:table-cell">Status Code</TableHead>
+                              <TableHead className="text-right hidden md:table-cell">Date</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {renderAnalytics}
+                          </TableBody>
+                        </Table>
+                      </Suspense>
                     </CardContent>
                   </Card>
                 </div>
