@@ -90,7 +90,7 @@ export default function Page() {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <Button variant="default" className="ml-auto flex items-center" onClick={createWorkspace}>Create Workspace</Button>
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
-            <Card x-chunk="dashboard-01-chunk-0">
+            <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Selected Workspace
@@ -104,7 +104,7 @@ export default function Page() {
                 </p>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-01-chunk-1">
+            <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Workspace Count
@@ -119,7 +119,7 @@ export default function Page() {
               </CardContent>
             </Card>
           </div>
-          <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
+          <Card className="xl:col-span-2">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
                 <CardTitle>Workspaces</CardTitle>

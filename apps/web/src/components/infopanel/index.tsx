@@ -28,7 +28,7 @@ export default function InfoPanel({ title, desc, value, masked, capitalize }: In
   }
 
   return (
-    <Card x-chunk="dashboard-04-chunk-1">
+    <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{desc}</CardDescription>

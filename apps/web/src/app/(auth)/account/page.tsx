@@ -97,7 +97,7 @@ export default function Page() {
           <h1 className="text-3xl font-semibold">Account Settings</h1>
         </div>
         <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-          <nav className="grid gap-4 text-sm" x-chunk="dashboard-04-chunk-0">
+          <nav className="grid gap-4 text-sm">
             {renderTabs}
           </nav>
           <div>
@@ -126,7 +126,7 @@ export default function Page() {
             </Suspense>
             <Suspense condition={selectedTab === Tabs.Sustainability} fallback={null}>
               <section className="grid gap-6">
-                <Card x-chunk="dashboard-04-chunk-1">
+                <Card>
                   <CardHeader>
                     <CardTitle>Sustainability</CardTitle>
                     <CardDescription>
@@ -156,7 +156,7 @@ export default function Page() {
             <Suspense condition={selectedTab === Tabs.Advanced} fallback={null}>
               <section className="grid gap-6">
                 <InfoPanel title="Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
-                <Card x-chunk="dashboard-04-chunk-1">
+                <Card>
                   <CardHeader>
                     <CardTitle>Sign Out</CardTitle>
                     <CardDescription>

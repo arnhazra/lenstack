@@ -3,7 +3,7 @@ import Suspense from "@/components/suspense"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { ReactNode, useContext } from "react"
 import Link from "next/link"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { ArrowRightIcon } from "lucide-react"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
   const [{ userState }] = useContext(GlobalContext)

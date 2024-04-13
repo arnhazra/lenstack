@@ -33,13 +33,11 @@ export default function Page() {
   const renderProducts = products?.data?.map((product: any) => {
     return (
       <TableRow className="cursor-pointer" key={product.displayName} onClick={(): void => router.push(`/products/${product.productName}`)}>
-        <TableCell>
-          <div className="font-medium">{uiConstants.brandName} {product?.displayName}</div>
-        </TableCell>
+        <TableCell><div className="font-medium">{uiConstants.brandName} {product?.displayName}</div></TableCell>
         <TableCell className="text-neutral-500 hidden md:table-cell">{product?.description}</TableCell>
-        <TableCell className="hidden md:table-cell"><Badge variant="outline">{product?.productStatus}</Badge></TableCell>
-        <TableCell className="text-right"><Badge variant="outline">{product?.productCategory}</Badge></TableCell>
-      </TableRow>
+        <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
+        <TableCell className="text-right">{product?.productCategory}</TableCell>
+      </TableRow >
     )
   })
 
@@ -48,7 +46,7 @@ export default function Page() {
       <div className="flex min-h-screen w-full flex-col">
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-            <Card x-chunk="dashboard-01-chunk-0">
+            <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Selected Subscription
@@ -62,7 +60,7 @@ export default function Page() {
                 </p>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-01-chunk-1">
+            <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Start Date
@@ -76,7 +74,7 @@ export default function Page() {
                 </p>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-01-chunk-2">
+            <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Valid Upto</CardTitle>
                 <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -88,7 +86,7 @@ export default function Page() {
                 </p>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-01-chunk-3">
+            <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Subscription Usage</CardTitle>
                 <BarChart2 className="h-4 w-4 text-muted-foreground" />
@@ -101,7 +99,7 @@ export default function Page() {
               </CardContent>
             </Card>
           </div>
-          <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
+          <Card className="xl:col-span-2">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
                 <CardTitle>Products</CardTitle>

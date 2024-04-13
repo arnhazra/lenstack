@@ -12,7 +12,7 @@ export default function SkeletonLoading() {
           <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
             <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
               <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-                <Card className="sm:col-span-2 p-3" x-chunk="dashboard-05-chunk-0">
+                <Card className="sm:col-span-2 p-3">
                   <div className="p-3">
                     <div className="flex flex-col space-y-3">
                       <Skeleton className="h-[125px] w-[max] rounded-xl" />
@@ -27,7 +27,7 @@ export default function SkeletonLoading() {
                     <Skeleton className="h-8" />
                   </div>
                 </Card>
-                <Card className="sm:col-span-2 p-3" x-chunk="dashboard-05-chunk-0">
+                <Card className="sm:col-span-2 p-3">
                   <div className="p-3">
                     <div className="flex flex-col space-y-3">
                       <Skeleton className="h-[125px] w-[max] rounded-xl" />
@@ -45,7 +45,7 @@ export default function SkeletonLoading() {
               </div>
               <Tabs defaultValue="week">
                 <TabsContent value="week">
-                  <Card x-chunk="dashboard-05-chunk-3">
+                  <Card>
                     <div className="p-7">
                       <div><Skeleton className="h-4 w-[200px]" /></div>
                       <div>
@@ -96,7 +96,7 @@ export default function SkeletonLoading() {
               </Tabs>
             </div>
             <div>
-              <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
+              <Card className="overflow-hidden">
                 <div className="flex flex-row items-start bg-muted/50 p-5">
                   <div className="grid gap-0.5">
                     <div className="group flex items-center gap-2 text-lg">

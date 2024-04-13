@@ -1,65 +1,111 @@
 "use client"
-import { endPoints } from "@/constants/api-endpoints"
-import Suspense from "@/components/suspense"
-import { Badge, Container, Table } from "react-bootstrap"
+import Error from "@/app/error"
 import SkeletonLoading from "@/components/skeleton"
+import Suspense from "@/components/suspense"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { endPoints } from "@/constants/api-endpoints"
+import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { BookIcon } from "lucide-react"
-import Link from "next/link"
-import Hero from "@/components/hero"
-import { uiConstants } from "@/constants/global-constants"
-import Error from "@/components/error"
 import { format } from "date-fns"
 
 export default function Page() {
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=analytics`, HTTPMethods.GET)
   const analytics = useQuery(["analytics"], endPoints.analyticsView, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=analytics&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "analytics")
 
-  const renderAnalytics = analytics?.data?.analytics?.map((ant: any) => (
-    <tr key={ant._id}>
-      <td>{ant.component}</td>
-      <td>{ant.event}</td>
-      <td>{ant.info}</td>
-      <td>{ant.statusCode}</td>
-      <td>{format(new Date(ant.createdAt), "MMM, do yyyy, h:mm a")}</td>
-    </tr>
-  ))
-
+  const renderAnalytics = analytics?.data?.analytics?.map((ant: any) => {
+    return (
+      <TableRow className="cursor-pointer" key={ant._id}>
+        <TableCell><div className="font-medium">{ant?.component}</div></TableCell>
+        <TableCell className="text-neutral-500">{ant?.event}</TableCell>
+        <TableCell className="hidden md:table-cell">{ant?.info}</TableCell>
+        <TableCell className="hidden md:table-cell"><Badge variant="outline">{ant?.statusCode}</Badge></TableCell>
+        <TableCell className="text-right hidden md:table-cell">{format(new Date(ant.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
+      </TableRow>
+    )
+  })
   return (
     <Suspense condition={!analytics.isLoading && !products.isLoading} fallback={<SkeletonLoading />}>
       <Suspense condition={!analytics.error && !products.error} fallback={<Error />}>
-        <Container>
-          <Hero>
-            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="text-muted mt-3">{selectedProduct?.largeDescription}</p>
-            <div className="mb-2">
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
-            </div>
-            <Link href={`/apireference?productName=${selectedProduct?.productName}`} className="btn btn-secondary">
-              <BookIcon className="icon-left" />API Reference
-            </Link>
-          </Hero>
-          <Suspense condition={!!analytics?.data?.analytics && analytics?.data?.analytics.length} fallback={null}>
-            <h4 className="text-white">Analytics</h4>
-            <Table responsive hover variant="light">
-              <thead>
-                <tr>
-                  <th>Component</th>
-                  <th>Event</th>
-                  <th>Info</th>
-                  <th>Status Code</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {renderAnalytics}
-              </tbody>
-            </Table>
-          </Suspense>
-        </Container>
+        <div className="flex min-h-screen w-full flex-col bg-muted/40">
+          <div className="flex flex-col sm:gap-4 sm:py-4">
+            <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols2 xl:grid-cols-1">
+              <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+                  <Card className="sm:col-span-2">
+                    <CardHeader className="pb-3">
+                      <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
+                      <CardDescription className="max-w-lg text-balance leading-relaxed">
+                        {selectedProduct?.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardFooter>
+                      <Button>API Reference</Button>
+                    </CardFooter>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription>Metrics Count</CardDescription>
+                      <CardTitle className="text-4xl">{analytics?.data?.analytics?.length}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-xs text-muted-foreground">
+                        Total number of events
+                        in this workspace
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                    </CardFooter>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription>Latest Event</CardDescription>
+                      <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt), "MMM, do yyyy")}</CardTitle>
+                      <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt), "h:mm a")}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-xs text-muted-foreground">
+                        Latest event creation time
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                    </CardFooter>
+                  </Card>
+                </div>
+                <div>
+                  <Card>
+                    <CardHeader className="px-7">
+                      <CardTitle>Analytics</CardTitle>
+                      <CardDescription>
+                        Your Analytics in this workspace
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Component</TableHead>
+                            <TableHead>Event</TableHead>
+                            <TableHead className="hidden md:table-cell">Info</TableHead>
+                            <TableHead className="hidden md:table-cell">Status Code</TableHead>
+                            <TableHead className="text-right hidden md:table-cell">Date</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {renderAnalytics}
+                        </TableBody>
+                      </Table>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
       </Suspense>
     </Suspense>
   )
