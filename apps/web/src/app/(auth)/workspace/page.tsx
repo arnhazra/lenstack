@@ -1,7 +1,7 @@
 "use client"
 import { BoxIcon, BoxesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -88,7 +88,6 @@ export default function Page() {
     <Suspense condition={!workspaces.isLoading} fallback={<SkeletonLoading />}>
       <div className="flex min-h-screen w-full flex-col">
         <div className="flex flex-1 flex-col gap-4 p-4">
-          <Button variant="default" className="ml-auto flex items-center" onClick={createWorkspace}>Create Workspace</Button>
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -103,6 +102,9 @@ export default function Page() {
                   Your current selected workspace
                 </p>
               </CardContent>
+              <CardFooter>
+                <Button variant="default" className="flex items-center" onClick={createWorkspace}>Create Workspace</Button>
+              </CardFooter>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
