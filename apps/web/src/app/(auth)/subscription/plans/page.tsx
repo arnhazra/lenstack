@@ -1,18 +1,11 @@
 "use client"
-import Grid from "@/components/grid"
 import Suspense from "@/components/suspense"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { ArrowRightIcon, CheckCircledIcon, CheckIcon } from "@radix-ui/react-icons"
 import { useRouter } from "next/navigation"
 import { Fragment } from "react"
-import { Badge, Button, Col, Container } from "react-bootstrap"
-import Loading from "@/components/loading"
-import Error from "@/components/error"
-import { GenericCard, GenericCardProps } from "@/components/card"
-import InfoPanel from "@/components/infopanel/infopanel"
 
 export default function Page() {
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)

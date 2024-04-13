@@ -1,7 +1,6 @@
 "use client"
-import { BoxIcon, BoxesIcon, SortAscIcon } from "lucide-react"
+import { BoxIcon, BoxesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useContext, useState } from "react"
@@ -17,15 +16,8 @@ import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import MaskText from "@/components/mask"
 
-enum Filters {
-  ALL = "All",
-  CEN = "Centralized",
-  DCE = "Decentralized"
-}
-
 export default function Page() {
   const [{ userState, appState }, dispatch] = useContext(GlobalContext)
-  const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
   const workspaces = useQuery(["workspaces", appState.refreshId], endPoints.findMyWorkspaces, HTTPMethods.GET)
   const { prompt } = usePromptContext()
 
