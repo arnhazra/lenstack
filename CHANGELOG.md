@@ -3,7 +3,7 @@
 ### v11.0.0
 * Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * More generic terms introduction
-* Minor dependency updates
+* Dependency updates
 * Bug fixes
 
 ### v10.5.1
