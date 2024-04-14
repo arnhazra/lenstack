@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Loading from "@/components/loading"
 import { ToastAction } from "@/components/ui/toast"
+import LoaderIcon from "@/components/loaderIcon"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ appState }, dispatch] = useContext(GlobalContext)
@@ -162,7 +163,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                       <Input type="email" placeholder="someone@example.com" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, email: e.target.value })} autoComplete={"off"} minLength={4} maxLength={40} />
                     </div>
                     <Button type="submit" size="lg" className="w-full" disabled={isAuthLoading}>
-                      <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin mr-2"></i> {alert}</>}>
+                      <Suspense condition={!isAuthLoading} fallback={<><LoaderIcon /> {alert}</>}>
                         Get Auth Passkey
                       </Suspense>
                     </Button>
@@ -192,7 +193,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                       <Input type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
                     </div>
                     <Button variant="default" type="submit" disabled={isAuthLoading} className="mt-4 btn-block">
-                      <Suspense condition={!isAuthLoading} fallback={<><i className="fas fa-circle-notch fa-spin mr-2"></i> {alert}</>}>
+                      <Suspense condition={!isAuthLoading} fallback={<><LoaderIcon /> {alert}</>}>
                         Continue
                       </Suspense>
                     </Button>
