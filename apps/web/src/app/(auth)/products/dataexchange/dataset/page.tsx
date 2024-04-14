@@ -12,6 +12,10 @@ import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
 import SkeletonLoading from "@/components/skeleton"
 import Error from "@/app/error"
+import { useEffect } from "react"
+import { toast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -20,11 +24,24 @@ export default function Page() {
   const dataset = useQuery(["dataset"], `${endPoints.dataexchangeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
   const relatedDatasets = useQuery(["relateddatasets"], endPoints.dataexchangeFindDatasets, HTTPMethods.POST, { searchQuery: "", selectedFilter: dataset?.data?.metaData?.category ?? "", selectedSortOption: "", offset: 0 })
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [datasetId])
+
   const renderDatasetTags = dataset?.data?.metaData?.description?.split(" ").slice(0, 30).map((item: string, index: number) => {
     if (item.length > 5) {
       return <Badge className="me-2 mb-2" variant="outline" key={index}>{item}</Badge>
     }
   })
+
+  const copyDatasetId = () => {
+    navigator.clipboard.writeText(datasetId ?? '')
+    toast({
+      title: "Notification",
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
+      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+    })
+  }
 
   const renderRelatedDatasets = relatedDatasets?.data?.datasets?.filter((ds: any) => ds?._id !== datasetId).map((ds: any) => {
     return (
@@ -136,7 +153,7 @@ export default function Page() {
                       <CardDescription>{dataset?.data?.metaData?.category}</CardDescription>
                     </div>
                     <div className="ml-auto flex items-center gap-1">
-                      <Button size="sm" variant="outline" className="h-8 gap-1">
+                      <Button size="sm" variant="outline" className="h-8 gap-1" onClick={copyDatasetId}>
                         <CopyIcon className="h-3.5 w-3.5" />
                         <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
                           Copy Dataset Id
