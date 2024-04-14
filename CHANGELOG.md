@@ -1,6 +1,7 @@
 # Changelog
 
 ### v11.0.0
+* Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * More generic terms introduction
 * Minor dependency updates
 * Bug fixes
