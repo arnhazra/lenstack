@@ -127,7 +127,7 @@ export default function Page() {
                   <Card>
                     <CardHeader className="pb-2">
                       <CardDescription>Transaction Count</CardDescription>
-                      <CardTitle className="text-4xl">{transactions?.data?.length}</CardTitle>
+                      <CardTitle className="text-4xl">{transactions?.data?.length ?? 0}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="text-xs text-muted-foreground">
@@ -142,8 +142,8 @@ export default function Page() {
                     <CardHeader className="pb-2">
                       <CardDescription>Latest Transaction</CardDescription>
                       <Suspense condition={transactions?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                        <CardTitle className="text-xl">{format(new Date(transactions?.data ? transactions?.data[0]?.createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
-                        <CardTitle className="text-xl">{format(new Date(transactions?.data ? transactions?.data[0]?.createdAt : new Date()), "h:mm a")}</CardTitle>
+                        <CardTitle className="text-xl">{format(new Date(transactions?.data && transactions?.data.length ? transactions?.data[0]?.createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
+                        <CardTitle className="text-xl">{format(new Date(transactions?.data && transactions?.data.length ? transactions?.data[0]?.createdAt : new Date()), "h:mm a")}</CardTitle>
                       </Suspense>
                     </CardHeader>
                     <CardContent>
