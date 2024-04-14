@@ -1,7 +1,7 @@
 "use client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useContext, useEffect, useState } from "react"
+import { ReactElement, useContext, useEffect, useState } from "react"
 import Web3 from "web3"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { endPoints } from "@/constants/api-endpoints"
@@ -14,6 +14,15 @@ import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { Tabs, tabsList } from "./data"
 import { format } from "date-fns"
+import { Bolt, Calendar, Leaf, Settings, Wallet } from "lucide-react"
+
+const mapTabIcons: Record<Tabs, ReactElement> = {
+  advanced: <Settings />,
+  general: <Bolt />,
+  subscription: <Calendar />,
+  sustainability: <Leaf />,
+  wallet: <Wallet />
+}
 
 export default function Page() {
   const web3Provider = new Web3(endPoints.userTxGateway)
@@ -86,7 +95,10 @@ export default function Page() {
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <p className={`cursor-pointer capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>{tab}</p>
+      <div className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>
+        <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
+        <p>{tab}</p>
+      </div>
     )
   })
 
