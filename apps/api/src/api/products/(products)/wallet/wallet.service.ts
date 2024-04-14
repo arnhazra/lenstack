@@ -3,6 +3,7 @@ import { createTransactionCommand } from "./commands/create-tx.command"
 import { HttpService } from "@nestjs/axios"
 import { lastValueFrom } from "rxjs"
 import { envConfig } from "src/env.config"
+import { getTransactionsQuery } from "./queries/get-transactions.query"
 
 @Injectable()
 export class WalletService {
@@ -12,6 +13,17 @@ export class WalletService {
     try {
       const transaction = await createTransactionCommand(workspaceId)
       return transaction
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async getTransactions(workspaceId: string) {
+    try {
+      const transactions = await getTransactionsQuery(workspaceId)
+      return transactions
     }
 
     catch (error) {

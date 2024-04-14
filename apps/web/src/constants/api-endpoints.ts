@@ -43,4 +43,5 @@ export const endPoints = {
   swapTxGateway: `${apiHost}/api/products/swap/txgateway`,
   walletCreateTx: `${apiHost}/api/products/wallet/createtx`,
   walletTxGateway: `${apiHost}/api/products/wallet/txgateway`,
+  walletGetTransactions: `${apiHost}/api/products/wallet/gettransactions`
 }
