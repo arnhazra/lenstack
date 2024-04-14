@@ -8,14 +8,28 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
-import SkeletonLoading from "@/components/skeleton"
+import Loading from "@/components/loading"
 import { TierCardComponent } from "@/components/tiercard"
 import { Footer } from "@/components/footer"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/dashboard")
+    }
+
+    else {
+      setIsLoading(false)
+    }
+  }, [])
 
   const renderPricing = pricing?.data?.map((pricing: any) => {
     return (
@@ -61,7 +75,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading} fallback={<SkeletonLoading />}>
+    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<Loading />}>
       <main className="min-h-screen w-full bg-white">
         <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-20">
           <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">

@@ -1,6 +1,6 @@
 "use client"
 import Error from "@/app/error"
-import SkeletonLoading from "@/components/skeleton"
+import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -27,7 +27,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!kvList.isLoading && !products.isLoading} fallback={<SkeletonLoading />}>
+    <Suspense condition={!kvList.isLoading && !products.isLoading} fallback={<Loading />}>
       <Suspense condition={!kvList.error && !products.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
           <div className="flex flex-col sm:gap-4 sm:py-4">

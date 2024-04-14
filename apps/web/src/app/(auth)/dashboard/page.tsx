@@ -14,7 +14,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
-import SkeletonLoading from "@/components/skeleton"
+import Loading from "@/components/loading"
 
 enum Filters {
   ALL = "All",
@@ -43,7 +43,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!products.isLoading && !pricingDetails.isLoading} fallback={<SkeletonLoading />}>
+    <Suspense condition={!products.isLoading && !pricingDetails.isLoading} fallback={<Loading />}>
       <div className="flex min-h-screen w-full flex-col">
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">

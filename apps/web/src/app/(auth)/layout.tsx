@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Skeleton from "@/components/skeleton"
+import Loading from "@/components/loading"
 import { ToastAction } from "@/components/ui/toast"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -143,7 +143,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }, [isAuthorized, appState.refreshId])
 
   return (
-    <Suspense condition={!isLoading} fallback={<Skeleton />}>
+    <Suspense condition={!isLoading} fallback={<Loading />}>
       <Suspense condition={!isAuthorized} fallback={children}>
         <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
           <Suspense condition={authStep === 1} fallback={null}>

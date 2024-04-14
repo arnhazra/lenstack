@@ -10,7 +10,7 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
-import SkeletonLoading from "@/components/skeleton"
+import Loading from "@/components/loading"
 import Error from "@/app/error"
 import { useEffect } from "react"
 import { toast } from "@/components/ui/use-toast"
@@ -75,7 +75,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!dataset?.isLoading && !relatedDatasets?.isLoading} fallback={<SkeletonLoading />}>
+    <Suspense condition={!dataset?.isLoading && !relatedDatasets?.isLoading} fallback={<Loading />}>
       <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-col sm:gap-4 sm:py-4">
