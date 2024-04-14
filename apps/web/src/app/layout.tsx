@@ -1,13 +1,21 @@
-import { ReactNode } from "react"
+"use client"
+import { ReactNode, useEffect } from "react"
 import { uiConstants } from "@/constants/global-constants"
 import { Quicksand } from "next/font/google"
 import Providers from "@/context/providers"
 import Header from "@/components/header"
 import "@/styles/globals.sass"
+import { usePathname } from "next/navigation"
 
 const quickSand = Quicksand({ subsets: ["latin"], weight: ["700"] })
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
   return (
     <html lang="en">
       <head>

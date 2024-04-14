@@ -146,7 +146,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <Suspense condition={!isLoading} fallback={<Loading />}>
       <Suspense condition={!isAuthorized} fallback={children}>
-        <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
+        <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
           <Suspense condition={authStep === 1} fallback={null}>
             <Card className="mx-auto max-w-sm">
               <CardHeader>
@@ -171,14 +171,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </form>
               </CardContent>
               <CardFooter>
-                <div className="mt-4 text-center text-sm text-gray-600">
+                <div className="text-center text-sm text-gray-600">
                   By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
                 </div>
               </CardFooter>
             </Card>
           </Suspense>
           <Suspense condition={authStep === 2} fallback={null}>
-            <Card className="mx-auto max-w-sm ">
+            <Card className="mx-auto max-w-sm">
               <CardHeader>
                 <CardTitle className="text-2xl">Auth</CardTitle>
                 <CardDescription>
@@ -201,7 +201,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </form>
               </CardContent>
               <CardFooter>
-                <p id="alert" className="mt-4 text-center text-sm text-gray-600">
+                <p id="alert" className="text-center text-sm text-gray-600">
                   {authAlert}
                 </p>
               </CardFooter>
