@@ -36,21 +36,8 @@ export class DataexchangeService {
 
   async viewDataset(datasetId: string) {
     try {
-      const dataset = await findDatasetMetadataById(datasetId)
-      return dataset
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
-  async findSimilarDatasets(datasetId: string) {
-    try {
-      const dataset = await findDatasetMetadataById(datasetId)
-      const datasetCategory = dataset.category
-      const similarDatasets = await findDatasetsQuery("", datasetCategory, "name", 0, 24)
-      return similarDatasets
+      const { dataLength, metaData } = await findDatasetMetadataById(datasetId)
+      return { dataLength, metaData }
     }
 
     catch (error) {

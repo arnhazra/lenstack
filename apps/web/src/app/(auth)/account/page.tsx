@@ -105,7 +105,6 @@ export default function Page() {
               <section className="grid gap-6">
                 <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
                 <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
-                <InfoPanel title="Display Name" desc="Your full name" value={userState.email} />
               </section>
             </Suspense>
             <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>

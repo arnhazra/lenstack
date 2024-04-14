@@ -12,7 +12,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ChevronLeft, ChevronRight, ListFilter, Medal, SortAsc } from "lucide-react"
+import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc } from "lucide-react"
 import { useContext, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
@@ -36,7 +36,7 @@ export default function Page() {
     return (
       <DropdownMenuCheckboxItem
         checked={datasetRequestState.selectedFilter === item}
-        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: item })}>
+        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: item, offset: 0 })}>
         {item}
       </DropdownMenuCheckboxItem>
     )
@@ -46,7 +46,7 @@ export default function Page() {
     return (
       <DropdownMenuCheckboxItem
         checked={datasetRequestState.selectedSortOption === item.value}
-        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: item.value })}>
+        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: item.value, offset: 0 })}>
         {item.label}
       </DropdownMenuCheckboxItem>
     )
@@ -58,7 +58,7 @@ export default function Page() {
         <TableCell><div className="font-medium">{dataset?.name}</div></TableCell>
         <TableCell className="text-neutral-500">{dataset?.category}</TableCell>
         <TableCell className="hidden md:table-cell">{dataset?.rating}</TableCell>
-        <TableCell className="text-right hidden md:table-cell">
+        <TableCell className="hidden md:table-cell">
           <Suspense condition={dataset?.rating >= 4.5} fallback={null}>
             <Badge variant="default" key={"gold"}><Medal className="scale-50" />Gold</Badge>
           </Suspense>
@@ -67,6 +67,17 @@ export default function Page() {
           </Suspense>
           <Suspense condition={dataset?.rating < 4.0} fallback={null}>
             <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
+          </Suspense>
+        </TableCell>
+        <TableCell className="text-right hidden md:table-cell">
+          <Suspense condition={dataset?.rating >= 4.2} fallback={null}>
+            <Badge variant="default" key={"gold"}><ShieldCheck className="scale-50" />Level 3</Badge>
+          </Suspense>
+          <Suspense condition={dataset?.rating >= 3.6 && dataset?.rating < 4.2} fallback={null}>
+            <Badge variant="secondary" key={"silver"}><ShieldCheck className="scale-50" />Level 2</Badge>
+          </Suspense>
+          <Suspense condition={dataset?.rating < 3.6} fallback={null}>
+            <Badge variant="outline" key={"bronze"}><ShieldCheck className="scale-50" />Level 1</Badge >
           </Suspense>
         </TableCell>
       </TableRow>
@@ -179,8 +190,9 @@ export default function Page() {
                             <TableRow>
                               <TableHead>Dataset Name</TableHead>
                               <TableHead>Category</TableHead>
-                              <TableHead className="hidden md:table-cell">Rating</TableHead>
-                              <TableHead className="text-right hidden md:table-cell">Quality</TableHead>
+                              <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
+                              <TableHead className="hidden md:table-cell">Data Quality</TableHead>
+                              <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>

@@ -45,18 +45,6 @@ export class DataexchangeController {
     }
   }
 
-  @Get("findsimilardatasets")
-  async findSimilarDatasets(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
-    try {
-      const similarDatasets = await this.dataexchangeService.findSimilarDatasets(datasetId)
-      return { similarDatasets }
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
   @Post("dataapi")
   async getData(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
     try {
