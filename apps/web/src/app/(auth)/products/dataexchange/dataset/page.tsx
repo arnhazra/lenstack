@@ -12,7 +12,6 @@ import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Error from "@/app/error"
-import { useEffect } from "react"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
@@ -23,10 +22,6 @@ export default function Page() {
   const router = useRouter()
   const dataset = useQuery(["dataset"], `${endPoints.dataexchangeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
   const relatedDatasets = useQuery(["relateddatasets"], endPoints.dataexchangeFindDatasets, HTTPMethods.POST, { searchQuery: "", selectedFilter: dataset?.data?.metaData?.category ?? "", selectedSortOption: "", offset: 0 })
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [datasetId])
 
   const renderDatasetTags = dataset?.data?.metaData?.description?.split(" ").slice(0, 30).map((item: string, index: number) => {
     if (item.length > 5) {
