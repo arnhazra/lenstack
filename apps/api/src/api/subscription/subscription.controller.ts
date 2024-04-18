@@ -52,18 +52,6 @@ export class SubscriptionController {
     }
   }
 
-  @Post("gateway/infura")
-  async infuraTransactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.subscriptionService.infuraTransactionGateway(requestBody)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
   @Post("gateway/quicknode")
   async quicknodeTransactionGateway(@Body() requestBody: any) {
     try {

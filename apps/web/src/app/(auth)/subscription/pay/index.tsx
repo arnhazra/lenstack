@@ -32,7 +32,6 @@ export default function Page() {
   const [selectedGateway, setSelectedGateway] = useState("alchemy")
   const [gatewayOptions] = useState([
     { value: "alchemy", label: "Alchemy" },
-    { value: "infura", label: "Infura" },
     { value: "quicknode", label: "QuickNode" },
   ])
 
@@ -57,9 +56,6 @@ export default function Page() {
         selectedGatewayUrl = endPoints.subscriptionAlchemyGateway
         break
 
-      case "infura":
-        selectedGatewayUrl = endPoints.subscriptionInfuraGateway
-        break
 
       case "quicknode":
         selectedGatewayUrl = endPoints.subscriptionQuicknodeGateway

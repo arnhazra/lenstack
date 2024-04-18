@@ -15,7 +15,7 @@ export class SubscriptionService {
   private readonly web3Provider: Web3
 
   constructor(private readonly httpService: HttpService) {
-    this.web3Provider = new Web3(envConfig.infuraGateway)
+    this.web3Provider = new Web3(envConfig.alchemyGateway)
   }
 
   async activateHobby(userId: string) {
@@ -79,17 +79,6 @@ export class SubscriptionService {
   async alchemyTransactionGateway(requestBody: any) {
     try {
       const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
-      return response.data
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
-  async infuraTransactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
       return response.data
     }
 
