@@ -34,7 +34,7 @@ export class SwapService {
 
   async transactionGateway(requestBody: any) {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.infuraGateway, requestBody))
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
       return response.data
     }
 

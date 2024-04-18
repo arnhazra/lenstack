@@ -1,72 +1,95 @@
 "use client"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import useQuery from "@/hooks/use-query"
-import { Badge, Col, Container } from "react-bootstrap"
-import { Fragment, useContext } from "react"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
-import Suspense from "@/components/suspense"
+import Error from "@/app/error"
 import Loading from "@/components/loading"
-import Hero from "@/components/hero"
+import Suspense from "@/components/suspense"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
-import Error from "@/components/error"
-import { GenericCard, GenericCardProps } from "@/components/card"
-import Link from "next/link"
-import Grid from "@/components/grid"
-
-export interface TokenData {
-  tokenName: string
-  tokenSymbol: string
-  tokenContractAddress: string
-  vendorContractAddress: string
-  tokensPerMatic: number
-  description: string
-}
+import HTTPMethods from "@/constants/http-methods"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
+import useQuery from "@/hooks/use-query"
+import { useContext } from "react"
+import { TradingModal } from "./tradingmodal"
 
 export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
   const swapTokenConfig = useQuery(["swaptokenconfig"], `${endPoints.swapTokenConfig}?searchQuery=${appState.globalSearchString}`, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=swap`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=swap&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "swap")
 
-  const tokensToDisplay = swapTokenConfig?.data?.map((token: TokenData) => {
-    const tokenCardProps: GenericCardProps = {
-      header: token.tokenName,
-      footer: <Fragment>
-        <Badge color="white" bg="light" pill className="ps-3 pe-3 p-2 ps-3 pe-3 p-2 align-self-start mb-4">ERC-20</Badge>
-        <p className="text-muted">{token.description}</p>
-      </Fragment>
-    }
-
+  const renderTokens = swapTokenConfig?.data?.map((token: any) => {
     return (
-      <Col key={token.tokenContractAddress} className="mb-3">
-        <Link href={`/products/swap/token?tokenAddress=${token.tokenContractAddress}`}>
-          <GenericCard {...tokenCardProps} />
-        </Link>
-      </Col>
+      <TableRow className="cursor-pointer" key={token._id}>
+        <TableCell className="hidden md:table-cell">{token?.tokenName}</TableCell>
+        <TableCell className="text-neutral-500">{token?.tokenSymbol}</TableCell>
+        <TableCell className="hidden md:table-cell">{token?.description}</TableCell>
+        <TableCell>{token?.tokensPerMatic}/MATIC</TableCell>
+        <TableHead className="text-right">
+          <TradingModal token={token} />
+        </TableHead>
+      </TableRow>
     )
   })
 
   return (
-    <Container>
-      <Suspense condition={!swapTokenConfig.isLoading && !products.isLoading} fallback={<Loading />}>
-        <Suspense condition={!swapTokenConfig.error && !products.error} fallback={<Error />}>
-          <Hero>
-            <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="text-muted mt-3">{selectedProduct?.largeDescription}</p>
-            <div className="mb-2">
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
-              <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>
+    <Suspense condition={!swapTokenConfig.isLoading && !products.isLoading} fallback={<Loading />}>
+      <Suspense condition={!swapTokenConfig.error && !products.error} fallback={<Error />}>
+        <div className="flex min-h-screen w-full flex-col">
+          <div className="flex flex-1 flex-col gap-4 p-4">
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
+                  <CardDescription className="max-w-lg text-balance leading-relaxed">
+                    {selectedProduct?.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Metrics Count</CardDescription>
+                  <CardTitle className="text-4xl">{swapTokenConfig?.data?.length}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">
+                    Total Tokens
+                  </div>
+                </CardContent>
+                <CardFooter>
+                </CardFooter>
+              </Card>
             </div>
-          </Hero>
-          <Suspense condition={!!swapTokenConfig?.data?.length} fallback={<h4 className="text-white">No ERC-20 Tokens to display</h4>}>
-            <h4 className="text-white">Explore ERC-20 Tokens</h4>
-            <Grid>
-              {tokensToDisplay}
-            </Grid>
-          </Suspense>
-        </Suspense>
+            <Card>
+              <CardHeader className="px-7">
+                <CardTitle>ERC-20 Tokens</CardTitle>
+                <CardDescription>
+                  List of ERC-20 tokens available for trading
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Suspense condition={swapTokenConfig?.data?.length > 0} fallback={<p className="text-center">No tokens to display</p>}>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="hidden md:table-cell">Token Name</TableHead>
+                        <TableHead>Token Symbol</TableHead>
+                        <TableHead className="hidden md:table-cell">Token Info</TableHead>
+                        <TableHead>Token Price</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {renderTokens}
+                    </TableBody>
+                  </Table>
+                </Suspense>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </Suspense>
-    </Container>
+    </Suspense>
   )
 }
