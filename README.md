@@ -15,9 +15,6 @@ An application for easily searching, subscribing to, and utilizing third-party c
 #### KV Store
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
-#### Ledgerscan
-Ledgerscan is designed to gather & analyze data from blockchain ledger, including balances, transactions & blocks.
-
 #### NFT Studio
 A NFT management application that uses Ethereum Blockchain to create and manage prototypes.
 

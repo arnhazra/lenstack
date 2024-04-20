@@ -1,0 +1,58 @@
+"use client"
+import { useState } from "react"
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
+import { AlertDialogAction, AlertDialogCancel } from "@radix-ui/react-alert-dialog"
+import { Button } from "@/components/ui/button"
+
+export default function useConfirm() {
+  const [show, setShow] = useState(false)
+  const [message, setMessage] = useState("")
+  const [resolveCallback, setResolveCallback] = useState<(choice: boolean) => void>(() => { })
+
+  const handleClose = () => setShow(false)
+
+  const confirm = (message: string): Promise<boolean> => {
+    console.log("here")
+    setMessage(message)
+    setShow(true)
+
+    return new Promise((resolve) => {
+      setResolveCallback(() => (choice: boolean) => {
+        handleClose()
+        resolve(choice)
+      })
+    })
+  }
+
+  const handleConfirm = (choice: boolean) => {
+    if (resolveCallback) {
+      resolveCallback(choice)
+      setResolveCallback(() => { })
+    }
+  }
+
+  const confirmDialog = () => (
+    <AlertDialog open={show}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{message}</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone.
+            Be sure before you click on continue, you can cancel if you do not want to proceed.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <Button variant="outline" onClick={() => handleConfirm(false)}>Cancel</Button>
+          <Button variant="destructive" onClick={() => handleConfirm(true)}>Continue</Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+
+  return { confirmDialog, confirm }
+}
+
+export type ConfirmProps = {
+  confirmDialog: () => React.ReactNode
+  confirm: (message: string) => Promise<boolean>
+}
