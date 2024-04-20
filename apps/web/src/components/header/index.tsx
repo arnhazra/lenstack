@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { authUserLinks, generalUserLinks } from "./data"
+import { authUserLinks, generalUserLinks, searchEnabledPathNames } from "./data"
 import { Fragment, useContext, useEffect, useRef, useState } from "react"
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -83,14 +83,16 @@ export default function Header() {
           <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
             <form className="ml-auto flex-1 sm:flex-initial">
               <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  ref={searchRef}
-                  onChange={(e): void => setSearchString(e.target.value)}
-                  type="search"
-                  placeholder="Press (Alt + Q) or click to search"
-                  className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-                />
+                <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    ref={searchRef}
+                    onChange={(e): void => setSearchString(e.target.value)}
+                    type="search"
+                    placeholder="Press (Alt + Q) or click to search"
+                    className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+                  />
+                </Suspense>
               </div>
             </form>
             <DropdownMenu>
