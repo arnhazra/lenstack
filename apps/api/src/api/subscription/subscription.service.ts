@@ -15,7 +15,7 @@ export class SubscriptionService {
   private readonly web3Provider: Web3
 
   constructor(private readonly httpService: HttpService) {
-    this.web3Provider = new Web3(envConfig.alchemyGateway)
+    this.web3Provider = new Web3(envConfig.quicknodeGateway)
   }
 
   async activateHobby(userId: string) {

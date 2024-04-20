@@ -4,8 +4,9 @@
 * Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * Deprecated Ledgerscan app
 * More generic terms introduction
-* Dependency updates
-* Bug fixes
+* Removed Infura Gateway
+* Replaced Polygon Mumbai with Polygon Amoy for Blockchain Transactions
+* Dependency updates & Bug fixes
 
 ### v10.5.1
 * Minor dependency updates
