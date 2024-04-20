@@ -74,7 +74,6 @@ export const apiPricing: Record<string, number> = {
   dataexchange: 2,
   kvstore: 2,
   wallet: 5,
-  ledgerscan: 2,
   nftstudio: 50,
   swap: 5
 }

@@ -6,7 +6,6 @@ export const analyticsDatabaseConn: Connection = createConnection(envConfig.anal
 export const copilotDatabaseConn: Connection = createConnection(envConfig.copilotDatabaseURI)
 export const dataexchangeDatabaseConn: Connection = createConnection(envConfig.dataexchangeDatabaseURI)
 export const kvstoreDatabaseConn = createConnection(envConfig.kvstoreDatabaseURI)
-export const ledgerscanDatabaseConn: Connection = createConnection(envConfig.ledgerscanDatabaseURI)
 export const nftstudioDatabaseConn: Connection = createConnection(envConfig.nftstudioDatabaseURI)
 export const swapDatabaseConn: Connection = createConnection(envConfig.swapDatabaseURI)
 export const walletDatabaseConn: Connection = createConnection(envConfig.walletDatabaseURI)
@@ -51,11 +50,6 @@ async function kvstoreDatabaseConnect(): Promise<void> {
   kvstoreDatabaseConn.on("error", () => console.log("KV Store Database Connection Failure"))
 }
 
-async function ledgerscanDatabaseConnect(): Promise<void> {
-  ledgerscanDatabaseConn.on("connected", () => console.log("Ledgerscan Database Connection Success"))
-  ledgerscanDatabaseConn.on("error", () => console.log("Ledgerscan Database Connection Failure"))
-}
-
 export async function connectDatabases(): Promise<void> {
   platformDatabaseConnect()
   analyticsDatabaseConnect()
@@ -65,5 +59,4 @@ export async function connectDatabases(): Promise<void> {
   nftstudioDatabaseConnect()
   swapDatabaseConnect()
   kvstoreDatabaseConnect()
-  ledgerscanDatabaseConnect()
 }

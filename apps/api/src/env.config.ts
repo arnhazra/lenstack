@@ -9,7 +9,6 @@ export const envConfig = {
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
   dataexchangeDatabaseURI: process.env.DATAEXCHANGE_DATABASE_URI,
   kvstoreDatabaseURI: process.env.KVSTORE_DATABASE_URI,
-  ledgerscanDatabaseURI: process.env.LEDGERSCAN_DATABASE_URI,
   nftstudioDatabaseURI: process.env.NFTSTUDIO_DATABASE_URI,
   swapDatabaseURI: process.env.SWAP_DATABASE_URI,
   walletDatabaseURI: process.env.WALLET_DATABASE_URI,
