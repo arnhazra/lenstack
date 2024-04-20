@@ -11,11 +11,13 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
   const analytics = useQuery(["analytics"], endPoints.analyticsView, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=analytics&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "analytics")
+  const router = useRouter()
 
   const renderAnalytics = analytics?.data?.analytics?.map((ant: any) => {
     return (
@@ -45,7 +47,7 @@ export default function Page() {
                       </CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Button>API Reference</Button>
+                      <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
                     </CardFooter>
                   </Card>
                   <Card>

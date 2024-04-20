@@ -47,6 +47,10 @@ export const authUserLinks: LinkData[] = [
     link: "/subscription/plans"
   },
   {
+    displayName: "Docs",
+    link: "/apireference"
+  },
+  {
     displayName: "Faucet",
     link: "https://faucet.polygon.technology/",
     external: true

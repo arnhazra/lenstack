@@ -10,11 +10,13 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
   const kvList = useQuery(["kvlist"], `${endPoints.kvstoreReadKvList}`, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=kvstore&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "kvstore")
+  const router = useRouter()
 
   const renderKVS = kvList?.data?.kvs?.map((kv: any) => {
     return (
@@ -42,7 +44,7 @@ export default function Page() {
                       </CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Button>API Reference</Button>
+                      <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
                     </CardFooter>
                   </Card>
                   <Card>

@@ -17,6 +17,7 @@ import Loading from "@/components/loading"
 import Error from "@/app/error"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=copilot&category=All`, HTTPMethods.GET)
@@ -24,6 +25,7 @@ export default function Page() {
   const [requestBody, setRequestBody] = useState({ prompt: "", temperature: 0.9, topP: 0.1, topK: 16 })
   const [response, setReseponse] = useState<any>({})
   const [isLoading, setLoading] = useState(false)
+  const router = useRouter()
 
   const hitAPI = async (e: any) => {
     e.preventDefault()
@@ -76,7 +78,7 @@ export default function Page() {
                       </CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Button>API Reference</Button>
+                      <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
                     </CardFooter>
                   </Card>
                   <Card>

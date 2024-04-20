@@ -112,7 +112,7 @@ export default function Page() {
                       </CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Button>API Reference</Button>
+                      <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
                     </CardFooter>
                   </Card>
                   <Card>
