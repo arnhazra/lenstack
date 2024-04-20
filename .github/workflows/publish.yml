@@ -28,11 +28,11 @@ jobs:
           npm install
           CI=false npm run build
 
-      - name: Configure packages
-        working-directory: apps/api
-        run: |
-          npm install --global json
-          json -I -f package.json -e "delete this.devDependencies"
+      # - name: Configure packages
+      #   working-directory: apps/api
+      #   run: |
+      #     npm install --global json
+      #     json -I -f package.json -e "delete this.devDependencies"
 
       - name: Build Movement
         run: |
