@@ -1,56 +1,171 @@
 "use client"
-import Suspense from "@/components/suspense"
-import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
-import { endPoints, apiHost } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import useQuery from "@/hooks/use-query"
-import { useSearchParams } from "next/navigation"
-import { Form } from "react-bootstrap"
-import Loading from "@/components/loading"
-import Error from "@/components/error"
-import "react-json-view-lite/dist/index.css"
-import Hero from "@/components/hero"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ReactElement, useContext, useEffect, useState } from "react"
+import Web3 from "web3"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
-import CenterGrid from "@/components/centergrid"
+import axios from "axios"
+import { Button } from "@/components/ui/button"
+import Suspense from "@/components/suspense"
+import InfoPanel from "@/components/infopanel"
+import { toast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
+import { Tabs, tabsList } from "./data"
+import { format } from "date-fns"
+import { Braces, DatabaseZap, PieChart, Sparkles } from "lucide-react"
+
+const mapTabIcons: Record<Tabs, ReactElement> = {
+  "Data Exchange": <Braces />,
+  "Copilot": <Sparkles />,
+  "Analytics": <PieChart />,
+  "KV Store": <DatabaseZap />
+}
 
 export default function Page() {
-  const searchParams = useSearchParams()
-  const productName = searchParams.get("productName")
-  const apireference = useQuery(["apireference"], `${endPoints.getapireference}?productName=${productName}`, HTTPMethods.GET)
+  const web3Provider = new Web3(endPoints.userTxGateway)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
+  const [walletAddress, setWalletAddress] = useState<string>("")
+  const [walletBalance, setWalletBalance] = useState<string>("0")
+  const [signOutOption, setSignOutOption] = useState<string>("this")
+  const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
+  const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.DataExchange)
 
-  const listApiApiReferences = apireference?.data?.docList?.map((apiDoc: any) => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const { privateKey } = userState
+        const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
+        setWalletAddress(walletAddress)
+        const walletBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
+        const walletBalance = web3Provider.utils.fromWei(walletBalanceInWei, "ether")
+        setWalletBalance(walletBalance)
+      }
+
+      catch (error) {
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
+          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        })
+      }
+    })()
+  }, [userState.privateKey, userState.userId])
+
+  const saveSustainabilitySettings = async () => {
+    try {
+      const updatedSettings = sustainabilitySettings === "true" ? true : false
+      dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
+      await axios.patch(endPoints.updateCarbonSettings, { reduceCarbonEmissions: updatedSettings })
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
+    }
+
+    catch (error) {
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
+    }
+  }
+
+  const signOut = async () => {
+    try {
+      if (signOutOption === "all") {
+        await axios.post(endPoints.signOut)
+      }
+      localStorage.clear()
+      window.location.replace("/")
+    }
+
+    catch (error) {
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
+    }
+  }
+
+  const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <Hero key={apiDoc._id}>
-        <p className="text-muted">{apiDoc.apiName}</p>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Method: {apiDoc.apiMethod}</Form.Label>
-          <Form.Control readOnly type="text" defaultValue={`${apiHost.toLowerCase()}${apiDoc.apiUri}`} />
-        </Form.Group>
-        <Suspense condition={!!apiDoc.sampleRequestBody} fallback={null}>
-          <p>Sample Request Body</p>
-          <JsonView data={apiDoc.sampleRequestBody ?? {}} shouldExpandNode={allExpanded} style={defaultStyles} /><br />
-        </Suspense>
-        <Suspense condition={!!apiDoc.sampleResponseBody} fallback={null}>
-          <p>Sample Response Body</p>
-          <JsonView key={apiDoc._id} data={apiDoc.sampleResponseBody} shouldExpandNode={allExpanded} style={defaultStyles} />
-        </Suspense>
-      </Hero>
+      <div className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>
+        <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
+        <p>{tab}</p>
+      </div>
     )
   })
 
   return (
-    <Suspense condition={!apireference.isLoading} fallback={<Loading />}>
-      <Suspense condition={!apireference.error} fallback={<Loading />}>
-        <Suspense condition={!!apireference?.data?.docList.length} fallback={<Error />}>
-          <CenterGrid>
-            <Hero>
-              <h4 className="text-capitalize">API Reference - {uiConstants.brandName} {productName}</h4>
-              <p className="text-muted">You must include your Client ID under "client_id" & Client Secret under "client_secret" in request header</p>
-              {listApiApiReferences}
-            </Hero>
-          </CenterGrid>
-        </Suspense>
-      </Suspense>
-    </Suspense>
+    <div className="flex min-h-screen w-full flex-col">
+      <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
+        <div className="mx-auto grid w-full max-w-6xl gap-2">
+          <h1 className="text-3xl font-semibold">API Reference</h1>
+        </div>
+        <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+          <nav className="grid gap-4 text-sm">
+            {renderTabs}
+          </nav>
+          <div>
+            <Suspense condition={selectedTab === Tabs.Analytics} fallback={null}>
+              <section className="grid gap-6">
+                <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
+                <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
+              </section>
+            </Suspense>
+            <Suspense condition={selectedTab === Tabs.CoPilot} fallback={null}>
+              <section className="grid gap-6">
+                <InfoPanel title="Network" desc="Current selected Network & Chain" value="Polygon Amoy" />
+                <InfoPanel title="Wallet Addresss" desc="Your blockchain wallet address" value={walletAddress} />
+                <InfoPanel title="Wallet Balance" desc="Your blockchain wallet address" value={`${Number(walletBalance).toFixed(2)} MATIC`} />
+                <InfoPanel title="Private Key" desc="Your blockchain private key" value={userState.privateKey} masked />
+              </section>
+            </Suspense>
+            <Suspense condition={selectedTab === Tabs.DataExchange} fallback={null}>
+              <section className="grid gap-6">
+                <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan : "No Active Subscription"} capitalize />
+                <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
+                <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
+                <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
+              </section>
+            </Suspense>
+            <Suspense condition={selectedTab === Tabs.KvStore} fallback={null}>
+              <section className="grid gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Sustainability</CardTitle>
+                    <CardDescription>
+                      {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints.
+                      Change your sustainability settings below.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Select defaultValue={userState.reduceCarbonEmissions.toString()} onValueChange={(value: string) => setSustainabilitySettings(value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem value="true">Use Sustainability Settings</SelectItem>
+                          <SelectItem value="false">Don't Use Sustainability Settings</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </CardContent>
+                  <CardFooter>
+                    <Button onClick={saveSustainabilitySettings}>Save Settings</Button>
+                  </CardFooter>
+                </Card>
+              </section>
+            </Suspense>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

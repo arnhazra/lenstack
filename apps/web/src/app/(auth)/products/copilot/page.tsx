@@ -1,10 +1,9 @@
 "use client"
-import { CornerDownLeft, Mic, Paperclip } from "lucide-react"
+import { CornerDownLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
@@ -117,10 +116,10 @@ export default function Page() {
                     </CardHeader>
                     <CardContent>
                       <div className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
-                        <div className="relative hidden flex-col items-start gap-8 md:flex">
+                        <div className="relative flex-col items-start gap-8 md:flex">
                           <div className="grid w-full items-start gap-6">
                             <fieldset className="grid gap-6 rounded-lg border p-4">
-                              <legend className="-ml-1 px-1 text-sm font-medium">
+                              <legend className="px-1 text-sm font-medium">
                                 Settings
                               </legend>
                               <div className="grid gap-3">
@@ -150,7 +149,7 @@ export default function Page() {
                             </fieldset>
                           </div>
                         </div>
-                        <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
+                        <div className="relative flex h-full flex-col rounded-xl bg-muted/50 pt-4 lg:col-span-2">
                           <div className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring -mt-2">
                             <Label htmlFor="message" className="sr-only">
                               Message
@@ -162,29 +161,7 @@ export default function Page() {
                               onChange={(e): void => setRequestBody({ ...requestBody, prompt: e.target.value })}
                             />
                             <div className="flex items-center p-3 pt-0">
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button variant="ghost" size="icon">
-                                      <Paperclip className="size-4" />
-                                      <span className="sr-only">Attach file</span>
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent side="top">Attach File</TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button variant="ghost" size="icon">
-                                      <Mic className="size-4" />
-                                      <span className="sr-only">Use Microphone</span>
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent side="top">Use Microphone</TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                              <Button size="sm" className="ml-auto gap-1.5" onClick={hitAPI}>
+                              <Button size="sm" className="ml-auto gap-1.5 mt-4" onClick={hitAPI} disabled={isLoading}>
                                 <Suspense condition={!isLoading} fallback={<><LoaderIcon />Loading</>}>
                                   Send Message<CornerDownLeft className="scale-75" />
                                 </Suspense>
