@@ -7,10 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { endPoints } from "@/constants/api-endpoints"
 import { useContext, useEffect, useState } from "react"
 import Web3 from "web3"
-import { tokenABI } from "../data/token-abi"
+import { tokenABI } from "../bin/token-abi"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import axios from "axios"
-import { vendorABI } from "../data/vendor-abi"
+import { vendorABI } from "../bin/vendor-abi"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { ToastAction } from "@/components/ui/toast"
@@ -196,7 +196,7 @@ export function TradingModal({ token: { tokenContractAddress, tokenName, tokenSy
   return (
     <Dialog open={dialogVisible}>
       <DialogTrigger>
-        <Button variant="outline" onClick={(): void => setDialogVisible(true)}>Buy/Sell</Button>
+        <Button variant="outline" onClick={(): void => setDialogVisible(true)}>Trade</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
