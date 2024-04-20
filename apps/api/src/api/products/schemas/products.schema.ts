@@ -18,11 +18,6 @@ export const ProductSchema = new Schema({
     required: true
   },
 
-  largeDescription: {
-    type: String,
-    required: true
-  },
-
   productStatus: {
     type: String,
     required: true

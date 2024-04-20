@@ -76,7 +76,7 @@ export default function Page() {
 
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<Loading />}>
-      <main className="min-h-screen w-full bg-white">
+      <div className="min-h-screen w-full bg-white">
         <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-20">
           <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
             <Link href={uiConstants.linkedinUri} target="_blank" rel="noopener noreferrer">
@@ -189,7 +189,7 @@ export default function Page() {
             </ul>
           </div>
         </section>
-      </main>
+      </div>
       <Footer />
     </Suspense>
   )

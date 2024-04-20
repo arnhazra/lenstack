@@ -56,7 +56,7 @@ export default function Page() {
         <Suspense condition={!products.error} fallback={<Error />}>
           <Hero>
             <p className="branding">{uiConstants.brandName} {selectedProduct?.displayName}</p>
-            <p className="text-muted mt-3">{selectedProduct?.largeDescription}</p>
+            <p className="text-muted mt-3">{selectedProduct?.description}</p>
             <div className="mb-2">
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productCategory}</Badge>
               <Badge bg="light" className="mt-2 me-2 top-0 end-0 ps-3 pe-3 p-2">{selectedProduct?.productStatus}</Badge>

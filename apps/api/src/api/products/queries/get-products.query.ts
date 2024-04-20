@@ -5,7 +5,6 @@ export async function getproductConfigQuery(searchQuery: string, selectedFilterC
     $or: [
       { productName: { $regex: searchQuery, $options: "i" } },
       { description: { $regex: searchQuery, $options: "i" } },
-      { largeDescription: { $regex: searchQuery, $options: "i" } }
     ],
     productCategory: { $regex: selectedFilterCategory }
   }).sort("productName")

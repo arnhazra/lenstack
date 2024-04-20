@@ -18,8 +18,10 @@ import Loading from "@/components/loading"
 
 enum Filters {
   ALL = "All",
-  CEN = "Centralized",
-  DCE = "Decentralized"
+  ANALYTICS = "Analytics",
+  GENAI = "Generative AI",
+  DATA = "Data",
+  BLOCKCHAIN = "Blockchain",
 }
 
 export default function Page() {
@@ -114,16 +116,18 @@ export default function Page() {
                     <Button variant="outline" size="sm" className="h-8 gap-1">
                       <ListFilterIcon className="h-3.5 w-3.5" />
                       <span>
-                        Filter
+                        Category Filter
                       </span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Filter</DropdownMenuLabel>
+                    <DropdownMenuLabel>Category Filter</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuCheckboxItem checked={selectedFilter === Filters.ALL} onClick={(): void => setSelectedFilter(Filters.ALL)}>All</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.CEN} onClick={(): void => setSelectedFilter(Filters.CEN)}>Centralized</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.DCE} onClick={(): void => setSelectedFilter(Filters.DCE)}>Decentralized</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.ANALYTICS} onClick={(): void => setSelectedFilter(Filters.ANALYTICS)}>Analytics</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.GENAI} onClick={(): void => setSelectedFilter(Filters.GENAI)}>Generative AI</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.DATA} onClick={(): void => setSelectedFilter(Filters.DATA)}>Data</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.BLOCKCHAIN} onClick={(): void => setSelectedFilter(Filters.BLOCKCHAIN)}>Blockchain</DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
