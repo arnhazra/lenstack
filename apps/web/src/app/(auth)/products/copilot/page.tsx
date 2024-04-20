@@ -1,6 +1,5 @@
 "use client"
 import { CornerDownLeft, Mic, Paperclip } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,12 +14,16 @@ import axios from "axios"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { ToastAction } from "@/components/ui/toast"
+import Loading from "@/components/loading"
+import Error from "@/app/error"
+import Suspense from "@/components/suspense"
+import LoaderIcon from "@/components/loaderIcon"
 
 export default function Page() {
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=copilot&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "copilot")
-  const [prompt, setPrompt] = useState("")
-  const [response, setReseponse] = useState({})
+  const [requestBody, setRequestBody] = useState({ prompt: "", temperature: 0.9, topP: 0.1, topK: 16 })
+  const [response, setReseponse] = useState<any>({})
   const [isLoading, setLoading] = useState(false)
 
   const hitAPI = async (e: any) => {
@@ -29,7 +32,7 @@ export default function Page() {
     try {
       setReseponse({})
       setLoading(true)
-      const res = await axios.post(`${endPoints.copilotGenerateEndpoint}`, { prompt })
+      const res = await axios.post(`${endPoints.copilotGenerateEndpoint}`, requestBody)
       setReseponse(res.data)
     }
 
@@ -59,53 +62,146 @@ export default function Page() {
   }
 
   return (
-    <div className="grid h-screen w-full">
-      <div className="flex flex-col sm:gap-4 sm:py-4">
-        <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols2 xl:grid-cols-1">
-          <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
-              <Card className="sm:col-span-2">
-                <CardHeader className="pb-3">
-                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                  <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    {selectedProduct?.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button>API Reference</Button>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Metrics Count</CardDescription>
-                  <CardTitle className="text-4xl"></CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Total number of events
-                    in this workspace
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Latest Event</CardDescription>
-
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Latest event creation time
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
+    <Suspense condition={!products.isLoading} fallback={<Loading />}>
+      <Suspense condition={!products.error} fallback={<Error />}>
+        <div className="flex min-h-screen w-full flex-col bg-muted/40">
+          <div className="flex flex-col sm:gap-4 sm:py-4">
+            <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols2 xl:grid-cols-1">
+              <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+                  <Card className="sm:col-span-2">
+                    <CardHeader className="pb-3">
+                      <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
+                      <CardDescription className="max-w-lg text-balance leading-relaxed">
+                        {selectedProduct?.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardFooter>
+                      <Button>API Reference</Button>
+                    </CardFooter>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription>Top P</CardDescription>
+                      <CardTitle className="text-4xl">{requestBody.topP}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-xs text-muted-foreground">
+                        The Current Value of Top P
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                    </CardFooter>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardDescription>Top K</CardDescription>
+                      <CardTitle className="text-4xl">{requestBody.topK}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-xs text-muted-foreground">
+                        The Current Value of Top K
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                    </CardFooter>
+                  </Card>
+                </div>
+                <div>
+                  <Card>
+                    <CardHeader className="px-7">
+                      <CardTitle>Playground</CardTitle>
+                      <CardDescription>
+                        Your Copilot Playground
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="relative hidden flex-col items-start gap-8 md:flex">
+                          <div className="grid w-full items-start gap-6">
+                            <fieldset className="grid gap-6 rounded-lg border p-4">
+                              <legend className="-ml-1 px-1 text-sm font-medium">
+                                Settings
+                              </legend>
+                              <div className="grid gap-3">
+                                <Label htmlFor="model">Model</Label>
+                                <Input disabled defaultValue="Gemini Pro" />
+                              </div>
+                              <div className="grid gap-3">
+                                <Label htmlFor="temperature">Temperature</Label>
+                                <Input id="temperature" type="number" defaultValue={requestBody.temperature}
+                                  onChange={(e): void => setRequestBody({ ...requestBody, temperature: Number(e.target.value) })}
+                                />
+                              </div>
+                              <div className="grid grid-cols-2 gap-4">
+                                <div className="grid gap-3">
+                                  <Label htmlFor="top-p">Top P</Label>
+                                  <Input id="top-p" type="number" defaultValue={requestBody.topP}
+                                    onChange={(e): void => setRequestBody({ ...requestBody, topP: Number(e.target.value) })}
+                                  />
+                                </div>
+                                <div className="grid gap-3">
+                                  <Label htmlFor="top-k">Top K</Label>
+                                  <Input id="top-k" type="number" defaultValue={requestBody.topK}
+                                    onChange={(e): void => setRequestBody({ ...requestBody, topK: Number(e.target.value) })}
+                                  />
+                                </div>
+                              </div>
+                            </fieldset>
+                          </div>
+                        </div>
+                        <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
+                          <div className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring -mt-2">
+                            <Label htmlFor="message" className="sr-only">
+                              Message
+                            </Label>
+                            <Textarea
+                              id="message"
+                              placeholder="Type your message here..."
+                              className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
+                              onChange={(e): void => setRequestBody({ ...requestBody, prompt: e.target.value })}
+                            />
+                            <div className="flex items-center p-3 pt-0">
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button variant="ghost" size="icon">
+                                      <Paperclip className="size-4" />
+                                      <span className="sr-only">Attach file</span>
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">Attach File</TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button variant="ghost" size="icon">
+                                      <Mic className="size-4" />
+                                      <span className="sr-only">Use Microphone</span>
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">Use Microphone</TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                              <Button size="sm" className="ml-auto gap-1.5" onClick={hitAPI}>
+                                <Suspense condition={!isLoading} fallback={<><LoaderIcon />Loading</>}>
+                                  Send Message<CornerDownLeft className="scale-75" />
+                                </Suspense>
+                              </Button>
+                            </div>
+                          </div>
+                          <div className="mt-4 ms-2">{response.response ?? ''}</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </div >
+      </Suspense >
+    </Suspense >
   )
 }
