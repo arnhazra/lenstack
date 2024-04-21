@@ -15,6 +15,7 @@ import { usePromptContext } from "@/context/providers/prompt.provider"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import MaskText from "@/components/mask"
+import Error from "@/components/error"
 
 export default function Page() {
   const [{ userState, appState }, dispatch] = useContext(GlobalContext)
@@ -86,68 +87,70 @@ export default function Page() {
 
   return (
     <Suspense condition={!workspaces.isLoading} fallback={<Loading />}>
-      <div className="flex min-h-screen w-full flex-col">
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Selected Workspace
-                </CardTitle>
-                <BoxIcon className="h-4 w-4 text-muted-foreground scale-150" />
+      <Suspense condition={!workspaces.error} fallback={<Error />}>
+        <div className="flex min-h-screen w-full flex-col">
+          <div className="flex flex-1 flex-col gap-4 p-4">
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Selected Workspace
+                  </CardTitle>
+                  <BoxIcon className="h-4 w-4 text-muted-foreground scale-150" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold capitalize">{workspaces.data?.myWorkspaces?.find((item: any) => item._id === userState.selectedWorkspaceId).name}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Your current selected workspace
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="default" className="flex items-center" onClick={createWorkspace}>Create Workspace</Button>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Workspace Count
+                  </CardTitle>
+                  <BoxesIcon className="h-4 w-4 text-muted-foreground scale-150" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{workspaces.data?.myWorkspaces?.length}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Total number of workspaces
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+            <Card className="xl:col-span-2">
+              <CardHeader className="flex flex-row items-center">
+                <div className="grid gap-2">
+                  <CardTitle>Workspaces</CardTitle>
+                  <CardDescription>
+                    Your List of Workspaces
+                  </CardDescription>
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold capitalize">{workspaces.data?.myWorkspaces?.find((item: any) => item._id === userState.selectedWorkspaceId).name}</div>
-                <p className="text-xs text-muted-foreground">
-                  Your current selected workspace
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button variant="default" className="flex items-center" onClick={createWorkspace}>Create Workspace</Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Workspace Count
-                </CardTitle>
-                <BoxesIcon className="h-4 w-4 text-muted-foreground scale-150" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{workspaces.data?.myWorkspaces?.length}</div>
-                <p className="text-xs text-muted-foreground">
-                  Total number of workspaces
-                </p>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Display Name</TableHead>
+                      <TableHead className="hidden md:table-cell">Client ID</TableHead>
+                      <TableHead className="hidden md:table-cell">Client Secret</TableHead>
+                      <TableHead className="text-right">Action</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {renderWorkspaces}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </div>
-          <Card className="xl:col-span-2">
-            <CardHeader className="flex flex-row items-center">
-              <div className="grid gap-2">
-                <CardTitle>Workspaces</CardTitle>
-                <CardDescription>
-                  Your List of Workspaces
-                </CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Display Name</TableHead>
-                    <TableHead className="hidden md:table-cell">Client ID</TableHead>
-                    <TableHead className="hidden md:table-cell">Client Secret</TableHead>
-                    <TableHead className="text-right">Action</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {renderWorkspaces}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
         </div>
-      </div>
+      </Suspense>
     </Suspense>
   )
 }

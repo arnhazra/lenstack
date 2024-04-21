@@ -1,5 +1,5 @@
 "use client"
-import Error from "@/app/error"
+import Error from "@/components/error"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -14,7 +14,6 @@ import { useContext, useEffect, useState } from "react"
 import Web3 from "web3"
 import { nftABI } from "./bin/nft-abi"
 import { MintNFTModal } from "./mintnftmodal"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ExternalLinkIcon, Hexagon } from "lucide-react"
 
@@ -27,7 +26,6 @@ export default function Page() {
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
   const [hasError, setError] = useState(false)
-  const router = useRouter()
 
   useEffect(() => {
     (async () => {

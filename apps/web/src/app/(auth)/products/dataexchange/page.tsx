@@ -1,5 +1,5 @@
 "use client"
-import Error from "@/app/error"
+import Error from "@/components/error"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Badge } from "@/components/ui/badge"
@@ -35,8 +35,10 @@ export default function Page() {
   const renderFilterOptions = filters?.data?.filterCategories?.map((item: string) => {
     return (
       <DropdownMenuCheckboxItem
+        key={item}
         checked={datasetRequestState.selectedFilter === item}
-        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: item, offset: 0 })}>
+        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: item, offset: 0 })}
+      >
         {item}
       </DropdownMenuCheckboxItem>
     )
@@ -45,8 +47,10 @@ export default function Page() {
   const renderSortOptions = sortOptions.map((item) => {
     return (
       <DropdownMenuCheckboxItem
+        key={item.value}
         checked={datasetRequestState.selectedSortOption === item.value}
-        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: item.value, offset: 0 })}>
+        onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedSortOption: item.value, offset: 0 })}
+      >
         {item.label}
       </DropdownMenuCheckboxItem>
     )

@@ -14,7 +14,7 @@ import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { ToastAction } from "@/components/ui/toast"
 import Loading from "@/components/loading"
-import Error from "@/app/error"
+import Error from "@/components/error"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
 import { useRouter } from "next/navigation"
@@ -170,7 +170,7 @@ export default function Page() {
                               </Button>
                             </div>
                           </div>
-                          <div className="mt-4 ms-2">{response.response ?? ''}</div>
+                          <div className="mt-4 ms-2">{response.response ?? ""}</div>
                         </div>
                       </div>
                     </CardContent>

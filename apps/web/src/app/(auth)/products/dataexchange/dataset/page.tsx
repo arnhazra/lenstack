@@ -11,7 +11,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
-import Error from "@/app/error"
+import Error from "@/components/error"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
@@ -30,7 +30,7 @@ export default function Page() {
   })
 
   const copyDatasetId = () => {
-    navigator.clipboard.writeText(datasetId ?? '')
+    navigator.clipboard.writeText(datasetId ?? "")
     toast({
       title: "Notification",
       description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
@@ -221,7 +221,7 @@ export default function Page() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex flex-row items-center bg-muted/50 px-6 py-3">
-                    <Button variant="default" className="w-full">Data Usage Instructions<BookMarked className="scale-75" /></Button>
+                    <Button variant="default" className="w-full" onClick={(): void => router.push("/apireference")}>Data API Reference<BookMarked className="scale-75" /></Button>
                   </CardFooter>
                 </Card>
               </div>

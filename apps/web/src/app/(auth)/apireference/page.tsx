@@ -9,7 +9,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { convertToTitleCase } from "../../../lib/convertToTitleCase"
 import SnippetPanel from "@/components/snippet"
 import Loading from "@/components/loading"
-import Error from "@/app/error"
+import Error from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,
@@ -24,7 +24,7 @@ export default function Page() {
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{convertToTitleCase(tab)}</p>
       </div>

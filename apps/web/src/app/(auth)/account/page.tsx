@@ -95,7 +95,7 @@ export default function Page() {
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </div>
@@ -153,7 +153,7 @@ export default function Page() {
                       <SelectContent>
                         <SelectGroup>
                           <SelectItem value="true">Use Sustainability Settings</SelectItem>
-                          <SelectItem value="false">Don't Use Sustainability Settings</SelectItem>
+                          <SelectItem value="false">Do not use Sustainability Settings</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
