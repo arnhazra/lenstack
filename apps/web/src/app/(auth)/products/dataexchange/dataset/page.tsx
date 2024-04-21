@@ -30,7 +30,7 @@ export default function Page() {
   })
 
   const copyDatasetId = () => {
-    navigator.clipboard.writeText(datasetId ?? '')
+    navigator.clipboard.writeText(datasetId ?? "")
     toast({
       title: "Notification",
       description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,

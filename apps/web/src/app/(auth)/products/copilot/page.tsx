@@ -170,7 +170,7 @@ export default function Page() {
                               </Button>
                             </div>
                           </div>
-                          <div className="mt-4 ms-2">{response.response ?? ''}</div>
+                          <div className="mt-4 ms-2">{response.response ?? ""}</div>
                         </div>
                       </div>
                     </CardContent>

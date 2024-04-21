@@ -153,7 +153,7 @@ export default function Page() {
                       <SelectContent>
                         <SelectGroup>
                           <SelectItem value="true">Use Sustainability Settings</SelectItem>
-                          <SelectItem value="false">Don't Use Sustainability Settings</SelectItem>
+                          <SelectItem value="false">Do not use Sustainability Settings</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>

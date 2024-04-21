@@ -31,8 +31,8 @@ export class SubscriptionController {
     }
   }
 
-  @Get('subscribe')
-  async handleSubscribe(@Query('session_id') sessionId: string, @Res() res: any) {
+  @Get("subscribe")
+  async handleSubscribe(@Query("session_id") sessionId: string, @Res() res: any) {
     if (!sessionId) {
       res.redirect(envConfig.nodeEnv === "development" ? "http://localhost:3000/dashboard" : `https://${envConfig.brandName}.vercel.app/dashboard`)
     }
@@ -49,7 +49,7 @@ export class SubscriptionController {
     }
   }
 
-  @Get('cancel')
+  @Get("cancel")
   handleCancel(@Res() res: any) {
     res.redirect(envConfig.nodeEnv === "development" ? "http://localhost:3000/dashboard" : `https://${envConfig.brandName}.vercel.app/dashboard`)
   }

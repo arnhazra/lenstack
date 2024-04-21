@@ -27,11 +27,11 @@ export class SubscriptionService {
   async createCheckoutSession(selectedPlan: SubscriptionPlans, userId: string): Promise<Stripe.Checkout.Session> {
     try {
       const session = await this.stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
+        payment_method_types: ["card"],
         line_items: [
           {
             price_data: {
-              currency: 'inr',
+              currency: "inr",
               product_data: {
                 name: `${selectedPlan.toUpperCase()} Subscription for 30 days`,
               },
@@ -40,7 +40,7 @@ export class SubscriptionService {
             quantity: 1,
           },
         ],
-        mode: 'payment',
+        mode: "payment",
         success_url: envConfig.nodeEnv === "development" ?
           "http://localhost:8000/api/subscription/subscribe?session_id={CHECKOUT_SESSION_ID}" :
           `https://${envConfig.brandName}.vercel.app/api/subscription/subscribe?session_id={CHECKOUT_SESSION_ID}`,

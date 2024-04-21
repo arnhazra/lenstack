@@ -33,7 +33,7 @@ export class NftstudioService {
 
   async transactionGateway(requestBody: any) {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.quicknodeGateway, requestBody))
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
       return response.data
     }
 
