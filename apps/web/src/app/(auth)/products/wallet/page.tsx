@@ -1,8 +1,7 @@
 "use client"
-import Error from "@/app/error"
+import Error from "@/components/error"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -21,7 +20,6 @@ import axios from "axios"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import LoaderIcon from "@/components/loaderIcon"
-import { CopyIcon } from "lucide-react"
 import MaskText from "@/components/mask"
 
 export default function Page() {

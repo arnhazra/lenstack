@@ -1,5 +1,5 @@
 "use client"
-import Error from "@/app/error"
+import Error from "@/components/error"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Button } from "@/components/ui/button"

@@ -9,7 +9,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { convertToTitleCase } from "../../../lib/convertToTitleCase"
 import SnippetPanel from "@/components/snippet"
 import Loading from "@/components/loading"
-import Error from "@/app/error"
+import Error from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,

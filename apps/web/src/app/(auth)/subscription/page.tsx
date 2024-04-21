@@ -13,6 +13,7 @@ import { ToastAction } from "@/components/ui/toast"
 import { Button } from "@/components/ui/button"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
+import Error from "@/components/error"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -59,32 +60,34 @@ export default function Page() {
 
   return (
     <Suspense condition={!pricing.isLoading} fallback={<Loading />}>
-      <div className="min-h-screen w-full">
-        <section id="pricing" className="container py-12">
-          <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center mb-8">
-            <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Plans
-            </h2>
-            <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
-              Choose an {uiConstants.brandName} subscription plan that"s right for you.
-              Downgrade, upgrade or cancel any time.{" "}
-              {uiConstants.brandName} offers a variety of plans to meet your requirements.
-            </p>
-          </div>
-          <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none">
-            <ul className={cn("mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3", pricing?.data?.length > 3 && "2xl:grid-cols-4")}>
-              {renderPricing}
-            </ul>
-          </div>
-          <div className="flex items-center justify-center mt-6">
-            <Button onClick={handlePayment}>
-              <Suspense condition={selectedPlan !== "hobby"} fallback={<>Activate for free</>}>
-                Pay & Subscribe
-              </Suspense>
-            </Button>
-          </div>
-        </section>
-      </div>
+      <Suspense condition={!pricing.error} fallback={<Error />}>
+        <div className="min-h-screen w-full">
+          <section id="pricing" className="container py-12">
+            <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center mb-8">
+              <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
+                Plans
+              </h2>
+              <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
+                Choose an {uiConstants.brandName} subscription plan that"s right for you.
+                Downgrade, upgrade or cancel any time.{" "}
+                {uiConstants.brandName} offers a variety of plans to meet your requirements.
+              </p>
+            </div>
+            <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none">
+              <ul className={cn("mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3", pricing?.data?.length > 3 && "2xl:grid-cols-4")}>
+                {renderPricing}
+              </ul>
+            </div>
+            <div className="flex items-center justify-center mt-6">
+              <Button onClick={handlePayment}>
+                <Suspense condition={selectedPlan !== "hobby"} fallback={<>Activate for free</>}>
+                  Pay & Subscribe
+                </Suspense>
+              </Button>
+            </div>
+          </section>
+        </div>
+      </Suspense>
     </Suspense>
   )
 }
