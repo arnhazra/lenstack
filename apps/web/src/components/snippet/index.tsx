@@ -1,5 +1,5 @@
 "use client"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import "react-json-view-lite/dist/index.css"
 import { Input } from "@/components/ui/input"

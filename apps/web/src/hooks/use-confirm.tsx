@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react"
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
-import { AlertDialogAction, AlertDialogCancel } from "@radix-ui/react-alert-dialog"
 import { Button } from "@/components/ui/button"
 
 export default function useConfirm() {
