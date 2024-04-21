@@ -36,11 +36,9 @@ export default function SnippetPanel({ title, url, method, request, response }: 
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>
-          <Badge variant="outline" className="mt-2">{method}</Badge>
-        </CardDescription>
       </CardHeader>
       <CardContent className="flex gap-3">
+        <Badge variant="outline">{method}</Badge>
         <Input value={url} disabled />
         <Button variant="outline" size="icon" onClick={copyValue}><ClipboardIcon className="scale-50" /></Button>
       </CardContent>

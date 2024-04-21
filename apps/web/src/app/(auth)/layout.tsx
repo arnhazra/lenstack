@@ -22,7 +22,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const [authStep, setAuthStep] = useState(1)
   const [state, setState] = useState({ email: "", hash: "", passKey: "" })
   const [alert, setAlert] = useState("")
-  const [authAlert, setAuthAlert] = useState("")
   const { toast } = useToast()
 
   const generatePassKey = async (event: any) => {
@@ -56,7 +55,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   const verifyPassKey = async (event: any) => {
     event.preventDefault()
-    setAuthAlert("")
     setAlert(uiConstants.authVerificationMessage)
     setAuthLoading(true)
 
@@ -72,7 +70,11 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     }
 
     catch (error: any) {
-      setAuthAlert(uiConstants.invalidPasskey)
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.invalidPasskey}</p>,
+        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      })
       setAuthorized(false)
     }
 
@@ -201,9 +203,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </form>
               </CardContent>
               <CardFooter>
-                <p id="alert" className="text-center text-sm text-gray-600">
-                  {authAlert}
-                </p>
+                <div className="text-center text-sm text-gray-600">
+                  By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
+                </div>
               </CardFooter>
             </Card>
           </Suspense>
