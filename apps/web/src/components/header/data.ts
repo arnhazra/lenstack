@@ -44,7 +44,7 @@ export const authUserLinks: LinkData[] = [
   },
   {
     displayName: "Plans",
-    link: "/subscription/plans"
+    link: "/subscription"
   },
   {
     displayName: "Docs",

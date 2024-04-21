@@ -12,7 +12,6 @@ export default function useConfirm() {
   const handleClose = () => setShow(false)
 
   const confirm = (message: string): Promise<boolean> => {
-    console.log("here")
     setMessage(message)
     setShow(true)
 

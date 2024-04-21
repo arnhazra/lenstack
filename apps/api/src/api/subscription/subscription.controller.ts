@@ -1,33 +1,12 @@
-import { Controller, Post, Body, Get, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, Res } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
-import { SubscribeDto } from "./dto/subscribe.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { CreateCheckoutSessionDto } from "./dto/create-checkout-session.dto"
+import { envConfig } from "src/env.config"
 
 @Controller("subscription")
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) { }
-
-  @Get("activatehobby")
-  async activateHobby(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
-    try {
-      return this.subscriptionService.activateHobby(uft.userId)
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
-  @Post("subscribe")
-  async subscribe(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() subscribeDto: SubscribeDto) {
-    try {
-      return this.subscriptionService.subscribe(uft.userId, subscribeDto)
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
 
   @Get("getsubscriptionconfig")
   getSubscriptionConfig() {
@@ -40,27 +19,38 @@ export class SubscriptionController {
     }
   }
 
-  @Post("gateway/alchemy")
-  async alchemyTransactionGateway(@Body() requestBody: any) {
+  @Post("create-checkout-session")
+  async createCheckoutSession(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
     try {
-      const response = await this.subscriptionService.alchemyTransactionGateway(requestBody)
-      return response
+      const session = await this.subscriptionService.createCheckoutSession(createCheckoutSessionDto.selectedPlan, uft.userId)
+      return { redirectUrl: session.url }
     }
 
     catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 
-  @Post("gateway/quicknode")
-  async quicknodeTransactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.subscriptionService.quicknodeTransactionGateway(requestBody)
-      return response
+  @Get('subscribe')
+  async handleSubscribe(@Query('session_id') sessionId: string, @Res() res: any) {
+    if (!sessionId) {
+      res.redirect(envConfig.nodeEnv === "development" ? "http://localhost:3000/dashboard" : `https://${envConfig.brandName}.vercel.app/dashboard`)
     }
 
-    catch (error) {
-      throw new BadRequestException()
+    else {
+      try {
+        await this.subscriptionService.subscribe(sessionId)
+        res.redirect(envConfig.nodeEnv === "development" ? "http://localhost:3000/dashboard" : `https://${envConfig.brandName}.vercel.app/dashboard`)
+      }
+
+      catch (error) {
+        res.redirect(envConfig.nodeEnv === "development" ? "http://localhost:3000/dashboard" : `https://${envConfig.brandName}.vercel.app/dashboard`)
+      }
     }
+  }
+
+  @Get('cancel')
+  handleCancel(@Res() res: any) {
+    res.redirect(envConfig.nodeEnv === "development" ? "http://localhost:3000/dashboard" : `https://${envConfig.brandName}.vercel.app/dashboard`)
   }
 }

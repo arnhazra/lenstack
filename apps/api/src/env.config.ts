@@ -3,6 +3,7 @@ config({ path: "../../.env" })
 
 export const envConfig = {
   apiPort: process.env.API_PORT,
+  nodeEnv: process.env.NODE_ENV,
   brandName: process.env.BRAND_NAME,
   platformDatabaseURI: process.env.PLATFORM_DATABASE_URI,
   analyticsDatabaseURI: process.env.ANALYTICS_DATABASE_URI,
@@ -28,4 +29,5 @@ export const envConfig = {
   nftContractAddress: process.env.NFT_CONTRACT_ADDRESS,
   authPrivateKey: process.env.AUTH_RSA_PRIVATE_KEY,
   authPublicKey: process.env.AUTH_RSA_PUBLIC_KEY,
+  stripeSecretKey: process.env.STRIPE_SECRET_KEY
 }

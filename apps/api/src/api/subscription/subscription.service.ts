@@ -1,69 +1,17 @@
-import Web3 from "web3"
+import Stripe from "stripe"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/constants/status-messages"
 import { envConfig } from "src/env.config"
-import { SubscribeDto } from "./dto/subscribe.dto"
 import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
 import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
 import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
-import { findUserByIdQuery } from "../user/queries/find-user-by-id"
-import { HttpService } from "@nestjs/axios"
-import { lastValueFrom } from "rxjs"
 
 @Injectable()
 export class SubscriptionService {
-  private readonly web3Provider: Web3
+  private readonly stripe: Stripe
 
-  constructor(private readonly httpService: HttpService) {
-    this.web3Provider = new Web3(envConfig.quicknodeGateway)
-  }
-
-  async activateHobby(userId: string) {
-    try {
-      const selectedPlan = SubscriptionPlans.Hobby
-      await deleteSubscriptionCommand(userId)
-      await createNewSubscriptionCommand(userId, selectedPlan)
-      return { success: true }
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async subscribe(userId: string, subscribeDto: SubscribeDto) {
-    try {
-      const { selectedPlan, transactionHash } = subscribeDto
-      const { privateKey } = await findUserByIdQuery(userId)
-      const { address: walletAddress } = this.web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-      const tx = await this.web3Provider.eth.getTransaction(transactionHash)
-      const block = await this.web3Provider.eth.getBlock(tx.blockNumber)
-
-      if (walletAddress.toLowerCase() == tx.from.toLowerCase()) {
-        const currentBlock = await this.web3Provider.eth.getBlock("latest")
-        const currentTimestamp = currentBlock.timestamp
-        const transactionTimestamp = block.timestamp
-        const timeTolerance = 30
-
-        if (currentTimestamp - transactionTimestamp > timeTolerance) {
-          throw new BadRequestException(statusMessages.connectionError)
-        }
-
-        else {
-          await deleteSubscriptionCommand(userId)
-          await createNewSubscriptionCommand(userId, selectedPlan)
-          return { success: true }
-        }
-      }
-
-      else {
-        throw new BadRequestException(statusMessages.connectionError)
-      }
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
+  constructor() {
+    this.stripe = new Stripe(envConfig.stripeSecretKey)
   }
 
   getSubscriptionConfig() {
@@ -76,10 +24,35 @@ export class SubscriptionService {
     }
   }
 
-  async alchemyTransactionGateway(requestBody: any) {
+  async createCheckoutSession(selectedPlan: SubscriptionPlans, userId: string): Promise<Stripe.Checkout.Session> {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
-      return response.data
+      const session = await this.stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: 'inr',
+              product_data: {
+                name: `${selectedPlan.toUpperCase()} Subscription for 30 days`,
+              },
+              unit_amount: subscriptionConfig.find((item) => item.planName === selectedPlan).price * 100,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: envConfig.nodeEnv === "development" ?
+          "http://localhost:8000/api/subscription/subscribe?session_id={CHECKOUT_SESSION_ID}" :
+          `https://${envConfig.brandName}.vercel.app/api/subscription/subscribe?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: envConfig.nodeEnv === "development" ?
+          "http://localhost:8000/api/subscription/cancel" :
+          `https://${envConfig.brandName}.vercel.app/api/subscription/cancel`,
+        metadata: {
+          userId, selectedPlan
+        }
+      })
+
+      return session
     }
 
     catch (error) {
@@ -87,14 +60,16 @@ export class SubscriptionService {
     }
   }
 
-  async quicknodeTransactionGateway(requestBody: any) {
+  async subscribe(sessionId: string) {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.quicknodeGateway, requestBody))
-      return response.data
+      const session = await this.stripe.checkout.sessions.retrieve(sessionId)
+      await deleteSubscriptionCommand(session.metadata.userId)
+      await createNewSubscriptionCommand(session.metadata.userId, session.metadata.selectedPlan as SubscriptionPlans)
+      return { success: true }
     }
 
     catch (error) {
-      throw new BadRequestException()
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 }

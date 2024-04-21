@@ -3,6 +3,7 @@
 ### v11.0.0
 * Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * Deprecated Ledgerscan app
+* Stripe Payment integration
 * More generic terms introduction
 * Removed Infura Gateway
 * Replaced Polygon Mumbai with Polygon Amoy for Blockchain Transactions
