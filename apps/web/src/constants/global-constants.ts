@@ -17,9 +17,7 @@ export const uiConstants = {
   invalidPasskey: "Invalid Pass Key",
   authVerificationSuccess: "Auth Verified",
   defaultNftImage: "https://cdn-icons-png.flaticon.com/512/8133/8133529.png",
-  polygonScanBaseUri: "https://mumbai.polygonscan.com/nft",
-  openseaBaseUri: "https://testnets.opensea.io/assets/mumbai",
-  mumbaiFaucetUri: "https://www.alchemy.com/faucets/polygon-mumbai",
+  amoyFaucetUri: "https://faucet.polygon.technology/",
   linkedinUri: "https://www.linkedin.com/in/arnhazra",
   githubRepoUri: "https://github.com/arnhazra/arcstack",
   npaWalletAddress: "0xC9bd090E7478422eA19cAeE5c9843ED4c1284DdF"

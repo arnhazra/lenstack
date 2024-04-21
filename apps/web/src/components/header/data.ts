@@ -52,7 +52,7 @@ export const authUserLinks: LinkData[] = [
   },
   {
     displayName: "Faucet",
-    link: "https://faucet.polygon.technology/",
+    link: uiConstants.amoyFaucetUri,
     external: true
   }
 ]

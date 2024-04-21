@@ -5,6 +5,7 @@ import { envConfig } from "src/env.config"
 import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
 import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
 import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
+import { otherConstants } from "src/constants/other-constants"
 
 @Injectable()
 export class SubscriptionService {
@@ -42,11 +43,11 @@ export class SubscriptionService {
         ],
         mode: "payment",
         success_url: envConfig.nodeEnv === "development" ?
-          "http://localhost:8000/api/subscription/subscribe?session_id={CHECKOUT_SESSION_ID}" :
-          `https://${envConfig.brandName}.vercel.app/api/subscription/subscribe?session_id={CHECKOUT_SESSION_ID}`,
+          `${otherConstants.stripeConfigBaseUriDev}/subscribe?session_id={CHECKOUT_SESSION_ID}` :
+          `${otherConstants.stripeConfigBaseUriProd}/subscribe?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: envConfig.nodeEnv === "development" ?
-          "http://localhost:8000/api/subscription/cancel" :
-          `https://${envConfig.brandName}.vercel.app/api/subscription/cancel`,
+          `${otherConstants.stripeConfigBaseUriDev}/cancel` :
+          `${otherConstants.stripeConfigBaseUriProd}/cancel`,
         metadata: {
           userId, selectedPlan
         }
