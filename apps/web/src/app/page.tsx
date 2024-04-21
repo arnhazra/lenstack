@@ -36,6 +36,7 @@ export default function Page() {
       <li className="flex" key={pricing.planName}>
         <TierCardComponent
           className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
+          handleClick={(planName: string): void => undefined}
           {...pricing}
         />
       </li>
@@ -44,7 +45,7 @@ export default function Page() {
 
   const renderProducts = products?.data?.map((product: any) => {
     return (
-      <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+      <div className="relative overflow-hidden rounded-lg border bg-background p-2" key={product?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
           <div dangerouslySetInnerHTML={{ __html: product?.productIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">
@@ -60,7 +61,7 @@ export default function Page() {
 
   const renderSolutions = solutions?.data?.map((solution: any) => {
     return (
-      <div className="relative overflow-hidden rounded-lg border bg-background p-2">
+      <div className="relative overflow-hidden rounded-lg border bg-background p-2" key={solution?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
           <div dangerouslySetInnerHTML={{ __html: solution?.solutionIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">

@@ -7,15 +7,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 type TierCardComponentProps = {
   features: string[]
   grantedCredits: number
-  isMostEfficient?: boolean
+  isMostEfficient?: boolean,
+  isSelected?: boolean,
   planName: string
   price: number
   handleClick: (planName: string) => void
 }
 
-export function TierCardComponent({ grantedCredits, features, isMostEfficient = false, planName, price, handleClick }: TierCardComponentProps) {
+export function TierCardComponent({ grantedCredits, features, isMostEfficient = false, isSelected = false, planName, price, handleClick }: TierCardComponentProps) {
   return (
-    <Card className={cn("w-full cursor-pointer", isMostEfficient && "ring-2 ring-primary dark:bg-border/50")} onClick={(): void => handleClick(planName)}>
+    <Card className={cn("w-full cursor-pointer", isSelected && "ring-2 ring-primary dark:bg-border/50")} onClick={(): void => handleClick(planName)}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className={cn("text-lg font-semibold capitalize", isMostEfficient && "text-primary")}>
