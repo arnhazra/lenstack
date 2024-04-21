@@ -1,3 +1,4 @@
+import Stripe from "stripe"
 import Web3 from "web3"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/constants/status-messages"
@@ -13,9 +14,11 @@ import { lastValueFrom } from "rxjs"
 @Injectable()
 export class SubscriptionService {
   private readonly web3Provider: Web3
+  private readonly stripe: Stripe
 
   constructor(private readonly httpService: HttpService) {
     this.web3Provider = new Web3(envConfig.quicknodeGateway)
+    this.stripe = new Stripe(envConfig.stripeSecretKey)
   }
 
   async activateHobby(userId: string) {
@@ -91,6 +94,35 @@ export class SubscriptionService {
     try {
       const response = await lastValueFrom(this.httpService.post(envConfig.quicknodeGateway, requestBody))
       return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async createCheckoutSession(selectedPlan: SubscriptionPlans): Promise<Stripe.Checkout.Session> {
+    try {
+      const session = await this.stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: 'inr',
+              product_data: {
+                name: `${selectedPlan.toUpperCase()} Subscription for 30 days`,
+              },
+              unit_amount: subscriptionConfig.find((item) => item.planName === selectedPlan).price * 100,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: envConfig.nodeEnv === "development" ? "http://localhost:3000/success" : `https://${envConfig.brandName}.vercel.app/success`,
+        cancel_url: envConfig.nodeEnv === "development" ? "http://localhost:3000/cancel" : `https://${envConfig.brandName}.vercel.app/cancel`
+      })
+
+      return session
     }
 
     catch (error) {

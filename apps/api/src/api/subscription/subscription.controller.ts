@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, BadRequestException } from "@nestjs/common
 import { SubscriptionService } from "./subscription.service"
 import { SubscribeDto } from "./dto/subscribe.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { CreateCheckoutSessionDto } from "./dto/create-checkout-session.dto"
 
 @Controller("subscription")
 export class SubscriptionController {
@@ -40,27 +41,15 @@ export class SubscriptionController {
     }
   }
 
-  @Post("gateway/alchemy")
-  async alchemyTransactionGateway(@Body() requestBody: any) {
+  @Post("create-checkout-session")
+  async createCheckoutSession(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
     try {
-      const response = await this.subscriptionService.alchemyTransactionGateway(requestBody)
-      return response
+      const session = await this.subscriptionService.createCheckoutSession(createCheckoutSessionDto.selectedPlan)
+      return { redirectUrl: session.url }
     }
 
     catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
-  @Post("gateway/quicknode")
-  async quicknodeTransactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.subscriptionService.quicknodeTransactionGateway(requestBody)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 }
