@@ -1,5 +1,7 @@
 # Changelog
 
+### v11.1.0
+
 ### v11.0.0
 * Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * Deprecated Ledgerscan app
