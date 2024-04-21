@@ -195,7 +195,7 @@ export function TradingModal({ token: { tokenContractAddress, tokenName, tokenSy
 
   return (
     <Dialog open={dialogVisible}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant="outline" onClick={(): void => setDialogVisible(true)}>Trade</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
