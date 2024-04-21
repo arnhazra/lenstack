@@ -19,7 +19,7 @@ import Loading from "@/components/loading"
 enum Filters {
   ALL = "All",
   ANALYTICS = "Analytics",
-  GENAI = "Generative AI",
+  GENAI = "Gen AI",
   DATA = "Data",
   BLOCKCHAIN = "Blockchain",
 }
@@ -125,7 +125,7 @@ export default function Page() {
                     <DropdownMenuSeparator />
                     <DropdownMenuCheckboxItem checked={selectedFilter === Filters.ALL} onClick={(): void => setSelectedFilter(Filters.ALL)}>All</DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem checked={selectedFilter === Filters.ANALYTICS} onClick={(): void => setSelectedFilter(Filters.ANALYTICS)}>Analytics</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.GENAI} onClick={(): void => setSelectedFilter(Filters.GENAI)}>Generative AI</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem checked={selectedFilter === Filters.GENAI} onClick={(): void => setSelectedFilter(Filters.GENAI)}>Gen AI</DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem checked={selectedFilter === Filters.DATA} onClick={(): void => setSelectedFilter(Filters.DATA)}>Data</DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem checked={selectedFilter === Filters.BLOCKCHAIN} onClick={(): void => setSelectedFilter(Filters.BLOCKCHAIN)}>Blockchain</DropdownMenuCheckboxItem>
                   </DropdownMenuContent>
