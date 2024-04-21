@@ -162,9 +162,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input type="email" placeholder="someone@example.com" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, email: e.target.value })} autoComplete={"off"} minLength={4} maxLength={40} />
+                      <Input className="h-12" type="email" placeholder="someone@example.com" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, email: e.target.value })} autoComplete={"off"} minLength={4} maxLength={40} />
                     </div>
-                    <Button type="submit" size="lg" className="w-full" disabled={isAuthLoading}>
+                    <Button type="submit" size="lg" className="w-full h-12" disabled={isAuthLoading}>
                       <Suspense condition={!isAuthLoading} fallback={<><LoaderIcon /> {alert}</>}>
                         Get Auth Passkey
                       </Suspense>
@@ -192,9 +192,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="email">Auth Passkey</Label>
-                      <Input type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
+                      <Input className="h-12" type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
                     </div>
-                    <Button variant="default" type="submit" disabled={isAuthLoading} className="mt-4 btn-block">
+                    <Button variant="default" type="submit" disabled={isAuthLoading} className="mt-4 w-full h-12">
                       <Suspense condition={!isAuthLoading} fallback={<><LoaderIcon /> {alert}</>}>
                         Continue
                       </Suspense>
