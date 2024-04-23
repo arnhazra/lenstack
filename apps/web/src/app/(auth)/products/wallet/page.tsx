@@ -16,7 +16,6 @@ import { Label } from "@/components/ui/label"
 import { useContext, useState } from "react"
 import Web3 from "web3"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
-import axios from "axios"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import LoaderIcon from "@/components/loaderIcon"
@@ -27,8 +26,8 @@ export default function Page() {
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=wallet&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "wallet")
   const [isModalOpen, setModalOpen] = useState(false)
-  const web3Provider = new Web3(endPoints.walletTxGateway)
   const [{ userState }] = useContext(GlobalContext)
+  const web3Provider = new Web3(`${endPoints.walletTxGateway}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}`)
   const [matic, setMatic] = useState(0)
   const [receiverAddress, setReceiverAddress] = useState("")
   const [isLoading, setLoading] = useState(false)
@@ -39,7 +38,6 @@ export default function Page() {
 
     try {
       setLoading(true)
-      await axios.post(endPoints.walletCreateTx)
       const gasPrice = await web3Provider.eth.getGasPrice()
 
       const transactionObject = {

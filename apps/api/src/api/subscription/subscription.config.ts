@@ -73,7 +73,7 @@ export const apiPricing: Record<string, number> = {
   copilot: 5,
   dataexchange: 2,
   kvstore: 2,
-  wallet: 5,
-  nftstudio: 50,
-  swap: 5
+  wallet: 1,
+  nftstudio: 5,
+  swap: 1
 }

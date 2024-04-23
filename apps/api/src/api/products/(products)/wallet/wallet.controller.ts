@@ -8,15 +8,15 @@ import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/toke
 export class WalletController {
   constructor(private readonly walletService: WalletService) { }
 
-  @Post("createtx")
-  async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  @Post("txgateway")
+  async transactionGateway(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() requestBody: any) {
     try {
-      const transaction = await this.walletService.createTransaction(ufc.workspaceId)
-      return transaction
+      const response = await this.walletService.transactionGateway(requestBody, ufc.workspaceId)
+      return response
     }
 
     catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException()
     }
   }
 
@@ -29,18 +29,6 @@ export class WalletController {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  @Post("txgateway")
-  async transactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.walletService.transactionGateway(requestBody)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException()
     }
   }
 }
