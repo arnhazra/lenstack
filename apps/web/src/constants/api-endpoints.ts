@@ -29,10 +29,10 @@ export const endPoints = {
   kvstoreCreateKv: `${apiHost}/api/products/kvstore/createkv`,
   kvstoreReadKvList: `${apiHost}/api/products/kvstore/readkv`,
   kvstoreDeleteKv: `${apiHost}/api/products/kvstore/deletekv`,
-  nftstudioGetContractAddress: `${apiHost}/api/products/nftstudio/getnftcontractaddress`,
   nftstudioTxGateway: `${apiHost}/api/products/nftstudio/txgateway`,
-  swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
+  nftstudioGetContractAddress: `${apiHost}/api/products/nftstudio/getnftcontractaddress`,
   swapTxGateway: `${apiHost}/api/products/swap/txgateway`,
+  swapTokenConfig: `${apiHost}/api/products/swap/getswaptokenconfig`,
   walletTxGateway: `${apiHost}/api/products/wallet/txgateway`,
   walletGetTransactions: `${apiHost}/api/products/wallet/gettransactions`
 }

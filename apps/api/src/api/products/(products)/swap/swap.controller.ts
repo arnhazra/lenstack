@@ -1,6 +1,5 @@
 import { BadRequestException, Controller, Post, Get, Query, Body } from "@nestjs/common"
 import { SwapService } from "./swap.service"
-import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 
