@@ -20,5 +20,4 @@ export const uiConstants = {
   amoyFaucetUri: "https://faucet.polygon.technology/",
   linkedinUri: "https://www.linkedin.com/in/arnhazra",
   githubRepoUri: "https://github.com/arnhazra/arcstack",
-  npaWalletAddress: "0xC9bd090E7478422eA19cAeE5c9843ED4c1284DdF"
 }

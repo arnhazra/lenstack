@@ -9,10 +9,11 @@ import { HttpService } from "@nestjs/axios"
 export class NftstudioService {
   constructor(private readonly httpService: HttpService) { }
 
-  async createTransaction(workspaceId: string) {
+  async transactionGateway(requestBody: any, workspaceId: string) {
     try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
       await createTransaction(workspaceId)
-      return { success: true }
+      return response.data
     }
 
     catch (error) {
@@ -28,17 +29,6 @@ export class NftstudioService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async transactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
-      return response.data
-    }
-
-    catch (error) {
-      throw new BadRequestException()
     }
   }
 }
