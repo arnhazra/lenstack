@@ -67,13 +67,3 @@ export const subscriptionConfig: CreditType[] = [
     isMostEfficient: false
   },
 ]
-
-export const apiPricing: Record<string, number> = {
-  analytics: 2,
-  copilot: 5,
-  dataexchange: 2,
-  kvstore: 2,
-  wallet: 1,
-  nftstudio: 1,
-  swap: 1
-}
