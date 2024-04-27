@@ -1,5 +1,7 @@
 # Changelog
 
+### v11.2.0
+
 ### v11.1.0
 * Bug fixes & performance improvements
 * Unnecessary code cleanup
