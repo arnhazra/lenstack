@@ -17,7 +17,7 @@ export const subscriptionConfig: CreditType[] = [
   {
     planName: SubscriptionPlans.Hobby,
     price: 0,
-    grantedCredits: 5000,
+    grantedCredits: 3000,
     features: [
       "Upto 10 workspaces",
       "Valid for a month",
@@ -29,8 +29,8 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.Starter,
-    price: 149,
-    grantedCredits: 50000,
+    price: 49,
+    grantedCredits: 25000,
     features: [
       "Upto 10 workspaces",
       "Valid for a month",
@@ -42,8 +42,8 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.Premium,
-    price: 299,
-    grantedCredits: 150000,
+    price: 149,
+    grantedCredits: 100000,
     features: [
       "Upto 10 workspaces",
       "Valid for a month",
@@ -55,8 +55,8 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.Ultra,
-    price: 499,
-    grantedCredits: 500000,
+    price: 299,
+    grantedCredits: 300000,
     features: [
       "Upto 10 workspaces",
       "Valid for a month",

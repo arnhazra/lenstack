@@ -31,7 +31,7 @@ export function TierCardComponent({ grantedCredits, features, isMostEfficient = 
             </Badge>
           )}
         </div>
-        <CardDescription>{grantedCredits} Credits</CardDescription>
+        <CardDescription>{grantedCredits} API Requests</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <p className="flex items-baseline gap-x-1">
