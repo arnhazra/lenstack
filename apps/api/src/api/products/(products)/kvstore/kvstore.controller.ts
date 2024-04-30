@@ -19,7 +19,7 @@ export class KvstoreController {
   }
 
   @Get("readkv")
-  async readKvListOutsidePlatform(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  async readKvList(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
     try {
       const { kvs } = await this.kvstoreService.readKvList(ufc.workspaceId)
       return { kvs }
