@@ -3,9 +3,10 @@
 ### v11.2.0
 * Added Credential Authorizer in all tx gateways to enable API solution for blockchain apps 
 * Removed all Create TX API
-* Removed API Pricing Credits, now all API will take 1 credit
+* Removed API Pricing Credits
 * Restructured Pricing & Credits 
 * Renamed Credits to API calls
+* New Analytics Get API released outside platform
 
 ### v11.1.0
 * Bug fixes & performance improvements
