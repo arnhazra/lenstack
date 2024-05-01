@@ -1,7 +1,6 @@
 "use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
-import "react-json-view-lite/dist/index.css"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ClipboardIcon } from "lucide-react"
@@ -11,6 +10,7 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { Badge } from "../ui/badge"
 import Suspense from "../suspense"
+import "react-json-view-lite/dist/index.css"
 
 interface SnippetPanelProps {
   title: string

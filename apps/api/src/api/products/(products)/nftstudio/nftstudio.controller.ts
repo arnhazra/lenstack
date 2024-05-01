@@ -1,6 +1,5 @@
 import { Controller, Post, BadRequestException, Get, Body } from "@nestjs/common"
 import { NftstudioService } from "./nftstudio.service"
-import { statusMessages } from "../../../../constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 
@@ -8,14 +7,15 @@ import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authoriz
 export class NftstudioController {
   constructor(private readonly nftstudioService: NftstudioService) { }
 
-  @Post("createtx")
-  async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  @Post("txgateway")
+  async transactionGateway(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() requestBody: any) {
     try {
-      return await this.nftstudioService.createTransaction(ufc.workspaceId)
+      const response = await this.nftstudioService.transactionGateway(requestBody, ufc.workspaceId)
+      return response
     }
 
     catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException()
     }
   }
 
@@ -27,18 +27,6 @@ export class NftstudioController {
 
     catch (error) {
       throw error
-    }
-  }
-
-  @Post("txgateway")
-  async transactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.nftstudioService.transactionGateway(requestBody)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException()
     }
   }
 }

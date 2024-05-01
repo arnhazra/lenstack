@@ -1,7 +1,7 @@
 export const uiConstants = {
   brandName: "ArcStack",
   homeHeader: "Build, Ship & Scale with",
-  homeIntro: "Start with a hobby plan, for free, no upfront commitment, Upgrade on demand, Starting at ₹149/month",
+  homeIntro: "Start with a hobby plan, for free, no upfront commitment, Upgrade on demand, Starting at ₹49/month",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Auth",
   errorMessage: "404, Lost",
@@ -20,5 +20,4 @@ export const uiConstants = {
   amoyFaucetUri: "https://faucet.polygon.technology/",
   linkedinUri: "https://www.linkedin.com/in/arnhazra",
   githubRepoUri: "https://github.com/arnhazra/arcstack",
-  npaWalletAddress: "0xC9bd090E7478422eA19cAeE5c9843ED4c1284DdF"
 }

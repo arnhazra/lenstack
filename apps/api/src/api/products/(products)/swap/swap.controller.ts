@@ -1,6 +1,5 @@
 import { BadRequestException, Controller, Post, Get, Query, Body } from "@nestjs/common"
 import { SwapService } from "./swap.service"
-import { statusMessages } from "src/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 
@@ -8,11 +7,11 @@ import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authoriz
 export class SwapController {
   constructor(private readonly swapService: SwapService) { }
 
-  @Get("getswaptokenconfig")
-  async getSwapTokenList(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
+  @Post("txgateway")
+  async transactionGateway(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() requestBody: any) {
     try {
-      const swapTokenConfig = await this.swapService.getSwapTokenList(searchQuery)
-      return swapTokenConfig
+      const response = await this.swapService.transactionGateway(requestBody, ufc.workspaceId)
+      return response
     }
 
     catch (error) {
@@ -20,23 +19,11 @@ export class SwapController {
     }
   }
 
-  @Post("createtx")
-  async createTransaction(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  @Get("getswaptokenconfig")
+  async getSwapTokenList(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
     try {
-      const transaction = await this.swapService.createTransaction(ufc.workspaceId)
-      return transaction
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  @Post("txgateway")
-  async transactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.swapService.transactionGateway(requestBody)
-      return response
+      const swapTokenConfig = await this.swapService.getSwapTokenList(searchQuery)
+      return swapTokenConfig
     }
 
     catch (error) {

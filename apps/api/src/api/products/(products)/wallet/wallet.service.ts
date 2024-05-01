@@ -9,10 +9,11 @@ import { getTransactionsQuery } from "./queries/get-transactions.query"
 export class WalletService {
   constructor(private readonly httpService: HttpService) { }
 
-  async createTransaction(workspaceId: string) {
+  async transactionGateway(requestBody: any, workspaceId: string) {
     try {
-      const transaction = await createTransactionCommand(workspaceId)
-      return transaction
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
+      await createTransactionCommand(workspaceId)
+      return response.data
     }
 
     catch (error) {
@@ -24,17 +25,6 @@ export class WalletService {
     try {
       const transactions = await getTransactionsQuery(workspaceId)
       return transactions
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
-  async transactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
-      return response.data
     }
 
     catch (error) {

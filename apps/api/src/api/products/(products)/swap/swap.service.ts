@@ -10,6 +10,18 @@ import { envConfig } from "src/env.config"
 export class SwapService {
   constructor(private readonly httpService: HttpService) { }
 
+  async transactionGateway(requestBody: any, workspaceId: string) {
+    try {
+      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
+      await createTransaction(workspaceId)
+      return response.data
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
   async getSwapTokenList(searchQuery: string) {
     try {
       const swapTokenConfig = await getTokens(searchQuery)
@@ -18,28 +30,6 @@ export class SwapService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async createTransaction(workspaceId: string) {
-    try {
-      const transaction = await createTransaction(workspaceId)
-      return transaction
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
-  async transactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
-      return response.data
-    }
-
-    catch (error) {
-      throw new BadRequestException()
     }
   }
 }

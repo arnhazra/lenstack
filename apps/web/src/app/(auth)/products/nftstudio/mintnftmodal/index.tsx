@@ -6,7 +6,6 @@ import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { useContext, useState } from "react"
 import Web3 from "web3"
-import axios from "axios"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 import { Button } from "@/components/ui/button"
@@ -20,8 +19,8 @@ import LoaderIcon from "@/components/loaderIcon"
 
 export function MintNFTModal() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
-  const web3Provider = new Web3(endPoints.nftstudioTxGateway)
   const [{ userState }] = useContext(GlobalContext)
+  const web3Provider = new Web3(`${endPoints.swapTxGateway}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}`)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })
   const [dialogVisible, setDialogVisible] = useState(false)
@@ -34,7 +33,6 @@ export function MintNFTModal() {
     const nftContract: any = new web3Provider.eth.Contract(nftABI as any, nftContractAddress?.data?.nftContractAddress)
 
     try {
-      await axios.post(endPoints.nftstudioCreateTx)
       const { name, description, link } = state
       const isArchived = false
       const newNFTData = nftContract.methods.createNFT(name, description, link, isArchived).encodeABI()

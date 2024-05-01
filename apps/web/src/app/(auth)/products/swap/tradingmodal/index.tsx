@@ -9,7 +9,6 @@ import { useContext, useEffect, useState } from "react"
 import Web3 from "web3"
 import { tokenABI } from "../bin/token-abi"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
-import axios from "axios"
 import { vendorABI } from "../bin/vendor-abi"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
@@ -36,7 +35,7 @@ export function TradingModal({ token: { tokenContractAddress, tokenName, tokenSy
   const [value, setValue] = useState<number>(0)
   const [selectedTab, setSelectedTab] = useState("buy")
   const [dialogVisible, setDialogVisible] = useState(false)
-  const web3Provider = new Web3(endPoints.swapTxGateway)
+  const web3Provider = new Web3(`${endPoints.swapTxGateway}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}`)
 
   useEffect(() => {
     (async () => {
@@ -61,7 +60,6 @@ export function TradingModal({ token: { tokenContractAddress, tokenName, tokenSy
     if (Number(value) > 0) {
       try {
         setTxProcessing(true)
-        await axios.post(endPoints.swapCreateTx)
         const { privateKey } = userState
         const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
         const vendor = new web3Provider.eth.Contract(vendorABI as any, vendorContractAddress)
@@ -118,7 +116,6 @@ export function TradingModal({ token: { tokenContractAddress, tokenName, tokenSy
     if (Number(value) <= balance) {
       try {
         setTxProcessing(true)
-        await axios.post(endPoints.swapCreateTx)
         const { privateKey } = userState
         const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
         const gasPrice = await web3Provider.eth.getGasPrice()

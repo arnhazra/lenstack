@@ -123,7 +123,7 @@ export default function Page() {
               <section className="grid gap-6">
                 <InfoPanel title="Network" desc="Current selected Network & Chain" value="Polygon Amoy" />
                 <InfoPanel title="Wallet Addresss" desc="Your blockchain wallet address" value={walletAddress} />
-                <InfoPanel title="Wallet Balance" desc="Your blockchain wallet address" value={`${Number(walletBalance).toFixed(2)} MATIC`} />
+                <InfoPanel title="Wallet Balance" desc="Your blockchain wallet balance" value={`${Number(walletBalance).toFixed(2)} MATIC`} />
                 <InfoPanel title="Private Key" desc="Your blockchain private key" value={userState.privateKey} masked />
               </section>
             </Suspense>

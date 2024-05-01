@@ -29,7 +29,7 @@
 * @tanstack/react-query: Query client for React data fetching, providing a powerful and efficient data fetching solution.
 * date-fns: Lightweight JavaScript date library for parsing, validating, and formatting dates and times.
 * lucide-react: Library of SVG icon components for React applications.
-* next: Popular JavaScript framework for building user interfaces based on React, offering server-side rendering and static site generation capabilities.
+* next: Popular JS framework for building user interfaces based on React.
 * prop-types: Runtime type checking for React props, ensuring data integrity in React components.
 * react: Popular JavaScript library for building user interfaces, facilitating component-based UI development.
 * react-dom: React package for working with the DOM, enabling React components to interact with the browser.
@@ -38,6 +38,6 @@
 * react-json-view-lite: Simple JSON View library for React JS, facilitating JSON data visualization in React applications.
 * tailwind-merge: Utility for merging Tailwind CSS classes, enabling dynamic class composition in Tailwind CSS projects.
 * tailwindcss-animate: Collection of animation utilities for Tailwind CSS, enhancing UI animations in web applications.
-* tailwindcss: Utility-first CSS framework for creating responsive and scalable UIs, providing a comprehensive set of pre-designed components.
+* tailwindcss: Utility-first CSS framework for creating responsive and scalable UIs.
 * postcss: Tool for transforming CSS with JavaScript plugins, enabling advanced CSS processing in build pipelines.
 * autoprefixer: PostCSS plugin for adding vendor prefixes to CSS rules, ensuring cross-browser compatibility.

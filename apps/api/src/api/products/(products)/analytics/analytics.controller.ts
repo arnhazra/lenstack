@@ -1,7 +1,6 @@
 import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { AnalyticsService } from "./analytics.service"
 
 @Controller("products/analytics")
@@ -9,9 +8,9 @@ export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) { }
 
   @Get("get")
-  async getAnalytics(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  async getAnalytics(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
     try {
-      return await this.analyticsService.getAnalytics(uft.workspaceId)
+      return await this.analyticsService.getAnalytics(ufc.workspaceId)
     }
 
     catch (error) {
