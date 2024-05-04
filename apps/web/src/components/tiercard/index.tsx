@@ -1,57 +1,47 @@
 "use client"
-import { CircleCheckIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Check } from "lucide-react"
+import { Button } from "../ui/button"
 
 type TierCardComponentProps = {
-  features: string[]
-  grantedCredits: number
-  isMostEfficient?: boolean,
-  isSelected?: boolean,
-  planName: string
-  price: number
+  disabled: boolean,
+  planName: string,
+  price: number,
+  grantedCredits: number,
+  features: string[],
   handleClick: (planName: string) => void
 }
 
-export function TierCardComponent({ grantedCredits, features, isMostEfficient = false, isSelected = false, planName, price, handleClick }: TierCardComponentProps) {
+export function TierCardComponent({ disabled, planName, price, grantedCredits, features, handleClick }: TierCardComponentProps) {
   return (
-    <Card className={cn("w-full cursor-pointer", isSelected && "ring-2 ring-primary dark:bg-border/50")} onClick={(): void => handleClick(planName)}>
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className={cn("text-lg font-semibold capitalize", isMostEfficient && "text-primary")}>
-            {planName}
-          </CardTitle>
-          {isMostEfficient && (
-            <Badge
-              className="rounded-full border-primary bg-primary/10 text-primary dark:border-transparent dark:bg-primary dark:text-primary-foreground"
-              variant="outline"
-            >
-              Most Efficient
-            </Badge>
-          )}
-        </div>
-        <CardDescription>{grantedCredits} API Requests</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <p className="flex items-baseline gap-x-1">
-          <span className="text-2xl font-semibold text-muted-foreground">
-            ₹
-          </span>
-          <span className="text-4xl font-bold tracking-tight">{price}</span>
-          <span className="text-sm font-semibold text-muted-foreground">
-            /month
-          </span>
-        </p>
-        <ul className="space-y-3">
-          {features.map(feature => (
-            <li key={feature} className="flex items-center gap-x-3 text-sm text-slate-600">
-              <CircleCheckIcon aria-hidden="true" className="size-5 flex-none text-primary dark:text-foreground" />
-              {feature}
-            </li>
-          ))}
+    <div className="grid w-full items-start gap-10 rounded-lg border p-10 md:grid-cols-[1fr_200px]">
+      <div className="grid gap-6">
+        <h3 className="text-xl font-bold sm:text-2xl">
+          What's included in the {planName} plan
+        </h3>
+        <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
+          {
+            features.map((feature) => (
+              <li className="flex items-center" key={feature}>
+                <Check className="mr-2 h-4 w-4" /> {feature}
+              </li>
+            ))
+          }
+          <li className="flex items-center">
+            <Check className="mr-2 h-4 w-4" /> {grantedCredits} API Requests
+          </li>
         </ul>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="flex flex-col gap-4 text-center">
+        <div>
+          <h4 className="text-6xl font-bold">₹{price}</h4>
+          <p className="text-sm font-medium text-muted-foreground">
+            Billed Monthly
+          </p>
+        </div>
+        <Button disabled={disabled} variant="default" onClick={(): void => handleClick(planName)}>
+          {price ? "Get started" : "Activate for free"}
+        </Button>
+      </div>
+    </div>
   )
 }

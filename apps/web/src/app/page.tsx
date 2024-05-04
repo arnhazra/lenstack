@@ -33,13 +33,11 @@ export default function Page() {
 
   const renderPricing = pricing?.data?.map((pricing: any) => {
     return (
-      <li className="flex" key={pricing.planName}>
-        <TierCardComponent
-          className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
-          handleClick={(planName: string): void => undefined}
-          {...pricing}
-        />
-      </li>
+      <TierCardComponent
+        className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
+        handleClick={(planName: string): void => router.push("/subscription")}
+        {...pricing}
+      />
     )
   })
 
@@ -184,10 +182,8 @@ export default function Page() {
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
           </div>
-          <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none">
-            <ul className={cn("mx-auto grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3", pricing?.data?.length > 3 && "2xl:grid-cols-4")}>
-              {renderPricing}
-            </ul>
+          <div className="container flex flex-col gap-6 py-8 md:max-w-[64rem] md:py-12">
+            {renderPricing}
           </div>
         </section>
       </div>

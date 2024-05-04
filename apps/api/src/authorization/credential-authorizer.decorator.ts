@@ -49,14 +49,6 @@ export const CredentialAuthorizer = createParamDecorator(
                   await delay(500)
                 }
 
-                if (subscription.selectedPlan === SubscriptionPlans.Starter) {
-                  await delay(200)
-                }
-
-                if (subscription.selectedPlan === SubscriptionPlans.Premium) {
-                  await delay(100)
-                }
-
                 subscription.remainingCredits -= creditRequired
                 await subscription.save()
                 return { userId, workspaceId }
