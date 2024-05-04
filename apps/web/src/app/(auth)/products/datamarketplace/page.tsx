@@ -27,10 +27,10 @@ export default function Page() {
   const [{ appState }] = useContext(GlobalContext)
   const router = useRouter()
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useQuery(["filters"], endPoints.dataexchangeFilters, HTTPMethods.GET)
-  const datasets = useQuery(["datasets"], endPoints.dataexchangeFindDatasets, HTTPMethods.POST, { searchQuery: appState.globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=dataexchange&category=All`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "dataexchange")
+  const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
+  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: appState.globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=datamarketplace&category=All`, HTTPMethods.GET)
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "datamarketplace")
 
   const renderFilterOptions = filters?.data?.filterCategories?.map((item: string) => {
     return (
@@ -58,7 +58,7 @@ export default function Page() {
 
   const renderDatasets = datasets?.data?.datasets?.map((dataset: any) => {
     return (
-      <TableRow className="cursor-pointer" key={dataset?._id} onClick={(): void => router.push(`/products/dataexchange/dataset?datasetId=${dataset._id}`)}>
+      <TableRow className="cursor-pointer" key={dataset?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset?datasetId=${dataset._id}`)}>
         <TableCell><div className="font-medium">{dataset?.name}</div></TableCell>
         <TableCell className="text-neutral-500">{dataset?.category}</TableCell>
         <TableCell className="hidden md:table-cell">{dataset?.rating}</TableCell>

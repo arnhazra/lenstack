@@ -1,5 +1,8 @@
 # Changelog
 
+### v11.2.2
+* Rebranding of Data Exchange to Data Marketplace
+
 ### v11.2.1
 * Updated theme from zinc & gray to slate
 * Dependency updates & minor bug fixes

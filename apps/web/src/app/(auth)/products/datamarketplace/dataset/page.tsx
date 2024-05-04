@@ -20,8 +20,8 @@ export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
   const router = useRouter()
-  const dataset = useQuery(["dataset"], `${endPoints.dataexchangeViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
-  const relatedDatasets = useQuery(["relateddatasets"], endPoints.dataexchangeFindDatasets, HTTPMethods.POST, { searchQuery: "", selectedFilter: dataset?.data?.metaData?.category ?? "", selectedSortOption: "", offset: 0 })
+  const dataset = useQuery(["dataset"], `${endPoints.datamarketplaceViewDatasets}?datasetId=${datasetId}`, HTTPMethods.GET)
+  const relatedDatasets = useQuery(["relateddatasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: "", selectedFilter: dataset?.data?.metaData?.category ?? "", selectedSortOption: "", offset: 0 })
 
   const renderDatasetTags = dataset?.data?.metaData?.description?.split(" ").slice(0, 30).map((item: string, index: number) => {
     if (item.length > 5) {
@@ -40,7 +40,7 @@ export default function Page() {
 
   const renderRelatedDatasets = relatedDatasets?.data?.datasets?.filter((ds: any) => ds?._id !== datasetId).map((ds: any) => {
     return (
-      <TableRow className="cursor-pointer" key={ds?._id} onClick={(): void => router.push(`/products/dataexchange/dataset?datasetId=${ds._id}`)}>
+      <TableRow className="cursor-pointer" key={ds?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset?datasetId=${ds._id}`)}>
         <TableCell><div className="font-medium">{ds?.name}</div></TableCell>
         <TableCell className="hidden md:table-cell">{ds?.rating}</TableCell>
         <TableCell>

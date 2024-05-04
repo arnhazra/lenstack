@@ -6,7 +6,7 @@ import { findDatasetsQuery } from "./queries/find-datasets.query"
 import { findDatasetMetadataById } from "./queries/find-metadata.query"
 
 @Injectable()
-export class DataexchangeService {
+export class DatamarketplaceService {
   async getDatasetFilters() {
     try {
       const filterCategories = await findDistinctCategories()

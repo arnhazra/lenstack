@@ -1,18 +1,18 @@
 import { Controller, Post, Body, Get, Query } from "@nestjs/common"
-import { DataexchangeService } from "./dataexchange.service"
+import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { DataAPIDto } from "./dto/data-api.dto"
 
-@Controller("products/dataexchange")
-export class DataexchangeController {
-  constructor(private readonly dataexchangeService: DataexchangeService) { }
+@Controller("products/datamarketplace")
+export class DatamarketplaceController {
+  constructor(private readonly datamarketplaceService: DatamarketplaceService) { }
 
   @Get("filters")
   async getDatasetFilters(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
     try {
-      const filterCategories = await this.dataexchangeService.getDatasetFilters()
+      const filterCategories = await this.datamarketplaceService.getDatasetFilters()
       return { filterCategories }
     }
 
@@ -24,7 +24,7 @@ export class DataexchangeController {
   @Post("finddatasets")
   async findDatasets(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() findDatasetsDto: FindDatasetsDto) {
     try {
-      const datasets = await this.dataexchangeService.findDatasets(findDatasetsDto)
+      const datasets = await this.datamarketplaceService.findDatasets(findDatasetsDto)
       return { datasets }
     }
 
@@ -36,7 +36,7 @@ export class DataexchangeController {
   @Get("viewdataset")
   async viewDataset(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
     try {
-      const data = await this.dataexchangeService.viewDataset(datasetId)
+      const data = await this.datamarketplaceService.viewDataset(datasetId)
       return data
     }
 
@@ -49,7 +49,7 @@ export class DataexchangeController {
   async getData(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
     try {
       const { datasetId } = dataapiDto
-      const data = await this.dataexchangeService.getData(datasetId)
+      const data = await this.datamarketplaceService.getData(datasetId)
       return { data }
     }
 

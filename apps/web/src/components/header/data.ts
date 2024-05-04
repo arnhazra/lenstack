@@ -59,11 +59,11 @@ export const authUserLinks: LinkData[] = [
 
 export const searchEnabledPathNames = [
   "/dashboard",
-  "/products/dataexchange",
+  "/products/datamarketplace",
   "/products/nftstudio",
   "/products/swap",
   "/dashboard/",
-  "/products/dataexchange/",
+  "/products/datamarketplace/",
   "/products/nftstudio/",
   "/products/swap/"
 ]
