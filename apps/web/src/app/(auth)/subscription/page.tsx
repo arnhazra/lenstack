@@ -67,7 +67,7 @@ export default function Page() {
               <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
                 Plans
               </h2>
-              <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
+              <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
                 Choose an {uiConstants.brandName} subscription plan that"s right for you.
                 Downgrade, upgrade or cancel any time.{" "}
                 {uiConstants.brandName} offers a variety of plans to meet your requirements.

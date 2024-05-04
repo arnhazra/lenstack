@@ -45,7 +45,7 @@ export function TierCardComponent({ grantedCredits, features, isMostEfficient = 
         </p>
         <ul className="space-y-3">
           {features.map(feature => (
-            <li key={feature} className="flex items-center gap-x-3 text-sm text-gray-600">
+            <li key={feature} className="flex items-center gap-x-3 text-sm text-slate-600">
               <CircleCheckIcon aria-hidden="true" className="size-5 flex-none text-primary dark:text-foreground" />
               {feature}
             </li>

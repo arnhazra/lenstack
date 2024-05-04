@@ -173,7 +173,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </form>
               </CardContent>
               <CardFooter>
-                <div className="text-center text-sm text-gray-600">
+                <div className="text-center text-sm text-slate-600">
                   By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
                 </div>
               </CardFooter>
@@ -203,7 +203,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </form>
               </CardContent>
               <CardFooter>
-                <div className="text-center text-sm text-gray-600">
+                <div className="text-center text-sm text-slate-600">
                   By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
                 </div>
               </CardFooter>
