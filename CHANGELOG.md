@@ -2,6 +2,7 @@
 
 ### v11.2.2
 * Rebranding of Data Exchange to Data Marketplace
+* Pricing restructure
 
 ### v11.2.1
 * Updated theme from zinc & gray to slate
