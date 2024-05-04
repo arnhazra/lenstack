@@ -14,7 +14,7 @@ import Error from "@/components/error"
 const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,
   copilot: <Sparkles />,
-  dataExchange: <Braces />,
+  dataMarketplace: <Braces />,
   kvStore: <DatabaseZap />
 }
 

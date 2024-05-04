@@ -4,7 +4,7 @@ import { envConfig } from "../env.config"
 export const platformDatabaseConn: Connection = createConnection(envConfig.platformDatabaseURI)
 export const analyticsDatabaseConn: Connection = createConnection(envConfig.analyticsDatabaseURI)
 export const copilotDatabaseConn: Connection = createConnection(envConfig.copilotDatabaseURI)
-export const dataexchangeDatabaseConn: Connection = createConnection(envConfig.dataexchangeDatabaseURI)
+export const datamarketplaceDatabaseConn: Connection = createConnection(envConfig.datamarketplaceDatabaseURI)
 export const kvstoreDatabaseConn = createConnection(envConfig.kvstoreDatabaseURI)
 export const nftstudioDatabaseConn: Connection = createConnection(envConfig.nftstudioDatabaseURI)
 export const swapDatabaseConn: Connection = createConnection(envConfig.swapDatabaseURI)
@@ -25,9 +25,9 @@ async function copilotDatabaseConnect(): Promise<void> {
   copilotDatabaseConn.on("error", () => console.log("Copilot Database Connection Failure"))
 }
 
-async function dataexchangeDatabaseConnect(): Promise<void> {
-  dataexchangeDatabaseConn.on("connected", () => console.log("Data Exchange Database Connection Success"))
-  dataexchangeDatabaseConn.on("error", () => console.log("Data Exchange Database Connection Failure"))
+async function datamarketplaceDatabaseConnect(): Promise<void> {
+  datamarketplaceDatabaseConn.on("connected", () => console.log("Data Marketplace Database Connection Success"))
+  datamarketplaceDatabaseConn.on("error", () => console.log("Data Marketplace Database Connection Failure"))
 }
 
 async function walletDatabaseConnect(): Promise<void> {
@@ -54,7 +54,7 @@ export async function connectDatabases(): Promise<void> {
   platformDatabaseConnect()
   analyticsDatabaseConnect()
   copilotDatabaseConnect()
-  dataexchangeDatabaseConnect()
+  datamarketplaceDatabaseConnect()
   walletDatabaseConnect()
   nftstudioDatabaseConnect()
   swapDatabaseConnect()

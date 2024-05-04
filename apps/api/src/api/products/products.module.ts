@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common"
-import { DataexchangeModule } from "./(products)/dataexchange/dataexchange.module"
+import { DatamarketplaceModule } from "./(products)/datamarketplace/datamarketplace.module"
 import { SwapModule } from "./(products)/swap/swap.module"
 import { WalletModule } from "./(products)/wallet/wallet.module"
 import { NftstudioModule } from "./(products)/nftstudio/nftstudio.module"
@@ -11,7 +11,7 @@ import { ProductsService } from "./products.service"
 
 @Module({
   controllers: [ProductsController],
-  imports: [DataexchangeModule, SwapModule, WalletModule, NftstudioModule, KvstoreModule, CopilotModule, AnalyticsModule],
+  imports: [DatamarketplaceModule, SwapModule, WalletModule, NftstudioModule, KvstoreModule, CopilotModule, AnalyticsModule],
   providers: [ProductsService]
 })
 

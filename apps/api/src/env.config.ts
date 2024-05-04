@@ -8,7 +8,7 @@ export const envConfig = {
   platformDatabaseURI: process.env.PLATFORM_DATABASE_URI,
   analyticsDatabaseURI: process.env.ANALYTICS_DATABASE_URI,
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
-  dataexchangeDatabaseURI: process.env.DATAEXCHANGE_DATABASE_URI,
+  datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
   kvstoreDatabaseURI: process.env.KVSTORE_DATABASE_URI,
   nftstudioDatabaseURI: process.env.NFTSTUDIO_DATABASE_URI,
   swapDatabaseURI: process.env.SWAP_DATABASE_URI,
