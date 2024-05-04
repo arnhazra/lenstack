@@ -1,5 +1,9 @@
 # Changelog
 
+### v11.2.1
+* Updated theme from zinc & gray to slate
+* Dependency updates & minor bug fixes
+
 ### v11.2.0
 * Added Credential Authorizer in all tx gateways to enable API solution for blockchain apps 
 * Removed all Create TX API

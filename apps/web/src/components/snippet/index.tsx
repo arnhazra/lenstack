@@ -45,11 +45,11 @@ export default function SnippetPanel({ title, url, method, request, response }: 
       <CardFooter className="block">
         <Suspense condition={!!request} fallback={null}>
           <p className="mb-3">Sample Request</p>
-          <JsonView data={request ?? {}} shouldExpandNode={allExpanded} style={defaultStyles} />
+          <JsonView data={request ?? {}} shouldExpandNode={allExpanded} />
         </Suspense>
         <Suspense condition={!!response} fallback={null}>
           <p className="mt-3 mb-3">Sample Response</p>
-          <JsonView data={response} shouldExpandNode={allExpanded} style={defaultStyles} />
+          <JsonView data={response} shouldExpandNode={allExpanded} />
         </Suspense>
       </CardFooter>
     </Card>

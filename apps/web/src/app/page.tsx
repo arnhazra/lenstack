@@ -50,7 +50,7 @@ export default function Page() {
           <div dangerouslySetInnerHTML={{ __html: product?.productIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">
             <h3 className="font-bold">{uiConstants.brandName} {product?.displayName}</h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-600">
               {product?.description}
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function Page() {
           <div dangerouslySetInnerHTML={{ __html: solution?.solutionIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">
             <h3 className="font-bold">{solution?.solutionName}</h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-600">
               {solution?.description}
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function Page() {
             <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">
               {uiConstants.homeHeader} {uiConstants.brandName}
             </h1>
-            <p className="max-w-[42rem] leading-normal text-gray-600 sm:text-xl sm:leading-8">
+            <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8">
               {uiConstants.homeIntro}
             </p>
             <div className="space-x-4 space-y-4">
@@ -101,12 +101,12 @@ export default function Page() {
             </div>
           </div>
         </section>
-        <section id="solutions" className="container space-y-6 bg-zinc-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
+        <section id="solutions" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Solutions
             </h2>
-            <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
               Find solutions for putting your ideas into action.
               Solve your business problems with proven combinations of {uiConstants.brandName} services,
               as well as sample architectures and documentation.
@@ -121,7 +121,7 @@ export default function Page() {
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
               Open Source
             </h2>
-            <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
               {uiConstants.brandName} is open source and powered by open source software. <br />{" "}
               The code is available on{" "}
               <Link
@@ -159,12 +159,12 @@ export default function Page() {
             </Link>
           </div>
         </section>
-        <section id="products" className="container space-y-6 bg-zinc-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
+        <section id="products" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Products
             </h2>
-            <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
               Explore products for bringing your vision to life.
               Access all products for different needs with just a free account.
             </p>
@@ -178,7 +178,7 @@ export default function Page() {
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Pricing
             </h2>
-            <p className="max-w-[85%] leading-normal text-gray-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
               Choose an {uiConstants.brandName} subscription plan that"s right for you.
               Downgrade, upgrade or cancel any time.{" "}
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
