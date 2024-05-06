@@ -21,12 +21,12 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
         <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
           {
             features.map((feature) => (
-              <li className="flex items-center" key={feature}>
+              <li className="flex items-center text-slate-600" key={feature}>
                 <Check className="mr-2 h-4 w-4" /> {feature}
               </li>
             ))
           }
-          <li className="flex items-center">
+          <li className="flex items-center text-slate-600">
             <Check className="mr-2 h-4 w-4" /> {grantedCredits} API Requests
           </li>
         </ul>

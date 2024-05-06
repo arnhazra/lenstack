@@ -34,6 +34,7 @@ export default function Page() {
   const renderPricing = pricing?.data?.map((pricing: any) => {
     return (
       <TierCardComponent
+        key={pricing.planName}
         className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
         handleClick={(planName: string): void => router.push("/subscription")}
         {...pricing}

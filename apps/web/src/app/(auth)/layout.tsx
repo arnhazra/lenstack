@@ -152,7 +152,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <Suspense condition={authStep === 1} fallback={null}>
             <Card className="mx-auto max-w-sm">
               <CardHeader>
-                <CardTitle className="text-2xl">Auth</CardTitle>
+                <CardTitle className="text-xl">{uiConstants.brandName}</CardTitle>
                 <CardDescription>
                   Enter your email to get started
                 </CardDescription>
@@ -182,7 +182,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <Suspense condition={authStep === 2} fallback={null}>
             <Card className="mx-auto max-w-sm">
               <CardHeader>
-                <CardTitle className="text-2xl">Auth</CardTitle>
+                <CardTitle className="text-xl">{uiConstants.brandName}</CardTitle>
                 <CardDescription>
                   Please verify your auth by entering the auth passkey we sent to your inbox
                 </CardDescription>
