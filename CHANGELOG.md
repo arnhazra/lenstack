@@ -1,6 +1,8 @@
 # Changelog
 
 ### v12.0.0
+* Home page updates
+* Minor code refactoring
 * Regular dependency updates
 
 ### v11.2.2
