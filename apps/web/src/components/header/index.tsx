@@ -138,7 +138,7 @@ export default function Header() {
           </Sheet>
           <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
             <div className="ml-auto">
-              <Button variant="secondary" onClick={(): void => router.push("/dashboard")}>
+              <Button variant="default" onClick={(): void => router.push("/dashboard")}>
                 Get Started
               </Button>
             </div>
