@@ -77,7 +77,7 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<Loading />}>
       <div className="min-h-screen w-full bg-white">
-        <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-20">
+        <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-16">
           <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
             <Link href={uiConstants.linkedinUri} target="_blank" rel="noopener noreferrer">
               <Badge variant="outline" className="px-4 py-1.5 text-sm font-medium">
@@ -85,7 +85,10 @@ export default function Page() {
               </Badge>
             </Link>
             <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">
-              {uiConstants.homeHeader} {uiConstants.brandName}
+              {uiConstants.homeHeader}
+            </h1>
+            <h1 className="font-heading text-2xl sm:text-2xl md:text-2xl lg:text-4xl bg-slate-900 text-white p-4 rounded-xl">
+              {uiConstants.brandName}
             </h1>
             <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8">
               {uiConstants.homeIntro}
@@ -178,7 +181,7 @@ export default function Page() {
               Pricing
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Choose an {uiConstants.brandName} subscription plan that"s right for you.
+              Choose an {uiConstants.brandName} subscription plan that's right for you.
               Downgrade, upgrade or cancel any time.{" "}
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
