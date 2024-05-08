@@ -12,7 +12,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
 
   return (
     <Suspense condition={!userState.hasActiveSubscription} fallback={children}>
-      <div className="fixed inset-0 overflow-y-auto flex justify-center items-center bg-white">
+      <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
         <Card className="mx-auto max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Hold On</CardTitle>
