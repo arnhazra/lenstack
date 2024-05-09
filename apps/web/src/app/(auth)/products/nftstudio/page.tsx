@@ -16,6 +16,7 @@ import { nftABI } from "./bin/nft-abi"
 import { MintNFTModal } from "./mintnftmodal"
 import Link from "next/link"
 import { ExternalLinkIcon, Hexagon } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
@@ -82,16 +83,13 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>Your NFT Count</CardDescription>
-                  <CardTitle className="text-4xl">{nftList.length}</CardTitle>
+                  <CardDescription>What is an NFT</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Number of NFTs you minted under this contract
+                  <div className="text-sm text-slate-600">
+                    An NFT is a data file, stored on a type of digital ledger called a blockchain, which can be sold and traded.
                   </div>
                 </CardContent>
-                <CardFooter>
-                </CardFooter>
               </Card>
               <Card>
                 <CardHeader className="pb-2">
@@ -103,8 +101,6 @@ export default function Page() {
                     Number of NFTs you minted under this contract
                   </div>
                 </CardContent>
-                <CardFooter>
-                </CardFooter>
               </Card>
             </div>
             <Card>

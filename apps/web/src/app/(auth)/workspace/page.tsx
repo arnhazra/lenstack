@@ -16,6 +16,7 @@ import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import MaskText from "@/components/mask"
 import Error from "@/components/error"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const [{ userState, appState }, dispatch] = useContext(GlobalContext)
@@ -94,14 +95,14 @@ export default function Page() {
               <Card className="sm:col-span-2">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Selected Workspace
+                    Workspace
                   </CardTitle>
                   <BoxIcon className="h-4 w-4 text-muted-foreground scale-150" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold capitalize">{workspaces.data?.myWorkspaces?.find((item: any) => item._id === userState.selectedWorkspaceId).name}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Your current selected workspace
+                  <p className="text-md text-slate-600">
+                    A workspace in {uiConstants.brandName} is a place where you can
+                    collaborate and make collective decisions using data.
                   </p>
                 </CardContent>
                 <CardFooter>
@@ -117,7 +118,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{workspaces.data?.myWorkspaces?.length}</div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-slate-600">
                     Total number of workspaces
                   </p>
                 </CardContent>
@@ -125,14 +126,14 @@ export default function Page() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Workspace Count
+                    Selected Workspace
                   </CardTitle>
                   <BoxesIcon className="h-4 w-4 text-muted-foreground scale-150" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{workspaces.data?.myWorkspaces?.length}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Total number of workspaces
+                  <div className="text-2xl font-bold capitalize">{workspaces.data?.myWorkspaces?.find((item: any) => item._id === userState.selectedWorkspaceId).name}</div>
+                  <p className="text-sm text-slate-600">
+                    Your current selected workspace
                   </p>
                 </CardContent>
               </Card>

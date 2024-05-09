@@ -48,12 +48,12 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>Metrics Count</CardDescription>
-                  <CardTitle className="text-4xl">{swapTokenConfig?.data?.length}</CardTitle>
+                  <CardDescription>MV Token</CardDescription>
+                  <CardTitle className="text-4xl">Gold Token</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
-                    Total Tokens
+                    10000/MATIC
                   </div>
                 </CardContent>
                 <CardFooter>
