@@ -34,83 +34,77 @@ export default function Page() {
   return (
     <Suspense condition={!analytics.isLoading && !products.isLoading} fallback={<Loading />}>
       <Suspense condition={!analytics.error && !products.error} fallback={<Error />}>
-        <div className="flex min-h-screen w-full flex-col bg-muted/40">
-          <div className="flex flex-col sm:gap-4 sm:py-4">
-            <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols2 xl:grid-cols-1">
-              <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
-                  <Card className="sm:col-span-2">
-                    <CardHeader className="pb-3">
-                      <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                      <CardDescription className="max-w-lg text-balance leading-relaxed">
-                        {selectedProduct?.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardFooter>
-                      <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
-                    </CardFooter>
-                  </Card>
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardDescription>Metrics Count</CardDescription>
-                      <CardTitle className="text-4xl">{analytics?.data?.analytics?.length}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-xs text-muted-foreground">
-                        Total number of events
-                        in this workspace
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                    </CardFooter>
-                  </Card>
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardDescription>Latest Event</CardDescription>
-                      <Suspense condition={analytics?.data?.analytics?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                        <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "MMM, do yyyy")}</CardTitle>
-                        <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "h:mm a")}</CardTitle>
-                      </Suspense>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-xs text-muted-foreground">
-                        Latest event creation time
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                    </CardFooter>
-                  </Card>
-                </div>
-                <div>
-                  <Card>
-                    <CardHeader className="px-7">
-                      <CardTitle>Analytics</CardTitle>
-                      <CardDescription>
-                        Your Analytics in this workspace
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Suspense condition={analytics?.data?.analytics.length > 0} fallback={<p className="text-center">No data to display</p>}>
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead>Component</TableHead>
-                              <TableHead>Event</TableHead>
-                              <TableHead className="hidden md:table-cell">Info</TableHead>
-                              <TableHead className="hidden md:table-cell">Status Code</TableHead>
-                              <TableHead className="text-right hidden md:table-cell">Date</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {renderAnalytics}
-                          </TableBody>
-                        </Table>
-                      </Suspense>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
+        <div className="flex min-h-screen w-full flex-col">
+          <div className="flex flex-1 flex-col gap-4 p-4">
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <Card className="sm:col-span-2">
+                <CardHeader className="pb-3">
+                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
+                  <CardDescription className="max-w-lg text-balance leading-relaxed">
+                    {selectedProduct?.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter>
+                  <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Metrics Count</CardDescription>
+                  <CardTitle className="text-4xl">{analytics?.data?.analytics?.length}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">
+                    Total number of events
+                    in this workspace
+                  </div>
+                </CardContent>
+                <CardFooter>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Latest Event</CardDescription>
+                  <Suspense condition={analytics?.data?.analytics?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
+                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "MMM, do yyyy")}</CardTitle>
+                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "h:mm a")}</CardTitle>
+                  </Suspense>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">
+                    Latest event creation time
+                  </div>
+                </CardContent>
+                <CardFooter>
+                </CardFooter>
+              </Card>
             </div>
+            <Card className="xl:col-span-2">
+              <CardHeader className="px-7">
+                <CardTitle>Analytics</CardTitle>
+                <CardDescription>
+                  Your Analytics in this workspace
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Suspense condition={analytics?.data?.analytics.length > 0} fallback={<p className="text-center">No data to display</p>}>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Component</TableHead>
+                        <TableHead>Event</TableHead>
+                        <TableHead className="hidden md:table-cell">Info</TableHead>
+                        <TableHead className="hidden md:table-cell">Status Code</TableHead>
+                        <TableHead className="text-right hidden md:table-cell">Date</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {renderAnalytics}
+                    </TableBody>
+                  </Table>
+                </Suspense>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </Suspense>

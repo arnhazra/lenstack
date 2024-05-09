@@ -74,7 +74,7 @@ export default function Page() {
       <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-col sm:gap-4 sm:py-4">
-            <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+            <div className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
               <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
                   <Card className="sm:col-span-2 pb-4">
@@ -112,119 +112,115 @@ export default function Page() {
                     </CardFooter>
                   </Card>
                 </div>
-                <div>
-                  <Card>
-                    <CardHeader className="px-7">
-                      <CardTitle>Related Datasets</CardTitle>
-                      <CardDescription>
-                        Datasets of similar category
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Dataset Name</TableHead>
-                            <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
-                            <TableHead>Data Quality</TableHead>
-                            <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {renderRelatedDatasets}
-                        </TableBody>
-                      </Table>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-              <div>
-                <Card className="overflow-hidden">
-                  <CardHeader className="flex flex-row items-start bg-muted/50">
-                    <div className="grid gap-0.5">
-                      <CardTitle className="group flex items-center gap-2 text-lg">
-                        {dataset?.data?.metaData?.name}
-                      </CardTitle>
-                      <CardDescription>{dataset?.data?.metaData?.category}</CardDescription>
-                    </div>
-                    <div className="ml-auto flex items-center gap-1">
-                      <Button size="sm" variant="outline" className="h-8 gap-1" onClick={copyDatasetId}>
-                        <CopyIcon className="h-3.5 w-3.5" />
-                        <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                          Copy Dataset Id
-                        </span>
-                      </Button>
-                    </div>
+                <Card>
+                  <CardHeader className="px-7">
+                    <CardTitle>Related Datasets</CardTitle>
+                    <CardDescription>
+                      Datasets of similar category
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent className="p-6 text-sm">
-                    <div className="grid gap-3">
-                      <div className="font-semibold text-lg">Dataset Details</div>
-                      <ul className="grid gap-3">
-                        <li className="flex items-center justify-between">
-                          <span className="text-muted-foreground">
-                            Dataset Rating
-                          </span>
-                          <span>{dataset?.data?.metaData.rating}</span>
-                        </li>
-                        <li className="flex items-center justify-between">
-                          <span className="text-muted-foreground">
-                            Data Volume
-                          </span>
-                          <span>{dataset?.data?.dataLength}</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <Separator className="my-4" />
-                    <div className="grid gap-3">
-                      <div className="font-semibold text-lg">Data Quality & Maturity</div>
-                      <ul className="grid gap-3">
-                        <li className="flex items-center justify-between">
-                          <span className="text-muted-foreground">
-                            Data Quality
-                          </span>
-                          <span>
-                            <Suspense condition={dataset?.data?.metaData?.rating >= 4.5} fallback={null}>
-                              <Badge variant="default" key={"gold"}><Medal className="scale-50" />Gold</Badge>
-                            </Suspense>
-                            <Suspense condition={dataset?.data?.metaData?.rating >= 4.0 && dataset?.data?.metaData?.rating < 4.5} fallback={null}>
-                              <Badge variant="secondary" key={"silver"}><Medal className="scale-50" />Silver</Badge>
-                            </Suspense>
-                            <Suspense condition={dataset?.data?.metaData?.rating < 4.0} fallback={null}>
-                              <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
-                            </Suspense>
-                          </span>
-                        </li>
-                        <li className="flex items-center justify-between">
-                          <span className="text-muted-foreground">
-                            Data Maturity
-                          </span>
-                          <span>
-                            <Suspense condition={dataset?.data?.metaData?.rating >= 4.2} fallback={null}>
-                              <Badge variant="default" key={"gold"}><ShieldCheck className="scale-50" />Level 3</Badge>
-                            </Suspense>
-                            <Suspense condition={dataset?.data?.metaData?.rating >= 3.6 && dataset?.data?.metaData?.rating < 4.2} fallback={null}>
-                              <Badge variant="secondary" key={"silver"}><ShieldCheck className="scale-50" />Level 2</Badge>
-                            </Suspense>
-                            <Suspense condition={dataset?.data?.metaData?.rating < 3.6} fallback={null}>
-                              <Badge variant="outline" key={"bronze"}><ShieldCheck className="scale-50" />Level 1</Badge >
-                            </Suspense>
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                    <Separator className="my-4" />
-                    <div className="grid gap-3">
-                      <div className="font-semibold text-lg">Dataset Tags</div>
-                      <div>
-                        {renderDatasetTags}
-                      </div>
-                    </div>
+                  <CardContent>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Dataset Name</TableHead>
+                          <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
+                          <TableHead>Data Quality</TableHead>
+                          <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {renderRelatedDatasets}
+                      </TableBody>
+                    </Table>
                   </CardContent>
-                  <CardFooter className="flex flex-row items-center bg-muted/50 px-6 py-3">
-                    <Button variant="default" className="w-full" onClick={(): void => router.push("/apireference")}>Data API Reference<BookMarked className="scale-75" /></Button>
-                  </CardFooter>
                 </Card>
               </div>
+              <Card className="overflow-hidden">
+                <CardHeader className="flex flex-row items-start bg-muted/50">
+                  <div className="grid gap-0.5">
+                    <CardTitle className="group flex items-center gap-2 text-lg">
+                      {dataset?.data?.metaData?.name}
+                    </CardTitle>
+                    <CardDescription>{dataset?.data?.metaData?.category}</CardDescription>
+                  </div>
+                  <div className="ml-auto flex items-center gap-1">
+                    <Button size="sm" variant="outline" className="h-8 gap-1" onClick={copyDatasetId}>
+                      <CopyIcon className="h-3.5 w-3.5" />
+                      <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
+                        Copy Dataset Id
+                      </span>
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6 text-sm">
+                  <div className="grid gap-3">
+                    <div className="font-semibold text-lg">Dataset Details</div>
+                    <ul className="grid gap-3">
+                      <li className="flex items-center justify-between">
+                        <span className="text-muted-foreground">
+                          Dataset Rating
+                        </span>
+                        <span>{dataset?.data?.metaData.rating}</span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-muted-foreground">
+                          Data Volume
+                        </span>
+                        <span>{dataset?.data?.dataLength}</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="grid gap-3">
+                    <div className="font-semibold text-lg">Data Quality & Maturity</div>
+                    <ul className="grid gap-3">
+                      <li className="flex items-center justify-between">
+                        <span className="text-muted-foreground">
+                          Data Quality
+                        </span>
+                        <span>
+                          <Suspense condition={dataset?.data?.metaData?.rating >= 4.5} fallback={null}>
+                            <Badge variant="default" key={"gold"}><Medal className="scale-50" />Gold</Badge>
+                          </Suspense>
+                          <Suspense condition={dataset?.data?.metaData?.rating >= 4.0 && dataset?.data?.metaData?.rating < 4.5} fallback={null}>
+                            <Badge variant="secondary" key={"silver"}><Medal className="scale-50" />Silver</Badge>
+                          </Suspense>
+                          <Suspense condition={dataset?.data?.metaData?.rating < 4.0} fallback={null}>
+                            <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
+                          </Suspense>
+                        </span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-muted-foreground">
+                          Data Maturity
+                        </span>
+                        <span>
+                          <Suspense condition={dataset?.data?.metaData?.rating >= 4.2} fallback={null}>
+                            <Badge variant="default" key={"gold"}><ShieldCheck className="scale-50" />Level 3</Badge>
+                          </Suspense>
+                          <Suspense condition={dataset?.data?.metaData?.rating >= 3.6 && dataset?.data?.metaData?.rating < 4.2} fallback={null}>
+                            <Badge variant="secondary" key={"silver"}><ShieldCheck className="scale-50" />Level 2</Badge>
+                          </Suspense>
+                          <Suspense condition={dataset?.data?.metaData?.rating < 3.6} fallback={null}>
+                            <Badge variant="outline" key={"bronze"}><ShieldCheck className="scale-50" />Level 1</Badge >
+                          </Suspense>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="grid gap-3">
+                    <div className="font-semibold text-lg">Dataset Tags</div>
+                    <div>
+                      {renderDatasetTags}
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex flex-row items-center bg-muted/50 px-6 py-3">
+                  <Button variant="default" className="w-full" onClick={(): void => router.push("/apireference")}>Data API Reference<BookMarked className="scale-75" /></Button>
+                </CardFooter>
+              </Card>
             </div>
           </div>
         </div>

@@ -17,8 +17,8 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 100000,
     features: [
       "Upto 10 workspaces",
-      "Valid for a month",
-      "Fast API response",
+      "Renewed monthly",
+      "Priority API response",
       "Good for organizations",
       "The pro plan"
     ],

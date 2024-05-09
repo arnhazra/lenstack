@@ -1,5 +1,11 @@
 # Changelog
 
+### v12.0.0
+* Layout sync across app for all products, dashboard & workspace page
+* Home page updates
+* Minor code refactoring
+* Regular dependency updates
+
 ### v11.2.2
 * Rebranding of Data Exchange to Data Marketplace
 * Pricing restructure

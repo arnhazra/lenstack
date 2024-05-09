@@ -37,14 +37,27 @@ export default function Page() {
       <Suspense condition={!swapTokenConfig.error && !products.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
-              <Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <Card className="sm:col-span-2">
                 <CardHeader className="pb-3">
                   <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
                   <CardDescription className="max-w-lg text-balance leading-relaxed">
                     {selectedProduct?.description}
                   </CardDescription>
                 </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>MV Token</CardDescription>
+                  <CardTitle className="text-4xl">Gold Token</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">
+                    10000/MATIC
+                  </div>
+                </CardContent>
+                <CardFooter>
+                </CardFooter>
               </Card>
               <Card>
                 <CardHeader className="pb-2">

@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils"
 import { Fragment } from "react"
 
-export default function Loading() {
+export default function LoadingComponent() {
   return (
     <Fragment>
       <div className="fixed inset-0 flex justify-center items-center z-50 bg-white">
