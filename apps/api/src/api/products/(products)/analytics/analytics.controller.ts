@@ -8,9 +8,9 @@ export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) { }
 
   @Get("get")
-  async getAnalytics(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  async getAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
     try {
-      return await this.analyticsService.getAnalytics(ufc.workspaceId)
+      return await this.analyticsService.getAnalytics(user.workspaceId)
     }
 
     catch (error) {
@@ -19,9 +19,9 @@ export class AnalyticsController {
   }
 
   @Post("create")
-  async createAnalytics(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
+  async createAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      return await this.analyticsService.createAnalytics(ufc.workspaceId, createAnalyticsDto)
+      return await this.analyticsService.createAnalytics(user.workspaceId, createAnalyticsDto)
     }
 
     catch (error) {

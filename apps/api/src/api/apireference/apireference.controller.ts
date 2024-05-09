@@ -7,7 +7,7 @@ export class ApiReferenceController {
   constructor(private readonly apireferenceService: ApiReferenceService) { }
 
   @Get("get")
-  async getApiReferenceByProductName(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("productName") productName: string) {
+  async getApiReferenceByProductName(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("productName") productName: string) {
     try {
       const docList = await this.apireferenceService.getApiReferenceByProductName(productName)
       return { docList }

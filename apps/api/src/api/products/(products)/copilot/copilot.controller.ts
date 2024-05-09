@@ -8,9 +8,9 @@ export class CopilotController {
   constructor(private readonly copilotService: CopilotService) { }
 
   @Post("generate")
-  async generateRecommendation(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() aiGenerationDto: AIGenerationDto) {
+  async generateRecommendation(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() aiGenerationDto: AIGenerationDto) {
     try {
-      return await this.copilotService.generateRecommendation(ufc.workspaceId, aiGenerationDto.prompt, aiGenerationDto.temperature, aiGenerationDto.topP, aiGenerationDto.topK)
+      return await this.copilotService.generateRecommendation(user.workspaceId, aiGenerationDto.prompt, aiGenerationDto.temperature, aiGenerationDto.topP, aiGenerationDto.topK)
     }
 
     catch (error) {

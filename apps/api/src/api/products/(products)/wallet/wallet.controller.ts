@@ -9,9 +9,9 @@ export class WalletController {
   constructor(private readonly walletService: WalletService) { }
 
   @Post("txgateway")
-  async transactionGateway(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() requestBody: any) {
+  async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any) {
     try {
-      const response = await this.walletService.transactionGateway(requestBody, ufc.workspaceId)
+      const response = await this.walletService.transactionGateway(requestBody, user.workspaceId)
       return response
     }
 
@@ -21,9 +21,9 @@ export class WalletController {
   }
 
   @Get("gettransactions")
-  async getTransactions(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  async getTransactions(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
-      const transactions = await this.walletService.getTransactions(uft.workspaceId)
+      const transactions = await this.walletService.getTransactions(user.workspaceId)
       return transactions
     }
 

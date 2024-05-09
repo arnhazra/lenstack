@@ -8,9 +8,9 @@ export class SwapController {
   constructor(private readonly swapService: SwapService) { }
 
   @Post("txgateway")
-  async transactionGateway(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() requestBody: any) {
+  async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any) {
     try {
-      const response = await this.swapService.transactionGateway(requestBody, ufc.workspaceId)
+      const response = await this.swapService.transactionGateway(requestBody, user.workspaceId)
       return response
     }
 
@@ -20,7 +20,7 @@ export class SwapController {
   }
 
   @Get("getswaptokenconfig")
-  async getSwapTokenList(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
+  async getSwapTokenList(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("searchQuery") searchQuery: string) {
     try {
       const swapTokenConfig = await this.swapService.getSwapTokenList(searchQuery)
       return swapTokenConfig
