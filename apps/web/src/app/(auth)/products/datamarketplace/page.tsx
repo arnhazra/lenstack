@@ -103,119 +103,113 @@ export default function Page() {
   return (
     <Suspense condition={!datasets.isLoading && !products.isLoading} fallback={<Loading />}>
       <Suspense condition={!datasets.error && !products.error} fallback={<Error />}>
-        <div className="flex min-h-screen w-full flex-col bg-muted/40">
-          <div className="flex flex-col sm:gap-4 sm:py-4">
-            <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols2 xl:grid-cols-1">
-              <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
-                  <Card className="sm:col-span-2">
-                    <CardHeader className="pb-3">
-                      <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                      <CardDescription className="max-w-lg text-balance leading-relaxed">
-                        {selectedProduct?.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardFooter>
-                      <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
-                    </CardFooter>
-                  </Card>
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardDescription>Datasets Count</CardDescription>
-                      <CardTitle className="text-4xl">{datasets?.data?.datasets?.length}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-xs text-muted-foreground">
-                        Total number of dataset
-                        results shown
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                    </CardFooter>
-                  </Card>
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardDescription>Dataset Categories</CardDescription>
-                      <CardTitle className="text-4xl">{filters?.data?.filterCategories?.length}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-xs text-muted-foreground">
-                        Number of dataset categories
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                    </CardFooter>
-                  </Card>
-                </div>
-                <div>
-                  <Card>
-                    <CardHeader className="px-7">
-                      <CardTitle>Datasets</CardTitle>
-                      <CardDescription>
-                        Explore datasets from different categories
-                      </CardDescription>
-                      <div className="ml-auto flex items-center gap-2">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-8 gap-1">
-                              <ListFilter className="h-3.5 w-3.5" />
-                              <span>
-                                Filter
-                              </span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Filter</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            {renderFilterOptions}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-8 gap-1">
-                              <SortAsc className="h-3.5 w-3.5" />
-                              <span>
-                                Sort
-                              </span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Sort</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            {renderSortOptions}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <Suspense condition={datasets?.data?.datasets.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead>Dataset Name</TableHead>
-                              <TableHead>Category</TableHead>
-                              <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
-                              <TableHead className="hidden md:table-cell">Data Quality</TableHead>
-                              <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {renderDatasets}
-                          </TableBody>
-                        </Table>
-                      </Suspense>
-                    </CardContent>
-                    <CardFooter>
-                      {datasetRequestState.offset !== 0 && <Button variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>}
-                      {datasets?.data?.datasets?.length === 24 && <Button variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>}
-                    </CardFooter>
-                  </Card>
-                </div>
-              </div>
+        <div className="flex min-h-screen w-full flex-col">
+          <div className="flex flex-1 flex-col gap-4 p-4">
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <Card className="sm:col-span-2">
+                <CardHeader className="pb-3">
+                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
+                  <CardDescription className="max-w-lg text-balance leading-relaxed">
+                    {selectedProduct?.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter>
+                  <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Datasets Count</CardDescription>
+                  <CardTitle className="text-4xl">{datasets?.data?.datasets?.length}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">
+                    Total number of dataset
+                    results shown
+                  </div>
+                </CardContent>
+                <CardFooter>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Dataset Categories</CardDescription>
+                  <CardTitle className="text-4xl">{filters?.data?.filterCategories?.length}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">
+                    Number of dataset categories
+                  </div>
+                </CardContent>
+                <CardFooter>
+                </CardFooter>
+              </Card>
             </div>
+            <Card className="xl:col-span-2">
+              <CardHeader className="px-7">
+                <CardTitle>Datasets</CardTitle>
+                <CardDescription>
+                  Explore datasets from different categories
+                </CardDescription>
+                <div className="ml-auto flex items-center gap-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="sm" className="h-8 gap-1">
+                        <ListFilter className="h-3.5 w-3.5" />
+                        <span>
+                          Filter
+                        </span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Filter</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      {renderFilterOptions}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="sm" className="h-8 gap-1">
+                        <SortAsc className="h-3.5 w-3.5" />
+                        <span>
+                          Sort
+                        </span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Sort</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      {renderSortOptions}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Suspense condition={datasets?.data?.datasets.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Dataset Name</TableHead>
+                        <TableHead>Category</TableHead>
+                        <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
+                        <TableHead className="hidden md:table-cell">Data Quality</TableHead>
+                        <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {renderDatasets}
+                    </TableBody>
+                  </Table>
+                </Suspense>
+              </CardContent>
+              <CardFooter>
+                {datasetRequestState.offset !== 0 && <Button variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>}
+                {datasets?.data?.datasets?.length === 24 && <Button variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>}
+              </CardFooter>
+            </Card>
           </div>
         </div>
-      </Suspense>
-    </Suspense>
+      </Suspense >
+    </Suspense >
   )
 }

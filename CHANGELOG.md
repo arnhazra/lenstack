@@ -1,6 +1,7 @@
 # Changelog
 
 ### v12.0.0
+* Layout sync across app for all products, dashboard & workspace page
 * Home page updates
 * Minor code refactoring
 * Regular dependency updates

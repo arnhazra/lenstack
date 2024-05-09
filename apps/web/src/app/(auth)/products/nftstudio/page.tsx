@@ -68,8 +68,8 @@ export default function Page() {
       <Suspense condition={!products.error && !hasError} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
-              <Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <Card className="sm:col-span-2">
                 <CardHeader className="pb-3">
                   <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
                   <CardDescription className="max-w-lg text-balance leading-relaxed">
@@ -78,6 +78,19 @@ export default function Page() {
                 </CardHeader>
                 <CardFooter>
                   <MintNFTModal />
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Your NFT Count</CardDescription>
+                  <CardTitle className="text-4xl">{nftList.length}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-xs text-muted-foreground">
+                    Number of NFTs you minted under this contract
+                  </div>
+                </CardContent>
+                <CardFooter>
                 </CardFooter>
               </Card>
               <Card>

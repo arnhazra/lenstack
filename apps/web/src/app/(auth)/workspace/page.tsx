@@ -90,8 +90,8 @@ export default function Page() {
       <Suspense condition={!workspaces.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
-              <Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <Card className="sm:col-span-2">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     Selected Workspace
@@ -107,6 +107,20 @@ export default function Page() {
                 <CardFooter>
                   <Button variant="default" className="flex items-center" onClick={createWorkspace}>Create Workspace</Button>
                 </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Workspace Count
+                  </CardTitle>
+                  <BoxesIcon className="h-4 w-4 text-muted-foreground scale-150" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{workspaces.data?.myWorkspaces?.length}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Total number of workspaces
+                  </p>
+                </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
