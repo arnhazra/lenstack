@@ -34,7 +34,7 @@
     "react-cache-buster": "^0.1.8",
     "react-dom": "^18",
     "react-json-view-lite": "^1.4.0",
-    "sass": "^1.76.0",
+    "sass": "^1.77.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "web3": "^4.8.0"
