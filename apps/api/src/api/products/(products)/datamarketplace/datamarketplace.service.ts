@@ -24,7 +24,7 @@ export class DatamarketplaceService {
       const selectedFilterCategory = findDatasetsDto.selectedFilter === "All" ? "" : findDatasetsDto.selectedFilter
       const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
       const offset = findDatasetsDto.offset || 0
-      const limit = 24
+      const limit = 25
       const datasets = await findDatasetsQuery(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
       return datasets
     }

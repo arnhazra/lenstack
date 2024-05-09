@@ -89,13 +89,13 @@ export default function Page() {
   })
 
   const prevPage = () => {
-    const prevDatasetReqNumber = datasetRequestState.offset - 24
+    const prevDatasetReqNumber = datasetRequestState.offset - 25
     setDatasetRequestState({ ...datasetRequestState, offset: prevDatasetReqNumber })
     window.scrollTo(0, 0)
   }
 
   const nextPage = () => {
-    const nextOffset = datasetRequestState.offset + 24
+    const nextOffset = datasetRequestState.offset + 25
     setDatasetRequestState({ ...datasetRequestState, offset: nextOffset })
     window.scrollTo(0, 0)
   }
@@ -203,8 +203,8 @@ export default function Page() {
                 </Suspense>
               </CardContent>
               <CardFooter>
-                {datasetRequestState.offset !== 0 && <Button variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>}
-                {datasets?.data?.datasets?.length === 24 && <Button variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>}
+                <Button disabled={datasetRequestState.offset === 0} variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>
+                <Button disabled={datasets?.data?.datasets?.length !== 25} variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>
               </CardFooter>
             </Card>
           </div>
