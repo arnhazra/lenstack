@@ -1,5 +1,9 @@
 # Changelog
 
+### v12.1.0
+* Regular dependency updates & bug fixes
+* renamed uft & ufc in authorizers to user
+
 ### v12.0.0
 * Layout sync across app for all products, dashboard & workspace page
 * Home page updates
