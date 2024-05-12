@@ -3,6 +3,7 @@
 ### v6.2.0
 * Regular dependency updates & bug fixes
 * renamed uft & ufc in authorizers to user
+* Deprecated Swap & Wallet applications
 
 ### v6.1.2
 * Layout sync across app for all products, dashboard & workspace page
