@@ -45,7 +45,7 @@ export const CredentialAuthorizer = createParamDecorator(
               }
 
               else {
-                if (subscription.selectedPlan === SubscriptionPlans.Hobby) {
+                if (subscription.selectedPlan === SubscriptionPlans.Trial) {
                   await delay(500)
                 }
 

@@ -14,6 +14,7 @@ export interface UserState {
   hasActiveSubscription: boolean,
   isAuthorized: boolean,
   reduceCarbonEmissions: boolean,
+  isTrialAvailable: boolean,
 }
 
 export interface AppState {

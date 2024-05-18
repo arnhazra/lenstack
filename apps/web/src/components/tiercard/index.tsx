@@ -4,7 +4,6 @@ import { Button } from "../ui/button"
 import Suspense from "../suspense"
 
 type TierCardComponentProps = {
-  isSelected: boolean,
   disabled: boolean,
   planName: string,
   price: number,
@@ -13,7 +12,7 @@ type TierCardComponentProps = {
   handleClick: (planName: string) => void
 }
 
-export function TierCardComponent({ isSelected, disabled, planName, price, grantedCredits, features, handleClick }: TierCardComponentProps) {
+export function TierCardComponent({ disabled, planName, price, grantedCredits, features, handleClick }: TierCardComponentProps) {
   return (
     <div className="grid w-full items-start gap-10 rounded-lg border p-10 md:grid-cols-[1fr_200px]">
       <div className="grid gap-6">
@@ -37,14 +36,12 @@ export function TierCardComponent({ isSelected, disabled, planName, price, grant
         <div>
           <h4 className="text-6xl font-bold">₹{price}</h4>
           <p className="text-sm font-medium text-muted-foreground">
-            Billed Monthly
+            {planName === "pro" && "Billed Monthly"}
           </p>
         </div>
         <Button disabled={disabled} variant="default" onClick={(): void => handleClick(planName)}>
-          <Suspense condition={!isSelected} fallback="Current Selected Plan">
-            <Suspense condition={!!price} fallback="Activate for free">
-              Get started
-            </Suspense>
+          <Suspense condition={!!price} fallback="Activate for free">
+            Get started
           </Suspense>
         </Button>
       </div>
