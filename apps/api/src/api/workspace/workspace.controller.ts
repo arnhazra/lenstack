@@ -9,9 +9,9 @@ export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) { }
 
   @Post("create")
-  async createWorkspace(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() createWorkspaceDto: CreateWorkspaceDto) {
+  async createWorkspace(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() createWorkspaceDto: CreateWorkspaceDto) {
     try {
-      const workspace = await this.workspaceService.createWorkspace(uft.userId, createWorkspaceDto)
+      const workspace = await this.workspaceService.createWorkspace(user.userId, createWorkspaceDto)
       return workspace
     }
 
@@ -21,9 +21,9 @@ export class WorkspaceController {
   }
 
   @Get("findmyworkspaces")
-  async findMyWorkspaces(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  async findMyWorkspaces(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
-      const myWorkspaces = await this.workspaceService.findMyWorkspaces(uft.userId)
+      const myWorkspaces = await this.workspaceService.findMyWorkspaces(user.userId)
       return { myWorkspaces }
     }
 
@@ -33,9 +33,9 @@ export class WorkspaceController {
   }
 
   @Post("switch")
-  async switchWorkspace(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("workspaceId") workspaceId: string) {
+  async switchWorkspace(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("workspaceId") workspaceId: string) {
     try {
-      return await this.workspaceService.switchWorkspace(uft.userId, workspaceId)
+      return await this.workspaceService.switchWorkspace(user.userId, workspaceId)
     }
 
     catch (error) {

@@ -11,8 +11,6 @@ export const envConfig = {
   datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
   kvstoreDatabaseURI: process.env.KVSTORE_DATABASE_URI,
   nftstudioDatabaseURI: process.env.NFTSTUDIO_DATABASE_URI,
-  swapDatabaseURI: process.env.SWAP_DATABASE_URI,
-  walletDatabaseURI: process.env.WALLET_DATABASE_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,

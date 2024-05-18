@@ -10,7 +10,7 @@ export class DatamarketplaceController {
   constructor(private readonly datamarketplaceService: DatamarketplaceService) { }
 
   @Get("filters")
-  async getDatasetFilters(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  async getDatasetFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
       const filterCategories = await this.datamarketplaceService.getDatasetFilters()
       return { filterCategories }
@@ -22,7 +22,7 @@ export class DatamarketplaceController {
   }
 
   @Post("finddatasets")
-  async findDatasets(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() findDatasetsDto: FindDatasetsDto) {
+  async findDatasets(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findDatasetsDto: FindDatasetsDto) {
     try {
       const datasets = await this.datamarketplaceService.findDatasets(findDatasetsDto)
       return { datasets }
@@ -34,7 +34,7 @@ export class DatamarketplaceController {
   }
 
   @Get("viewdataset")
-  async viewDataset(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
+  async viewDataset(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
     try {
       const data = await this.datamarketplaceService.viewDataset(datasetId)
       return data
@@ -46,7 +46,7 @@ export class DatamarketplaceController {
   }
 
   @Post("dataapi")
-  async getData(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
+  async getData(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
     try {
       const { datasetId } = dataapiDto
       const data = await this.datamarketplaceService.getData(datasetId)

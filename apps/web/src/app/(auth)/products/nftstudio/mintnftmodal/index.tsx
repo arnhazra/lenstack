@@ -20,7 +20,7 @@ import LoaderIcon from "@/components/loaderIcon"
 export function MintNFTModal() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const [{ userState }] = useContext(GlobalContext)
-  const web3Provider = new Web3(`${endPoints.swapTxGateway}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}`)
+  const web3Provider = new Web3(`${endPoints.nftstudioTxGateway}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}`)
   const router = useRouter()
   const [state, setState] = useState({ name: "", description: "", link: "", isLoading: false })
   const [dialogVisible, setDialogVisible] = useState(false)

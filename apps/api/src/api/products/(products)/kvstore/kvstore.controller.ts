@@ -8,9 +8,9 @@ export class KvstoreController {
   constructor(private readonly kvstoreService: KvstoreService) { }
 
   @Post("createkv")
-  async createKv(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
+  async createKv(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
     try {
-      return await this.kvstoreService.createKv(ufc.workspaceId, createKvDto)
+      return await this.kvstoreService.createKv(user.workspaceId, createKvDto)
     }
 
     catch (error) {
@@ -19,9 +19,9 @@ export class KvstoreController {
   }
 
   @Get("readkv")
-  async readKvList(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse) {
+  async readKvList(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
     try {
-      const { kvs } = await this.kvstoreService.readKvList(ufc.workspaceId)
+      const { kvs } = await this.kvstoreService.readKvList(user.workspaceId)
       return { kvs }
     }
 
@@ -31,9 +31,9 @@ export class KvstoreController {
   }
 
   @Delete("deletekv")
-  async deleteKv(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Query("kvId") kvId: string) {
+  async deleteKv(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Query("kvId") kvId: string) {
     try {
-      return await this.kvstoreService.deleteKv(ufc.workspaceId, kvId)
+      return await this.kvstoreService.deleteKv(user.workspaceId, kvId)
     }
 
     catch (error) {

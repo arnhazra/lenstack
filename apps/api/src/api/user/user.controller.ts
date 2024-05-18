@@ -42,9 +42,9 @@ export class UserController {
   }
 
   @Get("userdetails")
-  async getUserDetails(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  async getUserDetails(@TokenAuthorizer() userT: TokenAuthorizerResponse) {
     try {
-      const { user, subscription, workspace, hasActiveSubscription } = await this.userService.getUserDetails(uft.userId, uft.workspaceId)
+      const { user, subscription, workspace, hasActiveSubscription } = await this.userService.getUserDetails(userT.userId, userT.workspaceId)
 
       if (user) {
         return { user, subscription, workspace, hasActiveSubscription }
@@ -61,9 +61,9 @@ export class UserController {
   }
 
   @Post("signout")
-  async signOut(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  async signOut(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
-      await this.userService.signOut(uft.userId)
+      await this.userService.signOut(user.userId)
       return { message: statusMessages.signOutSuccess }
     }
 
@@ -85,9 +85,9 @@ export class UserController {
   }
 
   @Patch("updatecarbonsettings")
-  async updateCarbonSettings(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
+  async updateCarbonSettings(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
     try {
-      return await this.userService.updateCarbonSettings(uft.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
+      return await this.userService.updateCarbonSettings(user.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
     }
 
     catch (error) {

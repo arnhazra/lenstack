@@ -8,9 +8,9 @@ export class NftstudioController {
   constructor(private readonly nftstudioService: NftstudioService) { }
 
   @Post("txgateway")
-  async transactionGateway(@CredentialAuthorizer() ufc: CredentialAuthorizerResponse, @Body() requestBody: any) {
+  async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any) {
     try {
-      const response = await this.nftstudioService.transactionGateway(requestBody, ufc.workspaceId)
+      const response = await this.nftstudioService.transactionGateway(requestBody, user.workspaceId)
       return response
     }
 
@@ -20,7 +20,7 @@ export class NftstudioController {
   }
 
   @Get("getnftcontractaddress")
-  getNftContractAddress(@TokenAuthorizer() uft: TokenAuthorizerResponse) {
+  getNftContractAddress(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
       return this.nftstudioService.getNftContractAddress()
     }

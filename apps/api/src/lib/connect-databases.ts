@@ -7,8 +7,6 @@ export const copilotDatabaseConn: Connection = createConnection(envConfig.copilo
 export const datamarketplaceDatabaseConn: Connection = createConnection(envConfig.datamarketplaceDatabaseURI)
 export const kvstoreDatabaseConn: Connection = createConnection(envConfig.kvstoreDatabaseURI)
 export const nftstudioDatabaseConn: Connection = createConnection(envConfig.nftstudioDatabaseURI)
-export const swapDatabaseConn: Connection = createConnection(envConfig.swapDatabaseURI)
-export const walletDatabaseConn: Connection = createConnection(envConfig.walletDatabaseURI)
 
 async function platformDatabaseConnect(): Promise<void> {
   platformDatabaseConn.on("connected", () => console.log("Platform Database Connection Success"))
@@ -30,9 +28,9 @@ async function datamarketplaceDatabaseConnect(): Promise<void> {
   datamarketplaceDatabaseConn.on("error", () => console.log("Data Marketplace Database Connection Failure"))
 }
 
-async function walletDatabaseConnect(): Promise<void> {
-  walletDatabaseConn.on("connected", () => console.log("Wallet Database Connection Success"))
-  walletDatabaseConn.on("error", () => console.log("Wallet Database Connection Failure"))
+async function kvstoreDatabaseConnect(): Promise<void> {
+  kvstoreDatabaseConn.on("connected", () => console.log("KV Store Database Connection Success"))
+  kvstoreDatabaseConn.on("error", () => console.log("KV Store Database Connection Failure"))
 }
 
 async function nftstudioDatabaseConnect(): Promise<void> {
@@ -40,23 +38,11 @@ async function nftstudioDatabaseConnect(): Promise<void> {
   nftstudioDatabaseConn.on("error", () => console.log("NFT Studio Database Connection Failure"))
 }
 
-async function swapDatabaseConnect(): Promise<void> {
-  swapDatabaseConn.on("connected", () => console.log("Swap Database Connection Success"))
-  swapDatabaseConn.on("error", () => console.log("Swap Database Connection Failure"))
-}
-
-async function kvstoreDatabaseConnect(): Promise<void> {
-  kvstoreDatabaseConn.on("connected", () => console.log("KV Store Database Connection Success"))
-  kvstoreDatabaseConn.on("error", () => console.log("KV Store Database Connection Failure"))
-}
-
 export async function connectDatabases(): Promise<void> {
   platformDatabaseConnect()
   analyticsDatabaseConnect()
   copilotDatabaseConnect()
   datamarketplaceDatabaseConnect()
-  walletDatabaseConnect()
-  nftstudioDatabaseConnect()
-  swapDatabaseConnect()
   kvstoreDatabaseConnect()
+  nftstudioDatabaseConnect()
 }

@@ -61,9 +61,7 @@ export const searchEnabledPathNames = [
   "/dashboard",
   "/products/datamarketplace",
   "/products/nftstudio",
-  "/products/swap",
   "/dashboard/",
   "/products/datamarketplace/",
   "/products/nftstudio/",
-  "/products/swap/"
 ]

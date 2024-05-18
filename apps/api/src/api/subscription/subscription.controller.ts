@@ -9,7 +9,7 @@ import { otherConstants } from "src/constants/other-constants"
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) { }
 
-  @Get("getsubscriptionconfig")
+  @Get("config")
   getSubscriptionConfig() {
     try {
       return this.subscriptionService.getSubscriptionConfig()
@@ -21,9 +21,9 @@ export class SubscriptionController {
   }
 
   @Post("create-checkout-session")
-  async createCheckoutSession(@TokenAuthorizer() uft: TokenAuthorizerResponse, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
+  async createCheckoutSession(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
     try {
-      const session = await this.subscriptionService.createCheckoutSession(createCheckoutSessionDto.selectedPlan, uft.userId)
+      const session = await this.subscriptionService.createCheckoutSession(createCheckoutSessionDto.selectedPlan, user.userId)
       return { redirectUrl: session.url }
     }
 
