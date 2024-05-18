@@ -9,7 +9,7 @@ import { otherConstants } from "src/constants/other-constants"
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) { }
 
-  @Get("getsubscriptionconfig")
+  @Get("config")
   getSubscriptionConfig() {
     try {
       return this.subscriptionService.getSubscriptionConfig()

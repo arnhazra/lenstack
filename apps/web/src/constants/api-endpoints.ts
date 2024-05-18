@@ -11,7 +11,7 @@ export const endPoints = {
   signOut: `${apiHost}/api/user/signout`,
   userTxGateway: `${apiHost}/api/user/txgateway`,
   updateCarbonSettings: `${apiHost}/api/user/updatecarbonsettings`,
-  getSubscriptionConfig: `${apiHost}/api/subscription/getsubscriptionconfig`,
+  getSubscriptionConfig: `${apiHost}/api/subscription/config`,
   createCheckoutSession: `${apiHost}/api/subscription/create-checkout-session`,
   createWorkspace: `${apiHost}/api/workspace/create`,
   findMyWorkspaces: `${apiHost}/api/workspace/findmyworkspaces`,
