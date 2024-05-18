@@ -1,5 +1,7 @@
 # Changelog
 
+### v6.2.1
+
 ### v6.2.0
 * Regular dependency updates & bug fixes
 * renamed uft & ufc in authorizers to user
