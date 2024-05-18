@@ -1,6 +1,6 @@
 export enum SubscriptionPlans {
   Pro = "pro",
-  Hobby = "hobby",
+  Trial = "trial",
 }
 
 export interface CreditType {
@@ -24,15 +24,15 @@ export const subscriptionConfig: CreditType[] = [
     ],
   },
   {
-    planName: SubscriptionPlans.Hobby,
+    planName: SubscriptionPlans.Trial,
     price: 0,
-    grantedCredits: 3000,
+    grantedCredits: 10000,
     features: [
       "Upto 10 workspaces",
       "Valid for a month",
       "Regular API response",
       "Good for developers",
-      "Free forever plan",
+      "The trial plan",
     ],
   },
 ]

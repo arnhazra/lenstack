@@ -1,5 +1,9 @@
 # Changelog
 
+### v6.2.1
+* Removal of Hobby Plan & Introduction of Trial Plan
+* Dependency updates & bug fixes
+
 ### v6.2.0
 * Regular dependency updates & bug fixes
 * renamed uft & ufc in authorizers to user
