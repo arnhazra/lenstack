@@ -9,7 +9,7 @@ export class ApiReferenceController {
   @Get("get")
   async getApiReferenceByProductName(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("productName") productName: string) {
     try {
-      const docList = await this.apireferenceService.getApiReferenceByProductName(productName)
+      const docList = await this.apireferenceService.getApiReferenceByProductName(user.userId, productName)
       return { docList }
     }
 

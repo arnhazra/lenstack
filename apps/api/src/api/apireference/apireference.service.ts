@@ -3,7 +3,7 @@ import { findAPIReferencesByProductNameQuery } from "./queries/find-apireference
 
 @Injectable()
 export class ApiReferenceService {
-  async getApiReferenceByProductName(productName: string) {
+  async getApiReferenceByProductName(userId: string, productName: string) {
     try {
       const docList = await findAPIReferencesByProductNameQuery(productName)
       return docList
