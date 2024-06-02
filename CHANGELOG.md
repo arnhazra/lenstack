@@ -3,6 +3,7 @@
 ### v6.2.1
 * Removal of Hobby Plan & Introduction of Trial Plan
 * Dependency updates & bug fixes
+* Insights Integration for user behaviour tracking
 
 ### v6.2.0
 * Regular dependency updates & bug fixes
