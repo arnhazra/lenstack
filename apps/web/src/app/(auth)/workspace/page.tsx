@@ -3,7 +3,7 @@ import { BoxIcon, BoxesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
@@ -17,10 +17,12 @@ import { ToastAction } from "@/components/ui/toast"
 import MaskText from "@/components/mask"
 import Error from "@/components/error"
 import { uiConstants } from "@/constants/global-constants"
+import eventEmitter from "@/events/eventEmitter"
+import { EventUnion } from "@/events/eventUnion"
 
 export default function Page() {
-  const [{ userState, appState }, dispatch] = useContext(GlobalContext)
-  const workspaces = useQuery(["workspaces", appState.refreshId], endPoints.findMyWorkspaces, HTTPMethods.GET)
+  const [{ userState }] = useContext(GlobalContext)
+  const workspaces = useQuery(["workspaces"], endPoints.findMyWorkspaces, HTTPMethods.GET)
   const { prompt } = usePromptContext()
 
   const createWorkspace = async () => {
@@ -29,7 +31,8 @@ export default function Page() {
     if (hasConfirmed && value) {
       try {
         await axios.post(endPoints.createWorkspace, { name: value })
-        dispatch("setAppState", { refreshId: Math.random().toString() })
+        workspaces.refetch()
+        eventEmitter.emit(EventUnion.WorkspaceChangeEvent)
         toast({
           title: "Notification",
           description: <p className="text-neutral-600">Workspace created</p>,
@@ -50,7 +53,8 @@ export default function Page() {
   const switchWorkspace = async (workspaceId: string) => {
     try {
       await axios.post(`${endPoints.switchWorkspace}?workspaceId=${workspaceId}`)
-      dispatch("setAppState", { refreshId: Math.random().toString(36).substring(7) })
+      workspaces.refetch()
+      eventEmitter.emit(EventUnion.WorkspaceChangeEvent)
       toast({
         title: "Notification",
         description: <p className="text-neutral-600">Workspace switched</p>,

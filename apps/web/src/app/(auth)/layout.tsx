@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label"
 import Loading from "@/components/loading"
 import { ToastAction } from "@/components/ui/toast"
 import LoaderIcon from "@/components/loaderIcon"
+import eventEmitter from "@/events/eventEmitter"
+import { EventUnion } from "@/events/eventUnion"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ appState }, dispatch] = useContext(GlobalContext)
@@ -84,44 +86,34 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      (async () => {
-        try {
-          const response = await axios.get(endPoints.userDetails)
-          const userId = response.data.user._id
-          const { email, privateKey, role, selectedWorkspaceId, reduceCarbonEmissions, isTrialAvailable } = response.data.user
-          const { name: selectedWorkspaceName, clientId, clientSecret } = response.data.workspace
-          const hasActiveSubscription = response.data.hasActiveSubscription
+    const getUserDetails = async () => {
+      try {
+        const response = await axios.get(endPoints.userDetails)
+        const userId = response.data.user._id
+        const { email, privateKey, role, selectedWorkspaceId, reduceCarbonEmissions, isTrialAvailable } = response.data.user
+        const { name: selectedWorkspaceName, clientId, clientSecret } = response.data.workspace
+        const hasActiveSubscription = response.data.hasActiveSubscription
 
-          if (response.data.subscription) {
-            const { selectedPlan, createdAt, expiresAt, remainingCredits } = response.data.subscription
-            dispatch("setUserState", { selectedPlan, createdAt, expiresAt, remainingCredits })
-          }
-
-          else {
-            dispatch("setUserState", { selectedPlan: "No Subscription", expiresAt: "" })
-          }
-
-          localStorage.setItem("clientId", clientId)
-          localStorage.setItem("clientSecret", clientSecret)
-          dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions, isTrialAvailable })
-          dispatch("setUserState", { isAuthorized: true })
-          setAuthorized(true)
+        if (response.data.subscription) {
+          const { selectedPlan, createdAt, expiresAt, remainingCredits } = response.data.subscription
+          dispatch("setUserState", { selectedPlan, createdAt, expiresAt, remainingCredits })
         }
 
-        catch (error: any) {
-          if (error.response) {
-            if (error.response.status === 401) {
-              setAuthorized(false)
-            }
+        else {
+          dispatch("setUserState", { selectedPlan: "No Subscription", expiresAt: "" })
+        }
 
-            else {
-              toast({
-                title: "Notification",
-                description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
-                action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
-              })
-            }
+        localStorage.setItem("clientId", clientId)
+        localStorage.setItem("clientSecret", clientSecret)
+        dispatch("setUserState", { userId, email, privateKey, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions, isTrialAvailable })
+        dispatch("setUserState", { isAuthorized: true })
+        setAuthorized(true)
+      }
+
+      catch (error: any) {
+        if (error.response) {
+          if (error.response.status === 401) {
+            setAuthorized(false)
           }
 
           else {
@@ -133,17 +125,35 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           }
         }
 
-        finally {
-          setLoading(false)
+        else {
+          toast({
+            title: "Notification",
+            description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
+            action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          })
         }
-      })()
+      }
+
+      finally {
+        setLoading(false)
+      }
+    }
+
+    if (localStorage.getItem("accessToken")) {
+      getUserDetails()
     }
 
     else {
       setAuthorized(false)
       setLoading(false)
     }
-  }, [isAuthorized, appState.refreshId])
+
+    eventEmitter.on(EventUnion.WorkspaceChangeEvent, (): Promise<void> => getUserDetails())
+
+    return () => {
+      eventEmitter.removeAllListeners(EventUnion.WorkspaceChangeEvent)
+    }
+  }, [isAuthorized])
 
   return (
     <Suspense condition={!isLoading} fallback={<Loading />}>

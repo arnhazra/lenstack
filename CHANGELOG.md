@@ -1,9 +1,15 @@
 # Changelog
 
+### v6.2.2
+* Regular dependency updates
+* Removed Refresh Id
+* Introduction of event driven design pattern in WEB for cross component communication
+
 ### v6.2.1
 * Removal of Hobby Plan & Introduction of Trial Plan
 * Dependency updates & bug fixes
-* Insights Integration for user behaviour tracking
+* Insights Integration for user behaviour tracking 
+* Introduction of event driven design pattern in API for cross module communication
 
 ### v6.2.0
 * Regular dependency updates & bug fixes
