@@ -18,7 +18,6 @@ import MaskText from "@/components/mask"
 import Error from "@/components/error"
 import { uiConstants } from "@/constants/global-constants"
 import eventEmitter from "@/events/eventEmitter"
-import { EventUnion } from "@/events/eventUnion"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -32,7 +31,7 @@ export default function Page() {
       try {
         await axios.post(endPoints.createWorkspace, { name: value })
         workspaces.refetch()
-        eventEmitter.emit(EventUnion.WorkspaceChangeEvent)
+        eventEmitter.emitEvent("WorkspaceChangeEvent")
         toast({
           title: "Notification",
           description: <p className="text-neutral-600">Workspace created</p>,
@@ -54,7 +53,7 @@ export default function Page() {
     try {
       await axios.post(`${endPoints.switchWorkspace}?workspaceId=${workspaceId}`)
       workspaces.refetch()
-      eventEmitter.emit(EventUnion.WorkspaceChangeEvent)
+      eventEmitter.emitEvent("WorkspaceChangeEvent")
       toast({
         title: "Notification",
         description: <p className="text-neutral-600">Workspace switched</p>,

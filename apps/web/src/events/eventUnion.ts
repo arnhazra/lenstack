@@ -1,3 +1,3 @@
-export enum EventUnion {
-  WorkspaceChangeEvent = 'WorkspaceChangeEvent'
+export type EventUnion = {
+  WorkspaceChangeEvent: () => Promise<void>
 }

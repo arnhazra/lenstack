@@ -14,10 +14,9 @@ import Loading from "@/components/loading"
 import { ToastAction } from "@/components/ui/toast"
 import LoaderIcon from "@/components/loaderIcon"
 import eventEmitter from "@/events/eventEmitter"
-import { EventUnion } from "@/events/eventUnion"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [{ appState }, dispatch] = useContext(GlobalContext)
+  const [, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthLoading, setAuthLoading] = useState<boolean>(false)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
@@ -148,10 +147,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       setLoading(false)
     }
 
-    eventEmitter.on(EventUnion.WorkspaceChangeEvent, (): Promise<void> => getUserDetails())
+    eventEmitter.onEvent("WorkspaceChangeEvent", (): Promise<void> => getUserDetails())
 
     return () => {
-      eventEmitter.removeAllListeners(EventUnion.WorkspaceChangeEvent)
+      eventEmitter.offEvent("WorkspaceChangeEvent", (): Promise<void> => getUserDetails())
     }
   }, [isAuthorized])
 
