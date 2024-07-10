@@ -13,7 +13,7 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: M
     return data
   }
 
-  const { error, data, isLoading } = useReactQuery({
+  const { error, data, isLoading, refetch } = useReactQuery({
     queryKey: [...queryKey, requestBody, queryUrl],
     queryFn: () => fetchDataFunction(),
     refetchOnWindowFocus: userState.reduceCarbonEmissions,
@@ -27,5 +27,5 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: M
     })
   }
 
-  return { error, data, isLoading }
+  return { error, data, isLoading, refetch }
 }

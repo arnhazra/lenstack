@@ -27,7 +27,6 @@ const initialState: { userState: UserState, appState: AppState } = {
   },
 
   appState: {
-    refreshId: "ABC",
     globalSearchString: ""
   },
 }

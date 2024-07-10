@@ -18,7 +18,6 @@ export interface UserState {
 }
 
 export interface AppState {
-  refreshId: string,
   globalSearchString: string
 }
 
