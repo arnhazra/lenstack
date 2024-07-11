@@ -17,18 +17,12 @@ export interface UserState {
   isTrialAvailable: boolean,
 }
 
-export interface AppState {
-  globalSearchString: string
-}
-
 export type GlobalState = {
   userState: UserState,
-  appState: AppState
 }
 
 export type ActionsMap = {
   setUserState: Partial<UserState>
-  setAppState: Partial<AppState>
 }
 
 export type Actions = {
@@ -43,11 +37,6 @@ export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState 
     case "setUserState":
       return {
         ...state, userState: { ...state.userState, ...action.payload }
-      }
-
-    case "setAppState":
-      return {
-        ...state, appState: { ...state.appState, ...action.payload }
       }
 
     default:

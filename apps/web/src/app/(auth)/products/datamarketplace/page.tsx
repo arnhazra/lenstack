@@ -9,13 +9,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc } from "lucide-react"
-import { useContext, useState } from "react"
+import { useEffect, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
+import eventEmitter from "@/events/eventEmitter"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -24,13 +24,21 @@ export interface DatasetRequestState {
 }
 
 export default function Page() {
-  const [{ appState }] = useContext(GlobalContext)
   const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState<string>("")
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
-  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: appState.globalSearchString, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=datamarketplace&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datamarketplace")
+
+  useEffect(() => {
+    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setSearchQuery(searchKeyword))
+
+    return () => {
+      eventEmitter.offEvent("SearchEvent", (): void => setSearchQuery(""))
+    }
+  }, [])
 
   const renderFilterOptions = filters?.data?.filterCategories?.map((item: string) => {
     return (

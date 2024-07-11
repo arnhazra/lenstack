@@ -16,17 +16,26 @@ import { nftABI } from "./bin/nft-abi"
 import { MintNFTModal } from "./mintnftmodal"
 import Link from "next/link"
 import { ExternalLinkIcon, Hexagon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import eventEmitter from "@/events/eventEmitter"
 
 export default function Page() {
   const nftContractAddress = useQuery(["nftcontract"], endPoints.nftstudioGetContractAddress, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=nftstudio&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "nftstudio")
-  const [{ userState, appState }] = useContext(GlobalContext)
+  const [searchQuery, setSearchQuery] = useState<string>("")
+  const [{ userState }] = useContext(GlobalContext)
   const web3Provider = new Web3(`${endPoints.nftstudioTxGateway}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}`)
   const [nftList, setNFTList] = useState([])
   const [isLoading, setLoading] = useState(false)
   const [hasError, setError] = useState(false)
+
+  useEffect(() => {
+    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setSearchQuery(searchKeyword))
+
+    return () => {
+      eventEmitter.offEvent("SearchEvent", (): void => setSearchQuery(""))
+    }
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -52,7 +61,7 @@ export default function Page() {
     })()
   }, [nftContractAddress?.data])
 
-  const renderNFTs = nftList?.filter((nft: any) => nft.name.toLowerCase().includes(appState.globalSearchString))?.map((nft: any) => {
+  const renderNFTs = nftList?.filter((nft: any) => nft.name.toLowerCase().includes(searchQuery))?.map((nft: any) => {
     return (
       <TableRow className="cursor-pointer" key={nft.id}>
         <TableCell><Hexagon /></TableCell>
