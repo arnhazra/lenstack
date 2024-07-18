@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { format } from "date-fns"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
@@ -16,6 +16,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
+import eventEmitter from "@/events/eventEmitter"
 
 enum Filters {
   ALL = "All",
@@ -26,12 +27,21 @@ enum Filters {
 }
 
 export default function Page() {
-  const [{ userState, appState }] = useContext(GlobalContext)
+  const [{ userState }] = useContext(GlobalContext)
+  const [searchQuery, setSearchQuery] = useState<string>("")
   const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${appState.globalSearchString}&category=${selectedFilter}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
   const router = useRouter()
+
+  useEffect(() => {
+    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setSearchQuery(searchKeyword))
+
+    return () => {
+      eventEmitter.offEvent("SearchEvent", (): void => setSearchQuery(""))
+    }
+  }, [])
 
   const renderProducts = products?.data?.map((product: any) => {
     return (

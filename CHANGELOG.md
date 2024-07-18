@@ -1,5 +1,11 @@
 # Changelog
 
+### v6.3.0
+* Application Optimization
+* Introduction of custom scrollbar in UI
+* Removal of global search keyword & replacement with search as an event
+* Removal of appstate
+
 ### v6.2.2
 * Regular dependency updates
 * Removed Refresh Id
