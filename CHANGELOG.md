@@ -1,40 +1,37 @@
 # Changelog
 
-### v6.3.0
+### v6.0.0
+
+
+### v5.6.0
 * Application Optimization
 * Introduction of custom scrollbar in UI
 * Removal of global search keyword & replacement with search as an event
 * Removal of appstate
-
-### v6.2.2
 * Regular dependency updates
 * Removed Refresh Id
 * Introduction of event driven design pattern in WEB for cross component communication
-
-### v6.2.1
 * Removal of Hobby Plan & Introduction of Trial Plan
 * Dependency updates & bug fixes
 * Insights Integration for user behaviour tracking 
 * Introduction of event driven design pattern in API for cross module communication
 
-### v6.2.0
+### v5.5.3
 * Regular dependency updates & bug fixes
 * renamed uft & ufc in authorizers to user
 * Deprecated Swap & Wallet applications
-
-### v6.1.2
 * Layout sync across app for all products, dashboard & workspace page
 * Home page updates
 * Minor code refactoring
 * Regular dependency updates
 
-### v6.1.1
+### v5.5.2
 * Rebranding of Data Exchange to Data Marketplace
 * Pricing restructure
 * Updated theme from zinc & gray to slate
 * Dependency updates & minor bug fixes
 
-### v6.1.0
+### v5.5.1
 * Added Credential Authorizer in all tx gateways to enable API solution for blockchain apps 
 * Removed all Create TX API
 * Removed API Pricing Credits
@@ -44,7 +41,7 @@
 * Bug fixes & performance improvements
 * Unnecessary code cleanup
 
-### v6.0.0
+### v5.5.0
 * Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * Deprecated Ledgerscan app
 * Stripe Payment integration
@@ -55,20 +52,20 @@
 * Minor dependency updates
 * Bug fixes
 
-### v5.5.0
+### v5.4.2
 * Update sustainability settings for better performance
 * Integrated reduceCarbonEmissions in users collection
 * Removed sustainability settings model & module
 * Updated UI for changing sustainability settings
 * Removed sustainability page & integrated settings in accounts page
 
-### v5.4.3
+### v5.4.1
 * Integration of sustainability settings
 * Code optimization for sustainable development to reduce carbon emissions
 * New modern way to put items in page center applied for loading & box classes
 * Subscription configuration changes
 
-### v5.4.2
+### v5.4.0
 * Removal of all useCallback & useMemo as these will be deprecated in React 19 & beyond
 * Fix hobby subscription not activating after one time
 * Option component improvements
@@ -76,7 +73,7 @@
 * Regular Dependency updates
 * Minor bug fixes
 
-### v5.4.1
+### v5.3.3
 * Design changes in Account, Pay & Usage page
 * Deprecated Usage Page
 * Integrated Usage details in New Accounts Page
@@ -84,7 +81,7 @@
 * Minor bug fixes & performance improvements
 * Minor styling changes - merged text-muted and muted-text classnames
 
-### v5.4.0
+### v5.3.2
 * Rebranding of identity as auth
 * Removed unused code & dependencies
 * Bug fixes on auth step
@@ -143,7 +140,7 @@
 * Added Client credentials as new way of authentication for fabric & insights
 * Added new component based styling system
 
-### v4.4.0
+### v4.5.0
 * Removed monthly subscription plans
 * Added yearly subscription plans
 * Minor bug fixes and performance improvements
@@ -151,7 +148,7 @@
 * New develop branch
 * New dev environment integration
 
-### v4.3.1
+### v4.4.0
 * Adeed dynamic details - plans page
 * Reuse of pricing component in plans page
 * Renaming apps api-server, ui-client
