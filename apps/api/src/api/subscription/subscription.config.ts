@@ -1,6 +1,6 @@
 export enum SubscriptionPlans {
   AS0 = "as0",
-  AS1 = "as2",
+  AS1 = "as1",
   AS2 = "as2",
   AS3 = "as3",
   MS1 = "ms1",

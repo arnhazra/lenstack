@@ -1,7 +1,10 @@
 # Changelog
 
-### v6.0.0
-
+### v5.7.0
+* Application Optimization
+* Revamped pricing tiers
+* Minor code refactoring
+* Dependency updates & bug fixes
 
 ### v5.6.0
 * Application Optimization

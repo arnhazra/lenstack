@@ -1,5 +1,5 @@
 "use client"
-import { BarChart2, Calendar, CalendarCheck2Icon, Layers2, ListFilterIcon, OrbitIcon } from "lucide-react"
+import { BarChart2, Calendar, Layers2, ListFilterIcon, OrbitIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -69,7 +69,7 @@ export default function Page() {
                   <OrbitIcon className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold capitalize">{userState.hasActiveSubscription ? userState.selectedPlan : "No Active Subscription"}</div>
+                  <div className="text-2xl font-bold uppercase">{userState.hasActiveSubscription ? userState.selectedPlan : "NONE"}</div>
                   <p className="text-sm text-slate-600">
                     Your current plan
                   </p>
