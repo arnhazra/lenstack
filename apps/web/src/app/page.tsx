@@ -186,7 +186,7 @@ export default function Page() {
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
           </div>
-          <div className="container flex flex-col gap-6 py-8 md:max-w-[64rem] md:py-12">
+          <div className="container flex flex-col gap-6 py-8 md:max-w-[55rem] md:py-12">
             {renderPricing}
           </div>
         </section>

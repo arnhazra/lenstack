@@ -87,8 +87,11 @@ export default function Page() {
                 <CardHeader className="pb-3">
                   <CardTitle>Scalable Pricing</CardTitle>
                   <CardDescription className="text-balance leading-relaxed">
-                    Introducing Our Dynamic Orders Dashboard for Seamless
-                    Management and Insightful Analysis.
+                    Our estimate inlcudes the total cost for your workload
+                    with no hidden fees or gotchas. Reduced operational burden
+                    is not calculated into account by the calculator. Those savings
+                    are significant, but we like to think you can't put a price on
+                    sleeping through the night.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -166,8 +169,8 @@ export default function Page() {
                   <div className="font-semibold">Selected Plan Details</div>
                   <ul className="grid gap-3">
                     <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground uppercase">
-                        {selectedTier}
+                      <span className="text-muted-foreground">
+                        Estimated Total
                       </span>
                       <span>₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</span>
                     </li>

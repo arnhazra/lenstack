@@ -34,16 +34,11 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-6xl font-bold">₹{price}</h4>
+          <h4 className="text-4xl font-bold">₹{price}</h4>
           <p className="text-sm font-medium text-muted-foreground">
-            {planName === "pro" && "Billed Monthly"}
+            Billed Monthly
           </p>
         </div>
-        <Button disabled={disabled} variant="default" onClick={(): void => handleClick(planName)}>
-          <Suspense condition={!!price} fallback="Activate for free">
-            Get started
-          </Suspense>
-        </Button>
       </div>
     </div>
   )

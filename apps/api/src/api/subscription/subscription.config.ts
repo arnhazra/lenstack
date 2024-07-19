@@ -26,7 +26,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 5000,
     responseDelay: 1500,
     features: [
-      "Upto 2 workspaces",
       "Renewed monthly",
       "Slower API response",
       "Good for starters",
@@ -38,7 +37,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 15000,
     responseDelay: 1000,
     features: [
-      "Upto 3 workspaces",
       "Renewed monthly",
       "Slower API response",
       "Good for starters",
@@ -50,7 +48,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 40000,
     responseDelay: 750,
     features: [
-      "Upto 3 workspaces",
       "Renewed monthly",
       "Regular API response",
       "Good for developers",
@@ -62,7 +59,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 70000,
     responseDelay: 700,
     features: [
-      "Upto 4 workspaces",
       "Renewed monthly",
       "Regular API response",
       "Good for developers",
@@ -74,7 +70,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 150000,
     responseDelay: 500,
     features: [
-      "Upto 5 workspaces",
       "Renewed monthly",
       "Priority API response",
       "Good for startups",
@@ -86,7 +81,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 200000,
     responseDelay: 400,
     features: [
-      "Upto 5 workspaces",
       "Renewed monthly",
       "Priority API response",
       "Good for startups",
@@ -98,7 +92,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 300000,
     responseDelay: 300,
     features: [
-      "Upto 5 workspaces",
       "Renewed monthly",
       "Priority API response",
       "Good for startups",
@@ -110,7 +103,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 650000,
     responseDelay: 100,
     features: [
-      "Upto 10 workspaces",
       "Renewed monthly",
       "Faster API response",
       "Good for organizations",
@@ -122,7 +114,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 1500000,
     responseDelay: 0,
     features: [
-      "Upto 15 workspaces",
       "Renewed monthly",
       "Fastest API response",
       "Good for organizations",
@@ -134,7 +125,6 @@ export const subscriptionConfig: CreditType[] = [
     grantedCredits: 3000000,
     responseDelay: 0,
     features: [
-      "Upto 20 workspaces",
       "Renewed monthly",
       "Fastest API response",
       "Good for organizations",
