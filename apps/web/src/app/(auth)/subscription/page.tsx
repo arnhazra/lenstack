@@ -42,7 +42,7 @@ export default function Page() {
   const renderPricing = pricing?.data?.map((plan: any) => {
     return (
       <TierCardComponent
-        disabled={userState.hasActiveSubscription || (plan.planName === "trial" && !userState.isTrialAvailable)}
+        disabled={userState.hasActiveSubscription}
         key={plan.planName}
         handleClick={(planName: string): Promise<void> => handlePayment(planName)}
         {...plan}

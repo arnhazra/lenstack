@@ -30,10 +30,5 @@ export const UserSchema = new Schema({
   selectedWorkspaceId: {
     type: Schema.Types.ObjectId,
     ref: "workspace"
-  },
-
-  isTrialAvailable: {
-    type: Boolean,
-    default: true
   }
 }, { versionKey: false })

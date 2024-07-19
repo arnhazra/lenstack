@@ -1,7 +1,7 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { findSubscriptionByUserIdQuery } from "src/api/subscription/queries/find-subscription"
 import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential.query"
-import { SubscriptionPlans } from "src/api/subscription/subscription.config"
+import { subscriptionConfig, SubscriptionPlans } from "src/api/subscription/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
 import { delay } from "src/lib/delay"
 
@@ -45,10 +45,8 @@ export const CredentialAuthorizer = createParamDecorator(
               }
 
               else {
-                if (subscription.selectedPlan === SubscriptionPlans.Trial) {
-                  await delay(500)
-                }
-
+                const responseDelay = subscriptionConfig.find((sub) => sub.planName === subscription.selectedPlan).responseDelay
+                await delay(responseDelay)
                 subscription.remainingCredits -= creditRequired
                 await subscription.save()
                 return { userId, workspaceId }
