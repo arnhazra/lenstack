@@ -9,7 +9,6 @@ export const endPoints = {
   verifyPassKey: `${apiHost}/api/user/verifypasskey`,
   userDetails: `${apiHost}/api/user/userdetails`,
   signOut: `${apiHost}/api/user/signout`,
-  userTxGateway: `${apiHost}/api/user/txgateway`,
   updateCarbonSettings: `${apiHost}/api/user/updatecarbonsettings`,
   getSubscriptionConfig: `${apiHost}/api/subscription/config`,
   createCheckoutSession: `${apiHost}/api/subscription/create-checkout-session`,

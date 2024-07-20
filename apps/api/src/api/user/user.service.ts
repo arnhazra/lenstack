@@ -127,17 +127,6 @@ export class UserService {
     }
   }
 
-  async transactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
-      return response.data
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
   async updateCarbonSettings(userId: string, value: boolean) {
     try {
       await updateCarbonSettings(userId, value)
