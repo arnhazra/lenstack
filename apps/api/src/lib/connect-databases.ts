@@ -3,6 +3,7 @@ import { envConfig } from "../env.config"
 
 export const platformDatabaseConn: Connection = createConnection(envConfig.platformDatabaseURI)
 export const analyticsDatabaseConn: Connection = createConnection(envConfig.analyticsDatabaseURI)
+export const blockchainDatabaseConn: Connection = createConnection(envConfig.blockchainDatabaseURI)
 export const copilotDatabaseConn: Connection = createConnection(envConfig.copilotDatabaseURI)
 export const datamarketplaceDatabaseConn: Connection = createConnection(envConfig.datamarketplaceDatabaseURI)
 export const kvstoreDatabaseConn: Connection = createConnection(envConfig.kvstoreDatabaseURI)
@@ -15,6 +16,11 @@ async function platformDatabaseConnect(): Promise<void> {
 async function analyticsDatabaseConnect(): Promise<void> {
   analyticsDatabaseConn.on("connected", () => console.log("Analytics Database Connection Success"))
   analyticsDatabaseConn.on("error", () => console.log("Analytics Database Connection Failure"))
+}
+
+async function blockchainDatabaseConnect(): Promise<void> {
+  blockchainDatabaseConn.on("connected", () => console.log("Blockchain Database Connection Success"))
+  blockchainDatabaseConn.on("error", () => console.log("Blockchain Database Connection Failure"))
 }
 
 async function copilotDatabaseConnect(): Promise<void> {
@@ -35,6 +41,7 @@ async function kvstoreDatabaseConnect(): Promise<void> {
 export async function connectDatabases(): Promise<void> {
   platformDatabaseConnect()
   analyticsDatabaseConnect()
+  blockchainDatabaseConnect()
   copilotDatabaseConnect()
   datamarketplaceDatabaseConnect()
   kvstoreDatabaseConnect()

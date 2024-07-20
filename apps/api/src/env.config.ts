@@ -7,6 +7,7 @@ export const envConfig = {
   brandName: process.env.BRAND_NAME,
   platformDatabaseURI: process.env.PLATFORM_DATABASE_URI,
   analyticsDatabaseURI: process.env.ANALYTICS_DATABASE_URI,
+  blockchainDatabaseURI: process.env.BLOCKCHAIN_DATABASE_URI,
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
   datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
   kvstoreDatabaseURI: process.env.KVSTORE_DATABASE_URI,
