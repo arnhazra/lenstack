@@ -17,7 +17,7 @@ import axios from "axios"
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const [selectedTier, setSelectedTier] = useState("as3")
+  const [selectedTier, setSelectedTier] = useState("as0")
 
   const renderPricingTiers = pricing?.data?.map((item: any) => {
     return (

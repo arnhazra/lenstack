@@ -302,7 +302,6 @@
 * Rebranding of Edgescan as Ledgerscan
 
 ### v2.2.0
-* Rebranding of Snowlake as NFT Studio
 * Rebranding of Edgepay as Pay
 * Rebranding of Swapstream as Swap
 * Introduction of new & modern UI
@@ -389,7 +388,6 @@
 * Implemented significant Performance & Security Enhancements - Eliminated the need for recalculating APIKey dependency from the DB
 * Implemented Minor Enhancements to the Identity Provider
 * Implemented Minor Performance Improvements
-* Enhanced UX for NFT & Image Support on Snowlake
 * Conducted Codebase Refactoring, eliminating unnecessary components
 * Significantly Upgraded Platform API Key Authorizer, enhancing performance and removing the need for API credits calculation
 * Added the remainingCredits field in the subscription to prevent recalculation
@@ -426,7 +424,6 @@
 * Implemented Advanced Cache Controls
 * Changed Technology Stack - Introduced Next JS, replacing CRA
 * Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
-* Introduced a new app, Snowlake - NFT Toolkit, to the Platform
 * Introduced subscribe and unsubscribe based on the conversion of Ether to ERC-20 token transfer
 * Introduced subscription & subscription key based on Ethereum payment
 * Integrated Airlake - Dataset Marketplace (previously a separate app) into the Platform

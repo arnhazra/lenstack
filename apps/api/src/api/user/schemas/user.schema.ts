@@ -17,11 +17,6 @@ export const UserSchema = new Schema({
     default: "user"
   },
 
-  privateKey: {
-    type: String,
-    required: true
-  },
-
   reduceCarbonEmissions: {
     type: Boolean,
     default: true

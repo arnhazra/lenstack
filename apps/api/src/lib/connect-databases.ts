@@ -6,7 +6,6 @@ export const analyticsDatabaseConn: Connection = createConnection(envConfig.anal
 export const copilotDatabaseConn: Connection = createConnection(envConfig.copilotDatabaseURI)
 export const datamarketplaceDatabaseConn: Connection = createConnection(envConfig.datamarketplaceDatabaseURI)
 export const kvstoreDatabaseConn: Connection = createConnection(envConfig.kvstoreDatabaseURI)
-export const nftstudioDatabaseConn: Connection = createConnection(envConfig.nftstudioDatabaseURI)
 
 async function platformDatabaseConnect(): Promise<void> {
   platformDatabaseConn.on("connected", () => console.log("Platform Database Connection Success"))
@@ -33,16 +32,10 @@ async function kvstoreDatabaseConnect(): Promise<void> {
   kvstoreDatabaseConn.on("error", () => console.log("KV Store Database Connection Failure"))
 }
 
-async function nftstudioDatabaseConnect(): Promise<void> {
-  nftstudioDatabaseConn.on("connected", () => console.log("NFT Studio Database Connection Success"))
-  nftstudioDatabaseConn.on("error", () => console.log("NFT Studio Database Connection Failure"))
-}
-
 export async function connectDatabases(): Promise<void> {
   platformDatabaseConnect()
   analyticsDatabaseConnect()
   copilotDatabaseConnect()
   datamarketplaceDatabaseConnect()
   kvstoreDatabaseConnect()
-  nftstudioDatabaseConnect()
 }

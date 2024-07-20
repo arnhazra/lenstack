@@ -28,7 +28,7 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
             ))
           }
           <li className="flex items-center text-slate-600">
-            <Check className="mr-2 h-4 w-4" /> {grantedCredits} API Requests
+            <Check className="mr-2 h-4 w-4" /> {Number(grantedCredits).toLocaleString()} API Requests
           </li>
         </ul>
       </div>

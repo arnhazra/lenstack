@@ -1,6 +1,5 @@
 export interface UserState {
   userId: string
-  privateKey: string
   email: string
   role: string
   selectedPlan: string

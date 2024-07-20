@@ -29,6 +29,4 @@ export const endPoints = {
   kvstoreCreateKv: `${apiHost}/api/products/kvstore/createkv`,
   kvstoreReadKvList: `${apiHost}/api/products/kvstore/readkv`,
   kvstoreDeleteKv: `${apiHost}/api/products/kvstore/deletekv`,
-  nftstudioTxGateway: `${apiHost}/api/products/nftstudio/txgateway`,
-  nftstudioGetContractAddress: `${apiHost}/api/products/nftstudio/getnftcontractaddress`,
 }

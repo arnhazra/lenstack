@@ -23,11 +23,9 @@ import updateCarbonSettings from "./commands/update-carbon-settings.command"
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
-  private readonly web3Provider: Web3
 
   constructor(private readonly httpService: HttpService) {
     this.authPrivateKey = envConfig.authPrivateKey
-    this.web3Provider = new Web3(envConfig.alchemyGateway)
   }
 
   async generateAuthPasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
@@ -74,8 +72,7 @@ export class UserService {
         }
 
         else {
-          const { privateKey } = this.web3Provider.eth.accounts.create()
-          const newUser = await createUserCommand(email, privateKey)
+          const newUser = await createUserCommand(email)
           const workspace = await createWorkspaceCommand("Default Workspace", newUser.id)
           await updateSelectedWorkspaceCommand(newUser.id, workspace.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }

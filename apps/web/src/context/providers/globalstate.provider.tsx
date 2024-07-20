@@ -9,7 +9,6 @@ type GlobalContextInterface = readonly [GlobalState, Dispatcher]
 const initialState: { userState: UserState } = {
   userState: {
     userId: "",
-    privateKey: "",
     email: "",
     role: "",
     selectedPlan: "No Subscription",
