@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from "@nestjs/common"
 import { HttpService } from "@nestjs/axios"
 import { lastValueFrom } from "rxjs"
 import { envConfig } from "src/env.config"
@@ -7,7 +7,7 @@ import { envConfig } from "src/env.config"
 export class BlockchainService {
   constructor(private readonly httpService: HttpService) { }
 
-  async transactionGateway(requestBody: any, workspaceId: string) {
+  async transactionGateway(requestBody: any) {
     try {
       const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
       return response.data
