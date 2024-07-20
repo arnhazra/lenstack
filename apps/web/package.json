@@ -36,8 +36,7 @@
     "react-json-view-lite": "^1.4.0",
     "sass": "^1.77.8",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7",
-    "web3": "^4.11.0"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",

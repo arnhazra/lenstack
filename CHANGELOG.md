@@ -318,7 +318,7 @@
 ### v2.1.0
 * Replaced Infura with Alchemy Gateway for Swapstream to distribute load
 * Replaced Infura with Quicknode Gateway for Snowlake to distribute load
-* Added Quicknode & Alchemy Web3 Gateway
+* Added Quicknode & Alchemy Gateway
 * Created DTO for all controllers wherever required to avoid raw data extraction from request body
 * Code refactoring
 * APIReference updates for products API as per new API Routes

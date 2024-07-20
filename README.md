@@ -23,5 +23,4 @@ Typically, utilizing this platform incurs no cost. There are several paid plans 
 * Next JS as a framework on top of React JS for UI
 * Mongo DB as a primary database
 * Redis for Managing user authorization, access tokens
-* Ethereum Blockchain - Polygon Testnet for Payment system and decentralized DB
-* Web3 JS for Ethereum blockchain for Web3 transactions
+* Ethereum Blockchain - Polygon Amoy for blockchain

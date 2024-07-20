@@ -14,7 +14,6 @@
 * reflect-metadata: Provides metadata reflection capabilities for JavaScript.
 * rxjs: Library for reactive programming, enabling asynchronous programming with observable sequences.
 * stripe: Payment processing library for integrating Stripe payments into web applications.
-* web3: Ethereum JavaScript API for interacting with the Ethereum blockchain, facilitating smart contract integration.
 * source-map-support: Adds source map support for stack traces, aiding in debugging TypeScript and JavaScript code.
 * ts-loader: TypeScript loader for webpack, enabling TypeScript compilation in webpack projects.
 * ts-node: TypeScript execution and REPL for Node.js, allowing execution of TypeScript files directly.
