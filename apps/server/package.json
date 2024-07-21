@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "server",
   "version": "4.7.1",
   "description": "",
   "author": "",
@@ -20,7 +20,6 @@
     "@nestjs/cqrs": "^10.2.7",
     "@nestjs/event-emitter": "^2.0.4",
     "@nestjs/mapped-types": "^2.0.5",
-    "@nestjs/mongoose": "^10.0.10",
     "@nestjs/platform-express": "^10.3.10",
     "@nestjs/serve-static": "^4.0.2",
     "axios": "^1.7.2",
