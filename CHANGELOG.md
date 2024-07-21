@@ -1,6 +1,6 @@
 # Changelog
 
-### v5.7.0
+### v4.7.0
 * Application Optimization
 * Revamped pricing tiers
 * Minor code refactoring
@@ -8,7 +8,7 @@
 * Deprecated NFT Studio
 * Integrated new blockchain apis
 
-### v5.6.0
+### v4.6.0
 * Application Optimization
 * Introduction of custom scrollbar in UI
 * Removal of global search keyword & replacement with search as an event
@@ -21,7 +21,7 @@
 * Insights Integration for user behaviour tracking 
 * Introduction of event driven design pattern in API for cross module communication
 
-### v5.5.3
+### v4.5.2
 * Regular dependency updates & bug fixes
 * renamed uft & ufc in authorizers to user
 * Deprecated Swap & Wallet applications
@@ -30,13 +30,13 @@
 * Minor code refactoring
 * Regular dependency updates
 
-### v5.5.2
+### v4.5.1
 * Rebranding of Data Exchange to Data Marketplace
 * Pricing restructure
 * Updated theme from zinc & gray to slate
 * Dependency updates & minor bug fixes
 
-### v5.5.1
+### v4.5.0
 * Added Credential Authorizer in all tx gateways to enable API solution for blockchain apps 
 * Removed all Create TX API
 * Removed API Pricing Credits
@@ -46,7 +46,7 @@
 * Bug fixes & performance improvements
 * Unnecessary code cleanup
 
-### v5.5.0
+### v4.4.0
 * Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * Deprecated Ledgerscan app
 * Stripe Payment integration
@@ -57,20 +57,20 @@
 * Minor dependency updates
 * Bug fixes
 
-### v5.4.2
+### v4.3.1
 * Update sustainability settings for better performance
 * Integrated reduceCarbonEmissions in users collection
 * Removed sustainability settings model & module
 * Updated UI for changing sustainability settings
 * Removed sustainability page & integrated settings in accounts page
 
-### v5.4.1
+### v4.3.0
 * Integration of sustainability settings
 * Code optimization for sustainable development to reduce carbon emissions
 * New modern way to put items in page center applied for loading & box classes
 * Subscription configuration changes
 
-### v5.4.0
+### v4.2.1
 * Removal of all useCallback & useMemo as these will be deprecated in React 19 & beyond
 * Fix hobby subscription not activating after one time
 * Option component improvements
@@ -78,7 +78,7 @@
 * Regular Dependency updates
 * Minor bug fixes
 
-### v5.3.3
+### v4.2.0
 * Design changes in Account, Pay & Usage page
 * Deprecated Usage Page
 * Integrated Usage details in New Accounts Page
@@ -86,7 +86,7 @@
 * Minor bug fixes & performance improvements
 * Minor styling changes - merged text-muted and muted-text classnames
 
-### v5.3.2
+### v4.1.0
 * Rebranding of identity as auth
 * Removed unused code & dependencies
 * Bug fixes on auth step
@@ -94,15 +94,7 @@
 * Minor bug fixes
 * Regular dependency updates
 
-### v5.3.1
-* Deprecation of platform module
-* Integrated product config in products module
-* Integrated identity-guard component in auth layout
-* Deprecation of dashboard page
-* Introduction of new products & exploreproducts page
-* Changes in layouts
-
-### v5.3.0
+### v4.0.0
 * Migrated entire backend to DDD with CQRS pattern
 * Added type safety for dispatcher in context
 * Deprecation of Insights 
@@ -116,20 +108,28 @@
 * Introduction of module specific gateways with load distribution
 * Code optimization
 
-### v5.2.0
+### v3.9.0
+* Deprecation of platform module
+* Integrated product config in products module
+* Integrated identity-guard component in auth layout
+* Deprecation of dashboard page
+* Introduction of new products & exploreproducts page
+* Changes in layouts
+
+### v3.8.0
 * Minor bug fixes & performance improvements
 * Removal of multiple workspace based subscription for a single user
 * Introduction of unified user subscription
 * Removal of ownerId property & introduction of new userId property
 * Changes in identity passkey email template
 
-### v5.1.0
+### v3.7.0
 * Improved workspace experience
 * Regular dependency updates & bug fixes
 * Regular dependency updates & bug fixes
 * Introduction of improved cache busting mechanism
 
-### v5.0.0
+### v3.6.0
 * Header rendring logic changes
 * Regular dependency updates
 * Removal of activity module
@@ -145,7 +145,7 @@
 * Added Client credentials as new way of authentication for fabric & insights
 * Added new component based styling system
 
-### v4.5.0
+### v3.5.0
 * Removed monthly subscription plans
 * Added yearly subscription plans
 * Minor bug fixes and performance improvements
@@ -153,32 +153,32 @@
 * New develop branch
 * New dev environment integration
 
-### v4.4.0
+### v3.4.0
 * Adeed dynamic details - plans page
 * Reuse of pricing component in plans page
 * Renaming apps api-server, ui-client
 * Regular dependency updates
 
-### v4.3.0
+### v3.3.0
 * Update prompt implementation to make to value a required field
 * Fix issue - unable to create a project in insights
 * Fix issue - unable to create a db in fabric
 
-### v4.2.0
+### v3.2.0
 * Minor overall UI Changes
 * Bug fixes and Performance improvements
 * Payment gateway UI Changes
 * Prompt UX improvements
 * Rebranding of Checkout page as Pay page
 
-### v4.1.1
+### v3.1.0
 * UI & API Codebase refactoring
 * Regular dependency updates & bug fixes
 * Replacement of moment with date-fns library
 * Removal of lodash.debounce
 * Added new usehooks library
 
-### v4.1.0
+### v3.0.0
 * Added new pricing page for unauthorized view
 * Regular dependency updates
 * Minor changes & bug fixes
@@ -187,7 +187,7 @@
 * Removal of one time trial plan and introduction of Free plan
 * Introduction of new interactive pricing plans
 
-### v4.0.0
+### v2.9.0
 * Minor design changes in Apps - Copilot, Ledgerscan & Wallet
 * Updated email template
 * Adding more strict typescript
@@ -199,7 +199,7 @@
 * Custom global confirm provider
 * Custom global prompt provider
 
-### v3.5.0
+### v2.8.0
 * Introduction of new subscription plans 
 * Introduction of new checkout page
 * Introduction of 4 new transaction gateways
@@ -208,20 +208,20 @@
 * Removed dbId conflict in fabric databases
 * Removed projectId conflict in insights projects
 
-### v3.4.0
+### v2.7.0
 * Code cleanup
 * Introduction of new transaction gateway
 * Deprecation of separate transation gateways for modules
 * Regular dependency updates & bug fixes
 * Removed framer motion
 
-### v3.3.1
+### v2.6.1
 * Better error handlings with suspense
 * Minor changes & performance improvements
 * Rebranding of Pay as Wallet
 * Rebranding & Redesigned UI
 
-### v3.3.0
+### v2.6.0
 * Introduction of new suspense component with fallback ui
 * Deprecated Show component
 * Added strict types to functions, constants, returns
@@ -233,7 +233,7 @@
 * Component new naming convention
 * Tanstack query dependency modifications
 
-### v3.2.0
+### v2.5.0
 * Node Dependency updates
 * Migratred some more components into RSC architecture
 * Bug fixes and performance improvements
@@ -241,7 +241,7 @@
 * Migrated some more components to RSC Architecture
 * Introduction of useCallback and useMemo hook for rendering lists and cards in all components
 
-### v3.1.0
+### v2.4.0
 * Component specific types introduction
 * Migrated layouts & some components to RSC Architecture
 * Introduction of new style provider
@@ -250,7 +250,7 @@
 * Dependency updates
 * Bug fixes & Performance improvements
 
-### v3.0.0
+### v2.3.0
 * Restructure API methods
 * Fix key warning issue
 * Bug fixes & Performance improvements
@@ -262,7 +262,7 @@
 * Introduction of new auth layout using Next 14 Route Group Layouts
 * Removed legacy Identity Provider
 
-### v2.5.0
+### v2.2.0
 * New customized button UI
 * Minor bug fixes and UI Performance improvements
 * Minor bug fixes and performance improvements
@@ -272,14 +272,14 @@
 * Introduction of new Credential authorization with Client Id and Client Secret
 * Braking changes - Deprecation of API Key authorization 
 
-### v2.4.1
+### v2.1.1
 * Eliminated the CreateDatabase Page in Fabric & added the functionality in prompt modal
 * Renamed Insights clientId to projectId and clientSecret to projectPasskey
 * Minor changes and bug fixes
 * Modified the prompt modal to accept string values & make more reusable
 * Eliminated the CreateProject Page in Insights & added the functionality in prompt modal
 
-### v2.4.0
+### v2.1.0
 * Fix header links alignment issue
 * Added wall on products page when user is not subscribed
 * Migrated Redis from AWS to Azure
@@ -290,26 +290,24 @@
 * Moved NPA wallet address to UI Constants
 * Renamed schema and models of products with more generic names
 
-### v2.3.1
+### v2.0.0
 * Header UI Changes
 * Minor changes & performance improvements
 * Minor Bug fixes
 * Headline change on products page
-
-### v2.3.0
 * Keyboard shortcut for global search
 * Rebranding of Airlake as Datalake
 * Rebranding of Hyperedge as Fabric
 * Rebranding of Frostlake as Insights
 * Rebranding of Edgescan as Ledgerscan
 
-### v2.2.0
+### v1.9.1
 * Rebranding of Edgepay as Pay
 * Rebranding of Swapstream as Swap
 * Introduction of new & modern UI
 * Migration of all mongo databases into Azure from AWS & GCP, existing Azure mongo databases remains same
 
-### v2.1.1
+### v1.9.0
 * Product config changes as per new product name standards
 * API reference changes as per new product names
 * Subscription configuration changes
@@ -317,7 +315,7 @@
 * Dependency updates & performance improvements
 * Code Refactoring
 
-### v2.1.0
+### v1.8.1
 * Replaced Infura with Alchemy Gateway for Swapstream to distribute load
 * Replaced Infura with Quicknode Gateway for Snowlake to distribute load
 * Added Quicknode & Alchemy Gateway
@@ -326,7 +324,7 @@
 * APIReference updates for products API as per new API Routes
 * Braking API Changes - Added products as prefix on each product api
 
-### v2.0.0
+### v1.8.0
 * Fix search not being displayed on PROD
 * Removed Infura secret from env and merged with infura endpoint api to achieve reusability
 * Minor changes & performance improvements
@@ -340,7 +338,7 @@
 * UX Improvements
 * Client directory structural changes
 
-### v1.5.0
+### v1.7.0
 * UI Code Refactoring
 * Replaced dbRegion field from Platformconfig with appCategory
 * App Category based image for generic app card
@@ -348,7 +346,7 @@
 * Fixed issus related to new subscription
 * Fixed minor issues in UI
 
-### v1.4.0
+### v1.6.0
 * Resolve the problem of automatic subscription deletion upon expiration
 * Rectify the issue causing the API key to change with every subscription renewal
 * Incorporate the workspace object within user details for display on the subscription page
@@ -357,7 +355,7 @@
 * Code optimizations, removed userdetails api call method on subscription & workspace changes
 * Added refreshId to revalidate API and update context
 
-### v1.3.2
+### v1.5.0
 * Introduction of workspaces
 * Integrated workspaces with UI
 * Removed owner field from app transactions and entities and added workspaceId to separate workspaces
@@ -365,14 +363,14 @@
 * Deprecated getUsageByWorkspaceId api as data is already available in userdetails api
 * Added 2 more parameters in the appstate object
 
-### v1.3.1
+### v1.4.1
 * Introduction of generic hero component
 * Documentation UI changes
 * New & Modern Dark UI layout for Platform & all app Home Page
 * Fixed framer motion animation issue on header
 * Minor UX imporvements & code refactoring
 
-### v1.3.0
+### v1.4.0
 * Introduction of Hexscan - Blockchain Analyzer on Polygon Platform
 * Fixed user registration issues
 * Changes in authentication params, no requirements of name
@@ -384,7 +382,7 @@
 * Fix Hyperedge db view security issue, added dbPassword field as mandatory
 * Removed apiKey from dto as that is no more used in controller/services and only in middleware
 
-### v1.2.2
+### v1.3.0
 * Rebranded Vuelock to Hyperedge
 * Rebranded Dwallet to Edgepay
 * Implemented significant Performance & Security Enhancements - Eliminated the need for recalculating APIKey dependency from the DB
