@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { analyticsDatabaseConn } from "src/lib/connect-databases"
 
 export const AnalyticsSchema = new Schema({
   workspaceId: {
@@ -32,3 +33,5 @@ export const AnalyticsSchema = new Schema({
     default: Date.now
   }
 }, { versionKey: false })
+
+export const AnalyticsModel = analyticsDatabaseConn.model("analytics", AnalyticsSchema)

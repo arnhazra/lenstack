@@ -1,25 +1,27 @@
-import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common"
+import { Injectable, BadRequestException } from "@nestjs/common"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
-import { createAnalyticsCommand } from "./commands/create-analytics.command"
-import { getAnalyticsByWorkspaceIdQuery } from "./queries/get-analytics.query"
+import { CommandBus, QueryBus } from "@nestjs/cqrs"
+import { CreateAnalyticsCommand } from "./commands/impl/create-analytics.command"
+import { GetAnalyticsQuery } from "./queries/impl/get-analytics.query"
 
 @Injectable()
 export class AnalyticsService {
-  async getAnalytics(workspaceId: string) {
-    try {
-      const analytics = await getAnalyticsByWorkspaceIdQuery(workspaceId)
-      return { analytics }
-    }
-
-    catch (error) {
-      throw new NotFoundException()
-    }
-  }
+  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) { }
 
   async createAnalytics(workspaceId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      await createAnalyticsCommand(workspaceId, createAnalyticsDto)
-      return { success: true }
+      return this.commandBus.execute(new CreateAnalyticsCommand(workspaceId, createAnalyticsDto))
+    }
+
+    catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async getAnalytics(workspaceId: string) {
+    try {
+      const analytics = await this.queryBus.execute(new GetAnalyticsQuery(workspaceId))
+      return { analytics }
     }
 
     catch (error) {

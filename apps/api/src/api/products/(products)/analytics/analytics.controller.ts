@@ -8,11 +8,11 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService, private readonly eventEmitter: EventEmitter2) { }
 
-  @Get("get")
-  async getAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
+  @Post("create")
+  async createAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/analytics", method: "GET", api: "/get" })
-      return await this.analyticsService.getAnalytics(user.workspaceId)
+      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/analytics", method: "POST", api: "/create" })
+      return await this.analyticsService.createAnalytics(user.workspaceId, createAnalyticsDto)
     }
 
     catch (error) {
@@ -20,11 +20,11 @@ export class AnalyticsController {
     }
   }
 
-  @Post("create")
-  async createAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
+  @Get("get")
+  async getAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/analytics", method: "POST", api: "/create" })
-      return await this.analyticsService.createAnalytics(user.workspaceId, createAnalyticsDto)
+      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/analytics", method: "GET", api: "/get" })
+      return await this.analyticsService.getAnalytics(user.workspaceId)
     }
 
     catch (error) {
