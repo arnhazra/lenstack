@@ -4,7 +4,6 @@ import { lastValueFrom } from "rxjs"
 import { envConfig } from "src/env.config"
 import { FindNetworksDto } from "./dto/find-networks.dto"
 import { findGatewayFilters } from "./queries/find-gateway-filters.query"
-import { findChainFilters } from "./queries/find-chain-filters.query"
 import { findNetworkFilters } from "./queries/find-network-filters.query"
 import { findNetworksQuery } from "./queries/find-networks.query"
 import { findNetworkDetailsById } from "./queries/find-network-by-id.query"
@@ -16,17 +15,6 @@ export class BlockchainService {
   async getGatewayFilters() {
     try {
       const filters = await findGatewayFilters()
-      return filters
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
-  async getChainFilters() {
-    try {
-      const filters = await findChainFilters()
       return filters
     }
 
@@ -74,7 +62,7 @@ export class BlockchainService {
 
   async transactionGateway(requestBody: any) {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
+      const response = await lastValueFrom(this.httpService.post(envConfig.brandName, requestBody))
       return response.data
     }
 

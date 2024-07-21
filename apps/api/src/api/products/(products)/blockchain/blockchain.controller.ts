@@ -22,19 +22,6 @@ export class BlockchainController {
     }
   }
 
-  @Get("chainfilters")
-  async getChainFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
-    try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/blockchain", method: "GET", api: "/chainfilters" })
-      const chainFilters = await this.blockchainService.getChainFilters()
-      return { chainFilters }
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
   @Get("networkfilters")
   async getNetworkFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {

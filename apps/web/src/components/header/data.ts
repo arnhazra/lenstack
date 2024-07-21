@@ -55,6 +55,8 @@ export const authUserLinks: LinkData[] = [
 export const searchEnabledPathNames = [
   "/dashboard",
   "/products/datamarketplace",
+  "/products/blockchain",
   "/dashboard/",
   "/products/datamarketplace/",
+  "/products/blockchain/"
 ]

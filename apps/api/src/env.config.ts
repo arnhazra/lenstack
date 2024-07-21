@@ -15,7 +15,6 @@ export const envConfig = {
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
   geminiAPIKey: process.env.GEMINI_API_KEY,
-  alchemyGateway: process.env.ALCHEMY_GATEWAY,
   passkeyHashingKey: process.env.PASSKEY_HASHING_KEY,
   redirectURI: process.env.GCLOUD_REDIRECT_URI,
   gcloudClientId: process.env.GCLOUD_CLIENT_ID,
