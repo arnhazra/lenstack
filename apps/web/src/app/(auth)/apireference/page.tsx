@@ -3,7 +3,7 @@ import { ReactElement, useState } from "react"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
 import { Tabs, tabsList } from "./data"
-import { Braces, DatabaseZap, PieChart, Sparkles } from "lucide-react"
+import { Braces, Database, DatabaseZap, Hexagon, PieChart, ServerCrash, Sparkles } from "lucide-react"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import { convertToTitleCase } from "../../../lib/convert-to-title-case"
@@ -14,8 +14,9 @@ import Error from "@/components/error"
 const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,
   copilot: <Sparkles />,
-  dataMarketplace: <Braces />,
-  kvStore: <DatabaseZap />
+  dataMarketplace: <ServerCrash />,
+  kvStore: <Database />,
+  blockchain: <Hexagon />
 }
 
 export default function Page() {

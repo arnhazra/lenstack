@@ -1,12 +1,12 @@
 # Changelog
 
 ### v4.7.0
+* Integrated new blockchain for Blockchain product
 * Application Optimization
 * Revamped pricing tiers
 * Minor code refactoring
 * Dependency updates & bug fixes
 * Deprecated NFT Studio
-* Integrated new blockchain apis
 
 ### v4.6.0
 * Application Optimization
