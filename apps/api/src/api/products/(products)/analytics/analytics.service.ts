@@ -10,7 +10,7 @@ export class AnalyticsService {
 
   async createAnalytics(workspaceId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      return this.commandBus.execute(new CreateAnalyticsCommand(workspaceId, createAnalyticsDto))
+      return await this.commandBus.execute(new CreateAnalyticsCommand(workspaceId, createAnalyticsDto))
     }
 
     catch (error) {

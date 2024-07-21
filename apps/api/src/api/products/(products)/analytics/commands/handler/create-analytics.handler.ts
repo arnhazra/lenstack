@@ -9,5 +9,6 @@ export class CreateAnalyticsCommandHandler implements ICommandHandler<CreateAnal
   async execute(command: CreateAnalyticsCommand) {
     const { workspaceId, createAnalyticsDto } = command
     await this.repository.createOne(workspaceId, createAnalyticsDto)
+    return true
   }
 }
