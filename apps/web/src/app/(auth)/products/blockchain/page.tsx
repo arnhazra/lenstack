@@ -19,14 +19,13 @@ import eventEmitter from "@/events/eventEmitter"
 export interface NetworkSearchRequestState {
   searchQuery: string
   selectedGatewayFilter: string
-  selectedChainFilter: string
   selectedNetworkFilter: string
 }
 
 export default function Page() {
   const router = useRouter()
   const [networkSearchRequestState, setNetworkSearchRequestState] = useState<NetworkSearchRequestState>(
-    { searchQuery: "", selectedGatewayFilter: "All", selectedChainFilter: "All", selectedNetworkFilter: "All" }
+    { searchQuery: "", selectedGatewayFilter: "All", selectedNetworkFilter: "All" }
   )
   const gatewayFilters = useQuery(["gateway-filters"], endPoints.blockchainGatewayFilters, HTTPMethods.GET)
   const networkFilters = useQuery(["network-filters"], endPoints.blockchainNetworkFilters, HTTPMethods.GET)

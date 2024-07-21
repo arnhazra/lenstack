@@ -37,10 +37,9 @@ export class BlockchainService {
   async findNetworks(findNetworksDto: FindNetworksDto) {
     try {
       const searchQuery = findNetworksDto.searchQuery || ""
-      const selectedChainFilter = findNetworksDto.selectedChainFilter === "All" ? "" : findNetworksDto.selectedChainFilter
       const selectedGatewayFilter = findNetworksDto.selectedGatewayFilter === "All" ? "" : findNetworksDto.selectedGatewayFilter
       const selectedNetworkFilter = findNetworksDto.selectedNetworkFilter === "All" ? "" : findNetworksDto.selectedNetworkFilter
-      const networks = await findNetworksQuery(searchQuery, selectedChainFilter, selectedGatewayFilter, selectedNetworkFilter)
+      const networks = await findNetworksQuery(searchQuery, selectedGatewayFilter, selectedNetworkFilter)
       return networks
     }
 

@@ -20,7 +20,6 @@ export const endPoints = {
   analyticsView: `${apiHost}/api/products/analytics/get`,
   analyticsCreate: `${apiHost}/api/products/analytics/create`,
   blockchainGatewayFilters: `${apiHost}/api/products/blockchain/gatewayfilters`,
-  blockchainChainFilters: `${apiHost}/api/products/blockchain/chainfilters`,
   blockchainNetworkFilters: `${apiHost}/api/products/blockchain/networkfilters`,
   blockchainFindNetworks: `${apiHost}/api/products/blockchain/findnetworks`,
   blockchainViewNetwork: `${apiHost}/api/products/blockchain/viewnetwork`,
