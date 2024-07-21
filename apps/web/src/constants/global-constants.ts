@@ -16,7 +16,6 @@ export const uiConstants = {
   copiedToClipBoard: "Copied to Clipboard",
   invalidPasskey: "Invalid Pass Key",
   authVerificationSuccess: "Auth Verified",
-  amoyFaucetUri: "https://faucet.polygon.technology/",
   linkedinUri: "https://www.linkedin.com/in/arnhazra",
   githubRepoUri: "https://github.com/arnhazra/arcstack",
 }

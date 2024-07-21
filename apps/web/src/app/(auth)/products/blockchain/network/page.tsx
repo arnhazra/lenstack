@@ -1,13 +1,12 @@
 "use client"
-import { BookMarked, CopyIcon, Medal, ShieldCheck } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { BookMarked, CopyIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useRouter, useSearchParams } from "next/navigation"
 import useQuery from "@/hooks/use-query"
-import { endPoints } from "@/constants/api-endpoints"
+import { apiHost, endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
@@ -15,16 +14,19 @@ import Error from "@/components/error"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
+import { useContext } from "react"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 
 export default function Page() {
   const searchParams = useSearchParams()
+  const [{ userState }] = useContext(GlobalContext)
   const networkId = searchParams.get("networkId")
   const router = useRouter()
   const network = useQuery(["network"], `${endPoints.blockchainViewNetwork}?networkId=${networkId}`, HTTPMethods.GET)
   const relatedNetworks = useQuery(["relatednetworks"], endPoints.blockchainFindNetworks, HTTPMethods.POST, { searchQuery: "", selectedGatewayFilter: network?.data?.rpcGateway ?? "", selectedNetworkFilter: "" })
 
-  const copyNetworkId = () => {
-    navigator.clipboard.writeText(networkId ?? "")
+  const copyRPCURI = () => {
+    navigator.clipboard.writeText(`${apiHost}/api/products/blockchain/gateway/${networkId}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}` ?? "")
     toast({
       title: "Notification",
       description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
@@ -119,10 +121,10 @@ export default function Page() {
                     <CardDescription>{network?.data?.rpcChain}</CardDescription>
                   </div>
                   <div className="ml-auto flex items-center gap-1">
-                    <Button size="sm" variant="outline" className="h-8 gap-1" onClick={copyNetworkId}>
+                    <Button size="sm" variant="outline" className="h-8 gap-1" onClick={copyRPCURI}>
                       <CopyIcon className="h-3.5 w-3.5" />
                       <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                        Copy Network Id
+                        Copy RPC URI
                       </span>
                     </Button>
                   </div>
