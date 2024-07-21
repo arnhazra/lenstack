@@ -59,9 +59,11 @@ export class BlockchainService {
     }
   }
 
-  async transactionGateway(requestBody: any) {
+  async transactionGateway(requestBody: any, networkId: string) {
     try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.brandName, requestBody))
+      const network = await findNetworkDetailsById(networkId)
+      const { rpcProviderUri } = network
+      const response = await lastValueFrom(this.httpService.post(rpcProviderUri, requestBody))
       return response.data
     }
 

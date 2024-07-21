@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, Get, Query } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Query, Param } from "@nestjs/common"
 import { BlockchainService } from "./blockchain.service"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -61,11 +61,11 @@ export class BlockchainController {
     }
   }
 
-  @Post("gateway")
-  async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any) {
+  @Post("gateway/:networkId")
+  async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any, @Param() params: any) {
     try {
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/blockchain", method: "POST", api: "/gateway" })
-      const response = await this.blockchainService.transactionGateway(requestBody)
+      const response = await this.blockchainService.transactionGateway(requestBody, String(params.networkId))
       return response
     }
 
