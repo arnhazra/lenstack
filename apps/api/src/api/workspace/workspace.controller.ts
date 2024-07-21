@@ -12,8 +12,8 @@ export class WorkspaceController {
   @Post("create")
   async createWorkspace(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() createWorkspaceDto: CreateWorkspaceDto) {
     try {
-      const workspace = await this.workspaceService.createWorkspace(user.userId, createWorkspaceDto)
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "workspace", method: "POST", api: "/create" })
+      const workspace = await this.workspaceService.createWorkspace(user.userId, createWorkspaceDto)
       return workspace
     }
 
@@ -25,8 +25,8 @@ export class WorkspaceController {
   @Get("findmyworkspaces")
   async findMyWorkspaces(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
-      const myWorkspaces = await this.workspaceService.findMyWorkspaces(user.userId)
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "workspace", method: "GET", api: "/findmyworkspaces" })
+      const myWorkspaces = await this.workspaceService.findMyWorkspaces(user.userId)
       return { myWorkspaces }
     }
 

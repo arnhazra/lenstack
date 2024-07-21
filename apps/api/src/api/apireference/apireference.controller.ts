@@ -10,8 +10,8 @@ export class ApiReferenceController {
   @Get("get")
   async getApiReferenceByProductName(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("productName") productName: string) {
     try {
-      const docList = await this.apireferenceService.getApiReferenceByProductName(user.userId, productName)
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "apireference", method: "GET", api: "/apireference" })
+      const docList = await this.apireferenceService.getApiReferenceByProductName(user.userId, productName)
       return { docList }
     }
 
