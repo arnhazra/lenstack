@@ -5,6 +5,8 @@
 * Revamped pricing tiers
 * Minor code refactoring
 * Dependency updates & bug fixes
+* Deprecated NFT Studio
+* Integrated new blockchain apis
 
 ### v5.6.0
 * Application Optimization
