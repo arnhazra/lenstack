@@ -1,5 +1,11 @@
 # Changelog
 
+
+### v4.7.1
+* Minor bug fixes
+* Performance improvements
+* Code refactoring & optimization
+
 ### v4.7.0
 * Integrated new blockchain for Blockchain product
 * Application Optimization

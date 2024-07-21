@@ -1,6 +1,6 @@
 {
   "name": "arcstack",
-  "version": "4.7.0",
+  "version": "4.7.1",
   "description": "arcstack",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix apps/api\" \"npm run dev --prefix apps/web\"",
