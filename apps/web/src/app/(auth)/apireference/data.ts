@@ -3,6 +3,7 @@ export enum Tabs {
   CoPilot = "copilot",
   DataMarketplace = "dataMarketplace",
   KvStore = "kvStore",
+  Blockchain = "blockchain"
 }
 
-export const tabsList: Tabs[] = [Tabs.Analytics, Tabs.CoPilot, Tabs.DataMarketplace, Tabs.KvStore]
+export const tabsList: Tabs[] = [Tabs.Analytics, Tabs.CoPilot, Tabs.DataMarketplace, Tabs.KvStore, Tabs.Blockchain]

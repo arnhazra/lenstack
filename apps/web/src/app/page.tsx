@@ -36,7 +36,7 @@ export default function Page() {
       <TierCardComponent
         key={pricing.planName}
         className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
-        handleClick={(planName: string): void => router.push("/subscription")}
+        handleClick={(): void => router.push("/subscription")}
         {...pricing}
       />
     )
@@ -87,7 +87,7 @@ export default function Page() {
             <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">
               {uiConstants.homeHeader}
             </h1>
-            <h1 className="font-heading text-2xl sm:text-2xl md:text-2xl lg:text-4xl bg-slate-900 text-white p-4 rounded-xl">
+            <h1 className="font-heading text-xl sm:text-xl md:text-xl lg:text-3xl bg-slate-900 text-white p-4 rounded-md">
               {uiConstants.brandName}
             </h1>
             <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8">
@@ -186,7 +186,7 @@ export default function Page() {
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
           </div>
-          <div className="container flex flex-col gap-6 py-8 md:max-w-[64rem] md:py-12">
+          <div className="container flex flex-col gap-6 py-8 md:max-w-[55rem] md:py-12">
             {renderPricing}
           </div>
         </section>

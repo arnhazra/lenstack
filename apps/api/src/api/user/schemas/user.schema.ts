@@ -17,11 +17,6 @@ export const UserSchema = new Schema({
     default: "user"
   },
 
-  privateKey: {
-    type: String,
-    required: true
-  },
-
   reduceCarbonEmissions: {
     type: Boolean,
     default: true
@@ -30,10 +25,5 @@ export const UserSchema = new Schema({
   selectedWorkspaceId: {
     type: Schema.Types.ObjectId,
     ref: "workspace"
-  },
-
-  isTrialAvailable: {
-    type: Boolean,
-    default: true
   }
 }, { versionKey: false })

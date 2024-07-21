@@ -76,18 +76,6 @@ export class UserController {
     }
   }
 
-  @Post("txgateway")
-  async transactionGateway(@Body() requestBody: any) {
-    try {
-      const response = await this.userService.transactionGateway(requestBody)
-      return response
-    }
-
-    catch (error) {
-      throw new BadRequestException()
-    }
-  }
-
   @Patch("updatecarbonsettings")
   async updateCarbonSettings(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
     try {

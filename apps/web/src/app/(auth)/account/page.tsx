@@ -2,7 +2,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ReactElement, useContext, useEffect, useState } from "react"
-import Web3 from "web3"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
@@ -14,45 +13,20 @@ import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { Tabs, tabsList } from "./data"
 import { format } from "date-fns"
-import { Bolt, Calendar, Leaf, Settings, Wallet } from "lucide-react"
+import { Bolt, Calendar, Leaf, Settings } from "lucide-react"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   advanced: <Settings />,
   general: <Bolt />,
   subscription: <Calendar />,
   sustainability: <Leaf />,
-  wallet: <Wallet />
 }
 
 export default function Page() {
-  const web3Provider = new Web3(endPoints.userTxGateway)
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const [walletAddress, setWalletAddress] = useState<string>("")
-  const [walletBalance, setWalletBalance] = useState<string>("0")
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
   const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.General)
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { privateKey } = userState
-        const { address: walletAddress } = web3Provider.eth.accounts.privateKeyToAccount(privateKey)
-        setWalletAddress(walletAddress)
-        const walletBalanceInWei = await web3Provider.eth.getBalance(walletAddress)
-        const walletBalance = web3Provider.utils.fromWei(walletBalanceInWei, "ether")
-        setWalletBalance(walletBalance)
-      }
-
-      catch (error) {
-        toast({
-          title: "Notification",
-          description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
-        })
-      }
-    })()
-  }, [userState.privateKey, userState.userId])
 
   const saveSustainabilitySettings = async () => {
     try {
@@ -119,17 +93,9 @@ export default function Page() {
                 <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
               </section>
             </Suspense>
-            <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
-              <section className="grid gap-6">
-                <InfoPanel title="Network" desc="Current selected Network & Chain" value="Polygon Amoy" />
-                <InfoPanel title="Wallet Addresss" desc="Your blockchain wallet address" value={walletAddress} />
-                <InfoPanel title="Wallet Balance" desc="Your blockchain wallet balance" value={`${Number(walletBalance).toFixed(2)} MATIC`} />
-                <InfoPanel title="Private Key" desc="Your blockchain private key" value={userState.privateKey} masked />
-              </section>
-            </Suspense>
             <Suspense condition={selectedTab === Tabs.Subscription} fallback={null}>
               <section className="grid gap-6">
-                <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan : "No Active Subscription"} capitalize />
+                <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan.toUpperCase() : "No Active Subscription"} capitalize />
                 <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
                 <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
                 <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />

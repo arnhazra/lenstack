@@ -1,9 +1,9 @@
-import { Controller, Post, Body } from '@nestjs/common'
-import { InsightsService } from './insights.service'
-import { CreateInsightDto } from './dto/create-insight.dto'
+import { Controller, Post, Body } from "@nestjs/common"
+import { InsightsService } from "./insights.service"
+import { CreateInsightDto } from "./dto/create-insight.dto"
 import { OnEvent } from "@nestjs/event-emitter"
 
-@Controller('insights')
+@Controller("insights")
 export class InsightsController {
   constructor(private readonly insightsService: InsightsService) { }
 

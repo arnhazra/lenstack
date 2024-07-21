@@ -9,7 +9,6 @@ type GlobalContextInterface = readonly [GlobalState, Dispatcher]
 const initialState: { userState: UserState } = {
   userState: {
     userId: "",
-    privateKey: "",
     email: "",
     role: "",
     selectedPlan: "No Subscription",
@@ -23,7 +22,6 @@ const initialState: { userState: UserState } = {
     hasActiveSubscription: false,
     isAuthorized: false,
     reduceCarbonEmissions: true,
-    isTrialAvailable: false,
   }
 }
 

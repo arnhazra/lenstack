@@ -1,6 +1,5 @@
 export interface UserState {
   userId: string
-  privateKey: string
   email: string
   role: string
   selectedPlan: string
@@ -14,7 +13,6 @@ export interface UserState {
   hasActiveSubscription: boolean,
   isAuthorized: boolean,
   reduceCarbonEmissions: boolean,
-  isTrialAvailable: boolean,
 }
 
 export type GlobalState = {

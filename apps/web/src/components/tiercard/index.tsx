@@ -17,7 +17,7 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
     <div className="grid w-full items-start gap-10 rounded-lg border p-10 md:grid-cols-[1fr_200px]">
       <div className="grid gap-6">
         <h3 className="text-xl font-bold sm:text-2xl">
-          What's included in the <span className="capitalize">{planName}</span> plan
+          What's included in the <span className="uppercase">{planName}</span> plan
         </h3>
         <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
           {
@@ -28,22 +28,17 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
             ))
           }
           <li className="flex items-center text-slate-600">
-            <Check className="mr-2 h-4 w-4" /> {grantedCredits} API Requests
+            <Check className="mr-2 h-4 w-4" /> {Number(grantedCredits).toLocaleString()} API Requests
           </li>
         </ul>
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-6xl font-bold">₹{price}</h4>
+          <h4 className="text-4xl font-bold">₹{price}</h4>
           <p className="text-sm font-medium text-muted-foreground">
-            {planName === "pro" && "Billed Monthly"}
+            Billed Monthly
           </p>
         </div>
-        <Button disabled={disabled} variant="default" onClick={(): void => handleClick(planName)}>
-          <Suspense condition={!!price} fallback="Activate for free">
-            Get started
-          </Suspense>
-        </Button>
       </div>
     </div>
   )

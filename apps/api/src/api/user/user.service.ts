@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
-import Web3 from "web3"
 import { envConfig } from "src/env.config"
 import { generateAuthPasskeyAndSendEmail, verifyAuthPasskey } from "src/api/user/utils/passkey.util"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/lib/redis-helper"
@@ -23,11 +22,9 @@ import updateCarbonSettings from "./commands/update-carbon-settings.command"
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
-  private readonly web3Provider: Web3
 
   constructor(private readonly httpService: HttpService) {
     this.authPrivateKey = envConfig.authPrivateKey
-    this.web3Provider = new Web3(envConfig.alchemyGateway)
   }
 
   async generateAuthPasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
@@ -74,8 +71,7 @@ export class UserService {
         }
 
         else {
-          const { privateKey } = this.web3Provider.eth.accounts.create()
-          const newUser = await createUserCommand(email, privateKey)
+          const newUser = await createUserCommand(email)
           const workspace = await createWorkspaceCommand("Default Workspace", newUser.id)
           await updateSelectedWorkspaceCommand(newUser.id, workspace.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
@@ -128,17 +124,6 @@ export class UserService {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async transactionGateway(requestBody: any) {
-    try {
-      const response = await lastValueFrom(this.httpService.post(envConfig.alchemyGateway, requestBody))
-      return response.data
-    }
-
-    catch (error) {
-      throw new BadRequestException()
     }
   }
 

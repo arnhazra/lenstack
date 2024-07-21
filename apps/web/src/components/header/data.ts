@@ -49,19 +49,14 @@ export const authUserLinks: LinkData[] = [
   {
     displayName: "Docs",
     link: "/apireference"
-  },
-  {
-    displayName: "Faucet",
-    link: uiConstants.amoyFaucetUri,
-    external: true
   }
 ]
 
 export const searchEnabledPathNames = [
   "/dashboard",
   "/products/datamarketplace",
-  "/products/nftstudio",
+  "/products/blockchain",
   "/dashboard/",
   "/products/datamarketplace/",
-  "/products/nftstudio/",
+  "/products/blockchain/"
 ]

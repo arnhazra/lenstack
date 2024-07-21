@@ -15,9 +15,6 @@ An application for easily searching, subscribing to, and utilizing third-party c
 #### KV Store
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
-#### NFT Studio
-A NFT management application that uses Ethereum Blockchain to create and manage prototypes.
-
 ### What is the cost of using this platform ?
 Typically, utilizing this platform incurs no cost. There are several paid plans to choose from. It is worth noting, as we utilize the Polygon Amoy Testnet, allowing you to receive free MATIC tokens daily into your wallet, enabling you to use this platform completely free of charge. Upon successfully creating an account on the application, an Ethereum wallet will be promptly allocated to you. This wallet serves as a designated repository for your funds, allowing you to conveniently deposit the desired amount to cover the subscription charges and enable seamless utilization of the platform"s services.
 
@@ -26,5 +23,4 @@ Typically, utilizing this platform incurs no cost. There are several paid plans 
 * Next JS as a framework on top of React JS for UI
 * Mongo DB as a primary database
 * Redis for Managing user authorization, access tokens
-* Ethereum Blockchain - Polygon Testnet for Payment system and decentralized DB
-* Web3 JS for Ethereum blockchain for Web3 transactions
+* Ethereum Blockchain - Polygon Amoy for blockchain

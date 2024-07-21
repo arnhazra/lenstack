@@ -6,8 +6,6 @@ import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
 import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
 import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
 import { otherConstants } from "src/constants/other-constants"
-import { findUserByIdQuery } from "../user/queries/find-user-by-id"
-import { updateTrialStatus } from "../user/commands/update-trial-status.command"
 
 @Injectable()
 export class SubscriptionService {
@@ -66,26 +64,9 @@ export class SubscriptionService {
   async subscribe(sessionId: string) {
     try {
       const session = await this.stripe.checkout.sessions.retrieve(sessionId)
-      if (session.metadata.selectedPlan as SubscriptionPlans === SubscriptionPlans.Pro) {
-        await deleteSubscriptionCommand(session.metadata.userId)
-        await createNewSubscriptionCommand(session.metadata.userId, session.metadata.selectedPlan as SubscriptionPlans)
-        return { success: true }
-      }
-
-      else {
-        const user = await findUserByIdQuery(session.metadata.userId)
-
-        if (user.isTrialAvailable) {
-          await deleteSubscriptionCommand(session.metadata.userId)
-          await createNewSubscriptionCommand(session.metadata.userId, session.metadata.selectedPlan as SubscriptionPlans)
-          await updateTrialStatus(session.metadata.userId)
-          return { success: true }
-        }
-
-        else {
-          throw new BadRequestException(statusMessages.connectionError)
-        }
-      }
+      await deleteSubscriptionCommand(session.metadata.userId)
+      await createNewSubscriptionCommand(session.metadata.userId, session.metadata.selectedPlan as SubscriptionPlans)
+      return { success: true }
     }
 
     catch (error) {
