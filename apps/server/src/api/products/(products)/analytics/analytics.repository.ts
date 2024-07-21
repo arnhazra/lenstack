@@ -12,7 +12,7 @@ export class AnalyticsRepository {
   }
 
   async findAll(workspaceId: string) {
-    const analytics = await AnalyticsModel.find({ workspaceId })
+    const analytics = await AnalyticsModel.find({ workspaceId }).sort({ createdAt: -1 })
     return analytics
   }
 }
