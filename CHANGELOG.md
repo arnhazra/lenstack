@@ -1,10 +1,10 @@
 # Changelog
 
-
 ### v4.7.1
 * Minor bug fixes
 * Performance improvements
 * Code refactoring & optimization
+* Introduction of CQRS design pattern with DDD in nest server
 
 ### v4.7.0
 * Integrated new blockchain for Blockchain product
