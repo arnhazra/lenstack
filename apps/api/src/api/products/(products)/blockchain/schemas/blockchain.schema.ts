@@ -6,13 +6,23 @@ export const BlockchainSchema = new Schema({
     required: true
   },
 
-  rpcProviderUri: {
+  rpcGateway: {
     type: String,
     required: true
   },
 
-  createdAt: {
-    type: Date,
-    default: Date.now
+  rpcChain: {
+    type: String,
+    required: true
+  },
+
+  rpcNetwork: {
+    type: String,
+    required: true
+  },
+
+  rpcProviderUri: {
+    type: String,
+    required: true
   }
 }, { versionKey: false })
