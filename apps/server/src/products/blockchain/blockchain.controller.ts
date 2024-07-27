@@ -4,6 +4,7 @@ import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/cre
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { FindNetworksDto } from "./dto/find-networks.dto"
+import { EventsUnion } from "src/core/events/events.union"
 
 @Controller("products/blockchain")
 export class BlockchainController {
@@ -12,7 +13,7 @@ export class BlockchainController {
   @Get("gatewayfilters")
   async getGatewayFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/blockchain", method: "GET", api: "/gatewayfilters" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/gatewayfilters" })
       const gatewayFilters = await this.blockchainService.getGatewayFilters()
       return { gatewayFilters }
     }
@@ -25,7 +26,7 @@ export class BlockchainController {
   @Get("networkfilters")
   async getNetworkFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/blockchain", method: "GET", api: "/networkfilters" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/networkfilters" })
       const networkFilters = await this.blockchainService.getNetworkFilters()
       return { networkFilters }
     }
@@ -38,7 +39,7 @@ export class BlockchainController {
   @Post("findnetworks")
   async findNetworks(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findNetworksDto: FindNetworksDto) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/blockchain", method: "POST", api: "/findnetworks" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: "/findnetworks" })
       const networks = await this.blockchainService.findNetworks(findNetworksDto)
       return { networks }
     }
@@ -51,7 +52,7 @@ export class BlockchainController {
   @Get("viewnetwork")
   async viewNetwork(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("networkId") networkId: string) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/blockchain", method: "GET", api: "/viewnetwork" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/viewnetwork" })
       const data = await this.blockchainService.viewNetwork(networkId)
       return data
     }
@@ -64,7 +65,7 @@ export class BlockchainController {
   @Post("gateway/:networkId")
   async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any, @Param() params: any) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/blockchain", method: "POST", api: "/gateway" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: "/gateway" })
       const response = await this.blockchainService.transactionGateway(requestBody, String(params.networkId))
       return response
     }

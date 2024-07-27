@@ -6,6 +6,7 @@ import { statusMessages } from "src/utils/constants/status-messages"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { UpdateCarbonSettingsDto } from "./dto/update-carbon-settings.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventsUnion } from "src/core/events/events.union"
 
 @Controller("user")
 export class UserController {
@@ -29,7 +30,7 @@ export class UserController {
       const response = await this.userService.verifyAuthPasskey(verifyAuthPasskeyDto)
 
       if (response.success) {
-        this.eventEmitter.emit("createInsights", { userId: response.user._id, module: "user", method: "POST", api: "/verifypasskey" })
+        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: response.user._id, module: "user", method: "POST", api: "/verifypasskey" })
         return { accessToken: response.accessToken, user: response.user }
       }
 
@@ -46,7 +47,7 @@ export class UserController {
   @Get("userdetails")
   async getUserDetails(@TokenAuthorizer() userT: TokenAuthorizerResponse) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: userT.userId, module: "user", method: "GET", api: "/userdetails" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: userT.userId, module: "user", method: "GET", api: "/userdetails" })
       const { user, subscription, organization, hasActiveSubscription } = await this.userService.getUserDetails(userT.userId, userT.orgId)
 
       if (user) {
@@ -66,7 +67,7 @@ export class UserController {
   @Post("signout")
   async signOut(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "user", method: "POST", api: "/signout" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "user", method: "POST", api: "/signout" })
       await this.userService.signOut(user.userId)
       return { message: statusMessages.signOutSuccess }
     }
@@ -79,7 +80,7 @@ export class UserController {
   @Patch("updatecarbonsettings")
   async updateCarbonSettings(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "user", method: "PATCH", api: "/updatecarbonsettings" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "user", method: "PATCH", api: "/updatecarbonsettings" })
       return await this.userService.updateCarbonSettings(user.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
     }
 

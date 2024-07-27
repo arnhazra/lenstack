@@ -3,6 +3,7 @@ import { KvstoreService } from "./kvstore.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventsUnion } from "src/core/events/events.union"
 
 @Controller("products/kvstore")
 export class KvstoreController {
@@ -11,7 +12,7 @@ export class KvstoreController {
   @Post("createkv")
   async createKv(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createKvDto: CreateKvDto) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/kvstore", method: "POST", api: "/createkv" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/kvstore", method: "POST", api: "/createkv" })
       return await this.kvstoreService.createKv(user.orgId, createKvDto)
     }
 
@@ -23,7 +24,7 @@ export class KvstoreController {
   @Get("readkv")
   async readKvList(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/kvstore", method: "GET", api: "/readkv" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/kvstore", method: "GET", api: "/readkv" })
       const { kvs } = await this.kvstoreService.readKvList(user.orgId)
       return { kvs }
     }
@@ -36,7 +37,7 @@ export class KvstoreController {
   @Delete("deletekv")
   async deleteKv(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Query("kvId") kvId: string) {
     try {
-      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/kvstore", method: "DELETE", api: "/deletekv" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/kvstore", method: "DELETE", api: "/deletekv" })
       return await this.kvstoreService.deleteKv(user.orgId, kvId)
     }
 
