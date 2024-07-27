@@ -21,6 +21,8 @@ import HTTPMethods from "@/constants/http-methods"
 import { usePromptContext } from "@/context/providers/prompt.provider"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
 import eventEmitter from "@/events/eventEmitter"
+import LoadingComponent from "@/components/loading"
+import Error from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
@@ -185,101 +187,105 @@ export default function Page() {
   })
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-        <div className="mx-auto grid w-full max-w-6xl gap-2">
-          <div className="flex justify-between">
-            <h1 className="text-3xl font-semibold">Account Settings</h1>
-            <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
-              <Button onClick={createOrg}>Create Org</Button>
-            </Suspense>
+    <Suspense condition={!organizations.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!organizations.error} fallback={<Error />}>
+        <div className="flex min-h-screen w-full flex-col">
+          <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
+            <div className="mx-auto grid w-full max-w-6xl gap-2">
+              <div className="flex justify-between">
+                <h1 className="text-3xl font-semibold">Account Settings</h1>
+                <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
+                  <Button onClick={createOrg}>Create Org</Button>
+                </Suspense>
+              </div>
+            </div>
+            <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+              <nav className="grid gap-4 text-sm">
+                {renderTabs}
+              </nav>
+              <div>
+                <Suspense condition={selectedTab === Tabs.General} fallback={null}>
+                  <section className="grid gap-6">
+                    <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
+                    <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.Subscription} fallback={null}>
+                  <section className="grid gap-6">
+                    <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan.toUpperCase() : "No Active Subscription"} capitalize />
+                    <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
+                    <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
+                    <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
+                  <section className="grid gap-6">
+                    {renderOrgs}
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.Sustainability} fallback={null}>
+                  <section className="grid gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Sustainability</CardTitle>
+                        <CardDescription>
+                          {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints.
+                          Change your sustainability settings below.
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Select defaultValue={userState.reduceCarbonEmissions.toString()} onValueChange={(value: string) => setSustainabilitySettings(value)}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="true">Use Sustainability Settings</SelectItem>
+                              <SelectItem value="false">Do not use Sustainability Settings</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                      <CardFooter>
+                        <Button onClick={saveSustainabilitySettings}>Save Settings</Button>
+                      </CardFooter>
+                    </Card>
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.Advanced} fallback={null}>
+                  <section className="grid gap-6">
+                    <InfoPanel title="Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Sign Out</CardTitle>
+                        <CardDescription>
+                          This is your advanced sign out settings
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Select defaultValue="this" onValueChange={(value: string) => setSignOutOption(value)}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="this">Sign Out from this device</SelectItem>
+                              <SelectItem value="all">Sign Out from all devices</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                      <CardFooter>
+                        <Button onClick={signOut}>Apply & Sign Out</Button>
+                      </CardFooter>
+                    </Card>
+                  </section>
+                </Suspense>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-          <nav className="grid gap-4 text-sm">
-            {renderTabs}
-          </nav>
-          <div>
-            <Suspense condition={selectedTab === Tabs.General} fallback={null}>
-              <section className="grid gap-6">
-                <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
-                <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
-              </section>
-            </Suspense>
-            <Suspense condition={selectedTab === Tabs.Subscription} fallback={null}>
-              <section className="grid gap-6">
-                <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan.toUpperCase() : "No Active Subscription"} capitalize />
-                <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
-                <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
-                <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
-              </section>
-            </Suspense>
-            <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
-              <section className="grid gap-6">
-                {renderOrgs}
-              </section>
-            </Suspense>
-            <Suspense condition={selectedTab === Tabs.Sustainability} fallback={null}>
-              <section className="grid gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Sustainability</CardTitle>
-                    <CardDescription>
-                      {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints.
-                      Change your sustainability settings below.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Select defaultValue={userState.reduceCarbonEmissions.toString()} onValueChange={(value: string) => setSustainabilitySettings(value)}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="true">Use Sustainability Settings</SelectItem>
-                          <SelectItem value="false">Do not use Sustainability Settings</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </CardContent>
-                  <CardFooter>
-                    <Button onClick={saveSustainabilitySettings}>Save Settings</Button>
-                  </CardFooter>
-                </Card>
-              </section>
-            </Suspense>
-            <Suspense condition={selectedTab === Tabs.Advanced} fallback={null}>
-              <section className="grid gap-6">
-                <InfoPanel title="Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Sign Out</CardTitle>
-                    <CardDescription>
-                      This is your advanced sign out settings
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Select defaultValue="this" onValueChange={(value: string) => setSignOutOption(value)}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="this">Sign Out from this device</SelectItem>
-                          <SelectItem value="all">Sign Out from all devices</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </CardContent>
-                  <CardFooter>
-                    <Button onClick={signOut}>Apply & Sign Out</Button>
-                  </CardFooter>
-                </Card>
-              </section>
-            </Suspense>
-          </div>
-        </div>
-      </div>
-    </div>
+      </Suspense>
+    </Suspense>
   )
 }

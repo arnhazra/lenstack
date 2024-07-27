@@ -3,11 +3,10 @@
 ### v5.0.0
 * Minor bug fixes & Performance improvements
 * Major Code refactoring, optimization & dependency updates across all modules
-* Integrated CQRS design pattern with DDD in all modules for nest server
+* Integrated CQRS design pattern with DDD across all modules for nest server
 * Restructure backend into platform & product modules
 * Create services with event pattern for email
 * Rebranded KV Store as HTTP NoSQL
-* Major Updates across all products
 
 ### v4.9.1
 * Rebranded workspace as organization
