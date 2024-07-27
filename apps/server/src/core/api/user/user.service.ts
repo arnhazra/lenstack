@@ -34,7 +34,7 @@ export class UserService {
       const { fullHash, passKey } = await generateAuthPasskey(email)
       const subject: string = `${envConfig.brandName} Auth Passkey`
       const body: string = generateEmailBody(passKey)
-      this.eventEmitter.emitAsync(EventsUnion.SendEmail, { receiverEmail: email, subject, body })
+      await this.eventEmitter.emitAsync(EventsUnion.SendEmail, { receiverEmail: email, subject, body })
       return { user, hash: fullHash }
     }
 
