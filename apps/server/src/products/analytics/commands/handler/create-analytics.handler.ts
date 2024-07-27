@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { CreateAnalyticsCommand } from "../impl/create-analytics.command"
 import { AnalyticsRepository } from "../../analytics.repository"
 

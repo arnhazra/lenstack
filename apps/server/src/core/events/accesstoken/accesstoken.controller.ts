@@ -1,12 +1,12 @@
-import { Controller } from '@nestjs/common'
-import { AccesstokenService } from './accesstoken.service'
-import { SetAccessTokenDto } from './dto/set-accesstoken.dto'
+import { Controller } from "@nestjs/common"
+import { AccesstokenService } from "./accesstoken.service"
+import { SetAccessTokenDto } from "./dto/set-accesstoken.dto"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetAccessTokenDto } from "./dto/get-accesstoken.dto"
 import { DeleteAccessTokenDto } from "./dto/delete-accesstoken.dto"
 import { EventsUnion } from "../events.union"
 
-@Controller('accesstoken')
+@Controller("accesstoken")
 export class AccesstokenController {
   constructor(private readonly accesstokenService: AccesstokenService) { }
 

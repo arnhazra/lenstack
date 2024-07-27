@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from "@nestjs/common"
 import Redis from "ioredis"
 import { SetAccessTokenDto } from "./dto/set-accesstoken.dto"
 import { GetAccessTokenDto } from "./dto/get-accesstoken.dto"

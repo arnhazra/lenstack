@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from "@nestjs/common"
 import { SendEmailDto } from "./dto/send-email.dto"
 import * as nodemailer from "nodemailer"
 import { google } from "googleapis"

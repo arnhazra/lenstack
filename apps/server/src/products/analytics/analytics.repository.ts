@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable } from "@nestjs/common"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { AnalyticsModel } from "./schemas/analytics.schema"
 

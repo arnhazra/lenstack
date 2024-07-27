@@ -37,7 +37,7 @@ export default function Page() {
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
   const searchParams = useSearchParams()
-  const selectedTab = searchParams.get('tab')
+  const selectedTab = searchParams.get("tab")
   const router = useRouter()
   const organizations = useQuery(["organizations"], endPoints.findMyOrganizations, HTTPMethods.GET)
   const { prompt } = usePromptContext()

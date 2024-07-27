@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler, IQueryHandler, QueryHandler } from '@nestjs/cqrs'
+import { CommandHandler, ICommandHandler, IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { GetAnalyticsQuery } from "../impl/get-analytics.query"
 import { AnalyticsRepository } from "../../analytics.repository"
 
