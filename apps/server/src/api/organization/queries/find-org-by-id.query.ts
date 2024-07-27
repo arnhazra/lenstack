@@ -1,4 +1,4 @@
-import { OrganizationModel } from "../models/organization.model"
+import { OrganizationModel } from "../schemas/organization.schema"
 
 export async function findOrganizationByIdQuery(orgId: string) {
   const organization = await OrganizationModel.findById(orgId)

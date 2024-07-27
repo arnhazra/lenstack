@@ -1,4 +1,4 @@
-import { UserModel } from "../models/user.model"
+import { UserModel } from "../schemas/user.schema"
 
 export async function createUserCommand(email: string) {
   const newUser = new UserModel({ email })

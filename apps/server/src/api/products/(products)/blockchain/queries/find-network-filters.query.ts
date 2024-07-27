@@ -1,4 +1,4 @@
-import { BlockchainModel } from "../models/blockchain.model"
+import { BlockchainModel } from "../schemas/blockchain.schema"
 
 export async function findNetworkFilters() {
   const filterCategories = await BlockchainModel.find().distinct("rpcNetwork")

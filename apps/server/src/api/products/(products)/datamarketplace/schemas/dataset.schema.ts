@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { datamarketplaceDatabaseConn } from "src/lib/connect-databases"
 
 export const DatasetSchema = new Schema({
   datasetRelationId: {
@@ -12,3 +13,5 @@ export const DatasetSchema = new Schema({
     required: true
   }
 }, { versionKey: false })
+
+export const DatasetModel = datamarketplaceDatabaseConn.model("dataset", DatasetSchema)

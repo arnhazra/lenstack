@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { platformDatabaseConn } from "src/lib/connect-databases"
 
 export const OrganizationSchema = new Schema({
   name: {
@@ -27,3 +28,5 @@ export const OrganizationSchema = new Schema({
     default: Date.now
   }
 }, { versionKey: false })
+
+export const OrganizationModel = platformDatabaseConn.model("organization", OrganizationSchema)

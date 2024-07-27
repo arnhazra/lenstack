@@ -1,5 +1,5 @@
+import { SubscriptionModel } from "../schemas/subscription.schema"
 import { SubscriptionPlans, subscriptionConfig } from "../subscription.config"
-import { SubscriptionModel } from "../models/subscription.model"
 
 export async function createNewSubscriptionCommand(userId: string, selectedPlan: SubscriptionPlans) {
   const remainingCredits = subscriptionConfig.find(plans => plans.planName === selectedPlan).grantedCredits

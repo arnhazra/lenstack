@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { copilotDatabaseConn } from "src/lib/connect-databases"
 
 export const QuerySchema = new Schema({
   orgId: {
@@ -22,3 +23,5 @@ export const QuerySchema = new Schema({
     default: Date.now
   }
 }, { versionKey: false })
+
+export const QueryModel = copilotDatabaseConn.model("query", QuerySchema)

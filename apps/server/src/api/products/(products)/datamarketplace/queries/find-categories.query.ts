@@ -1,4 +1,4 @@
-import { MetaDataModel } from "../models/metadata.model"
+import { MetaDataModel } from "../schemas/metadata.schema"
 
 export async function findDistinctCategories() {
   const filterCategories = await MetaDataModel.find().distinct("category")

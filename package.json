@@ -1,7 +1,7 @@
 {
   "name": "arcstack",
   "version": "4.7.1",
-  "description": "arcstack",
+  "description": "a saas product",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix apps/server\" \"npm run dev --prefix apps/client\"",
     "publish": "git add . && git commit -m publish && git push"

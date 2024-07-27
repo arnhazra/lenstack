@@ -1,4 +1,4 @@
-import { MetaDataModel } from "../models/metadata.model"
+import { MetaDataModel } from "../schemas/metadata.schema"
 
 export async function findDatasetsQuery(searchQuery: string, selectedFilterCategory: string, selectedSortOption: string, offset: number, limit: number) {
   let datasets = await MetaDataModel.find({

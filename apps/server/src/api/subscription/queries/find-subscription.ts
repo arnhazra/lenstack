@@ -1,4 +1,4 @@
-import { SubscriptionModel } from "../models/subscription.model"
+import { SubscriptionModel } from "../schemas/subscription.schema"
 
 export async function findSubscriptionByUserIdQuery(userId: string) {
   const subscription = await SubscriptionModel.findOne({ userId })

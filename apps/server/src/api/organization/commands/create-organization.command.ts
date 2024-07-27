@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto"
-import { OrganizationModel } from "../models/organization.model"
+import { OrganizationModel } from "../schemas/organization.schema"
 
 export async function createOrganizationCommand(name: string, userId: string) {
   const clientId = randomUUID()

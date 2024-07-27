@@ -1,5 +1,5 @@
-import { DatasetModel } from "../models/dataset.model"
-import { MetaDataModel } from "../models/metadata.model"
+import { DatasetModel } from "../schemas/dataset.schema"
+import { MetaDataModel } from "../schemas/metadata.schema"
 
 export async function findDatasetMetadataById(datasetId: string) {
   const metaData = await MetaDataModel.findById(datasetId)

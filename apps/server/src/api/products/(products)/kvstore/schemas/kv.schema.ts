@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { kvstoreDatabaseConn } from "src/lib/connect-databases"
 
 export const KvSchema = new Schema({
   orgId: {
@@ -22,3 +23,5 @@ export const KvSchema = new Schema({
     default: Date.now
   }
 }, { versionKey: false })
+
+export const KvModel = kvstoreDatabaseConn.model("kv", KvSchema)

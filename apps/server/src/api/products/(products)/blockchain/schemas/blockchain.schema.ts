@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { blockchainDatabaseConn } from "src/lib/connect-databases"
 
 export const BlockchainSchema = new Schema({
   rpcProviderName: {
@@ -26,3 +27,5 @@ export const BlockchainSchema = new Schema({
     required: true
   }
 }, { versionKey: false })
+
+export const BlockchainModel = blockchainDatabaseConn.model("rpcnodes", BlockchainSchema)

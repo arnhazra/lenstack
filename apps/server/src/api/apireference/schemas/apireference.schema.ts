@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { platformDatabaseConn } from "src/lib/connect-databases"
 
 export const ApiReferenceSchema = new Schema({
   productName: {
@@ -31,3 +32,5 @@ export const ApiReferenceSchema = new Schema({
     required: true
   },
 }, { versionKey: false })
+
+export const ApiReferenceModel = platformDatabaseConn.model("apireference", ApiReferenceSchema)

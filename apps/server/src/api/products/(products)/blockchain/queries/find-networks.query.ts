@@ -1,4 +1,4 @@
-import { BlockchainModel } from "../models/blockchain.model"
+import { BlockchainModel } from "../schemas/blockchain.schema"
 
 export async function findNetworksQuery(searchQuery: string, selectedGatewayFilter: string, selectedNetworkFilter: string) {
   let networks = await BlockchainModel.find({

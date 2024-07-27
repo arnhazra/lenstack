@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { platformDatabaseConn } from "src/lib/connect-databases"
 
 export const UserSchema = new Schema({
   email: {
@@ -27,3 +28,5 @@ export const UserSchema = new Schema({
     ref: "organization"
   }
 }, { versionKey: false })
+
+export const UserModel = platformDatabaseConn.model("user", UserSchema)

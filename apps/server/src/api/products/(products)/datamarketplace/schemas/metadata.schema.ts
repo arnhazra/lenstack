@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { datamarketplaceDatabaseConn } from "src/lib/connect-databases"
 
 export const MetadataSchema = new Schema({
   name: {
@@ -22,3 +23,4 @@ export const MetadataSchema = new Schema({
   }
 }, { versionKey: false })
 
+export const MetaDataModel = datamarketplaceDatabaseConn.model("metadata", MetadataSchema)

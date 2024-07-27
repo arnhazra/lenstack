@@ -1,4 +1,5 @@
 import { Schema } from "mongoose"
+import { platformDatabaseConn } from "src/lib/connect-databases"
 
 export const ProductSchema = new Schema({
   productName: {
@@ -34,3 +35,4 @@ export const ProductSchema = new Schema({
   }
 }, { versionKey: false })
 
+export const ProductModel = platformDatabaseConn.model("productconfig", ProductSchema)
