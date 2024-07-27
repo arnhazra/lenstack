@@ -52,7 +52,7 @@ export class UserService {
           const organizationCount = (await findMyOrganizationsQuery(user.id)).length
 
           if (!organizationCount) {
-            const organization = await createOrganizationCommand("Default Organization", user.id)
+            const organization = await createOrganizationCommand("Default Org", user.id)
             await updateSelectedOrganizationCommand(user.id, organization.id)
           }
 
@@ -71,7 +71,7 @@ export class UserService {
 
         else {
           const newUser = await createUserCommand(email)
-          const organization = await createOrganizationCommand("Default Organization", newUser.id)
+          const organization = await createOrganizationCommand("Default Org", newUser.id)
           await updateSelectedOrganizationCommand(newUser.id, organization.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
