@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Get, Query } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { DataAPIDto } from "./dto/data-api.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 

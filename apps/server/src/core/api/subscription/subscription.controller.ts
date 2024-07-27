@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Query, Res } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { CreateCheckoutSessionDto } from "./dto/create-checkout-session.dto"
 import { envConfig } from "src/env.config"
 import { otherConstants } from "src/utils/constants/other-constants"

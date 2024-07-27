@@ -3,7 +3,7 @@ import { UserService } from "./user.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { UpdateCarbonSettingsDto } from "./dto/update-carbon-settings.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 

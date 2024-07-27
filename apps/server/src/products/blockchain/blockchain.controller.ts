@@ -1,8 +1,8 @@
 import { Controller, Post, Body, BadRequestException, Get, Query, Param } from "@nestjs/common"
 import { BlockchainService } from "./blockchain.service"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { FindNetworksDto } from "./dto/find-networks.dto"
 
 @Controller("products/blockchain")

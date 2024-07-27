@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Delete, Query, BadRequestException, NotFoundException, Get } from "@nestjs/common"
 import { KvstoreService } from "./kvstore.service"
 import { CreateKvDto } from "./dto/create-kv.dto"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 
 @Controller("products/kvstore")

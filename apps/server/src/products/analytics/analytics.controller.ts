@@ -1,6 +1,6 @@
 import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/authorization/credential-authorizer.decorator"
+import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { AnalyticsService } from "./analytics.service"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 

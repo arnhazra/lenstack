@@ -1,6 +1,6 @@
 import { Controller, BadRequestException, Get, Query } from "@nestjs/common"
 import { ApiReferenceService } from "./apireference.service"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
+import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 
 @Controller("apireference")
