@@ -1,7 +1,8 @@
 import { createParamDecorator, ExecutionContext, UnauthorizedException } from "@nestjs/common"
 import { findUserByIdQuery } from "src/core/api/user/queries/find-user-by-id"
+import { envConfig } from "src/env.config"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { decodeJwt } from "src/utils/decode-jwt"
+import * as jwt from "jsonwebtoken"
 import { getTokenFromRedis } from "src/utils/redis-helper"
 
 export interface TokenAuthorizerResponse {
@@ -20,7 +21,8 @@ export const TokenAuthorizer = createParamDecorator(
 
     else {
       try {
-        const userId = decodeJwt(accessToken)
+        const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
+        const userId = (decoded as any).id
         const redisAccessToken = await getTokenFromRedis(userId)
 
         if (redisAccessToken === accessToken) {
