@@ -144,6 +144,30 @@ export default function Page() {
     }
   }
 
+  const deleteOrg = async (orgId: string) => {
+    const response = await confirm("Are you sure to delete this org ?")
+    if (response) {
+      try {
+        await axios.delete(`${endPoints.deleteOrganization}?orgId=${orgId}`)
+        organizations.refetch()
+        eventEmitter.emitEvent("OrganizationChangeEvent")
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">Organization switched</p>,
+          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        })
+      }
+
+      catch (error) {
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">Organization deletion failed</p>,
+          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        })
+      }
+    }
+  }
+
   const renderOrgs = organizations?.data?.myOrganizations?.map((organization: any) => {
     return (
       <OrgPanel
@@ -155,7 +179,7 @@ export default function Page() {
         clientSecret={organization?.clientSecret}
         createdAt={organization?.createdAt}
         onSwitch={(orgId) => switchOrg(orgId)}
-        onDelete={(orgId) => console.log(orgId)}
+        onDelete={(orgId) => deleteOrg(orgId)}
       />
     )
   })

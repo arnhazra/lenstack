@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query, BadRequestException, Get } from "@nestjs/common"
+import { Controller, Post, Body, Query, BadRequestException, Get, Delete } from "@nestjs/common"
 import { OrganizationService } from "./organization.service"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/authorization/token-authorizer.decorator"
@@ -40,6 +40,18 @@ export class OrganizationController {
     try {
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "organization", method: "POST", api: "/switch" })
       return await this.organizationService.switchOrganization(user.userId, orgId)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @Delete("delete")
+  async deleteOrganization(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("orgId") orgId: string) {
+    try {
+      this.eventEmitter.emit("createInsights", { userId: user.userId, module: "organization", method: "DELETE", api: "/delete" })
+      return await this.organizationService.deleteOrganization(user.userId, orgId)
     }
 
     catch (error) {

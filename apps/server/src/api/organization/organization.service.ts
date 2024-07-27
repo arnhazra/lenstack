@@ -5,6 +5,7 @@ import { createOrganizationCommand } from "./commands/create-organization.comman
 import { findMyOrganizationsQuery } from "./queries/find-org.query"
 import { findOrganizationByIdQuery } from "./queries/find-org-by-id.query"
 import { switchOrganizationCommand } from "./commands/switch-organization.command"
+import { deleteOrganizationCommand } from "./commands/delete-organization.command"
 
 @Injectable()
 export class OrganizationService {
@@ -44,6 +45,25 @@ export class OrganizationService {
 
       if (userId.toString() === reqUserId) {
         await switchOrganizationCommand(reqUserId, orgId)
+        return { success: true }
+      }
+
+      else {
+        throw new BadRequestException(statusMessages.connectionError)
+      }
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async deleteOrganization(reqUserId: string, orgId: string) {
+    try {
+      const { userId } = await findOrganizationByIdQuery(orgId)
+
+      if (userId.toString() === reqUserId) {
+        await deleteOrganizationCommand(orgId)
         return { success: true }
       }
 

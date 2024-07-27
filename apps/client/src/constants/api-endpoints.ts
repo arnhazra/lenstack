@@ -15,6 +15,7 @@ export const endPoints = {
   createOrganization: `${apiHost}/api/organization/create`,
   findMyOrganizations: `${apiHost}/api/organization/findmyorganizations`,
   switchOrganization: `${apiHost}/api/organization/switch`,
+  deleteOrganization: `${apiHost}/api/organization/delete`,
   getProductConfig: `${apiHost}/api/products/getproductconfig`,
   getSolutionConfig: `${apiHost}/api/products/getsolutionconfig`,
   analyticsView: `${apiHost}/api/products/analytics/get`,
