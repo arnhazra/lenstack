@@ -22,8 +22,8 @@ export const UserSchema = new Schema({
     default: true
   },
 
-  selectedWorkspaceId: {
+  selectedOrgId: {
     type: Schema.Types.ObjectId,
-    ref: "workspace"
+    ref: "organization"
   }
 }, { versionKey: false })

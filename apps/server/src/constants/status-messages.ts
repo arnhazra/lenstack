@@ -10,5 +10,5 @@ export const statusMessages = {
   subscriptionLimitReached: "Subscription Limit Reached",
   subscriptionExpired: "Subacription Expired",
   noSubscriptionsFound: "Subscription Not Found",
-  workspaceLimitReached: "You can create maximum 3 workspaces"
+  organizationLimitReached: "You can create maximum 10 organizations"
 }

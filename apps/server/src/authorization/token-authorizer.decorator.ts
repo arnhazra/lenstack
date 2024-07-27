@@ -6,7 +6,7 @@ import { getTokenFromRedis } from "src/lib/redis-helper"
 
 export interface TokenAuthorizerResponse {
   userId: string,
-  workspaceId: string
+  orgId: string
 }
 
 export const TokenAuthorizer = createParamDecorator(
@@ -24,9 +24,9 @@ export const TokenAuthorizer = createParamDecorator(
         const redisAccessToken = await getTokenFromRedis(userId)
 
         if (redisAccessToken === accessToken) {
-          const { selectedWorkspaceId } = await findUserByIdQuery(userId)
-          const workspaceId = selectedWorkspaceId.toString()
-          return { userId, workspaceId }
+          const { selectedOrgId } = await findUserByIdQuery(userId)
+          const orgId = selectedOrgId.toString()
+          return { userId, orgId }
         }
 
         else {

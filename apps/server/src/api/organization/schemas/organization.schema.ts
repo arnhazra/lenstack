@@ -1,6 +1,6 @@
 import { Schema } from "mongoose"
 
-export const WorkspaceSchema = new Schema({
+export const OrganizationSchema = new Schema({
   name: {
     type: String,
     required: true,

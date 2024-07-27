@@ -47,10 +47,10 @@ export class UserController {
   async getUserDetails(@TokenAuthorizer() userT: TokenAuthorizerResponse) {
     try {
       this.eventEmitter.emit("createInsights", { userId: userT.userId, module: "user", method: "GET", api: "/userdetails" })
-      const { user, subscription, workspace, hasActiveSubscription } = await this.userService.getUserDetails(userT.userId, userT.workspaceId)
+      const { user, subscription, organization, hasActiveSubscription } = await this.userService.getUserDetails(userT.userId, userT.orgId)
 
       if (user) {
-        return { user, subscription, workspace, hasActiveSubscription }
+        return { user, subscription, organization, hasActiveSubscription }
       }
 
       else {

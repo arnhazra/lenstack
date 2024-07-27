@@ -53,7 +53,7 @@ export default function Page() {
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
                     Total number of events
-                    in this workspace
+                    in this organization
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -80,7 +80,7 @@ export default function Page() {
               <CardHeader className="px-7">
                 <CardTitle>KVs</CardTitle>
                 <CardDescription>
-                  Your KV list in this workspace
+                  Your KV list in this organization
                 </CardDescription>
               </CardHeader>
               <CardContent>

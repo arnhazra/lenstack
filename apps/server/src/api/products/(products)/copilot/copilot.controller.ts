@@ -12,7 +12,7 @@ export class CopilotController {
   async generateRecommendation(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() aiGenerationDto: AIGenerationDto) {
     try {
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/copilot", method: "POST", api: "/generate" })
-      return await this.copilotService.generateRecommendation(user.workspaceId, aiGenerationDto.prompt, aiGenerationDto.temperature, aiGenerationDto.topP, aiGenerationDto.topK)
+      return await this.copilotService.generateRecommendation(user.orgId, aiGenerationDto.prompt, aiGenerationDto.temperature, aiGenerationDto.topP, aiGenerationDto.topK)
     }
 
     catch (error) {

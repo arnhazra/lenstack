@@ -4,15 +4,15 @@ import { AnalyticsModel } from "./schemas/analytics.schema"
 
 @Injectable()
 export class AnalyticsRepository {
-  async createOne(workspaceId: string, dto: CreateAnalyticsDto) {
+  async createOne(orgId: string, dto: CreateAnalyticsDto) {
     const { component, event, info, statusCode } = dto
-    const doc = new AnalyticsModel({ workspaceId, component, event, info, statusCode })
+    const doc = new AnalyticsModel({ orgId, component, event, info, statusCode })
     await doc.save()
     return doc
   }
 
-  async findAll(workspaceId: string) {
-    const analytics = await AnalyticsModel.find({ workspaceId }).sort({ createdAt: -1 })
+  async findAll(orgId: string) {
+    const analytics = await AnalyticsModel.find({ orgId }).sort({ createdAt: -1 })
     return analytics
   }
 }

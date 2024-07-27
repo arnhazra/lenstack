@@ -12,7 +12,7 @@ export class AnalyticsController {
   async createAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
     try {
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/analytics", method: "POST", api: "/create" })
-      return await this.analyticsService.createAnalytics(user.workspaceId, createAnalyticsDto)
+      return await this.analyticsService.createAnalytics(user.orgId, createAnalyticsDto)
     }
 
     catch (error) {
@@ -24,7 +24,7 @@ export class AnalyticsController {
   async getAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
     try {
       this.eventEmitter.emit("createInsights", { userId: user.userId, module: "products/analytics", method: "GET", api: "/get" })
-      return await this.analyticsService.getAnalytics(user.workspaceId)
+      return await this.analyticsService.getAnalytics(user.orgId)
     }
 
     catch (error) {

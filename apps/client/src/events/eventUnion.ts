@@ -1,4 +1,4 @@
 export type EventUnion = {
-  WorkspaceChangeEvent: () => Promise<void>
+  OrganizationChangeEvent: () => Promise<void>
   SearchEvent: (searchKeyword: string) => Promise<void>
 }

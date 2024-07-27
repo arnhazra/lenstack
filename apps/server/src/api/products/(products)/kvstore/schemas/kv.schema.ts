@@ -1,9 +1,9 @@
 import { Schema } from "mongoose"
 
 export const KvSchema = new Schema({
-  workspaceId: {
+  orgId: {
     type: Schema.Types.ObjectId,
-    ref: "workspace",
+    ref: "organization",
     required: true
   },
 

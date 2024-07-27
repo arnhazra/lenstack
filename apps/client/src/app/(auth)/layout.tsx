@@ -89,8 +89,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       try {
         const response = await axios.get(endPoints.userDetails)
         const userId = response.data.user._id
-        const { email, role, selectedWorkspaceId, reduceCarbonEmissions } = response.data.user
-        const { name: selectedWorkspaceName, clientId, clientSecret } = response.data.workspace
+        const { email, role, selectedOrgId, reduceCarbonEmissions } = response.data.user
+        const { name: selectedOrganizationName, clientId, clientSecret } = response.data.organization
         const hasActiveSubscription = response.data.hasActiveSubscription
 
         if (response.data.subscription) {
@@ -104,7 +104,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
         localStorage.setItem("clientId", clientId)
         localStorage.setItem("clientSecret", clientSecret)
-        dispatch("setUserState", { userId, email, role, selectedWorkspaceId, selectedWorkspaceName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions })
+        dispatch("setUserState", { userId, email, role, selectedOrgId, selectedOrganizationName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions })
         dispatch("setUserState", { isAuthorized: true })
         setAuthorized(true)
       }
@@ -147,10 +147,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       setLoading(false)
     }
 
-    eventEmitter.onEvent("WorkspaceChangeEvent", (): Promise<void> => getUserDetails())
+    eventEmitter.onEvent("OrganizationChangeEvent", (): Promise<void> => getUserDetails())
 
     return () => {
-      eventEmitter.offEvent("WorkspaceChangeEvent", (): Promise<void> => getUserDetails())
+      eventEmitter.offEvent("OrganizationChangeEvent", (): Promise<void> => getUserDetails())
     }
   }, [isAuthorized])
 

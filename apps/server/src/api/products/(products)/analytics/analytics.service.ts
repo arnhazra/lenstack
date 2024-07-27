@@ -8,9 +8,9 @@ import { GetAnalyticsQuery } from "./queries/impl/get-analytics.query"
 export class AnalyticsService {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) { }
 
-  async createAnalytics(workspaceId: string, createAnalyticsDto: CreateAnalyticsDto) {
+  async createAnalytics(orgId: string, createAnalyticsDto: CreateAnalyticsDto) {
     try {
-      return await this.commandBus.execute(new CreateAnalyticsCommand(workspaceId, createAnalyticsDto))
+      return await this.commandBus.execute(new CreateAnalyticsCommand(orgId, createAnalyticsDto))
     }
 
     catch (error) {
@@ -18,9 +18,9 @@ export class AnalyticsService {
     }
   }
 
-  async getAnalytics(workspaceId: string) {
+  async getAnalytics(orgId: string) {
     try {
-      const analytics = await this.queryBus.execute(new GetAnalyticsQuery(workspaceId))
+      const analytics = await this.queryBus.execute(new GetAnalyticsQuery(orgId))
       return { analytics }
     }
 

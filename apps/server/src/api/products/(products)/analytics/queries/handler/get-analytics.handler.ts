@@ -7,7 +7,7 @@ export class GetAnalyticsQueryHandler implements IQueryHandler<GetAnalyticsQuery
   constructor(private readonly repository: AnalyticsRepository) { }
 
   async execute(query: GetAnalyticsQuery) {
-    const { workspaceId } = query
-    return await this.repository.findAll(workspaceId)
+    const { orgId } = query
+    return await this.repository.findAll(orgId)
   }
 }

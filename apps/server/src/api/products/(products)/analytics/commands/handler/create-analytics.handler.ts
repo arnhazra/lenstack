@@ -7,8 +7,8 @@ export class CreateAnalyticsCommandHandler implements ICommandHandler<CreateAnal
   constructor(private readonly repository: AnalyticsRepository) { }
 
   async execute(command: CreateAnalyticsCommand) {
-    const { workspaceId, createAnalyticsDto } = command
-    await this.repository.createOne(workspaceId, createAnalyticsDto)
+    const { orgId, createAnalyticsDto } = command
+    await this.repository.createOne(orgId, createAnalyticsDto)
     return true
   }
 }

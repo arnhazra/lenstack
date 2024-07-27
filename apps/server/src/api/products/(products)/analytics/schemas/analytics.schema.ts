@@ -2,9 +2,9 @@ import { Schema } from "mongoose"
 import { analyticsDatabaseConn } from "src/lib/connect-databases"
 
 export const AnalyticsSchema = new Schema({
-  workspaceId: {
+  orgId: {
     type: Schema.Types.ObjectId,
-    ref: "workspace",
+    ref: "organization",
     required: true
   },
 

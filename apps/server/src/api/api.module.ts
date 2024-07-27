@@ -4,9 +4,9 @@ import { InsightsModule } from "./insights/insights.module"
 import { ProductsModule } from "./products/products.module"
 import { SubscriptionModule } from "./subscription/subscription.module"
 import { UserModule } from "./user/user.module"
-import { WorkspaceModule } from "./workspace/workspace.module"
+import { OrganizationModule } from "./organization/organization.module"
 
 @Module({
-  imports: [UserModule, SubscriptionModule, ProductsModule, ApiReferenceModule, WorkspaceModule, InsightsModule]
+  imports: [UserModule, SubscriptionModule, ProductsModule, ApiReferenceModule, OrganizationModule, InsightsModule]
 })
 export class ApiModule { }

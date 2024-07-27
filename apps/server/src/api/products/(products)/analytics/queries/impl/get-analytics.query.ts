@@ -1,5 +1,5 @@
 export class GetAnalyticsQuery {
   constructor(
-    public readonly workspaceId: string,
+    public readonly orgId: string,
   ) { }
 }

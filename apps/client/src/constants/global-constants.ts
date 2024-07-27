@@ -1,7 +1,7 @@
 export const uiConstants = {
   brandName: "ArcStack",
   homeHeader: "Build, Ship & Scale with",
-  homeIntro: "Start with free AS0 plan, no upfront commitment, Upgrade to AS1 at ₹99/month",
+  homeIntro: "Start with free AS0 plan, no upfront commitment, Upgrade to higher tier on demand",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Auth",
   errorMessage: "404, Lost",

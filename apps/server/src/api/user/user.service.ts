@@ -7,15 +7,14 @@ import { generateAuthPasskeyAndSendEmail, verifyAuthPasskey } from "src/api/user
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/lib/redis-helper"
 import { otherConstants } from "src/constants/other-constants"
 import { statusMessages } from "src/constants/status-messages"
-import { findWorkspaceByIdQuery } from "../workspace/queries/find-workspace-by-id.query"
-import { createWorkspaceCommand } from "../workspace/commands/create-workspace.command"
-import { findMyWorkspacesQuery } from "../workspace/queries/find-workspaces.query"
+import { findOrganizationByIdQuery } from "../organization/queries/find-org-by-id.query"
+import { createOrganizationCommand } from "../organization/commands/create-organization.command"
+import { findMyOrganizationsQuery } from "../organization/queries/find-org.query"
 import { findSubscriptionByUserIdQuery } from "../subscription/queries/find-subscription"
 import { findUserByEmailQuery } from "./queries/find-user-by-email"
-import { updateSelectedWorkspaceCommand } from "./commands/update-selected-workspace.command"
+import { updateSelectedOrganizationCommand } from "./commands/update-selected-org.command"
 import { createUserCommand } from "./commands/create-user.command"
 import { findUserByIdQuery } from "./queries/find-user-by-id"
-import { lastValueFrom } from "rxjs"
 import { HttpService } from "@nestjs/axios"
 import updateCarbonSettings from "./commands/update-carbon-settings.command"
 
@@ -50,11 +49,11 @@ export class UserService {
 
         if (user) {
           const redisAccessToken = await getTokenFromRedis(user.id)
-          const workspaceCount = (await findMyWorkspacesQuery(user.id)).length
+          const organizationCount = (await findMyOrganizationsQuery(user.id)).length
 
-          if (!workspaceCount) {
-            const workspace = await createWorkspaceCommand("Default Workspace", user.id)
-            await updateSelectedWorkspaceCommand(user.id, workspace.id)
+          if (!organizationCount) {
+            const organization = await createOrganizationCommand("Default Organization", user.id)
+            await updateSelectedOrganizationCommand(user.id, organization.id)
           }
 
           if (redisAccessToken) {
@@ -72,8 +71,8 @@ export class UserService {
 
         else {
           const newUser = await createUserCommand(email)
-          const workspace = await createWorkspaceCommand("Default Workspace", newUser.id)
-          await updateSelectedWorkspaceCommand(newUser.id, workspace.id)
+          const organization = await createOrganizationCommand("Default Organization", newUser.id)
+          await updateSelectedOrganizationCommand(newUser.id, organization.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await setTokenInRedis(newUser.id, accessToken)
@@ -91,12 +90,12 @@ export class UserService {
     }
   }
 
-  async getUserDetails(userId: string, workspaceId: string) {
+  async getUserDetails(userId: string, orgId: string) {
     try {
       const user = await findUserByIdQuery(userId)
 
       if (user) {
-        const workspace = await findWorkspaceByIdQuery(workspaceId)
+        const organization = await findOrganizationByIdQuery(orgId)
         const subscription = await findSubscriptionByUserIdQuery(userId)
         let hasActiveSubscription = false
 
@@ -104,7 +103,7 @@ export class UserService {
           hasActiveSubscription = true
         }
 
-        return { user, workspace, subscription, hasActiveSubscription }
+        return { user, organization, subscription, hasActiveSubscription }
       }
 
       else {

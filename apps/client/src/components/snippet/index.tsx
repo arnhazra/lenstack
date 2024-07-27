@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { ClipboardIcon } from "lucide-react"
+import { Clipboard } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
@@ -40,7 +40,7 @@ export default function SnippetPanel({ title, url, method, request, response }: 
       <CardContent className="flex gap-3">
         <Badge variant="outline">{method}</Badge>
         <Input value={url} disabled />
-        <Button variant="outline" size="icon" onClick={copyValue}><ClipboardIcon className="scale-50" /></Button>
+        <Button variant="outline" size="icon" onClick={copyValue}><Clipboard className="scale-50" /></Button>
       </CardContent>
       <CardFooter className="block">
         <Suspense condition={!!request} fallback={null}>

@@ -1,9 +1,10 @@
 # Changelog
 
 ### v4.7.1
-* Minor bug fixes
-* Performance improvements
-* Code refactoring & optimization
+* Rebranded workspace as organization
+* Moved organization into account settings
+* Minor bug fixes & Performance improvements
+* Code refactoring, optimization & dependency updates
 * Introduction of CQRS design pattern with DDD in nest server
 
 ### v4.7.0

@@ -7,8 +7,8 @@ export interface UserState {
   clientSecret: string
   createdAt: string
   expiresAt: string
-  selectedWorkspaceId: string
-  selectedWorkspaceName: string
+  selectedOrgId: string
+  selectedOrganizationName: string
   remainingCredits: number | string
   hasActiveSubscription: boolean,
   isAuthorized: boolean,

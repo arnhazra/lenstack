@@ -1,13 +1,13 @@
 import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
 import { findSubscriptionByUserIdQuery } from "src/api/subscription/queries/find-subscription"
-import { findWorkspaceByCredentialQuery } from "src/api/workspace/queries/find-workspace-by-credential.query"
-import { subscriptionConfig, SubscriptionPlans } from "src/api/subscription/subscription.config"
+import { findOrganizationByCredentialQuery } from "src/api/organization/queries/find-org-by-credential.query"
+import { subscriptionConfig } from "src/api/subscription/subscription.config"
 import { statusMessages } from "src/constants/status-messages"
 import { delay } from "src/lib/delay"
 
 export interface CredentialAuthorizerResponse {
   userId: string,
-  workspaceId: string
+  orgId: string
 }
 
 export const CredentialAuthorizer = createParamDecorator(
@@ -22,14 +22,14 @@ export const CredentialAuthorizer = createParamDecorator(
 
     else {
       try {
-        const workspace = await findWorkspaceByCredentialQuery(clientId, clientSecret)
+        const organization = await findOrganizationByCredentialQuery(clientId, clientSecret)
 
-        if (workspace) {
-          const subscription = await findSubscriptionByUserIdQuery(workspace.userId.toString())
+        if (organization) {
+          const subscription = await findSubscriptionByUserIdQuery(organization.userId.toString())
 
           if (subscription) {
-            const userId = workspace.userId.toString()
-            const workspaceId = workspace.id.toString()
+            const userId = organization.userId.toString()
+            const orgId = organization.id.toString()
             const currentDate = new Date()
             const expiryDate = subscription.expiresAt
 
@@ -49,7 +49,7 @@ export const CredentialAuthorizer = createParamDecorator(
                 await delay(responseDelay)
                 subscription.remainingCredits -= creditRequired
                 await subscription.save()
-                return { userId, workspaceId }
+                return { userId, orgId }
               }
             }
           }
