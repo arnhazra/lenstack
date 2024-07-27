@@ -14,7 +14,6 @@ import { findUserByEmailQuery } from "./queries/find-user-by-email"
 import { updateSelectedOrganizationCommand } from "./commands/update-selected-org.command"
 import { createUserCommand } from "./commands/create-user.command"
 import { findUserByIdQuery } from "./queries/find-user-by-id"
-import { HttpService } from "@nestjs/axios"
 import updateCarbonSettings from "./commands/update-carbon-settings.command"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
@@ -23,7 +22,7 @@ import { EventsUnion } from "src/core/events/events.union"
 export class UserService {
   private readonly authPrivateKey: string
 
-  constructor(private readonly httpService: HttpService, private readonly eventEmitter: EventEmitter2) {
+  constructor(private readonly eventEmitter: EventEmitter2) {
     this.authPrivateKey = envConfig.authPrivateKey
   }
 
@@ -68,7 +67,7 @@ export class UserService {
           else {
             const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
             const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-            this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: user.id, accessToken })
+            await this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: user.id, accessToken })
             return { accessToken, success: true, user }
           }
         }
@@ -79,7 +78,7 @@ export class UserService {
           await updateSelectedOrganizationCommand(newUser.id, organization.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-          this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: newUser.id, accessToken })
+          await this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: newUser.id, accessToken })
           return { accessToken, success: true, user: newUser }
         }
       }
@@ -122,7 +121,7 @@ export class UserService {
 
   async signOut(userId: string) {
     try {
-      this.eventEmitter.emitAsync(EventsUnion.DeleteAccessToken, { userId })
+      await this.eventEmitter.emitAsync(EventsUnion.DeleteAccessToken, { userId })
     }
 
     catch (error) {
