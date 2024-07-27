@@ -42,7 +42,7 @@ export default function Page() {
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
+                  <Button onClick={(): void => router.push(`/apireference?tab=${selectedProduct?.productName}`)}>API Reference</Button>
                 </CardFooter>
               </Card>
               <Card>

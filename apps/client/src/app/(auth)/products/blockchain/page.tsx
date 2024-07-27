@@ -2,7 +2,6 @@
 import Error from "@/components/error"
 import Loading from "@/components/loading"
 import Suspense from "@/components/suspense"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -11,7 +10,7 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck } from "lucide-react"
+import { ListFilter } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import eventEmitter from "@/events/eventEmitter"
@@ -90,7 +89,7 @@ export default function Page() {
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button onClick={(): void => router.push("/apireference")}>API Reference</Button>
+                  <Button onClick={(): void => router.push(`/apireference?tab=${selectedProduct?.productName}`)}>API Reference</Button>
                 </CardFooter>
               </Card>
               <Card>

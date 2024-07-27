@@ -102,7 +102,7 @@ export default function Page() {
                     {renderPricingTiers}
                   </div>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="flex justify-end">
                   <Button onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay ₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</Button>
                 </CardFooter>
               </Card>

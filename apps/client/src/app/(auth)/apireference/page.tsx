@@ -1,31 +1,40 @@
 "use client"
-import { ReactElement, useState } from "react"
+import { ReactElement, useEffect, useState } from "react"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
 import { Tabs, tabsList } from "./data"
-import { Braces, Database, DatabaseZap, Hexagon, PieChart, ServerCrash, Sparkles } from "lucide-react"
+import { Database, Hexagon, PieChart, ServerCrash, Sparkles } from "lucide-react"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import { convertToTitleCase } from "../../../lib/convert-to-title-case"
 import SnippetPanel from "@/components/snippet"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
+import { useRouter, useSearchParams } from "next/navigation"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,
   blockchain: <Hexagon />,
   copilot: <Sparkles />,
-  dataMarketplace: <ServerCrash />,
-  kvStore: <Database />,
+  datamarketplace: <ServerCrash />,
+  kvstore: <Database />,
 }
 
 export default function Page() {
-  const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.Analytics)
-  const apiReference = useQuery(["apireference"], `${endPoints.getapireference}?productName=${selectedTab.toLowerCase()}`, HTTPMethods.GET)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const selectedTab = searchParams.get("tab")
+  const apiReference = useQuery(["apireference"], `${endPoints.getapireference}?productName=${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
+
+  useEffect(() => {
+    if (!selectedTab) {
+      router.push(`/apireference?tab=${Tabs.Analytics}`)
+    }
+  }, [selectedTab])
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => setSelectedTab(tab)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => router.push(`/apireference?tab=${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{convertToTitleCase(tab)}</p>
       </div>
