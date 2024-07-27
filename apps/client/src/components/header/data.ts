@@ -39,7 +39,7 @@ export const authUserLinks: LinkData[] = [
     mainLink: true
   },
   {
-    displayName: "Plans",
+    displayName: "Subscription",
     link: "/subscription"
   },
   {

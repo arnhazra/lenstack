@@ -16,8 +16,8 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,
   blockchain: <Hexagon />,
   copilot: <Sparkles />,
-  datamarketplace: <ServerCrash />,
-  kvstore: <Database />,
+  dataMarketplace: <ServerCrash />,
+  kvStore: <Database />,
 }
 
 export default function Page() {

@@ -1,6 +1,6 @@
 import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
-import { connectDatabases } from "./lib/connect-databases"
+import { connectDatabases } from "./utils/connect-databases"
 import { INestApplication, ValidationPipe } from "@nestjs/common"
 import { envConfig } from "./env.config"
 
