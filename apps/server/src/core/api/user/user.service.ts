@@ -4,7 +4,6 @@ import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import { envConfig } from "src/env.config"
 import { generateAuthPasskey, verifyAuthPasskey, generateEmailBody } from "./user.util"
-import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redis-helper"
 import { otherConstants } from "src/utils/constants/other-constants"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { findOrganizationByIdQuery } from "../organization/queries/find-org-by-id.query"
@@ -53,7 +52,7 @@ export class UserService {
         let user = await findUserByEmailQuery(email)
 
         if (user) {
-          const redisAccessToken = await getTokenFromRedis(user.id)
+          const redisAccessToken = await this.eventEmitter.emitAsync(EventsUnion.GetAccessToken, { userId: user.id })
           const organizationCount = (await findMyOrganizationsQuery(user.id)).length
 
           if (!organizationCount) {
@@ -61,7 +60,7 @@ export class UserService {
             await updateSelectedOrganizationCommand(user.id, organization.id)
           }
 
-          if (redisAccessToken) {
+          if (redisAccessToken.toString()) {
             const accessToken = redisAccessToken
             return { accessToken, success: true, user }
           }
@@ -69,7 +68,7 @@ export class UserService {
           else {
             const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
             const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-            await setTokenInRedis(user.id, accessToken)
+            this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: user.id, accessToken })
             return { accessToken, success: true, user }
           }
         }
@@ -80,7 +79,7 @@ export class UserService {
           await updateSelectedOrganizationCommand(newUser.id, organization.id)
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-          await setTokenInRedis(newUser.id, accessToken)
+          this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: newUser.id, accessToken })
           return { accessToken, success: true, user: newUser }
         }
       }
@@ -123,7 +122,7 @@ export class UserService {
 
   async signOut(userId: string) {
     try {
-      await removeTokenFromRedis(userId)
+      this.eventEmitter.emitAsync(EventsUnion.DeleteAccessToken, { userId })
     }
 
     catch (error) {
