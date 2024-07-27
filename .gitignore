@@ -2,10 +2,10 @@
 /dist
 node_modules
 .env
-apps/web/.next
-apps/web/.vercel
-apps/web/*.tsbuildinfo
-apps/web/out
+apps/client/.next
+apps/client/.vercel
+apps/client/*.tsbuildinfo
+apps/client/out
 .vercel
 dist
-api/build
+server/build

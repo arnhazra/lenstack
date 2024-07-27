@@ -1,5 +1,12 @@
 # Changelog
 
+### v4.7.1
+* Rebranded workspace as organization
+* Moved organization into account settings
+* Minor bug fixes & Performance improvements
+* Code refactoring, optimization & dependency updates
+* Introduction of CQRS design pattern with DDD in nest server
+
 ### v4.7.0
 * Integrated new blockchain for Blockchain product
 * Application Optimization
@@ -95,7 +102,6 @@
 * Regular dependency updates
 
 ### v4.0.0
-* Migrated entire backend to DDD with CQRS pattern
 * Added type safety for dispatcher in context
 * Deprecation of Insights 
 * Introduction of Analytics
@@ -137,7 +143,6 @@
 * Removal of old Product card
 * Introduction of new Generic card
 * Changes in styling
-* Migrated Wallet API to CQRS pattern
 * Code refactoring
 * Introduction of grid component
 * Removal of project dependency in insights
@@ -226,7 +231,6 @@
 * Deprecated Show component
 * Added strict types to functions, constants, returns
 * Fix resubscribe issue
-* Implementation of DDD with CQRS pattern in some modules
 * New Card Component
 * Introduction of new Suspense Component
 * Introduction of Tanstack query default options

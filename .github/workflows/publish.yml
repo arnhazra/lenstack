@@ -16,28 +16,28 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Build API application
-        working-directory: apps/api
+      - name: Build Server application
+        working-directory: apps/server
         run: |
           npm install
           CI=false npm run build
 
-      - name: Build Web application
-        working-directory: apps/web
+      - name: Build Client application
+        working-directory: apps/client
         run: |
           npm install
           CI=false npm run build
 
       - name: Configure packages
-        working-directory: apps/api
+        working-directory: apps/server
         run: sed -i '/"devDependencies":/,/}/d' package.json
 
       - name: Build Movement
         run: |
           mkdir dist
-          cp -r apps/api/package.json dist/package.json
-          cp -r apps/api/dist/. dist
-          mv apps/web/out dist/web
+          cp -r apps/server/package.json dist/package.json
+          cp -r apps/server/dist/. dist
+          mv apps/client/out dist/client
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
