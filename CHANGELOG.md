@@ -1,13 +1,22 @@
 # Changelog
 
-### v4.7.1
+### v5.0.0
+* Minor bug fixes & Performance improvements
+* Code refactoring, optimization & dependency updates
+* Integrated CQRS design pattern with DDD in all modules for nest server
+* Restructure backend into platform & product modules
+* Create services with event pattern for email
+* Rebranded KV Store as HTTP NoSQL
+* Major Updates in all products
+
+### v4.9.1
 * Rebranded workspace as organization
 * Moved organization into account settings
 * Minor bug fixes & Performance improvements
 * Code refactoring, optimization & dependency updates
 * Introduction of CQRS design pattern with DDD in nest server
 
-### v4.7.0
+### v4.9.0
 * Integrated new blockchain for Blockchain product
 * Application Optimization
 * Revamped pricing tiers
@@ -15,7 +24,7 @@
 * Dependency updates & bug fixes
 * Deprecated NFT Studio
 
-### v4.6.0
+### v4.8.1
 * Application Optimization
 * Introduction of custom scrollbar in UI
 * Removal of global search keyword & replacement with search as an event
@@ -28,7 +37,7 @@
 * Insights Integration for user behaviour tracking 
 * Introduction of event driven design pattern in API for cross module communication
 
-### v4.5.2
+### v4.8.0
 * Regular dependency updates & bug fixes
 * renamed uft & ufc in authorizers to user
 * Deprecated Swap & Wallet applications
@@ -37,13 +46,13 @@
 * Minor code refactoring
 * Regular dependency updates
 
-### v4.5.1
+### v4.7.1
 * Rebranding of Data Exchange to Data Marketplace
 * Pricing restructure
 * Updated theme from zinc & gray to slate
 * Dependency updates & minor bug fixes
 
-### v4.5.0
+### v4.7.0
 * Added Credential Authorizer in all tx gateways to enable API solution for blockchain apps 
 * Removed all Create TX API
 * Removed API Pricing Credits
@@ -53,7 +62,7 @@
 * Bug fixes & performance improvements
 * Unnecessary code cleanup
 
-### v4.4.0
+### v4.6.0
 * Application UI Overhaul with Shadcn UI & Tailwind replacing React Bootstrap & Bootstrap
 * Deprecated Ledgerscan app
 * Stripe Payment integration
@@ -64,20 +73,20 @@
 * Minor dependency updates
 * Bug fixes
 
-### v4.3.1
+### v4.5.0
 * Update sustainability settings for better performance
 * Integrated reduceCarbonEmissions in users collection
 * Removed sustainability settings model & module
 * Updated UI for changing sustainability settings
 * Removed sustainability page & integrated settings in accounts page
 
-### v4.3.0
+### v4.4.0
 * Integration of sustainability settings
 * Code optimization for sustainable development to reduce carbon emissions
 * New modern way to put items in page center applied for loading & box classes
 * Subscription configuration changes
 
-### v4.2.1
+### v4.3.0
 * Removal of all useCallback & useMemo as these will be deprecated in React 19 & beyond
 * Fix hobby subscription not activating after one time
 * Option component improvements
