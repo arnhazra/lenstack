@@ -3,7 +3,7 @@ import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import { envConfig } from "src/env.config"
-import { generateAuthPasskeyAndSendEmail, verifyAuthPasskey } from "./utils/passkey.util"
+import { generateAuthPasskey, verifyAuthPasskey, generateEmailBody } from "./user.util"
 import { getTokenFromRedis, removeTokenFromRedis, setTokenInRedis } from "src/utils/redis-helper"
 import { otherConstants } from "src/utils/constants/other-constants"
 import { statusMessages } from "src/utils/constants/status-messages"
@@ -17,12 +17,14 @@ import { createUserCommand } from "./commands/create-user.command"
 import { findUserByIdQuery } from "./queries/find-user-by-id"
 import { HttpService } from "@nestjs/axios"
 import updateCarbonSettings from "./commands/update-carbon-settings.command"
+import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventsUnion } from "src/core/events/events.union"
 
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
 
-  constructor(private readonly httpService: HttpService) {
+  constructor(private readonly httpService: HttpService, private readonly eventEmitter: EventEmitter2) {
     this.authPrivateKey = envConfig.authPrivateKey
   }
 
@@ -30,8 +32,11 @@ export class UserService {
     try {
       const { email } = generateAuthPasskeyDto
       let user = await findUserByEmailQuery(email)
-      const hash = await generateAuthPasskeyAndSendEmail(email)
-      return { user, hash }
+      const { fullHash, passKey } = await generateAuthPasskey(email)
+      const subject: string = `${envConfig.brandName} Auth Passkey`
+      const body: string = generateEmailBody(passKey)
+      this.eventEmitter.emitAsync(EventsUnion.SendEmail, { receiverEmail: email, subject, body })
+      return { user, hash: fullHash }
     }
 
     catch (error) {

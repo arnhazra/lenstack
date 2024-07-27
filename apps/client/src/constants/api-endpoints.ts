@@ -17,7 +17,7 @@ export const endPoints = {
   switchOrganization: `${apiHost}/api/organization/switch`,
   deleteOrganization: `${apiHost}/api/organization/delete`,
   getProductConfig: `${apiHost}/api/products/getproductconfig`,
-  getSolutionConfig: `${apiHost}/api/products/getsolutionconfig`,
+  getSolutionConfig: `${apiHost}/api/solutions/getsolutionconfig`,
   analyticsView: `${apiHost}/api/products/analytics/get`,
   analyticsCreate: `${apiHost}/api/products/analytics/create`,
   blockchainGatewayFilters: `${apiHost}/api/products/blockchain/gatewayfilters`,
