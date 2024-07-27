@@ -13,10 +13,10 @@ import Error from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,
+  blockchain: <Hexagon />,
   copilot: <Sparkles />,
   dataMarketplace: <ServerCrash />,
   kvStore: <Database />,
-  blockchain: <Hexagon />
 }
 
 export default function Page() {

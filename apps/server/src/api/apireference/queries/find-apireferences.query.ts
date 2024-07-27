@@ -1,6 +1,6 @@
 import { ApiReferenceModel } from "../models/apireference.model"
 
 export async function findAPIReferencesByProductNameQuery(productName: string) {
-  const docList = await ApiReferenceModel.find({ productName })
+  const docList = await ApiReferenceModel.find({ productName }).sort("productName")
   return docList
 }

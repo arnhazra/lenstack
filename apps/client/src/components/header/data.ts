@@ -43,9 +43,13 @@ export const authUserLinks: LinkData[] = [
     link: "/subscription"
   },
   {
-    displayName: "Docs",
+    displayName: "Organization",
+    link: "/account?tab=organization"
+  },
+  {
+    displayName: "API Reference",
     link: "/apireference"
-  }
+  },
 ]
 
 export const searchEnabledPathNames = [

@@ -57,7 +57,7 @@ export default function Header() {
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <Link key="dashboard" href="/dashboard" className="flex items-center gap-2 text-lg font-semibold md:text-base"><Tent className="h-6 w-6" /></Link>
             {authUserLinks.map((item, index) =>
-              <Link key={index} href={item.link} className={item.mainLink ? "text-foreground text-lg" : "text-foreground"} target={item.external ? "_blank" : ""} rel={item.external ? "noopener noreferrer" : ""}>
+              <Link key={index} href={item.link} className={item.mainLink ? "whitespace-nowrap text-foreground text-lg" : "whitespace-nowrap text-foreground"} target={item.external ? "_blank" : ""} rel={item.external ? "noopener noreferrer" : ""}>
                 {item.displayName}
               </Link>
             )}
