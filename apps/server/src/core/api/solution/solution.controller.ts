@@ -5,7 +5,7 @@ import { SolutionService } from "./solution.service"
 export class SolutionController {
   constructor(private readonly solutionService: SolutionService) { }
 
-  @Get("getsolutionconfig")
+  @Get("config")
   async getSolutionConfig() {
     try {
       const solutions = await this.solutionService.getSolutionConfig()
