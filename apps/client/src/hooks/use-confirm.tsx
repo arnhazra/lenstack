@@ -41,7 +41,7 @@ export default function useConfirm() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Button variant="outline" onClick={() => handleConfirm(false)}>Cancel</Button>
-          <Button variant="destructive" onClick={() => handleConfirm(true)}>Continue</Button>
+          <Button variant="default" onClick={() => handleConfirm(true)}>Continue</Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
