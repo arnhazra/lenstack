@@ -6,7 +6,7 @@ import { Analytics } from "./schemas/analytics.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 
 @Injectable()
-export class AnalyticsFactory {
+export class AnalyticsRepository {
   constructor(@InjectModel(Analytics.name, DbConnectionMap.Analytics) private analyticsModel: Model<Analytics>) { }
 
   async createOne(orgId: string, dto: CreateAnalyticsDto) {

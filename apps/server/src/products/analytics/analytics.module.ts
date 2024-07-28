@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common"
 import { AnalyticsController } from "./analytics.controller"
 import { AnalyticsService } from "./analytics.service"
 import { CqrsModule } from "@nestjs/cqrs"
-import { AnalyticsFactory } from "./analytics.factory"
+import { AnalyticsRepository } from "./analytics.repository"
 import { MongooseModule } from "@nestjs/mongoose"
 import { envConfig } from "src/env.config"
 import { Analytics, AnalyticsSchema } from "./schemas/analytics.schema"
@@ -15,6 +15,6 @@ import { DbConnectionMap } from "src/utils/db-connection.map"
     MongooseModule.forFeature([{ name: Analytics.name, schema: AnalyticsSchema }], DbConnectionMap.Analytics),
   ],
   controllers: [AnalyticsController],
-  providers: [AnalyticsService, AnalyticsFactory],
+  providers: [AnalyticsService, AnalyticsRepository],
 })
 export class AnalyticsModule { }
