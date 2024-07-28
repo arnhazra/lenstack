@@ -3,7 +3,7 @@ import { findUserByIdQuery } from "src/core/api/user/queries/find-user-by-id"
 import { envConfig } from "src/env.config"
 import { statusMessages } from "src/utils/constants/status-messages"
 import * as jwt from "jsonwebtoken"
-import { getTokenFromRedis } from "src/utils/redis-helper"
+import getTokenQuery from "src/core/events/accesstoken/queries/get-token.query"
 
 export interface TokenAuthorizerResponse {
   userId: string,
@@ -23,7 +23,7 @@ export const TokenAuthorizer = createParamDecorator(
       try {
         const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
         const userId = (decoded as any).id
-        const redisAccessToken = await getTokenFromRedis(userId)
+        const redisAccessToken = await getTokenQuery(userId)
 
         if (redisAccessToken === accessToken) {
           const { selectedOrgId } = await findUserByIdQuery(userId)

@@ -3,7 +3,6 @@ import { findOrganizationByCredentialQuery } from "src/core/api/organization/que
 import { findSubscriptionByUserIdQuery } from "src/core/api/subscription/queries/find-subscription"
 import { subscriptionConfig } from "src/core/api/subscription/subscription.config"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { delay } from "src/utils/delay"
 
 export interface CredentialAuthorizerResponse {
   userId: string,
@@ -46,7 +45,7 @@ export const CredentialAuthorizer = createParamDecorator(
 
               else {
                 const responseDelay = subscriptionConfig.find((sub) => sub.planName === subscription.selectedPlan).responseDelay
-                await delay(responseDelay)
+                await new Promise(resolve => setTimeout(resolve, responseDelay))
                 subscription.remainingCredits -= creditRequired
                 await subscription.save()
                 return { userId, orgId }
