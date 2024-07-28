@@ -1,37 +1,25 @@
-import { Schema } from "mongoose"
-import { analyticsDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Document, Types } from "mongoose"
 
-export const AnalyticsSchema = new Schema({
-  orgId: {
-    type: Schema.Types.ObjectId,
-    ref: "organization",
-    required: true
-  },
+@Schema({ versionKey: false, collection: "analytics", timestamps: { createdAt: "createdAt" } })
+export class Analytics extends Document {
+  @Prop({ type: Types.ObjectId, ref: "organization", required: true })
+  readonly orgId: Types.ObjectId
 
-  component: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly component: string
 
-  event: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly event: string
 
-  info: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly info: string
 
-  statusCode: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly statusCode: string
 
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-}, { versionKey: false })
+  @Prop({ default: Date.now })
+  readonly createdAt: Date
+}
 
-export const AnalyticsModel = analyticsDatabaseConn.model("analytics", AnalyticsSchema)
+export const AnalyticsSchema = SchemaFactory.createForClass(Analytics)

@@ -1,14 +1,14 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { CreateAnalyticsCommand } from "../impl/create-analytics.command"
-import { AnalyticsRepository } from "../../analytics.repository"
+import { AnalyticsFactory } from "../../analytics.factory"
 
 @CommandHandler(CreateAnalyticsCommand)
 export class CreateAnalyticsCommandHandler implements ICommandHandler<CreateAnalyticsCommand> {
-  constructor(private readonly repository: AnalyticsRepository) { }
+  constructor(private readonly analyticsFactory: AnalyticsFactory) { }
 
   async execute(command: CreateAnalyticsCommand) {
     const { orgId, createAnalyticsDto } = command
-    await this.repository.createOne(orgId, createAnalyticsDto)
+    await this.analyticsFactory.createOne(orgId, createAnalyticsDto)
     return true
   }
 }
