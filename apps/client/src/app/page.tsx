@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { uiConstants } from "@/constants/global-constants"
 import { Badge } from "@/components/ui/badge"
@@ -13,6 +13,7 @@ import { TierCardComponent } from "@/components/tiercard"
 import { Footer } from "@/components/footer"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { ExternalLink } from "lucide-react"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
@@ -77,33 +78,26 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<Loading />}>
       <div className="min-h-screen w-full bg-white">
-        <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-16">
-          <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-            <Link href={uiConstants.linkedinUri} target="_blank" rel="noopener noreferrer">
-              <Badge variant="outline" className="px-4 py-1.5 text-sm font-medium">
-                Follow along on LinkedIn
-              </Badge>
-            </Link>
-            <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">
+        <section id="hero" className="container hero-landing space-y-6 py-8 dark:bg-transparent md:py-12 lg:py-40 lg:rounded-lg">
+          <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tighter">
               {uiConstants.homeHeader}
             </h1>
-            <h1 className="font-heading text-xl sm:text-xl md:text-xl lg:text-3xl bg-slate-900 text-white p-4 rounded-md">
+            <h1 className="font-heading text-xl sm:text-xl md:text-xl lg:text-5xl text-white">
               {uiConstants.brandName}
             </h1>
-            <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8">
-              {uiConstants.homeIntro}
+            <p className="max-w-[42rem] text-white">
+              {uiConstants.homeIntro}<br />
+              {uiConstants.homeIntro2}
             </p>
             <div className="space-x-4 space-y-4">
-              <Link href="/dashboard" className={cn(buttonVariants({ size: "lg" }))}>
+              <Button className="rounded-full px-8 py-6" variant="secondary" onClick={(): void => router.push("/dashboard")}>
                 Get Started
-              </Link>
-              <Link href="/#products" rel="noreferrer" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
-                Explore Products
-              </Link>
+              </Button>
             </div>
           </div>
         </section>
-        <section id="solutions" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
+        <section id="solutions" className="mt-8 container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Solutions
@@ -161,7 +155,7 @@ export default function Page() {
             </Link>
           </div>
         </section>
-        <section id="products" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
+        <section id="products" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Products
