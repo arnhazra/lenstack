@@ -40,7 +40,7 @@ export default function Page() {
     }
   }, [])
 
-  const renderGatewayOptions = gatewayFilters?.data?.gatewayFilters?.map((item: string) => {
+  const renderGatewayOptions = gatewayFilters?.data?.map((item: string) => {
     return (
       <DropdownMenuCheckboxItem
         key={item}
@@ -52,7 +52,7 @@ export default function Page() {
     )
   })
 
-  const renderNetworkOptions = networkFilters?.data?.networkFilters?.map((item: string) => {
+  const renderNetworkOptions = networkFilters?.data?.map((item: string) => {
     return (
       <DropdownMenuCheckboxItem
         key={item}
@@ -64,7 +64,7 @@ export default function Page() {
     )
   })
 
-  const renderNetworks = networks?.data?.networks?.map((network: any) => {
+  const renderNetworks = networks?.data?.map((network: any) => {
     return (
       <TableRow className="cursor-pointer" key={network?._id} onClick={(): void => router.push(`/products/blockchain/network?networkId=${network._id}`)}>
         <TableCell><div className="font-medium">{network?.rpcProviderName}</div></TableCell>
@@ -95,7 +95,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Networks Count</CardDescription>
-                  <CardTitle className="text-4xl">{networks?.data?.networks?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{networks?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -109,7 +109,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Network Categories</CardDescription>
-                  <CardTitle className="text-4xl">{networkFilters?.data?.networkFilters?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{networkFilters?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -160,7 +160,7 @@ export default function Page() {
                 </div>
               </CardHeader>
               <CardContent>
-                <Suspense condition={networks?.data?.networks.length > 0} fallback={<p className="text-center">No networks to display</p>}>
+                <Suspense condition={networks?.data?.length > 0} fallback={<p className="text-center">No networks to display</p>}>
                   <Table>
                     <TableHeader>
                       <TableRow>

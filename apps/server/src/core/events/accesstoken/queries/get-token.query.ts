@@ -9,5 +9,6 @@ export default async function getTokenQuery(userId: string) {
   })
 
   const response = await redis.get(userId)
+  redis.disconnect()
   return response
 }

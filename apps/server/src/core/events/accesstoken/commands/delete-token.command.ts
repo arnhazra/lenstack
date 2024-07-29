@@ -9,5 +9,6 @@ export default async function deleteTokenCommand(userId: string) {
   })
 
   const response = await redis.del(userId)
+  redis.disconnect()
   return response
 }

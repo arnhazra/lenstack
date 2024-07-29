@@ -14,12 +14,11 @@ export class BlockchainController {
   async getGatewayFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/gatewayfilters" })
-      const gatewayFilters = await this.blockchainService.getGatewayFilters()
-      return { gatewayFilters }
+      return await this.blockchainService.getGatewayFilters()
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
@@ -27,12 +26,11 @@ export class BlockchainController {
   async getNetworkFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/networkfilters" })
-      const networkFilters = await this.blockchainService.getNetworkFilters()
-      return { networkFilters }
+      return await this.blockchainService.getNetworkFilters()
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
@@ -40,12 +38,11 @@ export class BlockchainController {
   async findNetworks(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findNetworksDto: FindNetworksDto) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: "/findnetworks" })
-      const networks = await this.blockchainService.findNetworks(findNetworksDto)
-      return { networks }
+      return await this.blockchainService.findNetworks(findNetworksDto)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
@@ -53,12 +50,11 @@ export class BlockchainController {
   async viewNetwork(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("networkId") networkId: string) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/viewnetwork" })
-      const data = await this.blockchainService.viewNetwork(networkId)
-      return data
+      return await this.blockchainService.viewNetwork(networkId)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 

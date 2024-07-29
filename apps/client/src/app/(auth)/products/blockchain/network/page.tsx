@@ -34,7 +34,7 @@ export default function Page() {
     })
   }
 
-  const renderNetworks = relatedNetworks?.data?.networks?.filter((network: any) => network?._id !== networkId).map((network: any) => {
+  const renderNetworks = relatedNetworks?.data?.filter((network: any) => network?._id !== networkId).map((network: any) => {
     return (
       <TableRow className="cursor-pointer" key={network?._id} onClick={(): void => router.push(`/products/blockchain/network?networkId=${network._id}`)}>
         <TableCell><div className="font-medium">{network?.rpcProviderName}</div></TableCell>

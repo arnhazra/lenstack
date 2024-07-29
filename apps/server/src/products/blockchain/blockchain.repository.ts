@@ -9,21 +9,21 @@ import { Model } from "mongoose"
 export class BlockchainRepository {
   constructor(@InjectModel(RpcNodes.name, DbConnectionMap.Blockchain) private model: Model<RpcNodes>) { }
 
-  async findGatewayFilters() {
+  async findGatewayFilters(): Promise<string[]> {
     const filters = await this.model.find().distinct("rpcGateway")
     filters.push("All")
     filters.sort()
     return filters
   }
 
-  async findNetworkFilters() {
+  async findNetworkFilters(): Promise<string[]> {
     const filters = await this.model.find().distinct("rpcNetwork")
     filters.push("All")
     filters.sort()
     return filters
   }
 
-  async findNetworks(findNetworksDto: FindNetworksDto) {
+  async findNetworks(findNetworksDto: FindNetworksDto): Promise<RpcNodes[]> {
     const searchQuery = findNetworksDto.searchQuery || ""
     const selectedGatewayFilter = findNetworksDto.selectedGatewayFilter === "All" ? "" : findNetworksDto.selectedGatewayFilter
     const selectedNetworkFilter = findNetworksDto.selectedNetworkFilter === "All" ? "" : findNetworksDto.selectedNetworkFilter
@@ -38,8 +38,7 @@ export class BlockchainRepository {
     return networks
   }
 
-  async findNetworkById(networkId: string) {
-    const network = await this.model.findById(networkId)
-    return network
+  async findNetworkById(networkId: string): Promise<RpcNodes> {
+    return await this.model.findById(networkId)
   }
 }

@@ -9,5 +9,6 @@ export default async function setTokenCommand(userId: string, accessToken: strin
   })
 
   const response = await redis.set(userId, accessToken)
+  redis.disconnect()
   return response
 }

@@ -7,6 +7,7 @@ import { FindGatewayFiltersQuery } from "./queries/impl/find-gateway-filters.que
 import { FindNetworkFiltersQuery } from "./queries/impl/find-netowork-filters.query"
 import { FindNetworksQuery } from "./queries/impl/find-netoworks.query"
 import { FindNetworkByIdQuery } from "./queries/impl/find-netowork-by-id.query"
+import { RpcNodes } from "./schemas/blockchain.schema"
 
 @Injectable()
 export class BlockchainService {
@@ -14,8 +15,7 @@ export class BlockchainService {
 
   async getGatewayFilters() {
     try {
-      const filters = await this.queryBus.execute(new FindGatewayFiltersQuery())
-      return filters
+      return await this.queryBus.execute<FindGatewayFiltersQuery, string[]>(new FindGatewayFiltersQuery())
     }
 
     catch (error) {
@@ -25,8 +25,7 @@ export class BlockchainService {
 
   async getNetworkFilters() {
     try {
-      const filters = await this.queryBus.execute(new FindNetworkFiltersQuery())
-      return filters
+      return await this.queryBus.execute<FindNetworkFiltersQuery, string[]>(new FindNetworkFiltersQuery())
     }
 
     catch (error) {
@@ -39,8 +38,7 @@ export class BlockchainService {
       const searchQuery = findNetworksDto.searchQuery || ""
       const selectedGatewayFilter = findNetworksDto.selectedGatewayFilter === "All" ? "" : findNetworksDto.selectedGatewayFilter
       const selectedNetworkFilter = findNetworksDto.selectedNetworkFilter === "All" ? "" : findNetworksDto.selectedNetworkFilter
-      const networks = await this.queryBus.execute(new FindNetworksQuery(searchQuery, selectedGatewayFilter, selectedNetworkFilter))
-      return networks
+      return await this.queryBus.execute<FindNetworkFiltersQuery, RpcNodes[]>(new FindNetworksQuery(searchQuery, selectedGatewayFilter, selectedNetworkFilter))
     }
 
     catch (error) {
@@ -50,8 +48,7 @@ export class BlockchainService {
 
   async viewNetwork(networkId: string) {
     try {
-      const network = await this.queryBus.execute(new FindNetworkByIdQuery(networkId))
-      return network
+      return await this.queryBus.execute<FindNetworkByIdQuery, RpcNodes>(new FindNetworkByIdQuery(networkId))
     }
 
     catch (error) {
@@ -61,7 +58,7 @@ export class BlockchainService {
 
   async transactionGateway(requestBody: any, networkId: string) {
     try {
-      const network = await this.queryBus.execute(new FindNetworkByIdQuery(networkId))
+      const network = await this.queryBus.execute<FindNetworkByIdQuery, RpcNodes>(new FindNetworkByIdQuery(networkId))
       const { rpcProviderUri } = network
       const response = await lastValueFrom(this.httpService.post(rpcProviderUri, requestBody))
       return response.data

@@ -19,7 +19,7 @@ export default function Page() {
   const selectedProduct = products?.data?.find((product: any) => product.productName === "analytics")
   const router = useRouter()
 
-  const renderAnalytics = analytics?.data?.analytics?.map((ant: any) => {
+  const renderAnalytics = analytics?.data?.map((ant: any) => {
     return (
       <TableRow className="cursor-pointer" key={ant._id}>
         <TableCell><div className="font-medium">{ant?.component}</div></TableCell>
@@ -51,7 +51,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>
-                  <CardTitle className="text-4xl">{analytics?.data?.analytics?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{analytics?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -65,9 +65,9 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Latest Event</CardDescription>
-                  <Suspense condition={analytics?.data?.analytics?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "MMM, do yyyy")}</CardTitle>
-                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.analytics[0]?.createdAt ?? new Date()), "h:mm a")}</CardTitle>
+                  <Suspense condition={analytics?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
+                    <CardTitle className="text-xl">{format(new Date(analytics?.data ? analytics.data[0].createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
+                    <CardTitle className="text-xl">{format(new Date(analytics?.data ? analytics.data[0].createdAt : new Date()), "h:mm a")}</CardTitle>
                   </Suspense>
                 </CardHeader>
                 <CardContent>
@@ -87,7 +87,7 @@ export default function Page() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Suspense condition={analytics?.data?.analytics.length > 0} fallback={<p className="text-center">No data to display</p>}>
+                <Suspense condition={analytics?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
                   <Table>
                     <TableHeader>
                       <TableRow>

@@ -6,7 +6,7 @@ import { FindNetworkFiltersQuery } from "../impl/find-netowork-filters.query"
 export class FindNetworkFiltersQueryHandler implements IQueryHandler<FindNetworkFiltersQuery> {
   constructor(private readonly blockchainRepository: BlockchainRepository) { }
 
-  async execute(query: FindNetworkFiltersQuery) {
+  async execute(query: FindNetworkFiltersQuery): Promise<string[]> {
     return await this.blockchainRepository.findNetworkFilters()
   }
 }
