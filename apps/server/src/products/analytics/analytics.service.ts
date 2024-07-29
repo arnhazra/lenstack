@@ -1,17 +1,17 @@
-import { Injectable, BadRequestException } from "@nestjs/common"
-import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
+import { Injectable } from "@nestjs/common"
+import { CreateEventsDto } from "./dto/create-events.dto"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
-import { CreateAnalyticsCommand } from "./commands/impl/create-analytics.command"
-import { GetAnalyticsQuery } from "./queries/impl/get-analytics.query"
-import { Analytics } from "./schemas/analytics.schema"
+import { CreateEventsCommand } from "./commands/impl/create-events.command"
+import { GetEventsQuery } from "./queries/impl/get-events.query"
+import { Events } from "./schemas/event.schema"
 
 @Injectable()
 export class AnalyticsService {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) { }
 
-  async createAnalytics(orgId: string, createAnalyticsDto: CreateAnalyticsDto) {
+  async createEvent(orgId: string, createEventsDto: CreateEventsDto) {
     try {
-      return await this.commandBus.execute<CreateAnalyticsCommand, Analytics>(new CreateAnalyticsCommand(orgId, createAnalyticsDto))
+      return await this.commandBus.execute<CreateEventsCommand, Events>(new CreateEventsCommand(orgId, createEventsDto))
     }
 
     catch (error) {
@@ -19,9 +19,9 @@ export class AnalyticsService {
     }
   }
 
-  async getAnalytics(orgId: string) {
+  async getEvents(orgId: string) {
     try {
-      return await this.queryBus.execute<GetAnalyticsQuery, Analytics[]>(new GetAnalyticsQuery(orgId))
+      return await this.queryBus.execute<GetEventsQuery, Events[]>(new GetEventsQuery(orgId))
     }
 
     catch (error) {

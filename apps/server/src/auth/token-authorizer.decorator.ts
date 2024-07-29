@@ -23,9 +23,9 @@ export const TokenAuthorizer = createParamDecorator(
       try {
         const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
         const userId = (decoded as any).id
-        const redisAccessToken = await getTokenQuery(userId)
+        // const redisAccessToken = await getTokenQuery(userId)
 
-        if (redisAccessToken === accessToken) {
+        if (accessToken) {
           const { selectedOrgId } = await findUserByIdQuery(userId)
           const orgId = selectedOrgId.toString()
           return { userId, orgId }

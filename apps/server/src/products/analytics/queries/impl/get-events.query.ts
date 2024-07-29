@@ -1,4 +1,4 @@
-export class GetAnalyticsQuery {
+export class GetEventsQuery {
   constructor(
     public readonly orgId: string,
   ) { }

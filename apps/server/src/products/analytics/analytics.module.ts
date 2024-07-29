@@ -5,18 +5,18 @@ import { CqrsModule } from "@nestjs/cqrs"
 import { AnalyticsRepository } from "./analytics.repository"
 import { MongooseModule } from "@nestjs/mongoose"
 import { envConfig } from "src/env.config"
-import { Analytics, AnalyticsSchema } from "./schemas/analytics.schema"
+import { Events, EventsSchema } from "./schemas/event.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
-import { GetAnalyticsQueryHandler } from "./queries/handler/get-analytics.handler"
-import { CreateAnalyticsCommandHandler } from "./commands/handler/create-analytics.handler"
+import { GetEventsQueryHandler } from "./queries/handler/get-events.handler"
+import { CreateEventsCommandHandler } from "./commands/handler/create-event.handler"
 
 @Module({
   imports: [
     CqrsModule,
     MongooseModule.forRoot(envConfig.analyticsDatabaseURI, { connectionName: DbConnectionMap.Analytics }),
-    MongooseModule.forFeature([{ name: Analytics.name, schema: AnalyticsSchema }], DbConnectionMap.Analytics),
+    MongooseModule.forFeature([{ name: Events.name, schema: EventsSchema }], DbConnectionMap.Analytics),
   ],
   controllers: [AnalyticsController],
-  providers: [AnalyticsService, AnalyticsRepository, GetAnalyticsQueryHandler, CreateAnalyticsCommandHandler],
+  providers: [AnalyticsService, AnalyticsRepository, GetEventsQueryHandler, CreateEventsCommandHandler],
 })
 export class AnalyticsModule { }

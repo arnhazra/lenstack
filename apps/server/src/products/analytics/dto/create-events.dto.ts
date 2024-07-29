@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator"
 
-export class CreateAnalyticsDto {
+export class CreateEventsDto {
   @IsNotEmpty()
   component: string
 

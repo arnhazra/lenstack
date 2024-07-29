@@ -7,7 +7,7 @@ import { FindGatewayFiltersQuery } from "./queries/impl/find-gateway-filters.que
 import { FindNetworkFiltersQuery } from "./queries/impl/find-netowork-filters.query"
 import { FindNetworksQuery } from "./queries/impl/find-netoworks.query"
 import { FindNetworkByIdQuery } from "./queries/impl/find-netowork-by-id.query"
-import { RpcNodes } from "./schemas/blockchain.schema"
+import { RpcNodes } from "./schemas/rpcnode.schema"
 
 @Injectable()
 export class BlockchainService {

@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { BlockchainRepository } from "../../blockchain.repository"
 import { FindNetworkByIdQuery } from "../impl/find-netowork-by-id.query"
-import { RpcNodes } from "../../schemas/blockchain.schema"
+import { RpcNodes } from "../../schemas/rpcnode.schema"
 
 @QueryHandler(FindNetworkByIdQuery)
 export class FindNetworkByIdQueryHandler implements IQueryHandler<FindNetworkByIdQuery> {

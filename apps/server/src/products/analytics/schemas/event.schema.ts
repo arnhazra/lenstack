@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document, Types } from "mongoose"
 
-@Schema({ versionKey: false, collection: "analytics", timestamps: { createdAt: "createdAt" } })
-export class Analytics extends Document {
+@Schema({ versionKey: false, collection: "events", timestamps: { createdAt: "createdAt" } })
+export class Events extends Document {
   @Prop({ type: Types.ObjectId, ref: "organization", required: true })
   readonly orgId: Types.ObjectId
 
@@ -22,4 +22,4 @@ export class Analytics extends Document {
   readonly createdAt: Date
 }
 
-export const AnalyticsSchema = SchemaFactory.createForClass(Analytics)
+export const EventsSchema = SchemaFactory.createForClass(Events)

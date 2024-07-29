@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 import { FindNetworksDto } from "./dto/find-networks.dto"
 import { InjectModel } from "@nestjs/mongoose"
-import { RpcNodes } from "./schemas/blockchain.schema"
+import { RpcNodes } from "./schemas/rpcnode.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { Model } from "mongoose"
 
