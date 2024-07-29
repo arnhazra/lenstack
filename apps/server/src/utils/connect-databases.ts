@@ -2,18 +2,12 @@ import { Connection, createConnection } from "mongoose"
 import { envConfig } from "../env.config"
 
 export const platformDatabaseConn: Connection = createConnection(envConfig.platformDatabaseURI)
-export const copilotDatabaseConn: Connection = createConnection(envConfig.copilotDatabaseURI)
 export const datamarketplaceDatabaseConn: Connection = createConnection(envConfig.datamarketplaceDatabaseURI)
 export const kvstoreDatabaseConn: Connection = createConnection(envConfig.kvstoreDatabaseURI)
 
 async function platformDatabaseConnect(): Promise<void> {
   platformDatabaseConn.on("connected", () => console.log("Platform Database Connection Success"))
   platformDatabaseConn.on("error", () => console.log("Platform Database Connection Failure"))
-}
-
-async function copilotDatabaseConnect(): Promise<void> {
-  copilotDatabaseConn.on("connected", () => console.log("Copilot Database Connection Success"))
-  copilotDatabaseConn.on("error", () => console.log("Copilot Database Connection Failure"))
 }
 
 async function datamarketplaceDatabaseConnect(): Promise<void> {
@@ -28,7 +22,6 @@ async function kvstoreDatabaseConnect(): Promise<void> {
 
 export async function connectDatabases(): Promise<void> {
   platformDatabaseConnect()
-  copilotDatabaseConnect()
   datamarketplaceDatabaseConnect()
   kvstoreDatabaseConnect()
 }
