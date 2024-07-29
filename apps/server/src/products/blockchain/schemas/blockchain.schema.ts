@@ -1,31 +1,22 @@
-import { Schema } from "mongoose"
-import { blockchainDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Document } from "mongoose"
 
-export const BlockchainSchema = new Schema({
-  rpcProviderName: {
-    type: String,
-    required: true
-  },
+@Schema({ versionKey: false, collection: "rpcnodes" })
+export class RpcNodes extends Document {
+  @Prop({ required: true })
+  readonly rpcProviderName: string
 
-  rpcGateway: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly rpcGateway: string
 
-  rpcChain: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly rpcChain: string
 
-  rpcNetwork: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly rpcNetwork: string
 
-  rpcProviderUri: {
-    type: String,
-    required: true
-  }
-}, { versionKey: false })
+  @Prop({ required: true })
+  readonly rpcProviderUri: string
+}
 
-export const BlockchainModel = blockchainDatabaseConn.model("rpcnodes", BlockchainSchema)
+export const RpcNodesSchema = SchemaFactory.createForClass(RpcNodes)

@@ -65,7 +65,7 @@ export class BlockchainController {
   @Post("gateway/:networkId")
   async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any, @Param() params: any) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: "/gateway" })
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: `/gateway/${String(params.networkId)}` })
       const response = await this.blockchainService.transactionGateway(requestBody, String(params.networkId))
       return response
     }
