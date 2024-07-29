@@ -66,8 +66,8 @@ export default function Page() {
                 <CardHeader className="pb-2">
                   <CardDescription>Latest Event</CardDescription>
                   <Suspense condition={analytics?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                    <CardTitle className="text-xl">{format(new Date(analytics?.data ? analytics.data[0].createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
-                    <CardTitle className="text-xl">{format(new Date(analytics?.data ? analytics.data[0].createdAt : new Date()), "h:mm a")}</CardTitle>
+                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.length ? analytics.data[0].createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
+                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.length ? analytics.data[0].createdAt : new Date()), "h:mm a")}</CardTitle>
                   </Suspense>
                 </CardHeader>
                 <CardContent>
