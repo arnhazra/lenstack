@@ -7,17 +7,17 @@ import { DbConnectionMap } from "src/utils/db-connection.map"
 
 @Injectable()
 export class AnalyticsRepository {
-  constructor(@InjectModel(Analytics.name, DbConnectionMap.Analytics) private analyticsModel: Model<Analytics>) { }
+  constructor(@InjectModel(Analytics.name, DbConnectionMap.Analytics) private model: Model<Analytics>) { }
 
   async createOne(orgId: string, dto: CreateAnalyticsDto) {
     const { component, event, info, statusCode } = dto
-    const doc = new this.analyticsModel({ orgId: new Types.ObjectId(orgId), component, event, info, statusCode })
+    const doc = new this.model({ orgId: new Types.ObjectId(orgId), component, event, info, statusCode })
     await doc.save()
     return doc
   }
 
   async findAll(orgId: string) {
-    const analytics = await this.analyticsModel.find({ orgId: new Types.ObjectId(orgId) }).sort({ createdAt: -1 })
+    const analytics = await this.model.find({ orgId: new Types.ObjectId(orgId) }).sort({ createdAt: -1 })
     return analytics
   }
 }
