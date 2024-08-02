@@ -13,24 +13,24 @@ import { format } from "date-fns"
 import { useRouter } from "next/navigation"
 
 export default function Page() {
-  const kvList = useQuery(["kvlist"], `${endPoints.httpnosqlReadData}`, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=kvstore&category=All`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "kvstore")
+  const dataList = useQuery(["datalist"], `${endPoints.httpnosqlReadData}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=httpnosql&category=All`, HTTPMethods.GET)
+  const selectedProduct = products?.data?.find((product: any) => product.productName === "httpnosql")
   const router = useRouter()
 
-  const renderKVS = kvList?.data?.map((kv: any) => {
+  const renderData = dataList?.data?.map((data: any) => {
     return (
-      <TableRow className="cursor-pointer" key={kv._id}>
-        <TableCell><div className="font-medium">{kv?.key}</div></TableCell>
-        <TableCell className="text-neutral-500">{kv?.value}</TableCell>
-        <TableCell className="text-right text-neutral-500 hidden md:table-cell">{format(new Date(kv.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
+      <TableRow className="cursor-pointer" key={data._id}>
+        <TableCell><div className="font-medium">{data?.key}</div></TableCell>
+        <TableCell className="text-neutral-500">{data?.value}</TableCell>
+        <TableCell className="text-right text-neutral-500 hidden md:table-cell">{format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
       </TableRow>
     )
   })
 
   return (
-    <Suspense condition={!kvList.isLoading && !products.isLoading} fallback={<Loading />}>
-      <Suspense condition={!kvList.error && !products.error} fallback={<Error />}>
+    <Suspense condition={!dataList.isLoading && !products.isLoading} fallback={<Loading />}>
+      <Suspense condition={!dataList.error && !products.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
@@ -48,7 +48,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>
-                  <CardTitle className="text-4xl">{kvList?.data?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{dataList?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -62,9 +62,9 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Latest Event</CardDescription>
-                  <Suspense condition={kvList?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                    <CardTitle className="text-xl">{format(new Date(kvList?.data?.length ? kvList?.data[0]?.createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
-                    <CardTitle className="text-xl">{format(new Date(kvList?.data?.length ? kvList?.data[0]?.createdAt : new Date()), "h:mm a")}</CardTitle>
+                  <Suspense condition={dataList?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
+                    <CardTitle className="text-xl">{format(new Date(dataList?.data?.length ? dataList?.data[0]?.createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
+                    <CardTitle className="text-xl">{format(new Date(dataList?.data?.length ? dataList?.data[0]?.createdAt : new Date()), "h:mm a")}</CardTitle>
                   </Suspense>
                 </CardHeader>
                 <CardContent>
@@ -78,13 +78,13 @@ export default function Page() {
             </div>
             <Card>
               <CardHeader className="px-7">
-                <CardTitle>KVs</CardTitle>
+                <CardTitle>Database</CardTitle>
                 <CardDescription>
-                  Your KV list in this organization
+                  Your Datalist list in this organization
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Suspense condition={kvList?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
+                <Suspense condition={dataList?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -94,7 +94,7 @@ export default function Page() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {renderKVS}
+                      {renderData}
                     </TableBody>
                   </Table>
                 </Suspense>
