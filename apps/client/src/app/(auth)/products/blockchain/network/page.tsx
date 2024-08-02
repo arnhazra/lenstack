@@ -29,8 +29,7 @@ export default function Page() {
     navigator.clipboard.writeText(`${apiHost}/api/products/blockchain/gateway/${networkId}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}` ?? "")
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
-      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

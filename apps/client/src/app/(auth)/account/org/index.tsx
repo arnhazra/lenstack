@@ -28,8 +28,7 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
     navigator.clipboard.writeText(value)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
-      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

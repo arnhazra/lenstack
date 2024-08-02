@@ -56,16 +56,14 @@ export default function Page() {
       await axios.patch(endPoints.updateCarbonSettings, { reduceCarbonEmissions: updatedSettings })
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -82,8 +80,7 @@ export default function Page() {
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -107,16 +104,14 @@ export default function Page() {
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization created</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization created</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Creating organization failed</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Creating organization failed</p>
         })
       }
     }
@@ -131,16 +126,14 @@ export default function Page() {
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switched</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization switched</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switching failed</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization switching failed</p>
         })
       }
     }
@@ -155,16 +148,14 @@ export default function Page() {
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switched</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization deleted</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization deletion failed</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization deletion failed</p>
         })
       }
     }
@@ -191,7 +182,7 @@ export default function Page() {
       <Suspense condition={!organizations.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-            <div className="mx-auto grid w-full max-w-6xl gap-2">
+            <div className="mx-auto grid w-full gap-2">
               <div className="flex justify-between">
                 <h1 className="text-3xl font-semibold">Account Settings</h1>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
@@ -199,7 +190,7 @@ export default function Page() {
                 </Suspense>
               </div>
             </div>
-            <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+            <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
               <nav className="grid gap-4 text-sm">
                 {renderTabs}
               </nav>

@@ -1,58 +1,51 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { findDistinctCategories } from "./queries/find-categories.query"
-import { findDatasetDataById } from "./queries/find-data.query"
-import { findDatasetsQuery } from "./queries/find-datasets.query"
-import { findDatasetMetadataById } from "./queries/find-metadata.query"
+import { QueryBus } from "@nestjs/cqrs"
+import { FindCatgoriesQuery } from "./queries/impl/find-categories.query"
+import { FindDatasetsQuery } from "./queries/impl/find-datasets.query"
+import { FindMetadataByIdQuery } from "./queries/impl/find-metadata.query"
+import { FindDataByIdQuery } from "./queries/impl/find-data.query"
 
 @Injectable()
 export class DatamarketplaceService {
+  constructor(private readonly queryBus: QueryBus) { }
   async getDatasetFilters() {
     try {
-      const filterCategories = await findDistinctCategories()
-      return filterCategories
+      return await this.queryBus.execute<FindCatgoriesQuery, string[]>(new FindCatgoriesQuery())
     }
 
     catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 
   async findDatasets(findDatasetsDto: FindDatasetsDto) {
     try {
-      const searchQuery = findDatasetsDto.searchQuery || ""
-      const selectedFilterCategory = findDatasetsDto.selectedFilter === "All" ? "" : findDatasetsDto.selectedFilter
-      const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
-      const offset = findDatasetsDto.offset || 0
-      const limit = 25
-      const datasets = await findDatasetsQuery(searchQuery, selectedFilterCategory, selectedSortOption, offset, limit)
-      return datasets
+      return await this.queryBus.execute<FindDatasetsQuery, unknown[]>(new FindDatasetsQuery(findDatasetsDto))
     }
 
     catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 
   async viewDataset(datasetId: string) {
     try {
-      const { dataLength, metaData } = await findDatasetMetadataById(datasetId)
-      return { dataLength, metaData }
+      return await this.queryBus.execute<FindMetadataByIdQuery, unknown[]>(new FindMetadataByIdQuery(datasetId))
     }
 
     catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 
   async getData(datasetId: string) {
     try {
-      const data = await findDatasetDataById(datasetId)
-      return data
+      return await this.queryBus.execute<FindDataByIdQuery, unknown[]>(new FindDataByIdQuery(datasetId))
     }
 
     catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 }

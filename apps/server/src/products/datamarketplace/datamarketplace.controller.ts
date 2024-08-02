@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, BadRequestException } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
@@ -15,12 +15,11 @@ export class DatamarketplaceController {
   async getDatasetFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "GET", api: "/filters" })
-      const filterCategories = await this.datamarketplaceService.getDatasetFilters()
-      return { filterCategories }
+      return await this.datamarketplaceService.getDatasetFilters()
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
@@ -28,12 +27,11 @@ export class DatamarketplaceController {
   async findDatasets(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findDatasetsDto: FindDatasetsDto) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "POST", api: "/finddatasets" })
-      const datasets = await this.datamarketplaceService.findDatasets(findDatasetsDto)
-      return { datasets }
+      return await this.datamarketplaceService.findDatasets(findDatasetsDto)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
@@ -41,12 +39,11 @@ export class DatamarketplaceController {
   async viewDataset(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "GET", api: "/viewdataset" })
-      const data = await this.datamarketplaceService.viewDataset(datasetId)
-      return data
+      return await this.datamarketplaceService.viewDataset(datasetId)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
@@ -54,13 +51,11 @@ export class DatamarketplaceController {
   async getData(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "POST", api: "/dataapi" })
-      const { datasetId } = dataapiDto
-      const data = await this.datamarketplaceService.getData(datasetId)
-      return { data }
+      return await this.datamarketplaceService.getData(dataapiDto.datasetId)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 }
