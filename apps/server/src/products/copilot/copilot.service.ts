@@ -24,7 +24,6 @@ export class CopilotService {
     }
 
     catch (error) {
-      console.log(error)
       throw error
     }
   }

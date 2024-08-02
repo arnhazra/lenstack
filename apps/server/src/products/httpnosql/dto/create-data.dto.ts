@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator"
 
-export class CreateKvDto {
+export class CreateDataDto {
   @IsNotEmpty()
   key: string
 

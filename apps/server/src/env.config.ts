@@ -10,7 +10,7 @@ export const envConfig = {
   blockchainDatabaseURI: process.env.BLOCKCHAIN_DATABASE_URI,
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
   datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
-  kvstoreDatabaseURI: process.env.KVSTORE_DATABASE_URI,
+  httpnosqlDatabaseURI: process.env.HTTPNOSQL_DATABASE_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,
