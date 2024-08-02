@@ -1,7 +1,6 @@
 "use client"
 import { CopyIcon } from "lucide-react"
 import { toast } from "../ui/use-toast"
-import { ToastAction } from "../ui/toast"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function MaskText({ value }: { value: string }) {

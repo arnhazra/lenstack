@@ -4,7 +4,6 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { ClipboardIcon } from "lucide-react"
 import { useToast } from "../ui/use-toast"
-import { ToastAction } from "../ui/toast"
 import { uiConstants } from "@/constants/global-constants"
 
 interface InfoPanelProps {

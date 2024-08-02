@@ -21,13 +21,17 @@ export class DatamarketplaceRepository {
   }
 
   async findDatasets(findDatasetsDto: FindDatasetsDto) {
-    const { searchQuery, selectedFilter, selectedSortOption, offset, limit } = findDatasetsDto
+    const searchQuery = findDatasetsDto.searchQuery || ""
+    const selectedFilterCategory = findDatasetsDto.selectedFilter === "All" ? "" : findDatasetsDto.selectedFilter
+    const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
+    const offset = findDatasetsDto.offset || 0
+    const limit = 25
     const datasets = await this.metadataModel.find({
       $or: [
         { name: { $regex: searchQuery, $options: "i" } },
         { description: { $regex: searchQuery, $options: "i" } }
       ],
-      category: { $regex: selectedFilter }
+      category: { $regex: selectedFilterCategory }
     }).sort(selectedSortOption)
       .skip(offset)
       .limit(limit)

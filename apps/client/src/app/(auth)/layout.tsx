@@ -11,7 +11,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Loading from "@/components/loading"
-import { ToastAction } from "@/components/ui/toast"
 import LoaderIcon from "@/components/loaderIcon"
 import eventEmitter from "@/events/eventEmitter"
 
