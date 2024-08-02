@@ -26,7 +26,7 @@ export class DatamarketplaceRepository {
     const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
     const offset = findDatasetsDto.offset || 0
     const limit = 25
-    const datasets = await this.metadataModel.find({
+    return await this.metadataModel.find({
       $or: [
         { name: { $regex: searchQuery, $options: "i" } },
         { description: { $regex: searchQuery, $options: "i" } }
@@ -35,8 +35,6 @@ export class DatamarketplaceRepository {
     }).sort(selectedSortOption)
       .skip(offset)
       .limit(limit)
-
-    return datasets
   }
 
   async findMetaDataById(datasetId: string): Promise<{ metaData: Metadata, dataLength: number }> {
