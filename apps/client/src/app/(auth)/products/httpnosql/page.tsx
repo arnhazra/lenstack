@@ -13,12 +13,12 @@ import { format } from "date-fns"
 import { useRouter } from "next/navigation"
 
 export default function Page() {
-  const kvList = useQuery(["kvlist"], `${endPoints.kvstoreReadKvList}`, HTTPMethods.GET)
+  const kvList = useQuery(["kvlist"], `${endPoints.httpnosqlReadData}`, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=kvstore&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "kvstore")
   const router = useRouter()
 
-  const renderKVS = kvList?.data?.kvs?.map((kv: any) => {
+  const renderKVS = kvList?.data?.map((kv: any) => {
     return (
       <TableRow className="cursor-pointer" key={kv._id}>
         <TableCell><div className="font-medium">{kv?.key}</div></TableCell>
@@ -48,7 +48,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>
-                  <CardTitle className="text-4xl">{kvList?.data?.kvs?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{kvList?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -62,9 +62,9 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Latest Event</CardDescription>
-                  <Suspense condition={kvList?.data?.kvs?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                    <CardTitle className="text-xl">{format(new Date(kvList?.data?.kvs[0]?.createdAt ?? new Date()), "MMM, do yyyy")}</CardTitle>
-                    <CardTitle className="text-xl">{format(new Date(kvList?.data?.kvs[0]?.createdAt ?? new Date()), "h:mm a")}</CardTitle>
+                  <Suspense condition={kvList?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
+                    <CardTitle className="text-xl">{format(new Date(kvList?.data?.length ? kvList?.data[0]?.createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
+                    <CardTitle className="text-xl">{format(new Date(kvList?.data?.length ? kvList?.data[0]?.createdAt : new Date()), "h:mm a")}</CardTitle>
                   </Suspense>
                 </CardHeader>
                 <CardContent>
@@ -84,7 +84,7 @@ export default function Page() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Suspense condition={kvList?.data?.kvs.length > 0} fallback={<p className="text-center">No data to display</p>}>
+                <Suspense condition={kvList?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
                   <Table>
                     <TableHeader>
                       <TableRow>

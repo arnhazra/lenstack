@@ -31,7 +31,8 @@ export const endPoints = {
   datamarketplaceViewDatasets: `${apiHost}/api/products/datamarketplace/viewdataset`,
   datamarketplaceFindSimilarDatasets: `${apiHost}/api/products/datamarketplace/findsimilardatasets`,
   datamarketplaceDataApi: `${apiHost}/api/products/datamarketplace/dataapi`,
-  kvstoreCreateKv: `${apiHost}/api/products/kvstore/createkv`,
-  kvstoreReadKvList: `${apiHost}/api/products/kvstore/readkv`,
-  kvstoreDeleteKv: `${apiHost}/api/products/kvstore/deletekv`,
+  httpnosqlCreateData: `${apiHost}/api/products/httpnosql/create`,
+  httpnosqlReadData: `${apiHost}/api/products/httpnosql/read`,
+  httpnosqlUpdateData: `${apiHost}/api/products/httpnosql/update`,
+  httpnosqlDeleteData: `${apiHost}/api/products/httpnosql/delete`,
 }
