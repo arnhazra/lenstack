@@ -10,6 +10,7 @@ export const endPoints = {
   userDetails: `${apiHost}/api/user/userdetails`,
   signOut: `${apiHost}/api/user/signout`,
   updateCarbonSettings: `${apiHost}/api/user/updatecarbonsettings`,
+  changeUsageInsightsSettings: `${apiHost}/api/user/changeusageinsights`,
   getSubscriptionConfig: `${apiHost}/api/subscription/config`,
   createCheckoutSession: `${apiHost}/api/subscription/create-checkout-session`,
   createOrganization: `${apiHost}/api/organization/create`,

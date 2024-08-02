@@ -23,6 +23,11 @@ export const UserSchema = new Schema({
     default: true
   },
 
+  usageInsights: {
+    type: Boolean,
+    default: true
+  },
+
   selectedOrgId: {
     type: Schema.Types.ObjectId,
     ref: "organization"

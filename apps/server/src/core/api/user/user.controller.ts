@@ -7,6 +7,7 @@ import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authori
 import { UpdateCarbonSettingsDto } from "./dto/update-carbon-settings.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
+import { ChangeUsageInsightsSettingsDto } from "./dto/change-usage-insights.dto"
 
 @Controller("user")
 export class UserController {
@@ -82,6 +83,18 @@ export class UserController {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "user", method: "PATCH", api: "/updatecarbonsettings" })
       return await this.userService.updateCarbonSettings(user.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.invalidUser)
+    }
+  }
+
+  @Patch("changeusageinsights")
+  async changeUsageInsightsSettings(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() changeUsageInsightsSettingsDto: ChangeUsageInsightsSettingsDto) {
+    try {
+      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "user", method: "PATCH", api: "/updatecarbonsettings" })
+      return await this.userService.changeUsageInsightsSettings(user.userId, changeUsageInsightsSettingsDto.usageInsights)
     }
 
     catch (error) {

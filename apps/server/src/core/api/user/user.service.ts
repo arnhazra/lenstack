@@ -17,6 +17,7 @@ import { findUserByIdQuery } from "./queries/find-user-by-id"
 import updateCarbonSettings from "./commands/update-carbon-settings.command"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
+import changeUsageInsights from "./commands/change-usage-insights.command"
 
 @Injectable()
 export class UserService {
@@ -132,6 +133,16 @@ export class UserService {
   async updateCarbonSettings(userId: string, value: boolean) {
     try {
       await updateCarbonSettings(userId, value)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async changeUsageInsightsSettings(userId: string, value: boolean) {
+    try {
+      await changeUsageInsights(userId, value)
     }
 
     catch (error) {

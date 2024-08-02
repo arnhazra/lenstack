@@ -12,7 +12,7 @@ import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
 import { format } from "date-fns"
-import { Bolt, Calendar, Leaf, Network, Settings } from "lucide-react"
+import { Bolt, Calendar, Leaf, Network, Settings, ShieldCheck } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -22,11 +22,13 @@ import { useConfirmContext } from "@/context/providers/confirm.provider"
 import eventEmitter from "@/events/eventEmitter"
 import LoadingComponent from "@/components/loading"
 import Error from "@/components/error"
+import { convertToTitleCase } from "@/lib/convert-to-title-case"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
   subscription: <Calendar />,
-  organization: <Network />,
+  dataPrivacy: <ShieldCheck />,
+  organization: < Network />,
   sustainability: <Leaf />,
   advanced: <Settings />,
 }
@@ -35,6 +37,7 @@ export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
+  const [usageInsights, setUsageInsights] = useState<string>("true")
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const router = useRouter()
@@ -53,6 +56,25 @@ export default function Page() {
       const updatedSettings = sustainabilitySettings === "true" ? true : false
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
       await axios.patch(endPoints.updateCarbonSettings, { reduceCarbonEmissions: updatedSettings })
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
+      })
+    }
+
+    catch (error) {
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
+      })
+    }
+  }
+
+  const saveUsageInsightsSettings = async () => {
+    try {
+      const updatedSettings = usageInsights === "true" ? true : false
+      dispatch("setUserState", { usageInsights: updatedSettings })
+      await axios.patch(endPoints.changeUsageInsightsSettings, { usageInsights: updatedSettings })
       toast({
         title: "Notification",
         description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
@@ -88,7 +110,7 @@ export default function Page() {
     return (
       <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => router.push(`/account?tab=${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
-        <p>{tab}</p>
+        <p>{convertToTitleCase(tab)}</p>
       </div>
     )
   })
@@ -206,6 +228,34 @@ export default function Page() {
                     <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
                     <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
                     <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.DataPrivacy} fallback={null}>
+                  <section className="grid gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Usage Insights</CardTitle>
+                        <CardDescription>
+                          {uiConstants.brandName} saves your activity on database securely for better and more personalized user experience on {uiConstants.brandName} platform.
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Select defaultValue={userState.usageInsights.toString()} onValueChange={(value: string) => setUsageInsights(value)}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="true">Participate in Insights Data Collection</SelectItem>
+                              <SelectItem value="false">Do not Participate in Insights Data Collection</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                      <CardFooter>
+                        <Button onClick={saveUsageInsightsSettings}>Save Settings</Button>
+                      </CardFooter>
+                    </Card>
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
