@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Document } from "mongoose"
 
 @Schema({ versionKey: false, collection: "products" })
 export class Product extends Document {

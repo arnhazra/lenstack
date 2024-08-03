@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common'
-import { HttpNosqlService } from './httpnosql.service'
-import { HttpNosqlController } from './httpnosql.controller'
+import { Module } from "@nestjs/common"
+import { HttpNosqlService } from "./httpnosql.service"
+import { HttpNosqlController } from "./httpnosql.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { MongooseModule } from "@nestjs/mongoose"
 import { envConfig } from "src/env.config"
