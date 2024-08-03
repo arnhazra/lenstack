@@ -30,7 +30,7 @@ export class TokenGuard implements CanActivate {
         if (accessToken === redisAccessToken) {
           const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
 
-          if (!response) {
+          if (!response || !response.length) {
             throw new UnauthorizedException(statusMessages.unauthorized)
           }
 

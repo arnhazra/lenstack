@@ -24,12 +24,13 @@ export class CredentialGuard implements CanActivate {
     else {
       try {
         const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { clientId, clientSecret })
-        const organization = orgResponse[0]
 
-        if (organization) {
+        if (orgResponse && orgResponse.length) {
+          const organization = orgResponse[0]
           const subscriptionRes: Subscription[] = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, organization.userId.toString())
-          const subscription = subscriptionRes[0]
-          if (subscription) {
+
+          if (subscriptionRes && subscriptionRes.length) {
+            const subscription = subscriptionRes[0]
             const userId = organization.userId.toString()
             const orgId = organization.id.toString()
             const currentDate = new Date()
@@ -54,18 +55,20 @@ export class CredentialGuard implements CanActivate {
                 await subscription.save()
                 const userResponse: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
 
-                if (!userResponse) {
+                if (!userResponse || !userResponse.length) {
                   throw new ForbiddenException(statusMessages.unauthorized)
                 }
 
-                const { usageInsights } = userResponse[0]
-                request.user = { userId, orgId }
+                else {
+                  const { usageInsights } = userResponse[0]
+                  request.user = { userId, orgId }
 
-                if (usageInsights) {
-                  this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+                  if (usageInsights) {
+                    this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+                  }
+
+                  return true
                 }
-
-                return true
               }
             }
           }
