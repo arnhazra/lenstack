@@ -2,17 +2,18 @@ import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Organization } from "./schemas/organization.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
-import { FilterQuery, Model } from "mongoose"
+import { FilterQuery, Model, Types } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
+import { randomUUID } from "crypto"
 
 @Injectable()
 export class OrganizationRepository {
   constructor(@InjectModel(Organization.name, DbConnectionMap.Core) private model: Model<Organization>) { }
 
   @OnEvent(EventsUnion.CreateOrg)
-  async createOne(name: string, userId: string): Promise<Organization | null> {
-    return await new this.model({ name, userId }).save()
+  async createOne({ name, userId }: { name: string, userId: string }): Promise<Organization | null> {
+    return await new this.model({ name, userId: new Types.ObjectId(userId), clientId: randomUUID(), clientSecret: randomUUID() }).save()
   }
 
   @OnEvent(EventsUnion.GetOrgDetails)

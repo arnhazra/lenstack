@@ -72,7 +72,7 @@ export class UserService {
 
         else {
           const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
-          const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", user: newUser.id })
+          const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", userId: newUser.id })
           await this.commandBus.execute(new UpdateSelectedOrgCommand(newUser.id, organization[0].id))
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
@@ -142,6 +142,16 @@ export class UserService {
   async changeUsageInsightsSettings(userId: string, value: boolean) {
     try {
       await this.commandBus.execute(new UpdateUsageInsightsSettingsCommand(userId, value))
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async switchOrg(userId: string, orgId: string) {
+    try {
+      await this.commandBus.execute(new UpdateSelectedOrgCommand(userId, orgId))
     }
 
     catch (error) {

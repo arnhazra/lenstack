@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, Get, Patch, Request, UseGuards } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Patch, Request, UseGuards, Param } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
@@ -93,6 +93,18 @@ export class UserController {
   async changeUsageInsightsSettings(@Request() request: ModRequest, @Body() changeUsageInsightsSettingsDto: ChangeUsageInsightsSettingsDto) {
     try {
       return await this.userService.changeUsageInsightsSettings(request.user.userId, changeUsageInsightsSettingsDto.usageInsights)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.invalidUser)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Patch("switchorg/:orgId")
+  async switchOrg(@Request() request: ModRequest, @Param() params: any) {
+    try {
+      return await this.userService.switchOrg(request.user.userId, params.orgId)
     }
 
     catch (error) {

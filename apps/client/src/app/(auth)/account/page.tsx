@@ -142,7 +142,7 @@ export default function Page() {
     const response = await confirm("Are you sure to switch to this org ?")
     if (response) {
       try {
-        await axios.post(`${endPoints.switchOrganization}?orgId=${orgId}`)
+        await axios.patch(`${endPoints.switchOrganization}/${orgId}`)
         organizations.refetch()
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({

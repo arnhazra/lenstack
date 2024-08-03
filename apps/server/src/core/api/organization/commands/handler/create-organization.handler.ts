@@ -9,6 +9,6 @@ export class CreateOrganizationCommandHandler implements ICommandHandler<CreateO
 
   async execute(command: CreateOrganizationCommand): Promise<Organization> {
     const { name, userId } = command
-    return await this.repository.createOne(name, userId)
+    return await this.repository.createOne({ name, userId })
   }
 }
