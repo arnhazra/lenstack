@@ -1,16 +1,18 @@
-import { Controller, Post, Body, Delete, Get, Patch, Param } from "@nestjs/common"
+import { Controller, Post, Body, Delete, Get, Patch, Param, Request, UseGuards } from "@nestjs/common"
 import { HttpNosqlService } from "./httpnosql.service"
 import { CreateDataDto } from "./dto/create-data.dto"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
+import { ModRequest } from "src/auth/types/mod-request.interface"
+import { CredentialGuard } from "src/auth/credential.guard"
 
 @Controller("products/httpnosql")
 export class HttpNosqlController {
   constructor(private readonly httpNosqlService: HttpNosqlService) { }
 
+  @UseGuards(CredentialGuard)
   @Post("create")
-  async createKeyValue(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createDataDto: CreateDataDto) {
+  async createKeyValue(@Request() request: ModRequest, @Body() createDataDto: CreateDataDto) {
     try {
-      return await this.httpNosqlService.createKeyValue(user.orgId, createDataDto)
+      return await this.httpNosqlService.createKeyValue(request.user.orgId, createDataDto)
     }
 
     catch (error) {
@@ -18,10 +20,11 @@ export class HttpNosqlController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Get("read")
-  async readAllValues(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
+  async readAllValues(@Request() request: ModRequest) {
     try {
-      return await this.httpNosqlService.readAllValues(user.orgId)
+      return await this.httpNosqlService.readAllValues(request.user.orgId)
     }
 
     catch (error) {
@@ -29,10 +32,11 @@ export class HttpNosqlController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Get("read/:key")
-  async readValueByKey(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Param() params: any) {
+  async readValueByKey(@Request() request: ModRequest, @Param() params: any) {
     try {
-      return await this.httpNosqlService.readValueByKey(user.orgId, params.key)
+      return await this.httpNosqlService.readValueByKey(request.user.orgId, params.key)
     }
 
     catch (error) {
@@ -40,10 +44,11 @@ export class HttpNosqlController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Patch("update")
-  async updateValueByKey(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() updateDataDto: CreateDataDto) {
+  async updateValueByKey(@Request() request: ModRequest, @Body() updateDataDto: CreateDataDto) {
     try {
-      return await this.httpNosqlService.updateValueByKey(user.orgId, updateDataDto)
+      return await this.httpNosqlService.updateValueByKey(request.user.orgId, updateDataDto)
     }
 
     catch (error) {
@@ -51,10 +56,11 @@ export class HttpNosqlController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Delete("delete/:key")
-  async deleteValueByKey(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Param() params: any) {
+  async deleteValueByKey(@Request() request: ModRequest, @Param() params: any) {
     try {
-      return await this.httpNosqlService.deleteValueByKey(user.orgId, params.key)
+      return await this.httpNosqlService.deleteValueByKey(request.user.orgId, params.key)
     }
 
     catch (error) {

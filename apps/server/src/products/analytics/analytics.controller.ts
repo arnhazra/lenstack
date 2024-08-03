@@ -1,16 +1,18 @@
-import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, UseGuards, Request } from "@nestjs/common"
 import { CreateEventsDto } from "./dto/create-events.dto"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { AnalyticsService } from "./analytics.service"
+import { CredentialGuard } from "src/auth/credential.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
 
 @Controller("products/analytics")
 export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) { }
 
+  @UseGuards(CredentialGuard)
   @Post("create")
-  async createEvent(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createEventsDto: CreateEventsDto) {
+  async createEvent(@Request() request: ModRequest, @Body() createEventsDto: CreateEventsDto) {
     try {
-      return await this.analyticsService.createEvent(user.orgId, createEventsDto)
+      return await this.analyticsService.createEvent(request.user.orgId, createEventsDto)
     }
 
     catch (error) {
@@ -18,10 +20,11 @@ export class AnalyticsController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Get("get")
-  async getEvents(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
+  async getEvents(@Request() request: ModRequest) {
     try {
-      return await this.analyticsService.getEvents(user.orgId)
+      return await this.analyticsService.getEvents(request.user.orgId)
     }
 
     catch (error) {

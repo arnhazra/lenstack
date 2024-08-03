@@ -5,7 +5,8 @@ import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { UpdateCarbonSettingsDto } from "./dto/update-carbon-settings.dto"
 import { ChangeUsageInsightsSettingsDto } from "./dto/change-usage-insights.dto"
-import { ModRequest, TokenGuard } from "src/auth/token.guard"
+import { TokenGuard } from "src/auth/token.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
 
 @Controller("user")
 export class UserController {

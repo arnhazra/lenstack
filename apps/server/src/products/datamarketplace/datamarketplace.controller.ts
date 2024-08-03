@@ -1,9 +1,9 @@
-import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards, Request } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { DataAPIDto } from "./dto/data-api.dto"
-import { ModRequest, TokenGuard } from "src/auth/token.guard"
+import { TokenGuard } from "src/auth/token.guard"
+import { CredentialGuard } from "src/auth/credential.guard"
 
 @Controller("products/datamarketplace")
 export class DatamarketplaceController {
@@ -45,8 +45,9 @@ export class DatamarketplaceController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Post("dataapi")
-  async getData(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
+  async getData(@Body() dataapiDto: DataAPIDto) {
     try {
       return await this.datamarketplaceService.getData(dataapiDto.datasetId)
     }

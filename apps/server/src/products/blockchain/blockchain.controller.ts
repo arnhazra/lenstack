@@ -1,8 +1,9 @@
 import { Controller, Post, Body, BadRequestException, Get, Param, UseGuards, Request } from "@nestjs/common"
 import { BlockchainService } from "./blockchain.service"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { FindNetworksDto } from "./dto/find-networks.dto"
-import { ModRequest, TokenGuard } from "src/auth/token.guard"
+import { TokenGuard } from "src/auth/token.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
+import { CredentialGuard } from "src/auth/credential.guard"
 
 @Controller("products/blockchain")
 export class BlockchainController {
@@ -10,7 +11,7 @@ export class BlockchainController {
 
   @UseGuards(TokenGuard)
   @Get("gatewayfilters")
-  async getGatewayFilters(@Request() request: ModRequest) {
+  async getGatewayFilters() {
     try {
       return await this.blockchainService.getGatewayFilters()
     }
@@ -22,7 +23,7 @@ export class BlockchainController {
 
   @UseGuards(TokenGuard)
   @Get("networkfilters")
-  async getNetworkFilters(@Request() request: ModRequest) {
+  async getNetworkFilters() {
     try {
       return await this.blockchainService.getNetworkFilters()
     }
@@ -34,7 +35,7 @@ export class BlockchainController {
 
   @UseGuards(TokenGuard)
   @Post("findnetworks")
-  async findNetworks(@Request() request: ModRequest, @Body() findNetworksDto: FindNetworksDto) {
+  async findNetworks(@Body() findNetworksDto: FindNetworksDto) {
     try {
       return await this.blockchainService.findNetworks(findNetworksDto)
     }
@@ -46,7 +47,7 @@ export class BlockchainController {
 
   @UseGuards(TokenGuard)
   @Get("viewnetwork/:networkId")
-  async viewNetwork(@Request() request: ModRequest, @Param() params: any) {
+  async viewNetwork(@Param() params: any) {
     try {
       return await this.blockchainService.viewNetwork(params.networkId)
     }
@@ -56,8 +57,9 @@ export class BlockchainController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Post("gateway/:networkId")
-  async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any, @Param() params: any) {
+  async transactionGateway(@Body() requestBody: any, @Param() params: any) {
     try {
       const response = await this.blockchainService.transactionGateway(requestBody, String(params.networkId))
       return response

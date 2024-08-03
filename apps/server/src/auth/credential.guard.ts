@@ -1,17 +1,19 @@
-import { createParamDecorator, ExecutionContext, ForbiddenException } from "@nestjs/common"
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common'
+import { statusMessages } from "src/utils/constants/status-messages"
+import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventsUnion } from "src/core/events/events.union"
 import { findOrganizationByCredentialQuery } from "src/core/api/organization/queries/find-org-by-credential.query"
 import { findSubscriptionByUserIdQuery } from "src/core/api/subscription/queries/find-subscription"
 import { subscriptionConfig } from "src/core/api/subscription/subscription.config"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { findUserByIdQuery } from "src/core/api/user/queries/find-user-by-id"
+import { ModRequest } from "./types/mod-request.interface"
 
-export interface CredentialAuthorizerResponse {
-  userId: string,
-  orgId: string
-}
+@Injectable()
+export class CredentialGuard implements CanActivate {
+  constructor(private readonly eventEmitter: EventEmitter2) { }
 
-export const CredentialAuthorizer = createParamDecorator(
-  async (data: unknown, ctx: ExecutionContext): Promise<CredentialAuthorizerResponse> => {
-    const request = ctx.switchToHttp().getRequest()
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request: ModRequest = context.switchToHttp().getRequest()
     const clientId = request.headers["client_id"] || request.query.client_id
     const clientSecret = request.headers["client_secret"] || request.query.client_secret
 
@@ -21,7 +23,7 @@ export const CredentialAuthorizer = createParamDecorator(
 
     else {
       try {
-        const organization = await findOrganizationByCredentialQuery(clientId, clientSecret)
+        const organization = await findOrganizationByCredentialQuery(String(clientId), String(clientSecret))
 
         if (organization) {
           const subscription = await findSubscriptionByUserIdQuery(organization.userId.toString())
@@ -31,6 +33,7 @@ export const CredentialAuthorizer = createParamDecorator(
             const orgId = organization.id.toString()
             const currentDate = new Date()
             const expiryDate = subscription.expiresAt
+            const { method, url: apiUri } = request
 
             if (currentDate > expiryDate) {
               throw new ForbiddenException(statusMessages.subscriptionExpired)
@@ -48,7 +51,14 @@ export const CredentialAuthorizer = createParamDecorator(
                 await new Promise(resolve => setTimeout(resolve, responseDelay))
                 subscription.remainingCredits -= creditRequired
                 await subscription.save()
-                return { userId, orgId }
+                const { usageInsights } = await findUserByIdQuery(userId)
+                request.user = { userId, orgId }
+
+                if (usageInsights) {
+                  this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+                }
+
+                return true
               }
             }
           }
@@ -67,5 +77,5 @@ export const CredentialAuthorizer = createParamDecorator(
         throw error
       }
     }
-  },
-)
+  }
+}

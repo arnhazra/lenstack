@@ -3,7 +3,8 @@ import { SubscriptionService } from "./subscription.service"
 import { CreateCheckoutSessionDto } from "./dto/create-checkout-session.dto"
 import { envConfig } from "src/env.config"
 import { otherConstants } from "src/utils/constants/other-constants"
-import { ModRequest, TokenGuard } from "src/auth/token.guard"
+import { TokenGuard } from "src/auth/token.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
 
 @Controller("subscription")
 export class SubscriptionController {

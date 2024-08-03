@@ -2,7 +2,8 @@ import { Controller, Post, Body, Query, BadRequestException, Get, Delete, UseGua
 import { OrganizationService } from "./organization.service"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { ModRequest, TokenGuard } from "src/auth/token.guard"
+import { TokenGuard } from "src/auth/token.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
 
 @Controller("organization")
 export class OrganizationController {
