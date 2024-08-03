@@ -8,6 +8,7 @@ import { Subscription, SubscriptionSchema } from "./schemas/subscription.schema"
 import { FindSubscriptionQueryHandler } from "./queries/handlers/find-subscription.handler"
 import { DeleteSubscriptionCommandHandler } from "./commands/handlers/delete-subscription.handler"
 import { CreateSubscriptionCommandHandler } from "./commands/handlers/create-subscription.handler"
+import { SubscriptionRepository } from "./subscription.repository"
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { CreateSubscriptionCommandHandler } from "./commands/handlers/create-sub
     MongooseModule.forFeature([{ name: Subscription.name, schema: SubscriptionSchema }], DbConnectionMap.Core),
   ],
   controllers: [SubscriptionController],
-  providers: [SubscriptionService, CreateSubscriptionCommandHandler, DeleteSubscriptionCommandHandler, FindSubscriptionQueryHandler],
+  providers: [SubscriptionService, SubscriptionRepository, CreateSubscriptionCommandHandler, DeleteSubscriptionCommandHandler, FindSubscriptionQueryHandler],
 })
 
 export class SubscriptionModule { }

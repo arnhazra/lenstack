@@ -5,7 +5,6 @@ export const envConfig = {
   apiPort: process.env.API_PORT,
   nodeEnv: process.env.NODE_ENV,
   brandName: process.env.BRAND_NAME,
-  platformDatabaseURI: process.env.PLATFORM_DATABASE_URI,
   coreDatabaseURI: process.env.CORE_DATABASE_URI,
   analyticsDatabaseURI: process.env.ANALYTICS_DATABASE_URI,
   blockchainDatabaseURI: process.env.BLOCKCHAIN_DATABASE_URI,
