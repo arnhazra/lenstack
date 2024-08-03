@@ -1,12 +1,14 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { findAPIReferencesByProductNameQuery } from "./queries/find-apireferences.query"
+import { QueryBus } from "@nestjs/cqrs"
+import { FindAPIReferencesQuery } from "./queries/impl/find-apireferences.query"
 
 @Injectable()
 export class ApiReferenceService {
-  async getApiReferenceByProductName(userId: string, productName: string) {
+  constructor(private readonly queryBus: QueryBus) { }
+
+  async getApiReferenceByProductName(productName: string) {
     try {
-      const docList = await findAPIReferencesByProductNameQuery(productName)
-      return docList
+      return await this.queryBus.execute(new FindAPIReferencesQuery(productName))
     }
 
     catch (error) {

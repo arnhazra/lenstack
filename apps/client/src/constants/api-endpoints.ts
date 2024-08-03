@@ -4,7 +4,7 @@ export const apiHost = process.env.NODE_ENV === "development" ? "http://localhos
 export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://${uiConstants.brandName}.vercel.app`
 
 export const endPoints = {
-  getapireference: `${apiHost}/api/apireference/get`,
+  getapireference: `${apiHost}/api/apireference`,
   generatePassKey: `${apiHost}/api/user/generatepasskey`,
   verifyPassKey: `${apiHost}/api/user/verifypasskey`,
   userDetails: `${apiHost}/api/user/userdetails`,

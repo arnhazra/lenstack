@@ -1,36 +1,25 @@
-import { Schema } from "mongoose"
-import { platformDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Document } from 'mongoose'
 
-export const ApiReferenceSchema = new Schema({
-  productName: {
-    type: String,
-    required: true
-  },
+@Schema({ versionKey: false, collection: "apireferences" })
+export class ApiReference extends Document {
+  @Prop({ required: true })
+  productName: string
 
-  apiName: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  apiName: string
 
-  apiUri: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  apiUri: string
 
-  apiMethod: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  apiMethod: string
 
-  sampleRequestBody: {
-    type: Object,
-    required: true
-  },
+  @Prop({ required: true, type: Object })
+  sampleRequestBody: Record<string, any>
 
-  sampleResponseBody: {
-    type: Object,
-    required: true
-  },
-}, { versionKey: false })
+  @Prop({ required: true, type: Object })
+  sampleResponseBody: Record<string, any>
+}
 
-export const ApiReferenceModel = platformDatabaseConn.model("apireference", ApiReferenceSchema)
+export const ApiReferenceSchema = SchemaFactory.createForClass(ApiReference)

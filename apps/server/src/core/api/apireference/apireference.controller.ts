@@ -8,11 +8,11 @@ import { EventsUnion } from "src/core/events/events.union"
 export class ApiReferenceController {
   constructor(private readonly apireferenceService: ApiReferenceService, private readonly eventEmitter: EventEmitter2) { }
 
-  @Get("get")
+  @Get()
   async getApiReferenceByProductName(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("productName") productName: string) {
     try {
       this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "apireference", method: "GET", api: "/apireference" })
-      const docList = await this.apireferenceService.getApiReferenceByProductName(user.userId, productName)
+      const docList = await this.apireferenceService.getApiReferenceByProductName(productName)
       return { docList }
     }
 
