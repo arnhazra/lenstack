@@ -11,9 +11,6 @@ export class Data extends Document {
 
   @Prop({ required: true })
   value: string
-
-  @Prop({ type: Date, default: Date.now })
-  createdAt: Date
 }
 
 export const DataSchema = SchemaFactory.createForClass(Data)

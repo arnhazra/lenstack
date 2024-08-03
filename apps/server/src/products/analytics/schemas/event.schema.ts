@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document, Types } from "mongoose"
 
-@Schema({ versionKey: false, collection: "events", timestamps: { createdAt: "createdAt" } })
+@Schema({ versionKey: false, collection: "events", timestamps: { createdAt: true, updatedAt: false } })
 export class Events extends Document {
   @Prop({ type: Types.ObjectId, ref: "organization", required: true })
   readonly orgId: Types.ObjectId
@@ -17,9 +17,6 @@ export class Events extends Document {
 
   @Prop({ required: true })
   readonly statusCode: string
-
-  @Prop({ default: Date.now })
-  readonly createdAt: Date
 }
 
 export const EventsSchema = SchemaFactory.createForClass(Events)

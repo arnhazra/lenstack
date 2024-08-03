@@ -11,9 +11,6 @@ export class Query extends Document {
 
   @Prop({ required: true })
   readonly response: string
-
-  @Prop({ type: Date, default: Date.now })
-  readonly createdAt: Date
 }
 
 export const QuerySchema = SchemaFactory.createForClass(Query)
