@@ -8,10 +8,9 @@ import { otherConstants } from "src/utils/constants/other-constants"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
-import { CommandBus, EventBus, QueryBus } from "@nestjs/cqrs"
+import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
-import { SendPasskeyEvent } from "./events/impl/send-passkey-email.event"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { UpdateSelectedOrgCommand } from "./commands/impl/update-selected-org.command"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
@@ -26,8 +25,7 @@ export class UserService {
   constructor(
     private readonly eventEmitter: EventEmitter2,
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-    private readonly eventBus: EventBus
+    private readonly commandBus: CommandBus
   ) {
     this.authPrivateKey = envConfig.authPrivateKey
   }
@@ -39,7 +37,7 @@ export class UserService {
       const { fullHash: hash, passKey } = generateAuthPasskey(email)
       const subject: string = generatePasskeyEmailSubject()
       const body: string = generatePasskeyEmailBody(passKey)
-      await this.eventBus.publish(new SendPasskeyEvent(email, subject, body))
+      await this.eventEmitter.emitAsync(EventsUnion.SendEmail, { receiverEmail: email, subject, body })
       return { user, hash }
     }
 
