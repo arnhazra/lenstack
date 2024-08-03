@@ -1,14 +1,16 @@
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { getproductConfigQuery } from "./queries/get-products.query"
+import { QueryBus } from "@nestjs/cqrs"
+import { GetProductsQuery } from "./queries/impl/get-products.query"
 
 @Injectable()
 export class ProductsService {
+  constructor(private readonly queryBus: QueryBus) { }
+
   async getProductConfig(searchQuery: string, category: string) {
     try {
       const selectedFilterCategory = category === "All" || "" ? "" : category
-      const products = await getproductConfigQuery(searchQuery, selectedFilterCategory)
-      return products
+      return await this.queryBus.execute(new GetProductsQuery(searchQuery, selectedFilterCategory))
     }
 
     catch (error) {

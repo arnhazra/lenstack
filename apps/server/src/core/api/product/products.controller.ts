@@ -8,8 +8,7 @@ export class ProductsController {
   @Get("config")
   async getProductConfig(@Query("searchQuery") searchQuery: string, @Query("category") category: string) {
     try {
-      const products = await this.productsService.getProductConfig(searchQuery, category)
-      return products
+      return await this.productsService.getProductConfig(searchQuery, category)
     }
 
     catch (error) {

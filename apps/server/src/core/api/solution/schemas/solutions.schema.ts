@@ -1,22 +1,16 @@
-import { Schema } from "mongoose"
-import { platformDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Document } from 'mongoose'
 
-export const SolutionSchema = new Schema({
-  solutionName: {
-    type: String,
-    required: true,
-    unique: true
-  },
+@Schema({ versionKey: false, collection: "solutions" })
+export class Solution extends Document {
+  @Prop({ required: true, unique: true })
+  solutionName: string
 
-  description: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  description: string
 
-  solutionIcon: {
-    type: String,
-    required: true
-  }
-}, { versionKey: false })
+  @Prop({ required: true })
+  solutionIcon: string
+}
 
-export const SolutionModel = platformDatabaseConn.model("solution", SolutionSchema)
+export const SolutionSchema = SchemaFactory.createForClass(Solution)
