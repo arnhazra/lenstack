@@ -1,19 +1,17 @@
-import { Controller, Post, Body, BadRequestException, Get, Query, Param } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Param, UseGuards, Request } from "@nestjs/common"
 import { BlockchainService } from "./blockchain.service"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { FindNetworksDto } from "./dto/find-networks.dto"
-import { EventsUnion } from "src/core/events/events.union"
+import { ModRequest, TokenGuard } from "src/auth/token.guard"
 
 @Controller("products/blockchain")
 export class BlockchainController {
-  constructor(private readonly blockchainService: BlockchainService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly blockchainService: BlockchainService) { }
 
+  @UseGuards(TokenGuard)
   @Get("gatewayfilters")
-  async getGatewayFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async getGatewayFilters(@Request() request: ModRequest) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/gatewayfilters" })
       return await this.blockchainService.getGatewayFilters()
     }
 
@@ -22,10 +20,10 @@ export class BlockchainController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Get("networkfilters")
-  async getNetworkFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async getNetworkFilters(@Request() request: ModRequest) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/networkfilters" })
       return await this.blockchainService.getNetworkFilters()
     }
 
@@ -34,10 +32,10 @@ export class BlockchainController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Post("findnetworks")
-  async findNetworks(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findNetworksDto: FindNetworksDto) {
+  async findNetworks(@Request() request: ModRequest, @Body() findNetworksDto: FindNetworksDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: "/findnetworks" })
       return await this.blockchainService.findNetworks(findNetworksDto)
     }
 
@@ -46,11 +44,11 @@ export class BlockchainController {
     }
   }
 
-  @Get("viewnetwork")
-  async viewNetwork(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("networkId") networkId: string) {
+  @UseGuards(TokenGuard)
+  @Get("viewnetwork/:networkId")
+  async viewNetwork(@Request() request: ModRequest, @Param() params: any) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/viewnetwork" })
-      return await this.blockchainService.viewNetwork(networkId)
+      return await this.blockchainService.viewNetwork(params.networkId)
     }
 
     catch (error) {
@@ -61,7 +59,6 @@ export class BlockchainController {
   @Post("gateway/:networkId")
   async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any, @Param() params: any) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: `/gateway/${String(params.networkId)}` })
       const response = await this.blockchainService.transactionGateway(requestBody, String(params.networkId))
       return response
     }

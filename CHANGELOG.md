@@ -6,6 +6,9 @@
 * Introduction of new core module consists of all platform APIs and events
 * Intrduction of new products module consists of all products APIs
 * Integrated CQRS design pattern with DDD across all modules for nest server
+* Deprecated Token & Credential Authorizer Decorator
+* Introduced new Token & Credential Guard
+* Removed CreateInsights Event Emitter from Controller and added in Guard
 * Restructure backend into platform & product modules
 * Create services with event pattern for email
 * Rebranded KV Store as HTTP NoSQL

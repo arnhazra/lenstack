@@ -21,7 +21,7 @@ export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const networkId = searchParams.get("networkId")
   const router = useRouter()
-  const network = useQuery(["network"], `${endPoints.blockchainViewNetwork}?networkId=${networkId}`, HTTPMethods.GET)
+  const network = useQuery(["network"], `${endPoints.blockchainViewNetwork}/${networkId}`, HTTPMethods.GET)
   const relatedNetworks = useQuery(["relatednetworks"], endPoints.blockchainFindNetworks, HTTPMethods.POST, { searchQuery: "", selectedGatewayFilter: network?.data?.rpcGateway ?? "", selectedNetworkFilter: "" })
 
   const copyRPCURI = () => {

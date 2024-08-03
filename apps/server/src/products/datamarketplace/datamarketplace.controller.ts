@@ -1,20 +1,18 @@
-import { Controller, Post, Body, Get, Query, BadRequestException } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards, Request } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { DataAPIDto } from "./dto/data-api.dto"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { ModRequest, TokenGuard } from "src/auth/token.guard"
 
 @Controller("products/datamarketplace")
 export class DatamarketplaceController {
-  constructor(private readonly datamarketplaceService: DatamarketplaceService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly datamarketplaceService: DatamarketplaceService) { }
 
+  @UseGuards(TokenGuard)
   @Get("filters")
-  async getDatasetFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async getDatasetFilters() {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "GET", api: "/filters" })
       return await this.datamarketplaceService.getDatasetFilters()
     }
 
@@ -23,10 +21,10 @@ export class DatamarketplaceController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Post("finddatasets")
-  async findDatasets(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findDatasetsDto: FindDatasetsDto) {
+  async findDatasets(@Body() findDatasetsDto: FindDatasetsDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "POST", api: "/finddatasets" })
       return await this.datamarketplaceService.findDatasets(findDatasetsDto)
     }
 
@@ -35,10 +33,10 @@ export class DatamarketplaceController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Get("viewdataset")
-  async viewDataset(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
+  async viewDataset(@Query("datasetId") datasetId: string) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "GET", api: "/viewdataset" })
       return await this.datamarketplaceService.viewDataset(datasetId)
     }
 
@@ -50,7 +48,6 @@ export class DatamarketplaceController {
   @Post("dataapi")
   async getData(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "POST", api: "/dataapi" })
       return await this.datamarketplaceService.getData(dataapiDto.datasetId)
     }
 

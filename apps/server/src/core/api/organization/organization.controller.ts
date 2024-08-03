@@ -1,20 +1,18 @@
-import { Controller, Post, Body, Query, BadRequestException, Get, Delete } from "@nestjs/common"
+import { Controller, Post, Body, Query, BadRequestException, Get, Delete, UseGuards, Request } from "@nestjs/common"
 import { OrganizationService } from "./organization.service"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { ModRequest, TokenGuard } from "src/auth/token.guard"
 
 @Controller("organization")
 export class OrganizationController {
-  constructor(private readonly organizationService: OrganizationService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly organizationService: OrganizationService) { }
 
+  @UseGuards(TokenGuard)
   @Post("create")
-  async createOrganization(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() createOrganizationDto: CreateOrganizationDto) {
+  async createOrganization(@Request() request: ModRequest, @Body() createOrganizationDto: CreateOrganizationDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "organization", method: "POST", api: "/create" })
-      const organization = await this.organizationService.createOrganization(user.userId, createOrganizationDto)
+      const organization = await this.organizationService.createOrganization(request.user.userId, createOrganizationDto)
       return organization
     }
 
@@ -23,11 +21,11 @@ export class OrganizationController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Get("findmyorganizations")
-  async findMyOrganizations(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async findMyOrganizations(@Request() request: ModRequest,) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "organization", method: "GET", api: "/findmyorganizations" })
-      const myOrganizations = await this.organizationService.findMyOrganizations(user.userId)
+      const myOrganizations = await this.organizationService.findMyOrganizations(request.user.userId)
       return { myOrganizations }
     }
 
@@ -36,11 +34,11 @@ export class OrganizationController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Post("switch")
-  async switchOrganization(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("orgId") orgId: string) {
+  async switchOrganization(@Request() request: ModRequest, @Query("orgId") orgId: string) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "organization", method: "POST", api: "/switch" })
-      return await this.organizationService.switchOrganization(user.userId, orgId)
+      return await this.organizationService.switchOrganization(request.user.userId, orgId)
     }
 
     catch (error) {
@@ -48,11 +46,11 @@ export class OrganizationController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Delete("delete")
-  async deleteOrganization(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("orgId") orgId: string) {
+  async deleteOrganization(@Request() request: ModRequest, @Query("orgId") orgId: string) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "organization", method: "DELETE", api: "/delete" })
-      return await this.organizationService.deleteOrganization(user.userId, orgId)
+      return await this.organizationService.deleteOrganization(request.user.userId, orgId)
     }
 
     catch (error) {
