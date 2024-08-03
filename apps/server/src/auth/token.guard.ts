@@ -33,12 +33,16 @@ export class TokenGuard implements CanActivate {
         const userId = (decoded as any).id
         const redisAccessToken = await getTokenQuery(userId)
         const { method, url: apiUri } = request
-        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
 
         if (accessToken === redisAccessToken) {
-          const { selectedOrgId } = await findUserByIdQuery(userId)
+          const { selectedOrgId, usageInsights } = await findUserByIdQuery(userId)
           const orgId = selectedOrgId.toString()
           request.user = { userId, orgId }
+
+          if (usageInsights) {
+            this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+          }
+
           return true
         }
 
