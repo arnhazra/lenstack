@@ -13,9 +13,9 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post("generatepasskey")
-  async generateAuthPasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
+  async generatePasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
     try {
-      const { hash } = await this.userService.generateAuthPasskey(generateAuthPasskeyDto)
+      const { hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
       return { hash, message: statusMessages.passKeyEmail }
     }
 
@@ -25,9 +25,9 @@ export class UserController {
   }
 
   @Post("verifypasskey")
-  async verifyAuthPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
+  async verifyPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
-      const response = await this.userService.verifyAuthPasskey(verifyAuthPasskeyDto)
+      const response = await this.userService.verifyPasskey(verifyAuthPasskeyDto)
 
       if (response.success) {
         return { accessToken: response.accessToken, user: response.user }

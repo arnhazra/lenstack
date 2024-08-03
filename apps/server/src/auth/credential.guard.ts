@@ -5,8 +5,8 @@ import { EventsUnion } from "src/core/events/events.union"
 import { findOrganizationByCredentialQuery } from "src/core/api/organization/queries/find-org-by-credential.query"
 import { findSubscriptionByUserIdQuery } from "src/core/api/subscription/queries/find-subscription"
 import { subscriptionConfig } from "src/core/api/subscription/subscription.config"
-import { findUserByIdQuery } from "src/core/api/user/queries/find-user-by-id"
 import { ModRequest } from "./types/mod-request.interface"
+import { User } from "src/core/api/user/schemas/user.schema"
 
 @Injectable()
 export class CredentialGuard implements CanActivate {
@@ -51,7 +51,13 @@ export class CredentialGuard implements CanActivate {
                 await new Promise(resolve => setTimeout(resolve, responseDelay))
                 subscription.remainingCredits -= creditRequired
                 await subscription.save()
-                const { usageInsights } = await findUserByIdQuery(userId)
+                const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+
+                if (!response) {
+                  throw new ForbiddenException(statusMessages.unauthorized)
+                }
+
+                const { selectedOrgId, usageInsights } = response[0]
                 request.user = { userId, orgId }
 
                 if (usageInsights) {

@@ -3,10 +3,10 @@ import * as jwt from "jsonwebtoken"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
 import getTokenQuery from "src/core/events/accesstoken/queries/get-token.query"
-import { findUserByIdQuery } from "src/core/api/user/queries/find-user-by-id"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
 import { ModRequest } from "./types/mod-request.interface"
+import { User } from "src/core/api/user/schemas/user.schema"
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -28,7 +28,13 @@ export class TokenGuard implements CanActivate {
         const { method, url: apiUri } = request
 
         if (accessToken === redisAccessToken) {
-          const { selectedOrgId, usageInsights } = await findUserByIdQuery(userId)
+          const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+
+          if (!response) {
+            throw new UnauthorizedException(statusMessages.unauthorized)
+          }
+
+          const { selectedOrgId, usageInsights } = response[0]
           const orgId = selectedOrgId.toString()
           request.user = { userId, orgId }
 

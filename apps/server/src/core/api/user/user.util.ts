@@ -17,6 +17,8 @@ function generateRandomPassKey(): string {
   return randomPassKey
 }
 
+
+
 export function generateAuthPasskey(email: string) {
   const passKey = generateRandomPassKey()
   const ttl = 5 * 60 * 1000
@@ -39,7 +41,11 @@ export function verifyAuthPasskey(email: string, hash: string, passKey: string):
   return false
 }
 
-export function generateEmailBody(passKey: string) {
+export function generatePasskeyEmailSubject() {
+  return `${envConfig.brandName} Auth Passkey`
+}
+
+export function generatePasskeyEmailBody(passKey: string) {
   return `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
     <div style="margin:50px auto;width:70%;padding:20px 0">
       <div style="border-bottom:1px solid #f1f3f4">
