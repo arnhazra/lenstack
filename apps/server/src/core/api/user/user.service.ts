@@ -75,8 +75,8 @@ export class UserService {
 
         else {
           const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
-          const organization = await createOrganizationCommand("Default Org", newUser.id)
-          await this.commandBus.execute(new UpdateSelectedOrgCommand(newUser.id, organization.id))
+          const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", user: newUser.id })
+          await this.commandBus.execute(new UpdateSelectedOrgCommand(newUser.id, organization[0].id))
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: newUser.id, accessToken })

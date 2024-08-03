@@ -10,6 +10,7 @@ import { EventsUnion } from "src/core/events/events.union"
 export class OrganizationRepository {
   constructor(@InjectModel(Organization.name, DbConnectionMap.Core) private model: Model<Organization>) { }
 
+  @OnEvent(EventsUnion.CreateOrg)
   async createOne(name: string, userId: string): Promise<Organization | null> {
     return await new this.model({ name, userId }).save()
   }
