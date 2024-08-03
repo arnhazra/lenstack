@@ -2,11 +2,11 @@ import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
-import { findOrganizationByCredentialQuery } from "src/core/api/organization/queries/find-org-by-credential.query"
 import { findSubscriptionByUserIdQuery } from "src/core/api/subscription/queries/find-subscription"
 import { subscriptionConfig } from "src/core/api/subscription/subscription.config"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/api/user/schemas/user.schema"
+import { Organization } from "src/core/api/organization/schemas/organization.schema"
 
 @Injectable()
 export class CredentialGuard implements CanActivate {
@@ -23,7 +23,8 @@ export class CredentialGuard implements CanActivate {
 
     else {
       try {
-        const organization = await findOrganizationByCredentialQuery(String(clientId), String(clientSecret))
+        const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { clientId, clientSecret })
+        const organization = orgResponse[0]
 
         if (organization) {
           const subscription = await findSubscriptionByUserIdQuery(organization.userId.toString())
@@ -51,13 +52,13 @@ export class CredentialGuard implements CanActivate {
                 await new Promise(resolve => setTimeout(resolve, responseDelay))
                 subscription.remainingCredits -= creditRequired
                 await subscription.save()
-                const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+                const userResponse: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
 
-                if (!response) {
+                if (!userResponse) {
                   throw new ForbiddenException(statusMessages.unauthorized)
                 }
 
-                const { selectedOrgId, usageInsights } = response[0]
+                const { usageInsights } = userResponse[0]
                 request.user = { userId, orgId }
 
                 if (usageInsights) {

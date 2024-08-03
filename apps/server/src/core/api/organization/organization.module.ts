@@ -1,10 +1,29 @@
 import { Module } from "@nestjs/common"
 import { OrganizationService } from "./organization.service"
 import { OrganizationController } from "./organization.controller"
+import { CqrsModule } from "@nestjs/cqrs"
+import { MongooseModule } from "@nestjs/mongoose"
+import { Organization, OrganizationSchema } from "./schemas/organization.schema"
+import { DbConnectionMap } from "src/utils/db-connection.map"
+import { OrganizationRepository } from "./organization.repository"
+import { CreateOrganizationCommandHandler } from "./commands/handler/create-organization.handler"
+import { DeleteOrganizationCommandHandler } from "./commands/handler/delete-organization.handler"
+import { FindAllOrgQueryQueryHandler } from "./queries/handler/find-all-org.handler"
+import { FindOrgByCredentialQueryQueryHandler } from "./queries/handler/find-org-by-credential.handler"
+import { FindOrgByIdQueryQueryHandler } from "./queries/handler/find-org-by-id.handler"
 
 @Module({
+  imports: [
+    CqrsModule,
+    MongooseModule.forFeature([{ name: Organization.name, schema: OrganizationSchema }], DbConnectionMap.Core),
+  ],
   controllers: [OrganizationController],
-  providers: [OrganizationService],
+  providers: [
+    OrganizationService, OrganizationRepository,
+    CreateOrganizationCommandHandler, DeleteOrganizationCommandHandler,
+    FindAllOrgQueryQueryHandler, FindOrgByCredentialQueryQueryHandler,
+    FindOrgByIdQueryQueryHandler
+  ],
 })
 
 export class OrganizationModule { }

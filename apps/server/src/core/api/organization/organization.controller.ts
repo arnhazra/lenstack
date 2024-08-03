@@ -36,18 +36,6 @@ export class OrganizationController {
   }
 
   @UseGuards(TokenGuard)
-  @Post("switch")
-  async switchOrganization(@Request() request: ModRequest, @Query("orgId") orgId: string) {
-    try {
-      return await this.organizationService.switchOrganization(request.user.userId, orgId)
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  @UseGuards(TokenGuard)
   @Delete("delete")
   async deleteOrganization(@Request() request: ModRequest, @Query("orgId") orgId: string) {
     try {

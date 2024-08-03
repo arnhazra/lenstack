@@ -1,26 +1,21 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { createOrganizationCommand } from "./commands/create-organization.command"
-import { findMyOrganizationsQuery } from "./queries/find-org.query"
-import { findOrganizationByIdQuery } from "./queries/find-org-by-id.query"
-import { switchOrganizationCommand } from "./commands/switch-organization.command"
-import { deleteOrganizationCommand } from "./commands/delete-organization.command"
+import { CommandBus, QueryBus } from "@nestjs/cqrs"
+import { FindAllOrgQuery } from "./queries/impl/find-all-org.query"
+import { FindOrgByIdQuery } from "./queries/impl/find-org-by-id.query"
+import { Organization } from "./schemas/organization.schema"
+import { DeleteOrganizationCommand } from "./commands/impl/delete-organization.command"
+import { CreateOrganizationCommand } from "./commands/impl/create-organization.command"
 
 @Injectable()
 export class OrganizationService {
+  constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) { }
+
   async createOrganization(userId: string, createOrganizationDto: CreateOrganizationDto) {
     try {
       const { name } = createOrganizationDto
-      const organizationCount = (await findMyOrganizationsQuery(userId)).length
-      if (organizationCount < 10) {
-        const organization = await createOrganizationCommand(name, userId)
-        return organization
-      }
-
-      else {
-        throw new BadRequestException(statusMessages.organizationLimitReached)
-      }
+      return await this.commandBus.execute(new CreateOrganizationCommand(name, userId))
     }
 
     catch (error) {
@@ -30,27 +25,7 @@ export class OrganizationService {
 
   async findMyOrganizations(userId: string) {
     try {
-      const organizations = await findMyOrganizationsQuery(userId)
-      return organizations
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async switchOrganization(reqUserId: string, orgId: string) {
-    try {
-      const { userId } = await findOrganizationByIdQuery(orgId)
-
-      if (userId.toString() === reqUserId) {
-        await switchOrganizationCommand(reqUserId, orgId)
-        return { success: true }
-      }
-
-      else {
-        throw new BadRequestException(statusMessages.connectionError)
-      }
+      return await this.queryBus.execute(new FindAllOrgQuery(userId))
     }
 
     catch (error) {
@@ -60,10 +35,10 @@ export class OrganizationService {
 
   async deleteOrganization(reqUserId: string, orgId: string) {
     try {
-      const { userId } = await findOrganizationByIdQuery(orgId)
+      const { userId } = await this.queryBus.execute<FindOrgByIdQuery, Organization>(new FindOrgByIdQuery(orgId))
 
       if (userId.toString() === reqUserId) {
-        await deleteOrganizationCommand(orgId)
+        await this.commandBus.execute(new DeleteOrganizationCommand(orgId))
         return { success: true }
       }
 

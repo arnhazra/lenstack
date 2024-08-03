@@ -6,9 +6,6 @@ import { envConfig } from "src/env.config"
 import { generateAuthPasskey, verifyAuthPasskey, generatePasskeyEmailBody, generatePasskeyEmailSubject } from "./user.util"
 import { otherConstants } from "src/utils/constants/other-constants"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { findOrganizationByIdQuery } from "../organization/queries/find-org-by-id.query"
-import { createOrganizationCommand } from "../organization/commands/create-organization.command"
-import { findMyOrganizationsQuery } from "../organization/queries/find-org.query"
 import { findSubscriptionByUserIdQuery } from "../subscription/queries/find-subscription"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
@@ -21,6 +18,7 @@ import { UpdateSelectedOrgCommand } from "./commands/impl/update-selected-org.co
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateCarbonSettingsCommand } from "./commands/impl/update-carbon-settings.command"
 import { UpdateUsageInsightsSettingsCommand } from "./commands/impl/update-usage-insights.command"
+import { Organization } from "../organization/schemas/organization.schema"
 
 @Injectable()
 export class UserService {
@@ -61,12 +59,6 @@ export class UserService {
 
         if (user) {
           const redisAccessToken = await this.eventEmitter.emitAsync(EventsUnion.GetAccessToken, { userId: user.id })
-          const organizationCount = (await findMyOrganizationsQuery(user.id)).length
-
-          if (!organizationCount) {
-            const organization = await createOrganizationCommand("Default Org", user.id)
-            await this.commandBus.execute(new UpdateSelectedOrgCommand(user.id, organization.id))
-          }
 
           if (redisAccessToken.toString()) {
             const accessToken = redisAccessToken
@@ -107,7 +99,8 @@ export class UserService {
       const user = await this.queryBus.execute<FindUserByIdQuery, User>(new FindUserByIdQuery(userId))
 
       if (user) {
-        const organization = await findOrganizationByIdQuery(orgId)
+        const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { _id: orgId })
+        const organization = orgResponse[0]
         const subscription = await findSubscriptionByUserIdQuery(userId)
         let hasActiveSubscription = false
 

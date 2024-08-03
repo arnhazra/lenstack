@@ -1,37 +1,26 @@
-import { Schema } from "mongoose"
-import { platformDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Document, Schema as MongooseSchema } from 'mongoose'
 
-export const SubscriptionSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-    required: true,
-    unique: true
-  },
+@Schema({ versionKey: false, collection: "subscriptions", timestamps: { createdAt: true, updatedAt: false } })
+export class Subscription extends Document {
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'user', required: true, unique: true })
+  userId: MongooseSchema.Types.ObjectId
 
-  selectedPlan: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  selectedPlan: string
 
-  createdAt: {
+  @Prop({ required: true })
+  remainingCredits: number
+
+  @Prop({
     type: Date,
-    default: Date.now
-  },
-
-  remainingCredits: {
-    type: Number,
-    required: true
-  },
-
-  expiresAt: {
-    type: Date,
-    default: function () {
+    default: () => {
       const expirationDate = new Date()
       expirationDate.setDate(expirationDate.getDate() + 30)
       return expirationDate
     }
-  }
-}, { versionKey: false })
+  })
+  expiresAt: Date
+}
 
-export const SubscriptionModel = platformDatabaseConn.model("subscription", SubscriptionSchema)
+export const SubscriptionSchema = SchemaFactory.createForClass(Subscription)

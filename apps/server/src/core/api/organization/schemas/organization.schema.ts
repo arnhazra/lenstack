@@ -1,32 +1,19 @@
-import { Schema } from "mongoose"
-import { platformDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Document, Types } from 'mongoose'
 
-export const OrganizationSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
+@Schema({ versionKey: false, collection: "organizations", timestamps: { createdAt: true, updatedAt: false } })
+export class Organization extends Document {
+  @Prop({ required: true })
+  name: string
 
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-    required: true
-  },
+  @Prop({ type: Types.ObjectId, ref: 'user', required: true })
+  userId: Types.ObjectId
 
-  clientId: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  clientId: string
 
-  clientSecret: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  clientSecret: string
+}
 
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-}, { versionKey: false })
-
-export const OrganizationModel = platformDatabaseConn.model("organization", OrganizationSchema)
+export const OrganizationSchema = SchemaFactory.createForClass(Organization)
