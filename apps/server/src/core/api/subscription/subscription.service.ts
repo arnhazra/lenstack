@@ -3,15 +3,16 @@ import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
 import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
-import { createNewSubscriptionCommand } from "./commands/create-subscription.command"
-import { deleteSubscriptionCommand } from "./commands/delete-subscription.command"
 import { otherConstants } from "src/utils/constants/other-constants"
+import { CommandBus, QueryBus } from "@nestjs/cqrs"
+import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
+import { DeleteSubscriptionCommand } from "./commands/impl/delete-subscription.command"
 
 @Injectable()
 export class SubscriptionService {
   private readonly stripe: Stripe
 
-  constructor() {
+  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {
     this.stripe = new Stripe(envConfig.stripeSecretKey)
   }
 
@@ -64,8 +65,8 @@ export class SubscriptionService {
   async subscribe(sessionId: string) {
     try {
       const session = await this.stripe.checkout.sessions.retrieve(sessionId)
-      await deleteSubscriptionCommand(session.metadata.userId)
-      await createNewSubscriptionCommand(session.metadata.userId, session.metadata.selectedPlan as SubscriptionPlans)
+      await this.commandBus.execute(new DeleteSubscriptionCommand(session.metadata.userId))
+      await this.commandBus.execute(new CreateSubscriptionCommand(session.metadata.userId, session.metadata.selectedPlan as SubscriptionPlans))
       return { success: true }
     }
 

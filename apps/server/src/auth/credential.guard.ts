@@ -2,11 +2,11 @@ import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
-import { findSubscriptionByUserIdQuery } from "src/core/api/subscription/queries/find-subscription"
 import { subscriptionConfig } from "src/core/api/subscription/subscription.config"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/api/user/schemas/user.schema"
 import { Organization } from "src/core/api/organization/schemas/organization.schema"
+import { Subscription } from "src/core/api/subscription/schemas/subscription.schema"
 
 @Injectable()
 export class CredentialGuard implements CanActivate {
@@ -27,8 +27,8 @@ export class CredentialGuard implements CanActivate {
         const organization = orgResponse[0]
 
         if (organization) {
-          const subscription = await findSubscriptionByUserIdQuery(organization.userId.toString())
-
+          const subscriptionRes: Subscription[] = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, organization.userId.toString())
+          const subscription = subscriptionRes[0]
           if (subscription) {
             const userId = organization.userId.toString()
             const orgId = organization.id.toString()

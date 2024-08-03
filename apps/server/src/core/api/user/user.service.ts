@@ -6,7 +6,6 @@ import { envConfig } from "src/env.config"
 import { generateAuthPasskey, verifyAuthPasskey, generatePasskeyEmailBody, generatePasskeyEmailSubject } from "./user.util"
 import { otherConstants } from "src/utils/constants/other-constants"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { findSubscriptionByUserIdQuery } from "../subscription/queries/find-subscription"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
 import { CommandBus, EventBus, QueryBus } from "@nestjs/cqrs"
@@ -101,7 +100,8 @@ export class UserService {
       if (user) {
         const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { _id: orgId })
         const organization = orgResponse[0]
-        const subscription = await findSubscriptionByUserIdQuery(userId)
+        const subscriptionRes = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, user.id)
+        const subscription = subscriptionRes[0]
         let hasActiveSubscription = false
 
         if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {
