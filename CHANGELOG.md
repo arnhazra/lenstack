@@ -3,6 +3,7 @@
 ## v6.1.0
 * Minor bug fixes & Performance improvements
 * Introduction of custom scrollbar in UI
+* Minor API structural changes
 
 ## v6.0.0
 * Major Code refactoring, optimization & dependency updates across all modules
