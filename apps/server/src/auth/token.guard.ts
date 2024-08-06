@@ -20,39 +20,35 @@ export class TokenGuard implements CanActivate {
       throw new UnauthorizedException(statusMessages.unauthorized)
     }
 
-    else {
-      try {
-        const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
-        const userId = (decoded as any).id
-        const redisAccessToken = await getTokenQuery(userId)
-        const { method, url: apiUri } = request
+    try {
+      const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
+      const userId = (decoded as any).id
+      const redisAccessToken = await getTokenQuery(userId)
+      const { method, url: apiUri } = request
 
-        if (accessToken === redisAccessToken) {
-          const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
-
-          if (!response || !response.length) {
-            throw new UnauthorizedException(statusMessages.unauthorized)
-          }
-
-          const { selectedOrgId, usageInsights } = response[0]
-          const orgId = selectedOrgId.toString()
-          request.user = { userId, orgId }
-
-          if (usageInsights) {
-            this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
-          }
-
-          return true
-        }
-
-        else {
-          throw new UnauthorizedException(statusMessages.unauthorized)
-        }
-      }
-
-      catch (error) {
+      if (accessToken !== redisAccessToken) {
         throw new UnauthorizedException(statusMessages.unauthorized)
       }
+
+      const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+
+      if (!response || !response.length) {
+        throw new UnauthorizedException(statusMessages.unauthorized)
+      }
+
+      const { selectedOrgId, usageInsights } = response[0]
+      const orgId = String(selectedOrgId)
+      request.user = { userId, orgId }
+
+      if (usageInsights) {
+        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+      }
+
+      return true
+    }
+
+    catch (error) {
+      throw new UnauthorizedException(statusMessages.unauthorized)
     }
   }
 }

@@ -21,71 +21,59 @@ export class CredentialGuard implements CanActivate {
       throw new ForbiddenException(statusMessages.noCredentialsProvided)
     }
 
-    else {
-      try {
-        const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { clientId, clientSecret })
+    try {
+      const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { clientId, clientSecret })
 
-        if (orgResponse && orgResponse.length) {
-          const organization = orgResponse[0]
-          const subscriptionRes: Subscription[] = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, organization.userId.toString())
-
-          if (subscriptionRes && subscriptionRes.length) {
-            const subscription = subscriptionRes[0]
-            const userId = organization.userId.toString()
-            const orgId = organization.id.toString()
-            const currentDate = new Date()
-            const expiryDate = subscription.expiresAt
-            const { method, url: apiUri } = request
-
-            if (currentDate > expiryDate) {
-              throw new ForbiddenException(statusMessages.subscriptionExpired)
-            }
-
-            else {
-              const creditRequired = 1
-
-              if (creditRequired > subscription.remainingCredits) {
-                throw new ForbiddenException(statusMessages.subscriptionLimitReached)
-              }
-
-              else {
-                const responseDelay = subscriptionConfig.find((sub) => sub.planName === subscription.selectedPlan).responseDelay
-                await new Promise(resolve => setTimeout(resolve, responseDelay))
-                subscription.remainingCredits -= creditRequired
-                await subscription.save()
-                const userResponse: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
-
-                if (!userResponse || !userResponse.length) {
-                  throw new ForbiddenException(statusMessages.unauthorized)
-                }
-
-                else {
-                  const { usageInsights } = userResponse[0]
-                  request.user = { userId, orgId }
-
-                  if (usageInsights) {
-                    this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
-                  }
-
-                  return true
-                }
-              }
-            }
-          }
-
-          else {
-            throw new ForbiddenException(statusMessages.noSubscriptionsFound)
-          }
-        }
-
-        else {
-          throw new ForbiddenException(statusMessages.invalidCredentials)
-        }
+      if (!orgResponse || !orgResponse.length) {
+        throw new ForbiddenException(statusMessages.invalidCredentials)
       }
 
-      catch (error) {
-        throw error
+      const organization = orgResponse[0]
+      const subscriptionRes: Subscription[] = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, organization.userId.toString())
+
+      if (!subscriptionRes || !subscriptionRes.length) {
+        throw new ForbiddenException(statusMessages.noSubscriptionsFound)
       }
+
+      const subscription = subscriptionRes[0]
+      const userId = String(organization.userId)
+      const orgId = String(organization.id)
+      const currentDate = new Date()
+      const expiryDate = subscription.expiresAt
+      const { method, url: apiUri } = request
+
+      if (currentDate > expiryDate) {
+        throw new ForbiddenException(statusMessages.subscriptionExpired)
+      }
+
+      const creditRequired = 1
+
+      if (creditRequired > subscription.remainingCredits) {
+        throw new ForbiddenException(statusMessages.subscriptionLimitReached)
+      }
+
+      const responseDelay = subscriptionConfig.find((sub) => sub.planName === subscription.selectedPlan).responseDelay
+      await new Promise(resolve => setTimeout(resolve, responseDelay))
+      subscription.remainingCredits -= creditRequired
+      await subscription.save()
+      const userResponse: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+
+      if (!userResponse || !userResponse.length) {
+        throw new ForbiddenException(statusMessages.unauthorized)
+      }
+
+      const { usageInsights } = userResponse[0]
+      request.user = { userId, orgId }
+
+      if (usageInsights) {
+        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+      }
+
+      return true
+    }
+
+    catch (error) {
+      throw error
     }
   }
 }
