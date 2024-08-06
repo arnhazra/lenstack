@@ -13,8 +13,7 @@ export class OrganizationController {
   @Post("create")
   async createOrganization(@Request() request: ModRequest, @Body() createOrganizationDto: CreateOrganizationDto) {
     try {
-      const organization = await this.organizationService.createOrganization(request.user.userId, createOrganizationDto)
-      return organization
+      return await this.organizationService.createOrganization(request.user.userId, createOrganizationDto)
     }
 
     catch (error) {
@@ -26,8 +25,7 @@ export class OrganizationController {
   @Get("findmyorganizations")
   async findMyOrganizations(@Request() request: ModRequest,) {
     try {
-      const myOrganizations = await this.organizationService.findMyOrganizations(request.user.userId)
-      return { myOrganizations }
+      return await this.organizationService.findMyOrganizations(request.user.userId)
     }
 
     catch (error) {

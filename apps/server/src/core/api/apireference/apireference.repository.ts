@@ -8,7 +8,7 @@ import { Model } from "mongoose"
 export class ApiReferenceRepository {
   constructor(@InjectModel(ApiReference.name, DbConnectionMap.Core) private model: Model<ApiReference>) { }
 
-  async getApiReferenceByProductName(productName: string) {
+  async getApiReferenceByProductName(productName: string): Promise<ApiReference[] | null> {
     return await this.model.find({ productName }).sort("productName")
   }
 }

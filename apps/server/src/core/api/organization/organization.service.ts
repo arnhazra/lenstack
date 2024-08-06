@@ -15,7 +15,7 @@ export class OrganizationService {
   async createOrganization(userId: string, createOrganizationDto: CreateOrganizationDto) {
     try {
       const { name } = createOrganizationDto
-      return await this.commandBus.execute(new CreateOrganizationCommand(name, userId))
+      return await this.commandBus.execute<CreateOrganizationCommand, Organization>(new CreateOrganizationCommand(name, userId))
     }
 
     catch (error) {
@@ -25,7 +25,7 @@ export class OrganizationService {
 
   async findMyOrganizations(userId: string) {
     try {
-      return await this.queryBus.execute(new FindAllOrgQuery(userId))
+      return await this.queryBus.execute<FindAllOrgQuery, Organization[]>(new FindAllOrgQuery(userId))
     }
 
     catch (error) {

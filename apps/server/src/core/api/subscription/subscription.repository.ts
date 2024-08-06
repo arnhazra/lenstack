@@ -11,15 +11,15 @@ export class SubscriptionRepository {
   constructor(@InjectModel(Subscription.name, DbConnectionMap.Core) private model: Model<Subscription>) { }
 
   @OnEvent(EventsUnion.FindSubscription)
-  async findOne(userId: string) {
+  async findOne(userId: string): Promise<Subscription | null> {
     return await this.model.findOne({ userId })
   }
 
-  async createOne(userId: string, selectedPlan: string, remainingCredits: number) {
+  async createOne(userId: string, selectedPlan: string, remainingCredits: number): Promise<Subscription | null> {
     return await new this.model({ userId, selectedPlan, remainingCredits }).save()
   }
 
-  async deleteOne(userId: string) {
+  async deleteOne(userId: string): Promise<Subscription | null> {
     return await this.model.findOneAndDelete({ userId })
   }
 }

@@ -2,6 +2,7 @@ import { Injectable, BadRequestException } from "@nestjs/common"
 import { QueryBus } from "@nestjs/cqrs"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { GetSolutionsQuery } from "./queries/impl/get-solutions.query"
+import { Solution } from "./schemas/solutions.schema"
 
 @Injectable()
 export class SolutionService {
@@ -9,7 +10,7 @@ export class SolutionService {
 
   async getSolutionConfig() {
     try {
-      return await this.qureryBus.execute(new GetSolutionsQuery())
+      return await this.qureryBus.execute<GetSolutionsQuery, Solution[]>(new GetSolutionsQuery())
     }
 
     catch (error) {

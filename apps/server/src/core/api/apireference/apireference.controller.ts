@@ -10,8 +10,7 @@ export class ApiReferenceController {
   @Get("/:productName")
   async getApiReferenceByProductName(@Param() params: any) {
     try {
-      const docList = await this.apireferenceService.getApiReferenceByProductName(params.productName)
-      return { docList }
+      return await this.apireferenceService.getApiReferenceByProductName(params.productName)
     }
 
     catch (error) {
