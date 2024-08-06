@@ -3,38 +3,34 @@
 @tailwind utilities
 
 ::-webkit-scrollbar
-  width: 0
+  width: 0.5rem
+
+::-webkit-scrollbar-track
+  background-color: white
+
+::-webkit-scrollbar-thumb
+  background-color: silver
 
 body
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   -webkit-font-smoothing: antialiased
 
-@keyframes zoomIn
-  0%
-    background-size: 100%
-
-  100%
-    background-size: 120%
-    background-position: center
-
 .hero-landing
-  background: linear-gradient(to right, #40404065, #40404065), url(../assets/hero.jpg)
+  background: linear-gradient(to right, #40404075, #40404075), url(../assets/hero.jpg)
   -webkit-background-size: cover
   -moz-background-size: cover
   -o-background-size: cover
   background-size: cover
   background-attachment: fixed
-  animation: zoomIn 15s forwards
 
 .auth-landing
-  background: linear-gradient(to right, #40404065, #40404065), url(../assets/hero.jpg)
+  background: linear-gradient(to right, #40404075, #40404075), url(../assets/hero.jpg)
   -webkit-background-size: cover
   -moz-background-size: cover
   -o-background-size: cover
   background-size: cover
   background-attachment: fixed
-  animation: zoomIn 30s forwards
 
 ._2IvMF,
 ._GzYRV

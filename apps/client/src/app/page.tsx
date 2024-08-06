@@ -1,9 +1,8 @@
 "use client"
 import Link from "next/link"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { uiConstants } from "@/constants/global-constants"
-import { Badge } from "@/components/ui/badge"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
@@ -13,7 +12,7 @@ import { TierCardComponent } from "@/components/tiercard"
 import { Footer } from "@/components/footer"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { ExternalLink, Github } from "lucide-react"
+import { Github } from "lucide-react"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
