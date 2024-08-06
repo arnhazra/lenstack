@@ -10,20 +10,31 @@ body
   -moz-osx-font-smoothing: grayscale
   -webkit-font-smoothing: antialiased
 
-.hero-landing
-  background: linear-gradient(to right, #40404015, #40404015), url(../assets/hero.webp)
-  -webkit-background-size: cover
-  -moz-background-size: cover
-  -o-background-size: cover
-  background-size: cover
+@keyframes zoomIn
+  0%
+    background-size: 100%
 
-.auth-landing
-  background: linear-gradient(to right, #40404015, #40404015), url(../assets/login.webp)
+  100%
+    background-size: 120%
+    background-position: center
+
+.hero-landing
+  background: linear-gradient(to right, #40404065, #40404065), url(../assets/hero.jpg)
   -webkit-background-size: cover
   -moz-background-size: cover
   -o-background-size: cover
   background-size: cover
   background-attachment: fixed
+  animation: zoomIn 15s forwards
+
+.auth-landing
+  background: linear-gradient(to right, #40404065, #40404065), url(../assets/hero.jpg)
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+  background-attachment: fixed
+  animation: zoomIn 30s forwards
 
 ._2IvMF,
 ._GzYRV

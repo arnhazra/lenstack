@@ -78,7 +78,7 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<Loading />}>
       <div className="min-h-screen w-full bg-white">
-        <section id="hero" className="container hero-landing space-y-6 py-8 dark:bg-transparent md:py-12 lg:py-40 lg:rounded-lg">
+        <section id="hero" className="container hero-landing space-y-6 py-8 dark:bg-transparent md:py-12 lg:py-36 lg:rounded-lg">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-wide">
               {uiConstants.homeHeader}

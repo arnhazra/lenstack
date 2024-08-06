@@ -1,7 +1,10 @@
 # Changelog
 
-## v6.0.0
+## v6.1.0
 * Minor bug fixes & Performance improvements
+* Introduction of custom scrollbar in UI
+
+## v6.0.0
 * Major Code refactoring, optimization & dependency updates across all modules
 * Introduction of new core module consists of all platform APIs and events
 * Intrduction of new products module consists of all products APIs
@@ -30,7 +33,6 @@
 
 ## v5.7.0
 * Application Optimization
-* Introduction of custom scrollbar in UI
 * Removal of global search keyword & replacement with search as an event
 * Removal of appstate
 * Regular dependency updates
