@@ -29,7 +29,7 @@ export const endPoints = {
   copilotGenerateEndpoint: `${apiHost}/api/products/copilot/generate`,
   datamarketplaceFilters: `${apiHost}/api/products/datamarketplace/filters`,
   datamarketplaceFindDatasets: `${apiHost}/api/products/datamarketplace/finddatasets`,
-  datamarketplaceViewDatasets: `${apiHost}/api/products/datamarketplace/viewdataset`,
+  datamarketplaceViewDataset: `${apiHost}/api/products/datamarketplace/viewdataset`,
   datamarketplaceFindSimilarDatasets: `${apiHost}/api/products/datamarketplace/findsimilardatasets`,
   datamarketplaceDataApi: `${apiHost}/api/products/datamarketplace/dataapi`,
   httpnosqlCreateData: `${apiHost}/api/products/httpnosql/create`,

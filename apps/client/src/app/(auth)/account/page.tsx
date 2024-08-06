@@ -164,7 +164,7 @@ export default function Page() {
     const response = await confirm("Are you sure to delete this org ?")
     if (response) {
       try {
-        await axios.delete(`${endPoints.deleteOrganization}?orgId=${orgId}`)
+        await axios.delete(`${endPoints.deleteOrganization}/${orgId}`)
         organizations.refetch()
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({
