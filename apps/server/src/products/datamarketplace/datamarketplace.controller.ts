@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards, Param } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { DataAPIDto } from "./dto/data-api.dto"
@@ -34,10 +34,10 @@ export class DatamarketplaceController {
   }
 
   @UseGuards(TokenGuard)
-  @Get("viewdataset")
-  async viewDataset(@Query("datasetId") datasetId: string) {
+  @Get("viewdataset/:datasetId")
+  async viewDataset(@Param() params: any) {
     try {
-      return await this.datamarketplaceService.viewDataset(datasetId)
+      return await this.datamarketplaceService.viewDataset(params.datasetId)
     }
 
     catch (error) {

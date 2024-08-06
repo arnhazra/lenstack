@@ -1,16 +1,17 @@
 "use client"
+import ErrorComponent from "@/components/error"
 import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import LoadingComponent from "@/components/loading"
 
 export default function Error() {
-  const router = useRouter()
-
   useEffect(() => {
-    router.push("/")
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      document.body.style.overflow = ""
+    }
   }, [])
 
   return (
-    <LoadingComponent />
+    <ErrorComponent />
   )
 }

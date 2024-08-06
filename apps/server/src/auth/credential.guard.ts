@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common'
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
