@@ -8,6 +8,6 @@ export class GetProductsQueryHandler implements IQueryHandler<GetProductsQuery> 
 
   async execute(query: GetProductsQuery) {
     const { searchQuery, selectedFilter } = query
-    return await this.repository.getProductConfig(searchQuery, selectedFilter)
+    return await this.repository.findAll(searchQuery, selectedFilter)
   }
 }

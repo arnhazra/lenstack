@@ -6,7 +6,7 @@ import { CqrsModule } from "@nestjs/cqrs"
 import { ApiReference, ApiReferenceSchema } from "./schemas/apireference.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { MongooseModule } from "@nestjs/mongoose"
-import { FindAPIReferenceQueryHandler } from "./queries/handler/find-apireferences.handler"
+import { FindAPIReferencesQueryHandler } from "./queries/handler/find-apireferences.handler"
 
 @Module({
   imports: [
@@ -14,6 +14,6 @@ import { FindAPIReferenceQueryHandler } from "./queries/handler/find-apireferenc
     MongooseModule.forFeature([{ name: ApiReference.name, schema: ApiReferenceSchema }], DbConnectionMap.Core),
   ],
   controllers: [ApiReferenceController],
-  providers: [ApiReferenceService, ApiReferenceRepository, FindAPIReferenceQueryHandler],
+  providers: [ApiReferenceService, ApiReferenceRepository, FindAPIReferencesQueryHandler],
 })
 export class ApiReferenceModule { }

@@ -7,6 +7,6 @@ export class CreateInsightsCommandHandler implements ICommandHandler<CreateInsig
   constructor(private readonly repository: InsightsRepository) { }
 
   async execute(command: CreateInsightsCommand) {
-    return await this.repository.createInsights(command.createInsightsDto)
+    return await this.repository.createOne(command.createInsightsDto)
   }
 }

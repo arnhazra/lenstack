@@ -8,9 +8,9 @@ import { DbConnectionMap } from "src/utils/db-connection.map"
 import { OrganizationRepository } from "./organization.repository"
 import { CreateOrganizationCommandHandler } from "./commands/handler/create-organization.handler"
 import { DeleteOrganizationCommandHandler } from "./commands/handler/delete-organization.handler"
-import { FindAllOrgQueryQueryHandler } from "./queries/handler/find-all-org.handler"
-import { FindOrgByCredentialQueryQueryHandler } from "./queries/handler/find-org-by-credential.handler"
-import { FindOrgByIdQueryQueryHandler } from "./queries/handler/find-org-by-id.handler"
+import { FindAllOrgQueryHandler } from "./queries/handler/find-all-org.handler"
+import { FindOrgByCredentialQueryHandler } from "./queries/handler/find-org-by-credential.handler"
+import { FindOrgByIdQueryHandler } from "./queries/handler/find-org-by-id.handler"
 
 @Module({
   imports: [
@@ -21,8 +21,8 @@ import { FindOrgByIdQueryQueryHandler } from "./queries/handler/find-org-by-id.h
   providers: [
     OrganizationService, OrganizationRepository,
     CreateOrganizationCommandHandler, DeleteOrganizationCommandHandler,
-    FindAllOrgQueryQueryHandler, FindOrgByCredentialQueryQueryHandler,
-    FindOrgByIdQueryQueryHandler
+    FindAllOrgQueryHandler, FindOrgByCredentialQueryHandler,
+    FindOrgByIdQueryHandler
   ],
 })
 

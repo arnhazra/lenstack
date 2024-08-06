@@ -3,7 +3,7 @@ import { FindOrgByCredentialQuery } from "../impl/find-org-by-credential.query"
 import { OrganizationRepository } from "../../organization.repository"
 
 @QueryHandler(FindOrgByCredentialQuery)
-export class FindOrgByCredentialQueryQueryHandler implements IQueryHandler<FindOrgByCredentialQuery> {
+export class FindOrgByCredentialQueryHandler implements IQueryHandler<FindOrgByCredentialQuery> {
   constructor(private readonly repository: OrganizationRepository) { }
 
   async execute(query: FindOrgByCredentialQuery) {

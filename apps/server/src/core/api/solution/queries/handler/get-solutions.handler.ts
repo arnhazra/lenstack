@@ -7,6 +7,6 @@ export class GetSolutionsQueryHandler implements IQueryHandler<GetSolutionsQuery
   constructor(private readonly repository: SolutionsRepository) { }
 
   async execute(query: GetSolutionsQuery) {
-    return await this.repository.getSolutionConfig()
+    return await this.repository.findAll()
   }
 }

@@ -4,7 +4,7 @@ import { OrganizationRepository } from "../../organization.repository"
 import { Types } from "mongoose"
 
 @QueryHandler(FindAllOrgQuery)
-export class FindAllOrgQueryQueryHandler implements IQueryHandler<FindAllOrgQuery> {
+export class FindAllOrgQueryHandler implements IQueryHandler<FindAllOrgQuery> {
   constructor(private readonly repository: OrganizationRepository) { }
 
   async execute(query: FindAllOrgQuery) {

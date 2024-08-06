@@ -8,7 +8,7 @@ import { Solution } from "./schemas/solutions.schema"
 export class SolutionsRepository {
   constructor(@InjectModel(Solution.name, DbConnectionMap.Core) private model: Model<Solution>) { }
 
-  async getSolutionConfig(): Promise<Solution[] | null> {
+  async findAll(): Promise<Solution[] | null> {
     return await this.model.find().sort("solutionName")
   }
 }

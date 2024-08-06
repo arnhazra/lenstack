@@ -8,7 +8,7 @@ import { Model } from "mongoose"
 export class ProductsRepository {
   constructor(@InjectModel(Product.name, DbConnectionMap.Core) private model: Model<Product>) { }
 
-  async getProductConfig(searchQuery: string, category: string): Promise<Product[] | null> {
+  async findAll(searchQuery: string, category: string): Promise<Product[] | null> {
     const selectedFilterCategory = category === "All" || "" ? "" : category
 
     return await this.model.find({
