@@ -1,5 +1,4 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
-import { Data } from "../../schemas/data.schema"
 import { HttpNosqlRepository } from "../../httpnosql.repository"
 import { ReadValueByKeyQuery } from "../impl/read-value-by-key.query"
 
@@ -7,7 +6,7 @@ import { ReadValueByKeyQuery } from "../impl/read-value-by-key.query"
 export class ReadOneDataQueryHandler implements IQueryHandler<ReadValueByKeyQuery> {
   constructor(private readonly repository: HttpNosqlRepository) { }
 
-  async execute(query: ReadValueByKeyQuery): Promise<Data> {
+  async execute(query: ReadValueByKeyQuery) {
     const { orgId, key } = query
     return await this.repository.readValueByKey(orgId, key)
   }

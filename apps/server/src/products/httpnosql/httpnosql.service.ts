@@ -6,6 +6,7 @@ import { UpdateDataCommand } from "./commands/impl/update-data.command"
 import { DeleteDataCommand } from "./commands/impl/delete-data.command"
 import { ReadAllValuesQuery } from "./queries/impl/read-all-values.query"
 import { ReadValueByKeyQuery } from "./queries/impl/read-value-by-key.query"
+import { Data } from "./schemas/data.schema"
 
 @Injectable()
 export class HttpNosqlService {
@@ -14,7 +15,7 @@ export class HttpNosqlService {
   async createKeyValue(orgId: string, createDataDto: CreateDataDto) {
     try {
       const { key, value } = createDataDto
-      return await this.commandBus.execute(new CreateDataCommand(orgId, key, value))
+      return await this.commandBus.execute<CreateDataCommand, Data>(new CreateDataCommand(orgId, key, value))
     }
 
     catch (error) {
@@ -24,7 +25,7 @@ export class HttpNosqlService {
 
   async readAllValues(orgId: string) {
     try {
-      return await this.queryBus.execute(new ReadAllValuesQuery(orgId))
+      return await this.queryBus.execute<ReadAllValuesQuery, Data[]>(new ReadAllValuesQuery(orgId))
     }
 
     catch (error) {
@@ -34,7 +35,7 @@ export class HttpNosqlService {
 
   async readValueByKey(orgId: string, key: string) {
     try {
-      return await this.queryBus.execute(new ReadValueByKeyQuery(orgId, key))
+      return await this.queryBus.execute<ReadValueByKeyQuery, Data>(new ReadValueByKeyQuery(orgId, key))
     }
 
     catch (error) {
@@ -45,7 +46,7 @@ export class HttpNosqlService {
   async updateValueByKey(orgId: string, updateDataDto: CreateDataDto) {
     try {
       const { key, value } = updateDataDto
-      return await this.commandBus.execute(new UpdateDataCommand(orgId, key, value))
+      return await this.commandBus.execute<UpdateDataCommand, Data>(new UpdateDataCommand(orgId, key, value))
     }
 
     catch (error) {
@@ -55,7 +56,7 @@ export class HttpNosqlService {
 
   async deleteValueByKey(orgId: string, key: string) {
     try {
-      return await this.commandBus.execute(new DeleteDataCommand(orgId, key))
+      return await this.commandBus.execute<DeleteDataCommand, Data>(new DeleteDataCommand(orgId, key))
     }
 
     catch (error) {

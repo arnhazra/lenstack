@@ -3,17 +3,18 @@ import { InjectModel } from "@nestjs/mongoose"
 import { Data } from "./schemas/data.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { Model, Types } from "mongoose"
+import { statusMessages } from "src/utils/constants/status-messages"
 
 @Injectable()
 export class HttpNosqlRepository {
   constructor(@InjectModel(Data.name, DbConnectionMap.HttpNoSql) private model: Model<Data>) { }
 
-  async createKeyValue(orgId: string, key: string, value: string) {
+  async createKeyValue(orgId: string, key: string, value: string): Promise<Data | null> {
     try {
       const data = await this.model.find({ key, orgId })
 
       if (data.length > 0) {
-        throw new BadRequestException("Same Key Exists")
+        throw new BadRequestException(statusMessages.keyAlreadyExists)
       }
 
       const doc = new this.model({ orgId: new Types.ObjectId(orgId), key, value })
@@ -26,7 +27,7 @@ export class HttpNosqlRepository {
     }
   }
 
-  async readAllValues(orgId: string) {
+  async readAllValues(orgId: string): Promise<Data[] | null> {
     try {
       return await this.model.find({ orgId })
     }
@@ -36,11 +37,11 @@ export class HttpNosqlRepository {
     }
   }
 
-  async readValueByKey(orgId: string, key: string) {
+  async readValueByKey(orgId: string, key: string): Promise<Data | null> {
     try {
       const data = await this.model.findOne({ orgId, key })
       if (!data) {
-        throw new BadRequestException("Key does not exist")
+        throw new BadRequestException(statusMessages.keyDoesNotExist)
       }
 
       return data
@@ -51,12 +52,12 @@ export class HttpNosqlRepository {
     }
   }
 
-  async updateValueByKey(orgId: string, key: string, value: string) {
+  async updateValueByKey(orgId: string, key: string, value: string): Promise<Data | null> {
     try {
       const data = await this.model.findOne({ key, orgId })
 
       if (!data) {
-        throw new BadRequestException("Key Does not Exist")
+        throw new BadRequestException(statusMessages.keyDoesNotExist)
       }
 
       data.value = value
@@ -69,16 +70,15 @@ export class HttpNosqlRepository {
     }
   }
 
-  async deleteValueByKey(orgId: string, key: string) {
+  async deleteValueByKey(orgId: string, key: string): Promise<Data | null> {
     try {
       const data = await this.model.find({ key, orgId })
 
       if (data.length === 0) {
-        throw new BadRequestException("Key does not Exist")
+        throw new BadRequestException(statusMessages.keyDoesNotExist)
       }
 
-      await this.model.findOneAndDelete({ orgId, key })
-      return { success: true }
+      return await this.model.findOneAndDelete({ orgId, key })
     }
 
     catch (error) {

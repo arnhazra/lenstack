@@ -6,7 +6,7 @@ import { DatamarketplaceRepository } from "../../datamarketplace.repository"
 export class FindCategoriesQueryHandler implements IQueryHandler<FindCatgoriesQuery> {
   constructor(private readonly repository: DatamarketplaceRepository) { }
 
-  async execute(query: FindCatgoriesQuery): Promise<string[]> {
+  async execute(query: FindCatgoriesQuery) {
     return await this.repository.findUniqueCategories()
   }
 }

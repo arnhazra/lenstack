@@ -6,7 +6,7 @@ import { DeleteDataCommand } from "../impl/delete-data.command"
 export class DeleteDataCommandHandler implements ICommandHandler<DeleteDataCommand> {
   constructor(private readonly repository: HttpNosqlRepository) { }
 
-  async execute(command: DeleteDataCommand): Promise<{ success: boolean }> {
+  async execute(command: DeleteDataCommand) {
     const { orgId, key } = command
     return await this.repository.deleteValueByKey(orgId, key)
   }
