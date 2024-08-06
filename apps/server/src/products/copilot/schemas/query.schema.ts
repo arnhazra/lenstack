@@ -1,27 +1,16 @@
-import { Schema } from "mongoose"
-import { copilotDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Document, Types } from "mongoose"
 
-export const QuerySchema = new Schema({
-  orgId: {
-    type: Schema.Types.ObjectId,
-    ref: "organization",
-    required: true
-  },
+@Schema({ versionKey: false, collection: "queries", timestamps: { createdAt: true, updatedAt: false } })
+export class Query extends Document {
+  @Prop({ type: Types.ObjectId, ref: "organization", required: true })
+  readonly orgId: Types.ObjectId
 
-  prompt: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly prompt: string
 
-  response: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  readonly response: string
+}
 
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-}, { versionKey: false })
-
-export const QueryModel = copilotDatabaseConn.model("query", QuerySchema)
+export const QuerySchema = SchemaFactory.createForClass(Query)

@@ -1,5 +1,5 @@
 "use client"
-import { ReactElement, useEffect, useState } from "react"
+import { ReactElement, useEffect } from "react"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
 import { Tabs, tabsList } from "./data"
@@ -17,14 +17,14 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
   blockchain: <Hexagon />,
   copilot: <Sparkles />,
   dataMarketplace: <ServerCrash />,
-  kvStore: <Database />,
+  httpNosql: <Database />,
 }
 
 export default function Page() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
-  const apiReference = useQuery(["apireference"], `${endPoints.getapireference}?productName=${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
+  const apiReference = useQuery(["apireference"], `${endPoints.getapireference}/${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
 
   useEffect(() => {
     if (!selectedTab) {
@@ -41,7 +41,7 @@ export default function Page() {
     )
   })
 
-  const renderAPIReferences = apiReference.data?.docList?.map((item: any) => {
+  const renderAPIReferences = apiReference.data?.map((item: any) => {
     return (
       <SnippetPanel
         method={item.apiMethod}
@@ -59,10 +59,10 @@ export default function Page() {
       <Suspense condition={!apiReference.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-            <div className="mx-auto grid w-full max-w-6xl gap-2">
+            <div className="mx-auto grid w-full gap-2">
               <h1 className="text-3xl font-semibold">API Reference</h1>
             </div>
-            <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+            <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
               <nav className="grid gap-4 text-sm">
                 {renderTabs}
               </nav>

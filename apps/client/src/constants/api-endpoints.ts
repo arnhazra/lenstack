@@ -4,17 +4,18 @@ export const apiHost = process.env.NODE_ENV === "development" ? "http://localhos
 export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://${uiConstants.brandName}.vercel.app`
 
 export const endPoints = {
-  getapireference: `${apiHost}/api/apireference/get`,
+  getapireference: `${apiHost}/api/apireference`,
   generatePassKey: `${apiHost}/api/user/generatepasskey`,
   verifyPassKey: `${apiHost}/api/user/verifypasskey`,
   userDetails: `${apiHost}/api/user/userdetails`,
   signOut: `${apiHost}/api/user/signout`,
   updateCarbonSettings: `${apiHost}/api/user/updatecarbonsettings`,
+  changeUsageInsightsSettings: `${apiHost}/api/user/changeusageinsights`,
+  switchOrganization: `${apiHost}/api/user/switchorg`,
   getSubscriptionConfig: `${apiHost}/api/subscription/config`,
   createCheckoutSession: `${apiHost}/api/subscription/create-checkout-session`,
   createOrganization: `${apiHost}/api/organization/create`,
   findMyOrganizations: `${apiHost}/api/organization/findmyorganizations`,
-  switchOrganization: `${apiHost}/api/organization/switch`,
   deleteOrganization: `${apiHost}/api/organization/delete`,
   getProductConfig: `${apiHost}/api/products/config`,
   getSolutionConfig: `${apiHost}/api/solutions/config`,
@@ -31,7 +32,8 @@ export const endPoints = {
   datamarketplaceViewDatasets: `${apiHost}/api/products/datamarketplace/viewdataset`,
   datamarketplaceFindSimilarDatasets: `${apiHost}/api/products/datamarketplace/findsimilardatasets`,
   datamarketplaceDataApi: `${apiHost}/api/products/datamarketplace/dataapi`,
-  kvstoreCreateKv: `${apiHost}/api/products/kvstore/createkv`,
-  kvstoreReadKvList: `${apiHost}/api/products/kvstore/readkv`,
-  kvstoreDeleteKv: `${apiHost}/api/products/kvstore/deletekv`,
+  httpnosqlCreateData: `${apiHost}/api/products/httpnosql/create`,
+  httpnosqlReadData: `${apiHost}/api/products/httpnosql/read`,
+  httpnosqlUpdateData: `${apiHost}/api/products/httpnosql/update`,
+  httpnosqlDeleteData: `${apiHost}/api/products/httpnosql/delete`,
 }

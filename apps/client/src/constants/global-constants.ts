@@ -1,9 +1,10 @@
 export const uiConstants = {
   brandName: "ArcStack",
-  homeHeader: "Build, Ship & Scale with",
-  homeIntro: "Start with free AS0 plan, no upfront commitment, Upgrade to higher tier on demand",
+  homeHeader: "Build, Ship & Scale",
+  homeIntro: "Start with free AS0 plan, no upfront commitment",
+  homeIntro2: "Upgrade to higher tier on demand",
   connectionErrorMessage: "Connection Error",
-  authVerificationMessage: "Verifying Auth",
+  authVerificationMessage: "Verifying Identity",
   errorMessage: "404, Lost",
   toastSuccess: "Done",
   toastError: "Something went wrong",
@@ -15,7 +16,7 @@ export const uiConstants = {
   tokenSellFailure: "Error selling token",
   copiedToClipBoard: "Copied to Clipboard",
   invalidPasskey: "Invalid Pass Key",
-  authVerificationSuccess: "Auth Verified",
+  authVerificationSuccess: "Identity Verified",
   linkedinUri: "https://www.linkedin.com/in/arnhazra",
   githubRepoUri: "https://github.com/arnhazra/arcstack",
 }

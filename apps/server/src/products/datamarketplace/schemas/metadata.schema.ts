@@ -1,26 +1,19 @@
-import { Schema } from "mongoose"
-import { datamarketplaceDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Document } from "mongoose"
 
-export const MetadataSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
+@Schema({ versionKey: false, collection: "metadatas" })
+export class Metadata extends Document {
+  @Prop({ required: true })
+  name: string
 
-  category: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  category: string
 
-  description: {
-    type: String,
-    required: true
-  },
+  @Prop({ required: true })
+  description: string
 
-  rating: {
-    type: Number,
-    required: true
-  }
-}, { versionKey: false })
+  @Prop({ required: true })
+  rating: number
+}
 
-export const MetaDataModel = datamarketplaceDatabaseConn.model("metadata", MetadataSchema)
+export const MetadataSchema = SchemaFactory.createForClass(Metadata)

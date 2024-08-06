@@ -11,7 +11,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Loading from "@/components/loading"
-import { ToastAction } from "@/components/ui/toast"
 import LoaderIcon from "@/components/loaderIcon"
 import eventEmitter from "@/events/eventEmitter"
 
@@ -35,8 +34,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       setState({ ...state, hash: response.data.hash })
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{response.data.message}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{response.data.message}</p>
       })
       setAuthStep(2)
     }
@@ -44,8 +42,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>
       })
     }
 
@@ -64,8 +61,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       localStorage.setItem("accessToken", response.data.accessToken)
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.authVerificationSuccess}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.authVerificationSuccess}</p>
       })
       setAuthorized(true)
     }
@@ -73,8 +69,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     catch (error: any) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.invalidPasskey}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.invalidPasskey}</p>
       })
       setAuthorized(false)
     }
@@ -89,7 +84,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       try {
         const response = await axios.get(endPoints.userDetails)
         const userId = response.data.user._id
-        const { email, role, selectedOrgId, reduceCarbonEmissions } = response.data.user
+        const { email, role, selectedOrgId, reduceCarbonEmissions, usageInsights } = response.data.user
         const { name: selectedOrganizationName, clientId, clientSecret } = response.data.organization
         const hasActiveSubscription = response.data.hasActiveSubscription
 
@@ -104,7 +99,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
         localStorage.setItem("clientId", clientId)
         localStorage.setItem("clientSecret", clientSecret)
-        dispatch("setUserState", { userId, email, role, selectedOrgId, selectedOrganizationName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions })
+        dispatch("setUserState", { userId, email, role, selectedOrgId, selectedOrganizationName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions, usageInsights })
         dispatch("setUserState", { isAuthorized: true })
         setAuthorized(true)
       }
@@ -118,8 +113,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           else {
             toast({
               title: "Notification",
-              description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
-              action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+              description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>
             })
           }
         }
@@ -127,8 +121,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         else {
           toast({
             title: "Notification",
-            description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>,
-            action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+            description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>
           })
         }
       }

@@ -1,12 +1,16 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
-import { CreateInsightDto } from "./dto/create-insight.dto"
-import createInsightsCommand from "./commands/create-insights.command"
+import { Injectable } from "@nestjs/common"
+import { CreateInsightsDto } from "./dto/create-insights.dto"
+import { CommandBus } from "@nestjs/cqrs"
+import { CreateInsightsCommand } from "./commands/impl/create-insights.command"
+import { Insights } from "./schemas/insights.schema"
 
 @Injectable()
 export class InsightsService {
-  createInsights(createInsightDto: CreateInsightDto) {
+  constructor(private readonly commandBus: CommandBus) { }
+
+  createInsights(createInsightsDto: CreateInsightsDto) {
     try {
-      createInsightsCommand(createInsightDto)
+      this.commandBus.execute<CreateInsightsCommand, Insights>(new CreateInsightsCommand(createInsightsDto))
     }
 
     catch (error) {

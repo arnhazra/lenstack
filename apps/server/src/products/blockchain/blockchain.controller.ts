@@ -1,71 +1,65 @@
-import { Controller, Post, Body, BadRequestException, Get, Query, Param } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Param, UseGuards } from "@nestjs/common"
 import { BlockchainService } from "./blockchain.service"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { FindNetworksDto } from "./dto/find-networks.dto"
-import { EventsUnion } from "src/core/events/events.union"
+import { TokenGuard } from "src/auth/token.guard"
+import { CredentialGuard } from "src/auth/credential.guard"
 
 @Controller("products/blockchain")
 export class BlockchainController {
-  constructor(private readonly blockchainService: BlockchainService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly blockchainService: BlockchainService) { }
 
+  @UseGuards(TokenGuard)
   @Get("gatewayfilters")
-  async getGatewayFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async getGatewayFilters() {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/gatewayfilters" })
-      const gatewayFilters = await this.blockchainService.getGatewayFilters()
-      return { gatewayFilters }
+      return await this.blockchainService.getGatewayFilters()
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
+  @UseGuards(TokenGuard)
   @Get("networkfilters")
-  async getNetworkFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async getNetworkFilters() {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/networkfilters" })
-      const networkFilters = await this.blockchainService.getNetworkFilters()
-      return { networkFilters }
+      return await this.blockchainService.getNetworkFilters()
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
+  @UseGuards(TokenGuard)
   @Post("findnetworks")
-  async findNetworks(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findNetworksDto: FindNetworksDto) {
+  async findNetworks(@Body() findNetworksDto: FindNetworksDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: "/findnetworks" })
-      const networks = await this.blockchainService.findNetworks(findNetworksDto)
-      return { networks }
+      return await this.blockchainService.findNetworks(findNetworksDto)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
-  @Get("viewnetwork")
-  async viewNetwork(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("networkId") networkId: string) {
+  @UseGuards(TokenGuard)
+  @Get("viewnetwork/:networkId")
+  async viewNetwork(@Param() params: any) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "GET", api: "/viewnetwork" })
-      const data = await this.blockchainService.viewNetwork(networkId)
-      return data
+      return await this.blockchainService.viewNetwork(params.networkId)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Post("gateway/:networkId")
-  async transactionGateway(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() requestBody: any, @Param() params: any) {
+  async transactionGateway(@Body() requestBody: any, @Param() params: any) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/blockchain", method: "POST", api: "/gateway" })
       const response = await this.blockchainService.transactionGateway(requestBody, String(params.networkId))
       return response
     }

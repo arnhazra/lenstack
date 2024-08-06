@@ -11,7 +11,6 @@ import { useContext, useState } from "react"
 import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { toast } from "@/components/ui/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 import axios from "axios"
 
 export default function Page() {
@@ -35,8 +34,7 @@ export default function Page() {
     if (userState.hasActiveSubscription) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">You already have an active subscription</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">You already have an active subscription</p>
       })
     }
 
@@ -49,8 +47,7 @@ export default function Page() {
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Error creating checkout session</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Error creating checkout session</p>
         })
       }
     }

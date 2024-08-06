@@ -1,17 +1,13 @@
-import { Schema } from "mongoose"
-import { datamarketplaceDatabaseConn } from "src/utils/connect-databases"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Document, Schema as MongooseSchema } from "mongoose"
 
-export const DatasetSchema = new Schema({
-  datasetRelationId: {
-    type: Schema.Types.ObjectId,
-    ref: "datasetmetadata",
-    required: true
-  },
+@Schema({ versionKey: false, collection: "datasets" })
+export class Dataset extends Document {
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "metadatas", required: true })
+  datasetRelationId: MongooseSchema.Types.ObjectId
 
-  data: {
-    type: Object,
-    required: true
-  }
-}, { versionKey: false })
+  @Prop({ type: Object, required: true })
+  data: Record<string, any>[]
+}
 
-export const DatasetModel = datamarketplaceDatabaseConn.model("dataset", DatasetSchema)
+export const DatasetSchema = SchemaFactory.createForClass(Dataset)

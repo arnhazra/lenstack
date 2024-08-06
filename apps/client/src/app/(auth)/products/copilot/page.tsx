@@ -12,7 +12,6 @@ import { useState } from "react"
 import axios from "axios"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
-import { ToastAction } from "@/components/ui/toast"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
 import Suspense from "@/components/suspense"
@@ -43,16 +42,14 @@ export default function Page() {
       if (error.response && error.response.data.message) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">{error.response.data.message}</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">{error.response.data.message}</p>
         })
       }
 
       else {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">{uiConstants.toastError}</p>
         })
       }
     }

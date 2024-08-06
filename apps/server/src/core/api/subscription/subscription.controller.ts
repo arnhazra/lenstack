@@ -1,15 +1,14 @@
-import { Controller, Post, Body, Get, Query, Res } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, Res, UseGuards, Request } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { CreateCheckoutSessionDto } from "./dto/create-checkout-session.dto"
 import { envConfig } from "src/env.config"
 import { otherConstants } from "src/utils/constants/other-constants"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { TokenGuard } from "src/auth/token.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
 
 @Controller("subscription")
 export class SubscriptionController {
-  constructor(private readonly subscriptionService: SubscriptionService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly subscriptionService: SubscriptionService) { }
 
   @Get("config")
   getSubscriptionConfig() {
@@ -22,11 +21,11 @@ export class SubscriptionController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Post("create-checkout-session")
-  async createCheckoutSession(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
+  async createCheckoutSession(@Request() request: ModRequest, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "subscription", method: "POST", api: "/create-checkout-session" })
-      const session = await this.subscriptionService.createCheckoutSession(createCheckoutSessionDto.selectedPlan, user.userId)
+      const session = await this.subscriptionService.createCheckoutSession(createCheckoutSessionDto.selectedPlan, request.user.userId)
       return { redirectUrl: session.url }
     }
 

@@ -1,6 +1,6 @@
-import { Controller, Post, Body } from "@nestjs/common"
+import { Controller } from "@nestjs/common"
 import { InsightsService } from "./insights.service"
-import { CreateInsightDto } from "./dto/create-insight.dto"
+import { CreateInsightsDto } from "./dto/create-insights.dto"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "../events.union"
 
@@ -9,7 +9,7 @@ export class InsightsController {
   constructor(private readonly insightsService: InsightsService) { }
 
   @OnEvent(EventsUnion.CreateInsights)
-  createInsights(createInsightDto: CreateInsightDto) {
-    this.insightsService.createInsights(createInsightDto)
+  createInsights(createInsightsDto: CreateInsightsDto) {
+    this.insightsService.createInsights(createInsightsDto)
   }
 }

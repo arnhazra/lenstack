@@ -1,66 +1,59 @@
-import { Controller, Post, Body, Get, Query } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
 import { DataAPIDto } from "./dto/data-api.dto"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { TokenGuard } from "src/auth/token.guard"
+import { CredentialGuard } from "src/auth/credential.guard"
 
 @Controller("products/datamarketplace")
 export class DatamarketplaceController {
-  constructor(private readonly datamarketplaceService: DatamarketplaceService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly datamarketplaceService: DatamarketplaceService) { }
 
+  @UseGuards(TokenGuard)
   @Get("filters")
-  async getDatasetFilters(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async getDatasetFilters() {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "GET", api: "/filters" })
-      const filterCategories = await this.datamarketplaceService.getDatasetFilters()
-      return { filterCategories }
+      return await this.datamarketplaceService.getDatasetFilters()
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
+  @UseGuards(TokenGuard)
   @Post("finddatasets")
-  async findDatasets(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() findDatasetsDto: FindDatasetsDto) {
+  async findDatasets(@Body() findDatasetsDto: FindDatasetsDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "POST", api: "/finddatasets" })
-      const datasets = await this.datamarketplaceService.findDatasets(findDatasetsDto)
-      return { datasets }
+      return await this.datamarketplaceService.findDatasets(findDatasetsDto)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
+  @UseGuards(TokenGuard)
   @Get("viewdataset")
-  async viewDataset(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("datasetId") datasetId: string) {
+  async viewDataset(@Query("datasetId") datasetId: string) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "GET", api: "/viewdataset" })
-      const data = await this.datamarketplaceService.viewDataset(datasetId)
-      return data
+      return await this.datamarketplaceService.viewDataset(datasetId)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Post("dataapi")
-  async getData(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() dataapiDto: DataAPIDto) {
+  async getData(@Body() dataapiDto: DataAPIDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/datamarketplace", method: "POST", api: "/dataapi" })
-      const { datasetId } = dataapiDto
-      const data = await this.datamarketplaceService.getData(datasetId)
-      return { data }
+      return await this.datamarketplaceService.getData(dataapiDto.datasetId)
     }
 
     catch (error) {
-      throw error
+      throw new BadRequestException()
     }
   }
 }

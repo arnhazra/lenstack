@@ -1,19 +1,16 @@
-import { Controller, BadRequestException, Get, Query } from "@nestjs/common"
+import { Controller, BadRequestException, Get, UseGuards, Param } from "@nestjs/common"
 import { ApiReferenceService } from "./apireference.service"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { TokenGuard } from "src/auth/token.guard"
 
 @Controller("apireference")
 export class ApiReferenceController {
-  constructor(private readonly apireferenceService: ApiReferenceService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly apireferenceService: ApiReferenceService) { }
 
-  @Get("get")
-  async getApiReferenceByProductName(@TokenAuthorizer() user: TokenAuthorizerResponse, @Query("productName") productName: string) {
+  @UseGuards(TokenGuard)
+  @Get("/:productName")
+  async getApiReferenceByProductName(@Param() params: any) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "apireference", method: "GET", api: "/apireference" })
-      const docList = await this.apireferenceService.getApiReferenceByProductName(user.userId, productName)
-      return { docList }
+      return await this.apireferenceService.getApiReferenceByProductName(params.productName)
     }
 
     catch (error) {

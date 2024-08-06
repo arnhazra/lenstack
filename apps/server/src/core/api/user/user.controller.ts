@@ -1,21 +1,21 @@
-import { Controller, Post, Body, BadRequestException, Get, Patch } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Patch, Request, UseGuards, Param } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { TokenAuthorizer, TokenAuthorizerResponse } from "src/auth/token-authorizer.decorator"
 import { UpdateCarbonSettingsDto } from "./dto/update-carbon-settings.dto"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { ChangeUsageInsightsSettingsDto } from "./dto/change-usage-insights.dto"
+import { TokenGuard } from "src/auth/token.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
 
 @Controller("user")
 export class UserController {
-  constructor(private readonly userService: UserService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly userService: UserService) { }
 
   @Post("generatepasskey")
-  async generateAuthPasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
+  async generatePasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
     try {
-      const { hash } = await this.userService.generateAuthPasskey(generateAuthPasskeyDto)
+      const { hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
       return { hash, message: statusMessages.passKeyEmail }
     }
 
@@ -25,12 +25,11 @@ export class UserController {
   }
 
   @Post("verifypasskey")
-  async verifyAuthPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
+  async verifyPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
-      const response = await this.userService.verifyAuthPasskey(verifyAuthPasskeyDto)
+      const response = await this.userService.verifyPasskey(verifyAuthPasskeyDto)
 
       if (response.success) {
-        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: response.user._id, module: "user", method: "POST", api: "/verifypasskey" })
         return { accessToken: response.accessToken, user: response.user }
       }
 
@@ -44,11 +43,11 @@ export class UserController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Get("userdetails")
-  async getUserDetails(@TokenAuthorizer() userT: TokenAuthorizerResponse) {
+  async getUserDetails(@Request() request: ModRequest) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: userT.userId, module: "user", method: "GET", api: "/userdetails" })
-      const { user, subscription, organization, hasActiveSubscription } = await this.userService.getUserDetails(userT.userId, userT.orgId)
+      const { user, subscription, organization, hasActiveSubscription } = await this.userService.getUserDetails(request.user.userId, request.user.orgId)
 
       if (user) {
         return { user, subscription, organization, hasActiveSubscription }
@@ -64,11 +63,11 @@ export class UserController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Post("signout")
-  async signOut(@TokenAuthorizer() user: TokenAuthorizerResponse) {
+  async signOut(@Request() request: ModRequest) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "user", method: "POST", api: "/signout" })
-      await this.userService.signOut(user.userId)
+      await this.userService.signOut(request.user.userId)
       return { message: statusMessages.signOutSuccess }
     }
 
@@ -77,11 +76,35 @@ export class UserController {
     }
   }
 
+  @UseGuards(TokenGuard)
   @Patch("updatecarbonsettings")
-  async updateCarbonSettings(@TokenAuthorizer() user: TokenAuthorizerResponse, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
+  async updateCarbonSettings(@Request() request: ModRequest, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "user", method: "PATCH", api: "/updatecarbonsettings" })
-      return await this.userService.updateCarbonSettings(user.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
+      return await this.userService.updateCarbonSettings(request.user.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.invalidUser)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Patch("changeusageinsights")
+  async changeUsageInsightsSettings(@Request() request: ModRequest, @Body() changeUsageInsightsSettingsDto: ChangeUsageInsightsSettingsDto) {
+    try {
+      return await this.userService.changeUsageInsightsSettings(request.user.userId, changeUsageInsightsSettingsDto.usageInsights)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.invalidUser)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Patch("switchorg/:orgId")
+  async switchOrg(@Request() request: ModRequest, @Param() params: any) {
+    try {
+      return await this.userService.switchOrg(request.user.userId, params.orgId)
     }
 
     catch (error) {

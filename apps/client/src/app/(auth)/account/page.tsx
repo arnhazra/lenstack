@@ -10,10 +10,9 @@ import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
 import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 import { Tabs, tabsList } from "./data"
 import { format } from "date-fns"
-import { Bolt, Calendar, Leaf, Network, Settings } from "lucide-react"
+import { Bolt, Calendar, Leaf, Network, Settings, ShieldCheck } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -23,11 +22,13 @@ import { useConfirmContext } from "@/context/providers/confirm.provider"
 import eventEmitter from "@/events/eventEmitter"
 import LoadingComponent from "@/components/loading"
 import Error from "@/components/error"
+import { convertToTitleCase } from "@/lib/convert-to-title-case"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
   subscription: <Calendar />,
-  organization: <Network />,
+  dataPrivacy: <ShieldCheck />,
+  organization: < Network />,
   sustainability: <Leaf />,
   advanced: <Settings />,
 }
@@ -36,6 +37,7 @@ export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
+  const [usageInsights, setUsageInsights] = useState<string>("true")
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const router = useRouter()
@@ -56,16 +58,33 @@ export default function Page() {
       await axios.patch(endPoints.updateCarbonSettings, { reduceCarbonEmissions: updatedSettings })
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
+      })
+    }
+  }
+
+  const saveUsageInsightsSettings = async () => {
+    try {
+      const updatedSettings = usageInsights === "true" ? true : false
+      dispatch("setUserState", { usageInsights: updatedSettings })
+      await axios.patch(endPoints.changeUsageInsightsSettings, { usageInsights: updatedSettings })
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
+      })
+    }
+
+    catch (error) {
+      toast({
+        title: "Notification",
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -82,8 +101,7 @@ export default function Page() {
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastError}</p>,
-        action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -92,7 +110,7 @@ export default function Page() {
     return (
       <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => router.push(`/account?tab=${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
-        <p>{tab}</p>
+        <p>{convertToTitleCase(tab)}</p>
       </div>
     )
   })
@@ -107,16 +125,14 @@ export default function Page() {
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization created</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization created</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Creating organization failed</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Creating organization failed</p>
         })
       }
     }
@@ -126,21 +142,19 @@ export default function Page() {
     const response = await confirm("Are you sure to switch to this org ?")
     if (response) {
       try {
-        await axios.post(`${endPoints.switchOrganization}?orgId=${orgId}`)
+        await axios.patch(`${endPoints.switchOrganization}/${orgId}`)
         organizations.refetch()
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switched</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization switched</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switching failed</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization switching failed</p>
         })
       }
     }
@@ -155,22 +169,20 @@ export default function Page() {
         eventEmitter.emitEvent("OrganizationChangeEvent")
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switched</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization deleted</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization deletion failed</p>,
-          action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+          description: <p className="text-neutral-600">Organization deletion failed</p>
         })
       }
     }
   }
 
-  const renderOrgs = organizations?.data?.myOrganizations?.map((organization: any) => {
+  const renderOrgs = organizations?.data?.map((organization: any) => {
     return (
       <OrgPanel
         key={organization?._id}
@@ -191,7 +203,7 @@ export default function Page() {
       <Suspense condition={!organizations.error} fallback={<Error />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-            <div className="mx-auto grid w-full max-w-6xl gap-2">
+            <div className="mx-auto grid w-full gap-2">
               <div className="flex justify-between">
                 <h1 className="text-3xl font-semibold">Account Settings</h1>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
@@ -199,7 +211,7 @@ export default function Page() {
                 </Suspense>
               </div>
             </div>
-            <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+            <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
               <nav className="grid gap-4 text-sm">
                 {renderTabs}
               </nav>
@@ -216,6 +228,34 @@ export default function Page() {
                     <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
                     <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
                     <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.DataPrivacy} fallback={null}>
+                  <section className="grid gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Usage Insights</CardTitle>
+                        <CardDescription>
+                          {uiConstants.brandName} saves your activity on database securely for better and more personalized user experience on {uiConstants.brandName} platform.
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Select defaultValue={userState.usageInsights.toString()} onValueChange={(value: string) => setUsageInsights(value)}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="true">Participate in Insights Data Collection</SelectItem>
+                              <SelectItem value="false">Do not Participate in Insights Data Collection</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                      <CardFooter>
+                        <Button onClick={saveUsageInsightsSettings}>Save Settings</Button>
+                      </CardFooter>
+                    </Card>
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>

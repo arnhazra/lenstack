@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Clipboard } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { Badge } from "../ui/badge"
@@ -27,8 +26,7 @@ export default function SnippetPanel({ title, url, method, request, response }: 
     navigator.clipboard.writeText(url)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
-      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

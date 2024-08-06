@@ -12,7 +12,6 @@ import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
 import { toast } from "@/components/ui/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -22,19 +21,18 @@ export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const networkId = searchParams.get("networkId")
   const router = useRouter()
-  const network = useQuery(["network"], `${endPoints.blockchainViewNetwork}?networkId=${networkId}`, HTTPMethods.GET)
+  const network = useQuery(["network"], `${endPoints.blockchainViewNetwork}/${networkId}`, HTTPMethods.GET)
   const relatedNetworks = useQuery(["relatednetworks"], endPoints.blockchainFindNetworks, HTTPMethods.POST, { searchQuery: "", selectedGatewayFilter: network?.data?.rpcGateway ?? "", selectedNetworkFilter: "" })
 
   const copyRPCURI = () => {
     navigator.clipboard.writeText(`${apiHost}/api/products/blockchain/gateway/${networkId}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}` ?? "")
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
-      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 
-  const renderNetworks = relatedNetworks?.data?.networks?.filter((network: any) => network?._id !== networkId).map((network: any) => {
+  const renderNetworks = relatedNetworks?.data?.filter((network: any) => network?._id !== networkId).map((network: any) => {
     return (
       <TableRow className="cursor-pointer" key={network?._id} onClick={(): void => router.push(`/products/blockchain/network?networkId=${network._id}`)}>
         <TableCell><div className="font-medium">{network?.rpcProviderName}</div></TableCell>

@@ -4,7 +4,6 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { ClipboardIcon } from "lucide-react"
 import { useToast } from "../ui/use-toast"
-import { ToastAction } from "../ui/toast"
 import { uiConstants } from "@/constants/global-constants"
 
 interface InfoPanelProps {
@@ -22,8 +21,7 @@ export default function InfoPanel({ title, desc, value, masked, capitalize }: In
     navigator.clipboard.writeText(value)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
-      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

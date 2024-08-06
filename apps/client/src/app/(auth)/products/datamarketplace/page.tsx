@@ -40,7 +40,7 @@ export default function Page() {
     }
   }, [])
 
-  const renderFilterOptions = filters?.data?.filterCategories?.map((item: string) => {
+  const renderFilterOptions = filters?.data?.map((item: string) => {
     return (
       <DropdownMenuCheckboxItem
         key={item}
@@ -64,7 +64,7 @@ export default function Page() {
     )
   })
 
-  const renderDatasets = datasets?.data?.datasets?.map((dataset: any) => {
+  const renderDatasets = datasets?.data?.map((dataset: any) => {
     return (
       <TableRow className="cursor-pointer" key={dataset?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset?datasetId=${dataset._id}`)}>
         <TableCell><div className="font-medium">{dataset?.name}</div></TableCell>
@@ -128,7 +128,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Datasets Count</CardDescription>
-                  <CardTitle className="text-4xl">{datasets?.data?.datasets?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{datasets?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -142,7 +142,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Dataset Categories</CardDescription>
-                  <CardTitle className="text-4xl">{filters?.data?.filterCategories?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{filters?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -193,7 +193,7 @@ export default function Page() {
                 </div>
               </CardHeader>
               <CardContent>
-                <Suspense condition={datasets?.data?.datasets.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
+                <Suspense condition={datasets?.data?.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -212,7 +212,7 @@ export default function Page() {
               </CardContent>
               <CardFooter>
                 <Button disabled={datasetRequestState.offset === 0} variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>
-                <Button disabled={datasets?.data?.datasets?.length !== 25} variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>
+                <Button disabled={datasets?.data?.length !== 25} variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>
               </CardFooter>
             </Card>
           </div>

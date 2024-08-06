@@ -15,7 +15,7 @@ An application that seamlessly integrates with Google Gemini large language mode
 #### Data Marketplace
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
 
-#### KV Store
+#### HTTP NoSQL
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
 ### What is the cost of using this platform ?

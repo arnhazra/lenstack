@@ -13,7 +13,6 @@ import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
 import { toast } from "@/components/ui/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
@@ -33,12 +32,11 @@ export default function Page() {
     navigator.clipboard.writeText(datasetId ?? "")
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
-      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 
-  const renderRelatedDatasets = relatedDatasets?.data?.datasets?.filter((ds: any) => ds?._id !== datasetId).map((ds: any) => {
+  const renderRelatedDatasets = relatedDatasets?.data?.filter((ds: any) => ds?._id !== datasetId).map((ds: any) => {
     return (
       <TableRow className="cursor-pointer" key={ds?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset?datasetId=${ds._id}`)}>
         <TableCell><div className="font-medium">{ds?.name}</div></TableCell>
@@ -71,7 +69,7 @@ export default function Page() {
 
   return (
     <Suspense condition={!dataset?.isLoading && !relatedDatasets?.isLoading} fallback={<Loading />}>
-      <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<Error />}>
+      <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<div />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-col sm:gap-4 sm:py-4">
             <div className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">

@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, Clipboard } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 import { uiConstants } from "@/constants/global-constants"
 import { format } from "date-fns"
 import { Label } from "@/components/ui/label"
@@ -28,8 +27,7 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
     navigator.clipboard.writeText(value)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>,
-      action: <ToastAction altText="Goto schedule to undo">Okay</ToastAction>
+      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

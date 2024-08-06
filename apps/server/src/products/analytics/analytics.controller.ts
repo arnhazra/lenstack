@@ -1,19 +1,18 @@
-import { Controller, Post, Body, BadRequestException, Get } from "@nestjs/common"
-import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
-import { CredentialAuthorizer, CredentialAuthorizerResponse } from "src/auth/credential-authorizer.decorator"
+import { Controller, Post, Body, BadRequestException, Get, UseGuards, Request } from "@nestjs/common"
+import { CreateEventsDto } from "./dto/create-events.dto"
 import { AnalyticsService } from "./analytics.service"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { CredentialGuard } from "src/auth/credential.guard"
+import { ModRequest } from "src/auth/types/mod-request.interface"
 
 @Controller("products/analytics")
 export class AnalyticsController {
-  constructor(private readonly analyticsService: AnalyticsService, private readonly eventEmitter: EventEmitter2) { }
+  constructor(private readonly analyticsService: AnalyticsService) { }
 
+  @UseGuards(CredentialGuard)
   @Post("create")
-  async createAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse, @Body() createAnalyticsDto: CreateAnalyticsDto) {
+  async createEvent(@Request() request: ModRequest, @Body() createEventsDto: CreateEventsDto) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/analytics", method: "POST", api: "/create" })
-      return await this.analyticsService.createAnalytics(user.orgId, createAnalyticsDto)
+      return await this.analyticsService.createEvent(request.user.orgId, createEventsDto)
     }
 
     catch (error) {
@@ -21,11 +20,11 @@ export class AnalyticsController {
     }
   }
 
+  @UseGuards(CredentialGuard)
   @Get("get")
-  async getAnalytics(@CredentialAuthorizer() user: CredentialAuthorizerResponse) {
+  async getEvents(@Request() request: ModRequest) {
     try {
-      this.eventEmitter.emit(EventsUnion.CreateInsights, { userId: user.userId, module: "products/analytics", method: "GET", api: "/get" })
-      return await this.analyticsService.getAnalytics(user.orgId)
+      return await this.analyticsService.getEvents(request.user.orgId)
     }
 
     catch (error) {

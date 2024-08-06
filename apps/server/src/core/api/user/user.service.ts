@@ -3,38 +3,43 @@ import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import { envConfig } from "src/env.config"
-import { generateAuthPasskey, verifyAuthPasskey, generateEmailBody } from "./user.util"
+import { generateAuthPasskey, verifyAuthPasskey, generatePasskeyEmailBody, generatePasskeyEmailSubject } from "./user.util"
 import { otherConstants } from "src/utils/constants/other-constants"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { findOrganizationByIdQuery } from "../organization/queries/find-org-by-id.query"
-import { createOrganizationCommand } from "../organization/commands/create-organization.command"
-import { findMyOrganizationsQuery } from "../organization/queries/find-org.query"
-import { findSubscriptionByUserIdQuery } from "../subscription/queries/find-subscription"
-import { findUserByEmailQuery } from "./queries/find-user-by-email"
-import { updateSelectedOrganizationCommand } from "./commands/update-selected-org.command"
-import { createUserCommand } from "./commands/create-user.command"
-import { findUserByIdQuery } from "./queries/find-user-by-id"
-import updateCarbonSettings from "./commands/update-carbon-settings.command"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
+import { CommandBus, QueryBus } from "@nestjs/cqrs"
+import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
+import { User } from "./schemas/user.schema"
+import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
+import { UpdateSelectedOrgCommand } from "./commands/impl/update-selected-org.command"
+import { CreateUserCommand } from "./commands/impl/create-user.command"
+import { UpdateCarbonSettingsCommand } from "./commands/impl/update-carbon-settings.command"
+import { UpdateUsageInsightsSettingsCommand } from "./commands/impl/update-usage-insights.command"
+import { Organization } from "../organization/schemas/organization.schema"
+import { Subscription } from "../subscription/schemas/subscription.schema"
 
 @Injectable()
 export class UserService {
   private readonly authPrivateKey: string
 
-  constructor(private readonly eventEmitter: EventEmitter2) {
+  constructor(
+    private readonly eventEmitter: EventEmitter2,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus
+  ) {
     this.authPrivateKey = envConfig.authPrivateKey
   }
 
-  async generateAuthPasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
+  async generatePasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
     try {
       const { email } = generateAuthPasskeyDto
-      let user = await findUserByEmailQuery(email)
-      const { fullHash, passKey } = await generateAuthPasskey(email)
-      const subject: string = `${envConfig.brandName} Auth Passkey`
-      const body: string = generateEmailBody(passKey)
+      const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email))
+      const { fullHash: hash, passKey } = generateAuthPasskey(email)
+      const subject: string = generatePasskeyEmailSubject()
+      const body: string = generatePasskeyEmailBody(passKey)
       await this.eventEmitter.emitAsync(EventsUnion.SendEmail, { receiverEmail: email, subject, body })
-      return { user, hash: fullHash }
+      return { user, hash }
     }
 
     catch (error) {
@@ -42,22 +47,16 @@ export class UserService {
     }
   }
 
-  async verifyAuthPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
+  async verifyPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
       const { email, hash, passKey } = verifyAuthPasskeyDto
       const isOTPValid = verifyAuthPasskey(email, hash, passKey)
 
       if (isOTPValid) {
-        let user = await findUserByEmailQuery(email)
+        const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email))
 
         if (user) {
           const redisAccessToken = await this.eventEmitter.emitAsync(EventsUnion.GetAccessToken, { userId: user.id })
-          const organizationCount = (await findMyOrganizationsQuery(user.id)).length
-
-          if (!organizationCount) {
-            const organization = await createOrganizationCommand("Default Org", user.id)
-            await updateSelectedOrganizationCommand(user.id, organization.id)
-          }
 
           if (redisAccessToken.toString()) {
             const accessToken = redisAccessToken
@@ -73,9 +72,9 @@ export class UserService {
         }
 
         else {
-          const newUser = await createUserCommand(email)
-          const organization = await createOrganizationCommand("Default Org", newUser.id)
-          await updateSelectedOrganizationCommand(newUser.id, organization.id)
+          const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
+          const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", userId: newUser.id })
+          await this.commandBus.execute<UpdateSelectedOrgCommand, User>(new UpdateSelectedOrgCommand(newUser.id, organization[0].id))
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: newUser.id, accessToken })
@@ -95,11 +94,13 @@ export class UserService {
 
   async getUserDetails(userId: string, orgId: string) {
     try {
-      const user = await findUserByIdQuery(userId)
+      const user = await this.queryBus.execute<FindUserByIdQuery, User>(new FindUserByIdQuery(userId))
 
       if (user) {
-        const organization = await findOrganizationByIdQuery(orgId)
-        const subscription = await findSubscriptionByUserIdQuery(userId)
+        const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { _id: orgId })
+        const organization = orgResponse[0]
+        const subscriptionRes: Subscription[] = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, user.id)
+        const subscription = subscriptionRes[0]
         let hasActiveSubscription = false
 
         if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {
@@ -131,7 +132,27 @@ export class UserService {
 
   async updateCarbonSettings(userId: string, value: boolean) {
     try {
-      await updateCarbonSettings(userId, value)
+      await this.commandBus.execute<UpdateCarbonSettingsCommand, User>(new UpdateCarbonSettingsCommand(userId, value))
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async changeUsageInsightsSettings(userId: string, value: boolean) {
+    try {
+      await this.commandBus.execute<UpdateUsageInsightsSettingsCommand, User>(new UpdateUsageInsightsSettingsCommand(userId, value))
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async switchOrg(userId: string, orgId: string) {
+    try {
+      await this.commandBus.execute<UpdateSelectedOrgCommand, User>(new UpdateSelectedOrgCommand(userId, orgId))
     }
 
     catch (error) {

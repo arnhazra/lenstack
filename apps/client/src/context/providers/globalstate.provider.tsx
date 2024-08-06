@@ -22,6 +22,7 @@ const initialState: { userState: UserState } = {
     hasActiveSubscription: false,
     isAuthorized: false,
     reduceCarbonEmissions: true,
+    usageInsights: true
   }
 }
 
