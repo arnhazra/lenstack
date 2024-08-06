@@ -1,5 +1,5 @@
 "use client"
-import { ReactElement, useEffect, useState } from "react"
+import { ReactElement, useEffect } from "react"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
 import { Tabs, tabsList } from "./data"
@@ -41,7 +41,7 @@ export default function Page() {
     )
   })
 
-  const renderAPIReferences = apiReference.data?.docList?.map((item: any) => {
+  const renderAPIReferences = apiReference.data?.map((item: any) => {
     return (
       <SnippetPanel
         method={item.apiMethod}

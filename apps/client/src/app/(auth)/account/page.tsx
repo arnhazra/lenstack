@@ -182,7 +182,7 @@ export default function Page() {
     }
   }
 
-  const renderOrgs = organizations?.data?.myOrganizations?.map((organization: any) => {
+  const renderOrgs = organizations?.data?.map((organization: any) => {
     return (
       <OrgPanel
         key={organization?._id}

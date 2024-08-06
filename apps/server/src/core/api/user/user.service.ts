@@ -17,6 +17,7 @@ import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateCarbonSettingsCommand } from "./commands/impl/update-carbon-settings.command"
 import { UpdateUsageInsightsSettingsCommand } from "./commands/impl/update-usage-insights.command"
 import { Organization } from "../organization/schemas/organization.schema"
+import { Subscription } from "../subscription/schemas/subscription.schema"
 
 @Injectable()
 export class UserService {
@@ -98,7 +99,7 @@ export class UserService {
       if (user) {
         const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { _id: orgId })
         const organization = orgResponse[0]
-        const subscriptionRes = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, user.id)
+        const subscriptionRes: Subscription[] = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, user.id)
         const subscription = subscriptionRes[0]
         let hasActiveSubscription = false
 
