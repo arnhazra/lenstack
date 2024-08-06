@@ -78,7 +78,7 @@ export class HttpNosqlRepository {
         throw new BadRequestException(statusMessages.keyDoesNotExist)
       }
 
-      return await this.model.findOneAndDelete({ orgId, key })
+      return await this.model.findOneAndDelete({ orgId: new Types.ObjectId(orgId), key })
     }
 
     catch (error) {

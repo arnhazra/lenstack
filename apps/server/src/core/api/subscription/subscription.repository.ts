@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Subscription } from "./schemas/subscription.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
-import { Model } from "mongoose"
+import { Model, Types } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
 
@@ -16,7 +16,7 @@ export class SubscriptionRepository {
   }
 
   async createOne(userId: string, selectedPlan: string, remainingCredits: number): Promise<Subscription | null> {
-    return await new this.model({ userId, selectedPlan, remainingCredits }).save()
+    return await new this.model({ userId: new Types.ObjectId(userId), selectedPlan, remainingCredits }).save()
   }
 
   async deleteOne(userId: string): Promise<Subscription | null> {
