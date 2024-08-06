@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { CircleUser, Tent, Equal, Search } from "lucide-react"
+import { CircleUser, Aperture, Equal, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
@@ -55,7 +55,7 @@ export default function Header() {
       <Suspense condition={userState.isAuthorized} fallback={null}>
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-white px-4 md:px-6 z-50">
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Link key="dashboard" href="/dashboard" className="flex items-center gap-2 text-lg font-semibold md:text-base"><Tent className="h-6 w-6" /></Link>
+            <Link key="dashboard" href="/dashboard" className="flex items-center gap-2 text-lg font-semibold md:text-base"><Aperture className="h-6 w-6" /></Link>
             {authUserLinks.map((item, index) =>
               <Link key={index} href={item.link} className={item.mainLink ? "whitespace-nowrap text-foreground text-lg" : "whitespace-nowrap text-foreground"} target={item.external ? "_blank" : ""} rel={item.external ? "noopener noreferrer" : ""}>
                 {item.displayName}
@@ -70,7 +70,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium">
-                <Link key="dashboard" href="/dashboard" className="flex items-center gap-2 text-lg font-semibold"><Tent className="h-6 w-6" /></Link>
+                <Link key="dashboard" href="/dashboard" className="flex items-center gap-2 text-lg font-semibold"><Aperture className="h-6 w-6" /></Link>
                 {authUserLinks.map((item, index) =>
                   <Link key={index} href={item.link} className={item.mainLink ? "text-foreground text-lg" : "text-foreground"} target={item.external ? "_blank" : ""} rel={item.external ? "noopener noreferrer" : ""}>
                     {item.displayName}
@@ -111,7 +111,7 @@ export default function Header() {
       <Suspense condition={!userState.isAuthorized} fallback={null}>
         <header className={`top-0 flex h-16 items-center gap-4 ${pathname !== "/" ? "border-b sticky" : ""} bg-white px-4 md:px-6 z-50`}>
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Link key="home" href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base"><Tent className="h-6 w-6" /></Link>
+            <Link key="home" href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base"><Aperture className="h-6 w-6" /></Link>
             {generalUserLinks.map((item, index) =>
               <Link key={index} href={item.link} className={item.mainLink ? "text-foreground text-lg" : "text-foreground"} target={item.external ? "_blank" : ""} rel={item.external ? "noopener noreferrer" : ""}>
                 {item.displayName}
@@ -126,7 +126,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium">
-                <Link href="/" className="flex items-center gap-2 text-lg font-semibold"><Tent className="h-6 w-6" /></Link>
+                <Link href="/" className="flex items-center gap-2 text-lg font-semibold"><Aperture className="h-6 w-6" /></Link>
                 {generalUserLinks.map((item, index) =>
                   <Link key={index} href={item.link} className={item.mainLink ? "text-foreground text-lg" : "text-foreground"} target={item.external ? "_blank" : ""} rel={item.external ? "noopener noreferrer" : ""}>
                     {item.displayName}
