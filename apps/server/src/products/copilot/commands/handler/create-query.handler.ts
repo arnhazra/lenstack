@@ -7,7 +7,7 @@ import { CreateQueryCommand } from "../impl/create-query.command"
 export class CreateQueryCommandHandler implements ICommandHandler<CreateQueryCommand> {
   constructor(private readonly repository: CopilotRepository) { }
 
-  async execute(command: CreateQueryCommand): Promise<Query> {
+  async execute(command: CreateQueryCommand) {
     const { orgId, prompt, response } = command
     return await this.repository.createOne(orgId, prompt, response)
   }

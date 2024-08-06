@@ -1,8 +1,7 @@
-import { Controller, Post, Body, BadRequestException, Get, Param, UseGuards, Request } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Param, UseGuards } from "@nestjs/common"
 import { BlockchainService } from "./blockchain.service"
 import { FindNetworksDto } from "./dto/find-networks.dto"
 import { TokenGuard } from "src/auth/token.guard"
-import { ModRequest } from "src/auth/types/mod-request.interface"
 import { CredentialGuard } from "src/auth/credential.guard"
 
 @Controller("products/blockchain")

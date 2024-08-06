@@ -3,6 +3,7 @@ import { GenerationConfig, GoogleGenerativeAI } from "@google/generative-ai"
 import { envConfig } from "src/env.config"
 import { CommandBus } from "@nestjs/cqrs"
 import { CreateQueryCommand } from "./commands/impl/create-query.command"
+import { Query } from "./schemas/query.schema"
 
 @Injectable()
 export class CopilotService {
@@ -19,7 +20,7 @@ export class CopilotService {
       const model = genAI.getGenerativeModel({ model: "gemini-pro", generationConfig })
       const result = await model.generateContent(prompt)
       const response = result.response.text()
-      await this.commandBus.execute(new CreateQueryCommand(orgId, prompt, response))
+      await this.commandBus.execute<CreateQueryCommand, Query>(new CreateQueryCommand(orgId, prompt, response))
       return { response }
     }
 

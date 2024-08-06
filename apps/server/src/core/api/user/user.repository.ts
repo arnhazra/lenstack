@@ -19,7 +19,7 @@ export class UserRepository {
     return await this.model.findOne(filter as FilterQuery<User>)
   }
 
-  async updateOneById<K extends keyof User>(userId: string, key: K, value: User[K]) {
+  async updateOneById<K extends keyof User>(userId: string, key: K, value: User[K]): Promise<User | null> {
     return await this.model.findByIdAndUpdate(userId, { [key]: value })
   }
 }

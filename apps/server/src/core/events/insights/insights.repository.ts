@@ -9,7 +9,7 @@ import { Model } from "mongoose"
 export class InsightsRepository {
   constructor(@InjectModel(Insights.name, DbConnectionMap.Core) private model: Model<Insights>) { }
 
-  async createInsights(createInsightsDto: CreateInsightsDto) {
+  async createInsights(createInsightsDto: CreateInsightsDto): Promise<Insights | null> {
     const { apiUri, method, userId } = createInsightsDto
     return await new this.model({ apiUri, method, userId }).save()
   }

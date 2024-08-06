@@ -6,7 +6,7 @@ import { BlockchainRepository } from "../../blockchain.repository"
 export class FindGatewayFiltersQueryHandler implements IQueryHandler<FindGatewayFiltersQuery> {
   constructor(private readonly blockchainRepository: BlockchainRepository) { }
 
-  async execute(query: FindGatewayFiltersQuery): Promise<string[]> {
+  async execute(query: FindGatewayFiltersQuery) {
     return await this.blockchainRepository.findGatewayFilters()
   }
 }
