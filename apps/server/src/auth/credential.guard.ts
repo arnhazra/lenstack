@@ -40,7 +40,6 @@ export class CredentialGuard implements CanActivate {
       const orgId = String(organization.id)
       const currentDate = new Date()
       const expiryDate = subscription.expiresAt
-      const { method, url: apiUri } = request
 
       if (currentDate > expiryDate) {
         throw new ForbiddenException(statusMessages.subscriptionExpired)
@@ -66,6 +65,7 @@ export class CredentialGuard implements CanActivate {
       request.user = { userId, orgId }
 
       if (usageInsights) {
+        const { method, url: apiUri } = request
         this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
       }
 

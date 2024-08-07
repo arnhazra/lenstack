@@ -24,7 +24,6 @@ export class TokenGuard implements CanActivate {
       const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
       const userId = (decoded as any).id
       const redisAccessToken = await getTokenQuery(userId)
-      const { method, url: apiUri } = request
 
       if (accessToken !== redisAccessToken) {
         throw new UnauthorizedException(statusMessages.unauthorized)
@@ -41,6 +40,7 @@ export class TokenGuard implements CanActivate {
       request.user = { userId, orgId }
 
       if (usageInsights) {
+        const { method, url: apiUri } = request
         this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
       }
 
@@ -48,7 +48,7 @@ export class TokenGuard implements CanActivate {
     }
 
     catch (error) {
-      throw new UnauthorizedException(statusMessages.unauthorized)
+      throw error
     }
   }
 }
