@@ -11,9 +11,9 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ListFilter } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import eventEmitter from "@/events/eventEmitter"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 
 export interface NetworkSearchRequestState {
   searchQuery: string
@@ -23,6 +23,7 @@ export interface NetworkSearchRequestState {
 
 export default function Page() {
   const router = useRouter()
+  const [{ userState }] = useContext(GlobalContext)
   const [networkSearchRequestState, setNetworkSearchRequestState] = useState<NetworkSearchRequestState>(
     { searchQuery: "", selectedGatewayFilter: "All", selectedNetworkFilter: "All" }
   )
@@ -33,12 +34,8 @@ export default function Page() {
   const selectedProduct = products?.data?.find((product: any) => product.productName === "blockchain")
 
   useEffect(() => {
-    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setNetworkSearchRequestState({ ...networkSearchRequestState, searchQuery: searchKeyword }))
-
-    return () => {
-      eventEmitter.offEvent("SearchEvent", (): void => setNetworkSearchRequestState({ ...networkSearchRequestState, searchQuery: "" }))
-    }
-  }, [])
+    setNetworkSearchRequestState({ ...networkSearchRequestState, searchQuery: userState.searchQuery })
+  }, [userState.searchQuery])
 
   const renderGatewayOptions = gatewayFilters?.data?.map((item: string) => {
     return (

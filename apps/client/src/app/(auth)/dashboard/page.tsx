@@ -16,7 +16,6 @@ import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import Loading from "@/components/loading"
 import Error from "@/components/error"
-import eventEmitter from "@/events/eventEmitter"
 
 enum Filters {
   ALL = "All",
@@ -28,20 +27,11 @@ enum Filters {
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const [searchQuery, setSearchQuery] = useState<string>("")
   const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${userState.searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
   const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
   const router = useRouter()
-
-  useEffect(() => {
-    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setSearchQuery(searchKeyword))
-
-    return () => {
-      eventEmitter.offEvent("SearchEvent", (): void => setSearchQuery(""))
-    }
-  }, [])
 
   const renderProducts = products?.data?.map((product: any) => {
     return (

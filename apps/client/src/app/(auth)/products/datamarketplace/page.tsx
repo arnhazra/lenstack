@@ -12,10 +12,10 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
-import eventEmitter from "@/events/eventEmitter"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -25,20 +25,12 @@ export interface DatasetRequestState {
 
 export default function Page() {
   const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState<string>("")
+  const [{ userState }] = useContext(GlobalContext)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
-  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: userState.searchQuery, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=datamarketplace&category=All`, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === "datamarketplace")
-
-  useEffect(() => {
-    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setSearchQuery(searchKeyword))
-
-    return () => {
-      eventEmitter.offEvent("SearchEvent", (): void => setSearchQuery(""))
-    }
-  }, [])
 
   const renderFilterOptions = filters?.data?.map((item: string) => {
     return (

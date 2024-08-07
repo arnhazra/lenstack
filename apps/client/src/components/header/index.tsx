@@ -11,7 +11,6 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { useDebounce, } from "@uidotdev/usehooks"
 import Suspense from "../suspense"
-import eventEmitter from "@/events/eventEmitter"
 
 export default function Header() {
   const searchRef = useRef<HTMLInputElement | null>(null)
@@ -47,7 +46,7 @@ export default function Header() {
   }, [pathname, searchParams])
 
   useEffect(() => {
-    eventEmitter.emitEvent("SearchEvent", debouncedSearchTerm)
+    dispatch("setUserState", { searchQuery: debouncedSearchTerm })
   }, [debouncedSearchTerm])
 
   return (
