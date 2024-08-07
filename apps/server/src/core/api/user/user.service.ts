@@ -12,12 +12,10 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
-import { UpdateSelectedOrgCommand } from "./commands/impl/update-selected-org.command"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
-import { UpdateCarbonSettingsCommand } from "./commands/impl/update-carbon-settings.command"
-import { UpdateUsageInsightsSettingsCommand } from "./commands/impl/update-usage-insights.command"
 import { Organization } from "../organization/schemas/organization.schema"
 import { Subscription } from "../subscription/schemas/subscription.schema"
+import { AttributeNames, UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 
 @Injectable()
 export class UserService {
@@ -74,7 +72,7 @@ export class UserService {
         else {
           const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
           const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", userId: newUser.id })
-          await this.commandBus.execute<UpdateSelectedOrgCommand, User>(new UpdateSelectedOrgCommand(newUser.id, organization[0].id))
+          await this.commandBus.execute<UpdateAttributeCommand, User>(new UpdateAttributeCommand(newUser.id, AttributeNames.SelectedOrgId, organization[0].id))
           const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
           await this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: newUser.id, accessToken })
@@ -130,32 +128,13 @@ export class UserService {
     }
   }
 
-  async updateCarbonSettings(userId: string, value: boolean) {
+  async updateAttribute(userId: string, attributeName: AttributeNames, attributeValue: string) {
     try {
-      await this.commandBus.execute<UpdateCarbonSettingsCommand, User>(new UpdateCarbonSettingsCommand(userId, value))
+      await this.commandBus.execute<UpdateAttributeCommand, User>(new UpdateAttributeCommand(userId, attributeName, attributeValue))
     }
 
     catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async changeUsageInsightsSettings(userId: string, value: boolean) {
-    try {
-      await this.commandBus.execute<UpdateUsageInsightsSettingsCommand, User>(new UpdateUsageInsightsSettingsCommand(userId, value))
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async switchOrg(userId: string, orgId: string) {
-    try {
-      await this.commandBus.execute<UpdateSelectedOrgCommand, User>(new UpdateSelectedOrgCommand(userId, orgId))
-    }
-
-    catch (error) {
+      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

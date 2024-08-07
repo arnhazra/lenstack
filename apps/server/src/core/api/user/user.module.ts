@@ -7,11 +7,9 @@ import { User, UserSchema } from "./schemas/user.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { CqrsModule } from "@nestjs/cqrs"
 import { CreateUserCommandHandler } from "./commands/handler/create-user.handler"
-import { UpdateCarbonSettingsCommandHandler } from "./commands/handler/update-carbon-settings.handler"
-import { UpdateSelectedOrgCommandHandler } from "./commands/handler/update-selected-org.handler"
-import { UpdateUsageInsightsSettingsCommandHandler } from "./commands/handler/update-usage-insights.handler"
 import { FindUserByEmailQueryHandler } from "./queries/handler/find-user-by-email.handler"
 import { FindUserByIdQueryHandler } from "./queries/handler/find-user-by-id.handler"
+import { UpdateAttributeCommandHandler } from "./commands/handler/update-attribute.handler"
 
 @Module({
   imports: [
@@ -21,8 +19,7 @@ import { FindUserByIdQueryHandler } from "./queries/handler/find-user-by-id.hand
   controllers: [UserController],
   providers: [
     UserService, UserRepository,
-    CreateUserCommandHandler, UpdateCarbonSettingsCommandHandler,
-    UpdateSelectedOrgCommandHandler, UpdateUsageInsightsSettingsCommandHandler,
+    CreateUserCommandHandler, UpdateAttributeCommandHandler,
     FindUserByEmailQueryHandler, FindUserByIdQueryHandler
   ],
 })

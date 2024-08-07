@@ -17,8 +17,6 @@ function generateRandomPassKey(): string {
   return randomPassKey
 }
 
-
-
 export function generateAuthPasskey(email: string) {
   const passKey = generateRandomPassKey()
   const ttl = 5 * 60 * 1000
@@ -50,12 +48,12 @@ export function generatePasskeyEmailBody(passKey: string) {
     <div style="margin:50px auto;width:70%;padding:20px 0">
       <div style="border-bottom:1px solid #f1f3f4">
         <strong>
-          <h1 style="color: #2b3336;text-decoration:none;font-weight:600">${envConfig.brandName}</h1>
+          <h1 style="color: #0f172a;text-decoration:none;font-weight:600">${envConfig.brandName}</h1>
         </strong>
       </div>
       <p style="font-size:1rem">Hello there, ✌️</p>
       <p style="font-size:1rem">Use the below key as your ${envConfig.brandName} Auth Passkey. Do not share with anyone.</p>
-      <h2 style="background: #2b3336;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 0.8rem;">${passKey}</h2>
+      <h2 style="background: #0f172a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 0.4rem;">${passKey}</h2>
       <p style="font-size:0.9rem;">Warm Regards,<br />${envConfig.brandName} Team</p>
       <hr style="border:none;border-top:1px solid #f1f3f4" />
       <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
