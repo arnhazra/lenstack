@@ -51,8 +51,9 @@ export function generatePasskeyEmailBody(passKey: string) {
           <h1 style="color: #0f172a;text-decoration:none;font-weight:600">${envConfig.brandName}</h1>
         </strong>
       </div>
-      <p style="font-size:1rem">Hello there, ✌️</p>
+      <p style="font-size:1rem">Hello there</p>
       <p style="font-size:1rem">Use the below key as your ${envConfig.brandName} Auth Passkey. Do not share with anyone.</p>
+      <p style="font-size:1rem">This Passkey is valid only for 5 minutes.</p>
       <h2 style="background: #0f172a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 0.4rem;">${passKey}</h2>
       <p style="font-size:0.9rem;">Warm Regards,<br />${envConfig.brandName} Team</p>
       <hr style="border:none;border-top:1px solid #f1f3f4" />
