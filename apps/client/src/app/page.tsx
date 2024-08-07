@@ -7,12 +7,12 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
-import Loading from "@/components/loading"
 import { TierCardComponent } from "@/components/tiercard"
 import { Footer } from "@/components/footer"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Github } from "lucide-react"
+import LoadingComponent from "@/components/loading"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
@@ -75,7 +75,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<Loading />}>
+    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
         <section id="hero" className="container hero-landing space-y-6 py-8 dark:bg-transparent md:py-12 lg:py-36 lg:rounded-lg">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">

@@ -12,8 +12,8 @@ import { useState } from "react"
 import axios from "axios"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
-import Loading from "@/components/loading"
-import Error from "@/components/error"
+import LoadingComponent from "@/components/loading"
+import ErrorComponent from "@/components/error"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
 import { useRouter } from "next/navigation"
@@ -60,8 +60,8 @@ export default function Page() {
   }
 
   return (
-    <Suspense condition={!products.isLoading} fallback={<Loading />}>
-      <Suspense condition={!products.error} fallback={<Error />}>
+    <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!products.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">

@@ -8,8 +8,8 @@ import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import { convertToTitleCase } from "../../../lib/convert-to-title-case"
 import SnippetPanel from "@/components/snippet"
-import Loading from "@/components/loading"
-import Error from "@/components/error"
+import LoadingComponent from "@/components/loading"
+import ErrorComponent from "@/components/error"
 import { useRouter, useSearchParams } from "next/navigation"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
@@ -55,8 +55,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!apiReference.isLoading} fallback={<Loading />}>
-      <Suspense condition={!apiReference.error} fallback={<Error />}>
+    <Suspense condition={!apiReference.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!apiReference.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">

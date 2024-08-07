@@ -1,6 +1,6 @@
 "use client"
-import Error from "@/components/error"
-import Loading from "@/components/loading"
+import ErrorComponent from "@/components/error"
+import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -29,8 +29,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!dataList.isLoading && !products.isLoading} fallback={<Loading />}>
-      <Suspense condition={!dataList.error && !products.error} fallback={<Error />}>
+    <Suspense condition={!dataList.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!dataList.error && !products.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">

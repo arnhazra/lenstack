@@ -20,8 +20,8 @@ import HTTPMethods from "@/constants/http-methods"
 import { usePromptContext } from "@/context/providers/prompt.provider"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
 import LoadingComponent from "@/components/loading"
-import Error from "@/components/error"
 import { convertToTitleCase } from "@/lib/convert-to-title-case"
+import ErrorComponent from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
@@ -199,7 +199,7 @@ export default function Page() {
 
   return (
     <Suspense condition={!organizations.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!organizations.error} fallback={<Error />}>
+      <Suspense condition={!organizations.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">

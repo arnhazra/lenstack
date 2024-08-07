@@ -6,7 +6,7 @@ import axios from "axios"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
-import Loading from "@/components/loading"
+import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -79,7 +79,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }, [isAuthorized, userState.refreshId])
 
   return (
-    <Suspense condition={!isLoading} fallback={<Loading />}>
+    <Suspense condition={!isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!isAuthorized} fallback={children}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Suspense >
