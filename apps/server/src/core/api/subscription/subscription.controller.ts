@@ -22,7 +22,7 @@ export class SubscriptionController {
   }
 
   @UseGuards(TokenGuard)
-  @Post("create-checkout-session")
+  @Post("checkout")
   async createCheckoutSession(@Request() request: ModRequest, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
     try {
       const session = await this.subscriptionService.createCheckoutSession(createCheckoutSessionDto.selectedPlan, request.user.userId)

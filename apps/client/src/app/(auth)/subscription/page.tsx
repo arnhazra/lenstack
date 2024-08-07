@@ -68,7 +68,7 @@ export default function Page() {
           </Badge>
         </TableCell>
         <TableCell>
-          ₹ {item.price}/mo
+          $ {item.price}/mo
         </TableCell>
       </TableRow>
     )
@@ -100,7 +100,7 @@ export default function Page() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                  <Button onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay ₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</Button>
                 </CardFooter>
               </Card>
             </div>
@@ -172,12 +172,12 @@ export default function Page() {
                       <span className="text-muted-foreground">
                         Estimated Total
                       </span>
-                      <span>₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</span>
+                      <span>$ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</span>
                     </li>
                   </ul>
                 </div>
                 <div className="grid gap-3 mt-4">
-                  <Button onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay ₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</Button>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">

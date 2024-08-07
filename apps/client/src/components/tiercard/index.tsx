@@ -34,7 +34,7 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-4xl font-bold">₹{price}</h4>
+          <h4 className="text-4xl font-bold">${price}</h4>
           <p className="text-sm font-medium text-muted-foreground">
             Billed Monthly
           </p>

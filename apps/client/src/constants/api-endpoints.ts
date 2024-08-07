@@ -11,7 +11,7 @@ export const endPoints = {
   signOut: `${apiHost}/api/user/signout`,
   updateAttribute: `${apiHost}/api/user/attribute`,
   getSubscriptionConfig: `${apiHost}/api/subscription/config`,
-  createCheckoutSession: `${apiHost}/api/subscription/create-checkout-session`,
+  createCheckoutSession: `${apiHost}/api/subscription/checkout`,
   organization: `${apiHost}/api/organization`,
   getProductConfig: `${apiHost}/api/products/config`,
   getSolutionConfig: `${apiHost}/api/solutions/config`,
