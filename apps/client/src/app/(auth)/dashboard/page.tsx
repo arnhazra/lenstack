@@ -29,8 +29,6 @@ export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${userState.searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
-  const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
   const router = useRouter()
 
   const renderProducts = products?.data?.map((product: any) => {
@@ -46,8 +44,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!products.isLoading && !pricingDetails.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!products.error && !pricingDetails.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!products.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
