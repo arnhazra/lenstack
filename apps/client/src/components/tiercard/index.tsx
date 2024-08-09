@@ -1,7 +1,5 @@
 "use client"
 import { Check } from "lucide-react"
-import { Button } from "../ui/button"
-import Suspense from "../suspense"
 
 type TierCardComponentProps = {
   disabled: boolean,
@@ -28,15 +26,17 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
             ))
           }
           <li className="flex items-center text-slate-600">
-            <Check className="mr-2 h-4 w-4" /> $ {Number(grantedCredits).toLocaleString()} API Requests
+            <Check className="mr-2 h-4 w-4" /> $ {Number(grantedCredits).toLocaleString()} Credits
           </li>
         </ul>
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-4xl font-bold">${price}</h4>
+          <h4 className="text-4xl font-bold">
+            {price ? `$ ${price}` : "Free"}
+          </h4>
           <p className="text-sm font-medium text-muted-foreground">
-            Billed Monthly
+            {price ? "Billed Monthly" : ""}
           </p>
         </div>
       </div>

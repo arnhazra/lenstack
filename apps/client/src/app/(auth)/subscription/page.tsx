@@ -12,6 +12,7 @@ import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { toast } from "@/components/ui/use-toast"
 import axios from "axios"
+import Suspense from "@/components/suspense"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -69,7 +70,7 @@ export default function Page() {
           </Badge>
         </TableCell>
         <TableCell>
-          $ {item.price}/mo
+          {item?.price ? `$ ${item.price}/mo` : "Free"}
         </TableCell>
       </TableRow>
     )
@@ -101,7 +102,11 @@ export default function Page() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {selectedPlan?.price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>
+                    <Suspense condition={!!selectedPlan?.price} fallback="Activate for Free">
+                      Activate & Pay ${selectedPlan?.price}
+                    </Suspense>
+                  </Button>
                 </CardFooter>
               </Card>
             </div>
@@ -212,7 +217,11 @@ export default function Page() {
                   </ul>
                 </div>
                 <div className="grid gap-3 mt-4">
-                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {selectedPlan?.price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>
+                    <Suspense condition={!!selectedPlan?.price} fallback="Activate for Free">
+                      Activate & Pay ${selectedPlan?.price}
+                    </Suspense>
+                  </Button>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">

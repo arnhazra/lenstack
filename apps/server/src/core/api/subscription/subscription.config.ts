@@ -48,8 +48,8 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.AS1,
-    price: 10,
-    grantedCredits: 15,
+    price: 20,
+    grantedCredits: 20,
     responseDelay: 1000,
     features: [
       "Renewed monthly",
@@ -66,8 +66,8 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.AS2,
-    price: 20,
-    grantedCredits: 25,
+    price: 40,
+    grantedCredits: 40,
     responseDelay: 1000,
     features: [
       "Renewed monthly",
@@ -84,7 +84,7 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.MS1,
-    price: 40,
+    price: 50,
     grantedCredits: 50,
     responseDelay: 500,
     features: [
@@ -102,7 +102,7 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.MS2,
-    price: 60,
+    price: 70,
     grantedCredits: 70,
     responseDelay: 500,
     features: [
@@ -120,7 +120,7 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.PS1,
-    price: 80,
+    price: 100,
     grantedCredits: 100,
     responseDelay: 0,
     features: [
@@ -138,7 +138,7 @@ export const subscriptionConfig: CreditType[] = [
   },
   {
     planName: SubscriptionPlans.PS2,
-    price: 100,
+    price: 120,
     grantedCredits: 120,
     responseDelay: 0,
     features: [
