@@ -9,8 +9,8 @@ import useQuery from "@/hooks/use-query"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
-import Loading from "@/components/loading"
-import Error from "@/components/error"
+import LoadingComponent from "@/components/loading"
+import ErrorComponent from "@/components/error"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { useContext } from "react"
@@ -44,8 +44,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!network?.isLoading && !relatedNetworks?.isLoading} fallback={<Loading />}>
-      <Suspense condition={!network.error && !!networkId && !relatedNetworks.error} fallback={<Error />}>
+    <Suspense condition={!network?.isLoading && !relatedNetworks?.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!network.error && !!networkId && !relatedNetworks.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-col sm:gap-4 sm:py-4">
             <div className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">

@@ -1,6 +1,6 @@
 "use client"
-import Error from "@/components/error"
-import Loading from "@/components/loading"
+import ErrorComponent from "@/components/error"
+import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -32,8 +32,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!analytics.isLoading && !products.isLoading} fallback={<Loading />}>
-      <Suspense condition={!analytics.error && !products.error} fallback={<Error />}>
+    <Suspense condition={!analytics.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!analytics.error && !products.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">

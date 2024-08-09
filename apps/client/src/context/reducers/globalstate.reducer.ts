@@ -13,7 +13,9 @@ export interface UserState {
   hasActiveSubscription: boolean,
   isAuthorized: boolean,
   reduceCarbonEmissions: boolean,
-  usageInsights: boolean
+  usageInsights: boolean,
+  refreshId: string,
+  searchQuery: string
 }
 
 export type GlobalState = {

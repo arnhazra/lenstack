@@ -17,6 +17,7 @@ export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const [selectedTier, setSelectedTier] = useState("as0")
+  const selectedPlan = pricing?.data?.find((item: any) => item.planName === selectedTier)
 
   const renderPricingTiers = pricing?.data?.map((item: any) => {
     return (
@@ -55,12 +56,12 @@ export default function Page() {
 
   const renderPricingTable = pricing?.data?.map((item: any) => {
     return (
-      <TableRow className="bg-accent">
+      <TableRow className="bg-accent" key={item.planName}>
         <TableCell>
           <div className="font-medium uppercase">{item.planName}</div>
         </TableCell>
         <TableCell className="hidden sm:table-cell">
-          {Number(item.grantedCredits).toLocaleString()}
+          $ {Number(item.grantedCredits).toLocaleString()}
         </TableCell>
         <TableCell className="hidden sm:table-cell">
           <Badge className="text-xs ps-4 pe-4 pt-1 pb-1" variant="secondary">
@@ -68,7 +69,7 @@ export default function Page() {
           </Badge>
         </TableCell>
         <TableCell>
-          ₹ {item.price}/mo
+          $ {item.price}/mo
         </TableCell>
       </TableRow>
     )
@@ -100,7 +101,7 @@ export default function Page() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                  <Button onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay ₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {selectedPlan?.price}</Button>
                 </CardFooter>
               </Card>
             </div>
@@ -137,6 +138,42 @@ export default function Page() {
             </div>
           </div>
           <div>
+            <Card className="overflow-hidden mb-2">
+              <CardHeader className="flex flex-row items-start bg-muted/50">
+                <div className="grid gap-0.5">
+                  <CardTitle className="group flex items-center gap-2 text-lg">
+                    Request Cost
+                  </CardTitle>
+                  <CardDescription>Cost of request for products</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 text-sm">
+                <div className="grid gap-3">
+                  <dl className="grid gap-3">
+                    <div className="flex items-center justify-between">
+                      <dt>{uiConstants.brandName} Analytics</dt>
+                      <dd>${selectedPlan?.estimatedRequestCost?.analytics}/req</dd>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <dt>{uiConstants.brandName} Blockchain</dt>
+                      <dd>${selectedPlan?.estimatedRequestCost?.blockchain}/req</dd>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <dt>{uiConstants.brandName} Copilot</dt>
+                      <dd>${selectedPlan?.estimatedRequestCost?.copilot}/req</dd>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <dt>{uiConstants.brandName} Data Marketplace</dt>
+                      <dd>${selectedPlan?.estimatedRequestCost?.datamarketplace}/req</dd>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <dt>{uiConstants.brandName} HTTP NoSQL</dt>
+                      <dd>${selectedPlan?.estimatedRequestCost?.httpnosql}/req</dd>
+                    </div>
+                  </dl>
+                </div>
+              </CardContent>
+            </Card>
             <Card className="overflow-hidden">
               <CardHeader className="flex flex-row items-start bg-muted/50">
                 <div className="grid gap-0.5">
@@ -148,7 +185,6 @@ export default function Page() {
               </CardHeader>
               <CardContent className="p-6 text-sm">
                 <div className="grid gap-3">
-                  <div className="font-semibold">Tier Information</div>
                   <dl className="grid gap-3">
                     <div className="flex items-center justify-between">
                       <dt>Selected Tier</dt>
@@ -156,28 +192,27 @@ export default function Page() {
                     </div>
                     <div className="flex items-center justify-between">
                       <dt>Granted Credits</dt>
-                      <dd>{Number(pricing?.data?.find((item: any) => item.planName === selectedTier).grantedCredits).toLocaleString()}</dd>
+                      <dd>$ {Number(selectedPlan?.grantedCredits).toLocaleString()}</dd>
                     </div>
                     <div className="flex items-center justify-between">
                       <dt>Response Delay</dt>
-                      <dd>{pricing?.data?.find((item: any) => item.planName === selectedTier).responseDelay} ms</dd>
+                      <dd>{selectedPlan?.responseDelay} ms</dd>
                     </div>
                   </dl>
                 </div>
                 <Separator className="my-4" />
                 <div className="grid gap-3">
-                  <div className="font-semibold">Selected Plan Details</div>
                   <ul className="grid gap-3">
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
                         Estimated Total
                       </span>
-                      <span>₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</span>
+                      <span>$ {selectedPlan?.price}</span>
                     </li>
                   </ul>
                 </div>
                 <div className="grid gap-3 mt-4">
-                  <Button onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay ₹ {pricing?.data?.find((item: any) => item.planName === selectedTier).price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {selectedPlan?.price}</Button>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">

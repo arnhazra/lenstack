@@ -2,9 +2,9 @@ import Stripe from "stripe"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
-import { CreditType, SubscriptionPlans, subscriptionConfig } from "./subscription.config"
+import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
 import { otherConstants } from "src/utils/constants/other-constants"
-import { CommandBus, QueryBus } from "@nestjs/cqrs"
+import { CommandBus } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
 import { DeleteSubscriptionCommand } from "./commands/impl/delete-subscription.command"
 
@@ -12,7 +12,7 @@ import { DeleteSubscriptionCommand } from "./commands/impl/delete-subscription.c
 export class SubscriptionService {
   private readonly stripe: Stripe
 
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {
+  constructor(private readonly commandBus: CommandBus) {
     this.stripe = new Stripe(envConfig.stripeSecretKey)
   }
 
@@ -33,7 +33,7 @@ export class SubscriptionService {
         line_items: [
           {
             price_data: {
-              currency: "inr",
+              currency: "usd",
               product_data: {
                 name: `${selectedPlan.toUpperCase()} Subscription for 30 days`,
               },

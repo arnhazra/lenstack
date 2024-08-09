@@ -1,5 +1,11 @@
 # Changelog
 
+## v6.2.0
+* Migrated stripe from INR to USD
+* Minor bug fixes & Performance improvements
+* Removal of event emitter in UI to improve performance
+* Minor API structural changes
+
 ## v6.1.0
 * Minor bug fixes & Performance improvements
 * Introduction of custom scrollbar in UI

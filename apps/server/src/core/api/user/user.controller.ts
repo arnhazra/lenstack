@@ -3,8 +3,6 @@ import { UserService } from "./user.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
-import { UpdateCarbonSettingsDto } from "./dto/update-carbon-settings.dto"
-import { ChangeUsageInsightsSettingsDto } from "./dto/change-usage-insights.dto"
 import { TokenGuard } from "src/auth/token.guard"
 import { ModRequest } from "src/auth/types/mod-request.interface"
 
@@ -77,34 +75,11 @@ export class UserController {
   }
 
   @UseGuards(TokenGuard)
-  @Patch("updatecarbonsettings")
-  async updateCarbonSettings(@Request() request: ModRequest, @Body() updateCarbonSettingsDto: UpdateCarbonSettingsDto) {
+  @Patch("attribute/:attributeName/:attributeValue")
+  async updateAttribute(@Request() request: ModRequest, @Param() params: any) {
     try {
-      return await this.userService.updateCarbonSettings(request.user.userId, updateCarbonSettingsDto.reduceCarbonEmissions)
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.invalidUser)
-    }
-  }
-
-  @UseGuards(TokenGuard)
-  @Patch("changeusageinsights")
-  async changeUsageInsightsSettings(@Request() request: ModRequest, @Body() changeUsageInsightsSettingsDto: ChangeUsageInsightsSettingsDto) {
-    try {
-      return await this.userService.changeUsageInsightsSettings(request.user.userId, changeUsageInsightsSettingsDto.usageInsights)
-    }
-
-    catch (error) {
-      throw new BadRequestException(statusMessages.invalidUser)
-    }
-  }
-
-  @UseGuards(TokenGuard)
-  @Patch("switchorg/:orgId")
-  async switchOrg(@Request() request: ModRequest, @Param() params: any) {
-    try {
-      return await this.userService.switchOrg(request.user.userId, params.orgId)
+      const { attributeName, attributeValue } = params
+      return await this.userService.updateAttribute(request.user.userId, attributeName, attributeValue)
     }
 
     catch (error) {

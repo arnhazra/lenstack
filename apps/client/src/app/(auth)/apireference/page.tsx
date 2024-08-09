@@ -3,18 +3,18 @@ import { ReactElement, useEffect } from "react"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
 import { Tabs, tabsList } from "./data"
-import { Database, Hexagon, PieChart, ServerCrash, Sparkles } from "lucide-react"
+import { Box, Database, Info, PieChart, ServerCrash, Sparkles } from "lucide-react"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import { convertToTitleCase } from "../../../lib/convert-to-title-case"
 import SnippetPanel from "@/components/snippet"
-import Loading from "@/components/loading"
-import Error from "@/components/error"
+import LoadingComponent from "@/components/loading"
+import ErrorComponent from "@/components/error"
 import { useRouter, useSearchParams } from "next/navigation"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   analytics: <PieChart />,
-  blockchain: <Hexagon />,
+  blockchain: <Box />,
   copilot: <Sparkles />,
   dataMarketplace: <ServerCrash />,
   httpNosql: <Database />,
@@ -55,12 +55,17 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!apiReference.isLoading} fallback={<Loading />}>
-      <Suspense condition={!apiReference.error} fallback={<Error />}>
+    <Suspense condition={!apiReference.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!apiReference.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">
-              <h1 className="text-3xl font-semibold">API Reference</h1>
+              <h1 className="text-3xl font-semibold mb-2">API Reference</h1>
+              <p className="font-semibold text-sm flex gap-3 text-slate-600">
+                <Info />
+                You must send client_id & client_secret in either
+                query params(Blockchain) or headers(Other products) to authorize with your organization
+              </p>
             </div>
             <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
               <nav className="grid gap-4 text-sm">

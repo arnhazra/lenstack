@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query, BadRequestException, Get, Delete, UseGuards, Request, Param } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Delete, UseGuards, Request, Param } from "@nestjs/common"
 import { OrganizationService } from "./organization.service"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
@@ -10,7 +10,7 @@ export class OrganizationController {
   constructor(private readonly organizationService: OrganizationService) { }
 
   @UseGuards(TokenGuard)
-  @Post("create")
+  @Post()
   async createOrganization(@Request() request: ModRequest, @Body() createOrganizationDto: CreateOrganizationDto) {
     try {
       return await this.organizationService.createOrganization(request.user.userId, createOrganizationDto)
@@ -22,7 +22,7 @@ export class OrganizationController {
   }
 
   @UseGuards(TokenGuard)
-  @Get("findmyorganizations")
+  @Get()
   async findMyOrganizations(@Request() request: ModRequest,) {
     try {
       return await this.organizationService.findMyOrganizations(request.user.userId)
@@ -34,7 +34,7 @@ export class OrganizationController {
   }
 
   @UseGuards(TokenGuard)
-  @Delete("delete/:orgId")
+  @Delete("/:orgId")
   async deleteOrganization(@Request() request: ModRequest, @Param() params: any) {
     try {
       return await this.organizationService.deleteOrganization(request.user.userId, params.orgId)

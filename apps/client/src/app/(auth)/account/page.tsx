@@ -19,10 +19,9 @@ import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import { usePromptContext } from "@/context/providers/prompt.provider"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
-import eventEmitter from "@/events/eventEmitter"
 import LoadingComponent from "@/components/loading"
-import Error from "@/components/error"
 import { convertToTitleCase } from "@/lib/convert-to-title-case"
+import ErrorComponent from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
@@ -41,7 +40,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const router = useRouter()
-  const organizations = useQuery(["organizations"], endPoints.findMyOrganizations, HTTPMethods.GET)
+  const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
@@ -55,7 +54,7 @@ export default function Page() {
     try {
       const updatedSettings = sustainabilitySettings === "true" ? true : false
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
-      await axios.patch(endPoints.updateCarbonSettings, { reduceCarbonEmissions: updatedSettings })
+      await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
       toast({
         title: "Notification",
         description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
@@ -74,7 +73,7 @@ export default function Page() {
     try {
       const updatedSettings = usageInsights === "true" ? true : false
       dispatch("setUserState", { usageInsights: updatedSettings })
-      await axios.patch(endPoints.changeUsageInsightsSettings, { usageInsights: updatedSettings })
+      await axios.patch(`${endPoints.updateAttribute}/usageInsights/${updatedSettings}`)
       toast({
         title: "Notification",
         description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
@@ -120,9 +119,9 @@ export default function Page() {
 
     if (hasConfirmed && value) {
       try {
-        await axios.post(endPoints.createOrganization, { name: value })
+        await axios.post(endPoints.organization, { name: value })
         organizations.refetch()
-        eventEmitter.emitEvent("OrganizationChangeEvent")
+        dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: "Notification",
           description: <p className="text-neutral-600">Organization created</p>
@@ -142,9 +141,9 @@ export default function Page() {
     const response = await confirm("Are you sure to switch to this org ?")
     if (response) {
       try {
-        await axios.patch(`${endPoints.switchOrganization}/${orgId}`)
+        await axios.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`)
         organizations.refetch()
-        eventEmitter.emitEvent("OrganizationChangeEvent")
+        dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: "Notification",
           description: <p className="text-neutral-600">Organization switched</p>
@@ -164,9 +163,9 @@ export default function Page() {
     const response = await confirm("Are you sure to delete this org ?")
     if (response) {
       try {
-        await axios.delete(`${endPoints.deleteOrganization}/${orgId}`)
+        await axios.delete(`${endPoints.organization}/${orgId}`)
         organizations.refetch()
-        eventEmitter.emitEvent("OrganizationChangeEvent")
+        dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: "Notification",
           description: <p className="text-neutral-600">Organization deleted</p>
@@ -200,7 +199,7 @@ export default function Page() {
 
   return (
     <Suspense condition={!organizations.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!organizations.error} fallback={<Error />}>
+      <Suspense condition={!organizations.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">
@@ -224,8 +223,8 @@ export default function Page() {
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Subscription} fallback={null}>
                   <section className="grid gap-6">
-                    <InfoPanel title="Selected Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan.toUpperCase() : "No Active Subscription"} capitalize />
-                    <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`${userState.remainingCredits} credits remaining`} />
+                    <InfoPanel title="Current Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan.toUpperCase() : "No Active Subscription"} capitalize />
+                    <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`$ ${Number(userState.remainingCredits).toFixed(4)} remaining`} />
                     <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
                     <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
                   </section>

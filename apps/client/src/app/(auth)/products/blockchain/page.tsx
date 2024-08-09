@@ -1,6 +1,6 @@
 "use client"
-import Error from "@/components/error"
-import Loading from "@/components/loading"
+import ErrorComponent from "@/components/error"
+import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,9 +11,9 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ListFilter } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import eventEmitter from "@/events/eventEmitter"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 
 export interface NetworkSearchRequestState {
   searchQuery: string
@@ -23,6 +23,7 @@ export interface NetworkSearchRequestState {
 
 export default function Page() {
   const router = useRouter()
+  const [{ userState }] = useContext(GlobalContext)
   const [networkSearchRequestState, setNetworkSearchRequestState] = useState<NetworkSearchRequestState>(
     { searchQuery: "", selectedGatewayFilter: "All", selectedNetworkFilter: "All" }
   )
@@ -33,12 +34,8 @@ export default function Page() {
   const selectedProduct = products?.data?.find((product: any) => product.productName === "blockchain")
 
   useEffect(() => {
-    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setNetworkSearchRequestState({ ...networkSearchRequestState, searchQuery: searchKeyword }))
-
-    return () => {
-      eventEmitter.offEvent("SearchEvent", (): void => setNetworkSearchRequestState({ ...networkSearchRequestState, searchQuery: "" }))
-    }
-  }, [])
+    setNetworkSearchRequestState({ ...networkSearchRequestState, searchQuery: userState.searchQuery })
+  }, [userState.searchQuery])
 
   const renderGatewayOptions = gatewayFilters?.data?.map((item: string) => {
     return (
@@ -76,8 +73,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!networks.isLoading && !products.isLoading} fallback={<Loading />}>
-      <Suspense condition={!networks.error && !products.error} fallback={<Error />}>
+    <Suspense condition={!networks.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!networks.error && !products.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">

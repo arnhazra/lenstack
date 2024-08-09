@@ -1,15 +1,15 @@
 "use client"
-import Loading from "@/components/loading"
+import LoadingComponent from "@/components/loading"
 import { ReactNode } from "react"
 import CacheBuster from "react-cache-buster"
 
 export function CachebustingProvider({ children }: { children: ReactNode }) {
   return (
     <CacheBuster
-      currentVersion="6.1.0"
+      currentVersion="6.2.0"
       isEnabled={process.env.NODE_ENV === "production"}
       isVerboseMode={false}
-      loadingComponent={<Loading />}
+      loadingComponent={<LoadingComponent />}
       metaFileDirectory={"."}
     >
       {children}

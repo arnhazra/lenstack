@@ -6,12 +6,11 @@ import axios from "axios"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
-import Loading from "@/components/loading"
-import eventEmitter from "@/events/eventEmitter"
+import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [, dispatch] = useContext(GlobalContext)
+  const [{ userState }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
   const { toast } = useToast()
@@ -77,16 +76,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       setAuthorized(false)
       setLoading(false)
     }
-
-    eventEmitter.onEvent("OrganizationChangeEvent", (): Promise<void> => getUserDetails())
-
-    return () => {
-      eventEmitter.offEvent("OrganizationChangeEvent", (): Promise<void> => getUserDetails())
-    }
-  }, [isAuthorized])
+  }, [isAuthorized, userState.refreshId])
 
   return (
-    <Suspense condition={!isLoading} fallback={<Loading />}>
+    <Suspense condition={!isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!isAuthorized} fallback={children}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Suspense >

@@ -14,9 +14,8 @@ import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
-import Loading from "@/components/loading"
-import Error from "@/components/error"
-import eventEmitter from "@/events/eventEmitter"
+import LoadingComponent from "@/components/loading"
+import ErrorComponent from "@/components/error"
 
 enum Filters {
   ALL = "All",
@@ -28,20 +27,9 @@ enum Filters {
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const [searchQuery, setSearchQuery] = useState<string>("")
   const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
-  const pricingDetails = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
-  const currentPlan = pricingDetails?.data?.find((plan: any) => plan.planName === userState.selectedPlan)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${userState.searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
   const router = useRouter()
-
-  useEffect(() => {
-    eventEmitter.onEvent("SearchEvent", (searchKeyword: string): void => setSearchQuery(searchKeyword))
-
-    return () => {
-      eventEmitter.offEvent("SearchEvent", (): void => setSearchQuery(""))
-    }
-  }, [])
 
   const renderProducts = products?.data?.map((product: any) => {
     return (
@@ -56,15 +44,15 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!products.isLoading && !pricingDetails.isLoading} fallback={<Loading />}>
-      <Suspense condition={!products.error && !pricingDetails.error} fallback={<Error />}>
+    <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!products.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
               <Card className="sm:col-span-2">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Selected Subscription
+                    Current Subscription
                   </CardTitle>
                   <OrbitIcon className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
@@ -85,7 +73,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"}</div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-slate-600">
                     Plan end date
                   </p>
                 </CardContent>
@@ -96,8 +84,8 @@ export default function Page() {
                   <BarChart2 className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `${userState.remainingCredits} / ${currentPlan?.grantedCredits}` : "No Usage Data"}</div>
-                  <p className="text-xs text-muted-foreground">
+                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `$ ${Number(userState.remainingCredits).toFixed(4)}` : "No Usage Data"}</div>
+                  <p className="text-sm text-slate-600">
                     Credits remaining
                   </p>
                 </CardContent>
