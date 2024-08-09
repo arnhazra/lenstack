@@ -49,6 +49,10 @@ export default function Header() {
     dispatch("setUserState", { searchQuery: debouncedSearchTerm })
   }, [debouncedSearchTerm])
 
+  useEffect(() => {
+    dispatch("setUserState", { searchQuery: "" })
+  }, [pathname])
+
   return (
     <Fragment>
       <Suspense condition={userState.isAuthorized} fallback={null}>
