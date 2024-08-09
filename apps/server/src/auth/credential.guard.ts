@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
-import { subscriptionConfig } from "src/core/api/subscription/subscription.config"
+import { Products, subscriptionConfig } from "src/core/api/subscription/subscription.config"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/api/user/schemas/user.schema"
 import { Organization } from "src/core/api/organization/schemas/organization.schema"
@@ -45,13 +45,14 @@ export class CredentialGuard implements CanActivate {
         throw new ForbiddenException(statusMessages.subscriptionExpired)
       }
 
-      const creditRequired = 1
+      const product = request.url.split("/")[3]
+      const { responseDelay, estimatedRequestCost } = subscriptionConfig.find((sub) => sub.planName === subscription.selectedPlan)
+      const creditRequired = estimatedRequestCost[product as Products]
 
       if (creditRequired > subscription.remainingCredits) {
         throw new ForbiddenException(statusMessages.subscriptionLimitReached)
       }
 
-      const responseDelay = subscriptionConfig.find((sub) => sub.planName === subscription.selectedPlan).responseDelay
       await new Promise(resolve => setTimeout(resolve, responseDelay))
       subscription.remainingCredits -= creditRequired
       await subscription.save()

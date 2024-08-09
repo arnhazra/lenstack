@@ -73,7 +73,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"}</div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-slate-600">
                     Plan end date
                   </p>
                 </CardContent>
@@ -84,8 +84,8 @@ export default function Page() {
                   <BarChart2 className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `${userState.remainingCredits}` : "No Usage Data"}</div>
-                  <p className="text-xs text-muted-foreground">
+                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `$ ${Number(userState.remainingCredits).toFixed(4)}` : "No Usage Data"}</div>
+                  <p className="text-sm text-slate-600">
                     Credits remaining
                   </p>
                 </CardContent>
