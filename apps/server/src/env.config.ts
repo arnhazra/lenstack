@@ -11,6 +11,7 @@ export const envConfig = {
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
   datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
   httpnosqlDatabaseURI: process.env.HTTPNOSQL_DATABASE_URI,
+  insightsDatabaseURI: process.env.INSIGHTS_DATABASE_URI,
   redisSocketHost: process.env.REDIS_SOCKET,
   redisPassword: process.env.REDIS_PASSWORD,
   redisPort: process.env.REDIS_PORT,

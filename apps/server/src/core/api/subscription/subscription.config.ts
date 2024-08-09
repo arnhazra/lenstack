@@ -13,7 +13,8 @@ export enum Products {
   Blockchain = "blockchain",
   Copilot = "copilot",
   DataMarketplace = "datamarketplace",
-  HttpNosql = "httpnosql"
+  HttpNosql = "httpnosql",
+  Insights = "insights"
 }
 
 export interface CreditType {
@@ -43,7 +44,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0007,
       copilot: 0.0090,
       datamarketplace: 0.0007,
-      httpnosql: 0.0040
+      httpnosql: 0.0040,
+      insights: 0.0020
     }
   },
   {
@@ -61,7 +63,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0010,
       copilot: 0.0100,
       datamarketplace: 0.0010,
-      httpnosql: 0.0050
+      httpnosql: 0.0050,
+      insights: 0.0025
     }
   },
   {
@@ -79,7 +82,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0010,
       copilot: 0.0100,
       datamarketplace: 0.0010,
-      httpnosql: 0.0050
+      httpnosql: 0.0050,
+      insights: 0.0025
     }
   },
   {
@@ -97,7 +101,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0017,
       copilot: 0.0170,
       datamarketplace: 0.001,
-      httpnosql: 0.005
+      httpnosql: 0.005,
+      insights: 0.0040
     }
   },
   {
@@ -115,7 +120,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0017,
       copilot: 0.0170,
       datamarketplace: 0.001,
-      httpnosql: 0.005
+      httpnosql: 0.005,
+      insights: 0.0040
     }
   },
   {
@@ -133,7 +139,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0022,
       copilot: 0.0220,
       datamarketplace: 0.0022,
-      httpnosql: 0.0110
+      httpnosql: 0.0110,
+      insights: 0.0060
     }
   },
   {
@@ -151,7 +158,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0022,
       copilot: 0.0220,
       datamarketplace: 0.0022,
-      httpnosql: 0.0110
+      httpnosql: 0.0110,
+      insights: 0.0060
     }
   },
 ]
