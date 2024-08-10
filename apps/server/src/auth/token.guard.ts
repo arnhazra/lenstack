@@ -41,7 +41,7 @@ export class TokenGuard implements CanActivate {
 
       if (usageInsights) {
         const { method, url: apiUri } = request
-        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+        this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
       }
 
       return true

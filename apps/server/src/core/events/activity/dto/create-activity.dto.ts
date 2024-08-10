@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator"
 
-export class CreateInsightsDto {
+export class CreateActivityDto {
   @IsNotEmpty()
   userId: string
 
