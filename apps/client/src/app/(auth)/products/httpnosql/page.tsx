@@ -23,8 +23,8 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={data._id}>
         <TableCell><div className="font-medium">{data?.key}</div></TableCell>
-        <TableCell className="text-neutral-500"><ViewData dataObj={data} /></TableCell>
-        <TableCell className="text-right text-neutral-500 hidden md:table-cell">{format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
+        <TableCell className="text-stone-500"><ViewData dataObj={data} /></TableCell>
+        <TableCell className="text-right text-stone-500 hidden md:table-cell">{format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
       </TableRow>
     )
   })

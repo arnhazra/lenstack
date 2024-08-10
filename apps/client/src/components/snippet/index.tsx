@@ -26,7 +26,7 @@ export default function SnippetPanel({ title, url, method, request, response }: 
     navigator.clipboard.writeText(url)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
+      description: <p className="text-stone-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

@@ -50,7 +50,7 @@ export default function Page() {
           <div dangerouslySetInnerHTML={{ __html: product?.productIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">
             <h3 className="font-bold">{uiConstants.brandName} {product?.displayName}</h3>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-stone-600">
               {product?.description}
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function Page() {
           <div dangerouslySetInnerHTML={{ __html: solution?.solutionIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">
             <h3 className="font-bold">{solution?.solutionName}</h3>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-stone-600">
               {solution?.description}
             </p>
           </div>
@@ -78,20 +78,20 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
-        <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-24">
-          <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-            <Link href={uiConstants.linkedinUri} target="_blank" rel="noopener noreferrer">
-              <Badge variant="outline" className="px-4 py-1.5 text-sm font-medium">
-                Follow along on LinkedIn
+        <section className="hero space-y-6 pb-8 pt-8 md:pt-16 lg:pt-24 lg:py-40">
+          <div className="container flex flex-col gap-4">
+            <Link href="" rel="noopener noreferrer">
+              <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
+                {uiConstants.brandName} Research
               </Badge>
             </Link>
-            <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight">
+            <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">
               {uiConstants.homeHeader}
             </h1>
-            <h1 className="font-heading text-2xl sm:text-2xl md:text-2xl lg:text-5xl tracking-tight">
+            <h1 className="font-heading text-white text-2xl sm:text-2xl md:text-2xl lg:text-3xl tracking-tight">
               {uiConstants.brandName}
             </h1>
-            <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xs md:text-md lg:text-lg">
+            <p className="leading-normal text-white text-xs md:text-md lg:text-lg">
               {uiConstants.homeIntro}<br />
               {uiConstants.homeIntro2}
             </p>
@@ -99,18 +99,15 @@ export default function Page() {
               <Link href="/dashboard" className={cn(buttonVariants({ size: "lg" }))}>
                 Get Started
               </Link>
-              <Link href="/#products" rel="noreferrer" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
-                Explore Products
-              </Link>
             </div>
           </div>
         </section>
-        <section id="solutions" className="mt-8 container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
+        <section id="solutions" className="mt-8 container space-y-6 bg-stone-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Solutions
             </h2>
-            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-stone-600 sm:text-lg sm:leading-7">
               Find solutions for putting your ideas into action.
               Solve your business problems with proven combinations of {uiConstants.brandName} services,
               as well as sample architectures and documentation.
@@ -125,7 +122,7 @@ export default function Page() {
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
               Open Source
             </h2>
-            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-stone-600 sm:text-lg sm:leading-7">
               {uiConstants.brandName} is open source and powered by open source software. <br />{" "}
               The code is available on{" "}
               <Link
@@ -156,12 +153,12 @@ export default function Page() {
             </Link>
           </div>
         </section>
-        <section id="products" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
+        <section id="products" className="container space-y-6 bg-stone-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Products
             </h2>
-            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-stone-600 sm:text-lg sm:leading-7">
               Explore products for bringing your vision to life.
               Access all products for different needs with just a free account.
             </p>
@@ -175,7 +172,7 @@ export default function Page() {
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               Pricing
             </h2>
-            <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
+            <p className="max-w-[85%] leading-normal text-stone-600 sm:text-lg sm:leading-7">
               Choose an {uiConstants.brandName} subscription plan that's right for you.
               Downgrade, upgrade or cancel any time.{" "}
               {uiConstants.brandName} offers a variety of plans to meet your requirements.

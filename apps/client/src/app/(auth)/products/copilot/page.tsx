@@ -42,14 +42,14 @@ export default function Page() {
       if (error.response && error.response.data.message) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">{error.response.data.message}</p>
+          description: <p className="text-stone-600">{error.response.data.message}</p>
         })
       }
 
       else {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">{uiConstants.toastError}</p>
+          description: <p className="text-stone-600">{uiConstants.toastError}</p>
         })
       }
     }

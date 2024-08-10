@@ -40,7 +40,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       setState({ ...state, hash: response.data.hash })
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{response.data.message}</p>
+        description: <p className="text-stone-600">{response.data.message}</p>
       })
       setAuthStep(2)
     }
@@ -48,7 +48,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.connectionErrorMessage}</p>
+        description: <p className="text-stone-600">{uiConstants.connectionErrorMessage}</p>
       })
     }
 
@@ -67,7 +67,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       localStorage.setItem("accessToken", response.data.accessToken)
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.authVerificationSuccess}</p>
+        description: <p className="text-stone-600">{uiConstants.authVerificationSuccess}</p>
       })
       onAuthorized(true)
     }
@@ -75,7 +75,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     catch (error: any) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.invalidPasskey}</p>
+        description: <p className="text-stone-600">{uiConstants.invalidPasskey}</p>
       })
       onAuthorized(false)
     }
@@ -111,7 +111,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
             </form>
           </CardContent>
           <CardFooter>
-            <div className="text-center text-sm text-slate-600">
+            <div className="text-center text-sm text-stone-600">
               By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
             </div>
           </CardFooter>
@@ -141,7 +141,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
             </form>
           </CardContent>
           <CardFooter>
-            <div className="text-center text-sm text-slate-600">
+            <div className="text-center text-sm text-stone-600">
               By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
             </div>
           </CardFooter>

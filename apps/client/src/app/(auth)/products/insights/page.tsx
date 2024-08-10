@@ -23,7 +23,7 @@ export default function Page() {
   const renderInsights = insights?.data?.map((event: any) => {
     return (
       <TableRow className="cursor-pointer" key={event._id}>
-        <TableCell className="text-neutral-500">{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
+        <TableCell className="text-stone-500">{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
         <TableCell className="text-right hidden md:table-cell">
           <ViewEvent eventObj={event} />
         </TableCell>
