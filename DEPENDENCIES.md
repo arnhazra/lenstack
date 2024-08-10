@@ -34,7 +34,7 @@
 * react-dom: React package for working with the DOM, enabling React components to interact with the browser.
 * react-cache-buster: Cache busting library for React applications, ensuring updated resources are loaded by browsers.
 * sass: CSS preprocessor that adds power and elegance to traditional CSS, providing features like variables, nesting, and mixins.
-* react-json-view-lite: Simple JSON View library for React JS, facilitating JSON data visualization in React applications.
+* react-syntax-highlighter: Simple JSON View library for React JS, facilitating JSON data visualization in React applications.
 * tailwind-merge: Utility for merging Tailwind CSS classes, enabling dynamic class composition in Tailwind CSS projects.
 * tailwindcss-animate: Collection of animation utilities for Tailwind CSS, enhancing UI animations in web applications.
 * tailwindcss: Utility-first CSS framework for creating responsive and scalable UIs.

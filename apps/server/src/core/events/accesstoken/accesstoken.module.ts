@@ -8,7 +8,7 @@ import { envConfig } from "src/env.config"
   controllers: [AccesstokenController],
   providers: [
     {
-      provide: 'REDIS_CLIENT',
+      provide: "REDIS_CLIENT",
       useFactory: () => {
         return new Redis({
           port: Number(envConfig.redisPort),

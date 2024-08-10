@@ -6,7 +6,7 @@ import Redis from "ioredis"
 
 @Injectable()
 export class AccesstokenService {
-  constructor(@Inject('REDIS_CLIENT') private readonly redisClient: Redis) { }
+  constructor(@Inject("REDIS_CLIENT") private readonly redisClient: Redis) { }
 
   async setToken(setAccessTokenDto: SetAccessTokenDto) {
     try {

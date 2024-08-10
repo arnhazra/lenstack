@@ -3,8 +3,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { format } from "date-fns"
-import { JsonView, allExpanded } from "react-json-view-lite"
-import "react-json-view-lite/dist/index.css"
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { stackoverflowLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 export function ViewData({ dataObj }: { dataObj: any }) {
   const { _id, key, value, createdAt } = dataObj
@@ -48,7 +48,9 @@ export function ViewData({ dataObj }: { dataObj: any }) {
             <Label htmlFor="username" className="text-right">
               Value
             </Label>
-            <JsonView data={value ?? {}} shouldExpandNode={allExpanded} />
+            <SyntaxHighlighter wrapLongLines language="json" style={stackoverflowLight} customStyle={{ maxHeight: "15rem" }}>
+              {JSON.stringify(value ?? {}, null, 2)}
+            </SyntaxHighlighter>
           </div>
         </div>
         <DialogFooter>

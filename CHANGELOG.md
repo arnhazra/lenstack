@@ -1,6 +1,7 @@
 # Changelog
 
 ## v6.4.0
+* Replaced React Json view with syntax highlighter
 * Upgraded HTTP NoSQL to accept any datatype 
 * Dynamic items on api reference
 * Update api reference docs
