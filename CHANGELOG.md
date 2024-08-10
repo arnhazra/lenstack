@@ -3,6 +3,7 @@
 ## v6.3.0
 * Minor bug fixes & Performance improvements
 * Regular dependency updates
+* Changed user Insights to user activity log
 * Introduction of Insights application for unstructured data
 
 ## v6.2.0
