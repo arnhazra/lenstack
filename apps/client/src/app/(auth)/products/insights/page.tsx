@@ -25,7 +25,7 @@ export default function Page() {
       <TableRow className="cursor-pointer" key={event._id}>
         <TableCell className="text-neutral-500">{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
         <TableCell className="text-right hidden md:table-cell">
-          <Button variant="link"><ViewEvent eventObj={event} /></Button>
+          <ViewEvent eventObj={event} />
         </TableCell>
       </TableRow>
     )

@@ -1,5 +1,7 @@
 "use client"
 import { Check } from "lucide-react"
+import { Button } from "../ui/button"
+import Suspense from "../suspense"
 
 type TierCardComponentProps = {
   disabled: boolean,
@@ -10,7 +12,7 @@ type TierCardComponentProps = {
   handleClick: (planName: string) => void
 }
 
-export function TierCardComponent({ disabled, planName, price, grantedCredits, features }: TierCardComponentProps) {
+export function TierCardComponent({ disabled, planName, price, grantedCredits, features, handleClick }: TierCardComponentProps) {
   return (
     <div className="grid w-full items-start gap-10 rounded-lg border p-10 md:grid-cols-[1fr_200px]">
       <div className="grid gap-6">
@@ -39,6 +41,11 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
             {price ? "Billed Monthly" : ""}
           </p>
         </div>
+        <Button disabled={disabled} variant="default" onClick={(): void => handleClick(planName)}>
+          <Suspense condition={!!price} fallback="Activate for free">
+            Get started
+          </Suspense>
+        </Button>
       </div>
     </div>
   )

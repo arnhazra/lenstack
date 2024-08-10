@@ -33,7 +33,11 @@ export default function Page() {
 
   const renderProducts = products?.data?.map((product: any) => {
     return (
-      <TableRow className="cursor-pointer" key={product.displayName} onClick={(): void => router.push(`/products/${product.productName}`)}>
+      <TableRow
+        className="cursor-pointer"
+        key={product.displayName}
+        onClick={(): void => product?.productStatus === "Available" ? router.push(`/products/${product.productName}`) : undefined}
+      >
         <TableCell><div dangerouslySetInnerHTML={{ __html: product?.productIcon }} className="scale-75" /></TableCell>
         <TableCell><div className="font-medium">{uiConstants.brandName} {product?.displayName}</div></TableCell>
         <TableCell className="text-neutral-500 hidden md:table-cell">{product?.description}</TableCell>

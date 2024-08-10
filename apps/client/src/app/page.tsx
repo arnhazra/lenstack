@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { uiConstants } from "@/constants/global-constants"
 import useQuery from "@/hooks/use-query"
@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Github } from "lucide-react"
 import LoadingComponent from "@/components/loading"
+import { Badge } from "@/components/ui/badge"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
@@ -31,7 +32,7 @@ export default function Page() {
     }
   }, [])
 
-  const renderPricing = pricing?.data?.map((pricing: any) => {
+  const renderPricing = pricing?.data?.slice(0, 2)?.map((pricing: any) => {
     return (
       <TierCardComponent
         key={pricing.planName}
@@ -77,22 +78,30 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
-        <section id="hero" className="container hero-landing space-y-6 py-8 dark:bg-transparent md:py-12 lg:py-36 lg:rounded-lg">
-          <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-wide">
+        <section className="space-y-6 pb-8 pt-6 md:pt-10 lg:py-24">
+          <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
+            <Link href={uiConstants.linkedinUri} target="_blank" rel="noopener noreferrer">
+              <Badge variant="outline" className="px-4 py-1.5 text-sm font-medium">
+                Follow along on LinkedIn
+              </Badge>
+            </Link>
+            <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight">
               {uiConstants.homeHeader}
             </h1>
-            <h1 className="font-heading text-xl sm:text-xl md:text-xl lg:text-5xl text-white tracking-wide">
+            <h1 className="font-heading text-2xl sm:text-2xl md:text-2xl lg:text-5xl tracking-tight">
               {uiConstants.brandName}
             </h1>
-            <p className="max-w-[42rem] text-white">
+            <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8">
               {uiConstants.homeIntro}<br />
               {uiConstants.homeIntro2}
             </p>
             <div className="space-x-4 space-y-4">
-              <Button className="rounded-full px-8 py-6" variant="secondary" onClick={(): void => router.push("/dashboard")}>
+              <Link href="/dashboard" className={cn(buttonVariants({ size: "lg" }))}>
                 Get Started
-              </Button>
+              </Link>
+              <Link href="/#products" rel="noreferrer" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
+                Explore Products
+              </Link>
             </div>
           </div>
         </section>
@@ -174,6 +183,9 @@ export default function Page() {
           </div>
           <div className="container flex flex-col gap-6 py-8 md:max-w-[55rem] md:py-12">
             {renderPricing}
+          </div>
+          <div className="mx-auto flex-col items-center justify-center text-center">
+            <Button variant="secondary" onClick={(): void => router.push("/subscription")}>Explore All Plans</Button>
           </div>
         </section>
       </div>
