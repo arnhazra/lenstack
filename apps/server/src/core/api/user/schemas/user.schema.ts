@@ -13,7 +13,7 @@ export class User extends Document {
   reduceCarbonEmissions: boolean
 
   @Prop({ type: Boolean, default: true })
-  usageInsights: boolean
+  activityLog: boolean
 
   @Prop({ type: Types.ObjectId, ref: "organization" })
   selectedOrgId: Types.ObjectId

@@ -32,4 +32,6 @@ export const endPoints = {
   httpnosqlReadData: `${apiHost}/api/products/httpnosql/read`,
   httpnosqlUpdateData: `${apiHost}/api/products/httpnosql/update`,
   httpnosqlDeleteData: `${apiHost}/api/products/httpnosql/delete`,
+  insightsView: `${apiHost}/api/products/insights/get`,
+  insightsCreate: `${apiHost}/api/products/insights/create`,
 }

@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite"
+import { JsonView, allExpanded } from "react-json-view-lite"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Clipboard } from "lucide-react"

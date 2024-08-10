@@ -12,6 +12,7 @@ import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { toast } from "@/components/ui/use-toast"
 import axios from "axios"
+import Suspense from "@/components/suspense"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -69,7 +70,7 @@ export default function Page() {
           </Badge>
         </TableCell>
         <TableCell>
-          $ {item.price}/mo
+          {item?.price ? `$ ${item.price}/mo` : "Free"}
         </TableCell>
       </TableRow>
     )
@@ -101,7 +102,11 @@ export default function Page() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {selectedPlan?.price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>
+                    <Suspense condition={!!selectedPlan?.price} fallback="Activate for Free">
+                      Activate & Pay ${selectedPlan?.price}
+                    </Suspense>
+                  </Button>
                 </CardFooter>
               </Card>
             </div>
@@ -151,25 +156,15 @@ export default function Page() {
                 <div className="grid gap-3">
                   <dl className="grid gap-3">
                     <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Analytics</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.analytics}/req</dd>
+                      <dt>Product Endpoint</dt>
+                      <dd>Cost/Request</dd>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Blockchain</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.blockchain}/req</dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Copilot</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.copilot}/req</dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Data Marketplace</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.datamarketplace}/req</dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} HTTP NoSQL</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.httpnosql}/req</dd>
-                    </div>
+                    {Object.entries(selectedPlan?.estimatedRequestCost ?? {}).map(([service, cost]) => (
+                      <div className="flex items-center justify-between" key={service}>
+                        <dt>/{service}</dt>
+                        <dd>${String(cost)}/req</dd>
+                      </div>
+                    ))}
                   </dl>
                 </div>
               </CardContent>
@@ -212,7 +207,11 @@ export default function Page() {
                   </ul>
                 </div>
                 <div className="grid gap-3 mt-4">
-                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>Activate & Pay $ {selectedPlan?.price}</Button>
+                  <Button disabled={userState.hasActiveSubscription} onClick={(): Promise<void> => handlePayment(selectedTier)}>
+                    <Suspense condition={!!selectedPlan?.price} fallback="Activate for Free">
+                      Activate & Pay ${selectedPlan?.price}
+                    </Suspense>
+                  </Button>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">

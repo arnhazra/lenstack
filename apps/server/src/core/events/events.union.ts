@@ -3,7 +3,7 @@ export enum EventsUnion {
   GetAccessToken = "getAccessToken",
   DeleteAccessToken = "deleteAccessToken",
   SendEmail = "sendEmail",
-  CreateInsights = "createInsights",
+  CreateActivity = "createActivity",
   GetUserDetails = "getUserDetails",
   GetOrgDetails = "getOrgDetails",
   CreateOrg = "createOrg",

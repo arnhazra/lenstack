@@ -4,5 +4,6 @@ export enum DbConnectionMap {
   Blockchain = "blockchain",
   Copilot = "copilot",
   DataMarketplace = "datamarketplace",
-  HttpNoSql = "httpnosql"
+  HttpNoSql = "httpnosql",
+  Insights = "insights"
 }

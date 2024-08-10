@@ -13,7 +13,8 @@ export enum Products {
   Blockchain = "blockchain",
   Copilot = "copilot",
   DataMarketplace = "datamarketplace",
-  HttpNosql = "httpnosql"
+  HttpNosql = "httpnosql",
+  Insights = "insights"
 }
 
 export interface CreditType {
@@ -43,13 +44,14 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0007,
       copilot: 0.0090,
       datamarketplace: 0.0007,
-      httpnosql: 0.0040
+      httpnosql: 0.0040,
+      insights: 0.0020
     }
   },
   {
     planName: SubscriptionPlans.AS1,
-    price: 10,
-    grantedCredits: 15,
+    price: 20,
+    grantedCredits: 20,
     responseDelay: 1000,
     features: [
       "Renewed monthly",
@@ -61,13 +63,14 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0010,
       copilot: 0.0100,
       datamarketplace: 0.0010,
-      httpnosql: 0.0050
+      httpnosql: 0.0050,
+      insights: 0.0025
     }
   },
   {
     planName: SubscriptionPlans.AS2,
-    price: 20,
-    grantedCredits: 25,
+    price: 40,
+    grantedCredits: 40,
     responseDelay: 1000,
     features: [
       "Renewed monthly",
@@ -79,12 +82,13 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0010,
       copilot: 0.0100,
       datamarketplace: 0.0010,
-      httpnosql: 0.0050
+      httpnosql: 0.0050,
+      insights: 0.0025
     }
   },
   {
     planName: SubscriptionPlans.MS1,
-    price: 40,
+    price: 50,
     grantedCredits: 50,
     responseDelay: 500,
     features: [
@@ -97,12 +101,13 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0017,
       copilot: 0.0170,
       datamarketplace: 0.001,
-      httpnosql: 0.005
+      httpnosql: 0.005,
+      insights: 0.0040
     }
   },
   {
     planName: SubscriptionPlans.MS2,
-    price: 60,
+    price: 70,
     grantedCredits: 70,
     responseDelay: 500,
     features: [
@@ -115,12 +120,13 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0017,
       copilot: 0.0170,
       datamarketplace: 0.001,
-      httpnosql: 0.005
+      httpnosql: 0.005,
+      insights: 0.0040
     }
   },
   {
     planName: SubscriptionPlans.PS1,
-    price: 80,
+    price: 100,
     grantedCredits: 100,
     responseDelay: 0,
     features: [
@@ -133,12 +139,13 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0022,
       copilot: 0.0220,
       datamarketplace: 0.0022,
-      httpnosql: 0.0110
+      httpnosql: 0.0110,
+      insights: 0.0060
     }
   },
   {
     planName: SubscriptionPlans.PS2,
-    price: 100,
+    price: 120,
     grantedCredits: 120,
     responseDelay: 0,
     features: [
@@ -151,7 +158,8 @@ export const subscriptionConfig: CreditType[] = [
       blockchain: 0.0022,
       copilot: 0.0220,
       datamarketplace: 0.0022,
-      httpnosql: 0.0110
+      httpnosql: 0.0110,
+      insights: 0.0060
     }
   },
 ]

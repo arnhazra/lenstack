@@ -12,7 +12,7 @@ type TierCardComponentProps = {
   handleClick: (planName: string) => void
 }
 
-export function TierCardComponent({ disabled, planName, price, grantedCredits, features }: TierCardComponentProps) {
+export function TierCardComponent({ disabled, planName, price, grantedCredits, features, handleClick }: TierCardComponentProps) {
   return (
     <div className="grid w-full items-start gap-10 rounded-lg border p-10 md:grid-cols-[1fr_200px]">
       <div className="grid gap-6">
@@ -28,17 +28,24 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
             ))
           }
           <li className="flex items-center text-slate-600">
-            <Check className="mr-2 h-4 w-4" /> $ {Number(grantedCredits).toLocaleString()} API Requests
+            <Check className="mr-2 h-4 w-4" /> $ {Number(grantedCredits).toLocaleString()} Credits
           </li>
         </ul>
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-4xl font-bold">${price}</h4>
+          <h4 className="text-4xl font-bold">
+            {price ? `$ ${price}` : "Free"}
+          </h4>
           <p className="text-sm font-medium text-muted-foreground">
-            Billed Monthly
+            {price ? "Billed Monthly" : ""}
           </p>
         </div>
+        <Button disabled={disabled} variant="default" onClick={(): void => handleClick(planName)}>
+          <Suspense condition={!!price} fallback="Activate for free">
+            Get started
+          </Suspense>
+        </Button>
       </div>
     </div>
   )

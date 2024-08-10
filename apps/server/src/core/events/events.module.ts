@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common"
-import { InsightsModule } from "./insights/insights.module"
+import { ActivityModule } from "./activity/activity.module"
 import { EmailModule } from "./email/email.module"
 import { AccesstokenModule } from "./accesstoken/accesstoken.module"
 
 @Module({
-  imports: [InsightsModule, EmailModule, AccesstokenModule]
+  imports: [ActivityModule, EmailModule, AccesstokenModule]
 })
 export class EventsModule { }

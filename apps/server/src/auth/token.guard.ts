@@ -35,13 +35,13 @@ export class TokenGuard implements CanActivate {
         throw new UnauthorizedException(statusMessages.unauthorized)
       }
 
-      const { selectedOrgId, usageInsights } = response[0]
+      const { selectedOrgId, activityLog } = response[0]
       const orgId = String(selectedOrgId)
       request.user = { userId, orgId }
 
-      if (usageInsights) {
+      if (activityLog) {
         const { method, url: apiUri } = request
-        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+        this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
       }
 
       return true

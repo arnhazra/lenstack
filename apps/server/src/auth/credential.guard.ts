@@ -62,12 +62,12 @@ export class CredentialGuard implements CanActivate {
         throw new ForbiddenException(statusMessages.unauthorized)
       }
 
-      const { usageInsights } = userResponse[0]
+      const { activityLog } = userResponse[0]
       request.user = { userId, orgId }
 
-      if (usageInsights) {
+      if (activityLog) {
         const { method, url: apiUri } = request
-        this.eventEmitter.emit(EventsUnion.CreateInsights, { userId, method, apiUri })
+        this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
       }
 
       return true

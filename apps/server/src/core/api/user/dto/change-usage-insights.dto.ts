@@ -1,6 +1,6 @@
 import { IsBoolean } from "class-validator"
 
-export class ChangeUsageInsightsSettingsDto {
+export class ChangeActivityLogSettingsDto {
   @IsBoolean()
-  readonly usageInsights: boolean
+  readonly activityLog: boolean
 }
