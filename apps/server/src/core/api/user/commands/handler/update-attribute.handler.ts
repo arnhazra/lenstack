@@ -10,7 +10,7 @@ export class UpdateAttributeCommandHandler implements ICommandHandler<UpdateAttr
   async execute(command: UpdateAttributeCommand) {
     const { userId, attributeName, attributeValue } = command
 
-    if (attributeName === AttributeNames.ReduceCarbonEmissions || attributeName === AttributeNames.UsageInsights) {
+    if (attributeName === AttributeNames.ReduceCarbonEmissions || attributeName === AttributeNames.ActivityLog) {
       if (attributeValue === "true") {
         return await this.repository.updateOneById(userId, attributeName, true)
       }

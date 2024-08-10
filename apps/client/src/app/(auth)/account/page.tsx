@@ -36,7 +36,7 @@ export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
-  const [usageInsights, setUsageInsights] = useState<string>("true")
+  const [activityLog, setActivityLog] = useState<string>("true")
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const router = useRouter()
@@ -69,11 +69,11 @@ export default function Page() {
     }
   }
 
-  const saveUsageInsightsSettings = async () => {
+  const saveActivityLogSettings = async () => {
     try {
-      const updatedSettings = usageInsights === "true" ? true : false
-      dispatch("setUserState", { usageInsights: updatedSettings })
-      await axios.patch(`${endPoints.updateAttribute}/usageInsights/${updatedSettings}`)
+      const updatedSettings = activityLog === "true" ? true : false
+      dispatch("setUserState", { activityLog: updatedSettings })
+      await axios.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
       toast({
         title: "Notification",
         description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
@@ -233,26 +233,26 @@ export default function Page() {
                   <section className="grid gap-6">
                     <Card>
                       <CardHeader>
-                        <CardTitle>Usage Insights</CardTitle>
+                        <CardTitle>Activity Log</CardTitle>
                         <CardDescription>
                           {uiConstants.brandName} saves your activity on database securely for better and more personalized user experience on {uiConstants.brandName} platform.
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Select defaultValue={userState.usageInsights.toString()} onValueChange={(value: string) => setUsageInsights(value)}>
+                        <Select defaultValue={userState.activityLog.toString()} onValueChange={(value: string) => setActivityLog(value)}>
                           <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="true">Participate in Insights Data Collection</SelectItem>
-                              <SelectItem value="false">Do not Participate in Insights Data Collection</SelectItem>
+                              <SelectItem value="true">Activity Data Collection On</SelectItem>
+                              <SelectItem value="false">Activity Data Collection Off</SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
                       </CardContent>
                       <CardFooter>
-                        <Button onClick={saveUsageInsightsSettings}>Save Settings</Button>
+                        <Button onClick={saveActivityLogSettings}>Save Settings</Button>
                       </CardFooter>
                     </Card>
                   </section>

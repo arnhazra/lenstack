@@ -13,7 +13,7 @@ export interface UserState {
   hasActiveSubscription: boolean,
   isAuthorized: boolean,
   reduceCarbonEmissions: boolean,
-  usageInsights: boolean,
+  activityLog: boolean,
   refreshId: string,
   searchQuery: string
 }

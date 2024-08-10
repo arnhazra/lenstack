@@ -22,7 +22,7 @@ const initialState: { userState: UserState } = {
     hasActiveSubscription: false,
     isAuthorized: false,
     reduceCarbonEmissions: true,
-    usageInsights: true,
+    activityLog: true,
     refreshId: "648e6587-ebd0-442b-b338-1fb8d8a01192",
     searchQuery: ""
   }
