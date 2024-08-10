@@ -12,7 +12,7 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc } from "lucide-react"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -64,13 +64,13 @@ export default function Page() {
         <TableCell className="hidden md:table-cell">{dataset?.rating}</TableCell>
         <TableCell className="hidden md:table-cell">
           <Suspense condition={dataset?.rating >= 4.5} fallback={null}>
-            <Badge variant="default" key={"gold"}><Medal className="scale-50" />Gold</Badge>
+            <Badge className="gold-badge" key={"gold"}><Medal className="scale-50" />Gold</Badge>
           </Suspense>
           <Suspense condition={dataset?.rating >= 4.0 && dataset?.rating < 4.5} fallback={null}>
-            <Badge variant="secondary" key={"silver"}><Medal className="scale-50" />Silver</Badge>
+            <Badge className="silver-badge" key={"silver"}><Medal className="scale-50" />Silver</Badge>
           </Suspense>
           <Suspense condition={dataset?.rating < 4.0} fallback={null}>
-            <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
+            <Badge className="bronze-badge" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
           </Suspense>
         </TableCell>
         <TableCell className="text-right hidden md:table-cell">
