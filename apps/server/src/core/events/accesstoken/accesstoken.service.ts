@@ -1,16 +1,17 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { BadRequestException, Inject, Injectable } from "@nestjs/common"
 import { SetAccessTokenDto } from "./dto/set-accesstoken.dto"
 import { GetAccessTokenDto } from "./dto/get-accesstoken.dto"
 import { DeleteAccessTokenDto } from "./dto/delete-accesstoken.dto"
-import setTokenCommand from "./commands/set-token.command"
-import getTokenQuery from "./queries/get-token.query"
-import deleteTokenCommand from "./commands/delete-token.command"
+import Redis from "ioredis"
 
 @Injectable()
 export class AccesstokenService {
+  constructor(@Inject('REDIS_CLIENT') private readonly redisClient: Redis) { }
+
   async setToken(setAccessTokenDto: SetAccessTokenDto) {
     try {
-      return await setTokenCommand(setAccessTokenDto.userId, setAccessTokenDto.accessToken)
+      const { userId, accessToken } = setAccessTokenDto
+      return await this.redisClient.set(userId, accessToken)
     }
 
     catch (error) {
@@ -20,7 +21,8 @@ export class AccesstokenService {
 
   async getToken(getAccessTokenDto: GetAccessTokenDto) {
     try {
-      return await getTokenQuery(getAccessTokenDto.userId)
+      const { userId } = getAccessTokenDto
+      return await this.redisClient.get(userId)
     }
 
     catch (error) {
@@ -30,7 +32,8 @@ export class AccesstokenService {
 
   async deleteToken(deleteAccessTokenDto: DeleteAccessTokenDto) {
     try {
-      return await deleteTokenCommand(deleteAccessTokenDto.userId)
+      const { userId } = deleteAccessTokenDto
+      return this.redisClient.del(userId)
     }
 
     catch (error) {

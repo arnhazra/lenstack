@@ -109,7 +109,7 @@ export default function Page() {
                       <Button variant="outline" size="sm" className="h-8 gap-1">
                         <ListFilterIcon className="h-3.5 w-3.5" />
                         <span>
-                          Category Filter
+                          Select Category
                         </span>
                       </Button>
                     </DropdownMenuTrigger>

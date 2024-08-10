@@ -5,6 +5,7 @@
 * Dynamic items on api reference
 * Update api reference docs
 * Minor styling changes
+* Fix Redis max connection issue
 * Minor bug fixes & Performance improvements
 
 ## v6.3.0
