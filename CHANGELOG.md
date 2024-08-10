@@ -1,5 +1,8 @@
 # Changelog
 
+## v6.4.1
+* UI Hotfix for dialog modal position
+
 ## v6.4.0
 * UI Redesign
 * Replaced React Json view with syntax highlighter
