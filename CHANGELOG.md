@@ -1,5 +1,11 @@
 # Changelog
 
+## v6.4.0
+* Dynamic items on api reference
+* Update api reference docs
+* Minor styling changes
+* Minor bug fixes & Performance improvements
+
 ## v6.3.0
 * Minor bug fixes & Performance improvements
 * Regular dependency updates

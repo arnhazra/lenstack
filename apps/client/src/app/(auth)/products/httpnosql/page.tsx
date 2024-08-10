@@ -42,7 +42,7 @@ export default function Page() {
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button onClick={(): void => router.push(`/apireference?tab=httpNosql`)}>API Reference</Button>
+                  <Button onClick={(): void => router.push(`/apireference?tab=httpnosql`)}>API Reference</Button>
                 </CardFooter>
               </Card>
               <Card>

@@ -114,7 +114,7 @@ export default function Page() {
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button onClick={(): void => router.push(`/apireference?tab=dataMarketplace`)}>API Reference</Button>
+                  <Button onClick={(): void => router.push(`/apireference?tab=datamarketplace`)}>API Reference</Button>
                 </CardFooter>
               </Card>
               <Card>

@@ -216,7 +216,7 @@ export default function Page() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex flex-row items-center bg-muted/50 px-6 py-3">
-                  <Button variant="default" className="w-full" onClick={(): void => router.push("/apireference")}>Data API Reference<BookMarked className="scale-75" /></Button>
+                  <Button variant="default" className="w-full" onClick={(): void => router.push("/apireference?tab=datamarketplace")}>Data API Reference<BookMarked className="scale-75" /></Button>
                 </CardFooter>
               </Card>
             </div>
