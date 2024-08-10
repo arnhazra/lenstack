@@ -11,6 +11,7 @@ import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
 import { useRouter } from "next/navigation"
+import { ViewData } from "./components/view-data"
 
 export default function Page() {
   const dataList = useQuery(["datalist"], `${endPoints.httpnosqlReadData}`, HTTPMethods.GET)
@@ -22,7 +23,7 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={data._id}>
         <TableCell><div className="font-medium">{data?.key}</div></TableCell>
-        <TableCell className="text-neutral-500">{data?.value}</TableCell>
+        <TableCell className="text-neutral-500"><ViewData dataObj={data} /></TableCell>
         <TableCell className="text-right text-neutral-500 hidden md:table-cell">{format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
       </TableRow>
     )
@@ -47,12 +48,12 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>Metrics Count</CardDescription>
+                  <CardDescription>Data Count</CardDescription>
                   <CardTitle className="text-4xl">{dataList?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
-                    Total number of events
+                    Total number of data
                     in this organization
                   </div>
                 </CardContent>

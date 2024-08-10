@@ -1,6 +1,7 @@
 # Changelog
 
 ## v6.4.0
+* Upgraded HTTP NoSQL to accept any datatype 
 * Dynamic items on api reference
 * Update api reference docs
 * Minor styling changes
