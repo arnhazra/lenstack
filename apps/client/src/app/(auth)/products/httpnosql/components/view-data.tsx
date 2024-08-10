@@ -6,25 +6,25 @@ import { format } from "date-fns"
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { stackoverflowLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
-export function ViewEvent({ eventObj }: { eventObj: any }) {
-  const { _id, event, createdAt } = eventObj
+export function ViewData({ dataObj }: { dataObj: any }) {
+  const { _id, key, value, createdAt } = dataObj
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <p>View Event</p>
+        <p>View Data</p>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>View Event</DialogTitle>
+          <DialogTitle>View Data</DialogTitle>
           <DialogDescription>
-            This event was created on {format(new Date(createdAt), "MMM, do yyyy, h:mm a")}
+            This data was created on {format(new Date(createdAt), "MMM, do yyyy, h:mm a")}
           </DialogDescription>
         </DialogHeader>
         <div className="gap-4 py-4">
           <div className="items-center gap-4">
             <Label htmlFor="name" className="text-right pb-3">
-              Event Id
+              Key Id
             </Label>
             <Input
               id="name"
@@ -34,11 +34,22 @@ export function ViewEvent({ eventObj }: { eventObj: any }) {
             />
           </div>
           <div className="items-center gap-4">
+            <Label htmlFor="name" className="text-right pb-3">
+              Key
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={key}
+              className="col-span-3"
+            />
+          </div>
+          <div className="items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              Event
+              Value
             </Label>
             <SyntaxHighlighter wrapLongLines language="json" style={stackoverflowLight} customStyle={{ maxHeight: "15rem" }}>
-              {JSON.stringify(event ?? {}, null, 2)}
+              {JSON.stringify(value ?? {}, null, 2)}
             </SyntaxHighlighter>
           </div>
         </div>

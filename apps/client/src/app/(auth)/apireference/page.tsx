@@ -1,42 +1,33 @@
 "use client"
-import { ReactElement, useEffect } from "react"
+import { useEffect } from "react"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
-import { Tabs, tabsList } from "./data"
-import { Box, Database, Info, PieChart, ServerCrash, Sparkles } from "lucide-react"
+import { Info } from "lucide-react"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
-import { convertToTitleCase } from "../../../lib/convert-to-title-case"
 import SnippetPanel from "@/components/snippet"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { useRouter, useSearchParams } from "next/navigation"
 
-const mapTabIcons: Record<Tabs, ReactElement> = {
-  analytics: <PieChart />,
-  blockchain: <Box />,
-  copilot: <Sparkles />,
-  dataMarketplace: <ServerCrash />,
-  httpNosql: <Database />,
-}
-
 export default function Page() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
   const apiReference = useQuery(["apireference"], `${endPoints.getapireference}/${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
 
   useEffect(() => {
     if (!selectedTab) {
-      router.push(`/apireference?tab=${Tabs.Analytics}`)
+      router.push(`/apireference?tab=analytics`)
     }
   }, [selectedTab])
 
-  const renderTabs = tabsList.map((tab: Tabs) => {
+  const renderTabs = products?.data?.map((product: any) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => router.push(`/apireference?tab=${tab}`)}>
-        <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
-        <p>{convertToTitleCase(tab)}</p>
+      <div key={product?._id} className={`cursor-pointer flex capitalize ${product?.productName === selectedTab ? "" : "text-stone-500"}`} onClick={(): void => router.push(`/apireference?tab=${product?.productName}`)}>
+        <div className="me-2 scale-75 -mt-0.5" dangerouslySetInnerHTML={{ __html: product?.productIcon }}></div>
+        <p>{product?.displayName}</p>
       </div>
     )
   })
@@ -61,7 +52,7 @@ export default function Page() {
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">
               <h1 className="text-3xl font-semibold mb-2">API Reference</h1>
-              <p className="font-semibold text-sm flex gap-3 text-slate-600">
+              <p className="font-semibold text-sm flex gap-3 text-stone-600">
                 <Info />
                 You must send client_id & client_secret in either
                 query params(Blockchain) or headers(Other products) to authorize with your organization

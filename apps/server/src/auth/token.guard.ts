@@ -2,7 +2,6 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import * as jwt from "jsonwebtoken"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
-import getTokenQuery from "src/core/events/accesstoken/queries/get-token.query"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
 import { ModRequest } from "./types/mod-request.interface"
@@ -23,9 +22,9 @@ export class TokenGuard implements CanActivate {
     try {
       const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
       const userId = (decoded as any).id
-      const redisAccessToken = await getTokenQuery(userId)
+      const redisAccessToken: String[] = await this.eventEmitter.emitAsync(EventsUnion.GetAccessToken, { userId })
 
-      if (accessToken !== redisAccessToken) {
+      if (!redisAccessToken || !redisAccessToken.length || accessToken !== redisAccessToken[0]) {
         throw new UnauthorizedException(statusMessages.unauthorized)
       }
 

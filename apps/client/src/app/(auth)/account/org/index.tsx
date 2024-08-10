@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, Clipboard } from "lucide-react"
+import { CheckCircle2, Clipboard, RefreshCcw } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { format } from "date-fns"
@@ -16,18 +16,19 @@ interface OrgPanelProps {
   createdAt: string,
   clientId: string,
   clientSecret: string,
+  onRegenCred: (orgId: string) => void,
   onSwitch: (orgId: string) => void,
   onDelete: (orgId: string) => void,
 }
 
-export default function OrgPanel({ orgId, isSelected, displayName, createdAt, clientId, clientSecret, onSwitch, onDelete }: OrgPanelProps) {
+export default function OrgPanel({ orgId, isSelected, displayName, createdAt, clientId, clientSecret, onRegenCred, onSwitch, onDelete }: OrgPanelProps) {
   const { toast } = useToast()
 
   const copyValue = (value: string) => {
     navigator.clipboard.writeText(value)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
+      description: <p className="text-stone-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 
@@ -55,8 +56,9 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
         </div>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
+        <Button variant="secondary" onClick={() => onRegenCred(orgId)}><RefreshCcw className="scale-75" /></Button>
         <Button variant="default" disabled={isSelected} onClick={() => onSwitch(orgId)}>Switch</Button>
-        <Button variant="destructive" disabled={isSelected} onClick={() => onDelete(orgId)}>Delete Organization</Button>
+        <Button variant="destructive" disabled={isSelected} onClick={() => onDelete(orgId)}>Delete Org</Button>
       </CardFooter>
     </Card>
   )

@@ -57,14 +57,14 @@ export default function Page() {
       await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-stone-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
+        description: <p className="text-stone-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -76,14 +76,14 @@ export default function Page() {
       await axios.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-stone-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
+        description: <p className="text-stone-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -100,14 +100,14 @@ export default function Page() {
     catch (error) {
       toast({
         title: "Notification",
-        description: <p className="text-neutral-600">{uiConstants.toastError}</p>
+        description: <p className="text-stone-600">{uiConstants.toastError}</p>
       })
     }
   }
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-neutral-500"}`} onClick={(): void => router.push(`/account?tab=${tab}`)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-stone-500"}`} onClick={(): void => router.push(`/account?tab=${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{convertToTitleCase(tab)}</p>
       </div>
@@ -124,14 +124,14 @@ export default function Page() {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization created</p>
+          description: <p className="text-stone-600">Organization created</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Creating organization failed</p>
+          description: <p className="text-stone-600">Creating organization failed</p>
         })
       }
     }
@@ -146,14 +146,14 @@ export default function Page() {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switched</p>
+          description: <p className="text-stone-600">Organization switched</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization switching failed</p>
+          description: <p className="text-stone-600">Organization switching failed</p>
         })
       }
     }
@@ -168,14 +168,36 @@ export default function Page() {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization deleted</p>
+          description: <p className="text-stone-600">Organization deleted</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-neutral-600">Organization deletion failed</p>
+          description: <p className="text-stone-600">Organization deletion failed</p>
+        })
+      }
+    }
+  }
+
+  const regenerateCreds = async (orgId: string) => {
+    const response = await confirm("Are you sure to regenerate credentials for this org ?")
+    if (response) {
+      try {
+        await axios.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`)
+        organizations.refetch()
+        dispatch("setUserState", { refreshId: Math.random().toString() })
+        toast({
+          title: "Notification",
+          description: <p className="text-stone-600">Organization switched</p>
+        })
+      }
+
+      catch (error) {
+        toast({
+          title: "Notification",
+          description: <p className="text-stone-600">Organization switching failed</p>
         })
       }
     }
@@ -191,6 +213,7 @@ export default function Page() {
         clientId={organization?.clientId}
         clientSecret={organization?.clientSecret}
         createdAt={organization?.createdAt}
+        onRegenCred={(orgId) => regenerateCreds(orgId)}
         onSwitch={(orgId) => switchOrg(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}
       />

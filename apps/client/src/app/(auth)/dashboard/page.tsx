@@ -40,7 +40,7 @@ export default function Page() {
       >
         <TableCell><div dangerouslySetInnerHTML={{ __html: product?.productIcon }} className="scale-75" /></TableCell>
         <TableCell><div className="font-medium">{uiConstants.brandName} {product?.displayName}</div></TableCell>
-        <TableCell className="text-neutral-500 hidden md:table-cell">{product?.description}</TableCell>
+        <TableCell className="text-stone-500 hidden md:table-cell">{product?.description}</TableCell>
         <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
         <TableCell className="text-right"><Badge variant="outline"><Layers2 className="scale-50" />{product?.productCategory}</Badge></TableCell>
       </TableRow >
@@ -62,7 +62,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold uppercase">{userState.hasActiveSubscription ? userState.selectedPlan : "NONE"}</div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-stone-600">
                     Your current plan
                   </p>
                 </CardContent>
@@ -77,7 +77,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"}</div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-stone-600">
                     Plan end date
                   </p>
                 </CardContent>
@@ -89,7 +89,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `$ ${Number(userState.remainingCredits).toFixed(4)}` : "No Usage Data"}</div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-stone-600">
                     Credits remaining
                   </p>
                 </CardContent>
@@ -109,7 +109,7 @@ export default function Page() {
                       <Button variant="outline" size="sm" className="h-8 gap-1">
                         <ListFilterIcon className="h-3.5 w-3.5" />
                         <span>
-                          Category Filter
+                          Select Category
                         </span>
                       </Button>
                     </DropdownMenuTrigger>

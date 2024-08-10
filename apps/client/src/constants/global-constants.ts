@@ -6,7 +6,7 @@ export const uiConstants = {
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Identity",
   errorMessage: "404, Lost",
-  toastSuccess: "Done",
+  toastSuccess: "Action Success",
   toastError: "Something went wrong",
   transactionError: "Transaction Error",
   transactionSuccess: "Transaction Success",

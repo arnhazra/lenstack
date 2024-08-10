@@ -8,7 +8,7 @@ export default function MaskText({ value }: { value: string }) {
     navigator.clipboard.writeText(value)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
+      description: <p className="text-stone-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

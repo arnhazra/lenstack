@@ -17,7 +17,8 @@ export class CopilotService {
         topP: topP ?? 0.1,
         topK: topK ?? 16,
       }
-      const model = genAI.getGenerativeModel({ model: "gemini-pro", generationConfig })
+
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig })
       const result = await model.generateContent(prompt)
       const response = result.response.text()
       await this.commandBus.execute<CreateQueryCommand, Query>(new CreateQueryCommand(orgId, prompt, response))

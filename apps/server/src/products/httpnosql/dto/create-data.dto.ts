@@ -5,5 +5,5 @@ export class CreateDataDto {
   key: string
 
   @IsNotEmpty()
-  value: string
+  value: Record<string, any> | Record<string, any>[] | string | string[]
 }

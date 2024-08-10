@@ -1,5 +1,15 @@
 # Changelog
 
+## v6.4.0
+* UI Redesign
+* Replaced React Json view with syntax highlighter
+* Upgraded HTTP NoSQL to accept any datatype 
+* Dynamic items on api reference
+* Update api reference docs
+* Minor styling changes
+* Fix Redis max connection issue
+* Minor bug fixes & Performance improvements
+
 ## v6.3.0
 * Minor bug fixes & Performance improvements
 * Regular dependency updates

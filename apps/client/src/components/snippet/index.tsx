@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { JsonView, allExpanded } from "react-json-view-lite"
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Clipboard } from "lucide-react"
@@ -9,7 +9,7 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { Badge } from "../ui/badge"
 import Suspense from "../suspense"
-import "react-json-view-lite/dist/index.css"
+import { stackoverflowLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 interface SnippetPanelProps {
   title: string
@@ -26,7 +26,7 @@ export default function SnippetPanel({ title, url, method, request, response }: 
     navigator.clipboard.writeText(url)
     toast({
       title: "Notification",
-      description: <p className="text-neutral-600">{uiConstants.copiedToClipBoard}</p>
+      description: <p className="text-stone-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 
@@ -43,11 +43,15 @@ export default function SnippetPanel({ title, url, method, request, response }: 
       <CardFooter className="block">
         <Suspense condition={!!request} fallback={null}>
           <p className="mb-3">Sample Request</p>
-          <JsonView data={request ?? {}} shouldExpandNode={allExpanded} />
+          <SyntaxHighlighter language="json" style={stackoverflowLight} customStyle={{ maxHeight: "15rem" }}>
+            {JSON.stringify(request, null, 2)}
+          </SyntaxHighlighter>
         </Suspense>
         <Suspense condition={!!response} fallback={null}>
           <p className="mt-3 mb-3">Sample Response</p>
-          <JsonView data={response} shouldExpandNode={allExpanded} />
+          <SyntaxHighlighter wrapLongLines language="json" style={stackoverflowLight} customStyle={{ maxHeight: "15rem" }}>
+            {JSON.stringify(response, null, 2)}
+          </SyntaxHighlighter>
         </Suspense>
       </CardFooter>
     </Card>
