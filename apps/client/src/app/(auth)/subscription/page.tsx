@@ -156,25 +156,15 @@ export default function Page() {
                 <div className="grid gap-3">
                   <dl className="grid gap-3">
                     <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Analytics</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.analytics}/req</dd>
+                      <dt>Product Endpoint</dt>
+                      <dd>Cost/Request</dd>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Blockchain</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.blockchain}/req</dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Copilot</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.copilot}/req</dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} Data Marketplace</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.datamarketplace}/req</dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt>{uiConstants.brandName} HTTP NoSQL</dt>
-                      <dd>${selectedPlan?.estimatedRequestCost?.httpnosql}/req</dd>
-                    </div>
+                    {Object.entries(selectedPlan?.estimatedRequestCost ?? {}).map(([service, cost]) => (
+                      <div className="flex items-center justify-between" key={service}>
+                        <dt>/{service}</dt>
+                        <dd>${String(cost)}/req</dd>
+                      </div>
+                    ))}
                   </dl>
                 </div>
               </CardContent>
