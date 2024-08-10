@@ -9,8 +9,8 @@ export class Data extends Document {
   @Prop({ required: true })
   key: string
 
-  @Prop({ required: true })
-  value: string
+  @Prop({ required: true, type: Object })
+  value: Record<string, any> | Record<string, any>[] | string | string[]
 }
 
 export const DataSchema = SchemaFactory.createForClass(Data)

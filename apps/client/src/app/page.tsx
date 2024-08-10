@@ -91,7 +91,7 @@ export default function Page() {
             <h1 className="font-heading text-2xl sm:text-2xl md:text-2xl lg:text-5xl tracking-tight">
               {uiConstants.brandName}
             </h1>
-            <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xl sm:leading-8">
+            <p className="max-w-[42rem] leading-normal text-slate-600 sm:text-xs md:text-md lg:text-lg">
               {uiConstants.homeIntro}<br />
               {uiConstants.homeIntro2}
             </p>

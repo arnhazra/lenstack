@@ -9,7 +9,7 @@ import { statusMessages } from "src/utils/constants/status-messages"
 export class HttpNosqlRepository {
   constructor(@InjectModel(Data.name, DbConnectionMap.HttpNoSql) private model: Model<Data>) { }
 
-  async createKeyValue(orgId: string, key: string, value: string): Promise<Data | null> {
+  async createKeyValue(orgId: string, key: string, value: Record<string, any> | Record<string, any>[] | string | string[]): Promise<Data | null> {
     try {
       const data = await this.model.find({ key, orgId })
 
@@ -52,7 +52,7 @@ export class HttpNosqlRepository {
     }
   }
 
-  async updateValueByKey(orgId: string, key: string, value: string): Promise<Data | null> {
+  async updateValueByKey(orgId: string, key: string, value: Record<string, any> | Record<string, any>[] | string | string[]): Promise<Data | null> {
     try {
       const data = await this.model.findOne({ key, orgId })
 

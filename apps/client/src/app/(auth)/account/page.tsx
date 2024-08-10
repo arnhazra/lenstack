@@ -181,6 +181,28 @@ export default function Page() {
     }
   }
 
+  const regenerateCreds = async (orgId: string) => {
+    const response = await confirm("Are you sure to regenerate credentials for this org ?")
+    if (response) {
+      try {
+        await axios.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`)
+        organizations.refetch()
+        dispatch("setUserState", { refreshId: Math.random().toString() })
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">Organization switched</p>
+        })
+      }
+
+      catch (error) {
+        toast({
+          title: "Notification",
+          description: <p className="text-neutral-600">Organization switching failed</p>
+        })
+      }
+    }
+  }
+
   const renderOrgs = organizations?.data?.map((organization: any) => {
     return (
       <OrgPanel
@@ -191,6 +213,7 @@ export default function Page() {
         clientId={organization?.clientId}
         clientSecret={organization?.clientSecret}
         createdAt={organization?.createdAt}
+        onRegenCred={(orgId) => regenerateCreds(orgId)}
         onSwitch={(orgId) => switchOrg(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}
       />
