@@ -213,7 +213,7 @@ export default function Page() {
         clientId={organization?.clientId}
         clientSecret={organization?.clientSecret}
         createdAt={organization?.createdAt}
-        onRegenCred={(orgId) => regenerateCreds(orgId)}
+        onRegenCred={(orgId) => console.log(orgId)}
         onSwitch={(orgId) => switchOrg(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}
       />

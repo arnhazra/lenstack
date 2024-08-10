@@ -56,7 +56,7 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
         </div>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
-        <Button variant="secondary" onClick={() => onRegenCred(orgId)}><RefreshCcw className="scale-75" /></Button>
+        {/* <Button variant="secondary" onClick={() => onRegenCred(orgId)}><RefreshCcw className="scale-75" /></Button> */}
         <Button variant="default" disabled={isSelected} onClick={() => onSwitch(orgId)}>Switch</Button>
         <Button variant="destructive" disabled={isSelected} onClick={() => onDelete(orgId)}>Delete Org</Button>
       </CardFooter>
