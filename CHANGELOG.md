@@ -1,5 +1,10 @@
 # Changelog
 
+## v6.3.0
+* Minor bug fixes & Performance improvements
+* Regular dependency updates
+* Introduction of Insights application for unstructured data
+
 ## v6.2.0
 * Migrated stripe from INR to USD
 * Minor bug fixes & Performance improvements
