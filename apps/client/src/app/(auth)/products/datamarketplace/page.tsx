@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -16,6 +15,7 @@ import { useContext, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
+import CurrentOrgCard from "@/components/currentorgcard"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -29,8 +29,6 @@ export default function Page() {
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
   const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: userState.searchQuery, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=datamarketplace&category=All`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "datamarketplace")
 
   const renderFilterOptions = filters?.data?.map((item: string) => {
     return (
@@ -101,22 +99,12 @@ export default function Page() {
   }
 
   return (
-    <Suspense condition={!datasets.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!datasets.error && !products.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!datasets.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!datasets.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card className="sm:col-span-2">
-                <CardHeader className="pb-3">
-                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                  <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    {selectedProduct?.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button onClick={(): void => router.push(`/apireference?tab=datamarketplace`)}>API Reference</Button>
-                </CardFooter>
-              </Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Datasets Count</CardDescription>

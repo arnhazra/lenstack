@@ -1,9 +1,9 @@
 "use client"
+import CurrentOrgCard from "@/components/currentorgcard"
 import ErrorComponent from "@/components/error"
 import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
@@ -15,10 +15,7 @@ import { useRouter } from "next/navigation"
 import { useContext } from "react"
 
 export default function Page() {
-  const [{ userState }] = useContext(GlobalContext)
-  const router = useRouter()
   const analytics = useQuery(["analytics"], endPoints.analyticsView, HTTPMethods.GET)
-  const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
 
   const renderAnalytics = analytics?.data?.map((ant: any) => {
     return (
@@ -38,19 +35,7 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Current Organization</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-lg text-muted-foreground">
-                    {organizations?.data?.find((org: any) => org._id === userState.selectedOrgId).name}
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button onClick={(): void => router.push("/account?tab=organization")}>Switch Organization</Button>
-                </CardFooter>
-              </Card>
+              <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>
