@@ -28,7 +28,7 @@ export default function Page() {
     navigator.clipboard.writeText(`${apiHost}/api/products/blockchain/gateway/${networkId}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}` ?? "")
     toast({
       title: "Notification",
-      description: <p className="text-stone-600">{uiConstants.copiedToClipBoard}</p>
+      description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 
@@ -36,7 +36,7 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={network?._id} onClick={(): void => router.push(`/products/blockchain/network?networkId=${network._id}`)}>
         <TableCell><div className="font-medium">{network?.rpcProviderName}</div></TableCell>
-        <TableCell className="text-stone-500">{network?.rpcChain}</TableCell>
+        <TableCell className="text-slate-500">{network?.rpcChain}</TableCell>
         <TableCell className="hidden md:table-cell">{network?.rpcGateway}</TableCell>
         <TableCell className="hidden md:table-cell">{network?.rpcNetwork}</TableCell>
       </TableRow>

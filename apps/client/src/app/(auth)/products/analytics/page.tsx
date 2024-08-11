@@ -23,7 +23,7 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={ant._id}>
         <TableCell><div className="font-medium">{ant?.component}</div></TableCell>
-        <TableCell className="text-stone-500">{ant?.event}</TableCell>
+        <TableCell className="text-slate-500">{ant?.event}</TableCell>
         <TableCell className="hidden md:table-cell">{ant?.info}</TableCell>
         <TableCell className="hidden md:table-cell"><Badge variant="outline">{ant?.statusCode}</Badge></TableCell>
         <TableCell className="text-right hidden md:table-cell">{format(new Date(ant.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>

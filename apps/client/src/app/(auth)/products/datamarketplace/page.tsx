@@ -60,7 +60,7 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={dataset?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset?datasetId=${dataset._id}`)}>
         <TableCell><div className="font-medium">{dataset?.name}</div></TableCell>
-        <TableCell className="text-stone-500">{dataset?.category}</TableCell>
+        <TableCell className="text-slate-500">{dataset?.category}</TableCell>
         <TableCell className="hidden md:table-cell">{dataset?.rating}</TableCell>
         <TableCell className="hidden md:table-cell">
           <Suspense condition={dataset?.rating >= 4.5} fallback={null}>

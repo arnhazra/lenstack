@@ -36,7 +36,7 @@ export default function Page() {
     if (userState.hasActiveSubscription) {
       toast({
         title: "Notification",
-        description: <p className="text-stone-600">You already have an active subscription</p>
+        description: <p className="text-slate-600">You already have an active subscription</p>
       })
     }
 
@@ -49,7 +49,7 @@ export default function Page() {
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-stone-600">Error creating checkout session</p>
+          description: <p className="text-slate-600">Error creating checkout session</p>
         })
       }
     }
