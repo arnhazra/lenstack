@@ -185,7 +185,7 @@ export default function Page() {
     const response = await confirm("Are you sure to regenerate credentials for this org ?")
     if (response) {
       try {
-        await axios.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`)
+        await axios.patch(`${endPoints.organization}/${orgId}`)
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -213,7 +213,7 @@ export default function Page() {
         clientId={organization?.clientId}
         clientSecret={organization?.clientSecret}
         createdAt={organization?.createdAt}
-        onRegenCred={(orgId) => console.log(orgId)}
+        onRegenCred={(orgId) => regenerateCreds(orgId)}
         onSwitch={(orgId) => switchOrg(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}
       />

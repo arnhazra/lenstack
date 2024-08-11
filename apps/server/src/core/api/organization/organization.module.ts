@@ -11,6 +11,7 @@ import { DeleteOrganizationCommandHandler } from "./commands/handler/delete-orga
 import { FindAllOrgQueryHandler } from "./queries/handler/find-all-org.handler"
 import { FindOrgByCredentialQueryHandler } from "./queries/handler/find-org-by-credential.handler"
 import { FindOrgByIdQueryHandler } from "./queries/handler/find-org-by-id.handler"
+import { UpdateOrganizationCommandHandler } from "./commands/handler/update-organization.handler"
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { FindOrgByIdQueryHandler } from "./queries/handler/find-org-by-id.handle
     OrganizationService, OrganizationRepository,
     CreateOrganizationCommandHandler, DeleteOrganizationCommandHandler,
     FindAllOrgQueryHandler, FindOrgByCredentialQueryHandler,
-    FindOrgByIdQueryHandler
+    FindOrgByIdQueryHandler, UpdateOrganizationCommandHandler
   ],
 })
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## v6.5.0
+* Regenerate Credentials for Organization
+* UI theme updates
+
 ## v6.4.1
 * UI Hotfix for dialog modal position
 
