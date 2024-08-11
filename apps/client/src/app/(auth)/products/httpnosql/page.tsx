@@ -2,50 +2,35 @@
 import ErrorComponent from "@/components/error"
 import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
-import { useRouter } from "next/navigation"
 import { ViewData } from "./components/view-data"
+import CurrentOrgCard from "@/components/currentorgcard"
 
 export default function Page() {
   const dataList = useQuery(["datalist"], `${endPoints.httpnosqlReadData}`, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=httpnosql&category=All`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "httpnosql")
-  const router = useRouter()
 
   const renderData = dataList?.data?.map((data: any) => {
     return (
       <TableRow className="cursor-pointer" key={data._id}>
         <TableCell><div className="font-medium">{data?.key}</div></TableCell>
-        <TableCell className="text-stone-500"><ViewData dataObj={data} /></TableCell>
-        <TableCell className="text-right text-stone-500 hidden md:table-cell">{format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
+        <TableCell className="text-slate-500"><ViewData dataObj={data} /></TableCell>
+        <TableCell className="text-right text-slate-500 hidden md:table-cell">{format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
       </TableRow>
     )
   })
 
   return (
-    <Suspense condition={!dataList.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!dataList.error && !products.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!dataList.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!dataList.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card className="sm:col-span-2">
-                <CardHeader className="pb-3">
-                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                  <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    {selectedProduct?.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button onClick={(): void => router.push(`/apireference?tab=httpnosql`)}>API Reference</Button>
-                </CardFooter>
-              </Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Data Count</CardDescription>

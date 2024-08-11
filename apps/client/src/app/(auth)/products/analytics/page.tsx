@@ -1,29 +1,27 @@
 "use client"
+import CurrentOrgCard from "@/components/currentorgcard"
 import ErrorComponent from "@/components/error"
 import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
+import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
 import { useRouter } from "next/navigation"
+import { useContext } from "react"
 
 export default function Page() {
   const analytics = useQuery(["analytics"], endPoints.analyticsView, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=analytics&category=All`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "analytics")
-  const router = useRouter()
 
   const renderAnalytics = analytics?.data?.map((ant: any) => {
     return (
       <TableRow className="cursor-pointer" key={ant._id}>
         <TableCell><div className="font-medium">{ant?.component}</div></TableCell>
-        <TableCell className="text-stone-500">{ant?.event}</TableCell>
+        <TableCell className="text-slate-500">{ant?.event}</TableCell>
         <TableCell className="hidden md:table-cell">{ant?.info}</TableCell>
         <TableCell className="hidden md:table-cell"><Badge variant="outline">{ant?.statusCode}</Badge></TableCell>
         <TableCell className="text-right hidden md:table-cell">{format(new Date(ant.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
@@ -32,22 +30,12 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!analytics.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!analytics.error && !products.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!analytics.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!analytics.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card className="sm:col-span-2">
-                <CardHeader className="pb-3">
-                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                  <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    {selectedProduct?.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button onClick={(): void => router.push(`/apireference?tab=${selectedProduct?.productName}`)}>API Reference</Button>
-                </CardFooter>
-              </Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, Get, Delete, UseGuards, Request, Param } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Delete, UseGuards, Request, Param, Patch } from "@nestjs/common"
 import { OrganizationService } from "./organization.service"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
@@ -42,6 +42,18 @@ export class OrganizationController {
 
     catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Patch("/:orgId")
+  async updateAttribute(@Request() request: ModRequest, @Param() params: any) {
+    try {
+      return await this.organizationService.updateAttribute(request.user.userId, params.orgId)
+    }
+
+    catch (error) {
+      throw new BadRequestException(statusMessages.invalidUser)
     }
   }
 }

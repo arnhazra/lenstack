@@ -28,4 +28,11 @@ export class OrganizationRepository {
   async deleteById(orgId: string): Promise<Organization | null> {
     return await this.model.findByIdAndDelete(orgId)
   }
+
+  async updateById(userId: string, orgId: string): Promise<Organization | null> {
+    const org = await this.model.findOne({ _id: new Types.ObjectId(orgId), userId: new Types.ObjectId(userId) })
+    org.clientId = randomUUID()
+    org.clientSecret = randomUUID()
+    return await org.save()
+  }
 }

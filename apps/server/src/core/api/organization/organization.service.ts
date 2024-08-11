@@ -7,6 +7,7 @@ import { FindOrgByIdQuery } from "./queries/impl/find-org-by-id.query"
 import { Organization } from "./schemas/organization.schema"
 import { DeleteOrganizationCommand } from "./commands/impl/delete-organization.command"
 import { CreateOrganizationCommand } from "./commands/impl/create-organization.command"
+import { UpdateOrganizationCommand } from "./commands/impl/update-organization.command"
 
 @Injectable()
 export class OrganizationService {
@@ -48,6 +49,17 @@ export class OrganizationService {
     }
 
     catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async updateAttribute(userId: string, orgId: string) {
+    try {
+      await this.commandBus.execute<UpdateOrganizationCommand, Organization>(new UpdateOrganizationCommand(userId, orgId))
+    }
+
+    catch (error) {
+      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

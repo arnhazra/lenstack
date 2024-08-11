@@ -2,28 +2,23 @@
 import ErrorComponent from "@/components/error"
 import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
-import { useRouter } from "next/navigation"
 import { ViewEvent } from "./components/view-event"
+import CurrentOrgCard from "@/components/currentorgcard"
 
 export default function Page() {
   const insights = useQuery(["insights"], endPoints.insightsView, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=insights&category=All`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "insights")
-  const router = useRouter()
 
 
   const renderInsights = insights?.data?.map((event: any) => {
     return (
       <TableRow className="cursor-pointer" key={event._id}>
-        <TableCell className="text-stone-500">{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
+        <TableCell className="text-slate-500">{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
         <TableCell className="text-right hidden md:table-cell">
           <ViewEvent eventObj={event} />
         </TableCell>
@@ -32,22 +27,12 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!insights.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!insights.error && !products.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!insights.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!insights.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card className="sm:col-span-2">
-                <CardHeader className="pb-3">
-                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                  <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    {selectedProduct?.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button onClick={(): void => router.push(`/apireference?tab=${selectedProduct?.productName}`)}>API Reference</Button>
-                </CardFooter>
-              </Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>

@@ -40,12 +40,12 @@ export const subscriptionConfig: CreditType[] = [
       "Good for starters",
     ],
     estimatedRequestCost: {
-      analytics: 0.0015,
-      blockchain: 0.0007,
-      copilot: 0.0090,
-      datamarketplace: 0.0007,
-      httpnosql: 0.0040,
-      insights: 0.0020
+      analytics: 0.002,
+      blockchain: 0.001,
+      copilot: 0.015,
+      datamarketplace: 0.002,
+      httpnosql: 0.004,
+      insights: 0.003
     }
   },
   {
@@ -59,12 +59,12 @@ export const subscriptionConfig: CreditType[] = [
       "Good for starters",
     ],
     estimatedRequestCost: {
-      analytics: 0.0020,
-      blockchain: 0.0010,
-      copilot: 0.0100,
-      datamarketplace: 0.0010,
-      httpnosql: 0.0050,
-      insights: 0.0025
+      analytics: 0.003,
+      blockchain: 0.002,
+      copilot: 0.025,
+      datamarketplace: 0.003,
+      httpnosql: 0.005,
+      insights: 0.004
     }
   },
   {
@@ -78,12 +78,12 @@ export const subscriptionConfig: CreditType[] = [
       "Good for developers",
     ],
     estimatedRequestCost: {
-      analytics: 0.0020,
-      blockchain: 0.0010,
-      copilot: 0.0100,
-      datamarketplace: 0.0010,
-      httpnosql: 0.0050,
-      insights: 0.0025
+      analytics: 0.003,
+      blockchain: 0.002,
+      copilot: 0.025,
+      datamarketplace: 0.003,
+      httpnosql: 0.005,
+      insights: 0.004
     }
   },
   {
@@ -97,12 +97,12 @@ export const subscriptionConfig: CreditType[] = [
       "Good for startups",
     ],
     estimatedRequestCost: {
-      analytics: 0.0034,
-      blockchain: 0.0017,
-      copilot: 0.0170,
-      datamarketplace: 0.001,
-      httpnosql: 0.005,
-      insights: 0.0040
+      analytics: 0.005,
+      blockchain: 0.004,
+      copilot: 0.035,
+      datamarketplace: 0.005,
+      httpnosql: 0.007,
+      insights: 0.006
     }
   },
   {
@@ -116,12 +116,12 @@ export const subscriptionConfig: CreditType[] = [
       "Good for startups",
     ],
     estimatedRequestCost: {
-      analytics: 0.0034,
-      blockchain: 0.0017,
-      copilot: 0.0170,
-      datamarketplace: 0.001,
-      httpnosql: 0.005,
-      insights: 0.0040
+      analytics: 0.005,
+      blockchain: 0.004,
+      copilot: 0.035,
+      datamarketplace: 0.005,
+      httpnosql: 0.007,
+      insights: 0.006
     }
   },
   {
@@ -135,12 +135,12 @@ export const subscriptionConfig: CreditType[] = [
       "Good for organizations",
     ],
     estimatedRequestCost: {
-      analytics: 0.0044,
-      blockchain: 0.0022,
-      copilot: 0.0220,
-      datamarketplace: 0.0022,
-      httpnosql: 0.0110,
-      insights: 0.0060
+      analytics: 0.008,
+      blockchain: 0.007,
+      copilot: 0.045,
+      datamarketplace: 0.008,
+      httpnosql: 0.009,
+      insights: 0.008
     }
   },
   {
@@ -154,12 +154,12 @@ export const subscriptionConfig: CreditType[] = [
       "Good for organizations",
     ],
     estimatedRequestCost: {
-      analytics: 0.0044,
-      blockchain: 0.0022,
-      copilot: 0.0220,
-      datamarketplace: 0.0022,
-      httpnosql: 0.0110,
-      insights: 0.0060
+      analytics: 0.008,
+      blockchain: 0.007,
+      copilot: 0.045,
+      datamarketplace: 0.008,
+      httpnosql: 0.009,
+      insights: 0.008
     }
   },
 ]

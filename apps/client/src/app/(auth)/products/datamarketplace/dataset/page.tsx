@@ -32,7 +32,7 @@ export default function Page() {
     navigator.clipboard.writeText(datasetId ?? "")
     toast({
       title: "Notification",
-      description: <p className="text-stone-600">{uiConstants.copiedToClipBoard}</p>
+      description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
     })
   }
 

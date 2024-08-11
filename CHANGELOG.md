@@ -1,5 +1,11 @@
 # Changelog
 
+## v6.5.0
+* Dynamic filters in Dashboard page
+* Major UI modernization across all products
+* Regenerate Credentials for Organization
+* UI theme updates
+
 ## v6.4.1
 * UI Hotfix for dialog modal position
 

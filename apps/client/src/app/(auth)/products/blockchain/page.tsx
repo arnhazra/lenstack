@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -14,6 +13,7 @@ import { ListFilter } from "lucide-react"
 import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
+import CurrentOrgCard from "@/components/currentorgcard"
 
 export interface NetworkSearchRequestState {
   searchQuery: string
@@ -30,8 +30,6 @@ export default function Page() {
   const gatewayFilters = useQuery(["gateway-filters"], endPoints.blockchainGatewayFilters, HTTPMethods.GET)
   const networkFilters = useQuery(["network-filters"], endPoints.blockchainNetworkFilters, HTTPMethods.GET)
   const networks = useQuery(["networks"], endPoints.blockchainFindNetworks, HTTPMethods.POST, networkSearchRequestState)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=blockchain&category=All`, HTTPMethods.GET)
-  const selectedProduct = products?.data?.find((product: any) => product.productName === "blockchain")
 
   useEffect(() => {
     setNetworkSearchRequestState({ ...networkSearchRequestState, searchQuery: userState.searchQuery })
@@ -65,7 +63,7 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={network?._id} onClick={(): void => router.push(`/products/blockchain/network?networkId=${network._id}`)}>
         <TableCell><div className="font-medium">{network?.rpcProviderName}</div></TableCell>
-        <TableCell className="text-stone-500">{network?.rpcChain}</TableCell>
+        <TableCell className="text-slate-500">{network?.rpcChain}</TableCell>
         <TableCell className="hidden md:table-cell">{network?.rpcGateway}</TableCell>
         <TableCell className="hidden md:table-cell">{network?.rpcNetwork}</TableCell>
       </TableRow>
@@ -73,22 +71,12 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!networks.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!networks.error && !products.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!networks.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!networks.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card className="sm:col-span-2">
-                <CardHeader className="pb-3">
-                  <CardTitle>{uiConstants.brandName} {selectedProduct?.displayName}</CardTitle>
-                  <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    {selectedProduct?.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button onClick={(): void => router.push(`/apireference?tab=${selectedProduct?.productName}`)}>API Reference</Button>
-                </CardFooter>
-              </Card>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Networks Count</CardDescription>
