@@ -1,11 +1,11 @@
 "use client"
-import { BarChart2, Calendar, Layers2, ListFilterIcon, OrbitIcon } from "lucide-react"
+import { BarChart2, Calendar, ListFilterIcon, OrbitIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { format } from "date-fns"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
@@ -17,17 +17,10 @@ import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 
-enum Filters {
-  ALL = "All",
-  ANALYTICS = "Analytics",
-  GENAI = "Gen AI",
-  DATA = "Data",
-  BLOCKCHAIN = "Blockchain",
-}
-
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const [selectedFilter, setSelectedFilter] = useState(Filters.ALL)
+  const [selectedFilter, setSelectedFilter] = useState("All")
+  const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${userState.searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
   const router = useRouter()
 
@@ -42,8 +35,24 @@ export default function Page() {
         <TableCell><div className="font-medium">{uiConstants.brandName} {product?.displayName}</div></TableCell>
         <TableCell className="text-slate-500 hidden md:table-cell">{product?.description}</TableCell>
         <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
-        <TableCell className="text-right"><Badge variant="outline"><Layers2 className="scale-50" />{product?.productCategory}</Badge></TableCell>
+        <TableCell className="text-right">
+          <Badge variant="outline">
+            <div className="scale-50" dangerouslySetInnerHTML={{ __html: solutions?.data?.find((solution: any) => solution?.solutionName === product?.productCategory)?.solutionIcon }}></div>
+            {product?.productCategory}
+          </Badge>
+        </TableCell>
       </TableRow >
+    )
+  })
+
+  const renderSolutions = solutions?.data?.map((solution: any) => {
+    return (
+      <DropdownMenuCheckboxItem
+        checked={selectedFilter === solution?.solutionName}
+        onClick={(): void => setSelectedFilter(solution?.solutionName)}
+      >
+        {solution?.solutionName}
+      </DropdownMenuCheckboxItem>
     )
   })
 
@@ -88,7 +97,7 @@ export default function Page() {
                   <BarChart2 className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `$ ${Number(userState.remainingCredits).toFixed(4)}` : "No Usage Data"}</div>
+                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `$ ${Number(userState.remainingCredits).toFixed(3)}` : "No Usage Data"}</div>
                   <p className="text-sm text-slate-600">
                     Credits remaining
                   </p>
@@ -116,11 +125,13 @@ export default function Page() {
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Category Filter</DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.ALL} onClick={(): void => setSelectedFilter(Filters.ALL)}>All</DropdownMenuCheckboxItem>
-                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.ANALYTICS} onClick={(): void => setSelectedFilter(Filters.ANALYTICS)}>Analytics</DropdownMenuCheckboxItem>
-                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.GENAI} onClick={(): void => setSelectedFilter(Filters.GENAI)}>Gen AI</DropdownMenuCheckboxItem>
-                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.DATA} onClick={(): void => setSelectedFilter(Filters.DATA)}>Data</DropdownMenuCheckboxItem>
-                      <DropdownMenuCheckboxItem checked={selectedFilter === Filters.BLOCKCHAIN} onClick={(): void => setSelectedFilter(Filters.BLOCKCHAIN)}>Blockchain</DropdownMenuCheckboxItem>
+                      <DropdownMenuCheckboxItem
+                        checked={selectedFilter === "All"}
+                        onClick={(): void => setSelectedFilter("All")}
+                      >
+                        All
+                      </DropdownMenuCheckboxItem>
+                      {renderSolutions}
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>

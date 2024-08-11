@@ -78,7 +78,7 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
-        <section className="hero space-y-6 pb-8 pt-8 md:pt-16 lg:pt-24 lg:py-40">
+        <section id="hero" className="hero space-y-6 pb-8 pt-8 md:pt-16 lg:pt-24 lg:py-40">
           <div className="container flex flex-col gap-4">
             <Link href="" rel="noopener noreferrer">
               <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
