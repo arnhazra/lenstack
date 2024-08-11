@@ -1,6 +1,7 @@
 # Changelog
 
 ## v6.5.0
+* Major UI modernization across all products
 * Regenerate Credentials for Organization
 * UI theme updates
 
