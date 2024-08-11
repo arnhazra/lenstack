@@ -190,14 +190,14 @@ export default function Page() {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: "Notification",
-          description: <p className="text-slate-600">Organization switched</p>
+          description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
         })
       }
 
       catch (error) {
         toast({
           title: "Notification",
-          description: <p className="text-slate-600">Organization switching failed</p>
+          description: <p className="text-slate-600">{uiConstants.toastError}</p>
         })
       }
     }

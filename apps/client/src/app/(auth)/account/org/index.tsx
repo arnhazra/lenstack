@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, Clipboard, RefreshCcw } from "lucide-react"
+import { CheckCircle2, Clipboard, RotateCw } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { format } from "date-fns"
@@ -56,7 +56,7 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
         </div>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
-        <Button variant="secondary" onClick={() => onRegenCred(orgId)}><RefreshCcw className="scale-75" /></Button>
+        <Button variant="secondary" onClick={() => onRegenCred(orgId)}><RotateCw className="scale-75" /></Button>
         <Button variant="default" disabled={isSelected} onClick={() => onSwitch(orgId)}>Switch</Button>
         <Button variant="destructive" disabled={isSelected} onClick={() => onDelete(orgId)}>Delete Org</Button>
       </CardFooter>
