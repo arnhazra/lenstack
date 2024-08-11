@@ -1,6 +1,7 @@
 # Changelog
 
 ## v6.5.0
+* Dynamic filters in Dashboard page
 * Major UI modernization across all products
 * Regenerate Credentials for Organization
 * UI theme updates
