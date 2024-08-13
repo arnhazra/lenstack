@@ -5,5 +5,4 @@ export interface ModRequest extends Request {
     userId: string,
     orgId: string
   }
-  newAccessToken: string
 }
