@@ -6,6 +6,7 @@ import { ReactNode } from "react"
 axios.interceptors.request.use((request) => {
   if (localStorage.hasOwnProperty("accessToken")) {
     request.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`
+    request.headers["refresh_token"] = `${localStorage.getItem("refreshToken")}`
     request.headers["client_id"] = `${localStorage.getItem("clientId")}`
     request.headers["client_secret"] = `${localStorage.getItem("clientSecret")}`
   }
@@ -14,6 +15,11 @@ axios.interceptors.request.use((request) => {
 
 axios.interceptors.response.use(
   function (response) {
+    if (response.headers["new_accesstoken"]) {
+      const newAccessToken = response.headers["new_accesstoken"]
+      localStorage.setItem("accessToken", newAccessToken)
+    }
+
     return response
   },
 

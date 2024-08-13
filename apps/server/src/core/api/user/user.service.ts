@@ -19,14 +19,16 @@ import { AttributeNames, UpdateAttributeCommand } from "./commands/impl/update-a
 
 @Injectable()
 export class UserService {
-  private readonly authPrivateKey: string
+  private readonly accessTokenPrivateKey: string
+  private readonly refreshTokenPrivateKey: string
 
   constructor(
     private readonly eventEmitter: EventEmitter2,
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus
   ) {
-    this.authPrivateKey = envConfig.authPrivateKey
+    this.accessTokenPrivateKey = envConfig.accessTokenPrivateKey
+    this.refreshTokenPrivateKey = envConfig.refreshTokenPrivateKey
   }
 
   async generatePasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
@@ -54,18 +56,21 @@ export class UserService {
         const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email))
 
         if (user) {
-          const redisAccessToken = await this.eventEmitter.emitAsync(EventsUnion.GetAccessToken, { userId: user.id })
+          const refreshTokenFromRedis = await this.eventEmitter.emitAsync(EventsUnion.GetToken, { userId: user.id })
 
-          if (redisAccessToken.toString()) {
-            const accessToken = redisAccessToken
-            return { accessToken, success: true, user }
+          if (refreshTokenFromRedis.toString()) {
+            const refreshToken = refreshTokenFromRedis
+            const tokenPayload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
+            const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
+            return { accessToken, refreshToken, user, success: true }
           }
 
           else {
-            const payload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
-            const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-            await this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: user.id, accessToken })
-            return { accessToken, success: true, user }
+            const tokenPayload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
+            const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
+            const refreshToken = jwt.sign(tokenPayload, this.refreshTokenPrivateKey, { algorithm: "RS512" })
+            await this.eventEmitter.emitAsync(EventsUnion.SetToken, { userId: user.id, token: refreshToken })
+            return { accessToken, refreshToken, user, success: true }
           }
         }
 
@@ -73,10 +78,11 @@ export class UserService {
           const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
           const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", userId: newUser.id })
           await this.commandBus.execute<UpdateAttributeCommand, User>(new UpdateAttributeCommand(newUser.id, AttributeNames.SelectedOrgId, organization[0].id))
-          const payload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
-          const accessToken = jwt.sign(payload, this.authPrivateKey, { algorithm: "RS512" })
-          await this.eventEmitter.emitAsync(EventsUnion.SetAccessToken, { userId: newUser.id, accessToken })
-          return { accessToken, success: true, user: newUser }
+          const tokenPayload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
+          const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
+          const refreshToken = jwt.sign(tokenPayload, this.refreshTokenPrivateKey, { algorithm: "RS512" })
+          await this.eventEmitter.emitAsync(EventsUnion.SetToken, { userId: newUser.id, token: refreshToken })
+          return { accessToken, refreshToken, user: newUser, success: true }
         }
       }
 
@@ -120,7 +126,7 @@ export class UserService {
 
   async signOut(userId: string) {
     try {
-      await this.eventEmitter.emitAsync(EventsUnion.DeleteAccessToken, { userId })
+      await this.eventEmitter.emitAsync(EventsUnion.DeleteToken, { userId })
     }
 
     catch (error) {
@@ -134,7 +140,6 @@ export class UserService {
     }
 
     catch (error) {
-      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

@@ -59,7 +59,6 @@ export class OrganizationService {
     }
 
     catch (error) {
-      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

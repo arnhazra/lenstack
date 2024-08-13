@@ -1,7 +1,7 @@
 export enum EventsUnion {
-  SetAccessToken = "setAccessToken",
-  GetAccessToken = "getAccessToken",
-  DeleteAccessToken = "deleteAccessToken",
+  SetToken = "setToken",
+  GetToken = "getToken",
+  DeleteToken = "deleteToken",
   SendEmail = "sendEmail",
   CreateActivity = "createActivity",
   GetUserDetails = "getUserDetails",

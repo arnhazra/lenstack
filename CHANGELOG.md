@@ -1,5 +1,9 @@
 # Changelog
 
+## v6.6.0
+* Regular dependency updates & bug fixes
+* Refresh token implementation in auth service
+
 ## v6.5.0
 * Dynamic filters in Dashboard page
 * Major UI modernization across all products

@@ -65,6 +65,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     try {
       const response = await axios.post(endPoints.verifyPassKey, state)
       localStorage.setItem("accessToken", response.data.accessToken)
+      localStorage.setItem("refreshToken", response.data.refreshToken)
       toast({
         title: "Notification",
         description: <p className="text-slate-600">{uiConstants.authVerificationSuccess}</p>
