@@ -15,8 +15,8 @@ axios.interceptors.request.use((request) => {
 
 axios.interceptors.response.use(
   function (response) {
-    if (response.headers["new_accesstoken"]) {
-      const newAccessToken = response.headers["new_accesstoken"]
+    if (response.data.newAccessToken) {
+      const newAccessToken = response.data.newAccessToken
       localStorage.setItem("accessToken", newAccessToken)
     }
 

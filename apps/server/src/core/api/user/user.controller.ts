@@ -1,10 +1,11 @@
-import { Controller, Post, Body, BadRequestException, Get, Patch, Request, UseGuards, Param } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Patch, Request, UseGuards, Param, UseInterceptors } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { TokenGuard } from "src/auth/token.guard"
 import { ModRequest } from "src/auth/types/mod-request.interface"
+import { TokenInterceptor } from "src/auth/token.interceptor"
 
 @Controller("user")
 export class UserController {
@@ -43,6 +44,7 @@ export class UserController {
   }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
@@ -76,6 +78,7 @@ export class UserController {
   }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Patch("attribute/:attributeName/:attributeValue")
   async updateAttribute(@Request() request: ModRequest, @Param() params: any) {
     try {

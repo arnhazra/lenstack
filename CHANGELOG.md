@@ -1,5 +1,8 @@
 # Changelog
 
+## v6.6.1
+* Fix refresh token implementation not working in PROD
+
 ## v6.6.0
 * Regular dependency updates & bug fixes
 * Refresh token implementation in auth service

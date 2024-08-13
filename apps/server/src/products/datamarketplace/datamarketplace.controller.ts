@@ -1,15 +1,17 @@
-import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards, Param } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards, Param, UseInterceptors } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { DataAPIDto } from "./dto/data-api.dto"
 import { TokenGuard } from "src/auth/token.guard"
 import { CredentialGuard } from "src/auth/credential.guard"
+import { TokenInterceptor } from "src/auth/token.interceptor"
 
 @Controller("products/datamarketplace")
 export class DatamarketplaceController {
   constructor(private readonly datamarketplaceService: DatamarketplaceService) { }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Get("filters")
   async getDatasetFilters() {
     try {
@@ -22,6 +24,7 @@ export class DatamarketplaceController {
   }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Post("finddatasets")
   async findDatasets(@Body() findDatasetsDto: FindDatasetsDto) {
     try {
@@ -34,6 +37,7 @@ export class DatamarketplaceController {
   }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Get("viewdataset/:datasetId")
   async viewDataset(@Param() params: any) {
     try {
