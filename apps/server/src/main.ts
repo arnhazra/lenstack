@@ -7,7 +7,7 @@ async function bootstrap(): Promise<void> {
   const app: INestApplication<any> = await NestFactory.create(AppModule)
   app.setGlobalPrefix("api")
   app.useGlobalPipes(new ValidationPipe())
-  app.enableCors({ exposedHeaders: ["new_accesstoken"] })
+  app.enableCors()
   await app.listen(envConfig.apiPort)
 }
 

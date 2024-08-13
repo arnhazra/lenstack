@@ -1,14 +1,16 @@
-import { Controller, Post, Body, BadRequestException, Get, Param, UseGuards } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Param, UseGuards, UseInterceptors } from "@nestjs/common"
 import { BlockchainService } from "./blockchain.service"
 import { FindNetworksDto } from "./dto/find-networks.dto"
 import { TokenGuard } from "src/auth/token.guard"
 import { CredentialGuard } from "src/auth/credential.guard"
+import { TokenInterceptor } from "src/auth/token.interceptor"
 
 @Controller("products/blockchain")
 export class BlockchainController {
   constructor(private readonly blockchainService: BlockchainService) { }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Get("gatewayfilters")
   async getGatewayFilters() {
     try {
@@ -21,6 +23,7 @@ export class BlockchainController {
   }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Get("networkfilters")
   async getNetworkFilters() {
     try {
@@ -33,6 +36,7 @@ export class BlockchainController {
   }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Post("findnetworks")
   async findNetworks(@Body() findNetworksDto: FindNetworksDto) {
     try {
@@ -45,6 +49,7 @@ export class BlockchainController {
   }
 
   @UseGuards(TokenGuard)
+  @UseInterceptors(TokenInterceptor)
   @Get("viewnetwork/:networkId")
   async viewNetwork(@Param() params: any) {
     try {

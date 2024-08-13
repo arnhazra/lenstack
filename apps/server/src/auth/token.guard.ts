@@ -6,7 +6,6 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/api/user/schemas/user.schema"
-import { Response } from "express"
 import { otherConstants } from "src/utils/constants/other-constants"
 
 @Injectable()
@@ -15,7 +14,6 @@ export class TokenGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: ModRequest = context.switchToHttp().getRequest()
-    const globalResponse: Response = context.switchToHttp().getResponse()
     const accessToken = request.headers["authorization"]?.split(" ")[1]
     const refreshToken = request.headers["refresh_token"]
 
@@ -69,7 +67,7 @@ export class TokenGuard implements CanActivate {
 
             const tokenPayload = { id: userId, email, iss: otherConstants.tokenIssuer }
             const newAccessToken = jwt.sign(tokenPayload, envConfig.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
-            globalResponse.setHeader("new_accesstoken", newAccessToken)
+            request.newAccessToken = newAccessToken
             return true
           }
         }
