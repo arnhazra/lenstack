@@ -1,11 +1,10 @@
-import { Controller, Post, Body, Get, Query, Res, UseGuards, Request, UseInterceptors } from "@nestjs/common"
+import { Controller, Post, Body, Get, Query, Res, UseGuards, Request } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
 import { CreateCheckoutSessionDto } from "./dto/create-checkout-session.dto"
 import { envConfig } from "src/env.config"
 import { otherConstants } from "src/utils/constants/other-constants"
 import { TokenGuard } from "src/auth/token.guard"
 import { ModRequest } from "src/auth/types/mod-request.interface"
-import { TokenInterceptor } from "src/auth/token.interceptor"
 
 @Controller("subscription")
 export class SubscriptionController {
@@ -23,7 +22,6 @@ export class SubscriptionController {
   }
 
   @UseGuards(TokenGuard)
-  @UseInterceptors(TokenInterceptor)
   @Post("checkout")
   async createCheckoutSession(@Request() request: ModRequest, @Body() createCheckoutSessionDto: CreateCheckoutSessionDto) {
     try {
