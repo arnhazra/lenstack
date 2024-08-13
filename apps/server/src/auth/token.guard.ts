@@ -6,6 +6,8 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/core/events/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/api/user/schemas/user.schema"
+import { Response } from "express"
+import { otherConstants } from "src/utils/constants/other-constants"
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -13,41 +15,69 @@ export class TokenGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: ModRequest = context.switchToHttp().getRequest()
+    const globalResponse: Response = context.switchToHttp().getResponse()
     const accessToken = request.headers["authorization"]?.split(" ")[1]
+    const refreshToken = request.headers["refresh_token"]
 
-    if (!accessToken) {
+    if (!accessToken || !refreshToken) {
       throw new UnauthorizedException(statusMessages.unauthorized)
     }
 
-    try {
-      const decoded = jwt.verify(accessToken, envConfig.authPublicKey, { algorithms: ["RS512"] })
-      const userId = (decoded as any).id
-      const redisAccessToken: String[] = await this.eventEmitter.emitAsync(EventsUnion.GetAccessToken, { userId })
+    else {
+      try {
+        const decodedAccessToken = jwt.verify(accessToken, envConfig.accessTokenPublicKey, { algorithms: ["RS512"] })
+        const userId = (decodedAccessToken as any).id
+        const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
 
-      if (!redisAccessToken || !redisAccessToken.length || accessToken !== redisAccessToken[0]) {
-        throw new UnauthorizedException(statusMessages.unauthorized)
+        if (!response || !response.length) {
+          throw new UnauthorizedException(statusMessages.unauthorized)
+        }
+
+        const { selectedOrgId, activityLog } = response[0]
+        const orgId = String(selectedOrgId)
+        request.user = { userId, orgId }
+
+        if (activityLog) {
+          const { method, url: apiUri } = request
+          this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
+        }
+
+        return true
       }
 
-      const response: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+      catch (error) {
+        if (error instanceof (jwt.TokenExpiredError)) {
+          const decodedRefreshToken = jwt.verify(String(refreshToken), envConfig.refreshTokenPublicKey, { algorithms: ["RS512"] })
+          const userId = (decodedRefreshToken as any).id
+          const refreshTokenFromRedis: String[] = await this.eventEmitter.emitAsync(EventsUnion.GetToken, { userId })
 
-      if (!response || !response.length) {
-        throw new UnauthorizedException(statusMessages.unauthorized)
+          if (!refreshTokenFromRedis || !refreshTokenFromRedis.length || refreshToken !== refreshTokenFromRedis[0]) {
+            await this.eventEmitter.emitAsync(EventsUnion.DeleteToken, { userId })
+            throw new UnauthorizedException(statusMessages.unauthorized)
+          }
+
+          else {
+            const user: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+            const { selectedOrgId, activityLog, email } = user[0]
+            const orgId = String(selectedOrgId)
+            request.user = { userId, orgId }
+
+            if (activityLog) {
+              const { method, url: apiUri } = request
+              this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
+            }
+
+            const tokenPayload = { id: userId, email, iss: otherConstants.tokenIssuer }
+            const newAccessToken = jwt.sign(tokenPayload, envConfig.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
+            globalResponse.setHeader("new_accesstoken", newAccessToken)
+            return true
+          }
+        }
+
+        else {
+          throw error
+        }
       }
-
-      const { selectedOrgId, activityLog } = response[0]
-      const orgId = String(selectedOrgId)
-      request.user = { userId, orgId }
-
-      if (activityLog) {
-        const { method, url: apiUri } = request
-        this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
-      }
-
-      return true
-    }
-
-    catch (error) {
-      throw error
     }
   }
 }

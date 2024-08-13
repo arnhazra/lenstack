@@ -1,9 +1,6 @@
 import { IsNotEmpty } from "class-validator"
 
-export class SetAccessTokenDto {
+export class DeleteTokenDto {
   @IsNotEmpty()
   userId: string
-
-  @IsNotEmpty()
-  accessToken: string
 }

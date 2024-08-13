@@ -26,9 +26,10 @@ export class UserController {
   async verifyPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
       const response = await this.userService.verifyPasskey(verifyAuthPasskeyDto)
+      const { accessToken, refreshToken, user } = response
 
       if (response.success) {
-        return { accessToken: response.accessToken, user: response.user }
+        return { accessToken, refreshToken, user }
       }
 
       else {

@@ -48,6 +48,7 @@ export default function Page() {
   const renderSolutions = solutions?.data?.map((solution: any) => {
     return (
       <DropdownMenuCheckboxItem
+        key={solution?.solutionName}
         checked={selectedFilter === solution?.solutionName}
         onClick={(): void => setSelectedFilter(solution?.solutionName)}
       >
