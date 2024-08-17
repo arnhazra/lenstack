@@ -15,10 +15,11 @@ import CurrentProductCard from "@/components/currentproductcard"
 export default function Page() {
   const insights = useQuery(["insights"], endPoints.insightsView, HTTPMethods.GET)
 
-  const renderInsights = insights?.data?.map((event: any) => {
+  const renderInsights = insights?.data?.map((event: any, id: number) => {
     return (
       <TableRow className="cursor-pointer" key={event._id}>
-        <TableCell className="text-slate-500">{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
+        <TableCell>{id + 1}</TableCell>
+        <TableCell>{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
         <TableCell className="text-right md:table-cell">
           <ViewEvent eventObj={event} />
         </TableCell>
@@ -61,8 +62,9 @@ export default function Page() {
                   <Table>
                     <TableHeader>
                       <TableRow>
+                        <TableHead>Event No</TableHead>
                         <TableHead>Date</TableHead>
-                        <TableHead className="text-right md:table-cell">Event</TableHead>
+                        <TableHead className="text-right md:table-cell">View</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>

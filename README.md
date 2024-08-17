@@ -3,12 +3,6 @@ This Software-as-a-Service (SaaS) platform offers an extensive array of applicat
 
 Within this comprehensive SaaS application, users gain access to a multitude of functionalities. These may include but are not limited to project management tools for efficient task organization, customer relationship management (CRM) systems for fostering client connections, robust analytics platforms aiding data-driven decision-making, collaborative communication channels for seamless teamwork, and scalable infrastructure services ensuring reliable performance.
 
-#### Analytics
-A lightweight analytics provider for web applications. It empowers you to make informed analysis and better decisions.
-
-#### Blockchain
-SaaS Solutions delivering public blockchain technologies to transform the ways enterprises transact and interact.
-
 #### Copilot
 An application that seamlessly integrates with Google Gemini large language models developed by Google DeepMind.
 
@@ -18,6 +12,9 @@ An application for easily searching, subscribing to, and utilizing third-party c
 #### HTTP NoSQL
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
+#### Insights
+A lightweight insights provider for web applications. It empowers you to make informed analysis and better decisions.
+
 ### What is the cost of using this platform ?
 Typically, utilizing this platform incurs no cost. There are several paid plans to choose from. Upon successfully creating an account on the application, an Ethereum wallet will be promptly allocated to you. This wallet serves as a designated repository for your funds, allowing you to conveniently deposit the desired amount to cover the subscription charges and enable seamless utilization of the platform"s services.
 
@@ -26,4 +23,3 @@ Typically, utilizing this platform incurs no cost. There are several paid plans 
 * Next JS as a framework on top of React JS for UI
 * Mongo DB as a primary database
 * Redis for Managing user authorization, access tokens
-* Ethereum RPC networks for blockchain

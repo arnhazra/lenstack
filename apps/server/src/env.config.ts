@@ -6,8 +6,6 @@ export const envConfig = {
   nodeEnv: process.env.NODE_ENV,
   brandName: process.env.BRAND_NAME,
   coreDatabaseURI: process.env.CORE_DATABASE_URI,
-  analyticsDatabaseURI: process.env.ANALYTICS_DATABASE_URI,
-  blockchainDatabaseURI: process.env.BLOCKCHAIN_DATABASE_URI,
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
   datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
   httpnosqlDatabaseURI: process.env.HTTPNOSQL_DATABASE_URI,

@@ -78,7 +78,7 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
-        <section id="hero" className="hero space-y-6 pb-8 pt-8 md:pt-16 lg:pt-24 lg:py-40">
+        <section id="hero" className="hero space-y-6 pb-8 pt-8 md:pt-16 lg:pt-24 lg:py-32">
           <div className="container flex flex-col gap-4">
             <Link href="" rel="noopener noreferrer">
               <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
@@ -102,10 +102,10 @@ export default function Page() {
             </div>
           </div>
         </section>
-        <section id="research" className="mt-8 container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
+        <section id="solutions" className="mt-8 container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Research
+              Solutions
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
               Find solutions for putting your ideas into action.

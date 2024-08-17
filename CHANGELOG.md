@@ -71,7 +71,6 @@
 * Introduction of CQRS design pattern with DDD in nest server
 
 ## v5.8.0
-* Integrated new blockchain for Blockchain product
 * Application Optimization
 * Revamped pricing tiers
 * Minor code refactoring
@@ -106,12 +105,10 @@
 * Dependency updates & minor bug fixes
 
 ## v5.4.0
-* Added Credential Authorizer in all tx gateways to enable API solution for blockchain apps 
 * Removed all Create TX API
 * Removed API Pricing Credits
 * Restructured Pricing & Credits 
 * Renamed Credits to API calls
-* New Analytics Get API released outside platform
 * Bug fixes & performance improvements
 * Unnecessary code cleanup
 
@@ -121,7 +118,6 @@
 * Stripe Payment integration
 * More generic terms introduction
 * Removed Infura Gateway
-* Replaced Polygon Mumbai with Polygon Amoy for Blockchain Transactions
 * Dependency updates & Bug fixes
 * Minor dependency updates
 * Bug fixes
@@ -166,7 +162,6 @@
 ## v4.7.0
 * Added type safety for dispatcher in context
 * Deprecation of Insights 
-* Introduction of Analytics
 * Deprecation of Datalake 
 * Introduction of Data Exchange
 
@@ -363,7 +358,6 @@
 * Migrated Redis from AWS to Azure
 * Fix APIKey not removed after switching workspace
 * Removed dependency on Quicknode, Infura and Alchemy from UI
-* Created API services for blockchain transactions to transact securely without exposing the API Keys
 * Deprecated method getSecretConfig as configs are no longer required to be exposed
 * Moved NPA wallet address to UI Constants
 * Renamed schema and models of products with more generic names
@@ -445,13 +439,11 @@
 * New & Modern Dark UI layout for Platform & all app Home Page
 * Fixed framer motion animation issue on header
 * Minor UX imporvements & code refactoring
-* Introduction of Hexscan - Blockchain Analyzer on Polygon Platform
 * Fixed user registration issues
 * Changes in authentication params, no requirements of name
 * UI Design Changes
 * Documentation Changes
 * Removed Tx records from Decentralized apps
-* Added the api key authorizer call before blockchain transactions to restrict user if no/expired api key
 * Removed APIKey dependency from request body and added in header with x-api-key
 * Fix Hyperedge db view security issue, added dbPassword field as mandatory
 * Removed apiKey from dto as that is no more used in controller/services and only in middleware
@@ -496,5 +488,4 @@
 * Introduced the new Platform
 * Introduced Auth HOC for authorization within the App
 * Implemented Advanced Cache Controls
-* Integrated Frostlake - Analytics Platform (previously a separate app) into the Platform
 * Introduced Auth HOC for authorization within the App

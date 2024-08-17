@@ -14,8 +14,8 @@ export const generalUserLinks: LinkData[] = [
     mainLink: true
   },
   {
-    displayName: "Research",
-    link: "/#research"
+    displayName: "Solutions",
+    link: "/#solutions"
   },
   {
     displayName: "Products",
@@ -55,8 +55,6 @@ export const authUserLinks: LinkData[] = [
 export const searchEnabledPathNames = [
   "/dashboard",
   "/products/datamarketplace",
-  "/products/blockchain",
   "/dashboard/",
   "/products/datamarketplace/",
-  "/products/blockchain/"
 ]

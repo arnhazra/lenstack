@@ -19,7 +19,7 @@ export default function Page() {
 
   useEffect(() => {
     if (!selectedTab) {
-      router.push(`/apireference?tab=analytics`)
+      router.push(`/apireference?tab=copilot`)
     }
   }, [selectedTab])
 
@@ -54,8 +54,8 @@ export default function Page() {
               <h1 className="text-3xl font-semibold mb-2">API Reference</h1>
               <p className="font-semibold text-sm flex gap-3 text-slate-600">
                 <Info />
-                You must send client_id & client_secret in either
-                query params(Blockchain) or headers(Other products) to authorize with your organization
+                You must send client_id & client_secret in
+                headers to authenticate with your organization
               </p>
             </div>
             <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
