@@ -27,7 +27,7 @@ export default function Page() {
   const copyRPCURI = () => {
     navigator.clipboard.writeText(`${apiHost}/api/products/blockchain/gateway/${networkId}?client_id=${userState.clientId}&client_secret=${userState.clientSecret}` ?? "")
     toast({
-      title: "Notification",
+      title: uiConstants.notification,
       description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
     })
   }

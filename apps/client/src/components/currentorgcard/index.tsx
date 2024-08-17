@@ -14,6 +14,7 @@ export default function CurrentOrgCard() {
   const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()
   const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
+  const selectedOrg = organizations?.data?.find((org: any) => org._id === userState.selectedOrgId)
 
   return (
     <Card>
@@ -26,7 +27,7 @@ export default function CurrentOrgCard() {
       <CardContent>
         <div className="text-2xl font-bold">
           <Suspense condition={!organizations.isLoading} fallback={<Skeleton className="h-8 w-[150px]" />}>
-            {organizations?.data?.find((org: any) => org._id === userState.selectedOrgId).name}
+            {selectedOrg.name}
           </Suspense>
         </div>
         <p className="text-sm text-slate-600">

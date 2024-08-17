@@ -20,7 +20,7 @@ export default function InfoPanel({ title, desc, value, masked, capitalize }: In
   const copyValue = () => {
     navigator.clipboard.writeText(value)
     toast({
-      title: "Notification",
+      title: uiConstants.notification,
       description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
     })
   }

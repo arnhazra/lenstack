@@ -10,6 +10,7 @@ export const uiConstants = {
   toastError: "Something went wrong",
   transactionError: "Transaction Error",
   transactionSuccess: "Transaction Success",
+  notification: "Notification",
   tokenPurchaseSuccess: "You have successfully purchased token",
   tokenPurchaseFailure: "Error purchasing token",
   tokenSellSuccess: "You have successfully sold token",

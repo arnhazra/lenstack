@@ -7,7 +7,7 @@ export default function MaskText({ value }: { value: string }) {
   const copyValue = () => {
     navigator.clipboard.writeText(value)
     toast({
-      title: "Notification",
+      title: uiConstants.notification,
       description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
     })
   }

@@ -39,7 +39,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       const response = await axios.post(endPoints.generatePassKey, state)
       setState({ ...state, hash: response.data.hash })
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{response.data.message}</p>
       })
       setAuthStep(2)
@@ -47,7 +47,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
 
     catch (error) {
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.connectionErrorMessage}</p>
       })
     }
@@ -67,7 +67,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       localStorage.setItem("accessToken", response.data.accessToken)
       localStorage.setItem("refreshToken", response.data.refreshToken)
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.authVerificationSuccess}</p>
       })
       onAuthorized(true)
@@ -75,7 +75,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
 
     catch (error: any) {
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.invalidPasskey}</p>
       })
       onAuthorized(false)

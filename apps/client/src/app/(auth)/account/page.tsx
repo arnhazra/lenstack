@@ -56,14 +56,14 @@ export default function Page() {
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
       await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastError}</p>
       })
     }
@@ -75,14 +75,14 @@ export default function Page() {
       dispatch("setUserState", { activityLog: updatedSettings })
       await axios.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastError}</p>
       })
     }
@@ -99,7 +99,7 @@ export default function Page() {
 
     catch (error) {
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastError}</p>
       })
     }
@@ -123,14 +123,14 @@ export default function Page() {
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">Organization created</p>
         })
       }
 
       catch (error) {
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">Creating organization failed</p>
         })
       }
@@ -145,14 +145,14 @@ export default function Page() {
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">Organization switched</p>
         })
       }
 
       catch (error) {
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">Organization switching failed</p>
         })
       }
@@ -167,14 +167,14 @@ export default function Page() {
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">Organization deleted</p>
         })
       }
 
       catch (error) {
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">Organization deletion failed</p>
         })
       }
@@ -189,14 +189,14 @@ export default function Page() {
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
         })
       }
 
       catch (error) {
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">{uiConstants.toastError}</p>
         })
       }

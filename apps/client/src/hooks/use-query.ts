@@ -22,7 +22,7 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: M
 
   if (error) {
     toast({
-      title: "Notification",
+      title: uiConstants.notification,
       description: `${uiConstants.toastError} fetching ${queryKey[0]}`
     })
   }
