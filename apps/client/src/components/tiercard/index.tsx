@@ -35,10 +35,10 @@ export function TierCardComponent({ disabled, planName, price, grantedCredits, f
       <div className="flex flex-col gap-4 text-center">
         <div>
           <h4 className="text-4xl font-bold">
-            {price ? `$ ${price}` : "Free"}
+            $ {price}
           </h4>
           <p className="text-sm font-medium text-muted-foreground">
-            {price ? "Billed Monthly" : ""}
+            {price ? "Billed Monthly" : "Renewed Monthly"}
           </p>
         </div>
         <Button disabled={disabled} variant="default" onClick={(): void => handleClick(planName)}>
