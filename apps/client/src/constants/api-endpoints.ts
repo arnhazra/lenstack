@@ -15,8 +15,6 @@ export const endPoints = {
   organization: `${apiHost}/api/organization`,
   getProductConfig: `${apiHost}/api/products/config`,
   getSolutionConfig: `${apiHost}/api/solutions/config`,
-  analyticsView: `${apiHost}/api/products/analytics/get`,
-  analyticsCreate: `${apiHost}/api/products/analytics/create`,
   copilotGenerateEndpoint: `${apiHost}/api/products/copilot/generate`,
   datamarketplaceFilters: `${apiHost}/api/products/datamarketplace/filters`,
   datamarketplaceFindDatasets: `${apiHost}/api/products/datamarketplace/finddatasets`,

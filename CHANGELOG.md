@@ -109,7 +109,6 @@
 * Removed API Pricing Credits
 * Restructured Pricing & Credits 
 * Renamed Credits to API calls
-* New Analytics Get API released outside platform
 * Bug fixes & performance improvements
 * Unnecessary code cleanup
 
@@ -163,7 +162,6 @@
 ## v4.7.0
 * Added type safety for dispatcher in context
 * Deprecation of Insights 
-* Introduction of Analytics
 * Deprecation of Datalake 
 * Introduction of Data Exchange
 
@@ -490,5 +488,4 @@
 * Introduced the new Platform
 * Introduced Auth HOC for authorization within the App
 * Implemented Advanced Cache Controls
-* Integrated Frostlake - Analytics Platform (previously a separate app) into the Platform
 * Introduced Auth HOC for authorization within the App
