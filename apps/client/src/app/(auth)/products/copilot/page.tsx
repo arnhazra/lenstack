@@ -13,6 +13,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
 import CurrentOrgCard from "@/components/currentorgcard"
+import CurrentProductCard from "@/components/currentproductcard"
 
 export default function Page() {
   const [requestBody, setRequestBody] = useState({ prompt: "", temperature: 0.9, topP: 0.1, topK: 16 })
@@ -56,28 +57,16 @@ export default function Page() {
     <div className="flex min-h-screen w-full flex-col">
       <div className="flex flex-1 flex-col gap-4 p-4">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+          <CurrentProductCard />
           <CurrentOrgCard />
           <Card>
             <CardHeader className="pb-2">
-              <CardDescription>Top P</CardDescription>
-              <CardTitle className="text-4xl">{requestBody.topP}</CardTitle>
+              <CardDescription>Temperature</CardDescription>
+              <CardTitle className="text-4xl">{requestBody.temperature}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-xs text-muted-foreground">
-                The Current Value of Top P
-              </div>
-            </CardContent>
-            <CardFooter>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>Top K</CardDescription>
-              <CardTitle className="text-4xl">{requestBody.topK}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-xs text-muted-foreground">
-                The Current Value of Top K
+                The Current Value of Temperature
               </div>
             </CardContent>
             <CardFooter>

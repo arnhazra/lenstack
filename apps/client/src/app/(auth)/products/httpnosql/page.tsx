@@ -10,6 +10,7 @@ import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
 import { ViewData } from "./components/view-data"
 import CurrentOrgCard from "@/components/currentorgcard"
+import CurrentProductCard from "@/components/currentproductcard"
 
 export default function Page() {
   const dataList = useQuery(["datalist"], `${endPoints.httpnosqlReadData}`, HTTPMethods.GET)
@@ -30,6 +31,7 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentProductCard />
               <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
@@ -40,22 +42,6 @@ export default function Page() {
                   <div className="text-xs text-muted-foreground">
                     Total number of data
                     in this organization
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Latest Event</CardDescription>
-                  <Suspense condition={dataList?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                    <CardTitle className="text-xl">{format(new Date(dataList?.data?.length ? dataList?.data[0]?.createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
-                    <CardTitle className="text-xl">{format(new Date(dataList?.data?.length ? dataList?.data[0]?.createdAt : new Date()), "h:mm a")}</CardTitle>
-                  </Suspense>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Latest event creation time
                   </div>
                 </CardContent>
                 <CardFooter>

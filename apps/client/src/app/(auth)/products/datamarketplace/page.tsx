@@ -16,6 +16,7 @@ import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import CurrentOrgCard from "@/components/currentorgcard"
+import CurrentProductCard from "@/components/currentproductcard"
 
 export interface DatasetRequestState {
   selectedFilter: string
@@ -104,6 +105,7 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentProductCard />
               <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
@@ -114,19 +116,6 @@ export default function Page() {
                   <div className="text-xs text-muted-foreground">
                     Total number of dataset
                     results shown
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Dataset Categories</CardDescription>
-                  <CardTitle className="text-4xl">{filters?.data?.length}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Number of dataset categories
                   </div>
                 </CardContent>
                 <CardFooter>

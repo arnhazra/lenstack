@@ -1,5 +1,6 @@
 "use client"
 import CurrentOrgCard from "@/components/currentorgcard"
+import CurrentProductCard from "@/components/currentproductcard"
 import ErrorComponent from "@/components/error"
 import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
@@ -35,35 +36,20 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentProductCard />
               <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>
-                  <CardTitle className="text-4xl">{analytics?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  <CardTitle className="text-4xl">{analytics?.data?.length}</CardTitle>
+                </CardContent>
+                <CardFooter>
                   <div className="text-xs text-muted-foreground">
                     Total number of events
                     in this organization
                   </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Latest Event</CardDescription>
-                  <Suspense condition={analytics?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.length ? analytics.data[0].createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
-                    <CardTitle className="text-xl">{format(new Date(analytics?.data?.length ? analytics.data[0].createdAt : new Date()), "h:mm a")}</CardTitle>
-                  </Suspense>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Latest event creation time
-                  </div>
-                </CardContent>
-                <CardFooter>
                 </CardFooter>
               </Card>
             </div>

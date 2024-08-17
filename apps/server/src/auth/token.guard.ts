@@ -69,7 +69,6 @@ export class TokenGuard implements CanActivate {
 
             const tokenPayload = { id: userId, email, iss: otherConstants.tokenIssuer }
             const newAccessToken = jwt.sign(tokenPayload, envConfig.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
-            console.log("here refresh")
             globalResponse.setHeader("token", newAccessToken)
             return true
           }

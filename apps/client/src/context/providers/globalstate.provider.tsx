@@ -1,12 +1,12 @@
 "use client"
 import { ReactNode, createContext, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState } from "../reducers/globalstate.reducer"
+import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState, ProductState } from "../reducers/globalstate.reducer"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(type: Type, payload: ActionsMap[Type]) => void
 
 type GlobalContextInterface = readonly [GlobalState, Dispatcher]
 
-const initialState: { userState: UserState } = {
+const initialState: { userState: UserState, productState: ProductState } = {
   userState: {
     userId: "",
     email: "",
@@ -25,6 +25,16 @@ const initialState: { userState: UserState } = {
     activityLog: true,
     refreshId: "648e6587-ebd0-442b-b338-1fb8d8a01192",
     searchQuery: ""
+  },
+
+  productState: {
+    _id: "",
+    description: "",
+    displayName: "",
+    productCategory: "",
+    productIcon: "",
+    productName: "",
+    productStatus: ""
   }
 }
 

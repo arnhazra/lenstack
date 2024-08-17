@@ -10,16 +10,16 @@ import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
 import { ViewEvent } from "./components/view-event"
 import CurrentOrgCard from "@/components/currentorgcard"
+import CurrentProductCard from "@/components/currentproductcard"
 
 export default function Page() {
   const insights = useQuery(["insights"], endPoints.insightsView, HTTPMethods.GET)
-
 
   const renderInsights = insights?.data?.map((event: any) => {
     return (
       <TableRow className="cursor-pointer" key={event._id}>
         <TableCell className="text-slate-500">{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
-        <TableCell className="text-right hidden md:table-cell">
+        <TableCell className="text-right md:table-cell">
           <ViewEvent eventObj={event} />
         </TableCell>
       </TableRow>
@@ -32,6 +32,7 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentProductCard />
               <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
@@ -42,22 +43,6 @@ export default function Page() {
                   <div className="text-xs text-muted-foreground">
                     Total number of events
                     in this organization
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Latest Event</CardDescription>
-                  <Suspense condition={insights?.data?.length > 0} fallback={<CardTitle className="text-xl">No Data</CardTitle>}>
-                    <CardTitle className="text-xl">{format(new Date(insights?.data?.length ? insights.data[0].createdAt : new Date()), "MMM, do yyyy")}</CardTitle>
-                    <CardTitle className="text-xl">{format(new Date(insights?.data?.length ? insights.data[0].createdAt : new Date()), "h:mm a")}</CardTitle>
-                  </Suspense>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Latest event creation time
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -77,7 +62,7 @@ export default function Page() {
                     <TableHeader>
                       <TableRow>
                         <TableHead>Date</TableHead>
-                        <TableHead className="text-right hidden md:table-cell">Event</TableHead>
+                        <TableHead className="text-right md:table-cell">Event</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
