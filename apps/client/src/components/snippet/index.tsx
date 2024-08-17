@@ -25,7 +25,7 @@ export default function SnippetPanel({ title, url, method, request, response }: 
   const copyValue = () => {
     navigator.clipboard.writeText(url)
     toast({
-      title: "Notification",
+      title: uiConstants.notification,
       description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
     })
   }

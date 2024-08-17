@@ -16,7 +16,7 @@ import Suspense from "@/components/suspense"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const pricing = useQuery(["subscription"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const [selectedTier, setSelectedTier] = useState("as0")
   const selectedPlan = pricing?.data?.find((item: any) => item.planName === selectedTier)
 
@@ -35,7 +35,7 @@ export default function Page() {
   const handlePayment = async (selectedPlan: string) => {
     if (userState.hasActiveSubscription) {
       toast({
-        title: "Notification",
+        title: uiConstants.notification,
         description: <p className="text-slate-600">You already have an active subscription</p>
       })
     }
@@ -48,7 +48,7 @@ export default function Page() {
 
       catch (error) {
         toast({
-          title: "Notification",
+          title: uiConstants.notification,
           description: <p className="text-slate-600">Error creating checkout session</p>
         })
       }

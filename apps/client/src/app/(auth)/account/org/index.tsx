@@ -27,7 +27,7 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
   const copyValue = (value: string) => {
     navigator.clipboard.writeText(value)
     toast({
-      title: "Notification",
+      title: uiConstants.notification,
       description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
     })
   }

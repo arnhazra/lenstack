@@ -16,7 +16,7 @@ import LoadingComponent from "@/components/loading"
 import { Badge } from "@/components/ui/badge"
 
 export default function Page() {
-  const pricing = useQuery(["pricing"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const pricing = useQuery(["subscription"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
   const router = useRouter()
@@ -82,7 +82,7 @@ export default function Page() {
           <div className="container flex flex-col gap-4">
             <Link href="" rel="noopener noreferrer">
               <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
-                {uiConstants.brandName} Research
+                Limitless Innovation
               </Badge>
             </Link>
             <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">

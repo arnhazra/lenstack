@@ -9,33 +9,32 @@ import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 import Suspense from "../suspense"
 import { Skeleton } from "../ui/skeleton"
+import { uiConstants } from "@/constants/global-constants"
 
-export default function CurrentOrgCard() {
-  const [{ userState }] = useContext(GlobalContext)
+export default function CurrentProductCard() {
+  const [{ productState }] = useContext(GlobalContext)
   const router = useRouter()
-  const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
-  const selectedOrg = organizations?.data?.find((org: any) => org._id === userState.selectedOrgId)
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">
-          Current Organization
+          {productState.productCategory}
         </CardTitle>
-        <Orbit className="h-4 w-4 text-muted-foreground" />
+        <div className="scale-75" dangerouslySetInnerHTML={{ __html: productState.productIcon }} />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          <Suspense condition={!organizations.isLoading} fallback={<Skeleton className="h-8 w-[150px]" />}>
-            {selectedOrg?.name}
-          </Suspense>
+          {uiConstants.brandName} {productState.displayName}
         </div>
         <p className="text-sm text-slate-600">
-          Your current organization
+          {productState.description}
         </p>
       </CardContent>
       <CardFooter className="-mt-3">
-        <Button onClick={(): void => router.push("/account?tab=organization")}>Switch Organization</Button>
+        <Button onClick={(): void => router.push(`/apireference?tab=${productState.productName}`)}>
+          API Reference
+        </Button>
       </CardFooter>
     </Card>
   )

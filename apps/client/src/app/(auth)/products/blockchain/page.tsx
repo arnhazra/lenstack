@@ -14,6 +14,7 @@ import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import CurrentOrgCard from "@/components/currentorgcard"
+import CurrentProductCard from "@/components/currentproductcard"
 
 export interface NetworkSearchRequestState {
   searchQuery: string
@@ -76,6 +77,7 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+              <CurrentProductCard />
               <CurrentOrgCard />
               <Card>
                 <CardHeader className="pb-2">
@@ -86,19 +88,6 @@ export default function Page() {
                   <div className="text-xs text-muted-foreground">
                     Total number of networks
                     results shown
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Network Categories</CardDescription>
-                  <CardTitle className="text-4xl">{networkFilters?.data?.length}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Number of network categories
                   </div>
                 </CardContent>
                 <CardFooter>
