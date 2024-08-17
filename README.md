@@ -6,9 +6,6 @@ Within this comprehensive SaaS application, users gain access to a multitude of 
 #### Analytics
 A lightweight analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 
-#### Blockchain
-SaaS Solutions delivering public blockchain technologies to transform the ways enterprises transact and interact.
-
 #### Copilot
 An application that seamlessly integrates with Google Gemini large language models developed by Google DeepMind.
 
@@ -26,4 +23,3 @@ Typically, utilizing this platform incurs no cost. There are several paid plans 
 * Next JS as a framework on top of React JS for UI
 * Mongo DB as a primary database
 * Redis for Managing user authorization, access tokens
-* Ethereum RPC networks for blockchain

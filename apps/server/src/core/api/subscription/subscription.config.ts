@@ -10,7 +10,6 @@ export enum SubscriptionPlans {
 
 export enum Products {
   Analytics = "analytics",
-  Blockchain = "blockchain",
   Copilot = "copilot",
   DataMarketplace = "datamarketplace",
   HttpNosql = "httpnosql",
@@ -41,7 +40,6 @@ export const subscriptionConfig: CreditType[] = [
     ],
     estimatedRequestCost: {
       analytics: 0.002,
-      blockchain: 0.001,
       copilot: 0.015,
       datamarketplace: 0.002,
       httpnosql: 0.004,
@@ -60,7 +58,6 @@ export const subscriptionConfig: CreditType[] = [
     ],
     estimatedRequestCost: {
       analytics: 0.003,
-      blockchain: 0.002,
       copilot: 0.025,
       datamarketplace: 0.003,
       httpnosql: 0.005,
@@ -79,7 +76,6 @@ export const subscriptionConfig: CreditType[] = [
     ],
     estimatedRequestCost: {
       analytics: 0.003,
-      blockchain: 0.002,
       copilot: 0.025,
       datamarketplace: 0.003,
       httpnosql: 0.005,
@@ -98,7 +94,6 @@ export const subscriptionConfig: CreditType[] = [
     ],
     estimatedRequestCost: {
       analytics: 0.005,
-      blockchain: 0.004,
       copilot: 0.035,
       datamarketplace: 0.005,
       httpnosql: 0.007,
@@ -117,7 +112,6 @@ export const subscriptionConfig: CreditType[] = [
     ],
     estimatedRequestCost: {
       analytics: 0.005,
-      blockchain: 0.004,
       copilot: 0.035,
       datamarketplace: 0.005,
       httpnosql: 0.007,
@@ -136,7 +130,6 @@ export const subscriptionConfig: CreditType[] = [
     ],
     estimatedRequestCost: {
       analytics: 0.008,
-      blockchain: 0.007,
       copilot: 0.045,
       datamarketplace: 0.008,
       httpnosql: 0.009,
@@ -155,7 +148,6 @@ export const subscriptionConfig: CreditType[] = [
     ],
     estimatedRequestCost: {
       analytics: 0.008,
-      blockchain: 0.007,
       copilot: 0.045,
       datamarketplace: 0.008,
       httpnosql: 0.009,
