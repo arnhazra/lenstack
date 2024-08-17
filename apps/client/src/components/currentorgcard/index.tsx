@@ -27,7 +27,7 @@ export default function CurrentOrgCard() {
       <CardContent>
         <div className="text-2xl font-bold">
           <Suspense condition={!organizations.isLoading} fallback={<Skeleton className="h-8 w-[150px]" />}>
-            {selectedOrg.name}
+            {selectedOrg?.name}
           </Suspense>
         </div>
         <p className="text-sm text-slate-600">

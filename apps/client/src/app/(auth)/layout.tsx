@@ -76,7 +76,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       setAuthorized(false)
       setLoading(false)
     }
-  }, [userState.refreshId])
+  }, [userState.refreshId, isAuthorized])
 
   return (
     <Suspense condition={!isLoading} fallback={<LoadingComponent />}>
