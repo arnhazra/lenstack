@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.7.0
+* Regular dependency updates
+* Minor UI improvements across apps
+* Bug fixes & overall performance improvements
+
 ## v6.6.2
 * Fix refresh token implementation not working in PROD
 
