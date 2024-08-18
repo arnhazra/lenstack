@@ -20,6 +20,7 @@ import { usePromptContext } from "@/context/providers/prompt.provider"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
+import { TierCardComponent } from "@/components/tiercard"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
@@ -319,6 +320,11 @@ export default function Page() {
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Compute} fallback={null}>
                   <section className="grid gap-6">
+                    <TierCardComponent
+                      computeTier={computeTier}
+                      estimatedRequestCost={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.estimatedRequestCost}
+                      responseDelay={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.responseDelay}
+                    />
                     <Card>
                       <CardHeader>
                         <CardTitle>Compute Tier</CardTitle>

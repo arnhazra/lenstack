@@ -40,7 +40,7 @@ export const authUserLinks: LinkData[] = [
   },
   {
     displayName: "Pricing",
-    link: "/pricing"
+    link: "/account?tab=compute"
   },
   {
     displayName: "Wallet",

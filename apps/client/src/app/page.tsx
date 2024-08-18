@@ -36,8 +36,6 @@ export default function Page() {
     return (
       <TierCardComponent
         key={pricing.planName}
-        className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
-        handleClick={(): void => router.push("/pricing")}
         {...pricing}
       />
     )
@@ -182,7 +180,7 @@ export default function Page() {
             {renderPricing}
           </div>
           <div className="mx-auto flex-col items-center justify-center text-center">
-            <Button variant="secondary" onClick={(): void => router.push("/pricing")}>Explore All Plans</Button>
+            <Button variant="secondary" onClick={(): void => router.push("/account?tab=compute")}>Explore All Plans</Button>
           </div>
         </section>
       </div>

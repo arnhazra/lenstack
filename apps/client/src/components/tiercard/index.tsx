@@ -7,6 +7,7 @@ type TierCardComponentProps = {
 }
 
 export function TierCardComponent({ computeTier, responseDelay, estimatedRequestCost }: TierCardComponentProps) {
+  console.log(computeTier, responseDelay, estimatedRequestCost)
   return (
     <div className="grid w-full items-start gap-10 rounded-lg border bg-white p-10 md:grid-cols-[1fr_100px]">
       <div className="grid gap-6">
