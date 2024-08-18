@@ -1,19 +1,17 @@
 export interface UserState {
   userId: string
   email: string
+  name: string
   role: string
-  selectedPlan: string
-  clientId: string
-  clientSecret: string
-  createdAt: string
-  expiresAt: string
-  selectedOrgId: string
-  selectedOrganizationName: string
-  remainingCredits: number | string
-  hasActiveSubscription: boolean,
-  isAuthorized: boolean,
+  walletBalance: number,
+  computeTier: string
   reduceCarbonEmissions: boolean,
   activityLog: boolean,
+  selectedOrgId: string
+  selectedOrgName: string
+  clientId: string
+  clientSecret: string
+  isAuthorized: boolean,
   refreshId: string,
   searchQuery: string
 }

@@ -20,23 +20,11 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       try {
         setLoading(true)
         const response = await axios.get(endPoints.userDetails)
-        const userId = response.data.user._id
-        const { email, role, selectedOrgId, reduceCarbonEmissions, activityLog } = response.data.user
-        const { name: selectedOrganizationName, clientId, clientSecret } = response.data.organization
-        const hasActiveSubscription = response.data.hasActiveSubscription
-
-        if (response.data.subscription) {
-          const { selectedPlan, createdAt, expiresAt, remainingCredits } = response.data.subscription
-          dispatch("setUserState", { selectedPlan, createdAt, expiresAt, remainingCredits })
-        }
-
-        else {
-          dispatch("setUserState", { selectedPlan: "No Subscription", expiresAt: "" })
-        }
-
+        const { _id: userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId } = response.data.user
+        const { name: selectedOrgName, clientId, clientSecret } = response.data.organization
         localStorage.setItem("clientId", clientId)
         localStorage.setItem("clientSecret", clientSecret)
-        dispatch("setUserState", { userId, email, role, selectedOrgId, selectedOrganizationName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions, activityLog })
+        dispatch("setUserState", { userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId, selectedOrgName, clientId, clientSecret })
         dispatch("setUserState", { isAuthorized: true })
         setAuthorized(true)
       }
@@ -44,6 +32,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       catch (error: any) {
         if (error.response) {
           if (error.response.status === 401) {
+            dispatch("setUserState", { isAuthorized: false })
             setAuthorized(false)
           }
 

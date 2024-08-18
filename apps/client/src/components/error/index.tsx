@@ -1,12 +1,9 @@
 "use client"
-import { useRouter } from "next/navigation"
 import { Button } from "../ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "../ui/card"
 import { useEffect } from "react"
 
 export default function ErrorComponent() {
-  const router = useRouter()
-
   useEffect(() => {
     document.body.style.overflow = "hidden"
 
@@ -25,7 +22,7 @@ export default function ErrorComponent() {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button size="lg" className="w-full" onClick={(): void => router.refresh()}>
+          <Button size="lg" className="w-full" onClick={(): void => window.location.reload()}>
             Retry
           </Button>
         </CardFooter>

@@ -11,8 +11,7 @@ import Suspense from "@/components/suspense"
 import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { format } from "date-fns"
-import { Bolt, Calendar, Leaf, Network, Settings, ShieldCheck } from "lucide-react"
+import { Bolt, Calendar, ComputerIcon, Leaf, Network, Settings, ShieldCheck, Wallet } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -20,13 +19,14 @@ import HTTPMethods from "@/constants/http-methods"
 import { usePromptContext } from "@/context/providers/prompt.provider"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
 import LoadingComponent from "@/components/loading"
-import { convertToTitleCase } from "@/lib/convert-to-title-case"
 import ErrorComponent from "@/components/error"
+import { TierCardComponent } from "@/components/tiercard"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
-  subscription: <Calendar />,
-  dataPrivacy: <ShieldCheck />,
+  wallet: <Wallet />,
+  privacy: <ShieldCheck />,
+  compute: <ComputerIcon />,
   organization: < Network />,
   sustainability: <Leaf />,
   advanced: <Settings />,
@@ -37,10 +37,12 @@ export default function Page() {
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
   const [activityLog, setActivityLog] = useState<string>("true")
+  const [computeTier, setComputeTier] = useState<string>(userState.computeTier)
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const router = useRouter()
   const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
+  const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
@@ -55,6 +57,23 @@ export default function Page() {
       const updatedSettings = sustainabilitySettings === "true" ? true : false
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
       await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
+      toast({
+        title: uiConstants.notification,
+        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+      })
+    }
+
+    catch (error) {
+      toast({
+        title: uiConstants.notification,
+        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+      })
+    }
+  }
+  const saveComputeTier = async () => {
+    try {
+      dispatch("setUserState", { computeTier })
+      await axios.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -109,7 +128,7 @@ export default function Page() {
     return (
       <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/account?tab=${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
-        <p>{convertToTitleCase(tab)}</p>
+        <p>{tab}</p>
       </div>
     )
   })
@@ -132,6 +151,24 @@ export default function Page() {
         toast({
           title: uiConstants.notification,
           description: <p className="text-slate-600">Creating organization failed</p>
+        })
+      }
+    }
+  }
+
+  const addAmountToWallet = async () => {
+    const { hasConfirmed, value } = await prompt("Amount you want to add in your wallet")
+
+    if (hasConfirmed && value) {
+      try {
+        const response = await axios.post(endPoints.createCheckoutSession, { amount: value })
+        window.location = response.data.redirectUrl
+      }
+
+      catch (error) {
+        toast({
+          title: uiConstants.notification,
+          description: <p className="text-slate-600">Error creating checkout session</p>
         })
       }
     }
@@ -221,8 +258,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!organizations.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!organizations.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!organizations.isLoading && !pricing.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!organizations.error && !pricing.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">
@@ -230,6 +267,9 @@ export default function Page() {
                 <h1 className="text-3xl font-semibold">Account Settings</h1>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
                   <Button onClick={createOrg}>Create Org</Button>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
+                  <Button onClick={addAmountToWallet}>Add Amount to Wallet</Button>
                 </Suspense>
               </div>
             </div>
@@ -240,19 +280,17 @@ export default function Page() {
               <div>
                 <Suspense condition={selectedTab === Tabs.General} fallback={null}>
                   <section className="grid gap-6">
+                    <InfoPanel title="Your Name" desc="Your Name" value={userState.name} />
                     <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
                     <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
                   </section>
                 </Suspense>
-                <Suspense condition={selectedTab === Tabs.Subscription} fallback={null}>
+                <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
                   <section className="grid gap-6">
-                    <InfoPanel title="Current Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan.toUpperCase() : "No Active Subscription"} capitalize />
-                    <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`$ ${Number(userState.remainingCredits).toFixed(3)} remaining`} />
-                    <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
-                    <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
+                    <InfoPanel title="Your Wallet Balance" desc="Your wallet balance" value={`$ ${userState.walletBalance.toFixed(2)}`} capitalize />
                   </section>
                 </Suspense>
-                <Suspense condition={selectedTab === Tabs.DataPrivacy} fallback={null}>
+                <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>
                   <section className="grid gap-6">
                     <Card>
                       <CardHeader>
@@ -276,6 +314,44 @@ export default function Page() {
                       </CardContent>
                       <CardFooter>
                         <Button onClick={saveActivityLogSettings}>Save Settings</Button>
+                      </CardFooter>
+                    </Card>
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.Compute} fallback={null}>
+                  <section className="grid gap-6">
+                    <TierCardComponent
+                      computeTier={computeTier}
+                      estimatedRequestCost={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.estimatedRequestCost}
+                      responseDelay={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.responseDelay}
+                    />
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Compute Tier</CardTitle>
+                        <CardDescription>
+                          Select the compute tier based on your performance requirement. Higher computer tier has higer API request cost.
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Select defaultValue={userState.computeTier} onValueChange={(value: string) => setComputeTier(value)}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {pricing?.data?.map((item: any) =>
+                                <SelectItem
+                                  className="capitalize"
+                                  value={item.computeTier} key={item.computeTier}
+                                >
+                                  {item.computeTier}
+                                </SelectItem>)}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                      <CardFooter>
+                        <Button onClick={saveComputeTier}>Save Settings</Button>
                       </CardFooter>
                     </Card>
                   </section>

@@ -1,15 +1,10 @@
 import { GlobalContext } from "@/context/providers/globalstate.provider"
-import useQuery from "@/hooks/use-query"
-import { useContext } from 'react'
+import { useContext } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import { Orbit } from "lucide-react"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
-import Suspense from "../suspense"
-import { Skeleton } from "../ui/skeleton"
 import { uiConstants } from "@/constants/global-constants"
+import { Badge } from "../ui/badge"
 
 export default function CurrentProductCard() {
   const [{ productState }] = useContext(GlobalContext)
@@ -19,7 +14,7 @@ export default function CurrentProductCard() {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">
-          {productState.productCategory}
+          <Badge variant="secondary" className="ps-4 pe-4 pt-1 pb-1">{productState.productCategory}</Badge>
         </CardTitle>
         <div className="scale-75" dangerouslySetInnerHTML={{ __html: productState.productIcon }} />
       </CardHeader>

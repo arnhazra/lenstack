@@ -14,7 +14,6 @@ import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { Organization } from "../organization/schemas/organization.schema"
-import { Subscription } from "../subscription/schemas/subscription.schema"
 import { AttributeNames, UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 
 @Injectable()
@@ -49,7 +48,7 @@ export class UserService {
 
   async verifyPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
-      const { email, hash, passKey } = verifyAuthPasskeyDto
+      const { email, hash, passKey, name } = verifyAuthPasskeyDto
       const isOTPValid = verifyAuthPasskey(email, hash, passKey)
 
       if (isOTPValid) {
@@ -75,7 +74,7 @@ export class UserService {
         }
 
         else {
-          const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
+          const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email, name, 100))
           const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", userId: newUser.id })
           await this.commandBus.execute<UpdateAttributeCommand, User>(new UpdateAttributeCommand(newUser.id, AttributeNames.SelectedOrgId, organization[0].id))
           const tokenPayload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
@@ -103,15 +102,7 @@ export class UserService {
       if (user) {
         const orgResponse: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.GetOrgDetails, { _id: orgId })
         const organization = orgResponse[0]
-        const subscriptionRes: Subscription[] = await this.eventEmitter.emitAsync(EventsUnion.FindSubscription, user.id)
-        const subscription = subscriptionRes[0]
-        let hasActiveSubscription = false
-
-        if (subscription && subscription.expiresAt > new Date() && subscription.remainingCredits > 0) {
-          hasActiveSubscription = true
-        }
-
-        return { user, organization, subscription, hasActiveSubscription }
+        return { user, organization }
       }
 
       else {

@@ -13,8 +13,9 @@ export class UserController {
   @Post("generatepasskey")
   async generatePasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
     try {
-      const { hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
-      return { hash, message: statusMessages.passKeyEmail }
+      const { user, hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
+      if (!user) return { hash, message: statusMessages.passKeyEmail, newUser: true }
+      return { hash, message: statusMessages.passKeyEmail, newUser: false }
     }
 
     catch (error) {
@@ -46,10 +47,10 @@ export class UserController {
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
-      const { user, subscription, organization, hasActiveSubscription } = await this.userService.getUserDetails(request.user.userId, request.user.orgId)
+      const { user, organization } = await this.userService.getUserDetails(request.user.userId, request.user.orgId)
 
       if (user) {
-        return { user, subscription, organization, hasActiveSubscription }
+        return { user, organization }
       }
 
       else {

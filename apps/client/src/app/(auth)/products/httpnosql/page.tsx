@@ -8,9 +8,9 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
-import { ViewData } from "./components/view-data"
 import CurrentOrgCard from "@/components/currentorgcard"
 import CurrentProductCard from "@/components/currentproductcard"
+import { DataModal } from "@/components/datamodal"
 
 export default function Page() {
   const dataList = useQuery(["datalist"], `${endPoints.httpnosqlReadData}`, HTTPMethods.GET)
@@ -19,7 +19,7 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={data._id}>
         <TableCell><div className="font-medium">{data?.key}</div></TableCell>
-        <TableCell className="text-slate-500"><ViewData dataObj={data} /></TableCell>
+        <TableCell className="text-slate-500"><DataModal dataObj={data} /></TableCell>
         <TableCell className="text-right text-slate-500 hidden md:table-cell">{format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
       </TableRow>
     )

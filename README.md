@@ -12,11 +12,11 @@ An application for easily searching, subscribing to, and utilizing third-party c
 #### HTTP NoSQL
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
-#### Insights
-A lightweight insights provider for web applications. It empowers you to make informed analysis and better decisions.
+#### Web Analytics
+A lightweight analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 
 ### What is the cost of using this platform ?
-Typically, utilizing this platform incurs no cost. There are several paid plans to choose from. Upon successfully creating an account on the application, an Ethereum wallet will be promptly allocated to you. This wallet serves as a designated repository for your funds, allowing you to conveniently deposit the desired amount to cover the subscription charges and enable seamless utilization of the platform"s services.
+Typically, utilizing this platform incurs no cost. There are several paid plans to choose from. Upon successfully creating an account on the application, an Ethereum wallet will be promptly allocated to you. This wallet serves as a designated repository for your funds, allowing you to conveniently deposit the desired amount to cover the charges and enable seamless utilization of the platform"s services.
 
 ### Tech Stack
 * Nest as a framework on top of Node JS for API

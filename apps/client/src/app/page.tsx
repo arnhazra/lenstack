@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { uiConstants } from "@/constants/global-constants"
 import useQuery from "@/hooks/use-query"
@@ -16,7 +16,7 @@ import LoadingComponent from "@/components/loading"
 import { Badge } from "@/components/ui/badge"
 
 export default function Page() {
-  const pricing = useQuery(["subscription"], endPoints.getSubscriptionConfig, HTTPMethods.GET)
+  const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
   const router = useRouter()
@@ -35,9 +35,7 @@ export default function Page() {
   const renderPricing = pricing?.data?.slice(0, 2)?.map((pricing: any) => {
     return (
       <TierCardComponent
-        key={pricing.planName}
-        className={cn(pricing.length === 1 && "xl-col-span-2 xl:col-start-2")}
-        handleClick={(): void => router.push("/subscription")}
+        key={pricing.computeTier}
         {...pricing}
       />
     )
@@ -92,8 +90,9 @@ export default function Page() {
               {uiConstants.brandName}
             </h1>
             <p className="leading-normal text-white text-xs md:text-md lg:text-lg">
-              {uiConstants.homeIntro}<br />
-              {uiConstants.homeIntro2}
+              {uiConstants.homeIntro1}<br />
+              {uiConstants.homeIntro2}<br />
+              {uiConstants.homeIntro3}
             </p>
             <div className="space-x-4 space-y-4">
               <Button variant="secondary" onClick={(): void => router.push("/dashboard")}>
@@ -173,8 +172,8 @@ export default function Page() {
               Pricing
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Choose an {uiConstants.brandName} subscription plan that's right for you.
-              Downgrade, upgrade or cancel any time.{" "}
+              Choose an {uiConstants.brandName} pricing plan that's right for you.
+              Downgrade, upgrade any time.{" "}
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
           </div>
@@ -182,7 +181,7 @@ export default function Page() {
             {renderPricing}
           </div>
           <div className="mx-auto flex-col items-center justify-center text-center">
-            <Button variant="secondary" onClick={(): void => router.push("/subscription")}>Explore All Plans</Button>
+            <Button variant="secondary" onClick={(): void => router.push("/account?tab=compute")}>Explore All Plans</Button>
           </div>
         </section>
       </div>
