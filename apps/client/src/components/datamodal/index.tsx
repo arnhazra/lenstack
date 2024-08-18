@@ -6,8 +6,8 @@ import { format } from "date-fns"
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter"
 import { stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
 
-export function ViewData({ dataObj }: { dataObj: any }) {
-  const { _id, key, value, createdAt } = dataObj
+export function DataModal({ dataObj }: { dataObj: any }) {
+  const { _id, createdAt } = dataObj
 
   return (
     <Dialog>
@@ -24,32 +24,16 @@ export function ViewData({ dataObj }: { dataObj: any }) {
         <div className="gap-4 py-4">
           <div className="items-center gap-4">
             <Label htmlFor="name" className="text-right pb-3">
-              Key Id
+              Id
             </Label>
-            <Input
-              id="name"
-              disabled
-              defaultValue={_id}
-              className="col-span-3"
-            />
-          </div>
-          <div className="items-center gap-4">
-            <Label htmlFor="name" className="text-right pb-3">
-              Key
-            </Label>
-            <Input
-              id="name"
-              disabled
-              defaultValue={key}
-              className="col-span-3"
-            />
+            <Input id="name" disabled defaultValue={_id} className="col-span-3" />
           </div>
           <div className="items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              Value
+              Data
             </Label>
             <SyntaxHighlighter wrapLongLines language="json" style={stackoverflowLight} customStyle={{ maxHeight: "15rem" }}>
-              {JSON.stringify(value ?? {}, null, 2)}
+              {JSON.stringify(dataObj ?? {}, null, 2)}
             </SyntaxHighlighter>
           </div>
         </div>

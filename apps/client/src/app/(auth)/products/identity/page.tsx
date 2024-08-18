@@ -8,9 +8,9 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
-import { ViewUser } from "./components/view-user"
 import CurrentOrgCard from "@/components/currentorgcard"
 import CurrentProductCard from "@/components/currentproductcard"
+import { DataModal } from "@/components/datamodal"
 
 export default function Page() {
   const users = useQuery(["users"], endPoints.identityGetAllUsers, HTTPMethods.GET)
@@ -21,7 +21,7 @@ export default function Page() {
         <TableCell>{user.email}</TableCell>
         <TableCell className="hidden md:table-cell">{format(new Date(user.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
         <TableCell className="text-right md:table-cell">
-          <ViewUser userObj={user} />
+          <DataModal dataObj={user} />
         </TableCell>
       </TableRow>
     )

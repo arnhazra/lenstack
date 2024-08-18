@@ -8,9 +8,9 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
-import { ViewEvent } from "./components/view-event"
 import CurrentOrgCard from "@/components/currentorgcard"
 import CurrentProductCard from "@/components/currentproductcard"
+import { DataModal } from "@/components/datamodal"
 
 export default function Page() {
   const webAnalytics = useQuery(["webanalytics"], endPoints.webanalyticsView, HTTPMethods.GET)
@@ -21,7 +21,7 @@ export default function Page() {
         <TableCell>{id + 1}</TableCell>
         <TableCell>{format(new Date(event.createdAt), "MMM, do yyyy, h:mm a")}</TableCell>
         <TableCell className="text-right md:table-cell">
-          <ViewEvent eventObj={event} />
+          <DataModal dataObj={event} />
         </TableCell>
       </TableRow>
     )
