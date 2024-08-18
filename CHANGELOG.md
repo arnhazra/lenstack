@@ -9,6 +9,9 @@
 * Minor UI improvements
 * Bug fixes & overall performance improvements
 * Regular dependency updates
+* Removed subscription based payment system and added wallet based pay
+* Added $100 free credits for new users
+* Added compute tiers
 
 ## 6.9.0
 * Minor UI improvements across apps
