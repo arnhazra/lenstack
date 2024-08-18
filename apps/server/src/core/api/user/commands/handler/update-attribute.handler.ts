@@ -2,6 +2,7 @@ import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { UserRepository } from "../../user.repository"
 import { AttributeNames, UpdateAttributeCommand } from "../impl/update-attribute.command"
 import { Types } from "mongoose"
+import { ComputeTier } from "src/core/api/pricing/pricing.config"
 
 @CommandHandler(UpdateAttributeCommand)
 export class UpdateAttributeCommandHandler implements ICommandHandler<UpdateAttributeCommand> {
@@ -20,6 +21,11 @@ export class UpdateAttributeCommandHandler implements ICommandHandler<UpdateAttr
 
     if (attributeName === AttributeNames.SelectedOrgId) {
       const value = new Types.ObjectId(attributeValue)
+      return await this.repository.updateOneById(userId, attributeName, value)
+    }
+
+    if (attributeName === AttributeNames.ComputeTier) {
+      const value = attributeValue as ComputeTier
       return await this.repository.updateOneById(userId, attributeName, value)
     }
   }

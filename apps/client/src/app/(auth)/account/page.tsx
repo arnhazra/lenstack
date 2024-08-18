@@ -11,7 +11,7 @@ import Suspense from "@/components/suspense"
 import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { Bolt, Calendar, Leaf, Network, Settings, ShieldCheck, Wallet } from "lucide-react"
+import { Bolt, Calendar, ComputerIcon, Leaf, Network, Settings, ShieldCheck, Wallet } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -25,6 +25,7 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
   wallet: <Wallet />,
   privacy: <ShieldCheck />,
+  compute: <ComputerIcon />,
   organization: < Network />,
   sustainability: <Leaf />,
   advanced: <Settings />,
@@ -35,10 +36,12 @@ export default function Page() {
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
   const [activityLog, setActivityLog] = useState<string>("true")
+  const [computeTier, setComputeTier] = useState<string>("standard")
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const router = useRouter()
   const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
+  const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
@@ -53,6 +56,23 @@ export default function Page() {
       const updatedSettings = sustainabilitySettings === "true" ? true : false
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
       await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
+      toast({
+        title: uiConstants.notification,
+        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+      })
+    }
+
+    catch (error) {
+      toast({
+        title: uiConstants.notification,
+        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+      })
+    }
+  }
+  const saveComputeTier = async () => {
+    try {
+      dispatch("setUserState", { computeTier })
+      await axios.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -237,8 +257,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!organizations.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!organizations.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!organizations.isLoading && !pricing.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!organizations.error && !pricing.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">
@@ -293,6 +313,39 @@ export default function Page() {
                       </CardContent>
                       <CardFooter>
                         <Button onClick={saveActivityLogSettings}>Save Settings</Button>
+                      </CardFooter>
+                    </Card>
+                  </section>
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.Compute} fallback={null}>
+                  <section className="grid gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Compute Tier</CardTitle>
+                        <CardDescription>
+                          Select the compute tier based on your performance requirement. Higher computer tier has higer API request cost.
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Select defaultValue={userState.computeTier} onValueChange={(value: string) => setComputeTier(value)}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {pricing?.data?.map((item: any) =>
+                                <SelectItem
+                                  className="capitalize"
+                                  value={item.computeTier} key={item.computeTier}
+                                >
+                                  {item.computeTier}
+                                </SelectItem>)}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                      <CardFooter>
+                        <Button onClick={saveComputeTier}>Save Settings</Button>
                       </CardFooter>
                     </Card>
                   </section>
