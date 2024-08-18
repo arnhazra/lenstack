@@ -6,7 +6,7 @@ import { GetEventsQuery } from "./queries/impl/get-events.query"
 import { Events } from "./schemas/event.schema"
 
 @Injectable()
-export class InsightsService {
+export class WebAnalyticsService {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) { }
 
   async createEvent(orgId: string, createEventsDto: CreateEventsDto) {

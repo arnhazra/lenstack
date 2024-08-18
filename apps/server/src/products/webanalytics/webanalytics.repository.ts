@@ -6,8 +6,8 @@ import { Events } from "./schemas/event.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 
 @Injectable()
-export class InsightsRepository {
-  constructor(@InjectModel(Events.name, DbConnectionMap.Insights) private model: Model<Events>) { }
+export class WebAnalyticsRepository {
+  constructor(@InjectModel(Events.name, DbConnectionMap.WebAnalytics) private model: Model<Events>) { }
 
   async createOne(orgId: string, dto: CreateEventsDto): Promise<Events> {
     const { event } = dto

@@ -9,7 +9,7 @@ export const envConfig = {
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
   datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
   httpnosqlDatabaseURI: process.env.HTTPNOSQL_DATABASE_URI,
-  insightsDatabaseURI: process.env.INSIGHTS_DATABASE_URI,
+  webanalyticsDatabaseURI: process.env.WEBANALYTICS_DATABASE_URI,
   redisURI: process.env.REDIS_URI,
   geminiAPIKey: process.env.GEMINI_API_KEY,
   stripeSecretKey: process.env.STRIPE_SECRET_KEY,

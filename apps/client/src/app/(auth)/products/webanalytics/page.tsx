@@ -13,9 +13,9 @@ import CurrentOrgCard from "@/components/currentorgcard"
 import CurrentProductCard from "@/components/currentproductcard"
 
 export default function Page() {
-  const insights = useQuery(["insights"], endPoints.insightsView, HTTPMethods.GET)
+  const webAnalytics = useQuery(["webanalytics"], endPoints.webanalyticsView, HTTPMethods.GET)
 
-  const renderInsights = insights?.data?.map((event: any, id: number) => {
+  const renderAnalytics = webAnalytics?.data?.map((event: any, id: number) => {
     return (
       <TableRow className="cursor-pointer" key={event._id}>
         <TableCell>{id + 1}</TableCell>
@@ -28,8 +28,8 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!insights.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!insights.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!webAnalytics.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!webAnalytics.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
@@ -38,7 +38,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Metrics Count</CardDescription>
-                  <CardTitle className="text-4xl">{insights?.data?.length}</CardTitle>
+                  <CardTitle className="text-4xl">{webAnalytics?.data?.length}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -52,13 +52,13 @@ export default function Page() {
             </div>
             <Card className="xl:col-span-2">
               <CardHeader className="px-7">
-                <CardTitle>Insights</CardTitle>
+                <CardTitle>Web Analytics</CardTitle>
                 <CardDescription>
-                  Your Insights in this organization
+                  Your Web Analytics in this organization
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Suspense condition={insights?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
+                <Suspense condition={webAnalytics?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -68,7 +68,7 @@ export default function Page() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {renderInsights}
+                      {renderAnalytics}
                     </TableBody>
                   </Table>
                 </Suspense>

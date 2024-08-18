@@ -1,18 +1,18 @@
 import { Controller, Post, Body, BadRequestException, Get, UseGuards, Request } from "@nestjs/common"
 import { CreateEventsDto } from "./dto/create-events.dto"
-import { InsightsService } from "./insights.service"
+import { WebAnalyticsService } from "./webanalytics.service"
 import { CredentialGuard } from "src/auth/credential.guard"
 import { ModRequest } from "src/auth/types/mod-request.interface"
 
-@Controller("products/insights")
-export class InsightsController {
-  constructor(private readonly insightsService: InsightsService) { }
+@Controller("products/webanalytics")
+export class WebAnalyticsController {
+  constructor(private readonly webanalyticsService: WebAnalyticsService) { }
 
   @UseGuards(CredentialGuard)
   @Post("create")
   async createEvent(@Request() request: ModRequest, @Body() createEventsDto: CreateEventsDto) {
     try {
-      return await this.insightsService.createEvent(request.user.orgId, createEventsDto)
+      return await this.webanalyticsService.createEvent(request.user.orgId, createEventsDto)
     }
 
     catch (error) {
@@ -24,7 +24,7 @@ export class InsightsController {
   @Get("get")
   async getEvents(@Request() request: ModRequest) {
     try {
-      return await this.insightsService.getEvents(request.user.orgId)
+      return await this.webanalyticsService.getEvents(request.user.orgId)
     }
 
     catch (error) {
