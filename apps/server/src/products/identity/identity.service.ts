@@ -13,6 +13,7 @@ import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
+import { FindUsersByOrgQuery } from "./queries/impl/find-users-by-org.query"
 
 @Injectable()
 export class IdentityService {
@@ -95,12 +96,13 @@ export class IdentityService {
     }
   }
 
-  async signOut(userId: string) {
+  async getAllUsers(orgId: string) {
     try {
-      await this.eventEmitter.emitAsync(EventsUnion.DeleteToken, { userId })
+      return await this.queryBus.execute<FindUsersByOrgQuery, User[]>(new FindUsersByOrgQuery(orgId))
     }
 
     catch (error) {
+      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

@@ -10,6 +10,7 @@ import { IdentityController } from "./identity.controller"
 import { IdentityService } from "./identity.service"
 import { IdentityRepository } from "./identity.repository"
 import { envConfig } from "src/env.config"
+import { FindUsersByOrgQueryHandler } from "./queries/handler/find-users-by-org.handler"
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { envConfig } from "src/env.config"
   providers: [
     IdentityService, IdentityRepository,
     CreateUserCommandHandler, FindUserByEmailQueryHandler,
-    FindUserByIdQueryHandler
+    FindUserByIdQueryHandler, FindUsersByOrgQueryHandler
   ],
 })
 export class IdentityModule { }

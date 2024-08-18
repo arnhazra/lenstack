@@ -15,4 +15,8 @@ export class IdentityRepository {
   async findOne<K extends keyof User>(filter: Pick<User, K>): Promise<User | null> {
     return await this.model.findOne(filter as FilterQuery<User>)
   }
+
+  async find<K extends keyof User>(filter: Pick<User, K>): Promise<User[] | null> {
+    return await this.model.find(filter as FilterQuery<User>)
+  }
 }

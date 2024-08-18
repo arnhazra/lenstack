@@ -45,6 +45,18 @@ export class IdentityController {
   }
 
   @UseGuards(CredentialGuard)
+  @Get("getallusers")
+  async getAllUsers(@Request() request: ModRequest) {
+    try {
+      return await this.userService.getAllUsers(request.user.orgId)
+    }
+
+    catch (error) {
+      throw error
+    }
+  }
+
+  @UseGuards(CredentialGuard)
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
