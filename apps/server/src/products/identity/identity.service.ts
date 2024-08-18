@@ -17,7 +17,6 @@ import { CreateUserCommand } from "./commands/impl/create-user.command"
 @Injectable()
 export class IdentityService {
   private readonly accessTokenPrivateKey: string
-  private readonly refreshTokenPrivateKey: string
 
   constructor(
     private readonly eventEmitter: EventEmitter2,
@@ -25,13 +24,12 @@ export class IdentityService {
     private readonly commandBus: CommandBus
   ) {
     this.accessTokenPrivateKey = envConfig.accessTokenPrivateKey
-    this.refreshTokenPrivateKey = envConfig.refreshTokenPrivateKey
   }
 
-  async generatePasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
+  async generatePasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto, orgId: string) {
     try {
       const { email } = generateAuthPasskeyDto
-      const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email))
+      const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email, orgId))
       const { fullHash: hash, passKey } = generateAuthPasskey(email)
       const subject: string = generatePasskeyEmailSubject()
       const body: string = generatePasskeyEmailBody(passKey)
@@ -44,13 +42,13 @@ export class IdentityService {
     }
   }
 
-  async verifyPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
+  async verifyPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto, orgId: string) {
     try {
       const { email, hash, passKey } = verifyAuthPasskeyDto
       const isOTPValid = verifyAuthPasskey(email, hash, passKey)
 
       if (isOTPValid) {
-        const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email))
+        const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email, orgId))
 
         if (user) {
           const tokenPayload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
@@ -59,7 +57,7 @@ export class IdentityService {
         }
 
         else {
-          const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
+          const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email, orgId))
           const tokenPayload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
           await user.save()
@@ -77,11 +75,11 @@ export class IdentityService {
     }
   }
 
-  async getUserDetails(accessToken: string) {
+  async getUserDetails(accessToken: string, orgId: string) {
     try {
       const decodedAccessToken = jwt.verify(accessToken, envConfig.accessTokenPublicKey, { algorithms: ["RS512"] })
       const userId = (decodedAccessToken as any).id
-      const user = await this.queryBus.execute<FindUserByIdQuery, User>(new FindUserByIdQuery(userId))
+      const user = await this.queryBus.execute<FindUserByIdQuery, User>(new FindUserByIdQuery(userId, orgId))
 
       if (user) {
         return user

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, Get, Request, UseGuards } from "@nestjs/common"
+import { Controller, Post, Body, BadRequestException, Get, Request, UseGuards, UnauthorizedException } from "@nestjs/common"
 import { IdentityService } from "./identity.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
@@ -12,9 +12,9 @@ export class IdentityController {
 
   @UseGuards(CredentialGuard)
   @Post("generatepasskey")
-  async generatePasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
+  async generatePasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto, @Request() request: ModRequest) {
     try {
-      const { hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
+      const { hash } = await this.userService.generatePasskey(generateAuthPasskeyDto, request.user.orgId)
       return { hash, message: statusMessages.passKeyEmail }
     }
 
@@ -25,9 +25,9 @@ export class IdentityController {
 
   @UseGuards(CredentialGuard)
   @Post("verifypasskey")
-  async verifyPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
+  async verifyPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto, @Request() request: ModRequest) {
     try {
-      const response = await this.userService.verifyPasskey(verifyAuthPasskeyDto)
+      const response = await this.userService.verifyPasskey(verifyAuthPasskeyDto, request.user.orgId)
       const { accessToken, user } = response
 
       if (response.success) {
@@ -49,7 +49,12 @@ export class IdentityController {
   async getUserDetails(@Request() request: ModRequest) {
     try {
       const accessToken = request.headers.authorization?.split(" ")[1]
-      const user = await this.userService.getUserDetails(accessToken)
+
+      if (!accessToken) {
+        throw new UnauthorizedException(statusMessages.unauthorized)
+      }
+
+      const user = await this.userService.getUserDetails(accessToken, request.user.orgId)
 
       if (user) {
         return user

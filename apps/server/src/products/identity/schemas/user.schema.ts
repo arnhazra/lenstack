@@ -3,7 +3,10 @@ import { Document, Types } from "mongoose"
 
 @Schema({ versionKey: false, collection: "users", timestamps: { createdAt: true, updatedAt: false } })
 export class User extends Document {
-  @Prop({ required: true, unique: true })
+  @Prop({ type: Types.ObjectId, ref: "organization", required: true })
+  orgId: Types.ObjectId
+
+  @Prop({ required: true })
   email: string
 
   @Prop({ default: "user" })
