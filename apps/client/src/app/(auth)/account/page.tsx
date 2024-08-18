@@ -136,23 +136,18 @@ export default function Page() {
   }
 
   const addAmountToWallet = async () => {
-    const { hasConfirmed, value } = await prompt("Enter Amount")
+    const { hasConfirmed, value } = await prompt("Amount you want to add in your wallet")
 
     if (hasConfirmed && value) {
       try {
-        await axios.post(endPoints.organization, { name: value })
-        organizations.refetch()
-        dispatch("setUserState", { refreshId: Math.random().toString() })
-        toast({
-          title: uiConstants.notification,
-          description: <p className="text-slate-600">Organization created</p>
-        })
+        const response = await axios.post(endPoints.createCheckoutSession, { amount: value })
+        window.location = response.data.redirectUrl
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Creating organization failed</p>
+          description: <p className="text-slate-600">Error creating checkout session</p>
         })
       }
     }
@@ -271,7 +266,7 @@ export default function Page() {
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
                   <section className="grid gap-6">
-                    <InfoPanel title="Your Wallet Balance" desc="Your wallet balance" value={`$ ${userState.walletBalance}`} capitalize />
+                    <InfoPanel title="Your Wallet Balance" desc="Your wallet balance" value={`$ ${userState.walletBalance.toFixed(2)}`} capitalize />
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>

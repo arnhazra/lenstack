@@ -174,7 +174,7 @@ export default function Page() {
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
               Choose an {uiConstants.brandName} pricing plan that's right for you.
-              Downgrade, upgrade or cancel any time.{" "}
+              Downgrade, upgrade any time.{" "}
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
           </div>

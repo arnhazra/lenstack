@@ -39,6 +39,10 @@ export const authUserLinks: LinkData[] = [
     mainLink: true
   },
   {
+    displayName: "Pricing",
+    link: "/pricing"
+  },
+  {
     displayName: "Wallet",
     link: "/account?tab=wallet"
   },
