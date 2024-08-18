@@ -1,11 +1,23 @@
 # Changelog
 
-## 6.7.0
+## 7.0.0
+* Introduction of Identity product
+* Deprecated blockchain product
+* Deprecated analytics product
+* Deprecated insights produt
+* Introduction of Web Analytics product
+* Minor UI improvements
+* Bug fixes & overall performance improvements
 * Regular dependency updates
+
+## 6.9.0
 * Minor UI improvements across apps
 * Bug fixes & overall performance improvements
 
-## v6.6.2
+## 6.8.0
+* Regular dependency updates
+
+## v6.7.0
 * Fix refresh token implementation not working in PROD
 
 ## v6.6.1
