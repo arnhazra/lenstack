@@ -71,7 +71,7 @@ export default function Page() {
                   <Kanban className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold uppercase">{userState.hasActiveSubscription ? userState.selectedPlan : "NONE"}</div>
+                  <div className="text-2xl font-bold">Hey, {userState.name.split(" ")[0]}</div>
                   <p className="text-sm text-slate-600">
                     Your current plan
                   </p>

@@ -20,6 +20,8 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
   const [authStep, setAuthStep] = useState(1)
   const [state, setState] = useState({ email: "", hash: "", passKey: "" })
   const [alert, setAlert] = useState("")
+  const [newUser, setNewUser] = useState(false)
+  const [name, setName] = useState("")
   const { toast } = useToast()
 
   useEffect(() => {
@@ -42,6 +44,8 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
         title: uiConstants.notification,
         description: <p className="text-slate-600">{response.data.message}</p>
       })
+
+      setNewUser(response.data.newUser)
       setAuthStep(2)
     }
 
@@ -63,7 +67,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     setAuthLoading(true)
 
     try {
-      const response = await axios.post(endPoints.verifyPassKey, state)
+      const response = await axios.post(endPoints.verifyPassKey, { ...state, name })
       localStorage.setItem("accessToken", response.data.accessToken)
       localStorage.setItem("refreshToken", response.data.refreshToken)
       toast({
@@ -129,6 +133,12 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
           <CardContent>
             <form onSubmit={verifyPassKey}>
               <div className="grid gap-4">
+                <Suspense condition={newUser} fallback={null}>
+                  <div className="grid gap-2">
+                    <Label htmlFor="email">Your Name</Label>
+                    <Input className="h-12" type="name" placeholder="Your Name" required disabled={isAuthLoading} onChange={(e) => setName(e.target.value)} autoComplete={"off"} maxLength={40} />
+                  </div>
+                </Suspense>
                 <div className="grid gap-2">
                   <Label htmlFor="email">Auth Passkey</Label>
                   <Input className="h-12" type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />

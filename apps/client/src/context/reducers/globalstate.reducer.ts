@@ -1,6 +1,7 @@
 export interface UserState {
   userId: string
   email: string
+  name: string
   role: string
   selectedPlan: string
   clientId: string

@@ -21,7 +21,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         setLoading(true)
         const response = await axios.get(endPoints.userDetails)
         const userId = response.data.user._id
-        const { email, role, selectedOrgId, reduceCarbonEmissions, activityLog } = response.data.user
+        const { email, name, role, selectedOrgId, reduceCarbonEmissions, activityLog } = response.data.user
         const { name: selectedOrganizationName, clientId, clientSecret } = response.data.organization
         const hasActiveSubscription = response.data.hasActiveSubscription
 
@@ -36,7 +36,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
         localStorage.setItem("clientId", clientId)
         localStorage.setItem("clientSecret", clientSecret)
-        dispatch("setUserState", { userId, email, role, selectedOrgId, selectedOrganizationName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions, activityLog })
+        dispatch("setUserState", { userId, email, name, role, selectedOrgId, selectedOrganizationName, clientId, clientSecret, hasActiveSubscription, reduceCarbonEmissions, activityLog })
         dispatch("setUserState", { isAuthorized: true })
         setAuthorized(true)
       }

@@ -8,4 +8,6 @@ export class VerifyAuthPasskeyDto extends PartialType(GenerateAuthPasskeyDto) {
 
   @IsNotEmpty()
   readonly hash: string
+
+  readonly name?: string
 }

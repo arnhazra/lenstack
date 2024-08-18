@@ -2,6 +2,7 @@ export enum AttributeNames {
   ReduceCarbonEmissions = "reduceCarbonEmissions",
   SelectedOrgId = "selectedOrgId",
   ActivityLog = "activityLog",
+  Name = "name"
 }
 
 export class UpdateAttributeCommand {

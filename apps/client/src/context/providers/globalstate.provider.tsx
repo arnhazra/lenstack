@@ -10,6 +10,7 @@ const initialState: { userState: UserState, productState: ProductState } = {
   userState: {
     userId: "",
     email: "",
+    name: "",
     role: "",
     selectedPlan: "No Subscription",
     clientId: "",

@@ -13,8 +13,9 @@ export class UserController {
   @Post("generatepasskey")
   async generatePasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
     try {
-      const { hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
-      return { hash, message: statusMessages.passKeyEmail }
+      const { user, hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
+      if (!user) return { hash, message: statusMessages.passKeyEmail, newUser: true }
+      return { hash, message: statusMessages.passKeyEmail, newUser: false }
     }
 
     catch (error) {

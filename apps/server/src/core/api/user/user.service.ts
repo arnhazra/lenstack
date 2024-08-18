@@ -49,7 +49,7 @@ export class UserService {
 
   async verifyPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
     try {
-      const { email, hash, passKey } = verifyAuthPasskeyDto
+      const { email, hash, passKey, name } = verifyAuthPasskeyDto
       const isOTPValid = verifyAuthPasskey(email, hash, passKey)
 
       if (isOTPValid) {
@@ -75,7 +75,7 @@ export class UserService {
         }
 
         else {
-          const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email))
+          const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email, name))
           const organization: Organization[] = await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, { name: "Default Org", userId: newUser.id })
           await this.commandBus.execute<UpdateAttributeCommand, User>(new UpdateAttributeCommand(newUser.id, AttributeNames.SelectedOrgId, organization[0].id))
           const tokenPayload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }

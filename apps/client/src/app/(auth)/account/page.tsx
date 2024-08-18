@@ -239,6 +239,7 @@ export default function Page() {
               <div>
                 <Suspense condition={selectedTab === Tabs.General} fallback={null}>
                   <section className="grid gap-6">
+                    <InfoPanel title="Your Name" desc="Your Name" value={userState.name} />
                     <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
                     <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
                   </section>
