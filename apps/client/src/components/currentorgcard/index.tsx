@@ -1,6 +1,6 @@
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
-import { useContext } from 'react'
+import { useContext } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"

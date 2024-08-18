@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Clipboard } from "lucide-react"
@@ -9,7 +9,7 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { Badge } from "../ui/badge"
 import Suspense from "../suspense"
-import { stackoverflowLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
 
 interface SnippetPanelProps {
   title: string
