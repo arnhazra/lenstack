@@ -37,7 +37,7 @@ export default function Page() {
   const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
   const [activityLog, setActivityLog] = useState<string>("true")
-  const [computeTier, setComputeTier] = useState<string>("standard")
+  const [computeTier, setComputeTier] = useState<string>(userState.computeTier)
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const router = useRouter()
