@@ -20,13 +20,12 @@ import HTTPMethods from "@/constants/http-methods"
 import { usePromptContext } from "@/context/providers/prompt.provider"
 import { useConfirmContext } from "@/context/providers/confirm.provider"
 import LoadingComponent from "@/components/loading"
-import { convertToTitleCase } from "@/lib/convert-to-title-case"
 import ErrorComponent from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
   subscription: <Calendar />,
-  dataPrivacy: <ShieldCheck />,
+  privacy: <ShieldCheck />,
   organization: < Network />,
   sustainability: <Leaf />,
   advanced: <Settings />,
@@ -109,7 +108,7 @@ export default function Page() {
     return (
       <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/account?tab=${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
-        <p>{convertToTitleCase(tab)}</p>
+        <p>{tab}</p>
       </div>
     )
   })
@@ -252,7 +251,7 @@ export default function Page() {
                     <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
                   </section>
                 </Suspense>
-                <Suspense condition={selectedTab === Tabs.DataPrivacy} fallback={null}>
+                <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>
                   <section className="grid gap-6">
                     <Card>
                       <CardHeader>
