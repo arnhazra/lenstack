@@ -35,7 +35,7 @@ export default function Page() {
   const renderPricing = pricing?.data?.slice(0, 2)?.map((pricing: any) => {
     return (
       <TierCardComponent
-        key={pricing.planName}
+        key={pricing.computeTier}
         {...pricing}
       />
     )

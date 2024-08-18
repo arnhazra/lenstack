@@ -109,7 +109,7 @@ export default function Page() {
                   </p>
                 </CardContent>
                 <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account?tab=compute")}>Change Settings</Button>
+                  <Button onClick={(): void => router.push("/account?tab=compute")}>Change Tier</Button>
                 </CardFooter>
               </Card>
             </div>
