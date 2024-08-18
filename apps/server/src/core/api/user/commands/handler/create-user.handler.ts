@@ -7,7 +7,7 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
   constructor(private readonly repository: UserRepository) { }
 
   async execute(command: CreateUserCommand) {
-    const { email, name } = command
-    return await this.repository.createOne(email, name)
+    const { email, name, walletBalance } = command
+    return await this.repository.createOne(email, name, walletBalance)
   }
 }

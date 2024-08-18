@@ -1,9 +1,9 @@
 import { IsNotEmpty } from "class-validator"
-import { SubscriptionPlans } from "../subscription.config"
+import { ComputeTier } from "../pricing.config"
 
 export class SubscribeDto {
   @IsNotEmpty()
-  readonly selectedPlan: SubscriptionPlans
+  readonly computeTier: ComputeTier
 
   @IsNotEmpty()
   readonly transactionHash: string

@@ -20,30 +20,30 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   useEffect(() => dispatch("setProductState", selectedProduct as ProductState), [selectedProduct])
 
   useEffect(() => {
-    if (!userState.hasActiveSubscription) {
+    if (userState.walletBalance < 0.2) {
       document.body.style.overflow = "hidden"
     }
 
     return () => {
-      if (!userState.hasActiveSubscription) {
+      if (userState.walletBalance < 0.2) {
         document.body.style.overflow = ""
       }
     }
   }, [])
 
   return (
-    <Suspense condition={!userState.hasActiveSubscription} fallback={children}>
+    <Suspense condition={userState.walletBalance < 0.2} fallback={children}>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Hold On</CardTitle>
             <CardDescription>
-              Seems like you are not having an active subscription to use/view this Product
+              Seems like you do not have sufficient wallet balance to use/view this Product
             </CardDescription>
           </CardHeader>
           <CardFooter>
-            <Button size="lg" className="w-full" onClick={(): void => router.push("/subscription")}>
-              Subscribe
+            <Button size="lg" className="w-full" onClick={(): void => router.push("/account?tab=wallet")}>
+              Add Money to Wallet
             </Button>
           </CardFooter>
         </Card>

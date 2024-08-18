@@ -7,5 +7,4 @@ export enum EventsUnion {
   GetUserDetails = "getUserDetails",
   GetOrgDetails = "getOrgDetails",
   CreateOrg = "createOrg",
-  FindSubscription = "findSubscription"
 }

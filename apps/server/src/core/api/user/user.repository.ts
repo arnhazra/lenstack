@@ -10,8 +10,8 @@ import { EventsUnion } from "src/core/events/events.union"
 export class UserRepository {
   constructor(@InjectModel(User.name, DbConnectionMap.Core) private model: Model<User>) { }
 
-  async createOne(email: string, name: string): Promise<User> {
-    return await new this.model({ email, name }).save()
+  async createOne(email: string, name: string, walletBalance: number): Promise<User> {
+    return await new this.model({ email, name, walletBalance }).save()
   }
 
   @OnEvent(EventsUnion.GetUserDetails)

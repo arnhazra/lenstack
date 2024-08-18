@@ -2,23 +2,23 @@ import Stripe from "stripe"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
-import { SubscriptionPlans, subscriptionConfig } from "./subscription.config"
+import { pricingConfig } from "./pricing.config"
 import { otherConstants } from "src/utils/constants/other-constants"
-import { CommandBus } from "@nestjs/cqrs"
-import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
-import { DeleteSubscriptionCommand } from "./commands/impl/delete-subscription.command"
+import { User } from "../user/schemas/user.schema"
+import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventsUnion } from "src/core/events/events.union"
 
 @Injectable()
-export class SubscriptionService {
+export class PricingService {
   private readonly stripe: Stripe
 
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(private readonly eventEmitter: EventEmitter2) {
     this.stripe = new Stripe(envConfig.stripeSecretKey)
   }
 
-  getSubscriptionConfig() {
+  getPricingConfig() {
     try {
-      return subscriptionConfig
+      return pricingConfig
     }
 
     catch (error) {
@@ -26,7 +26,7 @@ export class SubscriptionService {
     }
   }
 
-  async createCheckoutSession(selectedPlan: SubscriptionPlans, userId: string): Promise<Stripe.Checkout.Session> {
+  async createCheckoutSession(amount: number, userId: string): Promise<Stripe.Checkout.Session> {
     try {
       const session = await this.stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -35,9 +35,9 @@ export class SubscriptionService {
             price_data: {
               currency: "usd",
               product_data: {
-                name: `${selectedPlan.toUpperCase()} Subscription for 30 days`,
+                name: envConfig.brandName + "Wallet",
               },
-              unit_amount: subscriptionConfig.find((item) => item.planName === selectedPlan).price * 100,
+              unit_amount: amount * 100,
             },
             quantity: 1,
           },
@@ -50,7 +50,7 @@ export class SubscriptionService {
           `${otherConstants.stripeConfigBaseUriDev}/cancel` :
           `${otherConstants.stripeConfigBaseUriProd}/cancel`,
         metadata: {
-          userId, selectedPlan
+          userId, amount
         }
       })
 
@@ -65,8 +65,11 @@ export class SubscriptionService {
   async subscribe(sessionId: string) {
     try {
       const session = await this.stripe.checkout.sessions.retrieve(sessionId)
-      await this.commandBus.execute(new DeleteSubscriptionCommand(session.metadata.userId))
-      await this.commandBus.execute(new CreateSubscriptionCommand(session.metadata.userId, session.metadata.selectedPlan as SubscriptionPlans))
+      const { userId, amount } = session.metadata
+      const userResponse: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+      const user = userResponse[0]
+      user.walletBalance += Number(amount)
+      await user.save()
       return { success: true }
     }
 

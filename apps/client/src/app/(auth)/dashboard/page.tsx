@@ -1,5 +1,5 @@
 "use client"
-import { BarChart2, Calendar, Kanban, ListFilterIcon } from "lucide-react"
+import { BarChart2, Kanban, ListFilterIcon, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -16,6 +16,7 @@ import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
+import CurrentOrgCard from "@/components/currentorgcard"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -66,43 +67,35 @@ export default function Page() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Current Subscription
+                    {uiConstants.brandName}
                   </CardTitle>
-                  <Kanban className="h-4 w-4 text-muted-foreground" />
+                  <User className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">Hey, {userState.name.split(" ")[0]}</div>
                   <p className="text-sm text-slate-600">
-                    Your current plan
+                    Welcome to your dashboard
                   </p>
                 </CardContent>
                 <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/subscription")}>View Subscription</Button>
+                  <Button onClick={(): void => router.push("/account")}>My Account</Button>
                 </CardFooter>
               </Card>
+              <CurrentOrgCard />
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Valid Upto</CardTitle>
-                  <Calendar className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"}</div>
-                  <p className="text-sm text-slate-600">
-                    Plan end date
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Subscription Usage</CardTitle>
+                  <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
                   <BarChart2 className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{userState.hasActiveSubscription ? `$ ${Number(userState.remainingCredits).toFixed(3)}` : "No Usage Data"}</div>
+                  <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
                   <p className="text-sm text-slate-600">
                     Credits remaining
                   </p>
                 </CardContent>
+                <CardFooter className="-mt-3">
+                  <Button onClick={(): void => router.push("/account?tab=wallet")}>Open Wallet</Button>
+                </CardFooter>
               </Card>
             </div>
             <Card className="xl:col-span-2">

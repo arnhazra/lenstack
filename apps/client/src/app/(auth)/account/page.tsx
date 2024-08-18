@@ -11,8 +11,7 @@ import Suspense from "@/components/suspense"
 import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { format } from "date-fns"
-import { Bolt, Calendar, Leaf, Network, Settings, ShieldCheck } from "lucide-react"
+import { Bolt, Calendar, Leaf, Network, Settings, ShieldCheck, Wallet } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -24,7 +23,7 @@ import ErrorComponent from "@/components/error"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   general: <Bolt />,
-  subscription: <Calendar />,
+  wallet: <Wallet />,
   privacy: <ShieldCheck />,
   organization: < Network />,
   sustainability: <Leaf />,
@@ -115,6 +114,29 @@ export default function Page() {
 
   const createOrg = async () => {
     const { hasConfirmed, value } = await prompt("New Organization Name")
+
+    if (hasConfirmed && value) {
+      try {
+        await axios.post(endPoints.organization, { name: value })
+        organizations.refetch()
+        dispatch("setUserState", { refreshId: Math.random().toString() })
+        toast({
+          title: uiConstants.notification,
+          description: <p className="text-slate-600">Organization created</p>
+        })
+      }
+
+      catch (error) {
+        toast({
+          title: uiConstants.notification,
+          description: <p className="text-slate-600">Creating organization failed</p>
+        })
+      }
+    }
+  }
+
+  const addAmountToWallet = async () => {
+    const { hasConfirmed, value } = await prompt("Enter Amount")
 
     if (hasConfirmed && value) {
       try {
@@ -230,6 +252,9 @@ export default function Page() {
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
                   <Button onClick={createOrg}>Create Org</Button>
                 </Suspense>
+                <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
+                  <Button onClick={addAmountToWallet}>Add Amount to Wallet</Button>
+                </Suspense>
               </div>
             </div>
             <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
@@ -244,12 +269,9 @@ export default function Page() {
                     <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
                   </section>
                 </Suspense>
-                <Suspense condition={selectedTab === Tabs.Subscription} fallback={null}>
+                <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
                   <section className="grid gap-6">
-                    <InfoPanel title="Current Subscription" desc="Your current active subscription" value={userState.hasActiveSubscription ? userState.selectedPlan.toUpperCase() : "No Active Subscription"} capitalize />
-                    <InfoPanel title="Subscription Usage" desc="Your subscription usage for this month" value={`$ ${Number(userState.remainingCredits).toFixed(3)} remaining`} />
-                    <InfoPanel title="Subscription Start" desc="Your subscription has started on" value={userState.hasActiveSubscription ? format(new Date(userState.createdAt), "MMM, do yyyy") : "No Validity Data"} />
-                    <InfoPanel title="Subscription Validity" desc="Your subscription is valid upto" value={userState.hasActiveSubscription ? format(new Date(userState.expiresAt), "MMM, do yyyy") : "No Validity Data"} />
+                    <InfoPanel title="Your Wallet Balance" desc="Your wallet balance" value={`$ ${userState.walletBalance}`} capitalize />
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>

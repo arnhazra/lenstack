@@ -47,10 +47,10 @@ export class UserController {
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
-      const { user, subscription, organization, hasActiveSubscription } = await this.userService.getUserDetails(request.user.userId, request.user.orgId)
+      const { user, organization } = await this.userService.getUserDetails(request.user.userId, request.user.orgId)
 
       if (user) {
-        return { user, subscription, organization, hasActiveSubscription }
+        return { user, organization }
       }
 
       else {
