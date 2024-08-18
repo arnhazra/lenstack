@@ -1,8 +1,9 @@
 export const uiConstants = {
   brandName: "ArcStack",
   homeHeader: "Build what’s next",
-  homeIntro: "Get tools to take care of the busywork and streamline innovation",
-  homeIntro2: "Start with a free tier, Upgrade to higher tier on demand",
+  homeIntro1: "Get tools to take care of the busywork and streamline innovation",
+  homeIntro2: "Start with a standard tier, Upgrade or downgrade to any tier on demand",
+  homeIntro3: "Create a free account & get $100 credit in your wallet",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Identity",
   errorMessage: "404, Lost",

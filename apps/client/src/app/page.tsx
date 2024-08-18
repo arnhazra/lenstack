@@ -90,8 +90,9 @@ export default function Page() {
               {uiConstants.brandName}
             </h1>
             <p className="leading-normal text-white text-xs md:text-md lg:text-lg">
-              {uiConstants.homeIntro}<br />
-              {uiConstants.homeIntro2}
+              {uiConstants.homeIntro1}<br />
+              {uiConstants.homeIntro2}<br />
+              {uiConstants.homeIntro3}
             </p>
             <div className="space-x-4 space-y-4">
               <Button variant="secondary" onClick={(): void => router.push("/dashboard")}>
