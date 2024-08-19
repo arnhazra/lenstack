@@ -3,6 +3,8 @@
 ## 7.1.0
 * Minor changes & bug fixes
 * Code optimization & cleanup
+* Regular dependency updates
+* Removal of unused dependencies
 
 ## 7.0.0
 * Introduction of Identity product
