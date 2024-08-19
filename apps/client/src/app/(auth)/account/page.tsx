@@ -11,7 +11,7 @@ import Suspense from "@/components/suspense"
 import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { Bolt, Calendar, ComputerIcon, Leaf, Network, Settings, ShieldCheck, Wallet } from "lucide-react"
+import { ComputerIcon, Leaf, Network, Settings, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -23,34 +23,26 @@ import ErrorComponent from "@/components/error"
 import { TierCardComponent } from "@/components/tiercard"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
-  general: <Bolt />,
-  wallet: <Wallet />,
+  user: <User />,
   privacy: <ShieldCheck />,
-  compute: <ComputerIcon />,
   organization: < Network />,
+  wallet: <Wallet />,
+  compute: <ComputerIcon />,
   sustainability: <Leaf />,
-  advanced: <Settings />,
 }
 
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const [signOutOption, setSignOutOption] = useState<string>("this")
   const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
   const [activityLog, setActivityLog] = useState<string>("true")
   const [computeTier, setComputeTier] = useState<string>(userState.computeTier)
   const searchParams = useSearchParams()
-  const selectedTab = searchParams.get("tab")
+  const selectedTab = searchParams.get("tab") ?? Tabs.User
   const router = useRouter()
   const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
   const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
-
-  useEffect(() => {
-    if (!selectedTab) {
-      router.push(`/account?tab=${Tabs.General}`)
-    }
-  }, [selectedTab])
 
   const saveSustainabilitySettings = async () => {
     try {
@@ -107,7 +99,7 @@ export default function Page() {
     }
   }
 
-  const signOut = async () => {
+  const signOut = async (signOutOption: string) => {
     try {
       if (signOutOption === "all") {
         await axios.post(endPoints.signOut)
@@ -278,11 +270,25 @@ export default function Page() {
                 {renderTabs}
               </nav>
               <div>
-                <Suspense condition={selectedTab === Tabs.General} fallback={null}>
+                <Suspense condition={selectedTab === Tabs.User} fallback={null}>
                   <section className="grid gap-6">
                     <InfoPanel title="Your Name" desc="Your Name" value={userState.name} />
                     <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
                     <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
+                    <InfoPanel title="Access Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
+                    <InfoPanel title="Refresh Token" desc="Your Refresh Token" value={localStorage.getItem("refreshToken") ?? ""} masked />
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Sign Out</CardTitle>
+                        <CardDescription>
+                          This is your advanced sign out settings
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Button className="me-4" variant="default" onClick={(): Promise<void> => signOut("this")}>Sign Out</Button>
+                        <Button variant="destructive" onClick={(): Promise<void> => signOut("all")}>Sign Out from all devices</Button>
+                      </CardContent>
+                    </Card>
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
@@ -334,7 +340,7 @@ export default function Page() {
                       </CardHeader>
                       <CardContent>
                         <Select defaultValue={userState.computeTier} onValueChange={(value: string) => setComputeTier(value)}>
-                          <SelectTrigger>
+                          <SelectTrigger className="capitalize">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -386,35 +392,6 @@ export default function Page() {
                       </CardContent>
                       <CardFooter>
                         <Button onClick={saveSustainabilitySettings}>Save Settings</Button>
-                      </CardFooter>
-                    </Card>
-                  </section>
-                </Suspense>
-                <Suspense condition={selectedTab === Tabs.Advanced} fallback={null}>
-                  <section className="grid gap-6">
-                    <InfoPanel title="Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Sign Out</CardTitle>
-                        <CardDescription>
-                          This is your advanced sign out settings
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <Select defaultValue="this" onValueChange={(value: string) => setSignOutOption(value)}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectItem value="this">Sign Out from this device</SelectItem>
-                              <SelectItem value="all">Sign Out from all devices</SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </CardContent>
-                      <CardFooter>
-                        <Button onClick={signOut}>Apply & Sign Out</Button>
                       </CardFooter>
                     </Card>
                   </section>
