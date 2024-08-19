@@ -79,7 +79,7 @@ export default function Page() {
           <div className="container flex flex-col gap-4">
             <Link href="" rel="noopener noreferrer">
               <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
-                Limitless Innovation
+                {uiConstants.homeBadge}
               </Badge>
             </Link>
             <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">
@@ -106,9 +106,7 @@ export default function Page() {
               Solutions
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Find solutions for putting your ideas into action.
-              Solve your business problems with proven combinations of {uiConstants.brandName} services,
-              as well as sample architectures and documentation.
+              {uiConstants.solutionHeader}
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
@@ -121,7 +119,7 @@ export default function Page() {
               Open Source
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              {uiConstants.brandName} is open source and powered by open source software. <br />{" "}
+              {uiConstants.openSourceHeader} <br />{" "}
               The code is available on{" "}
               <Link
                 href={uiConstants.githubRepoUri}
@@ -157,8 +155,7 @@ export default function Page() {
               Products
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Explore products for bringing your vision to life.
-              Access all products for different needs with just a free account.
+              {uiConstants.productsHeader}
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
@@ -171,9 +168,7 @@ export default function Page() {
               Compute Tiers
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Choose an {uiConstants.brandName} compute tier that's right for you.
-              Downgrade, upgrade any time.{" "}
-              {uiConstants.brandName} offers a variety of plans to meet your requirements.
+              {uiConstants.computeTierHeader}
             </p>
           </div>
           <div className="container flex flex-col gap-6 py-8 md:max-w-[55rem] md:py-12">

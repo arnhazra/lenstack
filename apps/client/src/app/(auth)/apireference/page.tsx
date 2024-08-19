@@ -9,6 +9,7 @@ import SnippetPanel from "@/components/snippet"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { useRouter, useSearchParams } from "next/navigation"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function Page() {
   const router = useRouter()
@@ -54,8 +55,7 @@ export default function Page() {
               <h1 className="text-3xl font-semibold mb-2">API Reference</h1>
               <p className="font-semibold text-sm flex gap-3 text-slate-600">
                 <Info />
-                You must send client_id & client_secret in
-                headers to authenticate with your organization
+                {uiConstants.apiRefreneceStatement}
               </p>
             </div>
             <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">

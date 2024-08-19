@@ -135,14 +135,14 @@ export default function Page() {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Organization created</p>
+          description: <p className="text-slate-600">{uiConstants.organizationCreated}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Creating organization failed</p>
+          description: <p className="text-slate-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -160,7 +160,7 @@ export default function Page() {
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Error creating checkout session</p>
+          description: <p className="text-slate-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -175,14 +175,14 @@ export default function Page() {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Organization switched</p>
+          description: <p className="text-slate-600">{uiConstants.organizationSwitched}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Organization switching failed</p>
+          description: <p className="text-slate-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -197,14 +197,14 @@ export default function Page() {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Organization deleted</p>
+          description: <p className="text-slate-600">{uiConstants.organizationDeleted}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">Organization deletion failed</p>
+          description: <p className="text-slate-600">{uiConstants.toastError}</p>
         })
       }
     }

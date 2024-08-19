@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
+import { uiConstants } from "@/constants/global-constants"
 
 export default function useConfirm() {
   const [show, setShow] = useState(false)
@@ -35,8 +36,7 @@ export default function useConfirm() {
         <AlertDialogHeader>
           <AlertDialogTitle>{message}</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone.
-            Be sure before you click on continue, you can cancel if you do not want to proceed.
+            {uiConstants.confirmDescription}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
