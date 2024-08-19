@@ -4,7 +4,6 @@ export const apiHost = process.env.NODE_ENV === "development" ? "http://localhos
 export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://${uiConstants.brandName}.vercel.app`
 
 export const endPoints = {
-  getapireference: `${apiHost}/api/apireference`,
   generatePassKey: `${apiHost}/api/user/generatepasskey`,
   verifyPassKey: `${apiHost}/api/user/verifypasskey`,
   userDetails: `${apiHost}/api/user/userdetails`,
@@ -12,14 +11,14 @@ export const endPoints = {
   updateAttribute: `${apiHost}/api/user/attribute`,
   getPricingConfig: `${apiHost}/api/pricing/config`,
   createCheckoutSession: `${apiHost}/api/pricing/checkout`,
-  organization: `${apiHost}/api/organization`,
   getProductConfig: `${apiHost}/api/products/config`,
   getSolutionConfig: `${apiHost}/api/solutions/config`,
+  getapireference: `${apiHost}/api/apireference`,
+  organization: `${apiHost}/api/organization`,
   copilotGenerateEndpoint: `${apiHost}/api/products/copilot/generate`,
   datamarketplaceFilters: `${apiHost}/api/products/datamarketplace/filters`,
   datamarketplaceFindDatasets: `${apiHost}/api/products/datamarketplace/finddatasets`,
   datamarketplaceViewDataset: `${apiHost}/api/products/datamarketplace/viewdataset`,
-  datamarketplaceFindSimilarDatasets: `${apiHost}/api/products/datamarketplace/findsimilardatasets`,
   datamarketplaceDataApi: `${apiHost}/api/products/datamarketplace/dataapi`,
   httpnosqlCreateData: `${apiHost}/api/products/httpnosql/create`,
   httpnosqlReadData: `${apiHost}/api/products/httpnosql/read`,

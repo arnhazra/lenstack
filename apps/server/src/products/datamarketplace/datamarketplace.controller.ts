@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, BadRequestException, UseGuards, Param } from "@nestjs/common"
+import { Controller, Post, Body, Get, BadRequestException, UseGuards, Param } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { DataAPIDto } from "./dto/data-api.dto"

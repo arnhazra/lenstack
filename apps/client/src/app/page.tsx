@@ -1,7 +1,6 @@
 "use client"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { uiConstants } from "@/constants/global-constants"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
@@ -32,11 +31,11 @@ export default function Page() {
     }
   }, [])
 
-  const renderPricing = pricing?.data?.slice(0, 2)?.map((pricing: any) => {
+  const renderComputeTiers = pricing?.data?.map((tier: any) => {
     return (
       <TierCardComponent
-        key={pricing.computeTier}
-        {...pricing}
+        key={tier.computeTier}
+        {...tier}
       />
     )
   })
@@ -80,7 +79,7 @@ export default function Page() {
           <div className="container flex flex-col gap-4">
             <Link href="" rel="noopener noreferrer">
               <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
-                Limitless Innovation
+                {uiConstants.homeBadge}
               </Badge>
             </Link>
             <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">
@@ -107,9 +106,7 @@ export default function Page() {
               Solutions
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Find solutions for putting your ideas into action.
-              Solve your business problems with proven combinations of {uiConstants.brandName} services,
-              as well as sample architectures and documentation.
+              {uiConstants.solutionHeader}
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
@@ -122,7 +119,7 @@ export default function Page() {
               Open Source
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              {uiConstants.brandName} is open source and powered by open source software. <br />{" "}
+              {uiConstants.openSourceHeader} <br />{" "}
               The code is available on{" "}
               <Link
                 href={uiConstants.githubRepoUri}
@@ -158,8 +155,7 @@ export default function Page() {
               Products
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Explore products for bringing your vision to life.
-              Access all products for different needs with just a free account.
+              {uiConstants.productsHeader}
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
@@ -169,19 +165,14 @@ export default function Page() {
         <section id="pricing" className="container py-8 md:py-12 lg:py-24">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center mb-8">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Pricing
+              Compute Tiers
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Choose an {uiConstants.brandName} pricing plan that's right for you.
-              Downgrade, upgrade any time.{" "}
-              {uiConstants.brandName} offers a variety of plans to meet your requirements.
+              {uiConstants.computeTierHeader}
             </p>
           </div>
           <div className="container flex flex-col gap-6 py-8 md:max-w-[55rem] md:py-12">
-            {renderPricing}
-          </div>
-          <div className="mx-auto flex-col items-center justify-center text-center">
-            <Button variant="secondary" onClick={(): void => router.push("/account?tab=compute")}>Explore All Plans</Button>
+            {renderComputeTiers}
           </div>
         </section>
       </div>

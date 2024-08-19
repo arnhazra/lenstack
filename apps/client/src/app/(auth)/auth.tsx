@@ -117,7 +117,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
           </CardContent>
           <CardFooter>
             <div className="text-center text-sm text-slate-600">
-              By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
+              {uiConstants.privacyPolicyStatement}
             </div>
           </CardFooter>
         </Card>
@@ -127,7 +127,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
           <CardHeader>
             <CardTitle className="text-xl">{uiConstants.brandName}</CardTitle>
             <CardDescription>
-              Please verify your auth by entering the auth passkey we sent to your inbox
+              {uiConstants.verifyEmailStatement}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -153,7 +153,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
           </CardContent>
           <CardFooter>
             <div className="text-center text-sm text-slate-600">
-              By using {uiConstants.brandName}, you agree to our Terms of Service and Privacy Policy.
+              {uiConstants.privacyPolicyStatement}
             </div>
           </CardFooter>
         </Card>

@@ -1,11 +1,10 @@
 export enum Tabs {
-  General = "general",
-  Wallet = "wallet",
+  User = "user",
   Privacy = "privacy",
-  Compute = "compute",
   Organization = "organization",
+  Wallet = "wallet",
+  Compute = "compute",
   Sustainability = "sustainability",
-  Advanced = "advanced",
 }
 
-export const tabsList: Tabs[] = [Tabs.General, Tabs.Wallet, Tabs.Privacy, Tabs.Compute, Tabs.Organization, Tabs.Sustainability, Tabs.Advanced]
+export const tabsList: Tabs[] = [Tabs.User, Tabs.Privacy, Tabs.Organization, Tabs.Wallet, Tabs.Compute, Tabs.Sustainability]
