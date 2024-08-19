@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
@@ -75,27 +75,24 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
-        <section id="hero" className="hero space-y-6 pb-8 pt-8 md:pt-16 lg:pt-24 lg:py-32">
+        <section id="hero" className="hero space-y-6 pb-8 pt-8 md:pt-16 lg:pt-32 lg:py-40">
           <div className="container flex flex-col gap-4">
             <Link href="" rel="noopener noreferrer">
-              <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium">
-                {uiConstants.homeBadge}
-              </Badge>
+              <p className="text-sm text-white tracking-normal uppercase">
+                {brandName}. {uiConstants.homeBadge}
+              </p>
             </Link>
             <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">
               {uiConstants.homeHeader}
             </h1>
-            <h1 className="font-heading text-white text-2xl sm:text-2xl md:text-2xl lg:text-3xl -mt-2">
-              {uiConstants.brandName}
-            </h1>
             <p className="leading-normal text-white text-xs md:text-md lg:text-lg">
               {uiConstants.homeIntro1}<br />
               {uiConstants.homeIntro2}<br />
-              {uiConstants.homeIntro3}
+              {uiConstants.homeIntro3}<br />
             </p>
-            <div className="space-x-4 space-y-4">
+            <div className="space-x-4 space-y-4 mt-2">
               <Button variant="secondary" onClick={(): void => router.push("/dashboard")}>
-                Get Started
+                Get Started with {brandName}
               </Button>
             </div>
           </div>

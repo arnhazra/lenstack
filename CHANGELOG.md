@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.1.1
+* Minor UI updates
+
 ## 7.1.0
 * Minor changes & bug fixes
 * Code optimization & cleanup
