@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { QueryBus } from "@nestjs/cqrs"
 import { FindAPIReferencesQuery } from "./queries/impl/find-apireferences.query"
 import { ApiReference } from "./schemas/apireference.schema"

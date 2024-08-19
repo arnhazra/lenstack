@@ -1,6 +1,5 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { CopilotRepository } from "../../copilot.repository"
-import { Query } from "../../schemas/query.schema"
 import { CreateQueryCommand } from "../impl/create-query.command"
 
 @CommandHandler(CreateQueryCommand)

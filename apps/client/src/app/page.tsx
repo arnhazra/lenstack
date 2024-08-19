@@ -1,7 +1,6 @@
 "use client"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { uiConstants } from "@/constants/global-constants"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
@@ -32,11 +31,11 @@ export default function Page() {
     }
   }, [])
 
-  const renderPricing = pricing?.data?.slice(0, 2)?.map((pricing: any) => {
+  const renderComputeTiers = pricing?.data?.map((tier: any) => {
     return (
       <TierCardComponent
-        key={pricing.computeTier}
-        {...pricing}
+        key={tier.computeTier}
+        {...tier}
       />
     )
   })
@@ -169,19 +168,16 @@ export default function Page() {
         <section id="pricing" className="container py-8 md:py-12 lg:py-24">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center mb-8">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Pricing
+              Compute Tiers
             </h2>
             <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
-              Choose an {uiConstants.brandName} pricing plan that's right for you.
+              Choose an {uiConstants.brandName} compute tier that's right for you.
               Downgrade, upgrade any time.{" "}
               {uiConstants.brandName} offers a variety of plans to meet your requirements.
             </p>
           </div>
           <div className="container flex flex-col gap-6 py-8 md:max-w-[55rem] md:py-12">
-            {renderPricing}
-          </div>
-          <div className="mx-auto flex-col items-center justify-center text-center">
-            <Button variant="secondary" onClick={(): void => router.push("/account?tab=compute")}>Explore All Plans</Button>
+            {renderComputeTiers}
           </div>
         </section>
       </div>

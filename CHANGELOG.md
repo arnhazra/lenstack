@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.0
+* Minor changes & bug fixes
+* Code optimization & cleanup
+
 ## 7.0.0
 * Introduction of Identity product
 * Deprecated blockchain product
