@@ -16,7 +16,7 @@ export class User extends Document {
   @Prop({ required: true })
   walletBalance: number
 
-  @Prop({ required: true, default: ComputeTier.Standard })
+  @Prop({ required: true, default: ComputeTier.Hyperscale })
   computeTier: ComputeTier
 
   @Prop({ type: Boolean, default: true })

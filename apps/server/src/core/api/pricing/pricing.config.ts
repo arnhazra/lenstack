@@ -1,9 +1,8 @@
 export enum ComputeTier {
-  Standard = "standard",
-  Premium = "premium",
+  Fabric = "fabric",
   Hyperscale = "hyperscale",
   Quantum = "quantum",
-  Infinity = "infinity"
+  Skylake = "skylake"
 }
 
 export enum Products {
@@ -24,7 +23,7 @@ export interface PricingConfig {
 
 export const pricingConfig: PricingConfig[] = [
   {
-    computeTier: ComputeTier.Standard,
+    computeTier: ComputeTier.Fabric,
     responseDelay: 1200,
     estimatedRequestCost: {
       copilot: 0.02,
@@ -35,8 +34,8 @@ export const pricingConfig: PricingConfig[] = [
     }
   },
   {
-    computeTier: ComputeTier.Premium,
-    responseDelay: 900,
+    computeTier: ComputeTier.Hyperscale,
+    responseDelay: 800,
     estimatedRequestCost: {
       copilot: 0.03,
       datamarketplace: 0.02,
@@ -46,8 +45,8 @@ export const pricingConfig: PricingConfig[] = [
     }
   },
   {
-    computeTier: ComputeTier.Hyperscale,
-    responseDelay: 600,
+    computeTier: ComputeTier.Quantum,
+    responseDelay: 400,
     estimatedRequestCost: {
       copilot: 0.05,
       datamarketplace: 0.03,
@@ -57,18 +56,7 @@ export const pricingConfig: PricingConfig[] = [
     }
   },
   {
-    computeTier: ComputeTier.Quantum,
-    responseDelay: 300,
-    estimatedRequestCost: {
-      copilot: 0.08,
-      datamarketplace: 0.04,
-      httpnosql: 0.07,
-      identity: 0.07,
-      webanalytics: 0.05
-    }
-  },
-  {
-    computeTier: ComputeTier.Infinity,
+    computeTier: ComputeTier.Skylake,
     responseDelay: 0,
     estimatedRequestCost: {
       copilot: 0.12,

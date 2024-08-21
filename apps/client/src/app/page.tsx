@@ -6,13 +6,11 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
-import { TierCardComponent } from "@/components/tiercard"
 import { Footer } from "@/components/footer"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Github } from "lucide-react"
+import { CheckCircle2, Github } from "lucide-react"
 import LoadingComponent from "@/components/loading"
-import { Badge } from "@/components/ui/badge"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
@@ -33,10 +31,23 @@ export default function Page() {
 
   const renderComputeTiers = pricing?.data?.map((tier: any) => {
     return (
-      <TierCardComponent
-        key={tier.computeTier}
-        {...tier}
-      />
+      <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
+        <div className="flex flex-col justify-between rounded-md p-6">
+          <div className="space-y-2">
+            <h2 className="font-bold capitalize">{tier.computeTier} Tier</h2>
+            <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
+              {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
+                <li className="flex text-xs items-center text-slate-600 capitalize" key={key}>
+                  <CheckCircle2 className="scale-75" /> {key} $ {Number(value).toFixed(2)}/req
+                </li>
+              ))}
+              <li className="flex text-xs items-center text-slate-600">
+                <CheckCircle2 className="scale-75" /> {tier.responseDelay} ms response delay
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     )
   })
 
@@ -168,7 +179,7 @@ export default function Page() {
               {uiConstants.computeTierHeader}
             </p>
           </div>
-          <div className="container flex flex-col gap-6 py-8 md:max-w-[55rem] md:py-12">
+          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
             {renderComputeTiers}
           </div>
         </section>
