@@ -8,3 +8,4 @@ apps/client/*.tsbuildinfo
 apps/client/out
 .vercel
 dist
+server/build
