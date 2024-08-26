@@ -5,6 +5,7 @@ export const envConfig = {
   apiPort: process.env.API_PORT,
   nodeEnv: process.env.NODE_ENV,
   brandName: process.env.BRAND_NAME,
+  rabbitMqURI: process.env.RABBITMQ_URI,
   coreDatabaseURI: process.env.CORE_DATABASE_URI,
   copilotDatabaseURI: process.env.COPILOT_DATABASE_URI,
   datamarketplaceDatabaseURI: process.env.DATAMARKETPLACE_DATABASE_URI,
