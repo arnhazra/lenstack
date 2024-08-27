@@ -1,4 +1,4 @@
-name: PROD CI-CD
+name: PROD CI-CD MAIN APP
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PROD }}
@@ -16,28 +16,28 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Build Server application
-        working-directory: apps/server
+      - name: Build API Gateway application
+        working-directory: apps/apigateway
         run: |
           npm install
           CI=false npm run build
 
-      - name: Build Client application
-        working-directory: apps/client
+      - name: Build UI Service application
+        working-directory: apps/uiservice
         run: |
           npm install
           CI=false npm run build
 
       - name: Configure packages
-        working-directory: apps/server
+        working-directory: apps/apigateway
         run: sed -i '/"devDependencies":/,/}/d' package.json
 
       - name: Build Movement
         run: |
           mkdir dist
-          cp -r apps/server/package.json dist/package.json
-          cp -r apps/server/dist/. dist
-          mv apps/client/out dist/client
+          cp -r apps/apigateway/package.json dist/package.json
+          cp -r apps/apigateway/dist/. dist
+          mv apps/uiservice/out dist/uiservice
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}

@@ -10,7 +10,7 @@
       }
     },
     {
-      "src": "./dist/client",
+      "src": "./dist/uiservice",
       "use": "@vercel/static"
     }
   ],

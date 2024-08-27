@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.2.2
+* Application Restructuring
+
+## 7.2.1
+* Application Restructuring
+
 ## 7.2.0
 * Bug fixes & performance improvements
 * Introduced microservices pattern for email service with RabbitMQ & nest microservice

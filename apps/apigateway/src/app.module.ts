@@ -8,8 +8,8 @@ import { EventEmitterModule } from "@nestjs/event-emitter"
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, ".", "client"),
-      exclude: ["server/*"]
+      rootPath: join(__dirname, ".", "uiservice"),
+      exclude: ["apigateway/*"]
     }),
     EventEmitterModule.forRoot(),
     CoreModule,
