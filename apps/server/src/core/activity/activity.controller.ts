@@ -1,10 +1,10 @@
 import { Controller } from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 import { CreateActivityDto } from "./dto/create-activity.dto"
+import { EventsUnion } from "../../microservices/events.union"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "../events.union"
 
-@Controller("activity")
+@Controller()
 export class ActivityController {
   constructor(private readonly activityService: ActivityService) { }
 

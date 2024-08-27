@@ -2,7 +2,7 @@ import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { UserRepository } from "../../user.repository"
 import { AttributeNames, UpdateAttributeCommand } from "../impl/update-attribute.command"
 import { Types } from "mongoose"
-import { ComputeTier } from "src/core/api/pricing/pricing.config"
+import { ComputeTier } from "src/core/pricing/pricing.config"
 
 @CommandHandler(UpdateAttributeCommand)
 export class UpdateAttributeCommandHandler implements ICommandHandler<UpdateAttributeCommand> {

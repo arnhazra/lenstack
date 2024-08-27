@@ -3,14 +3,17 @@ This Software-as-a-Service (SaaS) platform offers an extensive array of applicat
 
 Within this comprehensive SaaS application, users gain access to a multitude of functionalities. These may include but are not limited to project management tools for efficient task organization, customer relationship management (CRM) systems for fostering client connections, robust analytics platforms aiding data-driven decision-making, collaborative communication channels for seamless teamwork, and scalable infrastructure services ensuring reliable performance.
 
-#### Copilot
+### Copilot
 An application that seamlessly integrates with Google Gemini large language models developed by Google DeepMind.
 
-#### Data Marketplace
+### Data Marketplace
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.
 
 #### HTTP NoSQL
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
+
+### Identity
+Safeguard your organization with a secure, high performance cloud based identity and access management solution.
 
 #### Web Analytics
 A lightweight analytics provider for web applications. It empowers you to make informed analysis and better decisions.
@@ -23,3 +26,4 @@ Typically, utilizing this platform incurs no cost. There are several paid plans 
 * Next JS as a framework on top of React JS for UI
 * Mongo DB as a primary database
 * Redis for Managing user authorization, access tokens
+* RabbitMQ for microservices

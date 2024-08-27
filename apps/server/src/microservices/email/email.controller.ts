@@ -1,14 +1,14 @@
 import { Controller } from "@nestjs/common"
 import { EmailService } from "./email.service"
 import { SendEmailDto } from "./dto/send-email.dto"
-import { OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "../events.union"
+import { MessagePattern } from "@nestjs/microservices"
 
-@Controller("email")
+@Controller()
 export class EmailController {
   constructor(private readonly emailService: EmailService) { }
 
-  @OnEvent(EventsUnion.SendEmail)
+  @MessagePattern(EventsUnion.SendEmail)
   async sendEmail(sendEmailDto: SendEmailDto) {
     await this.emailService.sendEmail(sendEmailDto)
   }

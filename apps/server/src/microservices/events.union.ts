@@ -8,3 +8,11 @@ export enum EventsUnion {
   GetOrgDetails = "getOrgDetails",
   CreateOrg = "createOrg",
 }
+
+export enum QueueUnion {
+  EmailQueue = "email_queue",
+}
+
+export enum ServiceUnion {
+  EmailMicroService = "EMAIL_MICROSERVICE",
+}

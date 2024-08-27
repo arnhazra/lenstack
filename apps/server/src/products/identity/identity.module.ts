@@ -11,12 +11,27 @@ import { IdentityService } from "./identity.service"
 import { IdentityRepository } from "./identity.repository"
 import { envConfig } from "src/env.config"
 import { FindUsersByOrgQueryHandler } from "./queries/handler/find-users-by-org.handler"
+import { ClientsModule, Transport } from "@nestjs/microservices"
+import { ServiceUnion, QueueUnion } from "src/microservices/events.union"
 
 @Module({
   imports: [
     CqrsModule,
     MongooseModule.forRoot(envConfig.identityDatabaseURI, { connectionName: DbConnectionMap.Identity }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }], DbConnectionMap.Identity),
+    ClientsModule.register([
+      {
+        name: ServiceUnion.EmailMicroService,
+        transport: Transport.RMQ,
+        options: {
+          urls: [envConfig.rabbitMqURI],
+          queue: QueueUnion.EmailQueue,
+          queueOptions: {
+            durable: false
+          },
+        },
+      },
+    ]),
   ],
   controllers: [IdentityController],
   providers: [

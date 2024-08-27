@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.0
+* Bug fixes & performance improvements
+* Introduced microservices pattern for email service with RabbitMQ & nest microservice
+* Updated dependencies across apps
+
 ## 7.1.1
 * Minor UI updates
 

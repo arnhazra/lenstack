@@ -6,7 +6,7 @@ import { pricingConfig } from "./pricing.config"
 import { otherConstants } from "src/utils/constants/other-constants"
 import { User } from "../user/schemas/user.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { EventsUnion } from "src/microservices/events.union"
 
 @Injectable()
 export class PricingService {

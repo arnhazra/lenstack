@@ -1,14 +1,26 @@
 import { Module } from "@nestjs/common"
-import { ApiModule } from "./api/api.module"
-import { EventsModule } from "./events/events.module"
+import { ApiReferenceModule } from "./apireference/apireference.module"
+import { OrganizationModule } from "./organization/organization.module"
+import { PricingModule } from "./pricing/pricing.module"
+import { UserModule } from "./user/user.module"
+import { ProductsModule } from "./product/products.module"
+import { SolutionModule } from "./solution/solution.module"
 import { MongooseModule } from "@nestjs/mongoose"
 import { envConfig } from "src/env.config"
 import { DbConnectionMap } from "src/utils/db-connection.map"
+import { ActivityModule } from "./activity/activity.module"
+import { TokenModule } from "./token/token.module"
 
 @Module({
   imports: [
-    ApiModule,
-    EventsModule,
+    ApiReferenceModule,
+    ActivityModule,
+    OrganizationModule,
+    PricingModule,
+    UserModule,
+    ProductsModule,
+    SolutionModule,
+    TokenModule,
     MongooseModule.forRoot(envConfig.coreDatabaseURI, { connectionName: DbConnectionMap.Core }),
   ]
 })

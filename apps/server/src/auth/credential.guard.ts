@@ -1,11 +1,11 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { EventsUnion } from "src/microservices/events.union"
 import { ModRequest } from "./types/mod-request.interface"
-import { User } from "src/core/api/user/schemas/user.schema"
-import { Organization } from "src/core/api/organization/schemas/organization.schema"
-import { pricingConfig, Products } from "src/core/api/pricing/pricing.config"
+import { User } from "src/core/user/schemas/user.schema"
+import { Organization } from "src/core/organization/schemas/organization.schema"
+import { pricingConfig, Products } from "src/core/pricing/pricing.config"
 
 @Injectable()
 export class CredentialGuard implements CanActivate {

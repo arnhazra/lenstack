@@ -4,7 +4,7 @@ import { Organization } from "./schemas/organization.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { FilterQuery, Model, Types } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/core/events/events.union"
+import { EventsUnion } from "src/microservices/events.union"
 import { randomUUID } from "crypto"
 
 @Injectable()
