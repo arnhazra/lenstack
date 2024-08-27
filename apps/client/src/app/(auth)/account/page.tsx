@@ -21,6 +21,7 @@ import { useConfirmContext } from "@/context/providers/confirm.provider"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { TierCardComponent } from "@/components/tiercard"
+import { Switch } from "@/components/ui/switch"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -33,8 +34,6 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
 
 export default function Page() {
   const [{ userState }, dispatch] = useContext(GlobalContext)
-  const [sustainabilitySettings, setSustainabilitySettings] = useState<string>("true")
-  const [activityLog, setActivityLog] = useState<string>("true")
   const [computeTier, setComputeTier] = useState<string>(userState.computeTier)
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab") ?? Tabs.User
@@ -44,9 +43,8 @@ export default function Page() {
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
-  const saveSustainabilitySettings = async () => {
+  const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
-      const updatedSettings = sustainabilitySettings === "true" ? true : false
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
       await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
       toast({
@@ -62,6 +60,7 @@ export default function Page() {
       })
     }
   }
+
   const saveComputeTier = async () => {
     try {
       dispatch("setUserState", { computeTier })
@@ -80,9 +79,8 @@ export default function Page() {
     }
   }
 
-  const saveActivityLogSettings = async () => {
+  const saveActivityLogSettings = async (updatedSettings: boolean) => {
     try {
-      const updatedSettings = activityLog === "true" ? true : false
       dispatch("setUserState", { activityLog: updatedSettings })
       await axios.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
       toast({
@@ -306,21 +304,20 @@ export default function Page() {
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Select defaultValue={userState.activityLog.toString()} onValueChange={(value: string) => setActivityLog(value)}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectItem value="true">Activity Data Collection On</SelectItem>
-                              <SelectItem value="false">Activity Data Collection Off</SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+                        <div className="space-y-4">
+                          <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                            <div className="space-y-0.5">
+                              <p className="text-base">
+                                Activity Log
+                              </p>
+                              <p className="text-xs text-slate-500">
+                                Activity Data Collection Settings
+                              </p>
+                            </div>
+                            <Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />
+                          </div>
+                        </div>
                       </CardContent>
-                      <CardFooter>
-                        <Button onClick={saveActivityLogSettings}>Save Settings</Button>
-                      </CardFooter>
                     </Card>
                   </section>
                 </Suspense>
@@ -378,21 +375,20 @@ export default function Page() {
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Select defaultValue={userState.reduceCarbonEmissions.toString()} onValueChange={(value: string) => setSustainabilitySettings(value)}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectItem value="true">Use Sustainability Settings</SelectItem>
-                              <SelectItem value="false">Do not use Sustainability Settings</SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+                        <div className="space-y-4">
+                          <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                            <div className="space-y-0.5">
+                              <p className="text-base">
+                                Reduce Carbon Emissions
+                              </p>
+                              <p className="text-xs text-slate-500">
+                                Turn this settings on to reduce carbon footprints inside {uiConstants.brandName}
+                              </p>
+                            </div>
+                            <Switch checked={userState.reduceCarbonEmissions} onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)} />
+                          </div>
+                        </div>
                       </CardContent>
-                      <CardFooter>
-                        <Button onClick={saveSustainabilitySettings}>Save Settings</Button>
-                      </CardFooter>
                     </Card>
                   </section>
                 </Suspense>
