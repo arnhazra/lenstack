@@ -8,15 +8,19 @@ import { SolutionModule } from "./solution/solution.module"
 import { MongooseModule } from "@nestjs/mongoose"
 import { envConfig } from "src/env.config"
 import { DbConnectionMap } from "src/utils/db-connection.map"
+import { ActivityModule } from "./activity/activity.module"
+import { TokenModule } from "./token/token.module"
 
 @Module({
   imports: [
     ApiReferenceModule,
+    ActivityModule,
     OrganizationModule,
     PricingModule,
     UserModule,
     ProductsModule,
     SolutionModule,
+    TokenModule,
     MongooseModule.forRoot(envConfig.coreDatabaseURI, { connectionName: DbConnectionMap.Core }),
   ]
 })

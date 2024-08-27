@@ -1,9 +1,6 @@
-import { Module } from '@nestjs/common';
-import { TokenModule } from "./token/token.module";
+import { Module } from "@nestjs/common";
 
 @Module({
-  imports: [
-    TokenModule
-  ]
+  imports: []
 })
 export class MicroservicesModule { }

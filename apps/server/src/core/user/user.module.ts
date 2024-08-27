@@ -29,7 +29,7 @@ import { ServiceUnion, QueueUnion } from "src/microservices/events.union"
             durable: false
           },
         },
-      },
+      }
     ]),
   ],
   controllers: [UserController],
