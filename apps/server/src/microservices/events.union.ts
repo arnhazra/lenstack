@@ -11,8 +11,10 @@ export enum EventsUnion {
 
 export enum QueueUnion {
   ActivityQueue = "activity_queue",
+  EmailQueue = "email_queue"
 }
 
 export enum ServiceUnion {
-  ActivityMicroService = "ACTIVITY_MICROSERVICE"
+  ActivityMicroService = "ACTIVITY_MICROSERVICE",
+  EmailMicroService = "EMAIL_MICROSERVICE"
 }
