@@ -1,6 +1,6 @@
 name: PROD CI-CD
 env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID_EMAIL_SERVICE }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_EMAIL_SERVICE }}
 on:
   push:
