@@ -4,7 +4,7 @@ import { User } from "./schemas/user.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { FilterQuery, Model } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/microservices/events.union"
+import { EventsUnion } from "src/utils/events.union"
 
 @Injectable()
 export class UserRepository {
