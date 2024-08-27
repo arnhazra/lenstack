@@ -12,7 +12,7 @@ import { IdentityRepository } from "./identity.repository"
 import { envConfig } from "src/env.config"
 import { FindUsersByOrgQueryHandler } from "./queries/handler/find-users-by-org.handler"
 import { ClientsModule, Transport } from "@nestjs/microservices"
-import { ServiceUnion, QueueUnion } from "src/microservices/events.union"
+import { ServiceUnion, QueueUnion } from "src/utils/events.union"
 
 @Module({
   imports: [

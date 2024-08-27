@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/microservices/events.union"
+import { EventsUnion } from "src/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/user/schemas/user.schema"
 import { Organization } from "src/core/organization/schemas/organization.schema"

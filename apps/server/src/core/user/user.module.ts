@@ -12,7 +12,7 @@ import { FindUserByIdQueryHandler } from "./queries/handler/find-user-by-id.hand
 import { UpdateAttributeCommandHandler } from "./commands/handler/update-attribute.handler"
 import { ClientsModule, Transport } from "@nestjs/microservices"
 import { envConfig } from "src/env.config"
-import { ServiceUnion, QueueUnion } from "src/microservices/events.union"
+import { ServiceUnion, QueueUnion } from "src/utils/events.union"
 
 @Module({
   imports: [
