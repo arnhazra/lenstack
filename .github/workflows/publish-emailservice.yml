@@ -1,0 +1,42 @@
+name: PROD CI-CD
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID_EMAIL_SERVICE }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_EMAIL_SERVICE }}
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  PROD-CI-CD:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel
+
+      - name: Build Email Service application
+        working-directory: apps/emailservice
+        run: |
+          npm install
+          CI=false npm run build
+
+      - name: Configure packages
+        working-directory: apps/emailservice
+        run: sed -i '/"devDependencies":/,/}/d' package.json
+
+      - name: Build Movement
+        run: |
+          mkdir dist
+          cp -r apps/emailservice/package.json dist/package.json
+          cp -r apps/emailservice/dist/. dist
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Publish Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
