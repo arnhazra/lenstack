@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.3.0
+* Application & microservice restructuring
+* Dependency updates & bug fixes
+* Input OTP UI changes
+
 ## 7.2.3
 * Bug fix
 

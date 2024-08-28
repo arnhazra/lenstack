@@ -1,20 +1,9 @@
-import { createHmac } from "crypto"
+import { createHmac, randomInt } from "crypto"
 import { envConfig } from "src/env.config"
 const { passkeyHashingKey } = envConfig
 
 function generateRandomPassKey(): string {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  let randomPassKey = ""
-  for (let i = 0; i < 9; i++) {
-    if (i === 4) {
-      randomPassKey += "-"
-    }
-    else {
-      randomPassKey += characters.charAt(Math.floor(Math.random() * characters.length))
-    }
-  }
-
-  return randomPassKey
+  return randomInt(11111111, 99999999).toString()
 }
 
 export function generateAuthPasskey(email: string) {
