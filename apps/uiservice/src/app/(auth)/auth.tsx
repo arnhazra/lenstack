@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import LoaderIcon from "@/components/loaderIcon"
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -140,8 +141,25 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
                   </div>
                 </Suspense>
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Auth Passkey</Label>
-                  <Input className="h-12" type="password" disabled={isAuthLoading} name="passKey" placeholder="XXXX-XXXX" onChange={(e) => setState({ ...state, passKey: e.target.value })} required autoComplete={"off"} />
+                  <div className="flex justify-center items-center">
+                    <InputOTP maxLength={8} disabled={isAuthLoading} name="passKey" onChange={(value) => setState({ ...state, passKey: value })} required>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                      </InputOTPGroup>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                        <InputOTPSlot index={6} />
+                        <InputOTPSlot index={7} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                  <div className="text-center text-sm">
+                    Enter your one-time passkey
+                  </div>
                 </div>
                 <Button variant="default" type="submit" disabled={isAuthLoading} className="mt-4 w-full h-12">
                   <Suspense condition={!isAuthLoading} fallback={<><LoaderIcon /> {alert}</>}>

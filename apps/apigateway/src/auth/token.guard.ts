@@ -50,8 +50,8 @@ export class TokenGuard implements CanActivate {
 
     catch (error) {
       if (error instanceof (jwt.TokenExpiredError)) {
-        const decodedRefreshToken = jwt.verify(String(refreshToken), envConfig.refreshTokenPublicKey, { algorithms: ["RS512"] })
-        const userId = (decodedRefreshToken as any).id
+        const decodedAccessToken = jwt.decode(String(accessToken))
+        const userId = (decodedAccessToken as any).id
         const refreshTokenFromRedis: String[] = await this.eventEmitter.emitAsync(EventsUnion.GetToken, { userId })
 
         if (!refreshTokenFromRedis || !refreshTokenFromRedis.length || refreshToken !== refreshTokenFromRedis[0]) {
