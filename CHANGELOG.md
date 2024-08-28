@@ -4,6 +4,7 @@
 * Application & microservice restructuring
 * Dependency updates & bug fixes
 * Input OTP UI changes
+* Changed refresh token type from jwt to custom string
 
 ## 7.2.3
 * Bug fix
