@@ -17,6 +17,7 @@ import { Organization } from "../organization/schemas/organization.schema"
 import { AttributeNames, UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 import { ClientProxy } from "@nestjs/microservices"
 import { randomUUID } from "crypto"
+import { lastValueFrom } from "rxjs"
 
 @Injectable()
 export class UserService {
@@ -38,7 +39,7 @@ export class UserService {
       const { fullHash: hash, passKey } = generateAuthPasskey(email)
       const subject: string = generatePasskeyEmailSubject()
       const body: string = generatePasskeyEmailBody(passKey)
-      this.emailClient.emit(EventsUnion.SendEmail, { email, subject, body })
+      await lastValueFrom(this.emailClient.send(EventsUnion.SendEmail, { email, subject, body }), { defaultValue: null })
       return { user, hash }
     }
 
