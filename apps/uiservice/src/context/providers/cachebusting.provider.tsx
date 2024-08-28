@@ -6,7 +6,7 @@ import CacheBuster from "react-cache-buster"
 export function CachebustingProvider({ children }: { children: ReactNode }) {
   return (
     <CacheBuster
-      currentVersion="7.2.2"
+      currentVersion="7.2.3"
       isEnabled={process.env.NODE_ENV === "production"}
       isVerboseMode={false}
       loadingComponent={<LoadingComponent />}

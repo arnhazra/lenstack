@@ -40,7 +40,7 @@ export class UserService {
       const { fullHash: hash, passKey } = generateAuthPasskey(email)
       const subject: string = generatePasskeyEmailSubject()
       const body: string = generatePasskeyEmailBody(passKey)
-      await lastValueFrom(this.emailClient.send(EventsUnion.SendEmail, { receiverEmail: email, subject, body }), { defaultValue: null })
+      await lastValueFrom(this.emailClient.send(EventsUnion.SendEmail, { email, subject, body }), { defaultValue: null })
       return { user, hash }
     }
 
