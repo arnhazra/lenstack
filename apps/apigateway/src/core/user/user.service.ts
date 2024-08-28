@@ -16,7 +16,6 @@ import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { Organization } from "../organization/schemas/organization.schema"
 import { AttributeNames, UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 import { ClientProxy } from "@nestjs/microservices"
-import { lastValueFrom } from "rxjs"
 import { randomUUID } from "crypto"
 
 @Injectable()
@@ -39,7 +38,7 @@ export class UserService {
       const { fullHash: hash, passKey } = generateAuthPasskey(email)
       const subject: string = generatePasskeyEmailSubject()
       const body: string = generatePasskeyEmailBody(passKey)
-      await lastValueFrom(this.emailClient.send(EventsUnion.SendEmail, { email, subject, body }), { defaultValue: null })
+      this.emailClient.emit(EventsUnion.SendEmail, { email, subject, body })
       return { user, hash }
     }
 

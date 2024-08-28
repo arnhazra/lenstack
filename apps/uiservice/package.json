@@ -1,6 +1,6 @@
 {
   "name": "uiservice",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

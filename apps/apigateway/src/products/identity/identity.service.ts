@@ -14,7 +14,6 @@ import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { FindUsersByOrgQuery } from "./queries/impl/find-users-by-org.query"
 import { ClientProxy } from "@nestjs/microservices"
-import { lastValueFrom } from "rxjs"
 
 @Injectable()
 export class IdentityService {
@@ -35,7 +34,7 @@ export class IdentityService {
       const { fullHash: hash, passKey } = generateAuthPasskey(email)
       const subject: string = generatePasskeyEmailSubject()
       const body: string = generatePasskeyEmailBody(passKey)
-      await lastValueFrom(this.emailClient.send(EventsUnion.SendEmail, { email, subject, body }), { defaultValue: null })
+      this.emailClient.emit(EventsUnion.SendEmail, { email, subject, body })
       return { user, hash }
     }
 
