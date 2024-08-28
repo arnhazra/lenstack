@@ -9,7 +9,7 @@ import SMTPTransport from "nodemailer/lib/smtp-transport"
 export class AppService {
   async sendEmail(sendEmailDto: SendEmailDto) {
     try {
-      const { receiverEmail, subject, body } = sendEmailDto
+      const { email, subject, body } = sendEmailDto
       const { gcloudClientId, gcloudClientSecret, redirectURI, refreshToken, mailerEmail } = envConfig
       const oAuth2Client = new google.auth.OAuth2(gcloudClientId, gcloudClientSecret, redirectURI)
       oAuth2Client.setCredentials({ refresh_token: refreshToken })
@@ -26,7 +26,7 @@ export class AppService {
         }
       })
 
-      await transporter.sendMail({ from: mailerEmail, to: receiverEmail, subject, html: body })
+      await transporter.sendMail({ from: mailerEmail, to: email, subject, html: body })
     }
 
     catch (error) {

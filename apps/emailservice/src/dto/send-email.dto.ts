@@ -2,7 +2,7 @@ import { IsNotEmpty } from "class-validator"
 
 export class SendEmailDto {
   @IsNotEmpty()
-  receiverEmail: string
+  email: string
 
   @IsNotEmpty()
   subject: string

@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.2.3
+* Bug fix
+
 ## 7.2.2
 * Application Restructuring
 
