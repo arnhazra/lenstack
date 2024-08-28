@@ -18,6 +18,4 @@ export const envConfig = {
   passkeyHashingKey: process.env.PASSKEY_HASHING_KEY,
   accessTokenPrivateKey: process.env.ACCESS_TOKEN_RSA_PRIVATE_KEY,
   accessTokenPublicKey: process.env.ACCESS_TOKEN_RSA_PUBLIC_KEY,
-  refreshTokenPrivateKey: process.env.REFRESH_TOKEN_RSA_PRIVATE_KEY,
-  refreshTokenPublicKey: process.env.REFRESH_TOKEN_RSA_PRIVATE_KEY,
 }

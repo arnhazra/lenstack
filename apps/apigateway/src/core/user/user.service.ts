@@ -17,11 +17,11 @@ import { Organization } from "../organization/schemas/organization.schema"
 import { AttributeNames, UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 import { ClientProxy } from "@nestjs/microservices"
 import { lastValueFrom } from "rxjs"
+import { randomUUID } from "crypto"
 
 @Injectable()
 export class UserService {
   private readonly accessTokenPrivateKey: string
-  private readonly refreshTokenPrivateKey: string
 
   constructor(
     private readonly eventEmitter: EventEmitter2,
@@ -30,7 +30,6 @@ export class UserService {
     @Inject(ServiceUnion.EmailMicroService) private readonly emailClient: ClientProxy
   ) {
     this.accessTokenPrivateKey = envConfig.accessTokenPrivateKey
-    this.refreshTokenPrivateKey = envConfig.refreshTokenPrivateKey
   }
 
   async generatePasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
@@ -70,7 +69,7 @@ export class UserService {
           else {
             const tokenPayload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
             const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
-            const refreshToken = jwt.sign(tokenPayload, this.refreshTokenPrivateKey, { algorithm: "RS512" })
+            const refreshToken = `rt_as-${randomUUID()}`
             await this.eventEmitter.emitAsync(EventsUnion.SetToken, { userId: user.id, token: refreshToken })
             return { accessToken, refreshToken, user, success: true }
           }
@@ -82,7 +81,7 @@ export class UserService {
           await this.commandBus.execute<UpdateAttributeCommand, User>(new UpdateAttributeCommand(newUser.id, AttributeNames.SelectedOrgId, organization[0].id))
           const tokenPayload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
-          const refreshToken = jwt.sign(tokenPayload, this.refreshTokenPrivateKey, { algorithm: "RS512" })
+          const refreshToken = `rt_as-${randomUUID()}`
           await this.eventEmitter.emitAsync(EventsUnion.SetToken, { userId: newUser.id, token: refreshToken })
           return { accessToken, refreshToken, user: newUser, success: true }
         }
