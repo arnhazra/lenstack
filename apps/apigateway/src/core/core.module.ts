@@ -22,7 +22,7 @@ import { EmailModule } from "./email/email.module";
     ProductsModule,
     SolutionModule,
     TokenModule,
-    MongooseModule.forRoot(envConfig.coreDatabaseURI, { connectionName: DbConnectionMap.Core }),
+    MongooseModule.forRoot(envConfig.coreDatabaseURI, { connectionName: DbConnectionMap.Core, dbName: DbConnectionMap.Core }),
     EmailModule,
   ]
 })
