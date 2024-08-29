@@ -1,17 +1,17 @@
 # Changelog
 
-## v7.3.1
+## v7.3.2
 * Application & microservice restructuring
 * Dependency updates & bug fixes
 
-## v7.3.0
+## v7.3.1
 * Application & microservice restructuring
 * Dependency updates & bug fixes
 * Input OTP UI changes
 * Changed refresh token type from jwt to custom string
 
-## v7.2.3
-* Bug fix
+## v7.3.0
+* Bug fixes
 
 ## v7.2.2
 * Application Restructuring
