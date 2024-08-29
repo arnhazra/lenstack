@@ -1,11 +1,10 @@
 # Changelog
 
 ## v7.3.2
-* Application & microservice restructuring
+* Application restructuring
 * Dependency updates & bug fixes
 
 ## v7.3.1
-* Application & microservice restructuring
 * Dependency updates & bug fixes
 * Input OTP UI changes
 * Changed refresh token type from jwt to custom string
@@ -21,7 +20,6 @@
 
 ## v7.2.0
 * Bug fixes & performance improvements
-* Introduced microservices pattern for email service with RabbitMQ & nest microservice
 * Updated dependencies across apps
 
 ## v7.1.1
