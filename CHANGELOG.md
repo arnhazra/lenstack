@@ -1,35 +1,39 @@
 # Changelog
 
-## 7.3.0
+## v7.3.1
+* Application & microservice restructuring
+* Dependency updates & bug fixes
+
+## v7.3.0
 * Application & microservice restructuring
 * Dependency updates & bug fixes
 * Input OTP UI changes
 * Changed refresh token type from jwt to custom string
 
-## 7.2.3
+## v7.2.3
 * Bug fix
 
-## 7.2.2
+## v7.2.2
 * Application Restructuring
 
-## 7.2.1
+## v7.2.1
 * Application Restructuring
 
-## 7.2.0
+## v7.2.0
 * Bug fixes & performance improvements
 * Introduced microservices pattern for email service with RabbitMQ & nest microservice
 * Updated dependencies across apps
 
-## 7.1.1
+## v7.1.1
 * Minor UI updates
 
-## 7.1.0
+## v7.1.0
 * Minor changes & bug fixes
 * Code optimization & cleanup
 * Regular dependency updates
 * Removal of unused dependencies
 
-## 7.0.0
+## v7.0.0
 * Introduction of Identity product
 * Deprecated blockchain product
 * Deprecated analytics product
@@ -42,7 +46,7 @@
 * Added $100 free credits for new users
 * Added compute tiers
 
-## 6.9.0
+## v6.9.0
 * Minor UI improvements across apps
 * Bug fixes & overall performance improvements
 
