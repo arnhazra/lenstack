@@ -16,7 +16,7 @@ import { ReadOneDataQueryHandler } from "./queries/handler/read-value-by-key.han
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forRoot(envConfig.httpnosqlDatabaseURI, { connectionName: DbConnectionMap.HttpNoSql }),
+    MongooseModule.forRoot(envConfig.productsDatabaseURI, { connectionName: DbConnectionMap.HttpNoSql, dbName: DbConnectionMap.HttpNoSql }),
     MongooseModule.forFeature([{ name: Data.name, schema: DataSchema }], DbConnectionMap.HttpNoSql),
   ],
   controllers: [HttpNosqlController],

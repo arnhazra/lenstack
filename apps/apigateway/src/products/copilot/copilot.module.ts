@@ -12,7 +12,7 @@ import { CopilotRepository } from "./copilot.repository"
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forRoot(envConfig.copilotDatabaseURI, { connectionName: DbConnectionMap.Copilot }),
+    MongooseModule.forRoot(envConfig.productsDatabaseURI, { connectionName: DbConnectionMap.Copilot, dbName: DbConnectionMap.Copilot }),
     MongooseModule.forFeature([{ name: Query.name, schema: QuerySchema }], DbConnectionMap.Copilot),
   ],
   controllers: [CopilotController],
