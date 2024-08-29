@@ -2,11 +2,11 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { SendEmailDto } from "./dto/send-email.dto"
 import * as nodemailer from "nodemailer"
 import { google } from "googleapis"
-import { envConfig } from "./env.config"
+import { envConfig } from "../../env.config"
 import SMTPTransport from "nodemailer/lib/smtp-transport"
 
 @Injectable()
-export class AppService {
+export class EmailService {
   async sendEmail(sendEmailDto: SendEmailDto) {
     try {
       const { email, subject, body } = sendEmailDto

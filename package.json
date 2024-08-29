@@ -1,9 +1,9 @@
 {
   "name": "arcstack",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "a saas product",
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix apps/apigateway\" \"npm run dev --prefix apps/emailservice\" \"npm run dev --prefix apps/uiservice\"",
+    "dev": "concurrently \"npm run dev --prefix apps/apigateway\" \"npm run dev --prefix apps/uiservice\"",
     "publish": "git add . && git commit -m publish && git push"
   },
   "author": "Arnab Hazra",

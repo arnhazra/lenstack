@@ -1,7 +1,7 @@
-name: PROD CI-CD EMAIL SERVIVE APP
+name: PROD CI-CD
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_EMAIL_SERVICE }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PROD }}
 on:
   push:
     branches:
@@ -16,21 +16,28 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Build Email Service application
-        working-directory: apps/emailservice
+      - name: Build API Gateway application
+        working-directory: apps/apigateway
+        run: |
+          npm install
+          CI=false npm run build
+
+      - name: Build UI Service application
+        working-directory: apps/uiservice
         run: |
           npm install
           CI=false npm run build
 
       - name: Configure packages
-        working-directory: apps/emailservice
+        working-directory: apps/apigateway
         run: sed -i '/"devDependencies":/,/}/d' package.json
 
       - name: Build Movement
         run: |
           mkdir dist
-          cp -r apps/emailservice/package.json dist/package.json
-          cp -r apps/emailservice/dist/. dist
+          cp -r apps/apigateway/package.json dist/package.json
+          cp -r apps/apigateway/dist/. dist
+          mv apps/uiservice/out dist/uiservice
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
