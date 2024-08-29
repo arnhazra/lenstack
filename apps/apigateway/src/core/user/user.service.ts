@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from "@nestjs/common"
+import { BadRequestException, Injectable } from "@nestjs/common"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
@@ -7,7 +7,7 @@ import { generateAuthPasskey, verifyAuthPasskey, generatePasskeyEmailBody, gener
 import { otherConstants } from "src/utils/constants/other-constants"
 import { statusMessages } from "src/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion, ServiceUnion } from "src/utils/events.union"
+import { EventsUnion } from "src/utils/events.union"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
@@ -15,9 +15,7 @@ import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { Organization } from "../organization/schemas/organization.schema"
 import { AttributeNames, UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
-import { ClientProxy } from "@nestjs/microservices"
 import { randomUUID } from "crypto"
-import { lastValueFrom } from "rxjs"
 
 @Injectable()
 export class UserService {
@@ -26,8 +24,7 @@ export class UserService {
   constructor(
     private readonly eventEmitter: EventEmitter2,
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-    @Inject(ServiceUnion.EmailMicroService) private readonly emailClient: ClientProxy
+    private readonly commandBus: CommandBus
   ) {
     this.accessTokenPrivateKey = envConfig.accessTokenPrivateKey
   }
@@ -39,7 +36,7 @@ export class UserService {
       const { fullHash: hash, passKey } = generateAuthPasskey(email)
       const subject: string = generatePasskeyEmailSubject()
       const body: string = generatePasskeyEmailBody(passKey)
-      await lastValueFrom(this.emailClient.send(EventsUnion.SendEmail, { email, subject, body }), { defaultValue: null })
+      await this.eventEmitter.emitAsync(EventsUnion.SendEmail, { email, subject, body })
       return { user, hash }
     }
 
