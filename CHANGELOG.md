@@ -1,6 +1,11 @@
 # Changelog
 
-## v7.3.2
+## v7.5.0
+* Initilaization for multi cloud db instance on demand
+* Removal of unused dependencies
+* Code cleanup
+
+## v7.4.0
 * Application restructuring
 * Dependency updates & bug fixes
 
