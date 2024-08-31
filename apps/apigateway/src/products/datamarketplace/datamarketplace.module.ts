@@ -16,7 +16,6 @@ import { FindMetaDataByIdQueryHandler } from "./queries/handler/find-metadata.ha
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forRoot(envConfig.productsDatabaseURI, { connectionName: DbConnectionMap.DataMarketplace, dbName: DbConnectionMap.DataMarketplace }),
     MongooseModule.forFeature([
       { name: Dataset.name, schema: DatasetSchema },
       { name: Metadata.name, schema: MetadataSchema }

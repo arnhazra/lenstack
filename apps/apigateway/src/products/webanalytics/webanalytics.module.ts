@@ -13,7 +13,6 @@ import { CreateEventsCommandHandler } from "./commands/handler/create-event.hand
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forRoot(envConfig.productsDatabaseURI, { connectionName: DbConnectionMap.WebAnalytics, dbName: DbConnectionMap.WebAnalytics }),
     MongooseModule.forFeature([{ name: Events.name, schema: EventsSchema }], DbConnectionMap.WebAnalytics),
   ],
   controllers: [WebAnalyticsController],

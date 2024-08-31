@@ -15,7 +15,6 @@ import { FindUsersByOrgQueryHandler } from "./queries/handler/find-users-by-org.
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forRoot(envConfig.productsDatabaseURI, { connectionName: DbConnectionMap.Identity, dbName: DbConnectionMap.Identity }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }], DbConnectionMap.Identity),
   ],
   controllers: [IdentityController],
