@@ -8,6 +8,6 @@ export class CreateUserCommandHandler implements ICommandHandler<CreateUserComma
 
   async execute(command: CreateUserCommand) {
     const { email, name, walletBalance } = command
-    return await this.repository.createOne(email, name, walletBalance)
+    return await this.repository.create({ email, name, walletBalance })
   }
 }

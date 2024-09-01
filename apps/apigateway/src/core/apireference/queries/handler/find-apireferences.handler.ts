@@ -8,6 +8,6 @@ export class FindAPIReferencesQueryHandler implements IQueryHandler<FindAPIRefer
 
   async execute(query: FindAPIReferencesQuery) {
     const { productName } = query
-    return await this.repository.findOne(productName)
+    return await this.repository.findAll({ productName })
   }
 }
