@@ -8,6 +8,6 @@ export class GetEventsQueryHandler implements IQueryHandler<GetEventsQuery> {
 
   async execute(query: GetEventsQuery) {
     const { orgId } = query
-    return await this.repository.findAll(orgId)
+    return await this.repository.find(orgId)
   }
 }

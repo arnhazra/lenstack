@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { CreateEventsCommand } from "../impl/create-events.command"
 import { WebAnalyticsRepository } from "../../webanalytics.repository"
+import { Types } from "mongoose"
 
 @CommandHandler(CreateEventsCommand)
 export class CreateEventsCommandHandler implements ICommandHandler<CreateEventsCommand> {
@@ -8,6 +9,7 @@ export class CreateEventsCommandHandler implements ICommandHandler<CreateEventsC
 
   async execute(command: CreateEventsCommand) {
     const { orgId, createEventsDto } = command
-    return await this.repository.createOne(orgId, createEventsDto)
+    const { event } = createEventsDto
+    return await this.repository.create({ orgId: new Types.ObjectId(orgId), event })
   }
 }

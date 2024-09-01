@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { CopilotRepository } from "../../copilot.repository"
 import { CreateQueryCommand } from "../impl/create-query.command"
+import { Types } from "mongoose"
 
 @CommandHandler(CreateQueryCommand)
 export class CreateQueryCommandHandler implements ICommandHandler<CreateQueryCommand> {
@@ -8,6 +9,6 @@ export class CreateQueryCommandHandler implements ICommandHandler<CreateQueryCom
 
   async execute(command: CreateQueryCommand) {
     const { orgId, prompt, response } = command
-    return await this.repository.createOne(orgId, prompt, response)
+    return await this.repository.create({ orgId: new Types.ObjectId(orgId), prompt, response })
   }
 }
