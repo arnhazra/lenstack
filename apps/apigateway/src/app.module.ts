@@ -4,6 +4,7 @@ import { join } from "path"
 import { CoreModule } from "./core/core.module"
 import { ProductsModule } from "./products/products.module"
 import { EventEmitterModule } from "@nestjs/event-emitter"
+import { DatabaseModule } from './infra/database.module'
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { EventEmitterModule } from "@nestjs/event-emitter"
     EventEmitterModule.forRoot(),
     CoreModule,
     ProductsModule,
+    DatabaseModule,
   ],
   controllers: [],
   providers: [],

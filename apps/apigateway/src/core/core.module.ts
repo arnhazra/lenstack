@@ -5,15 +5,16 @@ import { PricingModule } from "./pricing/pricing.module"
 import { UserModule } from "./user/user.module"
 import { ProductsModule } from "./product/products.module"
 import { SolutionModule } from "./solution/solution.module"
-import { MongooseModule } from "@nestjs/mongoose"
 import { envConfig } from "src/env.config"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
 import { TokenModule } from "./token/token.module"
 import { EmailModule } from "./email/email.module"
+import { DatabaseModule } from "src/infra/database.module"
 
 @Module({
   imports: [
+    DatabaseModule.forRoot(envConfig.coreDatabaseURI, DbConnectionMap.Core),
     ApiReferenceModule,
     ActivityModule,
     OrganizationModule,
@@ -22,7 +23,6 @@ import { EmailModule } from "./email/email.module"
     ProductsModule,
     SolutionModule,
     TokenModule,
-    MongooseModule.forRoot(envConfig.coreDatabaseURI, { connectionName: DbConnectionMap.Core, dbName: DbConnectionMap.Core }),
     EmailModule,
   ]
 })

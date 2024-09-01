@@ -3,17 +3,18 @@ import { WebAnalyticsController } from "./webanalytics.controller"
 import { WebAnalyticsService } from "./webanalytics.service"
 import { CqrsModule } from "@nestjs/cqrs"
 import { WebAnalyticsRepository } from "./webanalytics.repository"
-import { MongooseModule } from "@nestjs/mongoose"
 import { envConfig } from "src/env.config"
 import { Events, EventsSchema } from "./schemas/event.schema"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { GetEventsQueryHandler } from "./queries/handler/get-events.handler"
 import { CreateEventsCommandHandler } from "./commands/handler/create-event.handler"
+import { DatabaseModule } from "src/infra/database.module"
 
 @Module({
   imports: [
     CqrsModule,
-    MongooseModule.forFeature([{ name: Events.name, schema: EventsSchema }], DbConnectionMap.WebAnalytics),
+    DatabaseModule.forRoot(envConfig.productsDatabaseURI, DbConnectionMap.WebAnalytics),
+    DatabaseModule.forFeature([{ name: Events.name, schema: EventsSchema }], DbConnectionMap.WebAnalytics),
   ],
   controllers: [WebAnalyticsController],
   providers: [WebAnalyticsService, WebAnalyticsRepository, GetEventsQueryHandler, CreateEventsCommandHandler],
