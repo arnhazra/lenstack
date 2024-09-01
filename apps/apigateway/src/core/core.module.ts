@@ -10,7 +10,7 @@ import { envConfig } from "src/env.config"
 import { DbConnectionMap } from "src/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
 import { TokenModule } from "./token/token.module"
-import { EmailModule } from "./email/email.module";
+import { EmailModule } from "./email/email.module"
 
 @Module({
   imports: [

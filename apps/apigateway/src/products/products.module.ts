@@ -5,8 +5,8 @@ import { HttpnosqlModule } from "./httpnosql/httpnosql.module"
 import { WebAnalyticsModule } from "./webanalytics/webanalytics.module"
 import { IdentityModule } from "./identity/identity.module"
 import { DbConnectionMap } from "src/utils/db-connection.map"
-import { MongooseModule } from "@nestjs/mongoose";
-import { envConfig } from "src/env.config";
+import { MongooseModule } from "@nestjs/mongoose"
+import { envConfig } from "src/env.config"
 
 @Module({})
 export class DatabaseModule {
@@ -17,7 +17,7 @@ export class DatabaseModule {
         dbName: mappedDb,
       }),
       connectionName: mappedDb,
-    });
+    })
   }
 }
 
