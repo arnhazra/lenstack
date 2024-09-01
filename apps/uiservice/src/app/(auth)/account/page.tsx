@@ -11,7 +11,7 @@ import Suspense from "@/components/suspense"
 import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { ComputerIcon, Leaf, Network, ShieldCheck, User, Wallet } from "lucide-react"
+import { CircleUser, ComputerIcon, Leaf, Network, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -254,7 +254,15 @@ export default function Page() {
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
             <div className="mx-auto grid w-full gap-2">
               <div className="flex justify-between">
-                <h1 className="text-3xl font-semibold">Account Settings</h1>
+                <div className="flex gap-4">
+                  <Button variant="secondary" size="icon" className="rounded-full">
+                    <CircleUser className="h-5 w-5" />
+                  </Button>
+                  <div>
+                    <p className="text-sm  font-semibold">{userState.name}</p>
+                    <p className="text-sm text-slate-600 font-semibold">{userState.email}</p>
+                  </div>
+                </div>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
                   <Button onClick={createOrg}>Create Org</Button>
                 </Suspense>
