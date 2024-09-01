@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Schema as MongooseSchema } from "mongoose"
+import { Document, Types } from "mongoose"
 
 @Schema({ versionKey: false, collection: "datas", timestamps: { createdAt: true, updatedAt: false } })
 export class Data extends Document {
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "organization", required: true })
-  orgId: MongooseSchema.Types.ObjectId
+  @Prop({ type: Types.ObjectId, ref: "organization", required: true })
+  orgId: Types.ObjectId
 
   @Prop({ required: true })
   key: string
