@@ -1,5 +1,5 @@
 import { Module, DynamicModule } from "@nestjs/common"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ModelDefinition, MongooseModule } from "@nestjs/mongoose"
 
 @Module({})

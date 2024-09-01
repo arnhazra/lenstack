@@ -1,13 +1,13 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common"
 import * as jwt from "jsonwebtoken"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/utils/events.union"
+import { EventsUnion } from "src/shared/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core//user/schemas/user.schema"
 import { Response } from "express"
-import { otherConstants } from "src/utils/constants/other-constants"
+import { otherConstants } from "src/shared/utils/constants/other-constants"
 
 @Injectable()
 export class TokenGuard implements CanActivate {

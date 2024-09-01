@@ -4,7 +4,7 @@ import { SetTokenDto } from "./dto/set-token.dto"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetTokenDto } from "./dto/get-token.dto"
 import { DeleteTokenDto } from "./dto/delete-token.dto"
-import { EventsUnion } from "../../utils/events.union"
+import { EventsUnion } from "../../shared/utils/events.union"
 
 @Controller("token")
 export class TokenController {

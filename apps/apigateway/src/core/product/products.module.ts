@@ -2,11 +2,11 @@ import { Module } from "@nestjs/common"
 import { ProductsController } from "./products.controller"
 import { ProductsService } from "./products.service"
 import { Product, ProductSchema } from "./schemas/products.schema"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ProductsRepository } from "./products.repository"
 import { GetProductsQueryHandler } from "./queries/handler/get-products.handler"
 import { CqrsModule } from "@nestjs/cqrs"
-import { DatabaseModule } from "src/infra/database.module"
+import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
   imports: [

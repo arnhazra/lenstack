@@ -1,7 +1,7 @@
 import { Controller, Post, Body, BadRequestException, Get, Delete, UseGuards, Request, Param, Patch } from "@nestjs/common"
 import { OrganizationService } from "./organization.service"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { TokenGuard } from "src/auth/token.guard"
 import { ModRequest } from "src/auth/types/mod-request.interface"
 

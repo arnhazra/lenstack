@@ -1,12 +1,12 @@
 import Stripe from "stripe"
 import { Injectable, BadRequestException } from "@nestjs/common"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
 import { pricingConfig } from "./pricing.config"
-import { otherConstants } from "src/utils/constants/other-constants"
+import { otherConstants } from "src/shared/utils/constants/other-constants"
 import { User } from "../user/schemas/user.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/utils/events.union"
+import { EventsUnion } from "src/shared/utils/events.union"
 
 @Injectable()
 export class PricingService {

@@ -3,10 +3,10 @@ import { SolutionController } from "./solution.controller"
 import { SolutionService } from "./solution.service"
 import { CqrsModule } from "@nestjs/cqrs"
 import { Solution, SolutionSchema } from "./schemas/solutions.schema"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { GetSolutionsQueryHandler } from "./queries/handler/get-solutions.handler"
 import { SolutionsRepository } from "./solution.repository"
-import { DatabaseModule } from "src/infra/database.module"
+import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
   imports: [

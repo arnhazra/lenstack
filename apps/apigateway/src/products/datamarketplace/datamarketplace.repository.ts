@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Metadata } from "./schemas/metadata.schema"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { Dataset } from "./schemas/dataset.schema"
 import { Model } from "mongoose"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"

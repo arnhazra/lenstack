@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { QueryBus } from "@nestjs/cqrs"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { GetSolutionsQuery } from "./queries/impl/get-solutions.query"
 import { Solution } from "./schemas/solutions.schema"
 

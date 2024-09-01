@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { User } from "./schemas/user.schema"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { FilterQuery, Model } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/utils/events.union"
-import { BaseRepository } from "src/infra/database.repository"
+import { EventsUnion } from "src/shared/utils/events.union"
+import { BaseRepository } from "src/shared/database/database.repository"
 
 @Injectable()
 export class UserRepository extends BaseRepository<User> {
