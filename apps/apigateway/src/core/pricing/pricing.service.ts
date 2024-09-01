@@ -68,8 +68,8 @@ export class PricingService {
       const { userId, amount } = session.metadata
       const userResponse: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
       const user = userResponse[0]
-      user.walletBalance += Number(amount)
-      await user.save()
+      const walletBalance = user.walletBalance + Number(amount)
+      await this.eventEmitter.emitAsync(EventsUnion.UpdateUserDetails, userId, "walletBalance", walletBalance)
       return { success: true }
     }
 

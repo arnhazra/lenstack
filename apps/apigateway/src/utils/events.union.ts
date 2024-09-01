@@ -5,6 +5,7 @@ export enum EventsUnion {
   SendEmail = "sendEmail",
   CreateActivity = "createActivity",
   GetUserDetails = "getUserDetails",
+  UpdateUserDetails = "updateUserDetails",
   GetOrgDetails = "getOrgDetails",
   CreateOrg = "createOrg",
 }

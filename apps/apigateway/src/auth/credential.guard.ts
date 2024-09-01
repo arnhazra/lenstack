@@ -50,8 +50,8 @@ export class CredentialGuard implements CanActivate {
 
             else {
               await new Promise(resolve => setTimeout(resolve, responseDelay))
-              user.walletBalance -= creditRequired
-              await user.save()
+              const walletBalance = user.walletBalance - creditRequired
+              await this.eventEmitter.emitAsync(EventsUnion.UpdateUserDetails, userId, "walletBalance", walletBalance)
               request.user = { userId, orgId }
 
               if (user.activityLog) {

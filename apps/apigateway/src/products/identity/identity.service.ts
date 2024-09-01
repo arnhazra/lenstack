@@ -61,7 +61,6 @@ export class IdentityService {
           const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email, orgId))
           const tokenPayload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
-          await user.save()
           return { accessToken, user: newUser, success: true }
         }
       }
