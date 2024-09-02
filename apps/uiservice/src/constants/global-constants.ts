@@ -23,7 +23,7 @@ export const uiConstants = {
   solutionHeader: `Find solutions for putting your ideas into action. Solve your business problems with proven combinations of ${brandName} services, as well as sample architectures and documentation.`,
   openSourceHeader: `${brandName} is open source and powered by open source software.`,
   productsHeader: "Explore products for bringing your vision to life. Access all products for different needs with just a free account.",
-  computeTierHeader: `Choose an ${brandName} compute tier that's right for you. Downgrade, upgrade any time. ${brandName} offers a variety of plans to meet your requirements.`,
+  computeTierHeader: `Choose an ${brandName} compute tier that is right for you. Downgrade, upgrade any time. ${brandName} offers a variety of plans to meet your requirements.`,
   privacyPolicyStatement: `By using ${brandName}, you agree to our Terms of Service and Privacy Policy`,
   verifyEmailStatement: `Please verify your auth by entering the auth passkey we sent to your inbox`,
   organizationCreated: "Organization created",

@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { CreateOrganizationDto } from "./dto/create-organization.dto"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindAllOrgQuery } from "./queries/impl/find-all-org.query"
 import { FindOrgByIdQuery } from "./queries/impl/find-org-by-id.query"

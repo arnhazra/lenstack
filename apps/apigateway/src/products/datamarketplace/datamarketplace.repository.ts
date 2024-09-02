@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Metadata } from "./schemas/metadata.schema"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { Dataset } from "./schemas/dataset.schema"
-import { Model } from "mongoose"
+import { Model, Types } from "mongoose"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 
 @Injectable()
@@ -37,13 +37,13 @@ export class DatamarketplaceRepository {
       .limit(limit)
   }
 
-  async findMetaDataById(datasetId: string): Promise<{ metaData: Metadata, dataLength: number }> {
+  async findMetaDataById(datasetId: Types.ObjectId): Promise<{ metaData: Metadata, dataLength: number }> {
     const metaData = await this.metadataModel.findById(datasetId)
     const dataLength = (await this.datasetModel.findOne({ datasetRelationId: datasetId })).data.length
     return { metaData, dataLength }
   }
 
-  async findDataById(datasetId: string): Promise<Dataset> {
+  async findDataById(datasetId: Types.ObjectId): Promise<Dataset> {
     return await this.datasetModel.findOne({ datasetRelationId: datasetId })
   }
 }

@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Data } from "./schemas/data.schema"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { Model, Types } from "mongoose"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 
 @Injectable()
 export class HttpNosqlRepository {
@@ -11,7 +11,7 @@ export class HttpNosqlRepository {
 
   async createKeyValue(orgId: string, key: string, value: Record<string, any> | Record<string, any>[] | string | string[]): Promise<Data | null> {
     try {
-      const data = await this.model.find({ key, orgId })
+      const data = await this.model.find({ key, orgId: new Types.ObjectId(orgId) })
 
       if (data.length > 0) {
         throw new BadRequestException(statusMessages.keyAlreadyExists)
@@ -29,7 +29,7 @@ export class HttpNosqlRepository {
 
   async readAllValues(orgId: string): Promise<Data[] | null> {
     try {
-      return await this.model.find({ orgId })
+      return await this.model.find({ orgId: new Types.ObjectId(orgId) })
     }
 
     catch (error) {
@@ -39,7 +39,8 @@ export class HttpNosqlRepository {
 
   async readValueByKey(orgId: string, key: string): Promise<Data | null> {
     try {
-      const data = await this.model.findOne({ orgId, key })
+      const data = await this.model.findOne({ orgId: new Types.ObjectId(orgId), key })
+
       if (!data) {
         throw new BadRequestException(statusMessages.keyDoesNotExist)
       }
@@ -54,7 +55,7 @@ export class HttpNosqlRepository {
 
   async updateValueByKey(orgId: string, key: string, value: Record<string, any> | Record<string, any>[] | string | string[]): Promise<Data | null> {
     try {
-      const data = await this.model.findOne({ key, orgId })
+      const data = await this.model.findOne({ key, orgId: new Types.ObjectId(orgId) })
 
       if (!data) {
         throw new BadRequestException(statusMessages.keyDoesNotExist)
@@ -72,7 +73,7 @@ export class HttpNosqlRepository {
 
   async deleteValueByKey(orgId: string, key: string): Promise<Data | null> {
     try {
-      const data = await this.model.find({ key, orgId })
+      const data = await this.model.find({ key, orgId: new Types.ObjectId(orgId) })
 
       if (data.length === 0) {
         throw new BadRequestException(statusMessages.keyDoesNotExist)

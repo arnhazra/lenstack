@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/utils/events.union"
+import { EventsUnion } from "src/shared/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/user/schemas/user.schema"
 import { Organization } from "src/core/organization/schemas/organization.schema"
@@ -50,8 +50,8 @@ export class CredentialGuard implements CanActivate {
 
             else {
               await new Promise(resolve => setTimeout(resolve, responseDelay))
-              user.walletBalance -= creditRequired
-              await user.save()
+              const walletBalance = user.walletBalance - creditRequired
+              await this.eventEmitter.emitAsync(EventsUnion.UpdateUserDetails, userId, "walletBalance", walletBalance)
               request.user = { userId, orgId }
 
               if (user.activityLog) {

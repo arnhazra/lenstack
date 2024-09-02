@@ -2,7 +2,7 @@ import { Controller, Post, Body, BadRequestException, Get, Request, UseGuards, U
 import { IdentityService } from "./identity.service"
 import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
 import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { ModRequest } from "src/auth/types/mod-request.interface"
 import { CredentialGuard } from "src/auth/credential.guard"
 

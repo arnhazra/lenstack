@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Organization } from "./schemas/organization.schema"
-import { DbConnectionMap } from "src/utils/db-connection.map"
+import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { FilterQuery, Model, Types } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/utils/events.union"
+import { EventsUnion } from "src/shared/utils/events.union"
 import { randomUUID } from "crypto"
 
 @Injectable()
@@ -25,7 +25,7 @@ export class OrganizationRepository {
     return await this.model.find(filter as FilterQuery<Organization>)
   }
 
-  async deleteById(orgId: string): Promise<Organization | null> {
+  async deleteById(orgId: Types.ObjectId): Promise<Organization | null> {
     return await this.model.findByIdAndDelete(orgId)
   }
 

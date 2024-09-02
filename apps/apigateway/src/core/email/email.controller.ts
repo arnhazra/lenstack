@@ -2,7 +2,7 @@ import { Controller } from "@nestjs/common"
 import { EmailService } from "./email.service"
 import { SendEmailDto } from "./dto/send-email.dto"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/utils/events.union"
+import { EventsUnion } from "src/shared/utils/events.union"
 
 @Controller()
 export class EmailController {

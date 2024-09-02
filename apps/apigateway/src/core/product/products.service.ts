@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException } from "@nestjs/common"
-import { statusMessages } from "src/utils/constants/status-messages"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { QueryBus } from "@nestjs/cqrs"
 import { GetProductsQuery } from "./queries/impl/get-products.query"
 import { Product } from "./schemas/products.schema"

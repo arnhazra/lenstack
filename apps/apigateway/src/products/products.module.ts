@@ -6,6 +6,12 @@ import { WebAnalyticsModule } from "./webanalytics/webanalytics.module"
 import { IdentityModule } from "./identity/identity.module"
 
 @Module({
-  imports: [CopilotModule, DatamarketplaceModule, HttpnosqlModule, WebAnalyticsModule, IdentityModule]
+  imports: [
+    CopilotModule,
+    DatamarketplaceModule,
+    HttpnosqlModule,
+    WebAnalyticsModule,
+    IdentityModule
+  ]
 })
 export class ProductsModule { }

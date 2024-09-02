@@ -9,6 +9,6 @@ export class FindUserByIdQueryHandler implements IQueryHandler<FindUserByIdQuery
 
   async execute(query: FindUserByIdQuery) {
     const { userId, orgId } = query
-    return await this.repository.findOne({ _id: new Types.ObjectId(userId), orgId: new Types.ObjectId(orgId) })
+    return await this.repository.findOne({ id: new Types.ObjectId(userId), orgId: new Types.ObjectId(orgId) })
   }
 }

@@ -26,4 +26,3 @@ Typically, utilizing this platform incurs no cost. There are several paid plans 
 * Next JS as a framework on top of React JS for UI
 * Mongo DB as a primary database
 * Redis for Managing user authorization, access tokens
-* RabbitMQ for microservices

@@ -9,6 +9,6 @@ export class FindUsersByOrgQueryHandler implements IQueryHandler<FindUsersByOrgQ
 
   async execute(query: FindUsersByOrgQuery) {
     const { orgId } = query
-    return await this.repository.find({ orgId: new Types.ObjectId(orgId) })
+    return await this.repository.findAll({ orgId: new Types.ObjectId(orgId) })
   }
 }

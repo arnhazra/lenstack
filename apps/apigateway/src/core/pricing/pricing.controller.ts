@@ -2,7 +2,7 @@ import { Controller, Post, Body, Get, Query, Res, UseGuards, Request } from "@ne
 import { PricingService } from "./pricing.service"
 import { CreateCheckoutSessionDto } from "./dto/checkout.dto"
 import { envConfig } from "src/env.config"
-import { otherConstants } from "src/utils/constants/other-constants"
+import { otherConstants } from "src/shared/utils/constants/other-constants"
 import { TokenGuard } from "src/auth/token.guard"
 import { ModRequest } from "src/auth/types/mod-request.interface"
 

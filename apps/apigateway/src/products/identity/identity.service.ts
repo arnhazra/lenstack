@@ -4,9 +4,9 @@ import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
 import * as jwt from "jsonwebtoken"
 import { envConfig } from "src/env.config"
 import { generateAuthPasskey, verifyAuthPasskey, generatePasskeyEmailBody, generatePasskeyEmailSubject } from "./identity.util"
-import { otherConstants } from "src/utils/constants/other-constants"
-import { statusMessages } from "src/utils/constants/status-messages"
-import { EventsUnion } from "src/utils/events.union"
+import { otherConstants } from "src/shared/utils/constants/other-constants"
+import { statusMessages } from "src/shared/utils/constants/status-messages"
+import { EventsUnion } from "src/shared/utils/events.union"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
@@ -61,7 +61,6 @@ export class IdentityService {
           const newUser = await this.commandBus.execute<CreateUserCommand, User>(new CreateUserCommand(email, orgId))
           const tokenPayload = { id: newUser.id, email: newUser.email, iss: otherConstants.tokenIssuer }
           const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
-          await user.save()
           return { accessToken, user: newUser, success: true }
         }
       }

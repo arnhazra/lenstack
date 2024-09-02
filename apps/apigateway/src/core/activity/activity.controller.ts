@@ -1,7 +1,7 @@
 import { Controller } from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 import { CreateActivityDto } from "./dto/create-activity.dto"
-import { EventsUnion } from "../../utils/events.union"
+import { EventsUnion } from "../../shared/utils/events.union"
 import { OnEvent } from "@nestjs/event-emitter"
 
 @Controller()
