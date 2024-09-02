@@ -25,7 +25,7 @@ export class OrganizationRepository {
     return await this.model.find(filter as FilterQuery<Organization>)
   }
 
-  async deleteById(orgId: string): Promise<Organization | null> {
+  async deleteById(orgId: Types.ObjectId): Promise<Organization | null> {
     return await this.model.findByIdAndDelete(orgId)
   }
 

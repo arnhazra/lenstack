@@ -17,7 +17,7 @@ export default function Page() {
   const selectedTab = searchParams.get("tab")
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
   const apiReference = useQuery(["apireference"], `${endPoints.getapireference}/${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
-  console.log(apiReference)
+
   useEffect(() => {
     if (!selectedTab) {
       router.push(`/apireference?tab=copilot`)

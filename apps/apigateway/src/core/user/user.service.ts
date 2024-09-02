@@ -57,7 +57,7 @@ export class UserService {
           const refreshTokenFromRedis = await this.eventEmitter.emitAsync(EventsUnion.GetToken, { userId: user.id })
 
           if (refreshTokenFromRedis.toString()) {
-            const refreshToken = refreshTokenFromRedis
+            const refreshToken = refreshTokenFromRedis.toString()
             const tokenPayload = { id: user.id, email: user.email, iss: otherConstants.tokenIssuer }
             const accessToken = jwt.sign(tokenPayload, this.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
             return { accessToken, refreshToken, user, success: true }
