@@ -16,7 +16,7 @@ export const uiConstants = {
   invalidPasskey: "Invalid Pass Key",
   authVerificationSuccess: "Identity Verified",
   linkedinUri: "https://www.linkedin.com/in/arnhazra",
-  githubRepoUri: "https://github.com/arnhazra/arcstack",
+  githubRepoUri: `https://github.com/arnhazra/${brandName.toLowerCase()}`,
   confirmDescription: "This action may not be undone. Be sure before you click on continue, you can cancel if you do not want to proceed.",
   copyrightText: "Inc, All rights reserved.",
   solutionHeader: `Find solutions for putting your ideas into action. Solve your business problems with proven combinations of ${brandName} services, as well as sample architectures and documentation.`,
