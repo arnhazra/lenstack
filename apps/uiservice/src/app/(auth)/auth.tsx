@@ -1,8 +1,8 @@
 "use client"
 import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
 import { Button } from "@/components/ui/button"
@@ -24,14 +24,6 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
   const [newUser, setNewUser] = useState(false)
   const [name, setName] = useState("")
   const { toast } = useToast()
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden"
-
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [])
 
   const generatePassKey = async (event: any) => {
     event.preventDefault()
@@ -96,7 +88,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       <Suspense condition={authStep === 1} fallback={null}>
         <Card className="mx-auto max-w-sm">
           <CardHeader>
-            <CardTitle className="text-xl">{uiConstants.brandName}</CardTitle>
+            <CardTitle className="text-xl">{brandName}</CardTitle>
             <CardDescription>
               Enter your email to get started
             </CardDescription>
@@ -126,7 +118,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       <Suspense condition={authStep === 2} fallback={null}>
         <Card className="mx-auto max-w-sm">
           <CardHeader>
-            <CardTitle className="text-xl">{uiConstants.brandName}</CardTitle>
+            <CardTitle className="text-xl">{brandName}</CardTitle>
             <CardDescription>
               {uiConstants.verifyEmailStatement}
             </CardDescription>

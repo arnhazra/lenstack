@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import { Badge } from "../ui/badge"
 
 export default function CurrentProductCard() {
@@ -20,7 +20,7 @@ export default function CurrentProductCard() {
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          {uiConstants.brandName} {productState.displayName}
+          {brandName} {productState.displayName}
         </div>
         <p className="text-sm text-slate-600">
           {productState.description}

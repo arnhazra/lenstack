@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode, useEffect } from "react"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import { Quicksand } from "next/font/google"
 import Providers from "@/context/providers"
 import Header from "@/components/header"
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <title>{uiConstants.brandName}</title>
+        <title>{brandName}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="description" content="FullStack App" />

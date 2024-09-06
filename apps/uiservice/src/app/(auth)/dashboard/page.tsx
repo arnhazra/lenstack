@@ -11,7 +11,7 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
@@ -32,7 +32,7 @@ export default function Page() {
         onClick={(): void => product?.productStatus === "Available" ? router.push(`/products/${product.productName}`) : undefined}
       >
         <TableCell><div dangerouslySetInnerHTML={{ __html: product?.productIcon }} className="scale-75" /></TableCell>
-        <TableCell><div className="font-medium">{uiConstants.brandName} {product?.displayName}</div></TableCell>
+        <TableCell><div className="font-medium">{brandName} {product?.displayName}</div></TableCell>
         <TableCell className="text-slate-500 hidden md:table-cell">{product?.description}</TableCell>
         <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
         <TableCell className="text-right">
@@ -66,7 +66,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    {uiConstants.brandName}
+                    {brandName}
                   </CardTitle>
                   <User className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>

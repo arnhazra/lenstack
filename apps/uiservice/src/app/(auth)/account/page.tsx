@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { ReactElement, useContext, useState } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import axios from "axios"
 import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
@@ -279,7 +279,7 @@ export default function Page() {
                 <Suspense condition={selectedTab === Tabs.User} fallback={null}>
                   <section className="grid gap-6">
                     <InfoPanel title="Your Name" desc="Your Name" value={userState.name} />
-                    <InfoPanel title={`${uiConstants.brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
+                    <InfoPanel title={`${brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
                     <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
                     <InfoPanel title="Access Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
                     <InfoPanel title="Refresh Token" desc="Your Refresh Token" value={localStorage.getItem("refreshToken") ?? ""} masked />
@@ -308,7 +308,7 @@ export default function Page() {
                       <CardHeader>
                         <CardTitle>Activity Log</CardTitle>
                         <CardDescription>
-                          {uiConstants.brandName} saves your activity on database securely for better and more personalized user experience on {uiConstants.brandName} platform.
+                          {brandName} saves your activity on database securely for better and more personalized user experience on {brandName} platform.
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
@@ -378,7 +378,7 @@ export default function Page() {
                       <CardHeader>
                         <CardTitle>Sustainability</CardTitle>
                         <CardDescription>
-                          {uiConstants.brandName} is committed towards a sustainable development by reducing Carbon footprints.
+                          {brandName} is committed towards a sustainable development by reducing Carbon footprints.
                           Change your sustainability settings below.
                         </CardDescription>
                       </CardHeader>
@@ -390,7 +390,7 @@ export default function Page() {
                                 Reduce Carbon Emissions
                               </p>
                               <p className="text-xs text-slate-500">
-                                Turn this settings on to reduce carbon footprints inside {uiConstants.brandName}
+                                Turn this settings on to reduce carbon footprints inside {brandName}
                               </p>
                             </div>
                             <Switch checked={userState.reduceCarbonEmissions} onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)} />

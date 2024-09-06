@@ -19,18 +19,6 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
   useEffect(() => dispatch("setProductState", selectedProduct as ProductState), [selectedProduct])
 
-  useEffect(() => {
-    if (userState.walletBalance < 0.2) {
-      document.body.style.overflow = "hidden"
-    }
-
-    return () => {
-      if (userState.walletBalance < 0.2) {
-        document.body.style.overflow = ""
-      }
-    }
-  }, [])
-
   return (
     <Suspense condition={userState.walletBalance < 0.2} fallback={children}>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">

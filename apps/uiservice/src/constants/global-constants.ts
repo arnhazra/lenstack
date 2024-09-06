@@ -1,7 +1,6 @@
 export const brandName = "ArcStack"
 
 export const uiConstants = {
-  brandName: "ArcStack",
   homeBadge: "Limitless Innovation",
   homeHeader: "Build what’s next",
   homeIntro1: "Get tools to take care of the innovation",

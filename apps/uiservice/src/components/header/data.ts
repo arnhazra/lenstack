@@ -1,4 +1,4 @@
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 
 interface LinkData {
   displayName: string,
@@ -9,7 +9,7 @@ interface LinkData {
 
 export const generalUserLinks: LinkData[] = [
   {
-    displayName: uiConstants.brandName,
+    displayName: brandName,
     link: "/",
     mainLink: true
   },
@@ -34,7 +34,7 @@ export const generalUserLinks: LinkData[] = [
 
 export const authUserLinks: LinkData[] = [
   {
-    displayName: uiConstants.brandName,
+    displayName: brandName,
     link: "/dashboard",
     mainLink: true
   },
