@@ -12,7 +12,6 @@ import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
-import CurrentOrgCard from "@/components/currentorgcard"
 import CurrentProductCard from "@/components/currentproductcard"
 
 export default function Page() {

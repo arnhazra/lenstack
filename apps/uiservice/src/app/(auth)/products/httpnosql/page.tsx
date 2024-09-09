@@ -8,7 +8,6 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
-import CurrentOrgCard from "@/components/currentorgcard"
 import CurrentProductCard from "@/components/currentproductcard"
 import { DataModal } from "@/components/datamodal"
 
