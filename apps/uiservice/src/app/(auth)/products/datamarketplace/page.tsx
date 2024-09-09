@@ -10,15 +10,16 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc } from "lucide-react"
-import { useContext, useState } from "react"
+import { ChevronLeft, ChevronRight, ListFilter, Medal, Search, ShieldCheck, SortAsc } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
-import CurrentOrgCard from "@/components/currentorgcard"
 import CurrentProductCard from "@/components/currentproductcard"
+import { Input } from "@/components/ui/input"
+import { useDebounce } from "@uidotdev/usehooks"
 
 export interface DatasetRequestState {
+  searchQuery: string
   selectedFilter: string
   selectedSortOption: string
   offset: number
@@ -26,10 +27,16 @@ export interface DatasetRequestState {
 
 export default function Page() {
   const router = useRouter()
-  const [{ userState }] = useContext(GlobalContext)
-  const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ selectedFilter: "All", selectedSortOption: "name", offset: 0 })
+  const searchRef = useRef<HTMLInputElement | null>(null)
+  const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
-  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: userState.searchQuery, selectedFilter: datasetRequestState.selectedFilter, selectedSortOption: datasetRequestState.selectedSortOption, offset: datasetRequestState.offset })
+  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, datasetRequestState)
+  const [searchString, setSearchString] = useState("")
+  const debouncedSearchTerm = useDebounce(searchString, 1000)
+
+  useEffect(() => {
+    setDatasetRequestState({ ...datasetRequestState, searchQuery: debouncedSearchTerm })
+  }, [debouncedSearchTerm])
 
   const renderFilterOptions = filters?.data?.map((item: string) => {
     return (
@@ -110,6 +117,19 @@ export default function Page() {
                 <CardTitle>Datasets</CardTitle>
                 <CardDescription>
                   Explore datasets from different categories
+                  <form className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
+                    <div className="relative">
+                      <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        defaultValue={datasetRequestState.searchQuery}
+                        ref={searchRef}
+                        onChange={(e): void => setSearchString(e.target.value)}
+                        type="search"
+                        placeholder="Click here to search"
+                        className="mb-4 pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+                      />
+                    </div>
+                  </form>
                 </CardDescription>
                 <div className="ml-auto flex items-center gap-2">
                   <DropdownMenu>
