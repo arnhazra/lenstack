@@ -33,7 +33,7 @@ export function OrgSwitcher() {
   return (
     <Select defaultValue={userState.selectedOrgId} onValueChange={(value: string) => switchOrg(value)}>
       <SelectTrigger
-        className="org-switcher pl-4 sm:w-[200px] md:w-[200px] lg:w-[250px] flex items-center gap-2 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"
+        className="shadow-sm org-switcher pl-4 sm:w-[200px] md:w-[200px] lg:w-[250px] flex items-center gap-2 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"
         aria-label="Select org"
       >
         <SelectValue placeholder="Select an org">

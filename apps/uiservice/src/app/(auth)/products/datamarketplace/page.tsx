@@ -126,7 +126,7 @@ export default function Page() {
                         onChange={(e): void => setSearchString(e.target.value)}
                         type="search"
                         placeholder="Click here to search"
-                        className="mb-4 pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+                        className="mb-4 pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] shadow-sm"
                       />
                     </div>
                   </form>

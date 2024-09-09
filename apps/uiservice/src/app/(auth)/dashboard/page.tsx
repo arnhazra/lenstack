@@ -1,5 +1,5 @@
 "use client"
-import { BadgeDollarSign, Layers2, ListFilter, User } from "lucide-react"
+import { BadgeDollarSign, Layers2, ListFilter, Orbit, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -15,7 +15,6 @@ import { brandName } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
-import CurrentOrgCard from "@/components/currentorgcard"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -80,7 +79,25 @@ export default function Page() {
                   <Button onClick={(): void => router.push("/account")}>My Account</Button>
                 </CardFooter>
               </Card>
-              <CurrentOrgCard />
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Current Organization
+                  </CardTitle>
+                  <Orbit className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {userState.selectedOrgName}
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    Your current organization
+                  </p>
+                </CardContent>
+                <CardFooter className="-mt-3">
+                  <Button onClick={(): void => router.push("/account?tab=organization")}>View Organizations</Button>
+                </CardFooter>
+              </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
