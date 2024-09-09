@@ -26,14 +26,25 @@ export interface ProductState {
   productIcon: string
 }
 
+export interface Org {
+  _id: string,
+  name: string,
+  userId: string,
+  clientId: string,
+  clientSecret: string,
+  createdAt: string
+}
+
 export type GlobalState = {
   userState: UserState,
-  productState: ProductState
+  productState: ProductState,
+  organizations: Org[]
 }
 
 export type ActionsMap = {
   setUserState: Partial<UserState>,
-  setProductState: Partial<ProductState>
+  setProductState: Partial<ProductState>,
+  setOrgState: Org[]
 }
 
 export type Actions = {
@@ -53,6 +64,11 @@ export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState 
     case "setProductState":
       return {
         ...state, productState: { ...state.productState, ...action.payload }
+      }
+
+    case "setOrgState":
+      return {
+        ...state, organizations: action.payload
       }
 
     default:

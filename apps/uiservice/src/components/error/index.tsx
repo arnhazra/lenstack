@@ -1,17 +1,8 @@
 "use client"
 import { Button } from "../ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "../ui/card"
-import { useEffect } from "react"
 
 export default function ErrorComponent() {
-  useEffect(() => {
-    document.body.style.overflow = "hidden"
-
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [])
-
   return (
     <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
       <Card className="mx-auto max-w-sm">

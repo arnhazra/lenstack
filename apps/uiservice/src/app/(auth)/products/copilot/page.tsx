@@ -56,23 +56,7 @@ export default function Page() {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <div className="flex flex-1 flex-col gap-4 p-4">
-        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-          <CurrentProductCard />
-          <CurrentOrgCard />
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>Temperature</CardDescription>
-              <CardTitle className="text-4xl">{requestBody.temperature}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-xs text-muted-foreground">
-                The Current Value of Temperature
-              </div>
-            </CardContent>
-            <CardFooter>
-            </CardFooter>
-          </Card>
-        </div>
+        <CurrentProductCard />
         <Card className="xl:col-span-2">
           <CardHeader className="px-7">
             <CardTitle>Playground</CardTitle>

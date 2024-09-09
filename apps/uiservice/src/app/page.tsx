@@ -57,7 +57,7 @@ export default function Page() {
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
           <div dangerouslySetInnerHTML={{ __html: product?.productIcon }} style={{ zoom: "150%" }}></div>
           <div className="space-y-2">
-            <h3 className="font-bold">{uiConstants.brandName} {product?.displayName}</h3>
+            <h3 className="font-bold">{brandName} {product?.displayName}</h3>
             <p className="text-sm text-slate-600">
               {product?.description}
             </p>
@@ -86,7 +86,7 @@ export default function Page() {
   return (
     <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
-        <section id="hero" className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-32 lg:py-40">
+        <section id="hero" className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-40 lg:py-40">
           <div className="container flex flex-col gap-4">
             <Link href="" rel="noopener noreferrer">
               <p className="text-sm text-white tracking-normal uppercase">
@@ -102,7 +102,7 @@ export default function Page() {
               {uiConstants.homeIntro3}<br />
             </p>
             <div className="space-x-4 space-y-4 mt-2">
-              <Button variant="secondary" onClick={(): void => router.push("/dashboard")}>
+              <Button variant="default" onClick={(): void => router.push("/dashboard")}>
                 Get Started with {brandName}
               </Button>
             </div>

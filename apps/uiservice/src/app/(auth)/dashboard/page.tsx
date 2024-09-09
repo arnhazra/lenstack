@@ -1,5 +1,5 @@
 "use client"
-import { BadgeDollarSignIcon, Computer, ListFilterIcon, User } from "lucide-react"
+import { BadgeDollarSign, Layers2, ListFilter, Orbit, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -11,11 +11,10 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
-import CurrentOrgCard from "@/components/currentorgcard"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -32,7 +31,7 @@ export default function Page() {
         onClick={(): void => product?.productStatus === "Available" ? router.push(`/products/${product.productName}`) : undefined}
       >
         <TableCell><div dangerouslySetInnerHTML={{ __html: product?.productIcon }} className="scale-75" /></TableCell>
-        <TableCell><div className="font-medium">{uiConstants.brandName} {product?.displayName}</div></TableCell>
+        <TableCell><div className="font-medium">{brandName} {product?.displayName}</div></TableCell>
         <TableCell className="text-slate-500 hidden md:table-cell">{product?.description}</TableCell>
         <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
         <TableCell className="text-right">
@@ -66,7 +65,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    {uiConstants.brandName}
+                    {brandName}
                   </CardTitle>
                   <User className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
@@ -80,11 +79,29 @@ export default function Page() {
                   <Button onClick={(): void => router.push("/account")}>My Account</Button>
                 </CardFooter>
               </Card>
-              <CurrentOrgCard />
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Current Organization
+                  </CardTitle>
+                  <Orbit className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {userState.selectedOrgName}
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    Your current organization
+                  </p>
+                </CardContent>
+                <CardFooter className="-mt-3">
+                  <Button onClick={(): void => router.push("/account?tab=organization")}>View Organizations</Button>
+                </CardFooter>
+              </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
-                  <BadgeDollarSignIcon className="h-4 w-4 text-muted-foreground" />
+                  <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
@@ -99,7 +116,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Compute Tier</CardTitle>
-                  <Computer className="h-4 w-4 text-muted-foreground" />
+                  <Layers2 className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold capitalize">{userState.computeTier}</div>
@@ -124,7 +141,7 @@ export default function Page() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline" size="sm" className="h-8 gap-1">
-                        <ListFilterIcon className="h-3.5 w-3.5" />
+                        <ListFilter className="h-3.5 w-3.5" />
                         <span>
                           Select Category
                         </span>

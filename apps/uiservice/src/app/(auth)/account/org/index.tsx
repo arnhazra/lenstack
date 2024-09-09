@@ -1,13 +1,14 @@
 "use client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, Clipboard, RotateCw } from "lucide-react"
+import { CheckCircle2, Recycle, Trash } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { format } from "date-fns"
 import { Label } from "@/components/ui/label"
 import Suspense from "@/components/suspense"
+import SectionPanel from "@/components/sectionpanel"
+import CopyToClipboard from "@/components/copy"
 
 interface OrgPanelProps {
   orgId: string,
@@ -17,11 +18,10 @@ interface OrgPanelProps {
   clientId: string,
   clientSecret: string,
   onRegenCred: (orgId: string) => void,
-  onSwitch: (orgId: string) => void,
   onDelete: (orgId: string) => void,
 }
 
-export default function OrgPanel({ orgId, isSelected, displayName, createdAt, clientId, clientSecret, onRegenCred, onSwitch, onDelete }: OrgPanelProps) {
+export default function OrgPanel({ orgId, isSelected, displayName, createdAt, clientId, clientSecret, onRegenCred, onDelete }: OrgPanelProps) {
   const { toast } = useToast()
 
   const copyValue = (value: string) => {
@@ -35,31 +35,32 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex gap-2">
+        <CardTitle className="text-md flex gap-2">
           {displayName}
           <Suspense condition={isSelected} fallback={null}>
-            <CheckCircle2 />
+            <CheckCircle2 className="scale-75" />
           </Suspense>
         </CardTitle>
-        <CardDescription>{format(new Date(createdAt), "MMM, do yyyy")}</CardDescription>
+        <CardDescription className="text-sm">{format(new Date(createdAt), "MMM, do yyyy")}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <Label htmlFor="clientId" className="ms-1">Client Id</Label>
-        <div className="flex gap-3 mb-4">
-          <Input value={clientId} disabled />
-          <Button variant="outline" size="icon" onClick={() => copyValue(clientId)}><Clipboard className="scale-50" /></Button>
-        </div>
-        <Label htmlFor="clientSecret" className="ms-1">Client Secret</Label>
-        <div className="flex gap-3">
-          <Input value={`(${clientSecret?.substring(0, 4)}...${clientSecret?.substring(clientSecret?.length - 4)})`} disabled />
-          <Button variant="outline" size="icon" onClick={() => copyValue(clientSecret)}><Clipboard className="scale-50" /></Button>
-        </div>
+      <CardContent className="grid gap-2">
+        <SectionPanel
+          title="Client Id"
+          content={clientId}
+          masked
+          actionComponent={<CopyToClipboard value={clientId} />} icon={undefined}
+        />
+        <SectionPanel
+          title="Client Secret"
+          content={clientSecret}
+          masked
+          actionComponent={<CopyToClipboard value={clientSecret} />} icon={undefined}
+        />
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
-        <Button variant="secondary" onClick={() => onRegenCred(orgId)}><RotateCw className="scale-75" /></Button>
-        <Button variant="default" disabled={isSelected} onClick={() => onSwitch(orgId)}>Switch</Button>
-        <Button variant="destructive" disabled={isSelected} onClick={() => onDelete(orgId)}>Delete Org</Button>
+        <Button variant="default" size="icon" className="rounded-full" onClick={() => onRegenCred(orgId)}><Recycle className="scale-75" /></Button>
+        <Button variant="destructive" size="icon" className="rounded-full" disabled={isSelected} onClick={() => onDelete(orgId)}><Trash className="scale-75" /></Button>
       </CardFooter>
-    </Card>
+    </Card >
   )
 }

@@ -1,6 +1,6 @@
 {
   "name": "apigateway",
-  "version": "7.5.0",
+  "version": "7.6.0",
   "description": "",
   "author": "",
   "private": true,
@@ -25,14 +25,14 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
-    "googleapis": "^143.0.0",
+    "googleapis": "^144.0.0",
     "ioredis": "^5.4.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.6.0",
-    "nodemailer": "^6.9.14",
+    "mongoose": "^8.6.1",
+    "nodemailer": "^6.9.15",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "stripe": "^16.9.0"
+    "stripe": "^16.10.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.5",
@@ -40,7 +40,7 @@
     "@nestjs/testing": "^10.4.1",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^22.5.2",
+    "@types/node": "^22.5.4",
     "@types/nodemailer": "^6.4.15",
     "source-map-support": "^0.5.21",
     "ts-loader": "^9.5.1",

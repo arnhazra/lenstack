@@ -1,21 +1,7 @@
 "use client"
-import { CopyIcon } from "lucide-react"
-import { toast } from "../ui/use-toast"
-import { uiConstants } from "@/constants/global-constants"
 
 export default function MaskText({ value }: { value: string }) {
-  const copyValue = () => {
-    navigator.clipboard.writeText(value)
-    toast({
-      title: uiConstants.notification,
-      description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
-    })
-  }
-
   return (
-    <div className="flex">
-      {`(${value?.substring(0, 4)}...${value?.substring(value?.length - 4)})`}
-      <CopyIcon className="scale-75 ms-2" onClick={copyValue} />
-    </div>
+    `(${value?.substring(0, 4)}...${value?.substring(value?.length - 4)})`
   )
 }
