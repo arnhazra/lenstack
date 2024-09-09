@@ -14,7 +14,7 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: M
   }
 
   const { error, data, isLoading, refetch } = useReactQuery({
-    queryKey: [...queryKey, requestBody, queryUrl],
+    queryKey: [...queryKey, requestBody, queryUrl, userState.selectedOrgId],
     queryFn: () => fetchDataFunction(),
     refetchOnWindowFocus: !userState.reduceCarbonEmissions,
     refetchInterval: userState.reduceCarbonEmissions ? false : 30000

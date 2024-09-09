@@ -18,14 +18,18 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     const getUserDetails = async () => {
       try {
-        setLoading(true)
+        if (!userState.refreshId) {
+          setLoading(true)
+        }
         const response = await axios.get(endPoints.userDetails)
+        const organizations = await axios.get(endPoints.organization)
         const { _id: userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId } = response.data.user
         const { name: selectedOrgName, clientId, clientSecret } = response.data.organization
         localStorage.setItem("clientId", clientId)
         localStorage.setItem("clientSecret", clientSecret)
         dispatch("setUserState", { userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId, selectedOrgName, clientId, clientSecret })
         dispatch("setUserState", { isAuthorized: true })
+        dispatch("setOrgState", organizations.data)
         setAuthorized(true)
       }
 

@@ -8,10 +8,9 @@ import { brandName, uiConstants } from "@/constants/global-constants"
 import axios from "axios"
 import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
-import InfoPanel from "@/components/infopanel"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { CircleUser, ComputerIcon, Leaf, Network, ShieldCheck, User, Wallet } from "lucide-react"
+import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import OrgPanel from "./org"
 import useQuery from "@/hooks/use-query"
@@ -22,13 +21,15 @@ import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { TierCardComponent } from "@/components/tiercard"
 import { Switch } from "@/components/ui/switch"
+import SectionPanel from "@/components/sectionpanel"
+import CopyToClipboard from "@/components/copy"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
   privacy: <ShieldCheck />,
-  organization: < Network />,
+  organization: <Orbit />,
   wallet: <Wallet />,
-  compute: <ComputerIcon />,
+  compute: <Layers2 />,
   sustainability: <Leaf />,
 }
 
@@ -164,28 +165,6 @@ export default function Page() {
     }
   }
 
-  const switchOrg = async (orgId: string) => {
-    const response = await confirm("Are you sure to switch to this org ?")
-    if (response) {
-      try {
-        await axios.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`)
-        organizations.refetch()
-        dispatch("setUserState", { refreshId: Math.random().toString() })
-        toast({
-          title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.organizationSwitched}</p>
-        })
-      }
-
-      catch (error) {
-        toast({
-          title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
-        })
-      }
-    }
-  }
-
   const deleteOrg = async (orgId: string) => {
     const response = await confirm("Are you sure to delete this org ?")
     if (response) {
@@ -241,7 +220,6 @@ export default function Page() {
         clientSecret={organization?.clientSecret}
         createdAt={organization?.createdAt}
         onRegenCred={(orgId) => regenerateCreds(orgId)}
-        onSwitch={(orgId) => switchOrg(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}
       />
     )
@@ -266,71 +244,73 @@ export default function Page() {
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
                   <Button onClick={createOrg}>Create Org</Button>
                 </Suspense>
-                <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
-                  <Button onClick={addAmountToWallet}>Add Amount to Wallet</Button>
-                </Suspense>
               </div>
             </div>
-            <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+            <div className="mx-auto grid w-full items-start gap-4 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
               <nav className="grid gap-4 text-sm">
                 {renderTabs}
               </nav>
               <div>
                 <Suspense condition={selectedTab === Tabs.User} fallback={null}>
-                  <section className="grid gap-6">
-                    <InfoPanel title="Your Name" desc="Your Name" value={userState.name} />
-                    <InfoPanel title={`${brandName} ID`} desc="This is your user ID within platform" value={userState.userId} />
-                    <InfoPanel title="Your Email" desc="Your email address" value={userState.email} />
-                    <InfoPanel title="Access Token" desc="Your Access Token" value={localStorage.getItem("accessToken") ?? ""} masked />
-                    <InfoPanel title="Refresh Token" desc="Your Refresh Token" value={localStorage.getItem("refreshToken") ?? ""} masked />
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Sign Out</CardTitle>
-                        <CardDescription>
-                          This is your advanced sign out settings
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <Button className="me-4" variant="default" onClick={(): Promise<void> => signOut("this")}>Sign Out</Button>
-                        <Button variant="destructive" onClick={(): Promise<void> => signOut("all")}>Sign Out from all devices</Button>
-                      </CardContent>
-                    </Card>
+                  <section className="grid gap-2">
+                    <SectionPanel icon={<User className="scale-75" />} title="Your Name" content={userState.name} />
+                    <SectionPanel
+                      icon={<IdCard className="scale-75" />}
+                      title={`${brandName} ID`}
+                      content={userState.userId}
+                      masked
+                      actionComponent={<CopyToClipboard value={userState.userId} />}
+                    />
+                    <SectionPanel icon={<AtSign className="scale-75" />} title="Your Email" content={userState.email} />
+                    <SectionPanel
+                      icon={<Fingerprint className="scale-75" />}
+                      title="Access Token"
+                      content={localStorage.getItem("accessToken") ?? ""}
+                      masked
+                      actionComponent={<CopyToClipboard value={localStorage.getItem("accessToken") ?? ""} />}
+                    />
+                    <SectionPanel
+                      icon={<ScanFace className="scale-75" />}
+                      title="Refresh Token"
+                      content={localStorage.getItem("refreshToken") ?? ""}
+                      masked
+                      actionComponent={<CopyToClipboard value={localStorage.getItem("refreshToken") ?? ""} />}
+                    />
+                    <SectionPanel
+                      icon={<CircleArrowRight className="scale-75" />}
+                      title="Sign Out"
+                      content="Sign out from all logged in devices"
+                      actionComponent={<Button size="icon" className="rounded-full" variant="destructive" onClick={(): Promise<void> => signOut("all")}><CircleArrowRight className="scale-75" /></Button>}
+                    />
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
-                  <section className="grid gap-6">
-                    <InfoPanel title="Your Wallet Balance" desc="Your wallet balance" value={`$ ${userState.walletBalance.toFixed(2)}`} capitalize />
-                  </section>
+                  <SectionPanel
+                    icon={<Wallet className="scale-75" />}
+                    title="Your Wallet Balance"
+                    content={`$ ${userState.walletBalance.toFixed(2)}`}
+                    actionComponent={
+                      <Button
+                        className="rounded-full"
+                        variant="default"
+                        size="icon"
+                        title="Add amount to wallet"
+                        onClick={addAmountToWallet}>
+                        <PlusCircle className="scale-50" />
+                      </Button>
+                    }
+                  />
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>
-                  <section className="grid gap-6">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Activity Log</CardTitle>
-                        <CardDescription>
-                          {brandName} saves your activity on database securely for better and more personalized user experience on {brandName} platform.
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div className="flex flex-row items-center justify-between rounded-lg border p-4">
-                            <div className="space-y-0.5">
-                              <p className="text-base">
-                                Activity Log
-                              </p>
-                              <p className="text-xs text-slate-500">
-                                Activity Data Collection Settings
-                              </p>
-                            </div>
-                            <Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </section>
+                  <SectionPanel
+                    icon={<PieChart className="scale-75" />}
+                    title="Activity Log"
+                    content="Choose whether to save the things you do to get more relevant results"
+                    actionComponent={<Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />}
+                  />
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Compute} fallback={null}>
-                  <section className="grid gap-6">
+                  <section className="grid gap-2">
                     <TierCardComponent
                       computeTier={computeTier}
                       estimatedRequestCost={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.estimatedRequestCost}
@@ -368,37 +348,21 @@ export default function Page() {
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
-                  <section className="grid gap-6">
+                  <section className="grid gap-2">
                     {renderOrgs}
                   </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Sustainability} fallback={null}>
-                  <section className="grid gap-6">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Sustainability</CardTitle>
-                        <CardDescription>
-                          {brandName} is committed towards a sustainable development by reducing Carbon footprints.
-                          Change your sustainability settings below.
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div className="flex flex-row items-center justify-between rounded-lg border p-4">
-                            <div className="space-y-0.5">
-                              <p className="text-base">
-                                Reduce Carbon Emissions
-                              </p>
-                              <p className="text-xs text-slate-500">
-                                Turn this settings on to reduce carbon footprints inside {brandName}
-                              </p>
-                            </div>
-                            <Switch checked={userState.reduceCarbonEmissions} onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)} />
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </section>
+                  <SectionPanel
+                    icon={<Leaf className="scale-75" />}
+                    title="Reduce Carbon Emissions"
+                    content={`Turn this settings on to reduce carbon footprints inside ${brandName}`}
+                    actionComponent={
+                      <Switch
+                        checked={userState.reduceCarbonEmissions}
+                        onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)}
+                      />}
+                  />
                 </Suspense>
               </div>
             </div>

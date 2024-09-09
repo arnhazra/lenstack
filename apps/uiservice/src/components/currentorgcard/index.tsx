@@ -26,7 +26,7 @@ export default function CurrentOrgCard() {
         </p>
       </CardContent>
       <CardFooter className="-mt-3">
-        <Button onClick={(): void => router.push("/account?tab=organization")}>Switch Organization</Button>
+        <Button onClick={(): void => router.push("/account?tab=organization")}>View Organizations</Button>
       </CardFooter>
     </Card>
   )

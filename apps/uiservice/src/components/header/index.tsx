@@ -11,6 +11,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { useDebounce } from "@uidotdev/usehooks"
 import Suspense from "../suspense"
+import { OrgSwitcher } from "../orgswitcher"
 
 export default function Header() {
   const searchRef = useRef<HTMLInputElement | null>(null)
@@ -85,7 +86,7 @@ export default function Header() {
           <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
             <form className="ml-auto flex-1 sm:flex-initial">
               <div className="relative">
-                <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
+                {/* <Suspense condition={searchEnabledPathNames.includes(pathname)} fallback={null}>
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     ref={searchRef}
@@ -94,7 +95,8 @@ export default function Header() {
                     placeholder="Press (Alt + Q) or click to search"
                     className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
                   />
-                </Suspense>
+                </Suspense> */}
+                <OrgSwitcher />
               </div>
             </form>
             <DropdownMenu>

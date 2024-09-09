@@ -32,24 +32,7 @@ export default function Page() {
       <Suspense condition={!users.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-              <CurrentProductCard />
-              <CurrentOrgCard />
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Users Count</CardDescription>
-                  <CardTitle className="text-4xl">{users?.data?.length}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Total number of users
-                    in this organization
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-            </div>
+            <CurrentProductCard />
             <Card className="xl:col-span-2">
               <CardHeader className="px-7">
                 <CardTitle>Users</CardTitle>
@@ -77,6 +60,6 @@ export default function Page() {
           </div>
         </div>
       </Suspense>
-    </Suspense>
+    </Suspense >
   )
 }

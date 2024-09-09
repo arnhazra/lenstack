@@ -1,5 +1,5 @@
 "use client"
-import { BookMarked, CopyIcon, Medal, ShieldCheck } from "lucide-react"
+import { BookMarked, Copy, Medal, ShieldCheck } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -144,7 +144,7 @@ export default function Page() {
                   </div>
                   <div className="ml-auto flex items-center gap-1">
                     <Button size="sm" variant="outline" className="h-8 gap-1" onClick={copyDatasetId}>
-                      <CopyIcon className="h-3.5 w-3.5" />
+                      <Copy className="h-3.5 w-3.5" />
                       <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
                         Copy Dataset Id
                       </span>

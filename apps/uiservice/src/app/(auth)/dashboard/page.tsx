@@ -1,5 +1,5 @@
 "use client"
-import { BadgeDollarSignIcon, Computer, ListFilterIcon, User } from "lucide-react"
+import { BadgeDollarSign, Layers2, ListFilter, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -11,7 +11,7 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
-import { brandName, uiConstants } from "@/constants/global-constants"
+import { brandName } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
@@ -84,7 +84,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
-                  <BadgeDollarSignIcon className="h-4 w-4 text-muted-foreground" />
+                  <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
@@ -99,7 +99,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Compute Tier</CardTitle>
-                  <Computer className="h-4 w-4 text-muted-foreground" />
+                  <Layers2 className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold capitalize">{userState.computeTier}</div>
@@ -124,7 +124,7 @@ export default function Page() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline" size="sm" className="h-8 gap-1">
-                        <ListFilterIcon className="h-3.5 w-3.5" />
+                        <ListFilter className="h-3.5 w-3.5" />
                         <span>
                           Select Category
                         </span>

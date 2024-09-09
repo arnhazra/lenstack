@@ -30,24 +30,7 @@ export default function Page() {
       <Suspense condition={!dataList.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-              <CurrentProductCard />
-              <CurrentOrgCard />
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Data Count</CardDescription>
-                  <CardTitle className="text-4xl">{dataList?.data?.length}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    Total number of data
-                    in this organization
-                  </div>
-                </CardContent>
-                <CardFooter>
-                </CardFooter>
-              </Card>
-            </div>
+            <CurrentProductCard />
             <Card>
               <CardHeader className="px-7">
                 <CardTitle>Database</CardTitle>
