@@ -10,13 +10,12 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ChevronLeft, ChevronRight, ListFilter, Medal, Search, ShieldCheck, SortAsc } from "lucide-react"
+import { ChevronLeft, ChevronRight, ListFilter, Medal, Search, ShieldCheck, SortAsc, Sparkles } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
 import CurrentProductCard from "@/components/currentproductcard"
 import { Input } from "@/components/ui/input"
-import { useDebounce } from "@uidotdev/usehooks"
 
 export interface DatasetRequestState {
   searchQuery: string
@@ -32,11 +31,12 @@ export default function Page() {
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
   const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, datasetRequestState)
   const [searchString, setSearchString] = useState("")
-  const debouncedSearchTerm = useDebounce(searchString, 1000)
 
   useEffect(() => {
-    setDatasetRequestState({ ...datasetRequestState, searchQuery: debouncedSearchTerm })
-  }, [debouncedSearchTerm])
+    if (!searchString) {
+      setDatasetRequestState({ ...datasetRequestState, searchQuery: searchString })
+    }
+  }, [searchString])
 
   const renderFilterOptions = filters?.data?.map((item: string) => {
     return (
@@ -117,52 +117,55 @@ export default function Page() {
                 <CardTitle>Datasets</CardTitle>
                 <CardDescription>
                   Explore datasets from different categories
-                  <form className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
+                  <form onSubmit={(e) => { e.preventDefault(); setDatasetRequestState({ ...datasetRequestState, searchQuery: searchString }) }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
                     <div className="relative">
-                      <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
+                      <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                       <Input
+                        autoFocus
                         defaultValue={datasetRequestState.searchQuery}
                         ref={searchRef}
                         onChange={(e): void => setSearchString(e.target.value)}
                         type="search"
-                        placeholder="Click here to search"
-                        className="mb-4 pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] shadow-sm"
+                        placeholder="Type anything and press enter to find datasets powered by AI"
+                        className="mb-4 pl-8 w-full h-12 shadow-sm"
                       />
                     </div>
                   </form>
                 </CardDescription>
-                <div className="ml-auto flex items-center gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="h-8 gap-1">
-                        <ListFilter className="h-3.5 w-3.5" />
-                        <span>
-                          Filter
-                        </span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Filter</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      {renderFilterOptions}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="h-8 gap-1">
-                        <SortAsc className="h-3.5 w-3.5" />
-                        <span>
-                          Sort
-                        </span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Sort</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      {renderSortOptions}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                <Suspense condition={!searchString} fallback={null}>
+                  <div className="ml-auto flex items-center gap-2">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm" className="h-8 gap-1">
+                          <ListFilter className="h-3.5 w-3.5" />
+                          <span>
+                            Filter
+                          </span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Filter</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {renderFilterOptions}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm" className="h-8 gap-1">
+                          <SortAsc className="h-3.5 w-3.5" />
+                          <span>
+                            Sort
+                          </span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Sort</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {renderSortOptions}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </Suspense>
               </CardHeader>
               <CardContent>
                 <Suspense condition={datasets?.data?.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
@@ -183,8 +186,10 @@ export default function Page() {
                 </Suspense>
               </CardContent>
               <CardFooter>
-                <Button disabled={datasetRequestState.offset === 0} variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>
-                <Button disabled={datasets?.data?.length !== 25} variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>
+                <Suspense condition={!searchString} fallback={null}>
+                  <Button disabled={datasetRequestState.offset === 0} variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>
+                  <Button disabled={datasets?.data?.length !== 25} variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>
+                </Suspense>
               </CardFooter>
             </Card>
           </div>

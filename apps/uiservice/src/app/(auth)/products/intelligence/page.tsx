@@ -9,7 +9,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { useState } from "react"
 import axios from "axios"
 import { toast } from "@/components/ui/use-toast"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
 import CurrentProductCard from "@/components/currentproductcard"
@@ -25,7 +25,7 @@ export default function Page() {
     try {
       setReseponse({})
       setLoading(true)
-      const res = await axios.post(`${endPoints.copilotGenerateEndpoint}`, requestBody)
+      const res = await axios.post(`${endPoints.intelligenceGenerateEndpoint}`, requestBody)
       setReseponse(res.data)
     }
 
@@ -60,7 +60,7 @@ export default function Page() {
           <CardHeader className="px-7">
             <CardTitle>Playground</CardTitle>
             <CardDescription>
-              Your Copilot Playground
+              Your {brandName} Intelligence Playground
             </CardDescription>
           </CardHeader>
           <CardContent>

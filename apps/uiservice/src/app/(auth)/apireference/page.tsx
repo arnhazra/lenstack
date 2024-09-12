@@ -20,7 +20,7 @@ export default function Page() {
 
   useEffect(() => {
     if (!selectedTab) {
-      router.push(`/apireference?tab=copilot`)
+      router.push(`/apireference?tab=datamarketplace`)
     }
   }, [selectedTab])
 

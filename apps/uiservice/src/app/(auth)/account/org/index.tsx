@@ -1,11 +1,10 @@
 "use client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, Recycle, Trash } from "lucide-react"
+import { CheckCircle2, Key, Lock, Recycle, Trash } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { format } from "date-fns"
-import { Label } from "@/components/ui/label"
 import Suspense from "@/components/suspense"
 import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
@@ -45,16 +44,18 @@ export default function OrgPanel({ orgId, isSelected, displayName, createdAt, cl
       </CardHeader>
       <CardContent className="grid gap-2">
         <SectionPanel
+          icon={<Lock className="scale-75" />}
           title="Client Id"
           content={clientId}
           masked
-          actionComponent={<CopyToClipboard value={clientId} />} icon={undefined}
+          actionComponent={<CopyToClipboard value={clientId} />}
         />
         <SectionPanel
+          icon={<Key className="scale-75" />}
           title="Client Secret"
           content={clientSecret}
           masked
-          actionComponent={<CopyToClipboard value={clientSecret} />} icon={undefined}
+          actionComponent={<CopyToClipboard value={clientSecret} />}
         />
       </CardContent>
       <CardFooter className="flex justify-end gap-2">

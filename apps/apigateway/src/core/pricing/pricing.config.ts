@@ -6,7 +6,7 @@ export enum ComputeTier {
 }
 
 export enum Products {
-  Copilot = "copilot",
+  Intelligence = "intelligence",
   DataMarketplace = "datamarketplace",
   HttpNosql = "httpnosql",
   Identity = "identity",
@@ -26,7 +26,7 @@ export const pricingConfig: PricingConfig[] = [
     computeTier: ComputeTier.Fabric,
     responseDelay: 1200,
     estimatedRequestCost: {
-      copilot: 0.02,
+      intelligence: 0.02,
       datamarketplace: 0.01,
       httpnosql: 0.02,
       identity: 0.02,
@@ -37,7 +37,7 @@ export const pricingConfig: PricingConfig[] = [
     computeTier: ComputeTier.Hyperscale,
     responseDelay: 800,
     estimatedRequestCost: {
-      copilot: 0.03,
+      intelligence: 0.03,
       datamarketplace: 0.02,
       httpnosql: 0.03,
       identity: 0.03,
@@ -48,7 +48,7 @@ export const pricingConfig: PricingConfig[] = [
     computeTier: ComputeTier.Quantum,
     responseDelay: 400,
     estimatedRequestCost: {
-      copilot: 0.05,
+      intelligence: 0.05,
       datamarketplace: 0.03,
       httpnosql: 0.05,
       identity: 0.05,
@@ -59,7 +59,7 @@ export const pricingConfig: PricingConfig[] = [
     computeTier: ComputeTier.Skylake,
     responseDelay: 0,
     estimatedRequestCost: {
-      copilot: 0.12,
+      intelligence: 0.12,
       datamarketplace: 0.06,
       httpnosql: 0.09,
       identity: 0.09,

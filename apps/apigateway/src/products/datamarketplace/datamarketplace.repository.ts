@@ -25,7 +25,7 @@ export class DatamarketplaceRepository {
     const selectedFilterCategory = findDatasetsDto.selectedFilter === "All" ? "" : findDatasetsDto.selectedFilter
     const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
     const offset = findDatasetsDto.offset || 0
-    const limit = 25
+    const limit = findDatasetsDto.limit || 25
     return await this.metadataModel.find({
       $or: [
         { name: { $regex: searchQuery, $options: "i" } },

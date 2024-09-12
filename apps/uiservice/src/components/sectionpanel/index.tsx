@@ -2,7 +2,6 @@
 import { ReactNode } from "react"
 import Suspense from "../suspense"
 import MaskText from "../mask"
-import { User } from "lucide-react"
 
 interface SectionPanelProps {
   title: string,

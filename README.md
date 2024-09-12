@@ -3,8 +3,8 @@ This Software-as-a-Service (SaaS) platform offers an extensive array of applicat
 
 Within this comprehensive SaaS application, users gain access to a multitude of functionalities. These may include but are not limited to project management tools for efficient task organization, customer relationship management (CRM) systems for fostering client connections, robust analytics platforms aiding data-driven decision-making, collaborative communication channels for seamless teamwork, and scalable infrastructure services ensuring reliable performance.
 
-### Copilot
-An application that seamlessly integrates with Google Gemini large language models developed by Google DeepMind.
+### Intelligence
+An application that seamlessly integrates with trained LLM with massive data can be accessed through HTTP.
 
 ### Data Marketplace
 An application for easily searching, subscribing to, and utilizing third-party cloud data into your application.

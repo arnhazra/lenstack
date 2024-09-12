@@ -6,7 +6,7 @@ import { CreateQueryCommand } from "./commands/impl/create-query.command"
 import { Query } from "./schemas/query.schema"
 
 @Injectable()
-export class CopilotService {
+export class IntelligenceService {
   constructor(private readonly commandBus: CommandBus) { }
 
   async generateRecommendation(orgId: string, prompt: string, temperature: number, topP: number, topK: number) {

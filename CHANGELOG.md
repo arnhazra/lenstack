@@ -1,6 +1,11 @@
 # Changelog
 
+## v7.6.1
+* Integrate AI Search in Data Marketplace
+* Rebranded Copilot as Intelligence
+
 ## v7.6.0
+* Code cleanup
 
 ## v7.5.0
 * Removal of unused dependencies
@@ -306,7 +311,7 @@
 * Introduction of new interactive pricing plans
 
 ## v3.4.0
-* Minor design changes in Apps - Copilot, Ledgerscan & Wallet
+* Minor design changes in Apps - Ledgerscan & Wallet
 * Updated email template
 * Adding more strict typescript
 * Code refactoring
@@ -314,7 +319,7 @@
 
 ## v3.3.0
 * Introduction of new monorepo architecture
-* Introduction of Generative AI - Google Gemini LLM based Copilot application
+* Introduction of Generative AI - Google Gemini LLM based application
 * Code refactoring & bug fixes
 * Custom global confirm provider
 * Custom global prompt provider

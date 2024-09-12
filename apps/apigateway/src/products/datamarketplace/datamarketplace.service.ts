@@ -7,6 +7,8 @@ import { FindMetadataByIdQuery } from "./queries/impl/find-metadata.query"
 import { FindDataByIdQuery } from "./queries/impl/find-data.query"
 import { Metadata } from "./schemas/metadata.schema"
 import { Dataset } from "./schemas/dataset.schema"
+import { GenerationConfig, GoogleGenerativeAI, SchemaType } from "@google/generative-ai"
+import { envConfig } from "src/env.config"
 
 @Injectable()
 export class DatamarketplaceService {
@@ -23,7 +25,54 @@ export class DatamarketplaceService {
 
   async findDatasets(findDatasetsDto: FindDatasetsDto) {
     try {
-      return await this.queryBus.execute<FindDatasetsQuery, Metadata[]>(new FindDatasetsQuery(findDatasetsDto))
+      if (!findDatasetsDto.searchQuery) {
+        return await this.queryBus.execute<FindDatasetsQuery, Metadata[]>(new FindDatasetsQuery(findDatasetsDto))
+      }
+
+      else {
+        const queryObj: FindDatasetsDto = {
+          limit: 100,
+          offset: 0,
+          searchQuery: "",
+          selectedFilter: "",
+          selectedSortOption: ""
+        }
+
+        const data = await this.queryBus.execute<FindDatasetsQuery, Metadata[]>(new FindDatasetsQuery(queryObj))
+        try {
+          const genAI = new GoogleGenerativeAI(envConfig.geminiAPIKey)
+          const generationConfig: GenerationConfig = {
+            temperature: 1,
+            topP: 0.9,
+            topK: 64,
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: SchemaType.ARRAY,
+              items: {
+                type: SchemaType.OBJECT,
+                properties: {
+                  _id: { type: SchemaType.STRING },
+                  name: { type: SchemaType.STRING },
+                  category: { type: SchemaType.STRING },
+                  description: { type: SchemaType.STRING },
+                  rating: { type: SchemaType.NUMBER },
+                },
+              },
+            },
+          }
+
+          const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig })
+          const prompt = `We have a dataset list - ${data}. User has given a search keyword ${findDatasetsDto.searchQuery}. Find out best matching datasets.`
+          const result = await model.generateContent(prompt)
+          const response = JSON.parse(result.response.text())
+          return response
+        }
+
+        catch (error) {
+          console.log(error)
+          throw error
+        }
+      }
     }
 
     catch (error) {
