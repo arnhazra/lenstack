@@ -9,7 +9,6 @@
 * Architectural changes & separate containers for deployment
 * Bug fixes & performance improvements
 * Application Restructuring
-* Bug fixes & performance improvements
 * Updated dependencies across apps
 * Minor UI updates
 * Dependency updates
@@ -35,7 +34,6 @@
 * Added $100 free credits for new users
 * Added compute tiers
 * Minor UI improvements across apps
-* Bug fixes & overall performance improvements
 * Regular dependency updates
 * Fix refresh token implementation not working in PROD
 * Regular dependency updates & bug fixes
@@ -62,10 +60,8 @@
 * Changed user Insights to user activity log
 * Introduction of Insights application for unstructured data
 * Migrated stripe from INR to USD
-* Minor bug fixes & Performance improvements
 * Removal of event emitter in UI to improve performance
 * Minor API structural changes
-* Minor bug fixes & Performance improvements
 * Introduction of custom scrollbar in UI
 * Minor API structural changes
 
@@ -298,7 +294,6 @@
 * Removed legacy Identity Provider
 * Restructure API methods
 * Fix key warning issue
-* Bug fixes & Performance improvements
 * UI Overhaul with new design
 * Introduction of live activities
 * Component specific types introduction
