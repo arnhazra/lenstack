@@ -26,4 +26,4 @@ jobs:
 
       - name: Publish Project Artifacts to Vercel
         working-directory: apps/uiservice
-        run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
