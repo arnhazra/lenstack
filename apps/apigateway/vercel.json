@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "src": "dist/main.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "dist/**"
+        ]
+      }
+    },
+    {
+      "src": "./dist/uiservice",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/main.js"
+    }
+  ]
+}

@@ -1,14 +1,14 @@
-name: PROD CI-CD
+name: CI-CD-UI-SERVICE
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: prj_SMpt33r8gGyCHCuxHjOngBGZXHIq
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PROD_UI }}
 on:
   push:
     branches:
       - develop
 
 jobs:
-  PROD-CI-CD:
+  CI-CD-UI-SERVICE:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
