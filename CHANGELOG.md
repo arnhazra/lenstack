@@ -1,5 +1,8 @@
 # Changelog
 
+## v7.6.2
+* Architectural changes & separate containers for deployment
+
 ## v7.6.1
 * Integrate AI Search in Data Marketplace
 * Rebranded Copilot as Intelligence
