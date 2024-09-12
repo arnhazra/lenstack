@@ -1,9 +1,9 @@
 import { envConfig } from "src/env.config"
 
 export const otherConstants = {
-  tokenIssuer: `https://${envConfig.brandName}.vercel.app`,
+  tokenIssuer: `https://${envConfig.brandName.toLowerCase()}.vercel.app`,
   stripeRedirectUriDev: "http://localhost:3000/dashboard",
-  stripeRedirectUriProd: `https://${envConfig.brandName}.vercel.app/dashboard`,
-  stripeConfigBaseUriDev: "http://localhost:8000/api/pricing",
-  stripeConfigBaseUriProd: `https://${envConfig.brandName}.vercel.app/api/pricing`
+  stripeRedirectUriProd: `https://${envConfig.brandName.toLowerCase()}.vercel.app/dashboard`,
+  stripeConfigBaseUriDev: "http://localhost:8000/pricing",
+  stripeConfigBaseUriProd: `https://${envConfig.brandName.toLowerCase()}.vercel.app/pricing`
 }

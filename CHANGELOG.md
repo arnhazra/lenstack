@@ -1,5 +1,8 @@
 # Changelog
 
+## v7.6.3
+* Bug fixes & performance improvements
+
 ## v7.6.2
 * Architectural changes & separate containers for deployment
 
