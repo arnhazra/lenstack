@@ -1,6 +1,6 @@
 import { brandName } from "./global-constants"
 
-export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : `https://${brandName.toLowerCase()}.vercel.app`
+export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : `https://api-${brandName.toLowerCase()}.vercel.app`
 export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://${brandName.toLowerCase()}.vercel.app`
 
 export const endPoints = {

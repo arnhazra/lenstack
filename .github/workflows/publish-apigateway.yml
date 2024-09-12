@@ -1,4 +1,4 @@
-name: PROD CI-CD
+name: CI-CD-API-GATEWAY
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PROD }}
@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  PROD-CI-CD:
+  CI-CD-API-GATEWAY:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,28 +22,18 @@ jobs:
           npm install
           CI=false npm run build
 
-      - name: Build UI Service application
-        working-directory: apps/uiservice
-        run: |
-          npm install
-          CI=false npm run build
-
       - name: Configure packages
         working-directory: apps/apigateway
         run: sed -i '/"devDependencies":/,/}/d' package.json
 
-      - name: Build Movement
-        run: |
-          mkdir dist
-          cp -r apps/apigateway/package.json dist/package.json
-          cp -r apps/apigateway/dist/. dist
-          mv apps/uiservice/out dist/uiservice
-
       - name: Pull Vercel Environment Information
+        working-directory: apps/apigateway
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
+        working-directory: apps/apigateway
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Publish Project Artifacts to Vercel
+        working-directory: apps/apigateway
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
