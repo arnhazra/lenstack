@@ -1,0 +1,30 @@
+name: PROD CI-CD
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: prj_SMpt33r8gGyCHCuxHjOngBGZXHIq
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  PROD-CI-CD:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel
+
+      - name: Build UI Service application
+        working-directory: apps/uiservice
+        run: vercel build
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Publish Project Artifacts to Vercel
+        run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
