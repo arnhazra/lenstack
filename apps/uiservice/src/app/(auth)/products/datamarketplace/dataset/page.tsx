@@ -11,7 +11,6 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
-import ErrorComponent from "@/components/error"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 
