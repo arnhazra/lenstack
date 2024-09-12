@@ -17,14 +17,13 @@ jobs:
         run: npm install --global vercel
 
       - name: Pull Vercel Environment Information
+        working-directory: apps/uiservice
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Build UI Service application
-        working-directory: apps/uiservice
-        run: vercel build
-
       - name: Build Project Artifacts
+        working-directory: apps/uiservice
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Publish Project Artifacts to Vercel
+        working-directory: apps/uiservice
         run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
