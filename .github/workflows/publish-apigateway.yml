@@ -16,15 +16,15 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel
 
-      - name: Configure packages
-        working-directory: apps/apigateway
-        run: sed -i '/"devDependencies":/,/}/d' package.json
-
       - name: Build API Gateway application
         working-directory: apps/apigateway
         run: |
           npm install
           CI=false npm run build
+
+      - name: Configure packages
+        working-directory: apps/apigateway
+        run: sed -i '/"devDependencies":/,/}/d' package.json
 
       - name: Pull Vercel Environment Information
         working-directory: apps/apigateway
