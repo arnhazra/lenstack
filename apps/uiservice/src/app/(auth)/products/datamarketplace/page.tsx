@@ -27,10 +27,15 @@ export interface DatasetRequestState {
 export default function Page() {
   const router = useRouter()
   const searchRef = useRef<HTMLInputElement | null>(null)
+  const [isFirstLoad, setFirstLoad] = useState(true)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
   const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, datasetRequestState)
   const [searchString, setSearchString] = useState("")
+
+  useEffect(() => {
+    setFirstLoad(false)
+  }, [])
 
   useEffect(() => {
     if (!searchString) {
@@ -107,7 +112,7 @@ export default function Page() {
   }
 
   return (
-    <Suspense condition={!datasets.isLoading} fallback={<LoadingComponent />}>
+    <Suspense condition={!datasets.isLoading || !isFirstLoad} fallback={<LoadingComponent />}>
       <Suspense condition={!datasets.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
@@ -168,21 +173,23 @@ export default function Page() {
                 </Suspense>
               </CardHeader>
               <CardContent>
-                <Suspense condition={datasets?.data?.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Dataset Name</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
-                        <TableHead className="hidden md:table-cell">Data Quality</TableHead>
-                        <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {renderDatasets}
-                    </TableBody>
-                  </Table>
+                <Suspense condition={!datasets.isLoading} fallback={<div className="text-center">Finding the best datasets for you ...</div>}>
+                  <Suspense condition={datasets?.data?.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Dataset Name</TableHead>
+                          <TableHead>Category</TableHead>
+                          <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
+                          <TableHead className="hidden md:table-cell">Data Quality</TableHead>
+                          <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {renderDatasets}
+                      </TableBody>
+                    </Table>
+                  </Suspense>
                 </Suspense>
               </CardContent>
               <CardFooter>

@@ -13,7 +13,7 @@ export const endPoints = {
   createCheckoutSession: `${apiHost}/pricing/checkout`,
   getProductConfig: `${apiHost}/products/config`,
   getSolutionConfig: `${apiHost}/solutions/config`,
-  getapireference: `${apiHost}reference`,
+  getapireference: `${apiHost}/apireference`,
   organization: `${apiHost}/organization`,
   intelligenceGenerateEndpoint: `${apiHost}/products/intelligence/generate`,
   datamarketplaceFilters: `${apiHost}/products/datamarketplace/filters`,

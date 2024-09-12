@@ -73,7 +73,7 @@ export default function Page() {
                     </legend>
                     <div className="grid gap-3">
                       <Label htmlFor="model">Model</Label>
-                      <Input disabled defaultValue="Gemini Pro" />
+                      <Input disabled defaultValue="Gemini 1.5 Flash" />
                     </div>
                     <div className="grid gap-3">
                       <Label htmlFor="temperature">Temperature</Label>

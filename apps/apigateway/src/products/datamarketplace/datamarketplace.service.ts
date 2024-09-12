@@ -62,14 +62,17 @@ export class DatamarketplaceService {
           }
 
           const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig })
-          const prompt = `We have a dataset list - ${data}. User has given a search keyword ${findDatasetsDto.searchQuery}. Find out best matching datasets.`
+          const prompt = `We have a dataset list - ${data}. 
+            User has given a search keyword ${findDatasetsDto.searchQuery}. 
+            Find out best matching datasets. think through this task step-by-step.
+            You need not send any response if it is not good match.
+            Send a blank array if you find no matches`
           const result = await model.generateContent(prompt)
           const response = JSON.parse(result.response.text())
           return response
         }
 
         catch (error) {
-          console.log(error)
           throw error
         }
       }

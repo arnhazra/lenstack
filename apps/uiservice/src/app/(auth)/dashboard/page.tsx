@@ -75,9 +75,6 @@ export default function Page() {
                     Welcome to your dashboard
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account")}>My Account</Button>
-                </CardFooter>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -94,9 +91,6 @@ export default function Page() {
                     Your current organization
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account?tab=organization")}>View Organizations</Button>
-                </CardFooter>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -109,9 +103,6 @@ export default function Page() {
                     Credits remaining
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account?tab=wallet")}>Open Wallet</Button>
-                </CardFooter>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -124,9 +115,6 @@ export default function Page() {
                     Current compute tier
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account?tab=compute")}>Change Tier</Button>
-                </CardFooter>
               </Card>
             </div>
             <Card className="xl:col-span-2">
