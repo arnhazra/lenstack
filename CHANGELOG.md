@@ -1,46 +1,19 @@
 # Changelog
 
-## v7.6.3
-* Bug fixes & performance improvements
-
-## v7.6.2
-* Architectural changes & separate containers for deployment
-
-## v7.6.1
+## v7.2.0
 * Integrate AI Search in Data Marketplace
 * Rebranded Copilot as Intelligence
-
-## v7.6.0
-* Code cleanup
-
-## v7.5.0
-* Removal of unused dependencies
-* Code cleanup
-
-## v7.4.0
-* Application restructuring
-* Dependency updates & bug fixes
-
-## v7.3.1
-* Dependency updates & bug fixes
-* Input OTP UI changes
-* Changed refresh token type from jwt to custom string
-
-## v7.3.0
-* Bug fixes
-
-## v7.2.2
+* Architectural changes & separate containers for deployment
+* Bug fixes & performance improvements
 * Application Restructuring
-
-## v7.2.1
-* Application Restructuring
-
-## v7.2.0
 * Bug fixes & performance improvements
 * Updated dependencies across apps
-
-## v7.1.1
 * Minor UI updates
+* Dependency updates
+* Input OTP UI changes
+* Removal of unused dependencies
+* Code cleanup
+* Changed refresh token type from jwt to custom string
 
 ## v7.1.0
 * Minor changes & bug fixes
