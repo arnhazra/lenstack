@@ -1,10 +1,11 @@
 # Changelog
 
 ## v3.7.0
-
+* Changed data marketplace AI prompt for better results
+* Integrated AI Search in Dashboard page
 
 ## v3.6.0
-* Integrate AI Search in Data Marketplace
+* Integrated AI Search in Data Marketplace
 * Rebranded Copilot as Intelligence
 * Architectural changes & separate containers for deployment
 * Bug fixes & performance improvements

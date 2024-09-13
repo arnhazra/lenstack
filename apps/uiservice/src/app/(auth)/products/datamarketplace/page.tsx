@@ -14,7 +14,6 @@ import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc, Spa
 import { useEffect, useRef, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
-import CurrentProductCard from "@/components/currentproductcard"
 import { Input } from "@/components/ui/input"
 
 export interface DatasetRequestState {
@@ -26,7 +25,6 @@ export interface DatasetRequestState {
 
 export default function Page() {
   const router = useRouter()
-  const searchRef = useRef<HTMLInputElement | null>(null)
   const [isFirstLoad, setFirstLoad] = useState(true)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
@@ -116,19 +114,57 @@ export default function Page() {
       <Suspense condition={!datasets.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <CurrentProductCard />
             <Card className="xl:col-span-2">
               <CardHeader className="px-7">
-                <CardTitle>Datasets</CardTitle>
+                <div className="flex justify-between">
+                  <div>
+                    <CardTitle>Datasets</CardTitle>
+                    <p className="text-sm text-slate-600 mt-1">Explore datasets from different categories</p>
+                  </div>
+                  <div>
+                    <Suspense condition={!searchString} fallback={null}>
+                      <div className="ml-auto flex items-center gap-2">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-8 gap-1">
+                              <ListFilter className="h-3.5 w-3.5" />
+                              <span>
+                                Filter
+                              </span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Filter</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            {renderFilterOptions}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-8 gap-1">
+                              <SortAsc className="h-3.5 w-3.5" />
+                              <span>
+                                Sort
+                              </span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Sort</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            {renderSortOptions}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </Suspense>
+                  </div>
+                </div>
                 <CardDescription>
-                  Explore datasets from different categories
                   <form onSubmit={(e) => { e.preventDefault(); setDatasetRequestState({ ...datasetRequestState, searchQuery: searchString }) }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
                     <div className="relative">
                       <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
                       <Input
                         autoFocus
                         defaultValue={datasetRequestState.searchQuery}
-                        ref={searchRef}
                         onChange={(e): void => setSearchString(e.target.value)}
                         type="search"
                         placeholder="Type anything and press enter to find datasets powered by AI"
@@ -137,40 +173,6 @@ export default function Page() {
                     </div>
                   </form>
                 </CardDescription>
-                <Suspense condition={!searchString} fallback={null}>
-                  <div className="ml-auto flex items-center gap-2">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm" className="h-8 gap-1">
-                          <ListFilter className="h-3.5 w-3.5" />
-                          <span>
-                            Filter
-                          </span>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Filter</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        {renderFilterOptions}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm" className="h-8 gap-1">
-                          <SortAsc className="h-3.5 w-3.5" />
-                          <span>
-                            Sort
-                          </span>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Sort</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        {renderSortOptions}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                </Suspense>
               </CardHeader>
               <CardContent>
                 <Suspense condition={!datasets.isLoading} fallback={<div className="text-center">Finding the best datasets for you ...</div>}>

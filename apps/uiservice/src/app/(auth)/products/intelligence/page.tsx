@@ -12,7 +12,6 @@ import { toast } from "@/components/ui/use-toast"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
-import CurrentProductCard from "@/components/currentproductcard"
 
 export default function Page() {
   const [requestBody, setRequestBody] = useState({ prompt: "", temperature: 0.9, topP: 0.1, topK: 16 })
@@ -55,7 +54,6 @@ export default function Page() {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <div className="flex flex-1 flex-col gap-4 p-4">
-        <CurrentProductCard />
         <Card className="xl:col-span-2">
           <CardHeader className="px-7">
             <CardTitle>Playground</CardTitle>
