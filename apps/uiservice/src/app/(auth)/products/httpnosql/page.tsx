@@ -8,7 +8,6 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { format } from "date-fns"
-import CurrentProductCard from "@/components/currentproductcard"
 import { DataModal } from "@/components/datamodal"
 
 export default function Page() {
@@ -29,7 +28,6 @@ export default function Page() {
       <Suspense condition={!dataList.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <CurrentProductCard />
             <Card>
               <CardHeader className="px-7">
                 <CardTitle>Database</CardTitle>

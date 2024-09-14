@@ -1,11 +1,11 @@
 "use client"
-import { BadgeDollarSign, Layers2, ListFilter, Orbit, User } from "lucide-react"
+import { Wallet, Layers2, ListFilter, Orbit, Sparkles, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
@@ -15,13 +15,16 @@ import { brandName } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
+import { Input } from "@/components/ui/input"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
   const [selectedFilter, setSelectedFilter] = useState("All")
+  const [searchString, setSearchString] = useState("")
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${userState.searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
+  const products = useQuery(["products", selectedFilter], `${endPoints.getProductConfig}?searchQuery=${searchString}&category=${selectedFilter}`, HTTPMethods.GET)
   const router = useRouter()
+  useEffect(() => { if (!searchString) products.refetch() }, [searchString])
 
   const renderProducts = products?.data?.map((product: any) => {
     return (
@@ -62,7 +65,7 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=user")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     {brandName}
@@ -75,11 +78,8 @@ export default function Page() {
                     Welcome to your dashboard
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account")}>My Account</Button>
-                </CardFooter>
               </Card>
-              <Card>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=organization")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     Current Organization
@@ -94,14 +94,11 @@ export default function Page() {
                     Your current organization
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account?tab=organization")}>View Organizations</Button>
-                </CardFooter>
               </Card>
-              <Card>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=wallet")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
-                  <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
+                  <Wallet className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
@@ -109,11 +106,8 @@ export default function Page() {
                     Credits remaining
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account?tab=wallet")}>Open Wallet</Button>
-                </CardFooter>
               </Card>
-              <Card>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=compute")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Compute Tier</CardTitle>
                   <Layers2 className="h-4 w-4 text-muted-foreground" />
@@ -124,58 +118,74 @@ export default function Page() {
                     Current compute tier
                   </p>
                 </CardContent>
-                <CardFooter className="-mt-3">
-                  <Button onClick={(): void => router.push("/account?tab=compute")}>Change Tier</Button>
-                </CardFooter>
               </Card>
             </div>
             <Card className="xl:col-span-2">
-              <CardHeader className="flex flex-row items-center">
-                <div className="grid gap-2">
-                  <CardTitle>Products</CardTitle>
-                  <CardDescription>
-                    Product Offerings
-                  </CardDescription>
-                </div>
-                <div className="ml-auto flex items-center gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="h-8 gap-1">
-                        <ListFilter className="h-3.5 w-3.5" />
-                        <span>
-                          Select Category
-                        </span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Category Filter</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuCheckboxItem
-                        checked={selectedFilter === "All"}
-                        onClick={(): void => setSelectedFilter("All")}
-                      >
-                        All
-                      </DropdownMenuCheckboxItem>
-                      {renderSolutions}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+              <CardHeader className="px-7">
+                <div className="flex justify-between">
+                  <div>
+                    <CardTitle>Products</CardTitle>
+                    <p className="text-sm text-slate-600 mt-1">Product offerings by {brandName}</p>
+                  </div>
+                  <div>
+                    <Suspense condition={!searchString} fallback={null}>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" size="sm" className="h-8 gap-1">
+                            <ListFilter className="h-3.5 w-3.5" />
+                            <span>
+                              Select Category
+                            </span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Category Filter</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuCheckboxItem
+                            checked={selectedFilter === "All"}
+                            onClick={(): void => setSelectedFilter("All")}
+                          >
+                            All
+                          </DropdownMenuCheckboxItem>
+                          {renderSolutions}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </Suspense>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead></TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead className="hidden md:table-cell">Description</TableHead>
-                      <TableHead className="hidden md:table-cell">Status</TableHead>
-                      <TableHead className="text-right">Category</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {renderProducts}
-                  </TableBody>
-                </Table>
+                <form onSubmit={(e) => { e.preventDefault(); products.refetch() }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
+                  <div className="relative">
+                    <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      autoFocus
+                      defaultValue={searchString}
+                      onChange={(e): void => setSearchString(e.target.value)}
+                      type="search"
+                      placeholder="Type anything and press enter to get suggested products powered by AI"
+                      className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
+                    />
+                  </div>
+                </form>
+                <Suspense condition={!products.isRefetching} fallback={<p className="text-center">Generating best products suggestions for you</p>}>
+                  <Suspense condition={products?.data?.length > 0} fallback={<p className="text-center">No products to display</p>}>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead></TableHead>
+                          <TableHead>Name</TableHead>
+                          <TableHead className="hidden md:table-cell">Description</TableHead>
+                          <TableHead className="hidden md:table-cell">Status</TableHead>
+                          <TableHead className="text-right">Category</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {renderProducts}
+                      </TableBody>
+                    </Table>
+                  </Suspense>
+                </Suspense>
               </CardContent>
             </Card>
           </div>

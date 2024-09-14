@@ -39,12 +39,12 @@ export const authUserLinks: LinkData[] = [
     mainLink: true
   },
   {
-    displayName: "Wallet",
-    link: "/account?tab=wallet"
+    displayName: "Privacy",
+    link: "/account?tab=privacy"
   },
   {
-    displayName: "Organization",
-    link: "/account?tab=organization"
+    displayName: "Sustainability",
+    link: "/account?tab=sustainability"
   },
   {
     displayName: "API Reference",

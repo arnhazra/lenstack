@@ -13,17 +13,6 @@ export interface UserState {
   clientSecret: string
   isAuthorized: boolean,
   refreshId: string,
-  searchQuery: string
-}
-
-export interface ProductState {
-  _id: string,
-  productName: string,
-  displayName: string,
-  description: string,
-  productStatus: string,
-  productCategory: string,
-  productIcon: string
 }
 
 export interface Org {
@@ -37,13 +26,11 @@ export interface Org {
 
 export type GlobalState = {
   userState: UserState,
-  productState: ProductState,
   organizations: Org[]
 }
 
 export type ActionsMap = {
   setUserState: Partial<UserState>,
-  setProductState: Partial<ProductState>,
   setOrgState: Org[]
 }
 
@@ -59,11 +46,6 @@ export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState 
     case "setUserState":
       return {
         ...state, userState: { ...state.userState, ...action.payload }
-      }
-
-    case "setProductState":
-      return {
-        ...state, productState: { ...state.productState, ...action.payload }
       }
 
     case "setOrgState":

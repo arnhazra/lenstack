@@ -9,6 +9,7 @@ import { Metadata } from "./schemas/metadata.schema"
 import { Dataset } from "./schemas/dataset.schema"
 import { GenerationConfig, GoogleGenerativeAI, SchemaType } from "@google/generative-ai"
 import { envConfig } from "src/env.config"
+import { datasetSearchPrompt } from "src/shared/utils/prompts.config"
 
 @Injectable()
 export class DatamarketplaceService {
@@ -39,6 +40,7 @@ export class DatamarketplaceService {
         }
 
         const data = await this.queryBus.execute<FindDatasetsQuery, Metadata[]>(new FindDatasetsQuery(queryObj))
+
         try {
           const genAI = new GoogleGenerativeAI(envConfig.geminiAPIKey)
           const generationConfig: GenerationConfig = {
@@ -46,30 +48,16 @@ export class DatamarketplaceService {
             topP: 0.9,
             topK: 64,
             responseMimeType: "application/json",
-            responseSchema: {
-              type: SchemaType.ARRAY,
-              items: {
-                type: SchemaType.OBJECT,
-                properties: {
-                  _id: { type: SchemaType.STRING },
-                  name: { type: SchemaType.STRING },
-                  category: { type: SchemaType.STRING },
-                  description: { type: SchemaType.STRING },
-                  rating: { type: SchemaType.NUMBER },
-                },
-              },
-            },
           }
-
           const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig })
-          const prompt = `We have a dataset list - ${data}. User has given a search keyword ${findDatasetsDto.searchQuery}. Find out best matching datasets.`
+          const prompt = `${datasetSearchPrompt}. Datasets list - ${data}. User has given a search keyword ${findDatasetsDto.searchQuery}.`
           const result = await model.generateContent(prompt)
-          const response = JSON.parse(result.response.text())
-          return response
+          const response: string[] = JSON.parse(result.response.text())
+          const filteredDatasets = data.filter(dataset => response.includes(String(dataset._id)))
+          return filteredDatasets
         }
 
         catch (error) {
-          console.log(error)
           throw error
         }
       }
