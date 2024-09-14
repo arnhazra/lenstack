@@ -1,6 +1,6 @@
 {
   "name": "arcstack",
-  "version": "3.7.0",
+  "version": "3.6.0",
   "description": "a saas product",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix apps/apigateway\" \"npm run dev --prefix apps/uiservice\"",

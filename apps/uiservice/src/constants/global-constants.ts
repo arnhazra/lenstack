@@ -2,7 +2,7 @@ export const brandName = "ArcStack"
 
 export const uiConstants = {
   homeBadge: "Limitless Innovation",
-  homeHeader: "Build what’s next",
+  homeHeader: "Develop with AI",
   homeIntro1: "Get tools to take care of the innovation with AI",
   homeIntro2: "Start with a fabric tier, Upgrade on demand",
   homeIntro3: "Create a free account & get $100 credit in your wallet",

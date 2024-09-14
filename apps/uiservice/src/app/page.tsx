@@ -34,15 +34,17 @@ export default function Page() {
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
         <div className="flex flex-col justify-between rounded-md p-6">
           <div className="space-y-2">
-            <h2 className="font-bold capitalize">{tier.computeTier} Tier</h2>
-            <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
+            <h2 className="font-bold text-lg capitalize">{tier.computeTier} Tier</h2>
+            <ul className="grid gap-3 text-sm text-muted-foreground">
               {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
-                <li className="flex text-xs items-center text-slate-600 capitalize" key={key}>
-                  <CheckCircle2 className="scale-75" /> {key} $ {Number(value).toFixed(2)}/req
+                <li className="flex text-xs items-center text-slate-600" key={key}>
+                  <CheckCircle2 className="scale-75 me-2" />
+                  {brandName} {products.data.find((item: any) => item.productName === key).displayName}
+                  {" "}$ {Number(value).toFixed(2)}/req
                 </li>
               ))}
               <li className="flex text-xs items-center text-slate-600">
-                <CheckCircle2 className="scale-75" /> {tier.responseDelay} ms response delay
+                <CheckCircle2 className="scale-75 me-2" /> {tier.responseDelay} ms response delay
               </li>
             </ul>
           </div>
