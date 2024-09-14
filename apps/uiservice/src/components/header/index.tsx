@@ -1,31 +1,25 @@
 "use client"
 import Link from "next/link"
-import { CircleUser, Equal, Search, DraftingCompass } from "lucide-react"
+import { CircleUser, Equal, DraftingCompass } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { authUserLinks, generalUserLinks, searchEnabledPathNames } from "./data"
-import { Fragment, useContext, useEffect, useRef, useState } from "react"
-import { usePathname, useSearchParams, useRouter } from "next/navigation"
+import { authUserLinks, generalUserLinks } from "./data"
+import { Fragment, useContext, useEffect } from "react"
+import { usePathname, useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
-import { useDebounce } from "@uidotdev/usehooks"
 import Suspense from "../suspense"
 import { OrgSwitcher } from "../orgswitcher"
 
 export default function Header() {
   const pathname = usePathname()
-  const [{ userState }, dispatch] = useContext(GlobalContext)
+  const [{ userState }] = useContext(GlobalContext)
   const router = useRouter()
 
   const signOut = async () => {
     localStorage.clear()
     window.location.replace("/")
   }
-
-  useEffect(() => {
-    dispatch("setUserState", { searchQuery: "" })
-  }, [pathname])
 
   return (
     <Fragment>
