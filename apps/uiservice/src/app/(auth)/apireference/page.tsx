@@ -16,7 +16,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const selectedTab = searchParams.get("tab")
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
-  const apiReference = useQuery(["apireference"], `${endPoints.getapireference}/${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
+  const apiReference = useQuery(["apireference", selectedTab ?? ""], `${endPoints.getapireference}/${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
 
   useEffect(() => {
     if (!selectedTab) {

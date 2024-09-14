@@ -4,14 +4,14 @@ import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc, Sparkles } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
@@ -25,21 +25,10 @@ export interface DatasetRequestState {
 
 export default function Page() {
   const router = useRouter()
-  const [isFirstLoad, setFirstLoad] = useState(true)
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
   const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
-  const datasets = useQuery(["datasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, datasetRequestState)
-  const [searchString, setSearchString] = useState("")
-
-  useEffect(() => {
-    setFirstLoad(false)
-  }, [])
-
-  useEffect(() => {
-    if (!searchString) {
-      setDatasetRequestState({ ...datasetRequestState, searchQuery: searchString })
-    }
-  }, [searchString])
+  const datasets = useQuery(["datasets", datasetRequestState.selectedFilter, datasetRequestState.selectedSortOption, String(datasetRequestState.offset)], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, datasetRequestState)
+  useEffect(() => { if (!datasetRequestState.searchQuery) datasets.refetch() }, [datasetRequestState.searchQuery])
 
   const renderFilterOptions = filters?.data?.map((item: string) => {
     return (
@@ -110,7 +99,7 @@ export default function Page() {
   }
 
   return (
-    <Suspense condition={!datasets.isLoading || !isFirstLoad} fallback={<LoadingComponent />}>
+    <Suspense condition={!datasets.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!datasets.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
@@ -122,7 +111,7 @@ export default function Page() {
                     <p className="text-sm text-slate-600 mt-1">Explore datasets from different categories</p>
                   </div>
                   <div>
-                    <Suspense condition={!searchString} fallback={null}>
+                    <Suspense condition={!datasetRequestState.searchQuery} fallback={null}>
                       <div className="ml-auto flex items-center gap-2">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
@@ -158,24 +147,22 @@ export default function Page() {
                     </Suspense>
                   </div>
                 </div>
-                <CardDescription>
-                  <form onSubmit={(e) => { e.preventDefault(); setDatasetRequestState({ ...datasetRequestState, searchQuery: searchString }) }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
-                    <div className="relative">
-                      <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        autoFocus
-                        defaultValue={datasetRequestState.searchQuery}
-                        onChange={(e): void => setSearchString(e.target.value)}
-                        type="search"
-                        placeholder="Type anything and press enter to find datasets powered by AI"
-                        className="mb-4 pl-8 w-full h-12 shadow-sm"
-                      />
-                    </div>
-                  </form>
-                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Suspense condition={!datasets.isLoading} fallback={<div className="text-center">Finding the best datasets for you ...</div>}>
+                <form onSubmit={(e) => { e.preventDefault(); datasets.refetch() }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
+                  <div className="relative">
+                    <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      autoFocus
+                      defaultValue={datasetRequestState.searchQuery}
+                      onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, searchQuery: e.target.value })}
+                      type="search"
+                      placeholder="Type anything and press enter to find datasets powered by AI"
+                      className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
+                    />
+                  </div>
+                </form>
+                <Suspense condition={!datasets.isRefetching} fallback={<p className="text-center">Finding the best datasets for you</p>}>
                   <Suspense condition={datasets?.data?.length > 0} fallback={<p className="text-center">No datasets to display</p>}>
                     <Table>
                       <TableHeader>
@@ -195,7 +182,7 @@ export default function Page() {
                 </Suspense>
               </CardContent>
               <CardFooter>
-                <Suspense condition={!searchString} fallback={null}>
+                <Suspense condition={!datasetRequestState.searchQuery} fallback={null}>
                   <Button disabled={datasetRequestState.offset === 0} variant="outline" onClick={prevPage} size="icon" className="me-2"><ChevronLeft className="scale-75" /></Button>
                   <Button disabled={datasets?.data?.length !== 25} variant="outline" onClick={nextPage} size="icon"><ChevronRight className="scale-75" /></Button>
                 </Suspense>

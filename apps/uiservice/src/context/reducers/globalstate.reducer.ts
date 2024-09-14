@@ -13,7 +13,6 @@ export interface UserState {
   clientSecret: string
   isAuthorized: boolean,
   refreshId: string,
-  searchQuery: string
 }
 
 export interface Org {

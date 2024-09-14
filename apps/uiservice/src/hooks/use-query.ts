@@ -8,14 +8,15 @@ import { toast } from "@/components/ui/use-toast"
 
 export default function useQuery(queryKey: string[], queryUrl: string, method: Method, requestBody?: object) {
   const [{ userState }] = useContext(GlobalContext)
+
   const fetchDataFunction = async () => {
     const { data } = await axios({ method, url: queryUrl, data: requestBody })
     return data
   }
 
-  const { error, data, isLoading, refetch } = useReactQuery({
-    queryKey: [...queryKey, requestBody, queryUrl, userState.selectedOrgId],
-    queryFn: () => fetchDataFunction(),
+  const { error, data, isLoading, refetch, isRefetching } = useReactQuery({
+    queryKey: [...queryKey, userState.selectedOrgId],
+    queryFn: fetchDataFunction,
     refetchOnWindowFocus: !userState.reduceCarbonEmissions,
     refetchInterval: userState.reduceCarbonEmissions ? false : 30000
   })
@@ -27,5 +28,5 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: M
     })
   }
 
-  return { error, data, isLoading, refetch }
+  return { error, data, isLoading, refetch, isRefetching }
 }

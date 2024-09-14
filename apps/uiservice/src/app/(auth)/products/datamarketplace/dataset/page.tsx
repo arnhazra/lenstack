@@ -18,7 +18,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const datasetId = searchParams.get("datasetId")
   const router = useRouter()
-  const dataset = useQuery(["dataset"], `${endPoints.datamarketplaceViewDataset}/${datasetId}`, HTTPMethods.GET)
+  const dataset = useQuery(["dataset", datasetId ?? ""], `${endPoints.datamarketplaceViewDataset}/${datasetId}`, HTTPMethods.GET)
   const relatedDatasets = useQuery(["relateddatasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: "", selectedFilter: dataset?.data?.metaData?.category ?? "", selectedSortOption: "", offset: 0 })
 
   const renderDatasetTags = dataset?.data?.metaData?.description?.split(" ").slice(0, 30).map((item: string, index: number) => {

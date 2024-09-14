@@ -3,7 +3,7 @@ import { Wallet, Layers2, ListFilter, Orbit, Sparkles, User } from "lucide-react
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
@@ -18,18 +18,13 @@ import ErrorComponent from "@/components/error"
 import { Input } from "@/components/ui/input"
 
 export default function Page() {
-  const [{ userState }, dispatch] = useContext(GlobalContext)
+  const [{ userState }] = useContext(GlobalContext)
   const [selectedFilter, setSelectedFilter] = useState("All")
   const [searchString, setSearchString] = useState("")
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=${userState.searchQuery}&category=${selectedFilter}`, HTTPMethods.GET)
+  const products = useQuery(["products", selectedFilter], `${endPoints.getProductConfig}?searchQuery=${searchString}&category=${selectedFilter}`, HTTPMethods.GET)
   const router = useRouter()
-
-  useEffect(() => {
-    if (!searchString) {
-      dispatch("setUserState", { searchQuery: searchString })
-    }
-  }, [searchString])
+  useEffect(() => { if (!searchString) products.refetch() }, [searchString])
 
   const renderProducts = products?.data?.map((product: any) => {
     return (
@@ -158,37 +153,39 @@ export default function Page() {
                     </Suspense>
                   </div>
                 </div>
-                <CardDescription>
-                  <form onSubmit={(e) => { e.preventDefault(); dispatch("setUserState", { searchQuery: searchString }) }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
-                    <div className="relative">
-                      <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        autoFocus
-                        defaultValue={userState.searchQuery}
-                        onChange={(e): void => setSearchString(e.target.value)}
-                        type="search"
-                        placeholder="Type anything and press enter to get suggested products powered by AI"
-                        className="mb-4 pl-8 w-full h-12 shadow-sm"
-                      />
-                    </div>
-                  </form>
-                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead></TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead className="hidden md:table-cell">Description</TableHead>
-                      <TableHead className="hidden md:table-cell">Status</TableHead>
-                      <TableHead className="text-right">Category</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {renderProducts}
-                  </TableBody>
-                </Table>
+                <form onSubmit={(e) => { e.preventDefault(); products.refetch() }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
+                  <div className="relative">
+                    <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      autoFocus
+                      defaultValue={searchString}
+                      onChange={(e): void => setSearchString(e.target.value)}
+                      type="search"
+                      placeholder="Type anything and press enter to get suggested products powered by AI"
+                      className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
+                    />
+                  </div>
+                </form>
+                <Suspense condition={!products.isRefetching} fallback={<p className="text-center">Generating best products suggestions for you</p>}>
+                  <Suspense condition={products?.data?.length > 0} fallback={<p className="text-center">No products to display</p>}>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead></TableHead>
+                          <TableHead>Name</TableHead>
+                          <TableHead className="hidden md:table-cell">Description</TableHead>
+                          <TableHead className="hidden md:table-cell">Status</TableHead>
+                          <TableHead className="text-right">Category</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {renderProducts}
+                      </TableBody>
+                    </Table>
+                  </Suspense>
+                </Suspense>
               </CardContent>
             </Card>
           </div>

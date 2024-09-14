@@ -22,7 +22,6 @@ const initialState: { userState: UserState, organizations: Org[] } = {
     clientSecret: "",
     isAuthorized: false,
     refreshId: "648e6587-ebd0-442b-b338-1fb8d8a01192",
-    searchQuery: ""
   },
 
   organizations: [],
