@@ -39,7 +39,7 @@ export default function Page() {
               {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
                 <li className="flex text-xs items-center text-slate-600" key={key}>
                   <CheckCircle2 className="scale-75 me-2" />
-                  {brandName} {products.data.find((item: any) => item.productName === key).displayName}
+                  {brandName} {products?.data?.find((item: any) => item?.productName === key)?.displayName}
                   {" "}$ {Number(value).toFixed(2)}/req
                 </li>
               ))}
