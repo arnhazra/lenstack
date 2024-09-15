@@ -40,7 +40,7 @@ export class CredentialGuard implements CanActivate {
 
           else {
             const user = userResponse[0]
-            const product = request.url.split("/")[3]
+            const product = request.url.split("/")[2]
             const { responseDelay, estimatedRequestCost } = pricingConfig.find((pricing) => pricing.computeTier === user.computeTier)
             const creditRequired = estimatedRequestCost[product as Products]
 

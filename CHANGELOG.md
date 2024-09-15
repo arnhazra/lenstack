@@ -1,6 +1,7 @@
 # Changelog
 
 ## v3.7.0
+* Fixed api request cost issue 
 * Removal of searchparams and replaced with dynamic routes
 * Integrated AI Search in Data Marketplace for dataset search
 * Integrated AI Search in Dashboard page for products search
