@@ -65,7 +65,7 @@ export default function Page() {
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=user")}>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account/user")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     {brandName}
@@ -79,7 +79,7 @@ export default function Page() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=organization")}>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account/organization")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
                     Current Organization
@@ -95,7 +95,7 @@ export default function Page() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=wallet")}>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account/wallet")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
                   <Wallet className="h-4 w-4 text-muted-foreground" />
@@ -107,7 +107,7 @@ export default function Page() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="cursor-pointer" onClick={(): void => router.push("/account?tab=compute")}>
+              <Card className="cursor-pointer" onClick={(): void => router.push("/account/compute")}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Compute Tier</CardTitle>
                   <Layers2 className="h-4 w-4 text-muted-foreground" />

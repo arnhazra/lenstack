@@ -63,7 +63,7 @@ export default function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={(): void => router.push("/account")}>My Account</DropdownMenuItem>
+                <DropdownMenuItem onClick={(): void => router.push("/account/user")}>My Account</DropdownMenuItem>
                 <DropdownMenuItem onClick={signOut}>Sign Out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

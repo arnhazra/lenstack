@@ -12,7 +12,6 @@ import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
-import { sortOptions } from "./data"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 
@@ -26,11 +25,11 @@ export interface DatasetRequestState {
 export default function Page() {
   const router = useRouter()
   const [datasetRequestState, setDatasetRequestState] = useState<DatasetRequestState>({ searchQuery: "", selectedFilter: "All", selectedSortOption: "name", offset: 0 })
-  const filters = useQuery(["filters"], endPoints.datamarketplaceFilters, HTTPMethods.GET)
+  const filtersAndSortOptions = useQuery(["filters-and-sorts"], endPoints.datamarketplaceFilterAndSortOptions, HTTPMethods.GET)
   const datasets = useQuery(["datasets", datasetRequestState.selectedFilter, datasetRequestState.selectedSortOption, String(datasetRequestState.offset)], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, datasetRequestState)
   useEffect(() => { if (!datasetRequestState.searchQuery) datasets.refetch() }, [datasetRequestState.searchQuery])
 
-  const renderFilterOptions = filters?.data?.map((item: string) => {
+  const renderFilterOptions = filtersAndSortOptions?.data?.filters?.map((item: string) => {
     return (
       <DropdownMenuCheckboxItem
         key={item}
@@ -42,7 +41,7 @@ export default function Page() {
     )
   })
 
-  const renderSortOptions = sortOptions.map((item) => {
+  const renderSortOptions = filtersAndSortOptions?.data?.sortOptions?.map((item: any) => {
     return (
       <DropdownMenuCheckboxItem
         key={item.value}
@@ -56,7 +55,7 @@ export default function Page() {
 
   const renderDatasets = datasets?.data?.map((dataset: any) => {
     return (
-      <TableRow className="cursor-pointer" key={dataset?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset?datasetId=${dataset._id}`)}>
+      <TableRow className="cursor-pointer" key={dataset?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset/${dataset._id}`)}>
         <TableCell><div className="font-medium">{dataset?.name}</div></TableCell>
         <TableCell className="text-slate-500">{dataset?.category}</TableCell>
         <TableCell className="hidden md:table-cell">{dataset?.rating}</TableCell>

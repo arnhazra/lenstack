@@ -16,7 +16,7 @@ export const endPoints = {
   getapireference: `${apiHost}/apireference`,
   organization: `${apiHost}/organization`,
   intelligenceGenerateEndpoint: `${apiHost}/products/intelligence/generate`,
-  datamarketplaceFilters: `${apiHost}/products/datamarketplace/filters`,
+  datamarketplaceFilterAndSortOptions: `${apiHost}/products/datamarketplace/filters-and-sort-options`,
   datamarketplaceFindDatasets: `${apiHost}/products/datamarketplace/finddatasets`,
   datamarketplaceViewDataset: `${apiHost}/products/datamarketplace/viewdataset`,
   datamarketplaceDataApi: `${apiHost}/products/datamarketplace/dataapi`,

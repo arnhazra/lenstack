@@ -4,16 +4,18 @@ import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { DataAPIDto } from "./dto/data-api.dto"
 import { TokenGuard } from "src/auth/token.guard"
 import { CredentialGuard } from "src/auth/credential.guard"
+import { sortOptions } from "./data/dataset-sort-options"
 
 @Controller("products/datamarketplace")
 export class DatamarketplaceController {
   constructor(private readonly datamarketplaceService: DatamarketplaceService) { }
 
   @UseGuards(TokenGuard)
-  @Get("filters")
-  async getDatasetFilters() {
+  @Get("filters-and-sort-options")
+  async getDatasetFiltersAndSortOptions() {
     try {
-      return await this.datamarketplaceService.getDatasetFilters()
+      const filters = await this.datamarketplaceService.getDatasetFilters()
+      return { filters, sortOptions }
     }
 
     catch (error) {

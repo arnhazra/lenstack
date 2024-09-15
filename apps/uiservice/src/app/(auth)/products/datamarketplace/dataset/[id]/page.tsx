@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
@@ -14,9 +14,8 @@ import LoadingComponent from "@/components/loading"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 
-export default function Page() {
-  const searchParams = useSearchParams()
-  const datasetId = searchParams.get("datasetId")
+export default function Page({ params }: { params: { id: string } }) {
+  const datasetId = params.id
   const router = useRouter()
   const dataset = useQuery(["dataset", datasetId ?? ""], `${endPoints.datamarketplaceViewDataset}/${datasetId}`, HTTPMethods.GET)
   const relatedDatasets = useQuery(["relateddatasets"], endPoints.datamarketplaceFindDatasets, HTTPMethods.POST, { searchQuery: "", selectedFilter: dataset?.data?.metaData?.category ?? "", selectedSortOption: "", offset: 0 })
@@ -37,7 +36,7 @@ export default function Page() {
 
   const renderRelatedDatasets = relatedDatasets?.data?.filter((ds: any) => ds?._id !== datasetId).map((ds: any) => {
     return (
-      <TableRow className="cursor-pointer" key={ds?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset?datasetId=${ds._id}`)}>
+      <TableRow className="cursor-pointer" key={ds?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset/${ds._id}`)}>
         <TableCell><div className="font-medium">{ds?.name}</div></TableCell>
         <TableCell className="hidden md:table-cell">{ds?.rating}</TableCell>
         <TableCell>
@@ -215,7 +214,7 @@ export default function Page() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex flex-row items-center bg-muted/50 px-6 py-3">
-                  <Button variant="default" className="w-full" onClick={(): void => router.push("/apireference?tab=datamarketplace")}>Data API Reference<BookMarked className="scale-75" /></Button>
+                  <Button variant="default" className="w-full" onClick={(): void => router.push("/apireference/datamarketplace")}>Data API Reference<BookMarked className="scale-75" /></Button>
                 </CardFooter>
               </Card>
             </div>

@@ -9,10 +9,10 @@ import axios from "axios"
 import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
 import { toast } from "@/components/ui/use-toast"
-import { Tabs, tabsList } from "./data"
+import { Tabs, tabsList } from "../data"
 import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
-import OrgPanel from "./org"
+import { useRouter } from "next/navigation"
+import OrgPanel from "../org"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import { usePromptContext } from "@/context/providers/prompt.provider"
@@ -33,11 +33,10 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
   sustainability: <Leaf />,
 }
 
-export default function Page() {
+export default function Page({ params }: { params: { tab: string } }) {
   const [{ userState }, dispatch] = useContext(GlobalContext)
   const [computeTier, setComputeTier] = useState<string>(userState.computeTier)
-  const searchParams = useSearchParams()
-  const selectedTab = searchParams.get("tab") ?? Tabs.User
+  const selectedTab = params.tab
   const router = useRouter()
   const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
   const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
@@ -117,7 +116,7 @@ export default function Page() {
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/account?tab=${tab}`)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/account/${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </div>

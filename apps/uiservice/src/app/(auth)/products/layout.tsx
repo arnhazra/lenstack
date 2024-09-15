@@ -41,7 +41,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
                 </p>
               </CardContent>
               <CardFooter className="-mt-3">
-                <Button variant="secondary" onClick={(): void => router.push(`/apireference?tab=${selectedProduct?.productName}`)}>
+                <Button variant="secondary" onClick={(): void => router.push(`/apireference/${selectedProduct?.productName}`)}>
                   API Reference
                 </Button>
               </CardFooter>
@@ -64,7 +64,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
             </CardDescription>
           </CardHeader>
           <CardFooter>
-            <Button size="lg" className="w-full" onClick={(): void => router.push("/account?tab=wallet")}>
+            <Button size="lg" className="w-full" onClick={(): void => router.push("/account/wallet")}>
               Add Money to Wallet
             </Button>
           </CardFooter>
