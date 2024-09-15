@@ -115,6 +115,7 @@ export default function Page() {
                     </Button>
                   </div>
                 </div>
+                <p className="text-xs text-slate-500 mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
                 <div className="mt-4 ms-2">{response.response ?? ""}</div>
               </div>
             </div>

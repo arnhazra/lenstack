@@ -14,6 +14,7 @@ import { ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc, Spa
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
+import { uiConstants } from "@/constants/global-constants"
 
 export interface DatasetRequestState {
   searchQuery: string
@@ -159,6 +160,7 @@ export default function Page() {
                       placeholder="Type anything and press enter to find datasets powered by AI"
                       className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
                     />
+                    <p className="text-xs text-slate-500 -mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
                   </div>
                 </form>
                 <Suspense condition={!datasets.isRefetching} fallback={<p className="text-center">Finding the best datasets for you</p>}>

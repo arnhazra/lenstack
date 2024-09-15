@@ -241,7 +241,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                   </div>
                 </div>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
-                  <Button onClick={createOrg}>Create Org</Button>
+                  <Button size="icon" className="rounded-full" onClick={createOrg} title="Create Org"><PlusCircle className="scale-50" /></Button>
                 </Suspense>
               </div>
             </div>

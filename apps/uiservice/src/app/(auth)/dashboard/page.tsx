@@ -11,7 +11,7 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
-import { brandName } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
@@ -166,6 +166,7 @@ export default function Page() {
                       placeholder="Type anything and press enter to get suggested products powered by AI"
                       className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
                     />
+                    <p className="text-xs text-slate-500 -mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
                   </div>
                 </form>
                 <Suspense condition={!products.isRefetching} fallback={<p className="text-center">Generating best products suggestions for you</p>}>

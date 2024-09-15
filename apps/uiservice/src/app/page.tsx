@@ -9,7 +9,7 @@ import Suspense from "@/components/suspense"
 import { Footer } from "@/components/footer"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { CheckCircle2, Github } from "lucide-react"
+import { CheckCircle2, Github, Star } from "lucide-react"
 import LoadingComponent from "@/components/loading"
 
 export default function Page() {
@@ -95,8 +95,11 @@ export default function Page() {
                 {brandName}. {uiConstants.homeBadge}
               </p>
             </Link>
-            <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">
+            <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight flex">
               {uiConstants.homeHeader}
+              <div title={uiConstants.aiSafetyStatement}>
+                <Star className="scale-50 ms-2" />
+              </div>
             </h1>
             <p className="leading-normal text-white text-xs md:text-md lg:text-lg">
               {uiConstants.homeIntro1}<br />

@@ -1,8 +1,8 @@
 export const brandName = "ArcStack"
 
 export const uiConstants = {
-  homeBadge: "Limitless Innovation",
-  homeHeader: "Develop with AI",
+  homeBadge: "Invent with Purpose",
+  homeHeader: "Empower with AI",
   homeIntro1: "Get tools to take care of the innovation with AI",
   homeIntro2: "Start with a fabric tier, Upgrade on demand",
   homeIntro3: "Create a free account & get $100 credit in your wallet",
@@ -28,5 +28,6 @@ export const uiConstants = {
   organizationCreated: "Organization created",
   organizationSwitched: "Organization switched",
   organizationDeleted: "Organization deleted",
-  apiRefreneceStatement: "You must send client_id & client_secret in headers to authenticate with your organization"
+  apiRefreneceStatement: "You must send client_id & client_secret in headers to authenticate with your organization",
+  aiSafetyStatement: `As an AI LLM ${brandName} Intelligence can make mistakes. Please be aware.`
 }
