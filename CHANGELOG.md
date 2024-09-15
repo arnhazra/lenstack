@@ -1,6 +1,7 @@
 # Changelog
 
-## v3.6.0
+## v3.7.0
+* Removal of searchparams and replaced with dynamic routes
 * Integrated AI Search in Data Marketplace for dataset search
 * Integrated AI Search in Dashboard page for products search
 * Rebranded Copilot as Intelligence
@@ -13,19 +14,21 @@
 * Input OTP UI changes
 * Removal of unused dependencies
 * Code cleanup
+
+## v3.6.0
 * Changed refresh token type from jwt to custom string
 * Minor changes & bug fixes
 * Code optimization & cleanup
 * Regular dependency updates
 * Removal of unused dependencies
-
-## v3.5.0
 * Introduction of Identity product
 * Deprecated blockchain product
 * Deprecated analytics product
 * Deprecated insights produt
 * Introduction of Web Analytics product
 * Minor UI improvements
+
+## v3.5.0
 * Bug fixes & overall performance improvements
 * Regular dependency updates
 * Removed subscription based payment system and added wallet based pay

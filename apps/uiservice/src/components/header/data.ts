@@ -51,10 +51,3 @@ export const authUserLinks: LinkData[] = [
     link: "/apireference/datamarketplace"
   },
 ]
-
-export const searchEnabledPathNames = [
-  "/dashboard",
-  "/products/datamarketplace",
-  "/dashboard/",
-  "/products/datamarketplace/",
-]
