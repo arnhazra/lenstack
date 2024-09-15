@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Get, BadRequestException, UseGuards, Param } from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
-import { DataAPIDto } from "./dto/data-api.dto"
 import { TokenGuard } from "src/auth/token.guard"
 import { CredentialGuard } from "src/auth/credential.guard"
 import { sortOptions } from "./data/dataset-sort-options"
@@ -48,10 +47,10 @@ export class DatamarketplaceController {
   }
 
   @UseGuards(CredentialGuard)
-  @Post("dataapi")
-  async getData(@Body() dataapiDto: DataAPIDto) {
+  @Get("dataapi/:datasetId")
+  async getData(@Param() params: any) {
     try {
-      return await this.datamarketplaceService.getData(dataapiDto.datasetId)
+      return await this.datamarketplaceService.getData(params.datasetId)
     }
 
     catch (error) {
