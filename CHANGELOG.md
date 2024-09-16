@@ -1,6 +1,9 @@
 # Changelog
 
 ## v3.7.0
+* Migrated homepage to server component
+* Added redirect from api homepage to ui
+* Minor UI component changes
 * Fixed api request cost issue 
 * Removal of searchparams and replaced with dynamic routes
 * Integrated AI Search in Data Marketplace for dataset search
