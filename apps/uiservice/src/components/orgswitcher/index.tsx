@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "
 import { ChevronsUpDown, Orbit } from "lucide-react"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
-import axios from "axios"
+import ky from "ky"
 import { endPoints } from "@/constants/api-endpoints"
 import { toast } from "../ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
@@ -13,7 +13,7 @@ export function OrgSwitcher() {
 
   const switchOrg = async (orgId: string) => {
     try {
-      await axios.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`)
+      await ky.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`)
       dispatch("setUserState", { refreshId: Math.random().toString() })
       toast({
         title: uiConstants.notification,

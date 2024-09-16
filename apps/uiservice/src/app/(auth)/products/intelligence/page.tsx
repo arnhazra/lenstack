@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { endPoints } from "@/constants/api-endpoints"
 import { useState } from "react"
-import axios from "axios"
+import ky from "ky"
 import { toast } from "@/components/ui/use-toast"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
@@ -24,8 +24,8 @@ export default function Page() {
     try {
       setReseponse({})
       setLoading(true)
-      const res = await axios.post(`${endPoints.intelligenceGenerateEndpoint}`, requestBody)
-      setReseponse(res.data)
+      const res = await ky.post(`${endPoints.intelligenceGenerateEndpoint}`, { json: requestBody }).json()
+      setReseponse(res)
     }
 
     catch (error: any) {

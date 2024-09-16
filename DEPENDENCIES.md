@@ -2,7 +2,8 @@
 
 * @google/generative-ai: Gen AI library for generating artificial intelligence content from Google.
 * @nestjs/*: Fast backend framework for Node.js to build APIs, providing a robust structure for web applications.
-* axios: Promise-based HTTP client for the browser and Node.js, simplifying asynchronous HTTP requests.
+* ky: Promise-based fetch client for the browser and Node.js, simplifying asynchronous fetch requests.
+* @mswjs/interceptors: Global interceptors to intercept fetch request & response.
 * class-transformer: Library for transforming plain JavaScript objects to class constructors and vice versa.
 * class-validator: Validation library for TypeScript and JavaScript that works both on the frontend and backend.
 * dotenv: Loads environment variables from a .env file, enabling configuration management.

@@ -1,6 +1,7 @@
 # Changelog
 
 ## v3.7.0
+* Migrated all requests from axios xhr to fetch
 * Migrated homepage to server component
 * Added redirect from api homepage to ui
 * Minor UI component changes

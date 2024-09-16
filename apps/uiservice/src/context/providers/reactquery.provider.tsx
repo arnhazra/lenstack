@@ -1,37 +1,38 @@
 "use client"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import axios from "axios"
 import { ReactNode } from "react"
+import { BatchInterceptor } from "@mswjs/interceptors"
+import { XMLHttpRequestInterceptor } from "@mswjs/interceptors/XMLHttpRequest"
+import { FetchInterceptor } from "@mswjs/interceptors/fetch"
 
-axios.interceptors.request.use((request) => {
-  if (localStorage.hasOwnProperty("accessToken")) {
-    request.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`
-    request.headers["refresh_token"] = `${localStorage.getItem("refreshToken")}`
-    request.headers["client_id"] = `${localStorage.getItem("clientId")}`
-    request.headers["client_secret"] = `${localStorage.getItem("clientSecret")}`
-  }
-  return request
+const interceptor = new BatchInterceptor({
+  name: "fetch-interceptor",
+  interceptors: [
+    new FetchInterceptor(),
+    new XMLHttpRequestInterceptor()
+  ],
 })
 
-axios.interceptors.response.use(
-  function (response) {
-    if (response.headers["token"] || response.headers["Token"]) {
-      const newAccessToken = response.headers["token"] ?? response.headers["Token"]
-      localStorage.setItem("accessToken", newAccessToken)
-    }
+interceptor.apply()
+interceptor.on("request", ({ request }) => {
+  request.headers.set("Authorization", `Bearer ${localStorage.getItem("accessToken")}`)
+  request.headers.set("refresh_token", `${localStorage.getItem("refreshToken")}`)
+  request.headers.set("client_id", `${localStorage.getItem("clientId")}`)
+  request.headers.set("client_secret", `${localStorage.getItem("clientSecret")}`)
+})
 
-    return response
-  },
-
-  function (error) {
-    if (error.response.status === 401) {
-      localStorage.clear()
-      window.location.replace("/")
-    }
-
-    return Promise.reject(error)
+interceptor.on("response", ({ response }) => {
+  if (response.headers.has("token") || response.headers.has("Token")) {
+    const newAccessToken = response.headers.get("token") ?? response.headers.get("Token") ?? ""
+    localStorage.setItem("accessToken", newAccessToken)
   }
-)
+
+  if (response.status === 401) {
+    console.log("here")
+    localStorage.clear()
+    window.location.replace("/")
+  }
+})
 
 export default function ReactQueryProvider({ children }: { children: ReactNode }) {
   const client = new QueryClient({

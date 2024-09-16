@@ -5,7 +5,7 @@ import { ReactElement, useContext, useState } from "react"
 import { GlobalContext } from "@/context/providers/globalstate.provider"
 import { endPoints } from "@/constants/api-endpoints"
 import { brandName, uiConstants } from "@/constants/global-constants"
-import axios from "axios"
+import ky from "ky"
 import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
 import { toast } from "@/components/ui/use-toast"
@@ -46,7 +46,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
-      await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
+      await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveComputeTier = async () => {
     try {
       dispatch("setUserState", { computeTier })
-      await axios.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`)
+      await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -82,7 +82,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveActivityLogSettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUserState", { activityLog: updatedSettings })
-      await axios.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
+      await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -100,7 +100,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const signOut = async (signOutOption: string) => {
     try {
       if (signOutOption === "all") {
-        await axios.post(endPoints.signOut)
+        await ky.post(endPoints.signOut)
       }
       localStorage.clear()
       window.location.replace("/")
@@ -128,7 +128,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
     if (hasConfirmed && value) {
       try {
-        await axios.post(endPoints.organization, { name: value })
+        await ky.post(endPoints.organization, { json: { name: value } })
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -151,8 +151,8 @@ export default function Page({ params }: { params: { tab: string } }) {
 
     if (hasConfirmed && value) {
       try {
-        const response = await axios.post(endPoints.createCheckoutSession, { amount: value })
-        window.location = response.data.redirectUrl
+        const response: any = await ky.post(endPoints.createCheckoutSession, { json: { amount: value } })
+        window.location = response.redirectUrl
       }
 
       catch (error) {
@@ -168,7 +168,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     const response = await confirm("Are you sure to delete this org ?")
     if (response) {
       try {
-        await axios.delete(`${endPoints.organization}/${orgId}`)
+        await ky.delete(`${endPoints.organization}/${orgId}`)
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -190,7 +190,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     const response = await confirm("Are you sure to regenerate credentials for this org ?")
     if (response) {
       try {
-        await axios.patch(`${endPoints.organization}/${orgId}`)
+        await ky.patch(`${endPoints.organization}/${orgId}`)
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
