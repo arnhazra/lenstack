@@ -3,6 +3,7 @@ import { CoreModule } from "./core/core.module"
 import { ProductsModule } from "./products/products.module"
 import { EventEmitterModule } from "@nestjs/event-emitter"
 import { DatabaseModule } from "./shared/database/database.module"
+import { AppController } from "./app.controller"
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { DatabaseModule } from "./shared/database/database.module"
     ProductsModule,
     DatabaseModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule { }
