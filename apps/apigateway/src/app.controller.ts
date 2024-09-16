@@ -1,10 +1,11 @@
 import { Controller, Get, Redirect } from '@nestjs/common'
-import { otherConstants } from "./shared/utils/constants/other-constants"
+import { devUri, prodUri } from "./shared/utils/constants/other-constants"
+import { envConfig } from "./env.config"
 
 @Controller()
 export class AppController {
   @Get('/')
-  @Redirect(otherConstants.tokenIssuer, 302)
+  @Redirect(envConfig.nodeEnv === "development" ? devUri : prodUri, 302)
   redirectToUI() {
     return
   }
