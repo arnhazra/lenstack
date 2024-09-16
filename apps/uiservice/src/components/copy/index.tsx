@@ -1,19 +1,25 @@
 "use client"
+import { useState } from "react"
 import { Button } from "../ui/button"
-import { toast } from "../ui/use-toast"
-import { uiConstants } from "@/constants/global-constants"
-import { Clipboard } from "lucide-react"
+import { CheckCircle2, Clipboard } from "lucide-react"
+import Suspense from "../suspense"
 
 export default function CopyToClipboard({ value }: { value: string }) {
+  const [isCopied, setCopied] = useState(false)
+
   const copyValue = () => {
     navigator.clipboard.writeText(value)
-    toast({
-      title: uiConstants.notification,
-      description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
-    })
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 3000)
   }
 
   return (
-    <Button className="rounded-full" variant="default" size="icon" onClick={copyValue} title="Copy to Clipboard"><Clipboard className="scale-50" /></Button>
+    <Button variant="secondary" size="icon" onClick={copyValue} title="Copy to Clipboard">
+      <Suspense condition={!isCopied} fallback={<CheckCircle2 className="scale-65 text-green-500" />}>
+        <Clipboard className="scale-65" />
+      </Suspense>
+    </Button>
   )
 }

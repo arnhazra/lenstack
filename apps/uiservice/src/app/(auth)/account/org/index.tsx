@@ -2,8 +2,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, Key, Lock, Recycle, Trash } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
-import { uiConstants } from "@/constants/global-constants"
 import { format } from "date-fns"
 import Suspense from "@/components/suspense"
 import SectionPanel from "@/components/sectionpanel"
@@ -21,16 +19,6 @@ interface OrgPanelProps {
 }
 
 export default function OrgPanel({ orgId, isSelected, displayName, createdAt, clientId, clientSecret, onRegenCred, onDelete }: OrgPanelProps) {
-  const { toast } = useToast()
-
-  const copyValue = (value: string) => {
-    navigator.clipboard.writeText(value)
-    toast({
-      title: uiConstants.notification,
-      description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
-    })
-  }
-
   return (
     <Card>
       <CardHeader>

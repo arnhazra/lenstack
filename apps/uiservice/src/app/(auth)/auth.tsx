@@ -3,7 +3,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import axios from "axios"
 import { useState } from "react"
-import { useToast } from "@/components/ui/use-toast"
+import { toast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,7 +23,6 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
   const [alert, setAlert] = useState("")
   const [newUser, setNewUser] = useState(false)
   const [name, setName] = useState("")
-  const { toast } = useToast()
 
   const generatePassKey = async (event: any) => {
     event.preventDefault()

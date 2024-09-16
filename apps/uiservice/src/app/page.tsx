@@ -6,9 +6,7 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import Suspense from "@/components/suspense"
-import { Footer } from "@/components/footer"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
 import { CheckCircle2, Github, Star } from "lucide-react"
 import LoadingComponent from "@/components/loading"
 
@@ -17,17 +15,6 @@ export default function Page() {
   const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      router.push("/dashboard")
-    }
-
-    else {
-      setIsLoading(false)
-    }
-  }, [])
 
   const renderComputeTiers = pricing?.data?.map((tier: any) => {
     return (
@@ -86,7 +73,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
+    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
         <section id="hero" className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-32 lg:py-32">
           <div className="container flex flex-col gap-4">
@@ -189,7 +176,17 @@ export default function Page() {
           </div>
         </section>
       </div>
-      <Footer />
+      <footer>
+        <div className="bg-slate-50">
+          <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+            <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+              <p className="text-center text-sm leading-loose md:text-left">
+                © {new Date().getFullYear()} {brandName} {uiConstants.copyrightText}
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </Suspense>
   )
 }
