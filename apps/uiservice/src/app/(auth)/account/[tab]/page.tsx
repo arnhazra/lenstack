@@ -9,7 +9,7 @@ import axios from "axios"
 import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
 import { toast } from "@/components/ui/use-toast"
-import { Tabs, tabsList } from "../data"
+import { Tabs, tabsList } from "./data"
 import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter } from "next/navigation"
 import OrgPanel from "../org"
@@ -241,7 +241,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                   </div>
                 </div>
                 <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
-                  <Button size="icon" className="rounded-full" onClick={createOrg} title="Create Org"><PlusCircle className="scale-50" /></Button>
+                  <Button size="icon" className="rounded-full" onClick={createOrg} title="Create Org"><PlusCircle className="scale-65" /></Button>
                 </Suspense>
               </div>
             </div>
@@ -295,7 +295,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                         size="icon"
                         title="Add amount to wallet"
                         onClick={addAmountToWallet}>
-                        <PlusCircle className="scale-50" />
+                        <PlusCircle className="scale-65" />
                       </Button>
                     }
                   />

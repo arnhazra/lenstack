@@ -2,14 +2,11 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Clipboard } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
-import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import { Badge } from "../ui/badge"
 import Suspense from "../suspense"
 import { stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import CopyToClipboard from "../copy"
 
 interface SnippetPanelProps {
   title: string
@@ -20,16 +17,6 @@ interface SnippetPanelProps {
 }
 
 export default function SnippetPanel({ title, url, method, request, response }: SnippetPanelProps) {
-  const { toast } = useToast()
-
-  const copyValue = () => {
-    navigator.clipboard.writeText(url)
-    toast({
-      title: uiConstants.notification,
-      description: <p className="text-slate-600">{uiConstants.copiedToClipBoard}</p>
-    })
-  }
-
   return (
     <Card>
       <CardHeader>
@@ -38,7 +25,7 @@ export default function SnippetPanel({ title, url, method, request, response }: 
       <CardContent className="flex gap-3">
         <Badge variant="outline">{method}</Badge>
         <Input value={url} disabled />
-        <Button variant="outline" size="icon" onClick={copyValue}><Clipboard className="scale-50" /></Button>
+        <CopyToClipboard value={url} />
       </CardContent>
       <CardFooter className="block">
         <Suspense condition={!!request} fallback={null}>

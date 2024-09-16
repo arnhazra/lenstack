@@ -8,10 +8,6 @@
           "dist/**"
         ]
       }
-    },
-    {
-      "src": "./dist/uiservice",
-      "use": "@vercel/static"
     }
   ],
   "routes": [

@@ -1,35 +1,18 @@
-"use client"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { brandName, uiConstants } from "@/constants/global-constants"
-import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import Suspense from "@/components/suspense"
-import { Footer } from "@/components/footer"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
 import { CheckCircle2, Github, Star } from "lucide-react"
 import LoadingComponent from "@/components/loading"
+import { Suspense } from "react"
+import { cn } from "@/lib/utils"
 
-export default function Page() {
-  const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
-  const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
+export default async function Page() {
+  const pricing = await (await fetch(endPoints.getPricingConfig)).json()
+  const products = await (await fetch(`${endPoints.getProductConfig}?searchQuery=&category=`)).json()
+  const solutions = await (await fetch(endPoints.getSolutionConfig)).json()
 
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      router.push("/dashboard")
-    }
-
-    else {
-      setIsLoading(false)
-    }
-  }, [])
-
-  const renderComputeTiers = pricing?.data?.map((tier: any) => {
+  const renderComputeTiers = pricing?.map((tier: any) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
         <div className="flex flex-col justify-between rounded-md p-6">
@@ -39,7 +22,7 @@ export default function Page() {
               {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
                 <li className="flex text-xs items-center text-slate-600" key={key}>
                   <CheckCircle2 className="scale-75 me-2" />
-                  {brandName} {products?.data?.find((item: any) => item?.productName === key)?.displayName}
+                  {brandName} {products?.find((item: any) => item?.productName === key)?.displayName}
                   {" "}$ {Number(value).toFixed(2)}/req
                 </li>
               ))}
@@ -53,7 +36,7 @@ export default function Page() {
     )
   })
 
-  const renderProducts = products?.data?.map((product: any) => {
+  const renderProducts = products?.map((product: any) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={product?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -69,7 +52,7 @@ export default function Page() {
     )
   })
 
-  const renderSolutions = solutions?.data?.map((solution: any) => {
+  const renderSolutions = solutions?.map((solution: any) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={solution?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -86,7 +69,7 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading && !isLoading} fallback={<LoadingComponent />}>
+    <Suspense fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
         <section id="hero" className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-32 lg:py-32">
           <div className="container flex flex-col gap-4">
@@ -107,9 +90,9 @@ export default function Page() {
               {uiConstants.homeIntro3}<br />
             </p>
             <div className="space-x-4 space-y-4 mt-2">
-              <Button variant="default" onClick={(): void => router.push("/dashboard")}>
+              <Link href="/dashboard" className={cn(buttonVariants({ size: "default" }))}>
                 Get Started with {brandName}
-              </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -189,7 +172,17 @@ export default function Page() {
           </div>
         </section>
       </div>
-      <Footer />
+      <footer>
+        <div className="bg-slate-50">
+          <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+            <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+              <p className="text-center text-sm leading-loose md:text-left">
+                © {new Date().getFullYear()} {brandName} {uiConstants.copyrightText}
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </Suspense>
   )
 }
