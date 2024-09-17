@@ -2,6 +2,7 @@
 
 ## v15.3.0
 * Migrated all requests from axios xhr to fetch
+* Added new request interceptors
 * Rebranded account page to settings page
 * Added about section in settings page
 
