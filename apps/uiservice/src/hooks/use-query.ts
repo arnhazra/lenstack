@@ -1,16 +1,17 @@
 "use client"
-import axios, { Method } from "axios"
+import ky from "ky"
 import { useQuery as useReactQuery } from "@tanstack/react-query"
 import { uiConstants } from "@/constants/global-constants"
 import { useContext } from "react"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import { toast } from "@/components/ui/use-toast"
+import HTTPMethods from "@/constants/http-methods"
 
-export default function useQuery(queryKey: string[], queryUrl: string, method: Method, requestBody?: object) {
+export default function useQuery(queryKey: string[], queryUrl: string, method: HTTPMethods, requestBody?: object) {
   const [{ userState }] = useContext(GlobalContext)
 
   const fetchDataFunction = async () => {
-    const { data } = await axios({ method, url: queryUrl, data: requestBody })
+    const data: any = await ky(queryUrl, { method, json: requestBody, timeout: 60000 }).json()
     return data
   }
 

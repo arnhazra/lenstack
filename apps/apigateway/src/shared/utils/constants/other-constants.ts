@@ -1,9 +1,12 @@
 import { envConfig } from "src/env.config"
 
+export const devUri = "http://localhost:3000"
+export const prodUri = `https://${envConfig.brandName.toLowerCase()}.vercel.app`
+
 export const otherConstants = {
-  tokenIssuer: `https://${envConfig.brandName.toLowerCase()}.vercel.app`,
-  stripeRedirectUriDev: "http://localhost:3000/dashboard",
-  stripeRedirectUriProd: `https://${envConfig.brandName.toLowerCase()}.vercel.app/dashboard`,
+  tokenIssuer: prodUri,
+  stripeRedirectUriDev: `${devUri}/dashboard`,
+  stripeRedirectUriProd: `${prodUri}/dashboard`,
   stripeConfigBaseUriDev: "http://localhost:8000/pricing",
-  stripeConfigBaseUriProd: `https://${envConfig.brandName.toLowerCase()}.vercel.app/pricing`
+  stripeConfigBaseUriProd: `https://api-${envConfig.brandName.toLowerCase()}.vercel.app/pricing`
 }

@@ -8,33 +8,9 @@ import { Suspense } from "react"
 import { cn } from "@/lib/utils"
 
 export default async function Page() {
-  const pricing = await (await fetch(endPoints.getPricingConfig)).json()
   const products = await (await fetch(`${endPoints.getProductConfig}?searchQuery=&category=`)).json()
   const solutions = await (await fetch(endPoints.getSolutionConfig)).json()
-
-  const renderComputeTiers = pricing?.map((tier: any) => {
-    return (
-      <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
-        <div className="flex flex-col justify-between rounded-md p-6">
-          <div className="space-y-2">
-            <h2 className="font-bold text-lg capitalize">{tier.computeTier} Tier</h2>
-            <ul className="grid gap-3 text-sm text-muted-foreground">
-              {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
-                <li className="flex text-xs items-center text-slate-600" key={key}>
-                  <CheckCircle2 className="scale-75 me-2" />
-                  {brandName} {products?.find((item: any) => item?.productName === key)?.displayName}
-                  {" "}$ {Number(value).toFixed(2)}/req
-                </li>
-              ))}
-              <li className="flex text-xs items-center text-slate-600">
-                <CheckCircle2 className="scale-75 me-2" /> {tier.responseDelay} ms response delay
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    )
-  })
+  const pricing = await (await fetch(endPoints.getPricingConfig)).json()
 
   const renderProducts = products?.map((product: any) => {
     return (
@@ -62,6 +38,30 @@ export default async function Page() {
             <p className="text-sm text-slate-600">
               {solution?.description}
             </p>
+          </div>
+        </div>
+      </div>
+    )
+  })
+
+  const renderComputeTiers = pricing?.map((tier: any) => {
+    return (
+      <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
+        <div className="flex flex-col justify-between rounded-md p-6">
+          <div className="space-y-2">
+            <h2 className="font-bold text-lg capitalize">{tier.computeTier} Tier</h2>
+            <ul className="grid gap-3 text-sm text-muted-foreground">
+              {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
+                <li className="flex text-xs items-center text-slate-600" key={key}>
+                  <CheckCircle2 className="scale-75 me-2" />
+                  {brandName} {products?.find((item: any) => item?.productName === key)?.displayName}
+                  {" "}$ {Number(value).toFixed(2)}/req
+                </li>
+              ))}
+              <li className="flex text-xs items-center text-slate-600">
+                <CheckCircle2 className="scale-75 me-2" /> {tier.responseDelay} ms response delay
+              </li>
+            </ul>
           </div>
         </div>
       </div>

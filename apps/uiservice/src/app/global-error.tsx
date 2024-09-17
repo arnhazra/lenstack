@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import ErrorComponent from "@/components/error"
 export default function GlobalError({
   error,

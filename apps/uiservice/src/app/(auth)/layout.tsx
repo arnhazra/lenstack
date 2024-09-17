@@ -1,8 +1,8 @@
 "use client"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
-import axios from "axios"
+import { GlobalContext } from "@/context/globalstate.provider"
+import ky from "ky"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
@@ -20,15 +20,15 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         if (!userState.refreshId) {
           setLoading(true)
         }
-        const response = await axios.get(endPoints.userDetails)
-        const organizations = await axios.get(endPoints.organization)
-        const { _id: userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId } = response.data.user
-        const { name: selectedOrgName, clientId, clientSecret } = response.data.organization
+        const response: any = await ky.get(endPoints.userDetails).json()
+        const organizations: any = await ky.get(endPoints.organization).json()
+        const { _id: userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId } = response.user
+        const { name: selectedOrgName, clientId, clientSecret } = response.organization
         localStorage.setItem("clientId", clientId)
         localStorage.setItem("clientSecret", clientSecret)
         dispatch("setUserState", { userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId, selectedOrgName, clientId, clientSecret })
         dispatch("setUserState", { isAuthorized: true })
-        dispatch("setOrgState", organizations.data)
+        dispatch("setOrgState", organizations)
         setAuthorized(true)
       }
 

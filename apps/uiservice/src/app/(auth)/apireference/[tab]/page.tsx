@@ -1,7 +1,7 @@
 "use client"
 import { apiHost, endPoints } from "@/constants/api-endpoints"
 import Suspense from "@/components/suspense"
-import { Info } from "lucide-react"
+import { Book } from "lucide-react"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import SnippetPanel from "@/components/snippet"
@@ -9,6 +9,7 @@ import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
+import { Button } from "@/components/ui/button"
 
 export default function Page({ params }: { params: { tab: string } }) {
   const router = useRouter()
@@ -43,12 +44,14 @@ export default function Page({ params }: { params: { tab: string } }) {
       <Suspense condition={!apiReference.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-            <div className="mx-auto grid w-full gap-2">
-              <h1 className="text-3xl font-semibold mb-2">API Reference</h1>
-              <p className="font-semibold text-sm flex gap-2 text-slate-600">
-                <Info className="scale-75" />
-                {uiConstants.apiRefreneceStatement}
-              </p>
+            <div className="flex gap-4">
+              <Button variant="secondary" size="icon" className="rounded-full">
+                <Book className="h-5 w-5" />
+              </Button>
+              <div>
+                <p className="text-sm  font-semibold">API Reference</p>
+                <p className="text-sm text-red-800 font-semibold">{uiConstants.apiRefreneceStatement}</p>
+              </div>
             </div>
             <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
               <nav className="grid gap-4 text-sm">

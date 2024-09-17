@@ -1,7 +1,7 @@
 "use client"
 import { endPoints } from "@/constants/api-endpoints"
 import { brandName, uiConstants } from "@/constants/global-constants"
-import axios from "axios"
+import ky from "ky"
 import { useState } from "react"
 import { toast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
@@ -30,14 +30,14 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     setAuthLoading(true)
 
     try {
-      const response = await axios.post(endPoints.generatePassKey, state)
-      setState({ ...state, hash: response.data.hash })
+      const response: any = await ky.post(endPoints.generatePassKey, { json: state }).json()
+      setState({ ...state, hash: response.hash })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{response.data.message}</p>
+        description: <p className="text-slate-600">{response.message}</p>
       })
 
-      setNewUser(response.data.newUser)
+      setNewUser(response.newUser)
       setAuthStep(2)
     }
 
@@ -59,9 +59,9 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     setAuthLoading(true)
 
     try {
-      const response = await axios.post(endPoints.verifyPassKey, { ...state, name })
-      localStorage.setItem("accessToken", response.data.accessToken)
-      localStorage.setItem("refreshToken", response.data.refreshToken)
+      const response: any = await ky.post(endPoints.verifyPassKey, { json: { ...state, name } }).json()
+      localStorage.setItem("accessToken", response.accessToken)
+      localStorage.setItem("refreshToken", response.refreshToken)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.authVerificationSuccess}</p>

@@ -77,7 +77,7 @@ export class TokenGuard implements CanActivate {
       }
 
       else {
-        throw error
+        throw new UnauthorizedException(statusMessages.unauthorized)
       }
     }
   }

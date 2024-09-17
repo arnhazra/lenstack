@@ -2,27 +2,28 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ReactElement, useContext, useState } from "react"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import { endPoints } from "@/constants/api-endpoints"
 import { brandName, uiConstants } from "@/constants/global-constants"
-import axios from "axios"
+import ky from "ky"
 import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
+import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Info, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter } from "next/navigation"
 import OrgPanel from "../org"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
-import { usePromptContext } from "@/context/providers/prompt.provider"
-import { useConfirmContext } from "@/context/providers/confirm.provider"
+import { usePromptContext } from "@/providers/prompt.provider"
+import { useConfirmContext } from "@/providers/confirm.provider"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { TierCardComponent } from "@/components/tiercard"
 import { Switch } from "@/components/ui/switch"
 import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
+import Link from "next/link"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -31,6 +32,7 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
   wallet: <Wallet />,
   compute: <Layers2 />,
   sustainability: <Leaf />,
+  about: <Info />
 }
 
 export default function Page({ params }: { params: { tab: string } }) {
@@ -43,10 +45,11 @@ export default function Page({ params }: { params: { tab: string } }) {
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
+
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
-      await axios.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
+      await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -64,7 +67,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveComputeTier = async () => {
     try {
       dispatch("setUserState", { computeTier })
-      await axios.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`)
+      await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -82,7 +85,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveActivityLogSettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUserState", { activityLog: updatedSettings })
-      await axios.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
+      await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -100,7 +103,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const signOut = async (signOutOption: string) => {
     try {
       if (signOutOption === "all") {
-        await axios.post(endPoints.signOut)
+        await ky.post(endPoints.signOut)
       }
       localStorage.clear()
       window.location.replace("/")
@@ -116,7 +119,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/account/${tab}`)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/settings/${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </div>
@@ -128,7 +131,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
     if (hasConfirmed && value) {
       try {
-        await axios.post(endPoints.organization, { name: value })
+        await ky.post(endPoints.organization, { json: { name: value } })
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -151,8 +154,8 @@ export default function Page({ params }: { params: { tab: string } }) {
 
     if (hasConfirmed && value) {
       try {
-        const response = await axios.post(endPoints.createCheckoutSession, { amount: value })
-        window.location = response.data.redirectUrl
+        const response: any = await ky.post(endPoints.createCheckoutSession, { json: { amount: value } })
+        window.location = response.redirectUrl
       }
 
       catch (error) {
@@ -168,7 +171,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     const response = await confirm("Are you sure to delete this org ?")
     if (response) {
       try {
-        await axios.delete(`${endPoints.organization}/${orgId}`)
+        await ky.delete(`${endPoints.organization}/${orgId}`)
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -190,7 +193,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     const response = await confirm("Are you sure to regenerate credentials for this org ?")
     if (response) {
       try {
-        await axios.patch(`${endPoints.organization}/${orgId}`)
+        await ky.patch(`${endPoints.organization}/${orgId}`)
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -362,6 +365,15 @@ export default function Page({ params }: { params: { tab: string } }) {
                         onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)}
                       />}
                   />
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.About} fallback={null}>
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
+                      <span className="text-6xl text-white font-bold">15</span>
+                    </div>
+                    <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 15.3.0</p>
+                    <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
+                  </div>
                 </Suspense>
               </div>
             </div>
