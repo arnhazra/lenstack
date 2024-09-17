@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
+import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Info, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter } from "next/navigation"
 import OrgPanel from "../org"
 import useQuery from "@/hooks/use-query"
@@ -23,6 +23,8 @@ import { TierCardComponent } from "@/components/tiercard"
 import { Switch } from "@/components/ui/switch"
 import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
+import Link from "next/link"
+import packageJson from '../../../../../package.json'
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -31,6 +33,7 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
   wallet: <Wallet />,
   compute: <Layers2 />,
   sustainability: <Leaf />,
+  about: <Info />
 }
 
 export default function Page({ params }: { params: { tab: string } }) {
@@ -116,7 +119,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/account/${tab}`)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/settings/${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </div>
@@ -362,6 +365,15 @@ export default function Page({ params }: { params: { tab: string } }) {
                         onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)}
                       />}
                   />
+                </Suspense>
+                <Suspense condition={selectedTab === Tabs.About} fallback={null}>
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
+                      <span className="text-6xl text-white font-bold">{packageJson.version.split(".")[0]}</span>
+                    </div>
+                    <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem {packageJson.version}</p>
+                    <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
+                  </div>
                 </Suspense>
               </div>
             </div>

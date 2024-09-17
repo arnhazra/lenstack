@@ -11,7 +11,7 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: H
   const [{ userState }] = useContext(GlobalContext)
 
   const fetchDataFunction = async () => {
-    const data: any = await ky(queryUrl, { method, json: requestBody }).json()
+    const data: any = await ky(queryUrl, { method, json: requestBody, timeout: 60000 }).json()
     return data
   }
 

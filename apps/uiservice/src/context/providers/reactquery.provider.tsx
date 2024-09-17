@@ -1,17 +1,9 @@
 "use client"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactNode } from "react"
-import { BatchInterceptor } from "@mswjs/interceptors"
-import { XMLHttpRequestInterceptor } from "@mswjs/interceptors/XMLHttpRequest"
 import { FetchInterceptor } from "@mswjs/interceptors/fetch"
 
-const interceptor = new BatchInterceptor({
-  name: "fetch-interceptor",
-  interceptors: [
-    new FetchInterceptor(),
-    new XMLHttpRequestInterceptor()
-  ],
-})
+const interceptor = new FetchInterceptor()
 
 interceptor.apply()
 interceptor.on("request", ({ request }) => {

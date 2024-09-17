@@ -40,11 +40,11 @@ export const authUserLinks: LinkData[] = [
   },
   {
     displayName: "Privacy",
-    link: "/account/privacy"
+    link: "/settings/privacy"
   },
   {
     displayName: "Sustainability",
-    link: "/account/sustainability"
+    link: "/settings/sustainability"
   },
   {
     displayName: "API Reference",

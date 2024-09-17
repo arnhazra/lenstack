@@ -64,7 +64,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
             </CardDescription>
           </CardHeader>
           <CardFooter>
-            <Button size="lg" className="w-full" onClick={(): void => router.push("/account/wallet")}>
+            <Button size="lg" className="w-full" onClick={(): void => router.push("/settings/wallet")}>
               Add Money to Wallet
             </Button>
           </CardFooter>

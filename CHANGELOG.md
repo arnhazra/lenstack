@@ -2,6 +2,8 @@
 
 ## v15.3.0
 * Migrated all requests from axios xhr to fetch
+* Rebranded account page to settings page
+* Added about section in settings page
 
 ## v15.2.0
 * Migrated homepage to server component
