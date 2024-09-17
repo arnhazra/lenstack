@@ -24,7 +24,6 @@ import { Switch } from "@/components/ui/switch"
 import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
 import Link from "next/link"
-import packageJson from '../../../../../package.json'
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -45,6 +44,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
+
 
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
@@ -369,9 +369,9 @@ export default function Page({ params }: { params: { tab: string } }) {
                 <Suspense condition={selectedTab === Tabs.About} fallback={null}>
                   <div className="flex flex-col items-center justify-center">
                     <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
-                      <span className="text-6xl text-white font-bold">{packageJson.version.split(".")[0]}</span>
+                      <span className="text-6xl text-white font-bold">15</span>
                     </div>
-                    <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem {packageJson.version}</p>
+                    <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 15.3.0</p>
                     <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
                   </div>
                 </Suspense>
