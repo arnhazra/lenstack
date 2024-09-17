@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { authUserLinks, generalUserLinks } from "./data"
 import { Fragment, useContext } from "react"
 import { usePathname, useRouter } from "next/navigation"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import Suspense from "../suspense"
 import { OrgSwitcher } from "../orgswitcher"
 

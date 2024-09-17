@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 import { brandName } from "@/constants/global-constants"
 import { Quicksand } from "next/font/google"
-import Providers from "@/context/providers"
+import Providers from "@/context"
 import Header from "@/components/header"
 import "@/styles/globals.sass"
 

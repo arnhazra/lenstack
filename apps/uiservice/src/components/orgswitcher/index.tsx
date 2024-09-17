@@ -2,7 +2,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { ChevronsUpDown, Orbit } from "lucide-react"
 import { useContext } from "react"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
 import { endPoints } from "@/constants/api-endpoints"
 import { toast } from "../ui/use-toast"

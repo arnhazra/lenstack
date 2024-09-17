@@ -3,7 +3,7 @@ import ky from "ky"
 import { useQuery as useReactQuery } from "@tanstack/react-query"
 import { uiConstants } from "@/constants/global-constants"
 import { useContext } from "react"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import { toast } from "@/components/ui/use-toast"
 import HTTPMethods from "@/constants/http-methods"
 

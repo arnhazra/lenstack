@@ -1,7 +1,7 @@
 "use client"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "@/components/ui/use-toast"

@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode, createContext, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState, Org } from "../reducers/globalstate.reducer"
+import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState, Org } from "./globalstate.reducer"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(type: Type, payload: ActionsMap[Type]) => void
 

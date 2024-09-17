@@ -1,6 +1,6 @@
 "use client"
 import Suspense from "@/components/suspense"
-import { GlobalContext } from "@/context/providers/globalstate.provider"
+import { GlobalContext } from "@/context/globalstate.provider"
 import { ReactNode, useContext } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
