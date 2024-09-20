@@ -1,24 +1,45 @@
+"use client"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 import { brandName, uiConstants } from "@/constants/global-constants"
+import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
-import { CheckCircle2, Github, Star } from "lucide-react"
+import HTTPMethods from "@/constants/http-methods"
+import Suspense from "@/components/suspense"
+import { CheckCircle2, Github } from "lucide-react"
+import LoadingComponent from "@/components/loading"
 import { cn } from "@/lib/utils"
-import { Fragment } from "react"
-import { Pricing, Product, Solution } from "@/types/Types"
 
-export default async function Page() {
-  const [productsResponse, solutionsResponse, pricingResponse] = await Promise.all([
-    fetch(`${endPoints.getProductConfig}?searchQuery=&category=`),
-    fetch(endPoints.getSolutionConfig),
-    fetch(endPoints.getPricingConfig)
-  ])
+export default function Page() {
+  const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
+  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
+  const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
 
-  const products: Product[] = await productsResponse.json()
-  const solutions: Solution[] = await solutionsResponse.json()
-  const pricing: Pricing[] = await pricingResponse.json()
+  const renderComputeTiers = pricing?.data?.map((tier: any) => {
+    return (
+      <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
+        <div className="flex flex-col justify-between rounded-md p-6">
+          <div className="space-y-2">
+            <h2 className="font-bold text-lg capitalize">{tier.computeTier} Tier</h2>
+            <ul className="grid gap-3 text-sm text-muted-foreground">
+              {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
+                <li className="flex text-xs items-center text-slate-600" key={key}>
+                  <CheckCircle2 className="scale-75 me-2" />
+                  {brandName} {products?.data?.find((item: any) => item?.productName === key)?.displayName}
+                  {" "}$ {Number(value).toFixed(2)}/req
+                </li>
+              ))}
+              <li className="flex text-xs items-center text-slate-600">
+                <CheckCircle2 className="scale-75 me-2" /> {tier.responseDelay} ms response delay
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    )
+  })
 
-  const renderProducts = products?.map((product) => {
+  const renderProducts = products?.data?.map((product: any) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={product?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -34,7 +55,7 @@ export default async function Page() {
     )
   })
 
-  const renderSolutions = solutions?.map((solution) => {
+  const renderSolutions = solutions?.data?.map((solution: any) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={solution?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -50,32 +71,8 @@ export default async function Page() {
     )
   })
 
-  const renderComputeTiers = pricing?.map((tier) => {
-    return (
-      <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier?.computeTier}>
-        <div className="flex flex-col justify-between rounded-md p-6">
-          <div className="space-y-2">
-            <h2 className="font-bold text-lg capitalize">{tier?.computeTier} Tier</h2>
-            <ul className="grid gap-3 text-sm text-muted-foreground">
-              {Object.entries(tier?.estimatedRequestCost).map(([key, value]) => (
-                <li className="flex text-xs items-center text-slate-600" key={key}>
-                  <CheckCircle2 className="scale-75 me-2" />
-                  {brandName} {products?.find((product) => product?.productName === key)?.displayName}
-                  {" "}$ {Number(value).toFixed(2)}/req
-                </li>
-              ))}
-              <li className="flex text-xs items-center text-slate-600">
-                <CheckCircle2 className="scale-75 me-2" /> {tier?.responseDelay} ms response delay
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    )
-  })
-
   return (
-    <Fragment>
+    <Suspense condition={!pricing.isLoading && !products.isLoading && !solutions.isLoading} fallback={<LoadingComponent />}>
       <div className="min-h-screen w-full bg-white">
         <section id="hero" className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-32 lg:py-32">
           <div className="container flex flex-col gap-4">
@@ -84,11 +81,8 @@ export default async function Page() {
                 {brandName}. {uiConstants.homeBadge}
               </p>
             </Link>
-            <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight flex">
+            <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">
               {uiConstants.homeHeader}
-              <div title={uiConstants.aiSafetyStatement}>
-                <Star className="scale-50 ms-2" />
-              </div>
             </h1>
             <p className="leading-normal text-white text-xs md:text-md lg:text-lg">
               {uiConstants.homeIntro1}<br />
@@ -96,7 +90,7 @@ export default async function Page() {
               {uiConstants.homeIntro3}<br />
             </p>
             <div className="space-x-4 space-y-4 mt-2">
-              <Link href="/dashboard" className={cn(buttonVariants({ size: "default" }))}>
+              <Link className={cn(buttonVariants({ variant: "default" }))} href="/dashboard">
                 Get Started with {brandName}
               </Link>
             </div>
@@ -177,7 +171,7 @@ export default async function Page() {
             {renderComputeTiers}
           </div>
         </section>
-      </div>
+      </div >
       <footer>
         <div className="bg-slate-50">
           <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
@@ -189,6 +183,6 @@ export default async function Page() {
           </div>
         </div>
       </footer>
-    </Fragment>
+    </Suspense >
   )
 }
