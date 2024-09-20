@@ -3,14 +3,19 @@ import { buttonVariants } from "@/components/ui/button"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import { endPoints } from "@/constants/api-endpoints"
 import { CheckCircle2, Github, Star } from "lucide-react"
-import LoadingComponent from "@/components/loading"
-import { Suspense } from "react"
 import { cn } from "@/lib/utils"
+import { Fragment } from "react"
 
 export default async function Page() {
-  const products = await (await fetch(`${endPoints.getProductConfig}?searchQuery=&category=`)).json()
-  const solutions = await (await fetch(endPoints.getSolutionConfig)).json()
-  const pricing = await (await fetch(endPoints.getPricingConfig)).json()
+  const [productsResponse, solutionsResponse, pricingResponse] = await Promise.all([
+    fetch(`${endPoints.getProductConfig}?searchQuery=&category=`),
+    fetch(endPoints.getSolutionConfig),
+    fetch(endPoints.getPricingConfig)
+  ])
+
+  const products = await productsResponse.json()
+  const solutions = await solutionsResponse.json()
+  const pricing = await pricingResponse.json()
 
   const renderProducts = products?.map((product: any) => {
     return (
@@ -69,7 +74,7 @@ export default async function Page() {
   })
 
   return (
-    <Suspense fallback={<LoadingComponent />}>
+    <Fragment>
       <div className="min-h-screen w-full bg-white">
         <section id="hero" className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-32 lg:py-32">
           <div className="container flex flex-col gap-4">
@@ -183,6 +188,6 @@ export default async function Page() {
           </div>
         </div>
       </footer>
-    </Suspense>
+    </Fragment>
   )
 }
