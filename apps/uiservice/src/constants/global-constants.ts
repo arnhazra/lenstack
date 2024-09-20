@@ -8,7 +8,7 @@ export const uiConstants = {
   homeIntro3: "Create a free account & get $100 credit in your wallet",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Identity",
-  errorMessage: "404, Lost",
+  errorMessage: "Not Found",
   toastSuccess: "Action Success",
   toastError: "Something went wrong",
   notification: "Notification",
