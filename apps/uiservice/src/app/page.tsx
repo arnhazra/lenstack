@@ -5,6 +5,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { CheckCircle2, Github, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Fragment } from "react"
+import { Pricing, Product, Solution } from "@/types/Types"
 
 export default async function Page() {
   const [productsResponse, solutionsResponse, pricingResponse] = await Promise.all([
@@ -13,11 +14,11 @@ export default async function Page() {
     fetch(endPoints.getPricingConfig)
   ])
 
-  const products = await productsResponse.json()
-  const solutions = await solutionsResponse.json()
-  const pricing = await pricingResponse.json()
+  const products: Product[] = await productsResponse.json()
+  const solutions: Solution[] = await solutionsResponse.json()
+  const pricing: Pricing[] = await pricingResponse.json()
 
-  const renderProducts = products?.map((product: any) => {
+  const renderProducts = products?.map((product) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={product?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -33,7 +34,7 @@ export default async function Page() {
     )
   })
 
-  const renderSolutions = solutions?.map((solution: any) => {
+  const renderSolutions = solutions?.map((solution) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={solution?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -49,22 +50,22 @@ export default async function Page() {
     )
   })
 
-  const renderComputeTiers = pricing?.map((tier: any) => {
+  const renderComputeTiers = pricing?.map((tier) => {
     return (
-      <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
+      <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier?.computeTier}>
         <div className="flex flex-col justify-between rounded-md p-6">
           <div className="space-y-2">
-            <h2 className="font-bold text-lg capitalize">{tier.computeTier} Tier</h2>
+            <h2 className="font-bold text-lg capitalize">{tier?.computeTier} Tier</h2>
             <ul className="grid gap-3 text-sm text-muted-foreground">
-              {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
+              {Object.entries(tier?.estimatedRequestCost).map(([key, value]) => (
                 <li className="flex text-xs items-center text-slate-600" key={key}>
                   <CheckCircle2 className="scale-75 me-2" />
-                  {brandName} {products?.find((item: any) => item?.productName === key)?.displayName}
+                  {brandName} {products?.find((product) => product?.productName === key)?.displayName}
                   {" "}$ {Number(value).toFixed(2)}/req
                 </li>
               ))}
               <li className="flex text-xs items-center text-slate-600">
-                <CheckCircle2 className="scale-75 me-2" /> {tier.responseDelay} ms response delay
+                <CheckCircle2 className="scale-75 me-2" /> {tier?.responseDelay} ms response delay
               </li>
             </ul>
           </div>
