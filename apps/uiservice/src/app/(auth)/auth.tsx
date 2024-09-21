@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import LoaderIcon from "@/components/loaderIcon"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
+import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -30,7 +31,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     setAuthLoading(true)
 
     try {
-      const response: any = await ky.post(endPoints.generatePassKey, { json: state }).json()
+      const response: any = await ky.post(endPoints.generatePassKey, { json: state, timeout: FETCH_TIMEOUT }).json()
       setState({ ...state, hash: response.hash })
       toast({
         title: uiConstants.notification,
@@ -59,7 +60,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     setAuthLoading(true)
 
     try {
-      const response: any = await ky.post(endPoints.verifyPassKey, { json: { ...state, name } }).json()
+      const response: any = await ky.post(endPoints.verifyPassKey, { json: { ...state, name }, timeout: FETCH_TIMEOUT }).json()
       localStorage.setItem("accessToken", response.accessToken)
       localStorage.setItem("refreshToken", response.refreshToken)
       toast({

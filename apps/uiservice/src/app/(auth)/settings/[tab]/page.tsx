@@ -24,6 +24,7 @@ import { Switch } from "@/components/ui/switch"
 import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
 import Link from "next/link"
+import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -49,7 +50,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
-      await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`)
+      await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -67,7 +68,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveComputeTier = async () => {
     try {
       dispatch("setUserState", { computeTier })
-      await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`)
+      await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -85,7 +86,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const saveActivityLogSettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUserState", { activityLog: updatedSettings })
-      await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`)
+      await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
         description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
@@ -103,7 +104,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const signOut = async (signOutOption: string) => {
     try {
       if (signOutOption === "all") {
-        await ky.post(endPoints.signOut)
+        await ky.post(endPoints.signOut, { timeout: FETCH_TIMEOUT })
       }
       localStorage.clear()
       window.location.replace("/")
@@ -131,7 +132,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
     if (hasConfirmed && value) {
       try {
-        await ky.post(endPoints.organization, { json: { name: value } })
+        await ky.post(endPoints.organization, { json: { name: value }, timeout: FETCH_TIMEOUT })
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -154,7 +155,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
     if (hasConfirmed && value) {
       try {
-        const response: any = await ky.post(endPoints.createCheckoutSession, { json: { amount: value } })
+        const response: any = await ky.post(endPoints.createCheckoutSession, { json: { amount: value }, timeout: FETCH_TIMEOUT })
         window.location = response.redirectUrl
       }
 
@@ -171,7 +172,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     const response = await confirm("Are you sure to delete this org ?")
     if (response) {
       try {
-        await ky.delete(`${endPoints.organization}/${orgId}`)
+        await ky.delete(`${endPoints.organization}/${orgId}`, { timeout: FETCH_TIMEOUT })
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -193,7 +194,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     const response = await confirm("Are you sure to regenerate credentials for this org ?")
     if (response) {
       try {
-        await ky.patch(`${endPoints.organization}/${orgId}`)
+        await ky.patch(`${endPoints.organization}/${orgId}`, { timeout: FETCH_TIMEOUT })
         organizations.refetch()
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
@@ -371,7 +372,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                     <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
                       <span className="text-6xl text-white font-bold">15</span>
                     </div>
-                    <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 15.3.0</p>
+                    <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 15.4.0</p>
                     <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
                   </div>
                 </Suspense>

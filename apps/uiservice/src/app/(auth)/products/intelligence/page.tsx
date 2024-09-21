@@ -12,6 +12,7 @@ import { toast } from "@/components/ui/use-toast"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoaderIcon from "@/components/loaderIcon"
+import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 
 export default function Page() {
   const [requestBody, setRequestBody] = useState({ prompt: "", temperature: 0.9, topP: 0.1, topK: 16 })
@@ -24,7 +25,7 @@ export default function Page() {
     try {
       setReseponse({})
       setLoading(true)
-      const res = await ky.post(`${endPoints.intelligenceGenerateEndpoint}`, { json: requestBody }).json()
+      const res = await ky.post(`${endPoints.intelligenceGenerateEndpoint}`, { json: requestBody, timeout: FETCH_TIMEOUT }).json()
       setReseponse(res)
     }
 

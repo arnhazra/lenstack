@@ -34,6 +34,10 @@ export default function ReactQueryProvider({ children }: { children: ReactNode }
         retry: 2,
         retryDelay: 2500,
         enabled: true
+      },
+      mutations: {
+        retry: 2,
+        retryDelay: 2500
       }
     }
   })

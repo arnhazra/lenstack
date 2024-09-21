@@ -1,7 +1,10 @@
 # Changelog
 
+## v15.4.0
+* Added a common request timeout of 60 sec for all requests
+
 ## v15.3.0
-* Migrated all requests from axios xhr to fetch
+* Migrated all requests from old axios xhr to new fetch
 * Added new request interceptors
 * Rebranded account page to settings page
 * Added about section in settings page
