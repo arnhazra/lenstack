@@ -3,6 +3,8 @@
 ## v15.4.0
 * Added a common request timeout of 60 sec for all requests
 * Fix redirect uri not working for payments
+* Dependency updates and bug fixes
+* Added better error & not found handlers
 
 ## v15.3.0
 * Migrated all requests from old axios xhr to new fetch
