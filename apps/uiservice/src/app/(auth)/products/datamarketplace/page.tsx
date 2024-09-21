@@ -62,13 +62,13 @@ export default function Page() {
         <TableCell className="hidden md:table-cell">{dataset?.rating}</TableCell>
         <TableCell className="hidden md:table-cell">
           <Suspense condition={dataset?.rating >= 4.5} fallback={null}>
-            <Badge key={"gold"}><Medal className="scale-50" />Gold</Badge>
+            <Badge variant="default" key={"gold"}><Medal className="scale-50" />Gold</Badge>
           </Suspense>
           <Suspense condition={dataset?.rating >= 4.0 && dataset?.rating < 4.5} fallback={null}>
-            <Badge key={"silver"}><Medal className="scale-50" />Silver</Badge>
+            <Badge variant="secondary" key={"silver"}><Medal className="scale-50" />Silver</Badge>
           </Suspense>
           <Suspense condition={dataset?.rating < 4.0} fallback={null}>
-            <Badge key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
+            <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
           </Suspense>
         </TableCell>
         <TableCell className="text-right hidden md:table-cell">
