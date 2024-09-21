@@ -46,7 +46,6 @@ export default function Page({ params }: { params: { tab: string } }) {
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
-
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
@@ -155,7 +154,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
     if (hasConfirmed && value) {
       try {
-        const response: any = await ky.post(endPoints.createCheckoutSession, { json: { amount: value }, timeout: FETCH_TIMEOUT })
+        const response: any = await ky.post(endPoints.createCheckoutSession, { json: { amount: value }, timeout: FETCH_TIMEOUT }).json()
         window.location = response.redirectUrl
       }
 
@@ -256,7 +255,11 @@ export default function Page({ params }: { params: { tab: string } }) {
               <div>
                 <Suspense condition={selectedTab === Tabs.User} fallback={null}>
                   <section className="grid gap-2">
-                    <SectionPanel icon={<User className="scale-75" />} title="Your Name" content={userState.name} />
+                    <SectionPanel
+                      icon={<User className="scale-75" />}
+                      title="Your Name"
+                      content={userState.name}
+                    />
                     <SectionPanel
                       icon={<IdCard className="scale-75" />}
                       title={`${brandName} ID`}
@@ -264,20 +267,11 @@ export default function Page({ params }: { params: { tab: string } }) {
                       masked
                       actionComponent={<CopyToClipboard value={userState.userId} />}
                     />
-                    <SectionPanel icon={<AtSign className="scale-75" />} title="Your Email" content={userState.email} />
                     <SectionPanel
-                      icon={<Fingerprint className="scale-75" />}
-                      title="Access Token"
-                      content={localStorage.getItem("accessToken") ?? ""}
-                      masked
-                      actionComponent={<CopyToClipboard value={localStorage.getItem("accessToken") ?? ""} />}
-                    />
-                    <SectionPanel
-                      icon={<ScanFace className="scale-75" />}
-                      title="Refresh Token"
-                      content={localStorage.getItem("refreshToken") ?? ""}
-                      masked
-                      actionComponent={<CopyToClipboard value={localStorage.getItem("refreshToken") ?? ""} />}
+                      icon={<AtSign className="scale-75" />}
+                      title="Your Email"
+                      content={userState.email}
+                      actionComponent={<CopyToClipboard value={userState.email} />}
                     />
                     <SectionPanel
                       icon={<CircleArrowRight className="scale-75" />}
@@ -305,12 +299,28 @@ export default function Page({ params }: { params: { tab: string } }) {
                   />
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>
-                  <SectionPanel
-                    icon={<PieChart className="scale-75" />}
-                    title="Activity Log"
-                    content="Choose whether to save the things you do to get more relevant results"
-                    actionComponent={<Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />}
-                  />
+                  <section className="grid gap-2">
+                    <SectionPanel
+                      icon={<PieChart className="scale-75" />}
+                      title="Activity Log"
+                      content="Choose whether to save the things you do to get more relevant results"
+                      actionComponent={<Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />}
+                    />
+                    <SectionPanel
+                      icon={<Fingerprint className="scale-75" />}
+                      title="Access Token"
+                      content={localStorage.getItem("accessToken") ?? ""}
+                      masked
+                      actionComponent={<CopyToClipboard value={localStorage.getItem("accessToken") ?? ""} />}
+                    />
+                    <SectionPanel
+                      icon={<ScanFace className="scale-75" />}
+                      title="Refresh Token"
+                      content={localStorage.getItem("refreshToken") ?? ""}
+                      masked
+                      actionComponent={<CopyToClipboard value={localStorage.getItem("refreshToken") ?? ""} />}
+                    />
+                  </section>
                 </Suspense>
                 <Suspense condition={selectedTab === Tabs.Compute} fallback={null}>
                   <section className="grid gap-2">
