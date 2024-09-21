@@ -13,6 +13,7 @@ import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
+import ErrorComponent from "@/components/error"
 
 export default function Page({ params }: { params: { id: string } }) {
   const datasetId = params.id
@@ -67,7 +68,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <Suspense condition={!dataset?.isLoading && !relatedDatasets?.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<div />}>
+      <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-col sm:gap-4 sm:py-4">
             <div className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
