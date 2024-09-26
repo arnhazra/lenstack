@@ -22,7 +22,6 @@ export type Pricing = {
     intelligence: number,
     datamarketplace: number,
     httpnosql: number,
-    identity: number,
     webanalytics: number
   }
 }

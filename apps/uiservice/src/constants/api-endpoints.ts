@@ -24,7 +24,6 @@ export const endPoints = {
   httpnosqlReadData: `${apiHost}/products/httpnosql/read`,
   httpnosqlUpdateData: `${apiHost}/products/httpnosql/update`,
   httpnosqlDeleteData: `${apiHost}/products/httpnosql/delete`,
-  identityGetAllUsers: `${apiHost}/products/identity/getallusers`,
   webanalyticsView: `${apiHost}/products/webanalytics/get`,
   webanalyticsCreate: `${apiHost}/products/webanalytics/create`,
 }

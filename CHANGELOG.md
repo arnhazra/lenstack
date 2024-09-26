@@ -5,6 +5,8 @@
 * Fix redirect uri not working for payments
 * Dependency updates and bug fixes
 * Added better error & not found handlers
+* Fix intelligence error response
+* Deprecated identity application
 
 ## v15.3.0
 * Migrated all requests from old axios xhr to new fetch
