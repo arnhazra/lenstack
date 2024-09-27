@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import { BadRequestException, Injectable } from "@nestjs/common"
 import { QueryBus } from "@nestjs/cqrs"
 import { FindAPIReferencesQuery } from "./queries/impl/find-apireferences.query"
 import { ApiReference } from "./schemas/apireference.schema"
@@ -9,7 +9,12 @@ export class ApiReferenceService {
 
   async getApiReferenceByProductName(productName: string) {
     try {
-      return await this.queryBus.execute<FindAPIReferencesQuery, ApiReference[]>(new FindAPIReferencesQuery(productName))
+      const data = await this.queryBus.execute<FindAPIReferencesQuery, ApiReference[]>(new FindAPIReferencesQuery(productName))
+      if (!data.length) {
+        throw new BadRequestException()
+      }
+
+      return data
     }
 
     catch (error) {

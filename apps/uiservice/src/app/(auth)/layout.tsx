@@ -8,6 +8,7 @@ import { toast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
+import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ userState }, dispatch] = useContext(GlobalContext)
@@ -20,8 +21,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         if (!userState.refreshId) {
           setLoading(true)
         }
-        const response: any = await ky.get(endPoints.userDetails).json()
-        const organizations: any = await ky.get(endPoints.organization).json()
+        const response: any = await ky.get(endPoints.userDetails, { timeout: FETCH_TIMEOUT }).json()
+        const organizations: any = await ky.get(endPoints.organization, { timeout: FETCH_TIMEOUT }).json()
         const { _id: userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId } = response.user
         const { name: selectedOrgName, clientId, clientSecret } = response.organization
         localStorage.setItem("clientId", clientId)

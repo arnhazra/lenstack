@@ -1,7 +1,15 @@
 # Changelog
 
+## v15.4.0
+* Added a common request timeout of 60 sec for all requests
+* Fix redirect uri not working for payments
+* Dependency updates and bug fixes
+* Added better error & not found handlers
+* Fix intelligence error response
+* Deprecated identity application
+
 ## v15.3.0
-* Migrated all requests from axios xhr to fetch
+* Migrated all requests from old axios xhr to new fetch
 * Added new request interceptors
 * Rebranded account page to settings page
 * Added about section in settings page

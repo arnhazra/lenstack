@@ -13,6 +13,7 @@ import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
+import ErrorComponent from "@/components/error"
 
 export default function Page({ params }: { params: { id: string } }) {
   const datasetId = params.id
@@ -41,13 +42,13 @@ export default function Page({ params }: { params: { id: string } }) {
         <TableCell className="hidden md:table-cell">{ds?.rating}</TableCell>
         <TableCell>
           <Suspense condition={ds?.rating >= 4.5} fallback={null}>
-            <Badge className="gold-badge" key={"gold"}><Medal className="scale-50" />Gold</Badge>
+            <Badge variant="default" key={"gold"}><Medal className="scale-50" />Gold</Badge>
           </Suspense>
           <Suspense condition={ds?.rating >= 4.0 && ds?.rating < 4.5} fallback={null}>
-            <Badge className="silver-badge" key={"silver"}><Medal className="scale-50" />Silver</Badge>
+            <Badge variant="secondary" key={"silver"}><Medal className="scale-50" />Silver</Badge>
           </Suspense>
           <Suspense condition={ds?.rating < 4.0} fallback={null}>
-            <Badge className="bronze-badge" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
+            <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
           </Suspense>
         </TableCell>
         <TableCell className="text-right hidden md:table-cell">
@@ -67,7 +68,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <Suspense condition={!dataset?.isLoading && !relatedDatasets?.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<div />}>
+      <Suspense condition={!dataset.error && !!datasetId && !relatedDatasets.error} fallback={<ErrorComponent />}>
         <div className="flex min-h-screen w-full flex-col">
           <div className="flex flex-col sm:gap-4 sm:py-4">
             <div className="grid flex-1 items-start gap-4 p-4 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">

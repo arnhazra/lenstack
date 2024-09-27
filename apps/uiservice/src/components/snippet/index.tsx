@@ -20,7 +20,7 @@ export default function SnippetPanel({ title, url, method, request, response }: 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-lg">{title}</CardTitle>
       </CardHeader>
       <CardContent className="flex gap-3">
         <Badge variant="outline">{method}</Badge>
@@ -29,13 +29,13 @@ export default function SnippetPanel({ title, url, method, request, response }: 
       </CardContent>
       <CardFooter className="block">
         <Suspense condition={!!request} fallback={null}>
-          <p className="mb-3">Sample Request</p>
+          <p className="text-sm mb-3">Sample Request</p>
           <SyntaxHighlighter language="json" style={stackoverflowLight} customStyle={{ maxHeight: "15rem" }}>
             {JSON.stringify(request, null, 2)}
           </SyntaxHighlighter>
         </Suspense>
         <Suspense condition={!!response} fallback={null}>
-          <p className="mt-3 mb-3">Sample Response</p>
+          <p className="text-sm mt-3 mb-3">Sample Response</p>
           <SyntaxHighlighter wrapLongLines language="json" style={stackoverflowLight} customStyle={{ maxHeight: "15rem" }}>
             {JSON.stringify(response, null, 2)}
           </SyntaxHighlighter>

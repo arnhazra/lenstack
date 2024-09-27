@@ -6,12 +6,13 @@ import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { toast } from "@/components/ui/use-toast"
 import HTTPMethods from "@/constants/http-methods"
+import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 
 export default function useQuery(queryKey: string[], queryUrl: string, method: HTTPMethods, requestBody?: object) {
   const [{ userState }] = useContext(GlobalContext)
 
   const fetchDataFunction = async () => {
-    const data: any = await ky(queryUrl, { method, json: requestBody, timeout: 60000 }).json()
+    const data: any = await ky(queryUrl, { method, json: requestBody, timeout: FETCH_TIMEOUT }).json()
     return data
   }
 

@@ -9,9 +9,6 @@ An application for easily searching, subscribing to, and utilizing third-party c
 ### HTTP NoSQL
 A fast & robust HTTP database, that uses key-value storage mechanism, designed for optimal performance and security.
 
-### Identity
-Safeguard your organization with a secure, high performance cloud based identity and access management solution.
-
 ### Intelligence
 An application that seamlessly integrates with trained LLM with massive data can be accessed through HTTP.
 
