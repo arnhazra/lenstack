@@ -1,5 +1,8 @@
 # Changelog
 
+## v16.0.0
+* Dependency updates & bug fixes
+
 ## v15.4.0
 * Added a common request timeout of 60 sec for all requests
 * Fix redirect uri not working for payments
