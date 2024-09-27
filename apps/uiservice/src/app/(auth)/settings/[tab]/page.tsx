@@ -381,9 +381,9 @@ export default function Page({ params }: { params: { tab: string } }) {
                   <Suspense condition={selectedTab === Tabs.About} fallback={null}>
                     <div className="flex flex-col items-center justify-center">
                       <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
-                        <span className="text-6xl text-white font-bold">15</span>
+                        <span className="text-6xl text-white font-bold">16</span>
                       </div>
-                      <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 15.4.0</p>
+                      <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 16.0.0</p>
                       <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
                     </div>
                   </Suspense>
