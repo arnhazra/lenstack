@@ -1,5 +1,5 @@
 "use client"
-import { Wallet, Layers2, ListFilter, Orbit, Sparkles, User } from "lucide-react"
+import { Wallet, Layers2, ListFilter, Orbit, Sparkles, User, Box } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -16,7 +16,6 @@ import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { Input } from "@/components/ui/input"
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -45,6 +44,7 @@ export default function Page() {
           </Badge>
         </TableCell>
       </TableRow >
+
     )
   })
 
@@ -60,20 +60,22 @@ export default function Page() {
     )
   })
 
+  const renderSolutionTabs = solutions?.data?.map((solution: any) => {
+    return (
+      <div
+        key={solution?.solutionName}
+        className={`cursor-pointer flex capitalize ${selectedFilter === solution?.solutionName ? "" : "text-zinc-500"}`}
+        onClick={(): void => setSelectedFilter(solution?.solutionName)}
+      >
+        <Box className="scale-75 me-2" />
+        <p> {solution?.solutionName}</p>
+      </div>
+    )
+  })
+
   return (
     <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!products.error} fallback={<ErrorComponent />}>
-        <Breadcrumb className="-mt-2 -mb-4">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink>Dashboard</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Products</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card className="cursor-pointer" onClick={(): void => router.push("/settings/user")}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

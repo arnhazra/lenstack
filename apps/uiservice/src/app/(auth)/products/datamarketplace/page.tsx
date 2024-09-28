@@ -2,15 +2,12 @@
 import ErrorComponent from "@/components/error"
 import LoadingComponent from "@/components/loading"
 import Suspense from "@/components/suspense"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Box, ChevronLeft, ChevronRight, ListFilter, Medal, ShieldCheck, SortAsc, Sparkles } from "lucide-react"
+import { Box, ChevronLeft, ChevronRight, SortAsc, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
@@ -63,12 +60,6 @@ export default function Page() {
     return "Bronze"
   }
 
-  const dataMaturity = (rating: number): string => {
-    if (rating > 4.2) return "Level 3"
-    if (rating > 3.7) return "Level 2"
-    return "Level 1"
-  }
-
   const renderDatasets = datasets?.data?.map((dataset: any) => {
     return (
       <DatasetCard
@@ -79,7 +70,6 @@ export default function Page() {
         category={dataset?.category}
         rating={dataset?.rating}
         quality={dataQuality(dataset?.rating)}
-        maturity={dataMaturity(dataset?.rating)}
         handleClick={(id: string) => router.push(`/products/datamarketplace/dataset/${id}`)}
       />
     )

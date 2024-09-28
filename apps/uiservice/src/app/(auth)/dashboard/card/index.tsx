@@ -17,7 +17,7 @@ interface GenericCardProps {
   handleClick: (id: string) => void
 }
 
-export function DatasetCard({ id, title, desc, category, rating, quality, handleClick }: GenericCardProps) {
+export function ProductCard({ id, title, desc, category, rating, quality, handleClick }: GenericCardProps) {
   return (
     <Card className="cursor-pointer" onClick={(): void => handleClick(id)}>
       <CardHeader>
