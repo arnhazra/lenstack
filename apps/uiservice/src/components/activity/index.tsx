@@ -8,11 +8,11 @@ export default function ActivityLog({ keyword }: { keyword: string }) {
 
   return (
     <div className="flex gap-4">
-      <div className="flex items-center text-zinc-600" title="Total App Usage">
+      <div className="flex items-center text-zinc-600 text-sm" title="Total App Usage">
         <Activity className="mr-1 h-3 w-3 text-teal-600" />
         {activityCount?.data?.totalUsage ?? "..."}
       </div>
-      <div className="flex items-center text-zinc-600" title="Your App Usage">
+      <div className="flex items-center text-zinc-600 text-sm" title="Your App Usage">
         <TrendingUp className="mr-1 h-3 w-3 text-cyan-600" />
         {activityCount?.data?.userUsage ?? "..."}
       </div>

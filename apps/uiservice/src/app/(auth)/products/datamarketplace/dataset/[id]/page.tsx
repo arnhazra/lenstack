@@ -14,6 +14,7 @@ import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import ErrorComponent from "@/components/error"
 import { DatasetCard } from "../../card"
+import ActivityLog from "@/components/activity"
 
 export default function Page({ params }: { params: { id: string } }) {
   const datasetId = params.id
@@ -64,7 +65,10 @@ export default function Page({ params }: { params: { id: string } }) {
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
               <Card className="sm:col-span-2 pb-4">
                 <CardHeader className="pb-3">
-                  <CardTitle>{dataset?.data?.metaData?.name}</CardTitle>
+                  <CardTitle className="flex justify-between">
+                    {dataset?.data?.metaData?.name}
+                    <ActivityLog keyword={datasetId} />
+                  </CardTitle>
                   <CardDescription className="max-w-lg justify-normal">
                     {dataset?.data?.metaData?.description}
                   </CardDescription>
@@ -135,12 +139,6 @@ export default function Page({ params }: { params: { id: string } }) {
                     </span>
                     <span>{dataset?.data?.dataLength}</span>
                   </li>
-                </ul>
-              </div>
-              <Separator className="my-4" />
-              <div className="grid gap-3">
-                <div className="font-semibold text-lg">Data Quality & Maturity</div>
-                <ul className="grid gap-3">
                   <li className="flex items-center justify-between">
                     <span className="text-muted-foreground">
                       Data Quality
@@ -154,22 +152,6 @@ export default function Page({ params }: { params: { id: string } }) {
                       </Suspense>
                       <Suspense condition={dataset?.data?.metaData?.rating < 4.0} fallback={null}>
                         <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
-                      </Suspense>
-                    </span>
-                  </li>
-                  <li className="flex items-center justify-between">
-                    <span className="text-muted-foreground">
-                      Data Maturity
-                    </span>
-                    <span>
-                      <Suspense condition={dataset?.data?.metaData?.rating >= 4.2} fallback={null}>
-                        <Badge variant="default" key={"gold"}><ShieldCheck className="scale-50" />Level 3</Badge>
-                      </Suspense>
-                      <Suspense condition={dataset?.data?.metaData?.rating >= 3.6 && dataset?.data?.metaData?.rating < 4.2} fallback={null}>
-                        <Badge variant="secondary" key={"silver"}><ShieldCheck className="scale-50" />Level 2</Badge>
-                      </Suspense>
-                      <Suspense condition={dataset?.data?.metaData?.rating < 3.6} fallback={null}>
-                        <Badge variant="outline" key={"bronze"}><ShieldCheck className="scale-50" />Level 1</Badge >
                       </Suspense>
                     </span>
                   </li>
