@@ -10,6 +10,7 @@ import ErrorComponent from "@/components/error"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/constants/global-constants"
 import { Button } from "@/components/ui/button"
+import ActivityLog from "@/components/activity"
 
 export default function Page({ params }: { params: { tab: string } }) {
   const router = useRouter()
@@ -42,14 +43,17 @@ export default function Page({ params }: { params: { tab: string } }) {
   return (
     <Suspense condition={!apiReference.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!apiReference.error} fallback={<ErrorComponent />}>
-        <div className="flex gap-4">
-          <Button variant="secondary" size="icon" className="rounded-full">
-            <Book className="h-5 w-5" />
-          </Button>
-          <div>
-            <p className="text-sm  font-semibold">API Reference</p>
-            <p className="text-sm text-red-800 font-semibold">{uiConstants.apiRefreneceStatement}</p>
+        <div className="flex justify-between">
+          <div className="flex gap-4">
+            <Button variant="secondary" size="icon" className="rounded-full">
+              <Book className="h-5 w-5" />
+            </Button>
+            <div>
+              <p className="text-sm  font-semibold">API Reference</p>
+              <p className="text-sm text-red-800 font-semibold">{uiConstants.apiRefreneceStatement}</p>
+            </div>
           </div>
+          <ActivityLog keyword="apireference" />
         </div>
         <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
           <nav className="grid gap-4 text-sm">
