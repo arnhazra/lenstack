@@ -26,34 +26,30 @@ export default function Page() {
   return (
     <Suspense condition={!dataList.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!dataList.error} fallback={<ErrorComponent />}>
-        <div className="flex min-h-screen w-full flex-col">
-          <div className="flex flex-1 flex-col gap-4 p-4">
-            <Card>
-              <CardHeader className="px-7">
-                <CardTitle>Database</CardTitle>
-                <CardDescription>
-                  Your Datalist list in this organization
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Suspense condition={dataList?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Key</TableHead>
-                        <TableHead>Value</TableHead>
-                        <TableHead className="text-right hidden md:table-cell">Created At</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {renderData}
-                    </TableBody>
-                  </Table>
-                </Suspense>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+        <Card>
+          <CardHeader className="px-7">
+            <CardTitle>Database</CardTitle>
+            <CardDescription>
+              Your Datalist list in this organization
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Suspense condition={dataList?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Key</TableHead>
+                    <TableHead>Value</TableHead>
+                    <TableHead className="text-right hidden md:table-cell">Created At</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {renderData}
+                </TableBody>
+              </Table>
+            </Suspense>
+          </CardContent>
+        </Card>
       </Suspense>
     </Suspense>
   )

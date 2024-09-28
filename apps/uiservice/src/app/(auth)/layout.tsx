@@ -71,9 +71,17 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     }
   }, [userState.refreshId, isAuthorized])
 
+  const appLayout = (
+    <div className="flex min-h-screen w-full flex-col -mt-4">
+      <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
+        {children}
+      </div>
+    </div>
+  )
+
   return (
     <Suspense condition={!isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!isAuthorized} fallback={children}>
+      <Suspense condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Suspense >
     </Suspense >
