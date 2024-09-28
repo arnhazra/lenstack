@@ -1,6 +1,6 @@
 {
   "name": "newuiservice",
-  "version": "0.1.0",
+  "version": "16.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
