@@ -3,14 +3,13 @@ import Suspense from "@/components/suspense"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { ReactNode, useContext } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { usePathname, useRouter } from "next/navigation"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { brandName } from "@/constants/global-constants"
-import { Badge } from "@/components/ui/badge"
 import LoadingComponent from "@/components/loading"
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
   const [{ userState }] = useContext(GlobalContext)
@@ -23,31 +22,21 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const productPage = (
     <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!pathName.includes("dataset")} fallback={null}>
-        <div className="w-full">
-          <div className="p-4">
-            <Card className="hero text-white">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 ">
-                <CardTitle className="text-sm font-medium">
-                  <Badge variant="secondary" className="ps-4 pe-4 pt-1 pb-1">{selectedProduct?.productCategory}</Badge>
-                </CardTitle>
-                <div className="scale-75" dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }} />
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold mb-2">
-                  {brandName} {selectedProduct?.displayName}
-                </div>
-                <p className="text-sm">
-                  {selectedProduct?.description}
-                </p>
-              </CardContent>
-              <CardFooter className="-mt-3">
-                <Button variant="secondary" onClick={(): void => router.push(`/apireference/${selectedProduct?.productName}`)}>
-                  API Reference
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </div>
+        <Breadcrumb className="ps-10 pt-4 -pb-4">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink>Dashboard</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink>Products</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{selectedProduct?.displayName}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </Suspense>
       {children}
     </Suspense>
