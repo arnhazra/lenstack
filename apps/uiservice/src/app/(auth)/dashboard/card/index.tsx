@@ -1,12 +1,7 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { brandName, uiConstants } from "@/constants/global-constants"
-import { Box, Circle, Medal, Star } from "lucide-react"
+import ActivityLog from "@/components/activity"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { brandName } from "@/constants/global-constants"
+import { Box, Circle } from "lucide-react"
 
 interface GenericCardProps {
   productName: string
@@ -42,6 +37,7 @@ export function ProductCard({ productName, status, displayName, desc, category, 
             <Circle className="mr-1 h-3 w-3 fill-green-400 text-green-400" />
             {status}
           </div>
+          <ActivityLog keyword={productName} />
         </div>
       </CardContent>
     </Card>

@@ -1,10 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import ActivityLog from "@/components/activity"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Circle, Medal, Star } from "lucide-react"
 
 interface GenericCardProps {
@@ -42,6 +37,7 @@ export function DatasetCard({ id, title, desc, category, rating, quality, handle
             <Medal className="mr-1 h-3 w-3 text-cyan-400" />
             {quality}
           </div>
+          <ActivityLog keyword={id} />
         </div>
       </CardContent>
     </Card>
