@@ -5,6 +5,7 @@
 * Updated theme to Zinc from Slate
 * UI Redesign for Data Marketplace App
 * Redesigned dashboard page
+* Added activity search service
 
 ## v15.4.0
 * Added a common request timeout of 60 sec for all requests

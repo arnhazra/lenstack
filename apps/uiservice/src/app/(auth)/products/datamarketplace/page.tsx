@@ -130,7 +130,7 @@ export default function Page() {
                   </DropdownMenu>
                 </div>
               </Suspense>
-              <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+              <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
                 {renderDatasets}
               </div>
             </section>

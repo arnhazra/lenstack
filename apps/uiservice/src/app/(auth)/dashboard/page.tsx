@@ -1,16 +1,14 @@
 "use client"
 import { Wallet, Layers2, Orbit, Sparkles, User2, BoxIcon } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { useRouter } from "next/navigation"
-import { brandName, uiConstants } from "@/constants/global-constants"
+import { uiConstants } from "@/constants/global-constants"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
@@ -36,6 +34,7 @@ export default function Page() {
         key={product?._id}
         productName={product?.productName}
         status={product?.productStatus}
+        productIcon={product?.productIcon}
       />
     )
   })
@@ -135,7 +134,7 @@ export default function Page() {
                 </Card>
               </div>
             </section>
-            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
               {renderProducts}
             </div>
           </div>

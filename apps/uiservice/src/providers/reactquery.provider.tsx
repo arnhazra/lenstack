@@ -20,7 +20,6 @@ interceptor.on("response", ({ response }) => {
   }
 
   if (response.status === 401) {
-    console.log("here")
     localStorage.clear()
     window.location.replace("/")
   }
