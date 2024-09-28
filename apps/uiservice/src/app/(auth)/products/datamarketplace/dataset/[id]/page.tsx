@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useRouter } from "next/navigation"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
@@ -14,6 +13,7 @@ import LoadingComponent from "@/components/loading"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import ErrorComponent from "@/components/error"
+import { DatasetCard } from "../../card"
 
 export default function Page({ params }: { params: { id: string } }) {
   const datasetId = params.id
@@ -35,34 +35,24 @@ export default function Page({ params }: { params: { id: string } }) {
     })
   }
 
+  const dataQuality = (rating: number): string => {
+    if (rating > 4.5) return "Gold"
+    if (rating > 4.0) return "Silver"
+    return "Bronze"
+  }
+
   const renderRelatedDatasets = relatedDatasets?.data?.filter((ds: any) => ds?._id !== datasetId).map((ds: any) => {
     return (
-      <TableRow className="cursor-pointer" key={ds?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset/${ds._id}`)}>
-        <TableCell><div className="font-medium">{ds?.name}</div></TableCell>
-        <TableCell className="hidden md:table-cell">{ds?.rating}</TableCell>
-        <TableCell>
-          <Suspense condition={ds?.rating >= 4.5} fallback={null}>
-            <Badge variant="default" key={"gold"}><Medal className="scale-50" />Gold</Badge>
-          </Suspense>
-          <Suspense condition={ds?.rating >= 4.0 && ds?.rating < 4.5} fallback={null}>
-            <Badge variant="secondary" key={"silver"}><Medal className="scale-50" />Silver</Badge>
-          </Suspense>
-          <Suspense condition={ds?.rating < 4.0} fallback={null}>
-            <Badge variant="outline" key={"bronze"}><Medal className="scale-50" />Bronze</Badge >
-          </Suspense>
-        </TableCell>
-        <TableCell className="text-right hidden md:table-cell">
-          <Suspense condition={ds?.rating >= 4.2} fallback={null}>
-            <Badge variant="default" key={"gold"}><ShieldCheck className="scale-50" />Level 3</Badge>
-          </Suspense>
-          <Suspense condition={ds?.rating >= 3.6 && ds?.rating < 4.2} fallback={null}>
-            <Badge variant="secondary" key={"silver"}><ShieldCheck className="scale-50" />Level 2</Badge>
-          </Suspense>
-          <Suspense condition={ds?.rating < 3.6} fallback={null}>
-            <Badge variant="outline" key={"bronze"}><ShieldCheck className="scale-50" />Level 1</Badge >
-          </Suspense>
-        </TableCell>
-      </TableRow>
+      <DatasetCard
+        key={ds?._id}
+        id={ds?._id}
+        title={ds?.name}
+        desc={ds?.description}
+        category={ds?.category}
+        rating={ds?.rating}
+        quality={dataQuality(ds?.rating)}
+        handleClick={(id: string) => router.push(`/products/datamarketplace/dataset/${id}`)}
+      />
     )
   })
 
@@ -107,29 +97,10 @@ export default function Page({ params }: { params: { id: string } }) {
                 </CardFooter>
               </Card>
             </div>
-            <Card>
-              <CardHeader className="px-7">
-                <CardTitle>Related Datasets</CardTitle>
-                <CardDescription>
-                  Datasets of similar category
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Dataset Name</TableHead>
-                      <TableHead className="hidden md:table-cell">Dataset Rating</TableHead>
-                      <TableHead>Data Quality</TableHead>
-                      <TableHead className="text-right hidden md:table-cell">Data Maturity</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {renderRelatedDatasets}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
+            <p className="text-xl ms-1 -mb-2 -mt-2">Related Datasets</p>
+            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+              {renderRelatedDatasets}
+            </div>
           </div>
           <Card className="overflow-hidden">
             <CardHeader className="flex flex-row items-start bg-muted/50">
