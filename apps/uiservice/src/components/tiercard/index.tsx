@@ -15,11 +15,11 @@ export function TierCardComponent({ computeTier, responseDelay, estimatedRequest
         </h3>
         <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
           {Object.entries(estimatedRequestCost).map(([key, value]) => (
-            <li className="flex items-center text-slate-600 capitalize" key={key}>
+            <li className="flex items-center text-zinc-600 capitalize" key={key}>
               <CheckCircle2 className="scale-75" /> {key} $ {value.toFixed(2)}/req
             </li>
           ))}
-          <li className="flex items-center text-slate-600 capitalize">
+          <li className="flex items-center text-zinc-600 capitalize">
             <CheckCircle2 className="scale-75" /> {responseDelay} ms network response time
           </li>
         </ul>

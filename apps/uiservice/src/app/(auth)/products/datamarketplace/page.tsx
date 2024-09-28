@@ -58,7 +58,7 @@ export default function Page() {
     return (
       <TableRow className="cursor-pointer" key={dataset?._id} onClick={(): void => router.push(`/products/datamarketplace/dataset/${dataset._id}`)}>
         <TableCell><div className="font-medium">{dataset?.name}</div></TableCell>
-        <TableCell className="text-slate-500">{dataset?.category}</TableCell>
+        <TableCell className="text-zinc-500">{dataset?.category}</TableCell>
         <TableCell className="hidden md:table-cell">{dataset?.rating}</TableCell>
         <TableCell className="hidden md:table-cell">
           <Suspense condition={dataset?.rating >= 4.5} fallback={null}>
@@ -108,7 +108,7 @@ export default function Page() {
                 <div className="flex justify-between">
                   <div>
                     <CardTitle>Datasets</CardTitle>
-                    <p className="text-sm text-slate-600 mt-1">Explore datasets from different categories</p>
+                    <p className="text-sm text-zinc-600 mt-1">Explore datasets from different categories</p>
                   </div>
                   <div>
                     <Suspense condition={!datasetRequestState.searchQuery} fallback={null}>
@@ -158,9 +158,9 @@ export default function Page() {
                       onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, searchQuery: e.target.value })}
                       type="search"
                       placeholder="Type anything and press enter to find datasets powered by AI"
-                      className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
+                      className="mb-4 pl-8 w-full h-12 bg-zinc-50 focus:outline-none"
                     />
-                    <p className="text-xs text-slate-500 -mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
+                    <p className="text-xs text-zinc-500 -mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
                   </div>
                 </form>
                 <Suspense condition={!datasets.isRefetching} fallback={<p className="text-center">Finding the best datasets for you</p>}>

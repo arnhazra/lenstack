@@ -8,9 +8,9 @@ export default function LoadingComponent() {
     <Fragment>
       <div className="fixed inset-0 flex justify-center items-center z-50 bg-white">
         <LoaderCircle
-          width="50"
-          height="50"
-          className={cn("animate-spin", "text-slate-600")}
+          width="44"
+          height="44"
+          className={cn("animate-spin", "text-zinc-600")}
           style={{ animation: "spin 1s linear infinite" }}
         />
       </div>

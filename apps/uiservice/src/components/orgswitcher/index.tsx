@@ -18,14 +18,14 @@ export function OrgSwitcher() {
       dispatch("setUserState", { refreshId: Math.random().toString() })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.organizationSwitched}</p>
+        description: <p className="text-zinc-600">{uiConstants.organizationSwitched}</p>
       })
     }
 
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }

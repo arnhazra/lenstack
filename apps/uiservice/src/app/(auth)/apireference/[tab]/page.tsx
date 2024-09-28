@@ -19,7 +19,7 @@ export default function Page({ params }: { params: { tab: string } }) {
 
   const renderTabs = products?.data?.map((product: any) => {
     return (
-      <div key={product?._id} className={`cursor-pointer flex capitalize ${product?.productName === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/apireference/${product?.productName}`)}>
+      <div key={product?._id} className={`cursor-pointer flex capitalize ${product?.productName === selectedTab ? "" : "text-zinc-500"}`} onClick={(): void => router.push(`/apireference/${product?.productName}`)}>
         <div className="me-2 scale-75 -mt-0.5" dangerouslySetInnerHTML={{ __html: product?.productIcon }}></div>
         <p>{product?.displayName}</p>
       </div>

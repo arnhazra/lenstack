@@ -35,7 +35,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       setState({ ...state, hash: response.hash })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{response.message}</p>
+        description: <p className="text-zinc-600">{response.message}</p>
       })
 
       setNewUser(response.newUser)
@@ -45,7 +45,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.connectionErrorMessage}</p>
+        description: <p className="text-zinc-600">{uiConstants.connectionErrorMessage}</p>
       })
     }
 
@@ -65,7 +65,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
       localStorage.setItem("refreshToken", response.refreshToken)
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.authVerificationSuccess}</p>
+        description: <p className="text-zinc-600">{uiConstants.authVerificationSuccess}</p>
       })
       onAuthorized(true)
     }
@@ -73,7 +73,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
     catch (error: any) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.invalidPasskey}</p>
+        description: <p className="text-zinc-600">{uiConstants.invalidPasskey}</p>
       })
       onAuthorized(false)
     }
@@ -109,7 +109,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
             </form>
           </CardContent>
           <CardFooter>
-            <div className="text-center text-sm text-slate-600">
+            <div className="text-center text-sm text-zinc-600">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardFooter>
@@ -162,7 +162,7 @@ export default function AuthProvider({ onAuthorized }: AuthProviderProps) {
             </form>
           </CardContent>
           <CardFooter>
-            <div className="text-center text-sm text-slate-600">
+            <div className="text-center text-sm text-zinc-600">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardFooter>

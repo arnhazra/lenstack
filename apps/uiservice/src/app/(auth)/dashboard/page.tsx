@@ -35,7 +35,7 @@ export default function Page() {
       >
         <TableCell><div dangerouslySetInnerHTML={{ __html: product?.productIcon }} className="scale-75" /></TableCell>
         <TableCell><div className="font-medium">{brandName} {product?.displayName}</div></TableCell>
-        <TableCell className="text-slate-500 hidden md:table-cell">{product?.description}</TableCell>
+        <TableCell className="text-zinc-500 hidden md:table-cell">{product?.description}</TableCell>
         <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
         <TableCell className="text-right">
           <Badge variant="outline">
@@ -74,7 +74,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">Hey, {userState.name.split(" ")[0]}</div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-zinc-600">
                     Welcome to your dashboard
                   </p>
                 </CardContent>
@@ -90,7 +90,7 @@ export default function Page() {
                   <div className="text-2xl font-bold">
                     {userState.selectedOrgName}
                   </div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-zinc-600">
                     Your current organization
                   </p>
                 </CardContent>
@@ -102,7 +102,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-zinc-600">
                     Credits remaining
                   </p>
                 </CardContent>
@@ -114,7 +114,7 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold capitalize">{userState.computeTier}</div>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-zinc-600">
                     Current compute tier
                   </p>
                 </CardContent>
@@ -125,7 +125,7 @@ export default function Page() {
                 <div className="flex justify-between">
                   <div>
                     <CardTitle>Products</CardTitle>
-                    <p className="text-sm text-slate-600 mt-1">Product offerings by {brandName}</p>
+                    <p className="text-sm text-zinc-600 mt-1">Product offerings by {brandName}</p>
                   </div>
                   <div>
                     <Suspense condition={!searchString} fallback={null}>
@@ -164,9 +164,9 @@ export default function Page() {
                       onChange={(e): void => setSearchString(e.target.value)}
                       type="search"
                       placeholder="Type anything and press enter to get suggested products powered by AI"
-                      className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
+                      className="mb-4 pl-8 w-full h-12 bg-zinc-50 focus:outline-none"
                     />
-                    <p className="text-xs text-slate-500 -mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
+                    <p className="text-xs text-zinc-500 -mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
                   </div>
                 </form>
                 <Suspense condition={!products.isRefetching} fallback={<p className="text-center">Generating best products suggestions for you</p>}>

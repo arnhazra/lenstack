@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={quickSand.className}>
         <Providers>
           <Header />
-          <main className="min-h-screen w-full bg-slate-50">
+          <main className="min-h-screen w-full bg-zinc-50">
             {children}
           </main>
         </Providers>

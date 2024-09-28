@@ -33,7 +33,7 @@ export default function Page() {
       setReseponse({})
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.connectionErrorMessage}</p>
+        description: <p className="text-zinc-600">{uiConstants.connectionErrorMessage}</p>
       })
     }
 
@@ -109,7 +109,7 @@ export default function Page() {
                     </div>
                   </div>
                 </form>
-                <p className="text-xs text-slate-500 mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
+                <p className="text-xs text-zinc-500 mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
                 <div className="mt-4 ms-2">{response?.response ?? ""}</div>
               </div>
             </div>

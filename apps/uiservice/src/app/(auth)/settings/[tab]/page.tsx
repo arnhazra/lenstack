@@ -52,14 +52,14 @@ export default function Page({ params }: { params: { tab: string } }) {
       await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -70,14 +70,14 @@ export default function Page({ params }: { params: { tab: string } }) {
       await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -88,14 +88,14 @@ export default function Page({ params }: { params: { tab: string } }) {
       await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -112,14 +112,14 @@ export default function Page({ params }: { params: { tab: string } }) {
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/settings/${tab}`)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-zinc-500"}`} onClick={(): void => router.push(`/settings/${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </div>
@@ -136,14 +136,14 @@ export default function Page({ params }: { params: { tab: string } }) {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.organizationCreated}</p>
+          description: <p className="text-zinc-600">{uiConstants.organizationCreated}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -161,7 +161,7 @@ export default function Page({ params }: { params: { tab: string } }) {
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -176,14 +176,14 @@ export default function Page({ params }: { params: { tab: string } }) {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.organizationDeleted}</p>
+          description: <p className="text-zinc-600">{uiConstants.organizationDeleted}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -198,14 +198,14 @@ export default function Page({ params }: { params: { tab: string } }) {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -241,7 +241,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                     </Button>
                     <div>
                       <p className="text-sm  font-semibold">{userState.name}</p>
-                      <p className="text-sm text-slate-600 font-semibold">{userState.email}</p>
+                      <p className="text-sm text-zinc-600 font-semibold">{userState.email}</p>
                     </div>
                   </div>
                   <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
@@ -383,7 +383,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                       <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
                         <span className="text-6xl text-white font-bold">16</span>
                       </div>
-                      <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 16.0.0</p>
+                      <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.0.0</p>
                       <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
                     </div>
                   </Suspense>
