@@ -15,6 +15,7 @@ import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
 import { Input } from "@/components/ui/input"
+import { ProductCard } from "./card"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
@@ -27,23 +28,15 @@ export default function Page() {
 
   const renderProducts = products?.data?.map((product: any) => {
     return (
-      <TableRow
-        className="cursor-pointer"
-        key={product.displayName}
-        onClick={(): void => product?.productStatus === "Available" ? router.push(`/products/${product.productName}`) : undefined}
-      >
-        <TableCell><div dangerouslySetInnerHTML={{ __html: product?.productIcon }} className="scale-75" /></TableCell>
-        <TableCell><div className="font-medium">{brandName} {product?.displayName}</div></TableCell>
-        <TableCell className="text-zinc-500 hidden md:table-cell">{product?.description}</TableCell>
-        <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
-        <TableCell className="text-right">
-          <Badge variant="outline">
-            <div className="scale-50" dangerouslySetInnerHTML={{ __html: solutions?.data?.find((solution: any) => solution?.solutionName === product?.productCategory)?.solutionIcon }}></div>
-            {product?.productCategory}
-          </Badge>
-        </TableCell>
-      </TableRow >
-
+      <ProductCard
+        category={product?.productCategory}
+        desc={product?.description}
+        displayName={product?.displayName}
+        handleClick={(productName) => router.push(`/products/${productName}`)}
+        key={product?._id}
+        productName={product?.productName}
+        status={product?.productStatus}
+      />
     )
   })
 
@@ -142,33 +135,9 @@ export default function Page() {
                 </Card>
               </div>
             </section>
-            <Card className="xl:col-span-2">
-              <CardHeader className="px-7">
-                <CardTitle>Products</CardTitle>
-                <p className="text-sm text-zinc-600 mt-1">Product offerings by {brandName}</p>
-              </CardHeader>
-              <CardContent>
-
-                <Suspense condition={!products.isRefetching} fallback={<p className="text-center">Generating best products suggestions for you</p>}>
-                  <Suspense condition={products?.data?.length > 0} fallback={<p className="text-center">No products to display</p>}>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead></TableHead>
-                          <TableHead>Name</TableHead>
-                          <TableHead className="hidden md:table-cell">Description</TableHead>
-                          <TableHead className="hidden md:table-cell">Status</TableHead>
-                          <TableHead className="text-right">Category</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {renderProducts}
-                      </TableBody>
-                    </Table>
-                  </Suspense>
-                </Suspense>
-              </CardContent>
-            </Card>
+            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+              {renderProducts}
+            </div>
           </div>
         </div>
       </Suspense>

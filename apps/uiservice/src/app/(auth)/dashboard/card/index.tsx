@@ -5,24 +5,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { brandName, uiConstants } from "@/constants/global-constants"
 import { Circle, Medal, Star } from "lucide-react"
 
 interface GenericCardProps {
-  id: string
-  title: string
+  productName: string
+  displayName: string
   desc: string
   category: string
-  rating: string
-  quality: string
-  handleClick: (id: string) => void
+  status: string
+  handleClick: (productName: string) => void
 }
 
-export function ProductCard({ id, title, desc, category, rating, quality, handleClick }: GenericCardProps) {
+export function ProductCard({ productName, status, displayName, desc, category, handleClick }: GenericCardProps) {
   return (
-    <Card className="cursor-pointer" onClick={(): void => handleClick(id)}>
+    <Card className="cursor-pointer" onClick={(): void => handleClick(productName)}>
       <CardHeader>
         <div className="space-y-1">
-          <CardTitle>{title}</CardTitle>
+          <CardTitle className="text-xl">{brandName} {displayName}</CardTitle>
           <CardDescription>
             {desc}
           </CardDescription>
@@ -36,11 +36,7 @@ export function ProductCard({ id, title, desc, category, rating, quality, handle
           </div>
           <div className="flex items-center">
             <Star className="mr-1 h-3 w-3 fill-yellow-400 text-yellow-400" />
-            {rating}
-          </div>
-          <div className="flex items-center">
-            <Medal className="mr-1 h-3 w-3 text-cyan-400" />
-            {quality}
+            {status}
           </div>
         </div>
       </CardContent>
