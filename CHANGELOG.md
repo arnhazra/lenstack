@@ -3,6 +3,7 @@
 ## v16.0.0
 * Dependency updates & bug fixes
 * Updated theme to Zinc from Slate
+* UI Redesign for Data Marketplace App
 
 ## v15.4.0
 * Added a common request timeout of 60 sec for all requests

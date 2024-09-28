@@ -22,7 +22,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const productPage = (
     <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!pathName.includes("dataset")} fallback={null}>
-        <Breadcrumb className="ps-10 pt-4 -pb-4">
+        <Breadcrumb className="ps-10 pt-4 pb-2">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink>Dashboard</BreadcrumbLink>
