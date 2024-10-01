@@ -1,5 +1,5 @@
 "use client"
-import { BookMarked, Copy, Medal, ShieldCheck } from "lucide-react"
+import { BookMarked, Copy, Medal } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,7 +13,7 @@ import LoadingComponent from "@/components/loading"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import ErrorComponent from "@/components/error"
-import { DatasetCard } from "../../card"
+import { DatasetCard } from "../../components/card"
 import ActivityLog from "@/components/activity"
 
 export default function Page({ params }: { params: { id: string } }) {

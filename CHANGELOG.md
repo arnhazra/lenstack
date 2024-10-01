@@ -9,6 +9,7 @@
 * Integrated Activity log across the app
 * Redesigned authentication page
 * Redesigned Dashboard
+* Components Refactoring
 
 ## v15.4.0
 * Added a common request timeout of 60 sec for all requests

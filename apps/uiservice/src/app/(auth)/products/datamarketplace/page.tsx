@@ -12,7 +12,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { uiConstants } from "@/constants/global-constants"
-import { DatasetCard } from "@/app/(auth)/products/datamarketplace/card"
+import { DatasetCard } from "./components/card"
 
 export interface DatasetRequestState {
   searchQuery: string
