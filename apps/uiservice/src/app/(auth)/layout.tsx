@@ -3,12 +3,13 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
-import { ReactNode, useContext, useEffect, useState } from "react"
+import { Fragment, ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "@/components/ui/use-toast"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
+import Header from "@/components/header"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ userState }, dispatch] = useContext(GlobalContext)
@@ -72,11 +73,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }, [userState.refreshId, isAuthorized])
 
   const appLayout = (
-    <div className="flex min-h-screen w-full flex-col">
-      <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-5">
-        {children}
+    <Fragment>
+      <Header />
+      <div className="flex min-h-screen w-full flex-col">
+        <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-5">
+          {children}
+        </div>
       </div>
-    </div>
+    </Fragment>
   )
 
   return (
