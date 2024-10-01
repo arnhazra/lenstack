@@ -7,8 +7,8 @@ export class GetActivityQueryHandler implements IQueryHandler<GetActivityQuery> 
   constructor(private readonly repository: ActivityRepository) { }
 
   async execute(query: GetActivityQuery) {
-    const { getCountDto, userId } = query
+    const { getCountDto } = query
     const { searchKeyword } = getCountDto
-    return await this.repository.findAllItems(userId, searchKeyword)
+    return await this.repository.findAllItems(searchKeyword)
   }
 }

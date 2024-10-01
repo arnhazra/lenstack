@@ -13,7 +13,7 @@ import Header from "@/components/header"
 
 export default function Page() {
   const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
+  const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
 
   const renderComputeTiers = pricing?.data?.map((tier: any) => {

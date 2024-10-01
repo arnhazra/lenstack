@@ -1,143 +1,106 @@
 "use client"
-import { Wallet, Layers2, Orbit, Sparkles, User2, BoxIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useContext, useEffect, useState } from "react"
-import { GlobalContext } from "@/context/globalstate.provider"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Solutions } from "./components/solutions"
+import { Products } from "./components/products"
+import { useContext } from "react"
 import useQuery from "@/hooks/use-query"
-import { endPoints } from "@/constants/api-endpoints"
+import { GlobalContext } from "@/context/globalstate.provider"
 import HTTPMethods from "@/constants/http-methods"
+import { endPoints } from "@/constants/api-endpoints"
 import { useRouter } from "next/navigation"
-import { uiConstants } from "@/constants/global-constants"
+import { brandName } from "@/constants/global-constants"
+import { Layers2, Orbit, User, Wallet } from "lucide-react"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
-import ErrorComponent from "@/components/error"
-import { Input } from "@/components/ui/input"
-import { ProductCard } from "./card"
 
 export default function Page() {
   const [{ userState }] = useContext(GlobalContext)
-  const [selectedFilter, setSelectedFilter] = useState("All")
-  const [searchString, setSearchString] = useState("")
+  const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
   const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
-  const products = useQuery(["products", selectedFilter], `${endPoints.getProductConfig}?searchQuery=${searchString}&category=${selectedFilter}`, HTTPMethods.GET)
   const router = useRouter()
-  useEffect(() => { if (!searchString) products.refetch() }, [searchString])
-
-  const renderProducts = products?.data?.map((product: any) => {
-    return (
-      <ProductCard
-        category={product?.productCategory}
-        desc={product?.description}
-        displayName={product?.displayName}
-        handleClick={(productName) => router.push(`/products/${productName}`)}
-        key={product?._id}
-        productName={product?.productName}
-        status={product?.productStatus}
-        productIcon={product?.productIcon}
-      />
-    )
-  })
-
-  const renderSolutionTabs = solutions?.data?.map((solution: any) => {
-    return (
-      <div
-        key={solution?.solutionName}
-        className={`cursor-pointer flex capitalize ${selectedFilter === solution?.solutionName ? "" : "text-zinc-500"}`}
-        onClick={(): void => setSelectedFilter(solution?.solutionName)}
-      >
-        <div className="scale-75 me-2" dangerouslySetInnerHTML={{ __html: solution?.solutionIcon }} />
-        <p>{solution?.solutionName}</p>
-      </div>
-    )
-  })
 
   return (
-    <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!products.error} fallback={<ErrorComponent />}>
-        <div className="flex gap-4">
-          <Button variant="secondary" size="icon" className="rounded-full">
-            <User2 className="h-5 w-5" />
-          </Button>
-          <div>
-            <p className="text-sm  font-semibold">Hey, {userState.name.split(" ")[0]}</p>
-            <p className="text-sm text-zinc-600 font-semibold">Welcome to your dashboard</p>
-          </div>
+    <Suspense condition={!products.isLoading && !solutions.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!products.error && !solutions.error} fallback={<LoadingComponent />}>
+        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+          <Card className="cursor-pointer" onClick={(): void => router.push("/settings/user")}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                {brandName}
+              </CardTitle>
+              <User className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">Hey, {userState.name.split(" ")[0]}</div>
+              <p className="text-sm text-slate-600">
+                Welcome to your dashboard
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="cursor-pointer" onClick={(): void => router.push("/settings/organization")}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Current Organization
+              </CardTitle>
+              <Orbit className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {userState.selectedOrgName}
+              </div>
+              <p className="text-sm text-slate-600">
+                Your current organization
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="cursor-pointer" onClick={(): void => router.push("/settings/wallet")}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
+              <Wallet className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
+              <p className="text-sm text-slate-600">
+                Credits remaining
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="cursor-pointer" onClick={(): void => router.push("/settings/compute")}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Compute Tier</CardTitle>
+              <Layers2 className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold capitalize">{userState.computeTier}</div>
+              <p className="text-sm text-slate-600">
+                Current compute tier
+              </p>
+            </CardContent>
+          </Card>
         </div>
-        <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-          <nav className="grid gap-4 text-sm">
-            <div
-              key={"all"}
-              className={`cursor-pointer flex capitalize ${selectedFilter === "All" ? "" : "text-zinc-500"}`}
-              onClick={(): void => setSelectedFilter("All")}
-            >
-              <BoxIcon className="scale-75 me-2" />
-              <p>All</p>
-            </div>
-            {renderSolutionTabs}
-          </nav>
-          <div>
-            <form onSubmit={(e) => { e.preventDefault(); products.refetch() }}>
-              <div className="relative">
-                <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
-                <Input
-                  defaultValue={searchString}
-                  onChange={(e): void => setSearchString(e.target.value)}
-                  type="search"
-                  placeholder="Type anything and press enter to get suggested products powered by AI"
-                  className="mb-4 pl-8 w-full h-12 focus:outline-none"
-                />
-                <p className="text-xs text-zinc-500 -mt-2 mb-2 ms-1">{uiConstants.aiSafetyStatement}</p>
-              </div>
-            </form>
-            <section className="grid gap-6">
-              <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mb-4">
-                <Card className="cursor-pointer" onClick={(): void => router.push("/settings/organization")}>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Current Organization
-                    </CardTitle>
-                    <Orbit className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {userState.selectedOrgName}
-                    </div>
-                    <p className="text-sm text-zinc-600">
-                      Your current organization
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card className="cursor-pointer" onClick={(): void => router.push("/settings/wallet")}>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
-                    <Wallet className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
-                    <p className="text-sm text-zinc-600">
-                      Credits remaining
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card className="cursor-pointer" onClick={(): void => router.push("/settings/compute")}>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Compute Tier</CardTitle>
-                    <Layers2 className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold capitalize">{userState.computeTier}</div>
-                    <p className="text-sm text-zinc-600">
-                      Current compute tier
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </section>
-            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
-              {renderProducts}
-            </div>
-          </div>
+        <div className="grid gap-4 md:grid-cols-8 lg:grid-cols-8">
+          <Card className="lg:col-span-5 md:col-span-8">
+            <CardHeader>
+              <CardTitle>Products</CardTitle>
+              <CardDescription>
+                Products offerings by {brandName}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Products products={products?.data ?? []} />
+            </CardContent>
+          </Card>
+          <Card className="lg:col-span-3 md:col-span-8">
+            <CardHeader>
+              <CardTitle>Solutions</CardTitle>
+              <CardDescription>
+                Solutions offerings by {brandName}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <Solutions solutions={solutions.data ?? []} />
+            </CardContent>
+          </Card>
         </div>
       </Suspense>
     </Suspense>

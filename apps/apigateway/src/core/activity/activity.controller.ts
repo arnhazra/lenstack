@@ -16,11 +16,10 @@ export class ActivityController {
     this.activityService.createActivity(createActivityDto)
   }
 
-  @UseGuards(TokenGuard)
-  @Post("search")
-  async getActivityCount(@Body() getCountDto: GetCountDto, @Request() request: ModRequest) {
+  @Post("trends")
+  async getActivityCount(@Body() getCountDto: GetCountDto) {
     try {
-      return await this.activityService.getActivityCount(getCountDto, request.user.userId)
+      return await this.activityService.getActivityCount(getCountDto)
     }
 
     catch (error) {

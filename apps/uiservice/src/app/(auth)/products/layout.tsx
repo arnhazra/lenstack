@@ -15,7 +15,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
-  const products = useQuery(["products", pathName], `${endPoints.getProductConfig}?searchQuery=&category=All`, HTTPMethods.GET)
+  const products = useQuery(["products", pathName], endPoints.getProductConfig, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === productName)
 
   const productLayout = (

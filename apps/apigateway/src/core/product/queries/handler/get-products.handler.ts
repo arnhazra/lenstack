@@ -7,7 +7,6 @@ export class GetProductsQueryHandler implements IQueryHandler<GetProductsQuery> 
   constructor(private readonly repository: ProductsRepository) { }
 
   async execute(query: GetProductsQuery) {
-    const { searchQuery, selectedFilter } = query
-    return await this.repository.findAll(searchQuery, selectedFilter)
+    return await this.repository.findAll()
   }
 }

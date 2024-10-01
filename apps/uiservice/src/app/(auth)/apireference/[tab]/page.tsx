@@ -15,7 +15,7 @@ import ActivityLog from "@/components/activity"
 export default function Page({ params }: { params: { tab: string } }) {
   const router = useRouter()
   const selectedTab = params.tab
-  const products = useQuery(["products"], `${endPoints.getProductConfig}?searchQuery=&category=`, HTTPMethods.GET)
+  const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
   const apiReference = useQuery(["apireference", selectedTab ?? ""], `${endPoints.getapireference}/${selectedTab?.toLowerCase()}`, HTTPMethods.GET)
 
   const renderTabs = products?.data?.map((product: any) => {

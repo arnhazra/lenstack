@@ -23,9 +23,9 @@ export class ActivityService {
     }
   }
 
-  async getActivityCount(getCountDto: GetCountDto, userId: string) {
+  async getActivityCount(getCountDto: GetCountDto) {
     try {
-      return this.queryBus.execute<GetActivityQuery, { userUsage: number, totalUsage: number }>(new GetActivityQuery(getCountDto, userId))
+      return this.queryBus.execute<GetActivityQuery, { totalUsage: number }>(new GetActivityQuery(getCountDto))
     }
 
     catch (error) {
