@@ -10,6 +10,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { GlobalContext } from "@/context/globalstate.provider"
 import Suspense from "../suspense"
 import { OrgSwitcher } from "../orgswitcher"
+import { UserNav } from "./user-nav"
 
 export default function Header() {
   const pathname = usePathname()
@@ -56,19 +57,7 @@ export default function Header() {
                 <OrgSwitcher />
               </div>
             </form>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="secondary" size="icon" className="rounded-full">
-                  <CircleUser className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={(): void => router.push("/settings/user")}>Settings</DropdownMenuItem>
-                <DropdownMenuItem onClick={(): void => router.push("/settings/organization")}>Organization</DropdownMenuItem>
-                <DropdownMenuItem onClick={(): void => router.push("/")}>Home Page</DropdownMenuItem>
-                <DropdownMenuItem onClick={signOut}>Sign Out</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <UserNav />
           </div>
         </header>
       </Suspense>

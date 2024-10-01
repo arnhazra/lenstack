@@ -1,5 +1,5 @@
 "use client"
-import Link from 'next/link'
+import Link from "next/link"
 import { DraftingCompass } from "lucide-react"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import ky from "ky"
