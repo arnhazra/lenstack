@@ -41,8 +41,8 @@ export default function Page({ params }: { params: { tab: string } }) {
   })
 
   return (
-    <Suspense condition={!apiReference.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!apiReference.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!apiReference.isLoading && !products.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!apiReference.error && !products.error} fallback={<ErrorComponent />}>
         <div className="bg-white flex justify-between items-center mb-4 p-2 border rounded-md ps-4 pe-4">
           <div className="flex gap-4 items-center">
             <Book className="h-5 w-5" />

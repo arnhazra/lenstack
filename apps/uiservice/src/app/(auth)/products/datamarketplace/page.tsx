@@ -88,8 +88,8 @@ export default function Page() {
   }
 
   return (
-    <Suspense condition={!datasets.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!datasets.error} fallback={<ErrorComponent />}>
+    <Suspense condition={!datasets.isLoading && !filtersAndSortOptions.isLoading} fallback={<LoadingComponent />}>
+      <Suspense condition={!datasets.error && !filtersAndSortOptions.error} fallback={<ErrorComponent />}>
         <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
           <nav className="grid gap-4 text-sm">
             {renderFilterTabs}
