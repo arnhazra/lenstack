@@ -15,6 +15,7 @@ export const endPoints = {
   getSolutionConfig: `${apiHost}/solutions/config`,
   getapireference: `${apiHost}/apireference`,
   organization: `${apiHost}/organization`,
+  activityTrends: `${apiHost}/activity/trends`,
   intelligenceGenerateEndpoint: `${apiHost}/products/intelligence/generate`,
   datamarketplaceFilterAndSortOptions: `${apiHost}/products/datamarketplace/filters-and-sort-options`,
   datamarketplaceFindDatasets: `${apiHost}/products/datamarketplace/finddatasets`,

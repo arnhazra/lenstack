@@ -1,196 +1,181 @@
 "use client"
-import { Wallet, Layers2, ListFilter, Orbit, Sparkles, User } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { Copy, Orbit } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
+import { useRouter } from "next/navigation"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { useRouter } from "next/navigation"
-import { brandName, uiConstants } from "@/constants/global-constants"
+import { brandName } from "@/constants/global-constants"
+import { Product } from "@/types/Types"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
-import { Input } from "@/components/ui/input"
+import MaskText from "@/components/mask"
 
 export default function Page() {
+  const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
   const [{ userState }] = useContext(GlobalContext)
-  const [selectedFilter, setSelectedFilter] = useState("All")
-  const [searchString, setSearchString] = useState("")
-  const solutions = useQuery(["solutions"], endPoints.getSolutionConfig, HTTPMethods.GET)
-  const products = useQuery(["products", selectedFilter], `${endPoints.getProductConfig}?searchQuery=${searchString}&category=${selectedFilter}`, HTTPMethods.GET)
   const router = useRouter()
-  useEffect(() => { if (!searchString) products.refetch() }, [searchString])
 
-  const renderProducts = products?.data?.map((product: any) => {
+  const renderProducts = products?.data?.map((product: Product) => {
     return (
-      <TableRow
-        className="cursor-pointer"
-        key={product.displayName}
-        onClick={(): void => product?.productStatus === "Available" ? router.push(`/products/${product.productName}`) : undefined}
-      >
-        <TableCell><div dangerouslySetInnerHTML={{ __html: product?.productIcon }} className="scale-75" /></TableCell>
-        <TableCell><div className="font-medium">{brandName} {product?.displayName}</div></TableCell>
-        <TableCell className="text-slate-500 hidden md:table-cell">{product?.description}</TableCell>
-        <TableCell className="hidden md:table-cell">{product?.productStatus}</TableCell>
-        <TableCell className="text-right">
-          <Badge variant="outline">
-            <div className="scale-50" dangerouslySetInnerHTML={{ __html: solutions?.data?.find((solution: any) => solution?.solutionName === product?.productCategory)?.solutionIcon }}></div>
-            {product?.productCategory}
-          </Badge>
+      <TableRow className="bg-accent cursor-pointer" key={product?._id} onClick={(): void => router.push(`/products/${product?.productName}`)}>
+        <TableCell>
+          <div className="font-medium">{brandName} {product?.displayName}</div>
+          <div className="hidden text-xs text-zinc-500 md:inline">
+            {product?.description}
+          </div>
         </TableCell>
-      </TableRow >
-    )
-  })
-
-  const renderSolutions = solutions?.data?.map((solution: any) => {
-    return (
-      <DropdownMenuCheckboxItem
-        key={solution?.solutionName}
-        checked={selectedFilter === solution?.solutionName}
-        onClick={(): void => setSelectedFilter(solution?.solutionName)}
-      >
-        {solution?.solutionName}
-      </DropdownMenuCheckboxItem>
+        <TableCell className="hidden sm:table-cell">
+          {product?.productCategory}
+        </TableCell>
+        <TableCell className="text-right">{product?.productStatus}</TableCell>
+      </TableRow>
     )
   })
 
   return (
     <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!products.error} fallback={<ErrorComponent />}>
-        <div className="flex min-h-screen w-full flex-col">
-          <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <Card className="cursor-pointer" onClick={(): void => router.push("/settings/user")}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    {brandName}
-                  </CardTitle>
-                  <User className="h-4 w-4 text-muted-foreground" />
+        <main className="grid flex-1 items-start gap-4 lg:grid-cols-3 xl:grid-cols-3">
+          <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+              <Card className="sm:col-span-2">
+                <CardHeader className="pb-3">
+                  <CardTitle>Hey, {userState.name.split(" ")[0]}</CardTitle>
+                  <CardDescription className="max-w-lg text-balance leading-relaxed">
+                    Introducing Our Dynamic Dashboard for Seamless
+                    Management and Insightful Analysis.
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">Hey, {userState.name.split(" ")[0]}</div>
-                  <p className="text-sm text-slate-600">
-                    Welcome to your dashboard
-                  </p>
-                </CardContent>
+                <CardFooter>
+                  <Button onClick={(): void => router.push("/settings/organization")}>View Organizations</Button>
+                </CardFooter>
               </Card>
-              <Card className="cursor-pointer" onClick={(): void => router.push("/settings/organization")}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Current Organization
-                  </CardTitle>
-                  <Orbit className="h-4 w-4 text-muted-foreground" />
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Wallet Balance</CardDescription>
+                  <CardTitle className="text-2xl">$ {userState.walletBalance.toFixed(2)}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">
-                    {userState.selectedOrgName}
+                  <div className="text-xs text-muted-foreground">
+                    Available Credits
                   </div>
-                  <p className="text-sm text-slate-600">
-                    Your current organization
-                  </p>
                 </CardContent>
+                <CardFooter>
+                </CardFooter>
               </Card>
-              <Card className="cursor-pointer" onClick={(): void => router.push("/settings/wallet")}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Wallet Balance</CardTitle>
-                  <Wallet className="h-4 w-4 text-muted-foreground" />
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardDescription>Compute Tier</CardDescription>
+                  <CardTitle className="text-2xl capitalize">{userState.computeTier}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">$ {userState.walletBalance.toFixed(2)}</div>
-                  <p className="text-sm text-slate-600">
-                    Credits remaining
-                  </p>
+                  <div className="text-xs text-muted-foreground">
+                    Selected Compute Tier
+                  </div>
                 </CardContent>
-              </Card>
-              <Card className="cursor-pointer" onClick={(): void => router.push("/settings/compute")}>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Compute Tier</CardTitle>
-                  <Layers2 className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold capitalize">{userState.computeTier}</div>
-                  <p className="text-sm text-slate-600">
-                    Current compute tier
-                  </p>
-                </CardContent>
+                <CardFooter>
+                </CardFooter>
               </Card>
             </div>
-            <Card className="xl:col-span-2">
+            <Card>
               <CardHeader className="px-7">
-                <div className="flex justify-between">
-                  <div>
-                    <CardTitle>Products</CardTitle>
-                    <p className="text-sm text-slate-600 mt-1">Product offerings by {brandName}</p>
-                  </div>
-                  <div>
-                    <Suspense condition={!searchString} fallback={null}>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="outline" size="sm" className="h-8 gap-1">
-                            <ListFilter className="h-3.5 w-3.5" />
-                            <span>
-                              Select Category
-                            </span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Category Filter</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuCheckboxItem
-                            checked={selectedFilter === "All"}
-                            onClick={(): void => setSelectedFilter("All")}
-                          >
-                            All
-                          </DropdownMenuCheckboxItem>
-                          {renderSolutions}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </Suspense>
-                  </div>
-                </div>
+                <CardTitle>Products</CardTitle>
+                <CardDescription>
+                  Product offerings by {brandName}
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={(e) => { e.preventDefault(); products.refetch() }} className="ml-auto mt-4 flex-1 sm:flex-initial justify-end">
-                  <div className="relative">
-                    <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      autoFocus
-                      defaultValue={searchString}
-                      onChange={(e): void => setSearchString(e.target.value)}
-                      type="search"
-                      placeholder="Type anything and press enter to get suggested products powered by AI"
-                      className="mb-4 pl-8 w-full h-12 bg-slate-50 focus:outline-none"
-                    />
-                    <p className="text-xs text-slate-500 -mt-2 mb-2">{uiConstants.aiSafetyStatement}</p>
-                  </div>
-                </form>
-                <Suspense condition={!products.isRefetching} fallback={<p className="text-center">Generating best products suggestions for you</p>}>
-                  <Suspense condition={products?.data?.length > 0} fallback={<p className="text-center">No products to display</p>}>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead></TableHead>
-                          <TableHead>Name</TableHead>
-                          <TableHead className="hidden md:table-cell">Description</TableHead>
-                          <TableHead className="hidden md:table-cell">Status</TableHead>
-                          <TableHead className="text-right">Category</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {renderProducts}
-                      </TableBody>
-                    </Table>
-                  </Suspense>
-                </Suspense>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Product</TableHead>
+                      <TableHead className="hidden sm:table-cell">Category</TableHead>
+                      <TableHead className="text-right">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {renderProducts}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </div>
-        </div>
+          <div>
+            <Card className="overflow-hidden">
+              <CardHeader className="flex flex-row items-start bg-zinc-50">
+                <div className="grid gap-0.5">
+                  <CardTitle className="group flex items-center gap-2 text-lg">
+                    Organization
+                    <Button size="icon" variant="outline" className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100">
+                      <Copy className="h-3 w-3" />
+                      <span className="sr-only">Copy Order ID</span>
+                    </Button>
+                  </CardTitle>
+                  <CardDescription>{userState?.selectedOrgName}</CardDescription>
+                </div>
+                <div className="ml-auto flex items-center gap-1">
+                  <Button size="sm" variant="outline" className="h-8 gap-1" onClick={(): void => router.push("/settings/organization")}>
+                    <Orbit className="h-3.5 w-3.5" />
+                    <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
+                      Open Org
+                    </span>
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 text-sm">
+                <div className="grid gap-3">
+                  <div className="font-semibold">Org Information</div>
+                  <ul className="grid gap-3">
+                    <li className="flex items-center justify-between">
+                      <span className="text-muted-foreground">
+                        Client Id
+                      </span>
+                      <span><MaskText value={userState.clientId} /></span>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <span className="text-muted-foreground">
+                        Client Secret
+                      </span>
+                      <span><MaskText value={userState.clientSecret} /></span>
+                    </li>
+                  </ul>
+                </div>
+                <Separator className="my-4" />
+                <div className="grid gap-3">
+                  <div className="font-semibold">User Information</div>
+                  <dl className="grid gap-3">
+                    <div className="flex items-center justify-between">
+                      <dt className="text-muted-foreground">Name</dt>
+                      <dd>{userState.name}</dd>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <dt className="text-muted-foreground">Email</dt>
+                      <dd>
+                        <a href="mailto:">{userState.email}</a>
+                      </dd>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <dt className="text-muted-foreground">Wallet Balance</dt>
+                      <dd>$ {userState.walletBalance.toFixed(2)}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </CardContent>
+              <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
+                <div className="text-xs text-muted-foreground">
+                  {brandName} Inc.
+                </div>
+              </CardFooter>
+            </Card>
+          </div>
+        </main>
       </Suspense>
     </Suspense>
   )

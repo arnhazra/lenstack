@@ -12,7 +12,7 @@ import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
 import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Info, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter } from "next/navigation"
-import OrgPanel from "../org"
+import OrgPanel from "@/components/orgpanel"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
 import { usePromptContext } from "@/providers/prompt.provider"
@@ -52,14 +52,14 @@ export default function Page({ params }: { params: { tab: string } }) {
       await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -70,14 +70,14 @@ export default function Page({ params }: { params: { tab: string } }) {
       await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -88,14 +88,14 @@ export default function Page({ params }: { params: { tab: string } }) {
       await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
       })
     }
 
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
@@ -112,14 +112,14 @@ export default function Page({ params }: { params: { tab: string } }) {
     catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-slate-600">{uiConstants.toastError}</p>
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>
       })
     }
   }
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (
-      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-slate-500"}`} onClick={(): void => router.push(`/settings/${tab}`)}>
+      <div key={tab} className={`cursor-pointer flex capitalize ${tab === selectedTab ? "" : "text-zinc-500"}`} onClick={(): void => router.push(`/settings/${tab}`)}>
         <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </div>
@@ -136,14 +136,14 @@ export default function Page({ params }: { params: { tab: string } }) {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.organizationCreated}</p>
+          description: <p className="text-zinc-600">{uiConstants.organizationCreated}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -161,7 +161,7 @@ export default function Page({ params }: { params: { tab: string } }) {
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -176,14 +176,14 @@ export default function Page({ params }: { params: { tab: string } }) {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.organizationDeleted}</p>
+          description: <p className="text-zinc-600">{uiConstants.organizationDeleted}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -198,14 +198,14 @@ export default function Page({ params }: { params: { tab: string } }) {
         dispatch("setUserState", { refreshId: Math.random().toString() })
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastSuccess}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
         })
       }
 
       catch (error) {
         toast({
           title: uiConstants.notification,
-          description: <p className="text-slate-600">{uiConstants.toastError}</p>
+          description: <p className="text-zinc-600">{uiConstants.toastError}</p>
         })
       }
     }
@@ -231,164 +231,160 @@ export default function Page({ params }: { params: { tab: string } }) {
     <Suspense condition={tabsList.includes(selectedTab as Tabs)} fallback={<ErrorComponent />}>
       <Suspense condition={!organizations.isLoading && !pricing.isLoading} fallback={<LoadingComponent />}>
         <Suspense condition={!organizations.error && !pricing.error} fallback={<ErrorComponent />}>
-          <div className="flex min-h-screen w-full flex-col">
-            <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-              <div className="mx-auto grid w-full gap-2">
-                <div className="flex justify-between">
-                  <div className="flex gap-4">
-                    <Button variant="secondary" size="icon" className="rounded-full">
-                      <CircleUser className="h-5 w-5" />
-                    </Button>
-                    <div>
-                      <p className="text-sm  font-semibold">{userState.name}</p>
-                      <p className="text-sm text-slate-600 font-semibold">{userState.email}</p>
-                    </div>
-                  </div>
-                  <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
-                    <Button size="icon" className="rounded-full" onClick={createOrg} title="Create Org"><PlusCircle className="scale-65" /></Button>
-                  </Suspense>
-                </div>
-              </div>
-              <div className="mx-auto grid w-full items-start gap-4 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-                <nav className="grid gap-4 text-sm">
-                  {renderTabs}
-                </nav>
+          <div className="mx-auto grid w-full gap-2">
+            <div className="flex justify-between">
+              <div className="flex gap-4 mb-4">
+                <Button variant="secondary" size="icon" className="rounded-full">
+                  <CircleUser className="h-5 w-5" />
+                </Button>
                 <div>
-                  <Suspense condition={selectedTab === Tabs.User} fallback={null}>
-                    <section className="grid gap-2">
-                      <SectionPanel
-                        icon={<User className="scale-75" />}
-                        title="Your Name"
-                        content={userState.name}
-                      />
-                      <SectionPanel
-                        icon={<IdCard className="scale-75" />}
-                        title={`${brandName} ID`}
-                        content={userState.userId}
-                        masked
-                        actionComponent={<CopyToClipboard value={userState.userId} />}
-                      />
-                      <SectionPanel
-                        icon={<AtSign className="scale-75" />}
-                        title="Your Email"
-                        content={userState.email}
-                        actionComponent={<CopyToClipboard value={userState.email} />}
-                      />
-                      <SectionPanel
-                        icon={<CircleArrowRight className="scale-75" />}
-                        title="Sign Out"
-                        content="Sign out from all logged in devices"
-                        actionComponent={<Button size="icon" className="rounded-full" variant="destructive" onClick={(): Promise<void> => signOut("all")}><CircleArrowRight className="scale-75" /></Button>}
-                      />
-                    </section>
-                  </Suspense>
-                  <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
-                    <SectionPanel
-                      icon={<Wallet className="scale-75" />}
-                      title="Your Wallet Balance"
-                      content={`$ ${userState.walletBalance.toFixed(2)}`}
-                      actionComponent={
-                        <Button
-                          className="rounded-full"
-                          variant="default"
-                          size="icon"
-                          title="Add amount to wallet"
-                          onClick={addAmountToWallet}>
-                          <PlusCircle className="scale-65" />
-                        </Button>
-                      }
-                    />
-                  </Suspense>
-                  <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>
-                    <section className="grid gap-2">
-                      <SectionPanel
-                        icon={<PieChart className="scale-75" />}
-                        title="Activity Log"
-                        content="Choose whether to save the things you do to get more relevant results"
-                        actionComponent={<Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />}
-                      />
-                      <SectionPanel
-                        icon={<Fingerprint className="scale-75" />}
-                        title="Access Token"
-                        content={localStorage.getItem("accessToken") ?? ""}
-                        masked
-                        actionComponent={<CopyToClipboard value={localStorage.getItem("accessToken") ?? ""} />}
-                      />
-                      <SectionPanel
-                        icon={<ScanFace className="scale-75" />}
-                        title="Refresh Token"
-                        content={localStorage.getItem("refreshToken") ?? ""}
-                        masked
-                        actionComponent={<CopyToClipboard value={localStorage.getItem("refreshToken") ?? ""} />}
-                      />
-                    </section>
-                  </Suspense>
-                  <Suspense condition={selectedTab === Tabs.Compute} fallback={null}>
-                    <section className="grid gap-2">
-                      <TierCardComponent
-                        computeTier={computeTier}
-                        estimatedRequestCost={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.estimatedRequestCost}
-                        responseDelay={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.responseDelay}
-                      />
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Compute Tier</CardTitle>
-                          <CardDescription>
-                            Select the compute tier based on your performance requirement. Higher computer tier has higer API request cost.
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Select defaultValue={userState.computeTier} onValueChange={(value: string) => setComputeTier(value)}>
-                            <SelectTrigger className="capitalize">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                {pricing?.data?.map((item: any) =>
-                                  <SelectItem
-                                    className="capitalize"
-                                    value={item.computeTier} key={item.computeTier}
-                                  >
-                                    {item.computeTier}
-                                  </SelectItem>)}
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </CardContent>
-                        <CardFooter>
-                          <Button onClick={saveComputeTier}>Save Settings</Button>
-                        </CardFooter>
-                      </Card>
-                    </section>
-                  </Suspense>
-                  <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
-                    <section className="grid gap-2">
-                      {renderOrgs}
-                    </section>
-                  </Suspense>
-                  <Suspense condition={selectedTab === Tabs.Sustainability} fallback={null}>
-                    <SectionPanel
-                      icon={<Leaf className="scale-75" />}
-                      title="Reduce Carbon Emissions"
-                      content={`Turn this settings on to reduce carbon footprints inside ${brandName}`}
-                      actionComponent={
-                        <Switch
-                          checked={userState.reduceCarbonEmissions}
-                          onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)}
-                        />}
-                    />
-                  </Suspense>
-                  <Suspense condition={selectedTab === Tabs.About} fallback={null}>
-                    <div className="flex flex-col items-center justify-center">
-                      <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
-                        <span className="text-6xl text-white font-bold">15</span>
-                      </div>
-                      <p className="text-xs text-slate-700 mt-4">{brandName} EcoSystem 15.4.0</p>
-                      <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
-                    </div>
-                  </Suspense>
+                  <p className="text-sm  font-semibold">{userState.name}</p>
+                  <p className="text-sm text-zinc-600 font-semibold">{userState.email}</p>
                 </div>
               </div>
+              <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
+                <Button size="icon" className="rounded-full" onClick={createOrg} title="Create Org"><PlusCircle className="scale-65" /></Button>
+              </Suspense>
+            </div>
+          </div>
+          <div className="mx-auto grid w-full items-start gap-4 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+            <nav className="grid gap-4 text-sm">
+              {renderTabs}
+            </nav>
+            <div>
+              <Suspense condition={selectedTab === Tabs.User} fallback={null}>
+                <section className="grid gap-2">
+                  <SectionPanel
+                    icon={<User className="scale-75" />}
+                    title="Your Name"
+                    content={userState.name}
+                  />
+                  <SectionPanel
+                    icon={<IdCard className="scale-75" />}
+                    title={`${brandName} ID`}
+                    content={userState.userId}
+                    masked
+                    actionComponent={<CopyToClipboard value={userState.userId} />}
+                  />
+                  <SectionPanel
+                    icon={<AtSign className="scale-75" />}
+                    title="Your Email"
+                    content={userState.email}
+                    actionComponent={<CopyToClipboard value={userState.email} />}
+                  />
+                  <SectionPanel
+                    icon={<CircleArrowRight className="scale-75" />}
+                    title="Sign Out"
+                    content="Sign out from all logged in devices"
+                    actionComponent={<Button size="icon" className="rounded-full" variant="destructive" onClick={(): Promise<void> => signOut("all")}><CircleArrowRight className="scale-75" /></Button>}
+                  />
+                </section>
+              </Suspense>
+              <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
+                <SectionPanel
+                  icon={<Wallet className="scale-75" />}
+                  title="Your Wallet Balance"
+                  content={`$ ${userState.walletBalance.toFixed(2)}`}
+                  actionComponent={
+                    <Button
+                      className="rounded-full"
+                      variant="default"
+                      size="icon"
+                      title="Add amount to wallet"
+                      onClick={addAmountToWallet}>
+                      <PlusCircle className="scale-65" />
+                    </Button>
+                  }
+                />
+              </Suspense>
+              <Suspense condition={selectedTab === Tabs.Privacy} fallback={null}>
+                <section className="grid gap-2">
+                  <SectionPanel
+                    icon={<PieChart className="scale-75" />}
+                    title="Activity Log"
+                    content="Choose whether to save the things you do to get more relevant results"
+                    actionComponent={<Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />}
+                  />
+                  <SectionPanel
+                    icon={<Fingerprint className="scale-75" />}
+                    title="Access Token"
+                    content={localStorage.getItem("accessToken") ?? ""}
+                    masked
+                    actionComponent={<CopyToClipboard value={localStorage.getItem("accessToken") ?? ""} />}
+                  />
+                  <SectionPanel
+                    icon={<ScanFace className="scale-75" />}
+                    title="Refresh Token"
+                    content={localStorage.getItem("refreshToken") ?? ""}
+                    masked
+                    actionComponent={<CopyToClipboard value={localStorage.getItem("refreshToken") ?? ""} />}
+                  />
+                </section>
+              </Suspense>
+              <Suspense condition={selectedTab === Tabs.Compute} fallback={null}>
+                <section className="grid gap-2">
+                  <TierCardComponent
+                    computeTier={computeTier}
+                    estimatedRequestCost={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.estimatedRequestCost}
+                    responseDelay={pricing?.data?.find((item: any) => item.computeTier === computeTier)?.responseDelay}
+                  />
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Compute Tier</CardTitle>
+                      <CardDescription>
+                        Select the compute tier based on your performance requirement. Higher computer tier has higer API request cost.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Select defaultValue={userState.computeTier} onValueChange={(value: string) => setComputeTier(value)}>
+                        <SelectTrigger className="capitalize">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {pricing?.data?.map((item: any) =>
+                              <SelectItem
+                                className="capitalize"
+                                value={item.computeTier} key={item.computeTier}
+                              >
+                                {item.computeTier}
+                              </SelectItem>)}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </CardContent>
+                    <CardFooter>
+                      <Button onClick={saveComputeTier}>Save Settings</Button>
+                    </CardFooter>
+                  </Card>
+                </section>
+              </Suspense>
+              <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
+                <section className="grid gap-2">
+                  {renderOrgs}
+                </section>
+              </Suspense>
+              <Suspense condition={selectedTab === Tabs.Sustainability} fallback={null}>
+                <SectionPanel
+                  icon={<Leaf className="scale-75" />}
+                  title="Reduce Carbon Emissions"
+                  content={`Turn this settings on to reduce carbon footprints inside ${brandName}`}
+                  actionComponent={
+                    <Switch
+                      checked={userState.reduceCarbonEmissions}
+                      onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)}
+                    />}
+                />
+              </Suspense>
+              <Suspense condition={selectedTab === Tabs.About} fallback={null}>
+                <div className="flex flex-col items-center justify-center">
+                  <div className="bg-zinc-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
+                    <span className="text-6xl text-white font-bold">16</span>
+                  </div>
+                  <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.0.0</p>
+                  <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
+                </div>
+              </Suspense>
             </div>
           </div>
         </Suspense>

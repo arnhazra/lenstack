@@ -1,12 +1,13 @@
 "use client"
 import { ReactNode, createContext, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState, Org } from "./globalstate.reducer"
+import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState } from "./globalstate.reducer"
+import { Organization } from "@/types/Types"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(type: Type, payload: ActionsMap[Type]) => void
 
 type GlobalContextInterface = readonly [GlobalState, Dispatcher]
 
-const initialState: { userState: UserState, organizations: Org[] } = {
+const initialState: { userState: UserState, organizations: Organization[] } = {
   userState: {
     userId: "",
     email: "",

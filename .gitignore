@@ -7,6 +7,10 @@ apps/uiservice/.next
 apps/uiservice/.vercel
 apps/uiservice/*.tsbuildinfo
 apps/uiservice/out
+apps/newuiservice/.next
+apps/newuiservice/.vercel
+apps/newuiservice/*.tsbuildinfo
+apps/newuiservice/out
 .vercel
 dist
 apigateway/build

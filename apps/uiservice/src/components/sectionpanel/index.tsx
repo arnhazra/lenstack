@@ -21,7 +21,7 @@ export default function SectionPanel({ title, content, masked, actionComponent, 
             <p className="text-sm">
               {title}
             </p>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-zinc-500">
               <Suspense condition={!!masked} fallback={content}>
                 <MaskText value={content} />
               </Suspense>

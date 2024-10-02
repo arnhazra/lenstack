@@ -6,9 +6,9 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) { }
 
   @Get("config")
-  async getProductConfig(@Query("searchQuery") searchQuery: string, @Query("category") category: string) {
+  async getProductConfig() {
     try {
-      return await this.productsService.getProductConfig(searchQuery, category)
+      return await this.productsService.getProductConfig()
     }
 
     catch (error) {

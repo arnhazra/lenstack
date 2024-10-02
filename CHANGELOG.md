@@ -1,5 +1,11 @@
 # Changelog
 
+## v16.0.0
+* Dependency updates & bug fixes
+* Added activity search service & Integrated Activity log across the app
+* Major UI Overhaul across all pages & components
+* Component refactoring for performance improvements
+
 ## v15.4.0
 * Added a common request timeout of 60 sec for all requests
 * Fix redirect uri not working for payments

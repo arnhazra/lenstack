@@ -28,34 +28,30 @@ export default function Page() {
   return (
     <Suspense condition={!webAnalytics.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!webAnalytics.error} fallback={<ErrorComponent />}>
-        <div className="flex min-h-screen w-full flex-col">
-          <div className="flex flex-1 flex-col gap-4 p-4">
-            <Card className="xl:col-span-2">
-              <CardHeader className="px-7">
-                <CardTitle>Web Analytics</CardTitle>
-                <CardDescription>
-                  Your Web Analytics in this organization
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Suspense condition={webAnalytics?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Event No</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className="text-right md:table-cell">View</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {renderAnalytics}
-                    </TableBody>
-                  </Table>
-                </Suspense>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+        <Card className="xl:col-span-2">
+          <CardHeader className="px-7">
+            <CardTitle>Web Analytics</CardTitle>
+            <CardDescription>
+              Your Web Analytics in this organization
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Suspense condition={webAnalytics?.data?.length > 0} fallback={<p className="text-center">No data to display</p>}>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Event No</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead className="text-right md:table-cell">View</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {renderAnalytics}
+                </TableBody>
+              </Table>
+            </Suspense>
+          </CardContent>
+        </Card>
       </Suspense>
     </Suspense>
   )

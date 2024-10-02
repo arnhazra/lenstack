@@ -25,3 +25,12 @@ export type Pricing = {
     webanalytics: number
   }
 }
+
+export type Organization = {
+  _id: string,
+  name: string,
+  userId: string,
+  clientId: string,
+  clientSecret: string,
+  createdAt: string
+}

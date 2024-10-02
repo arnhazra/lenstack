@@ -1,60 +1,45 @@
 "use client"
 import Suspense from "@/components/suspense"
 import { GlobalContext } from "@/context/globalstate.provider"
-import { ReactNode, useContext } from "react"
+import { Fragment, ReactNode, useContext } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { usePathname, useRouter } from "next/navigation"
+import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import useQuery from "@/hooks/use-query"
-import { brandName } from "@/constants/global-constants"
-import { Badge } from "@/components/ui/badge"
+import ActivityLog from "@/components/activity"
 import LoadingComponent from "@/components/loading"
+import ErrorComponent from "@/components/error"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
   const [{ userState }] = useContext(GlobalContext)
+  const router = useRouter()
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
-  const products = useQuery(["products", pathName], `${endPoints.getProductConfig}?searchQuery=&category=All`, HTTPMethods.GET)
+  const products = useQuery(["products", pathName], endPoints.getProductConfig, HTTPMethods.GET)
   const selectedProduct = products?.data?.find((product: any) => product.productName === productName)
-  const router = useRouter()
 
-  const productPage = (
+  const productLayout = (
     <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!pathName.includes("dataset")} fallback={null}>
-        <div className="w-full">
-          <div className="p-4">
-            <Card className="hero text-white">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 ">
-                <CardTitle className="text-sm font-medium">
-                  <Badge variant="secondary" className="ps-4 pe-4 pt-1 pb-1">{selectedProduct?.productCategory}</Badge>
-                </CardTitle>
-                <div className="scale-75" dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }} />
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold mb-2">
-                  {brandName} {selectedProduct?.displayName}
-                </div>
-                <p className="text-sm">
-                  {selectedProduct?.description}
-                </p>
-              </CardContent>
-              <CardFooter className="-mt-3">
-                <Button variant="secondary" onClick={(): void => router.push(`/apireference/${selectedProduct?.productName}`)}>
-                  API Reference
-                </Button>
-              </CardFooter>
-            </Card>
+      <Suspense condition={!products.error} fallback={<ErrorComponent />}>
+        <div className="bg-white flex justify-between items-center mb-4 p-2 border rounded-md ps-4 pe-4">
+          <div className="flex gap-4 items-center">
+            <div className="scale-75" dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }} />
+            <div>
+              <p className="text-sm font-semibold">{selectedProduct?.displayName}</p>
+              <p className="text-sm text-zinc-600 font-semibold">{selectedProduct?.description}</p>
+            </div>
           </div>
+          <ActivityLog keyword={productName} />
         </div>
+        {children}
       </Suspense>
-      {children}
     </Suspense>
   )
 
   return (
-    <Suspense condition={userState.walletBalance < 0.2} fallback={productPage}>
+    <Suspense condition={userState.walletBalance < 0.2} fallback={productLayout}>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm">
           <CardHeader>
