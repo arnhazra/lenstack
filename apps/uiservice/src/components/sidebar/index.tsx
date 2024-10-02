@@ -4,7 +4,7 @@ import { Book, DraftingCompass, PanelLeft, Settings } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "../ui/button"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import { UserNav } from "./user-nav"
 import { OrgSwitcher } from "./org-switcher"
 import { brandName } from "@/constants/global-constants"
@@ -13,11 +13,12 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { Product } from "@/types/Types"
 import { usePathname } from "next/navigation"
+import { getBreadcrumbTitle } from "./data"
+import Suspense from "../suspense"
 
 export default function Sidebar() {
   const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
   const pathName = usePathname()
-  console.log(pathName)
 
   const generateLinkClassName = (uri: string) => {
     if (pathName.includes(uri)) {
@@ -122,7 +123,7 @@ export default function Sidebar() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/">{brandName}</Link>
+                  <Link href="/dashboard">{brandName}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -131,6 +132,14 @@ export default function Sidebar() {
                   <Link href="/dashboard">Dashboard</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
+              <Suspense condition={!!getBreadcrumbTitle(pathName)} fallback={null}>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href={pathName}>{getBreadcrumbTitle(pathName)}</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </Suspense>
             </BreadcrumbList>
           </Breadcrumb>
           <div className="relative ml-auto flex-1 md:grow-0">
