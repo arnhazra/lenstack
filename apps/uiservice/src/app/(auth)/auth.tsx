@@ -105,7 +105,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
       </div>
       <div className="flex h-full items-center p-4 lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <div className="flex flex-col space-y-2 text-center">
+          <div className="flex flex-col space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight">
               {brandName} Auth
             </h1>
@@ -142,7 +142,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
                   </Suspense>
                   <div className="grid gap-2">
                     <Label htmlFor="otp">PassKey</Label>
-                    <Input className="h-11" type="text" placeholder="Enter Passkey sent to your email" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, passKey: e.target.value })} autoComplete={"off"} maxLength={8} />
+                    <Input className="h-11" type="password" placeholder="Enter Passkey sent to your email" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, passKey: e.target.value })} autoComplete={"off"} maxLength={8} />
                   </div>
                   <Button variant="default" type="submit" disabled={isAuthLoading} className="w-full h-11">
                     <Suspense condition={!isAuthLoading} fallback={<><LoaderIcon /> {alert}</>}>
@@ -153,7 +153,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
               </form>
             </Suspense>
           </div>
-          <p className="px-8 text-center text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 ">
             {uiConstants.privacyPolicyStatement}
           </p>
         </div>
