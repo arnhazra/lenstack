@@ -1,3 +1,5 @@
+import { Organization } from "@/types/Types"
+
 export interface UserState {
   userId: string
   email: string
@@ -15,23 +17,14 @@ export interface UserState {
   refreshId: string,
 }
 
-export interface Org {
-  _id: string,
-  name: string,
-  userId: string,
-  clientId: string,
-  clientSecret: string,
-  createdAt: string
-}
-
 export type GlobalState = {
   userState: UserState,
-  organizations: Org[]
+  organizations: Organization[]
 }
 
 export type ActionsMap = {
   setUserState: Partial<UserState>,
-  setOrgState: Org[]
+  setOrgState: Organization[]
 }
 
 export type Actions = {

@@ -31,23 +31,3 @@ export const generalUserLinks: LinkData[] = [
     external: true
   }
 ]
-
-export const authUserLinks: LinkData[] = [
-  {
-    displayName: brandName,
-    link: "/dashboard",
-    mainLink: true
-  },
-  {
-    displayName: "Privacy",
-    link: "/settings/privacy"
-  },
-  {
-    displayName: "Sustainability",
-    link: "/settings/sustainability"
-  },
-  {
-    displayName: "API Reference",
-    link: "/apireference/datamarketplace"
-  },
-]

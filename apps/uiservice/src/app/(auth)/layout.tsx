@@ -9,7 +9,7 @@ import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
-import Header from "@/components/header"
+import Sidebar from "@/components/sidebar"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ userState }, dispatch] = useContext(GlobalContext)
@@ -74,13 +74,13 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   const appLayout = (
     <Fragment>
-      <Header />
-      <div className="flex min-h-screen w-full flex-col">
-        <div className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-5">
+      <Sidebar />
+      <div className="flex min-h-screen w-full flex-col bg-muted/40">
+        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           {children}
         </div>
       </div>
-    </Fragment>
+    </Fragment >
   )
 
   return (

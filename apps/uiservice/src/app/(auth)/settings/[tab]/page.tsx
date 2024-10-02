@@ -378,7 +378,7 @@ export default function Page({ params }: { params: { tab: string } }) {
               </Suspense>
               <Suspense condition={selectedTab === Tabs.About} fallback={null}>
                 <div className="flex flex-col items-center justify-center">
-                  <div className="bg-gray-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
+                  <div className="bg-zinc-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
                     <span className="text-6xl text-white font-bold">16</span>
                   </div>
                   <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.0.0</p>

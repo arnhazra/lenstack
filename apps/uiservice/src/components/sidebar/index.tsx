@@ -1,0 +1,125 @@
+"use client"
+import { DraftingCompass, Gauge, PanelLeft, Settings } from "lucide-react"
+import Link from "next/link"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "../ui/button"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { UserNav } from "./user-nav"
+import { OrgSwitcher } from "./org-switcher"
+import { brandName } from "@/constants/global-constants"
+import useQuery from "@/hooks/use-query"
+import { endPoints } from "@/constants/api-endpoints"
+import HTTPMethods from "@/constants/http-methods"
+import { Product } from "@/types/Types"
+import { usePathname } from "next/navigation"
+
+export default function Sidebar() {
+  const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
+  const pathName = usePathname()
+
+  const renderSheetProducts = products?.data?.map((product: Product) => {
+    return (
+      <Link href={`/products/${product?.productName}`} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+        <div className="scale-75" dangerouslySetInnerHTML={{ __html: product?.productIcon }} />
+        {product?.displayName}
+      </Link>
+    )
+  })
+
+  const renderSideBarProducts = products?.data?.map((product: Product) => {
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link href={`/products/${product?.productName}`} className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+            <div className="scale-75" dangerouslySetInnerHTML={{ __html: product?.productIcon }} />
+            <span className="sr-only">{product?.displayName}</span>
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent side="right">{brandName} {product?.displayName}</TooltipContent>
+      </Tooltip>
+    )
+  })
+
+  return (
+    <>
+      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-white sm:flex">
+        <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link href="/dashboard" className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-zinc-900 text-white text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base">
+                <Gauge className="h-4 w-4 transition-all group-hover:scale-110" />
+                <span className="sr-only">Dashboard</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Dashboard</TooltipContent>
+          </Tooltip>
+          {renderSideBarProducts}
+        </nav>
+        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link href="/settings/user" className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+                <Settings className="scale-75" />
+                <span className="sr-only">Settings</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Settings</TooltipContent>
+          </Tooltip>
+        </nav>
+      </aside>
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="outline" className="sm:hidden">
+                <PanelLeft className="scale-75" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="sm:max-w-xs">
+              <nav className="grid gap-6 text-lg font-medium">
+                <Link href="/dashboard" className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base">
+                  <DraftingCompass className="scale-75" />
+                  <span className="sr-only">{brandName}</span>
+                </Link>
+                <Link href="/settings/user" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+                  <Gauge className="scale-75" />
+                  Dashboard
+                </Link>
+                {renderSheetProducts}
+                <Link href="/settings/user" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+                  <Settings className="scale-75" />
+                  Settings
+                </Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+          <Breadcrumb className="hidden md:flex">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Dashboard</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Orders</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Recent Orders</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div className="relative ml-auto flex-1 md:grow-0">
+            <OrgSwitcher />
+          </div>
+          <UserNav />
+        </header>
+      </div>
+    </>
+  )
+}
