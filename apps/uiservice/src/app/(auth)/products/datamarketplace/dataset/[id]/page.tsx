@@ -13,7 +13,7 @@ import LoadingComponent from "@/components/loading"
 import { toast } from "@/components/ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import ErrorComponent from "@/components/error"
-import { DatasetCard } from "../../components/card"
+import { DatasetCard } from "../../../../../../components/datasetcard/card"
 import ActivityLog from "@/components/activity"
 
 export default function Page({ params }: { params: { id: string } }) {
