@@ -1,6 +1,6 @@
 "use client"
-import { DraftingCompass, Gauge, PanelLeft, Settings } from "lucide-react"
 import Link from "next/link"
+import { DraftingCompass, PanelLeft, Settings } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "../ui/button"
@@ -17,10 +17,22 @@ import { usePathname } from "next/navigation"
 export default function Sidebar() {
   const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
   const pathName = usePathname()
+  console.log(pathName)
+
+  const generateLinkClassName = (uri: string) => {
+    if (pathName.includes(uri)) {
+      return "group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-zinc-900 text-white text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
+    }
+
+    return "flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+  }
 
   const renderSheetProducts = products?.data?.map((product: Product) => {
     return (
-      <Link href={`/products/${product?.productName}`} className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+      <Link
+        href={`/products/${product?.productName}`}
+        className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+      >
         <div className="scale-75" dangerouslySetInnerHTML={{ __html: product?.productIcon }} />
         {product?.displayName}
       </Link>
@@ -31,7 +43,10 @@ export default function Sidebar() {
     return (
       <Tooltip>
         <TooltipTrigger asChild>
-          <Link href={`/products/${product?.productName}`} className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+          <Link
+            href={`/products/${product?.productName}`}
+            className={generateLinkClassName(product?.productName)}
+          >
             <div className="scale-75" dangerouslySetInnerHTML={{ __html: product?.productIcon }} />
             <span className="sr-only">{product?.displayName}</span>
           </Link>
@@ -45,21 +60,16 @@ export default function Sidebar() {
     <>
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-white sm:flex">
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link href="/dashboard" className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-zinc-900 text-white text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base">
-                <Gauge className="h-4 w-4 transition-all group-hover:scale-110" />
-                <span className="sr-only">Dashboard</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
-          </Tooltip>
+          <Link href="/dashboard" className={generateLinkClassName("dashboard")}>
+            <DraftingCompass className="h-4 w-4 transition-all group-hover:scale-110" />
+            <span className="sr-only">Dashboard</span>
+          </Link>
           {renderSideBarProducts}
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link href="/settings/user" className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+              <Link href="/settings/user" className={generateLinkClassName("settings")}>
                 <Settings className="scale-75" />
                 <span className="sr-only">Settings</span>
               </Link>
@@ -67,7 +77,7 @@ export default function Sidebar() {
             <TooltipContent side="right">Settings</TooltipContent>
           </Tooltip>
         </nav>
-      </aside>
+      </aside >
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
@@ -83,8 +93,8 @@ export default function Sidebar() {
                   <DraftingCompass className="scale-75" />
                   <span className="sr-only">{brandName}</span>
                 </Link>
-                <Link href="/settings/user" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-                  <Gauge className="scale-75" />
+                <Link href="/dashboard" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+                  <DraftingCompass className="scale-75" />
                   Dashboard
                 </Link>
                 {renderSheetProducts}
@@ -99,18 +109,14 @@ export default function Sidebar() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Dashboard</Link>
+                  <Link href="/">{brandName}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Orders</Link>
+                  <Link href="/dashboard">Dashboard</Link>
                 </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Recent Orders</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
