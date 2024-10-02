@@ -7,7 +7,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Box, ChevronLeft, ChevronRight, SortAsc, Sparkles } from "lucide-react"
+import { ChevronLeft, ChevronRight, SlidersHorizontal, SortAsc, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
@@ -35,7 +35,7 @@ export default function Page() {
         className={`cursor-pointer flex capitalize ${datasetRequestState.selectedFilter === item ? "" : "text-zinc-500"}`}
         onClick={(): void => setDatasetRequestState({ ...datasetRequestState, selectedFilter: item, offset: 0, searchQuery: "" })}
       >
-        <Box className="scale-75 me-2" />
+        <SlidersHorizontal className="scale-75 me-2" />
         <p>{item}</p>
       </div>
     )
