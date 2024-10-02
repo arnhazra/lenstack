@@ -43,11 +43,9 @@ export default function Page({ params }: { params: { tab: string } }) {
   return (
     <Suspense condition={!apiReference.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!apiReference.error} fallback={<ErrorComponent />}>
-        <div className="flex justify-between">
-          <div className="flex gap-4">
-            <Button variant="secondary" size="icon" className="rounded-full">
-              <Book className="h-5 w-5" />
-            </Button>
+        <div className="bg-white flex justify-between items-center mb-4 p-2 border rounded-md ps-4 pe-4">
+          <div className="flex gap-4 items-center">
+            <Book className="h-5 w-5" />
             <div>
               <p className="text-sm  font-semibold">API Reference</p>
               <p className="text-sm text-red-800 font-semibold">{uiConstants.apiRefreneceStatement}</p>

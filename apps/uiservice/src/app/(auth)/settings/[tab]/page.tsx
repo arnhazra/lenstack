@@ -233,7 +233,7 @@ export default function Page({ params }: { params: { tab: string } }) {
         <Suspense condition={!organizations.error && !pricing.error} fallback={<ErrorComponent />}>
           <div className="mx-auto grid w-full gap-2">
             <div className="flex justify-between">
-              <div className="flex gap-4">
+              <div className="flex gap-4 mb-4">
                 <Button variant="secondary" size="icon" className="rounded-full">
                   <CircleUser className="h-5 w-5" />
                 </Button>

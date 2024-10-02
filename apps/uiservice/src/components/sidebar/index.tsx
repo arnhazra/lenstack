@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { DraftingCompass, PanelLeft, Settings } from "lucide-react"
+import { Book, DraftingCompass, PanelLeft, Settings } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "../ui/button"
@@ -45,7 +45,7 @@ export default function Sidebar() {
         <TooltipTrigger asChild>
           <Link
             href={`/products/${product?.productName}`}
-            className={generateLinkClassName(product?.productName)}
+            className={generateLinkClassName(`/products/${product?.productName}`)}
           >
             <div className="scale-75" dangerouslySetInnerHTML={{ __html: product?.productIcon }} />
             <span className="sr-only">{product?.displayName}</span>
@@ -67,6 +67,15 @@ export default function Sidebar() {
           {renderSideBarProducts}
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link href="/apireference/datamarketplace" className={generateLinkClassName("apireference")}>
+                <Book className="scale-75" />
+                <span className="sr-only">API Reference</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">API Reference</TooltipContent>
+          </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link href="/settings/user" className={generateLinkClassName("settings")}>
@@ -98,6 +107,10 @@ export default function Sidebar() {
                   Dashboard
                 </Link>
                 {renderSheetProducts}
+                <Link href="/apireference/datamarketplace" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+                  <Book className="scale-75" />
+                  API Reference
+                </Link>
                 <Link href="/settings/user" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
                   <Settings className="scale-75" />
                   Settings
