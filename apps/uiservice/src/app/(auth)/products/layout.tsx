@@ -9,6 +9,7 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import ActivityLog from "@/components/activity"
+import LoadingComponent from "@/components/loading"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
   const [{ userState }] = useContext(GlobalContext)
@@ -19,21 +20,19 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const selectedProduct = products?.data?.find((product: any) => product.productName === productName)
 
   const productLayout = (
-    <Fragment>
-      <div className="flex justify-between">
-        <div className="flex gap-4">
-          <Button variant="secondary" size="icon" className="rounded-full">
-            <div className="scale-75" dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }} />
-          </Button>
+    <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
+      <div className="bg-white flex justify-between items-center mb-4 p-2 border rounded-md ps-4 pe-4">
+        <div className="flex gap-4 items-center">
+          <div className="scale-75" dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }} />
           <div>
-            <p className="text-sm  font-semibold">{selectedProduct?.displayName}</p>
+            <p className="text-sm font-semibold">{selectedProduct?.displayName}</p>
             <p className="text-sm text-zinc-600 font-semibold">{selectedProduct?.description}</p>
           </div>
         </div>
         <ActivityLog keyword={productName} />
       </div>
       {children}
-    </Fragment>
+    </Suspense>
   )
 
   return (
