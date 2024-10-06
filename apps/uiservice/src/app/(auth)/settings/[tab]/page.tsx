@@ -345,7 +345,8 @@ export default function Page({ params }: { params: { tab: string } }) {
                             {pricing?.data?.map((item: any) =>
                               <SelectItem
                                 className="capitalize"
-                                value={item.computeTier} key={item.computeTier}
+                                value={item.computeTier}
+                                key={item.computeTier}
                               >
                                 {item.computeTier}
                               </SelectItem>)}
