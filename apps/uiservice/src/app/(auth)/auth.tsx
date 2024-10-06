@@ -20,18 +20,18 @@ interface AuthProviderProps {
 export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) {
   const [isAuthLoading, setAuthLoading] = useState<boolean>(false)
   const [authStep, setAuthStep] = useState(1)
-  const [state, setState] = useState({ email: "", hash: "", passKey: "" })
+  const [state, setState] = useState({ email: "", hash: "", otp: "" })
   const [alert, setAlert] = useState("")
   const [newUser, setNewUser] = useState(false)
   const [name, setName] = useState("")
 
-  const generatePassKey = async (event: any) => {
+  const generateOTP = async (event: any) => {
     event.preventDefault()
     setAlert(uiConstants.authVerificationMessage)
     setAuthLoading(true)
 
     try {
-      const response: any = await ky.post(endPoints.generatePassKey, { json: state, timeout: FETCH_TIMEOUT }).json()
+      const response: any = await ky.post(endPoints.generateOTP, { json: state, timeout: FETCH_TIMEOUT }).json()
       setState({ ...state, hash: response.hash })
       toast({
         title: uiConstants.notification,
@@ -54,13 +54,13 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
     }
   }
 
-  const verifyPassKey = async (event: any) => {
+  const validateOTP = async (event: any) => {
     event.preventDefault()
     setAlert(uiConstants.authVerificationMessage)
     setAuthLoading(true)
 
     try {
-      const response: any = await ky.post(endPoints.verifyPassKey, { json: { ...state, name }, timeout: FETCH_TIMEOUT }).json()
+      const response: any = await ky.post(endPoints.validateOTP, { json: { ...state, name }, timeout: FETCH_TIMEOUT }).json()
       localStorage.setItem("accessToken", response.accessToken)
       localStorage.setItem("refreshToken", response.refreshToken)
       toast({
@@ -73,7 +73,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
     catch (error: any) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.invalidPasskey}</p>
+        description: <p className="text-zinc-600">{uiConstants.invalidOTP}</p>
       })
       onAuthorized(false)
     }
@@ -110,14 +110,14 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
               {brandName} Auth
             </h1>
             <p className="text-sm text-zinc-600">
-              <Suspense condition={authStep === 1} fallback="Enter the passkey we sent to your email">
+              <Suspense condition={authStep === 1} fallback="Enter the OTP we sent to your email">
                 Enter your email below to get started
               </Suspense>
             </p>
           </div>
           <div>
             <Suspense condition={authStep === 1} fallback={null}>
-              <form onSubmit={generatePassKey}>
+              <form onSubmit={generateOTP}>
                 <div className="grid gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -132,7 +132,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
               </form>
             </Suspense>
             <Suspense condition={authStep === 2} fallback={null}>
-              <form onSubmit={verifyPassKey}>
+              <form onSubmit={validateOTP}>
                 <div className="grid gap-4">
                   <Suspense condition={newUser} fallback={null}>
                     <div className="grid gap-2">
@@ -141,8 +141,8 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
                     </div>
                   </Suspense>
                   <div className="grid gap-2">
-                    <Label htmlFor="otp">PassKey</Label>
-                    <Input className="h-11" type="password" placeholder="Enter Passkey sent to your email" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, passKey: e.target.value })} autoComplete={"off"} maxLength={8} />
+                    <Label htmlFor="otp">OTP</Label>
+                    <Input className="h-11" type="password" placeholder="Enter OTP sent to your email" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, otp: e.target.value })} autoComplete={"off"} minLength={6} maxLength={6} />
                   </div>
                   <Button variant="default" type="submit" disabled={isAuthLoading} className="w-full h-11">
                     <Suspense condition={!isAuthLoading} fallback={<><LoaderIcon /> {alert}</>}>
