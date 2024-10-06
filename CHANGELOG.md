@@ -1,5 +1,8 @@
 # Changelog
 
+## v16.1.0
+* Dependency updates & bug fixes
+
 ## v16.0.0
 * Dependency updates & bug fixes
 * Added activity search service & Integrated Activity log across the app

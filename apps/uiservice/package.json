@@ -1,6 +1,6 @@
 {
   "name": "uiservice",
-  "version": "16.0.0",
+  "version": "16.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mswjs/interceptors": "^0.36.1",
+    "@mswjs/interceptors": "^0.36.3",
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-checkbox": "^1.1.2",
@@ -37,7 +37,7 @@
     "react-dom": "^18",
     "react-syntax-highlighter": "^15.5.0",
     "sass": "^1.79.4",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
