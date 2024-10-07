@@ -1,7 +1,7 @@
 "use client"
 import Suspense from "@/components/suspense"
 import { GlobalContext } from "@/context/globalstate.provider"
-import { Fragment, ReactNode, useContext } from "react"
+import { ReactNode, useContext } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { usePathname, useRouter } from "next/navigation"
@@ -11,6 +11,7 @@ import HTTPMethods from "@/constants/http-methods"
 import ActivityLog from "@/components/activity"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
+import { brandName } from "@/constants/global-constants"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
   const [{ userState }] = useContext(GlobalContext)
@@ -27,7 +28,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
           <div className="flex gap-4 items-center">
             <div className="scale-75" dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }} />
             <div>
-              <p className="text-sm font-semibold">{selectedProduct?.displayName}</p>
+              <p className="text-sm font-semibold">{brandName} {selectedProduct?.displayName}</p>
               <p className="text-sm text-zinc-600 font-semibold">{selectedProduct?.description}</p>
             </div>
           </div>
