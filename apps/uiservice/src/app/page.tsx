@@ -6,7 +6,6 @@ import { CheckCircle2, Github } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Header from "@/components/header"
 import { Pricing, Product, Solution } from "@/types/Types"
-import { Fragment } from "react"
 
 export default async function Page() {
   const pricing: Pricing[] = await (await fetch(endPoints.getPricingConfig)).json()
@@ -70,7 +69,7 @@ export default async function Page() {
   })
 
   return (
-    <Fragment>
+    <>
       <Header />
       <div className="min-h-screen w-full bg-white">
         <section id="hero" className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-32 lg:py-32">
@@ -182,6 +181,6 @@ export default async function Page() {
           </div>
         </div>
       </footer>
-    </Fragment>
+    </>
   )
 }

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { endPoints } from "@/constants/api-endpoints"
-import { Fragment, useState } from "react"
+import { useState } from "react"
 import ky from "ky"
 import { toast } from "@/components/ui/use-toast"
 import { brandName, uiConstants } from "@/constants/global-constants"
@@ -43,7 +43,7 @@ export default function Page() {
   }
 
   return (
-    <Fragment>
+    <>
       <Card className="xl:col-span-2">
         <CardHeader className="px-7">
           <CardTitle>Playground</CardTitle>
@@ -114,6 +114,6 @@ export default function Page() {
           </div>
         </CardContent>
       </Card>
-    </Fragment>
+    </>
   )
 }

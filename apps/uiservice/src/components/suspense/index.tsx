@@ -1,5 +1,5 @@
 "use client"
-import { Fragment, ReactNode } from "react"
+import { ReactNode } from "react"
 
 export interface SuspenseProps {
   condition: boolean
@@ -8,5 +8,5 @@ export interface SuspenseProps {
 }
 
 export default function Suspense({ condition, children, fallback }: SuspenseProps) {
-  return condition ? <Fragment>{children}</Fragment> : <Fragment>{fallback}</Fragment>
+  return condition ? <>{children}</> : <>{fallback}</>
 }
