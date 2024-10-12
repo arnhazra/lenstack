@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
-import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
+import { GenerateOTPDto } from "./dto/generate-otp.dto"
+import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import * as jwt from "jsonwebtoken"
 import { envConfig } from "src/env.config"
-import { generateAuthPasskey, verifyAuthPasskey, generatePasskeyEmailBody, generatePasskeyEmailSubject } from "./user.util"
+import { generateOTP, verifyOTP, generateOTPEmailBody, generateOTPEmailSubject } from "./user.util"
 import { otherConstants } from "src/shared/utils/constants/other-constants"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -29,13 +29,13 @@ export class UserService {
     this.accessTokenPrivateKey = envConfig.accessTokenPrivateKey
   }
 
-  async generatePasskey(generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
+  async generateOTP(generateOTPDto: GenerateOTPDto) {
     try {
-      const { email } = generateAuthPasskeyDto
+      const { email } = generateOTPDto
       const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email))
-      const { fullHash: hash, passKey } = generateAuthPasskey(email)
-      const subject: string = generatePasskeyEmailSubject()
-      const body: string = generatePasskeyEmailBody(passKey)
+      const { fullHash: hash, otp } = generateOTP(email)
+      const subject: string = generateOTPEmailSubject()
+      const body: string = generateOTPEmailBody(otp)
       await this.eventEmitter.emitAsync(EventsUnion.SendEmail, { email, subject, body })
       return { user, hash }
     }
@@ -45,10 +45,10 @@ export class UserService {
     }
   }
 
-  async verifyPasskey(verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
+  async verifyOTP(verifyOTPDto: VerifyOTPDto) {
     try {
-      const { email, hash, passKey, name } = verifyAuthPasskeyDto
-      const isOTPValid = verifyAuthPasskey(email, hash, passKey)
+      const { email, hash, otp, name } = verifyOTPDto
+      const isOTPValid = verifyOTP(email, hash, otp)
 
       if (isOTPValid) {
         const user = await this.queryBus.execute<FindUserByEmailQuery, User>(new FindUserByEmailQuery(email))

@@ -1,10 +1,10 @@
 import { PartialType } from "@nestjs/mapped-types"
-import { GenerateAuthPasskeyDto } from "./generate-auth-passkey.dto"
+import { GenerateOTPDto } from "./generate-otp.dto"
 import { IsNotEmpty } from "class-validator"
 
-export class VerifyAuthPasskeyDto extends PartialType(GenerateAuthPasskeyDto) {
+export class VerifyOTPDto extends PartialType(GenerateOTPDto) {
   @IsNotEmpty()
-  readonly passKey: string
+  readonly otp: string
 
   @IsNotEmpty()
   readonly hash: string

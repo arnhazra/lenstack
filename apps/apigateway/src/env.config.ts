@@ -10,7 +10,7 @@ export const envConfig = {
   redisURI: process.env.REDIS_URI,
   geminiAPIKey: process.env.GEMINI_API_KEY,
   stripeSecretKey: process.env.STRIPE_SECRET_KEY,
-  passkeyHashingKey: process.env.PASSKEY_HASHING_KEY,
+  otpHashingKey: process.env.OTP_HASHING_KEY,
   redirectURI: process.env.GCLOUD_REDIRECT_URI,
   gcloudClientId: process.env.GCLOUD_CLIENT_ID,
   gcloudClientSecret: process.env.GCLOUD_CLIENT_SECRET,

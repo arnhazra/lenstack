@@ -1,7 +1,7 @@
 import { Controller, Post, Body, BadRequestException, Get, Patch, Request, UseGuards, Param } from "@nestjs/common"
 import { UserService } from "./user.service"
-import { GenerateAuthPasskeyDto } from "./dto/generate-auth-passkey.dto"
-import { VerifyAuthPasskeyDto } from "./dto/verify-auth-passkey.dto"
+import { GenerateOTPDto } from "./dto/generate-otp.dto"
+import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { TokenGuard } from "src/auth/token.guard"
 import { ModRequest } from "src/auth/types/mod-request.interface"
@@ -10,12 +10,12 @@ import { ModRequest } from "src/auth/types/mod-request.interface"
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  @Post("generatepasskey")
-  async generatePasskey(@Body() generateAuthPasskeyDto: GenerateAuthPasskeyDto) {
+  @Post("generateotp")
+  async generateOTP(@Body() generateOTPDto: GenerateOTPDto) {
     try {
-      const { user, hash } = await this.userService.generatePasskey(generateAuthPasskeyDto)
-      if (!user) return { hash, message: statusMessages.passKeyEmail, newUser: true }
-      return { hash, message: statusMessages.passKeyEmail, newUser: false }
+      const { user, hash } = await this.userService.generateOTP(generateOTPDto)
+      if (!user) return { hash, message: statusMessages.otpEmail, newUser: true }
+      return { hash, message: statusMessages.otpEmail, newUser: false }
     }
 
     catch (error) {
@@ -23,10 +23,10 @@ export class UserController {
     }
   }
 
-  @Post("verifypasskey")
-  async verifyPasskey(@Body() verifyAuthPasskeyDto: VerifyAuthPasskeyDto) {
+  @Post("validateotp")
+  async validateOTP(@Body() validateOTPDto: VerifyOTPDto) {
     try {
-      const response = await this.userService.verifyPasskey(verifyAuthPasskeyDto)
+      const response = await this.userService.verifyOTP(validateOTPDto)
       const { accessToken, refreshToken, user } = response
 
       if (response.success) {
@@ -34,7 +34,7 @@ export class UserController {
       }
 
       else {
-        throw new BadRequestException(statusMessages.invalidPassKey)
+        throw new BadRequestException(statusMessages.invalidOTP)
       }
     }
 

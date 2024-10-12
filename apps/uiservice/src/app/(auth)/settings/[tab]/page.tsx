@@ -345,7 +345,8 @@ export default function Page({ params }: { params: { tab: string } }) {
                             {pricing?.data?.map((item: any) =>
                               <SelectItem
                                 className="capitalize"
-                                value={item.computeTier} key={item.computeTier}
+                                value={item.computeTier}
+                                key={item.computeTier}
                               >
                                 {item.computeTier}
                               </SelectItem>)}
@@ -381,7 +382,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                   <div className="bg-zinc-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
                     <span className="text-6xl text-white font-bold">16</span>
                   </div>
-                  <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.0.0</p>
+                  <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.1.0</p>
                   <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
                 </div>
               </Suspense>

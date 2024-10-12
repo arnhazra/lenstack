@@ -4,8 +4,8 @@ export const apiHost = process.env.NODE_ENV === "development" ? "http://localhos
 export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://${brandName.toLowerCase()}.vercel.app`
 
 export const endPoints = {
-  generatePassKey: `${apiHost}/user/generatepasskey`,
-  verifyPassKey: `${apiHost}/user/verifypasskey`,
+  generateOTP: `${apiHost}/user/generateotp`,
+  validateOTP: `${apiHost}/user/validateotp`,
   userDetails: `${apiHost}/user/userdetails`,
   signOut: `${apiHost}/user/signout`,
   updateAttribute: `${apiHost}/user/attribute`,

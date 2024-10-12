@@ -33,6 +33,7 @@ export default function Sidebar() {
   const renderSheetProducts = products?.data?.map((product: Product) => {
     return (
       <Link
+        key={product?._id}
         href={`/products/${product?.productName}`}
         className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
       >
@@ -47,6 +48,7 @@ export default function Sidebar() {
       <Tooltip>
         <TooltipTrigger asChild>
           <Link
+            key={product?._id}
             href={`/products/${product?.productName}`}
             className={generateLinkClassName(`/products/${product?.productName}`)}
           >
