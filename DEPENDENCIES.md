@@ -23,7 +23,6 @@
 * concurrently: Utility for running multiple commands concurrently, simplifying development workflows.
 * @openzeppelin/contracts: Library of secure and community-vetted smart contracts for Ethereum development.
 * @radix-ui/*: Collection of UI components for React applications, providing accessible and customizable UI elements.
-* @uidotdev/usehooks: React hooks library containing reusable custom hooks for React applications.
 * class-variance-authority: Library for calculating variance and standard deviation in JavaScript classes.
 * clsx: Utility for constructing className strings conditionally in JavaScript and TypeScript.
 * @tanstack/react-query: Query client for React data fetching, providing a powerful and efficient data fetching solution.

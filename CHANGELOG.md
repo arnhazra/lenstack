@@ -2,6 +2,7 @@
 
 ## v16.1.0
 * Dependency updates & bug fixes
+* Removed unused dependencies across apps
 * Simplified Passkey to OTP to avoid conflicts
 
 ## v16.0.0
