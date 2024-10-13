@@ -3,8 +3,8 @@ import { UserService } from "./user.service"
 import { GenerateOTPDto } from "./dto/generate-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
-import { TokenGuard } from "src/auth/token.guard"
-import { ModRequest } from "src/auth/types/mod-request.interface"
+import { TokenGuard } from "src/shared/auth/token.guard"
+import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
 @Controller("user")
 export class UserController {

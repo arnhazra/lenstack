@@ -1,8 +1,8 @@
 import { Controller, Post, Body, BadRequestException, UseGuards, Request } from "@nestjs/common"
 import { IntelligenceService } from "./intelligence.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
-import { CredentialGuard } from "src/auth/credential.guard"
-import { ModRequest } from "src/auth/types/mod-request.interface"
+import { CredentialGuard } from "src/shared/auth/credential.guard"
+import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
 @Controller("products/intelligence")
 export class IntelligenceController {
