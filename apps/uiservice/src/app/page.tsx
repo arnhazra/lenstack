@@ -7,15 +7,15 @@ import Header from "@/components/header"
 import { endPoints } from "@/constants/api-endpoints"
 import { Pricing, Product, Solution } from "@/types/Types"
 
-export async function getPricingConfig(): Promise<Pricing[]> {
+async function getPricingConfig(): Promise<Pricing[]> {
   return (await fetch(endPoints.getPricingConfig)).json()
 }
 
-export async function getProductConfig(): Promise<Product[]> {
+async function getProductConfig(): Promise<Product[]> {
   return (await fetch(endPoints.getProductConfig)).json()
 }
 
-export async function getSolutionConfig(): Promise<Solution[]> {
+async function getSolutionConfig(): Promise<Solution[]> {
   return (await fetch(endPoints.getSolutionConfig)).json()
 }
 
