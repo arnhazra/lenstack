@@ -12,7 +12,7 @@ export default async function Page() {
   const products: Product[] = await (await fetch(endPoints.getProductConfig)).json()
   const solutions: Solution[] = await (await fetch(endPoints.getSolutionConfig)).json()
 
-  const renderComputeTiers = pricing?.map((tier) => {
+  const renderComputeTiers = pricing && pricing?.map((tier) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
         <div className="flex flex-col justify-between rounded-md p-6">
@@ -36,7 +36,7 @@ export default async function Page() {
     )
   })
 
-  const renderProducts = products?.map((product) => {
+  const renderProducts = products && products?.map((product) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={product?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -52,7 +52,7 @@ export default async function Page() {
     )
   })
 
-  const renderSolutions = solutions?.map((solution) => {
+  const renderSolutions = solutions && solutions?.map((solution) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={solution?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -104,7 +104,7 @@ export default async function Page() {
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
-            {renderSolutions}
+            {renderSolutions ?? null}
           </div>
         </section>
         <section id="opensource" className="container py-8 md:py-12 lg:py-24">
@@ -153,7 +153,7 @@ export default async function Page() {
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
-            {renderProducts}
+            {renderProducts ?? null}
           </div>
         </section>
         <section id="pricing" className="container py-8 md:py-12 lg:py-24">
@@ -166,7 +166,7 @@ export default async function Page() {
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
-            {renderComputeTiers}
+            {renderComputeTiers ?? null}
           </div>
         </section>
       </div >
