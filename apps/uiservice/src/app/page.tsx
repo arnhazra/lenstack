@@ -1,18 +1,30 @@
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 import { brandName, uiConstants } from "@/constants/global-constants"
-import { endPoints } from "@/constants/api-endpoints"
 import { CheckCircle2, Github } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Header from "@/components/header"
+import { endPoints } from "@/constants/api-endpoints"
 import { Pricing, Product, Solution } from "@/types/Types"
 
-export default async function Page() {
-  const pricing: Pricing[] = await (await fetch(endPoints.getPricingConfig)).json()
-  const products: Product[] = await (await fetch(endPoints.getProductConfig)).json()
-  const solutions: Solution[] = await (await fetch(endPoints.getSolutionConfig)).json()
+export async function getPricingConfig(): Promise<Pricing[]> {
+  return (await fetch(endPoints.getPricingConfig)).json()
+}
 
-  const renderComputeTiers = pricing?.map((tier: any) => {
+export async function getProductConfig(): Promise<Product[]> {
+  return (await fetch(endPoints.getProductConfig)).json()
+}
+
+export async function getSolutionConfig(): Promise<Solution[]> {
+  return (await fetch(endPoints.getSolutionConfig)).json()
+}
+
+export default async function Page() {
+  const pricing = await getPricingConfig()
+  const products = await getProductConfig()
+  const solutions = await getSolutionConfig()
+
+  const renderComputeTiers = pricing?.map((tier) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={tier.computeTier}>
         <div className="flex flex-col justify-between rounded-md p-6">
@@ -22,7 +34,7 @@ export default async function Page() {
               {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
                 <li className="flex text-xs items-center text-zinc-600" key={key}>
                   <CheckCircle2 className="scale-75 me-2" />
-                  {brandName} {products?.find((item: any) => item?.productName === key)?.displayName}
+                  {brandName} {products?.find((item) => item?.productName === key)?.displayName}
                   {" "}$ {Number(value).toFixed(2)}/req
                 </li>
               ))}
@@ -36,7 +48,7 @@ export default async function Page() {
     )
   })
 
-  const renderProducts = products?.map((product: any) => {
+  const renderProducts = products?.map((product) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={product?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -52,7 +64,7 @@ export default async function Page() {
     )
   })
 
-  const renderSolutions = solutions?.map((solution: any) => {
+  const renderSolutions = solutions?.map((solution) => {
     return (
       <div className="relative overflow-hidden rounded-lg border bg-white p-2" key={solution?._id}>
         <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
