@@ -1,5 +1,9 @@
 # Changelog
 
+## v16.2.0
+* Fixed auth layout scroll issue
+* Dependency updates & bug fixes
+
 ## v16.1.0
 * Dependency updates & bug fixes
 * Removed unused dependencies across apps
