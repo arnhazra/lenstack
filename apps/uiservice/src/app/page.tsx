@@ -8,15 +8,33 @@ import { endPoints } from "@/constants/api-endpoints"
 import { Pricing, Product, Solution } from "@/types/Types"
 
 async function getPricingConfig(): Promise<Pricing[]> {
-  return (await fetch(endPoints.getPricingConfig)).json()
+  const response = (await fetch(endPoints.getPricingConfig))
+
+  if (!response.ok) {
+    throw new Error(uiConstants.toastError)
+  }
+
+  return response.json()
 }
 
 async function getProductConfig(): Promise<Product[]> {
-  return (await fetch(endPoints.getProductConfig)).json()
+  const response = (await fetch(endPoints.getProductConfig))
+
+  if (!response.ok) {
+    throw new Error(uiConstants.toastError)
+  }
+
+  return response.json()
 }
 
 async function getSolutionConfig(): Promise<Solution[]> {
-  return (await fetch(endPoints.getSolutionConfig)).json()
+  const response = (await fetch(endPoints.getSolutionConfig))
+
+  if (!response.ok) {
+    throw new Error(uiConstants.toastError)
+  }
+
+  return response.json()
 }
 
 export default async function Page() {
