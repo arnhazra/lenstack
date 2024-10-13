@@ -1,46 +1,16 @@
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 import { brandName, uiConstants } from "@/constants/global-constants"
+import { endPoints } from "@/constants/api-endpoints"
 import { CheckCircle2, Github } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Header from "@/components/header"
-import { endPoints } from "@/constants/api-endpoints"
 import { Pricing, Product, Solution } from "@/types/Types"
 
-async function getPricingConfig(): Promise<Pricing[]> {
-  const response = (await fetch(endPoints.getPricingConfig))
-
-  if (!response.ok) {
-    throw new Error(uiConstants.toastError)
-  }
-
-  return response.json()
-}
-
-async function getProductConfig(): Promise<Product[]> {
-  const response = (await fetch(endPoints.getProductConfig))
-
-  if (!response.ok) {
-    throw new Error(uiConstants.toastError)
-  }
-
-  return response.json()
-}
-
-async function getSolutionConfig(): Promise<Solution[]> {
-  const response = (await fetch(endPoints.getSolutionConfig))
-
-  if (!response.ok) {
-    throw new Error(uiConstants.toastError)
-  }
-
-  return response.json()
-}
-
 export default async function Page() {
-  const pricing = await getPricingConfig()
-  const products = await getProductConfig()
-  const solutions = await getSolutionConfig()
+  const pricing: Pricing[] = await (await fetch(endPoints.getPricingConfig)).json()
+  const products: Product[] = await (await fetch(endPoints.getProductConfig)).json()
+  const solutions: Solution[] = await (await fetch(endPoints.getSolutionConfig)).json()
 
   const renderComputeTiers = pricing?.map((tier) => {
     return (
