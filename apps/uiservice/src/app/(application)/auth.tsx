@@ -141,7 +141,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
                     </div>
                   </Suspense>
                   <div className="grid gap-2">
-                    <Label htmlFor="otp">OTP</Label>
+                    <Label htmlFor="otp">One Time Password</Label>
                     <Input className="h-11" type="password" placeholder="Enter OTP sent to your email" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, otp: e.target.value })} autoComplete={"off"} minLength={6} maxLength={6} />
                   </div>
                   <Button variant="default" type="submit" disabled={isAuthLoading} className="w-full h-11">
