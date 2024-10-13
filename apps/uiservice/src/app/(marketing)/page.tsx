@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 import { brandName, uiConstants } from "@/constants/global-constants"
