@@ -3,7 +3,6 @@ import { Copy, Orbit } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { useRouter } from "next/navigation"
@@ -24,18 +23,17 @@ export default function Page() {
 
   const renderProducts = products?.data?.map((product: Product) => {
     return (
-      <TableRow className="bg-accent cursor-pointer" key={product?._id} onClick={(): void => router.push(`/products/${product?.productName}`)}>
-        <TableCell>
-          <div className="font-medium">{brandName} {product?.displayName}</div>
-          <div className="hidden text-xs text-zinc-500 md:inline">
-            {product?.description}
+      <div className="relative overflow-hidden rounded-lg border bg-white p-2 cursor-pointer" key={product?._id} onClick={(): void => router.push(`/products/${product?.productName}`)}>
+        <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+          <div dangerouslySetInnerHTML={{ __html: product?.productIcon }} style={{ zoom: "150%" }}></div>
+          <div className="space-y-2">
+            <h3 className="font-bold">{brandName} {product?.displayName}</h3>
+            <p className="text-sm text-zinc-600">
+              {product?.description}
+            </p>
           </div>
-        </TableCell>
-        <TableCell className="hidden sm:table-cell">
-          {product?.productCategory}
-        </TableCell>
-        <TableCell className="text-right">{product?.productStatus}</TableCell>
-      </TableRow>
+        </div>
+      </div>
     )
   })
 
@@ -84,28 +82,9 @@ export default function Page() {
                 </CardFooter>
               </Card>
             </div>
-            <Card>
-              <CardHeader className="px-7">
-                <CardTitle>Products</CardTitle>
-                <CardDescription>
-                  Product offerings by {brandName}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Product</TableHead>
-                      <TableHead className="hidden sm:table-cell">Category</TableHead>
-                      <TableHead className="text-right">Status</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {renderProducts}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
+            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
+              {renderProducts}
+            </div>
           </div>
           <div>
             <Card className="overflow-hidden">
