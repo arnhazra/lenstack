@@ -10,12 +10,12 @@ import { uiConstants } from "@/constants/global-constants"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 
 export function OrgSwitcher() {
-  const [{ userState, organizations }, dispatch] = useContext(GlobalContext)
+  const [{ user, organizations }, dispatch] = useContext(GlobalContext)
 
   const switchOrg = async (orgId: string) => {
     try {
       await ky.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`, { timeout: FETCH_TIMEOUT })
-      dispatch("setUserState", { refreshId: Math.random().toString() })
+      dispatch("setRefreshId", Math.random().toString())
       toast({
         title: uiConstants.notification,
         description: <p className="text-zinc-600">{uiConstants.organizationSwitched}</p>
@@ -31,7 +31,7 @@ export function OrgSwitcher() {
   }
 
   return (
-    <Select defaultValue={userState.selectedOrgId} onValueChange={(value: string) => switchOrg(value)}>
+    <Select defaultValue={user.selectedOrgId} onValueChange={(value: string) => switchOrg(value)}>
       <SelectTrigger
         className="shadow-sm org-switcher pl-4 sm:w-[200px] md:w-[200px] lg:w-[250px] flex items-center gap-2 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"
         aria-label="Select org"
@@ -39,7 +39,7 @@ export function OrgSwitcher() {
         <SelectValue placeholder="Select an org">
           <Orbit />
           <span className="ml-2">
-            {organizations.find((org) => org._id === userState.selectedOrgId)?.name}
+            {organizations.find((org) => org._id === user.selectedOrgId)?.name}
           </span>
         </SelectValue>
         <ChevronsUpDown />

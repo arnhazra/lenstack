@@ -12,32 +12,30 @@ import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 import Sidebar from "@/components/sidebar"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [{ userState }, dispatch] = useContext(GlobalContext)
+  const [{ refreshId }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   useEffect(() => {
     const getUserDetails = async () => {
       try {
-        if (!userState.refreshId) {
+        if (!refreshId) {
           setLoading(true)
         }
         const response: any = await ky.get(endPoints.userDetails, { timeout: FETCH_TIMEOUT }).json()
         const organizations: any = await ky.get(endPoints.organization, { timeout: FETCH_TIMEOUT }).json()
-        const { _id: userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId } = response.user
-        const { name: selectedOrgName, clientId, clientSecret } = response.organization
+        const { clientId, clientSecret } = response.organization
         localStorage.setItem("clientId", clientId)
         localStorage.setItem("clientSecret", clientSecret)
-        dispatch("setUserState", { userId, email, name, role, walletBalance, computeTier, reduceCarbonEmissions, activityLog, selectedOrgId, selectedOrgName, clientId, clientSecret })
-        dispatch("setUserState", { isAuthorized: true })
-        dispatch("setOrgState", organizations)
+        dispatch("setUser", response.user)
+        dispatch("setSelectedOrg", response.organization)
+        dispatch("setOrgs", organizations)
         setAuthorized(true)
       }
 
       catch (error: any) {
         if (error.response) {
           if (error.response.status === 401) {
-            dispatch("setUserState", { isAuthorized: false })
             setAuthorized(false)
           }
 
@@ -70,7 +68,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       setAuthorized(false)
       setLoading(false)
     }
-  }, [userState.refreshId, isAuthorized])
+  }, [refreshId, isAuthorized])
 
   const appLayout = (
     <>

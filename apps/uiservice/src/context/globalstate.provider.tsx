@@ -1,31 +1,34 @@
 "use client"
 import { ReactNode, createContext, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer, UserState } from "./globalstate.reducer"
-import { Organization } from "@/types/Types"
+import { GlobalState, Actions, ActionsMap, GlobalReducer } from "./globalstate.reducer"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(type: Type, payload: ActionsMap[Type]) => void
 
 type GlobalContextInterface = readonly [GlobalState, Dispatcher]
 
-const initialState: { userState: UserState, organizations: Organization[] } = {
-  userState: {
-    userId: "",
+const initialState: GlobalState = {
+  user: {
+    _id: "",
+    activityLog: true,
+    computeTier: "",
+    createdAt: "",
     email: "",
     name: "",
-    role: "",
-    walletBalance: 0,
-    computeTier: "standard",
     reduceCarbonEmissions: true,
-    activityLog: true,
+    role: "",
     selectedOrgId: "",
-    selectedOrgName: "",
+    walletBalance: 0
+  },
+  selectedOrg: {
+    _id: "",
     clientId: "",
     clientSecret: "",
-    isAuthorized: false,
-    refreshId: "648e6587-ebd0-442b-b338-1fb8d8a01192",
+    createdAt: "",
+    name: "",
+    userId: ""
   },
-
   organizations: [],
+  refreshId: Math.random().toString()
 }
 
 export const GlobalContext = createContext<GlobalContextInterface>([initialState, ((): void => undefined)])

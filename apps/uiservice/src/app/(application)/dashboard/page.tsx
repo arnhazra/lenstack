@@ -18,7 +18,7 @@ import MaskText from "@/components/mask"
 
 export default function Page() {
   const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ user, selectedOrg }] = useContext(GlobalContext)
   const router = useRouter()
 
   const renderProducts = products?.data?.map((product: Product) => {
@@ -45,7 +45,7 @@ export default function Page() {
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
               <Card className="sm:col-span-2">
                 <CardHeader className="pb-3">
-                  <CardTitle>Hey, {userState.name.split(" ")[0]}</CardTitle>
+                  <CardTitle>Hey, {user.name.split(" ")[0]}</CardTitle>
                   <CardDescription className="max-w-lg text-balance leading-relaxed">
                     Introducing Our Dynamic Dashboard for Seamless
                     Management and Insightful Analysis.
@@ -58,7 +58,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Wallet Balance</CardDescription>
-                  <CardTitle className="text-2xl">$ {userState.walletBalance.toFixed(2)}</CardTitle>
+                  <CardTitle className="text-2xl">$ {user.walletBalance.toFixed(2)}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -71,7 +71,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Compute Tier</CardDescription>
-                  <CardTitle className="text-2xl capitalize">{userState.computeTier}</CardTitle>
+                  <CardTitle className="text-2xl capitalize">{user.computeTier}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -97,7 +97,7 @@ export default function Page() {
                       <span className="sr-only">Copy Order ID</span>
                     </Button>
                   </CardTitle>
-                  <CardDescription>{userState?.selectedOrgName}</CardDescription>
+                  <CardDescription>{selectedOrg.name}</CardDescription>
                 </div>
                 <div className="ml-auto flex items-center gap-1">
                   <Button size="sm" variant="outline" className="h-8 gap-1" onClick={(): void => router.push("/settings/organization")}>
@@ -116,13 +116,13 @@ export default function Page() {
                       <span className="text-muted-foreground">
                         Client Id
                       </span>
-                      <span><MaskText value={userState.clientId} /></span>
+                      <span><MaskText value={selectedOrg.clientId} /></span>
                     </li>
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
                         Client Secret
                       </span>
-                      <span><MaskText value={userState.clientSecret} /></span>
+                      <span><MaskText value={selectedOrg.clientSecret} /></span>
                     </li>
                   </ul>
                 </div>
@@ -132,17 +132,17 @@ export default function Page() {
                   <dl className="grid gap-3">
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Name</dt>
-                      <dd>{userState.name}</dd>
+                      <dd>{user.name}</dd>
                     </div>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Email</dt>
                       <dd>
-                        <a href="mailto:">{userState.email}</a>
+                        <a href="mailto:">{user.email}</a>
                       </dd>
                     </div>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Wallet Balance</dt>
-                      <dd>$ {userState.walletBalance.toFixed(2)}</dd>
+                      <dd>$ {user.walletBalance.toFixed(2)}</dd>
                     </div>
                   </dl>
                 </div>
