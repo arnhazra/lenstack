@@ -3,8 +3,8 @@ import { PricingService } from "./pricing.service"
 import { CreateCheckoutSessionDto } from "./dto/checkout.dto"
 import { envConfig } from "src/env.config"
 import { otherConstants } from "src/shared/utils/constants/other-constants"
-import { TokenGuard } from "src/auth/token.guard"
-import { ModRequest } from "src/auth/types/mod-request.interface"
+import { TokenGuard } from "src/shared/auth/token.guard"
+import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
 @Controller("pricing")
 export class PricingController {

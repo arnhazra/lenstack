@@ -1,30 +1,17 @@
-import { Organization } from "@/types/Types"
+import { Organization, User } from "@/types/Types"
 
-export interface UserState {
-  userId: string
-  email: string
-  name: string
-  role: string
-  walletBalance: number,
-  computeTier: string
-  reduceCarbonEmissions: boolean,
-  activityLog: boolean,
-  selectedOrgId: string
-  selectedOrgName: string
-  clientId: string
-  clientSecret: string
-  isAuthorized: boolean,
+export type GlobalState = {
+  user: User,
+  selectedOrg: Organization,
+  organizations: Organization[],
   refreshId: string,
 }
 
-export type GlobalState = {
-  userState: UserState,
-  organizations: Organization[]
-}
-
 export type ActionsMap = {
-  setUserState: Partial<UserState>,
-  setOrgState: Organization[]
+  setUser: Partial<User>,
+  setSelectedOrg: Organization,
+  setOrgs: Organization[],
+  setRefreshId: string,
 }
 
 export type Actions = {
@@ -36,14 +23,24 @@ export type Actions = {
 
 export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState => {
   switch (action.type) {
-    case "setUserState":
+    case "setUser":
       return {
-        ...state, userState: { ...state.userState, ...action.payload }
+        ...state, user: { ...state.user, ...action.payload }
       }
 
-    case "setOrgState":
+    case "setSelectedOrg":
+      return {
+        ...state, selectedOrg: action.payload
+      }
+
+    case "setOrgs":
       return {
         ...state, organizations: action.payload
+      }
+
+    case "setRefreshId":
+      return {
+        ...state, refreshId: action.payload
       }
 
     default:

@@ -9,7 +9,7 @@ import HTTPMethods from "@/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 
 export default function useQuery(queryKey: string[], queryUrl: string, method: HTTPMethods, requestBody?: object) {
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ user }] = useContext(GlobalContext)
 
   const fetchDataFunction = async () => {
     const data: any = await ky(queryUrl, { method, json: requestBody, timeout: FETCH_TIMEOUT }).json()
@@ -17,10 +17,10 @@ export default function useQuery(queryKey: string[], queryUrl: string, method: H
   }
 
   const { error, data, isLoading, refetch, isRefetching } = useReactQuery({
-    queryKey: [...queryKey, userState.selectedOrgId],
+    queryKey: [...queryKey, user.selectedOrgId],
     queryFn: fetchDataFunction,
-    refetchOnWindowFocus: !userState.reduceCarbonEmissions,
-    refetchInterval: userState.reduceCarbonEmissions ? false : 30000
+    refetchOnWindowFocus: !user.reduceCarbonEmissions,
+    refetchInterval: user.reduceCarbonEmissions ? false : 30000
   })
 
   if (error) {

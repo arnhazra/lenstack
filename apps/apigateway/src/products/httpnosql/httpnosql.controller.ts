@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Delete, Get, Patch, Param, Request, UseGuards } from "@nestjs/common"
 import { HttpNosqlService } from "./httpnosql.service"
 import { CreateDataDto } from "./dto/create-data.dto"
-import { ModRequest } from "src/auth/types/mod-request.interface"
-import { CredentialGuard } from "src/auth/credential.guard"
+import { ModRequest } from "src/shared/auth/types/mod-request.interface"
+import { CredentialGuard } from "src/shared/auth/credential.guard"
 
 @Controller("products/httpnosql")
 export class HttpNosqlController {

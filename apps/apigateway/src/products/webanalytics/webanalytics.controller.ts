@@ -1,8 +1,8 @@
 import { Controller, Post, Body, BadRequestException, Get, UseGuards, Request } from "@nestjs/common"
 import { CreateEventsDto } from "./dto/create-events.dto"
 import { WebAnalyticsService } from "./webanalytics.service"
-import { CredentialGuard } from "src/auth/credential.guard"
-import { ModRequest } from "src/auth/types/mod-request.interface"
+import { CredentialGuard } from "src/shared/auth/credential.guard"
+import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
 @Controller("products/webanalytics")
 export class WebAnalyticsController {

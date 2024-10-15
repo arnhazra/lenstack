@@ -84,7 +84,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
   }
 
   return (
-    <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+    <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 overflow-hidden">
       <div className="relative hidden h-full flex-col bg-zinc-100 p-10 text-white lg:flex dark:border-r">
         <div className="absolute inset-0 bg-zinc-900" />
         <Link href="/">
@@ -141,7 +141,7 @@ export default function AuthenticationPage({ onAuthorized }: AuthProviderProps) 
                     </div>
                   </Suspense>
                   <div className="grid gap-2">
-                    <Label htmlFor="otp">OTP</Label>
+                    <Label htmlFor="otp">One Time Password</Label>
                     <Input className="h-11" type="password" placeholder="Enter OTP sent to your email" required disabled={isAuthLoading} onChange={(e) => setState({ ...state, otp: e.target.value })} autoComplete={"off"} minLength={6} maxLength={6} />
                   </div>
                   <Button variant="default" type="submit" disabled={isAuthLoading} className="w-full h-11">

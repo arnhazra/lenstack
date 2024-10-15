@@ -14,7 +14,7 @@ import ErrorComponent from "@/components/error"
 import { brandName } from "@/constants/global-constants"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ user }] = useContext(GlobalContext)
   const router = useRouter()
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
@@ -40,7 +40,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   )
 
   return (
-    <Suspense condition={userState.walletBalance < 0.2} fallback={productLayout}>
+    <Suspense condition={user.walletBalance < 0.2} fallback={productLayout}>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm">
           <CardHeader>

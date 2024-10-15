@@ -25,6 +25,7 @@ import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
 import Link from "next/link"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
+import { generateUUID } from "@/lib/uuid-gen"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -37,23 +38,18 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
 }
 
 export default function Page({ params }: { params: { tab: string } }) {
-  const [{ userState }, dispatch] = useContext(GlobalContext)
-  const [computeTier, setComputeTier] = useState<string>(userState.computeTier)
+  const [{ user, organizations }, dispatch] = useContext(GlobalContext)
+  const [computeTier, setComputeTier] = useState<string>(user.computeTier)
   const selectedTab = params.tab
   const router = useRouter()
-  const organizations = useQuery(["organizations"], endPoints.organization, HTTPMethods.GET)
   const pricing = useQuery(["pricing"], endPoints.getPricingConfig, HTTPMethods.GET)
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
-      dispatch("setUserState", { reduceCarbonEmissions: updatedSettings })
+      dispatch("setUser", { reduceCarbonEmissions: updatedSettings })
       await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-      })
     }
 
     catch (error) {
@@ -66,12 +62,8 @@ export default function Page({ params }: { params: { tab: string } }) {
 
   const saveComputeTier = async () => {
     try {
-      dispatch("setUserState", { computeTier })
+      dispatch("setUser", { computeTier })
       await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`, { timeout: FETCH_TIMEOUT })
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-      })
     }
 
     catch (error) {
@@ -84,12 +76,8 @@ export default function Page({ params }: { params: { tab: string } }) {
 
   const saveActivityLogSettings = async (updatedSettings: boolean) => {
     try {
-      dispatch("setUserState", { activityLog: updatedSettings })
+      dispatch("setUser", { activityLog: updatedSettings })
       await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-      })
     }
 
     catch (error) {
@@ -132,8 +120,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     if (hasConfirmed && value) {
       try {
         await ky.post(endPoints.organization, { json: { name: value }, timeout: FETCH_TIMEOUT })
-        organizations.refetch()
-        dispatch("setUserState", { refreshId: Math.random().toString() })
+        dispatch("setRefreshId", generateUUID())
         toast({
           title: uiConstants.notification,
           description: <p className="text-zinc-600">{uiConstants.organizationCreated}</p>
@@ -172,8 +159,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     if (response) {
       try {
         await ky.delete(`${endPoints.organization}/${orgId}`, { timeout: FETCH_TIMEOUT })
-        organizations.refetch()
-        dispatch("setUserState", { refreshId: Math.random().toString() })
+        dispatch("setRefreshId", generateUUID())
         toast({
           title: uiConstants.notification,
           description: <p className="text-zinc-600">{uiConstants.organizationDeleted}</p>
@@ -194,12 +180,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     if (response) {
       try {
         await ky.patch(`${endPoints.organization}/${orgId}`, { timeout: FETCH_TIMEOUT })
-        organizations.refetch()
-        dispatch("setUserState", { refreshId: Math.random().toString() })
-        toast({
-          title: uiConstants.notification,
-          description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-        })
+        dispatch("setRefreshId", generateUUID())
       }
 
       catch (error) {
@@ -211,12 +192,12 @@ export default function Page({ params }: { params: { tab: string } }) {
     }
   }
 
-  const renderOrgs = organizations?.data?.map((organization: any) => {
+  const renderOrgs = organizations?.map((organization: any) => {
     return (
       <OrgPanel
         key={organization?._id}
         orgId={organization?._id}
-        isSelected={organization._id === userState.selectedOrgId}
+        isSelected={organization._id === user.selectedOrgId}
         displayName={organization?.name}
         clientId={organization?.clientId}
         clientSecret={organization?.clientSecret}
@@ -229,8 +210,8 @@ export default function Page({ params }: { params: { tab: string } }) {
 
   return (
     <Suspense condition={tabsList.includes(selectedTab as Tabs)} fallback={<ErrorComponent />}>
-      <Suspense condition={!organizations.isLoading && !pricing.isLoading} fallback={<LoadingComponent />}>
-        <Suspense condition={!organizations.error && !pricing.error} fallback={<ErrorComponent />}>
+      <Suspense condition={!pricing.isLoading} fallback={<LoadingComponent />}>
+        <Suspense condition={!pricing.error} fallback={<ErrorComponent />}>
           <div className="mx-auto grid w-full gap-2">
             <div className="flex justify-between">
               <div className="flex gap-4 mb-4">
@@ -238,8 +219,8 @@ export default function Page({ params }: { params: { tab: string } }) {
                   <CircleUser className="h-5 w-5" />
                 </Button>
                 <div>
-                  <p className="text-sm  font-semibold">{userState.name}</p>
-                  <p className="text-sm text-zinc-600 font-semibold">{userState.email}</p>
+                  <p className="text-sm  font-semibold">{user.name}</p>
+                  <p className="text-sm text-zinc-600 font-semibold">{user.email}</p>
                 </div>
               </div>
               <Suspense condition={selectedTab === Tabs.Organization} fallback={null}>
@@ -257,20 +238,20 @@ export default function Page({ params }: { params: { tab: string } }) {
                   <SectionPanel
                     icon={<User className="scale-75" />}
                     title="Your Name"
-                    content={userState.name}
+                    content={user.name}
                   />
                   <SectionPanel
                     icon={<IdCard className="scale-75" />}
                     title={`${brandName} ID`}
-                    content={userState.userId}
+                    content={user._id}
                     masked
-                    actionComponent={<CopyToClipboard value={userState.userId} />}
+                    actionComponent={<CopyToClipboard value={user._id} />}
                   />
                   <SectionPanel
                     icon={<AtSign className="scale-75" />}
                     title="Your Email"
-                    content={userState.email}
-                    actionComponent={<CopyToClipboard value={userState.email} />}
+                    content={user.email}
+                    actionComponent={<CopyToClipboard value={user.email} />}
                   />
                   <SectionPanel
                     icon={<CircleArrowRight className="scale-75" />}
@@ -284,7 +265,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                 <SectionPanel
                   icon={<Wallet className="scale-75" />}
                   title="Your Wallet Balance"
-                  content={`$ ${userState.walletBalance.toFixed(2)}`}
+                  content={`$ ${user.walletBalance.toFixed(2)}`}
                   actionComponent={
                     <Button
                       className="rounded-full"
@@ -303,7 +284,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                     icon={<PieChart className="scale-75" />}
                     title="Activity Log"
                     content="Choose whether to save the things you do to get more relevant results"
-                    actionComponent={<Switch checked={userState.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />}
+                    actionComponent={<Switch checked={user.activityLog} onCheckedChange={(value): Promise<void> => saveActivityLogSettings(value)} />}
                   />
                   <SectionPanel
                     icon={<Fingerprint className="scale-75" />}
@@ -336,7 +317,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Select defaultValue={userState.computeTier} onValueChange={(value: string) => setComputeTier(value)}>
+                      <Select defaultValue={user.computeTier} onValueChange={(value: string) => setComputeTier(value)}>
                         <SelectTrigger className="capitalize">
                           <SelectValue />
                         </SelectTrigger>
@@ -372,7 +353,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                   content={`Turn this settings on to reduce carbon footprints inside ${brandName}`}
                   actionComponent={
                     <Switch
-                      checked={userState.reduceCarbonEmissions}
+                      checked={user.reduceCarbonEmissions}
                       onCheckedChange={(value): Promise<void> => saveSustainabilitySettings(value)}
                     />}
                 />
@@ -382,7 +363,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                   <div className="bg-zinc-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
                     <span className="text-6xl text-white font-bold">16</span>
                   </div>
-                  <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.1.0</p>
+                  <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.2.0</p>
                   <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
                 </div>
               </Suspense>

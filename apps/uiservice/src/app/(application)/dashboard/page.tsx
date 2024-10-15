@@ -3,7 +3,6 @@ import { Copy, Orbit } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { useRouter } from "next/navigation"
@@ -19,23 +18,22 @@ import MaskText from "@/components/mask"
 
 export default function Page() {
   const products = useQuery(["products"], endPoints.getProductConfig, HTTPMethods.GET)
-  const [{ userState }] = useContext(GlobalContext)
+  const [{ user, selectedOrg }] = useContext(GlobalContext)
   const router = useRouter()
 
   const renderProducts = products?.data?.map((product: Product) => {
     return (
-      <TableRow className="bg-accent cursor-pointer" key={product?._id} onClick={(): void => router.push(`/products/${product?.productName}`)}>
-        <TableCell>
-          <div className="font-medium">{brandName} {product?.displayName}</div>
-          <div className="hidden text-xs text-zinc-500 md:inline">
-            {product?.description}
+      <div className="relative overflow-hidden rounded-lg border bg-white p-2 cursor-pointer" key={product?._id} onClick={(): void => router.push(`/products/${product?.productName}`)}>
+        <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+          <div dangerouslySetInnerHTML={{ __html: product?.productIcon }} style={{ zoom: "150%" }}></div>
+          <div className="space-y-2">
+            <h3 className="font-bold">{brandName} {product?.displayName}</h3>
+            <p className="text-sm text-zinc-600">
+              {product?.description}
+            </p>
           </div>
-        </TableCell>
-        <TableCell className="hidden sm:table-cell">
-          {product?.productCategory}
-        </TableCell>
-        <TableCell className="text-right">{product?.productStatus}</TableCell>
-      </TableRow>
+        </div>
+      </div>
     )
   })
 
@@ -47,7 +45,7 @@ export default function Page() {
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
               <Card className="sm:col-span-2">
                 <CardHeader className="pb-3">
-                  <CardTitle>Hey, {userState.name.split(" ")[0]}</CardTitle>
+                  <CardTitle>Hey, {user.name.split(" ")[0]}</CardTitle>
                   <CardDescription className="max-w-lg text-balance leading-relaxed">
                     Introducing Our Dynamic Dashboard for Seamless
                     Management and Insightful Analysis.
@@ -60,7 +58,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Wallet Balance</CardDescription>
-                  <CardTitle className="text-2xl">$ {userState.walletBalance.toFixed(2)}</CardTitle>
+                  <CardTitle className="text-2xl">$ {user.walletBalance.toFixed(2)}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -73,7 +71,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Compute Tier</CardDescription>
-                  <CardTitle className="text-2xl capitalize">{userState.computeTier}</CardTitle>
+                  <CardTitle className="text-2xl capitalize">{user.computeTier}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -84,28 +82,9 @@ export default function Page() {
                 </CardFooter>
               </Card>
             </div>
-            <Card>
-              <CardHeader className="px-7">
-                <CardTitle>Products</CardTitle>
-                <CardDescription>
-                  Product offerings by {brandName}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Product</TableHead>
-                      <TableHead className="hidden sm:table-cell">Category</TableHead>
-                      <TableHead className="text-right">Status</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {renderProducts}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
+            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
+              {renderProducts}
+            </div>
           </div>
           <div>
             <Card className="overflow-hidden">
@@ -118,7 +97,7 @@ export default function Page() {
                       <span className="sr-only">Copy Order ID</span>
                     </Button>
                   </CardTitle>
-                  <CardDescription>{userState?.selectedOrgName}</CardDescription>
+                  <CardDescription>{selectedOrg.name}</CardDescription>
                 </div>
                 <div className="ml-auto flex items-center gap-1">
                   <Button size="sm" variant="outline" className="h-8 gap-1" onClick={(): void => router.push("/settings/organization")}>
@@ -137,13 +116,13 @@ export default function Page() {
                       <span className="text-muted-foreground">
                         Client Id
                       </span>
-                      <span><MaskText value={userState.clientId} /></span>
+                      <span><MaskText value={selectedOrg.clientId} /></span>
                     </li>
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
                         Client Secret
                       </span>
-                      <span><MaskText value={userState.clientSecret} /></span>
+                      <span><MaskText value={selectedOrg.clientSecret} /></span>
                     </li>
                   </ul>
                 </div>
@@ -153,17 +132,17 @@ export default function Page() {
                   <dl className="grid gap-3">
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Name</dt>
-                      <dd>{userState.name}</dd>
+                      <dd>{user.name}</dd>
                     </div>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Email</dt>
                       <dd>
-                        <a href="mailto:">{userState.email}</a>
+                        <a href="mailto:">{user.email}</a>
                       </dd>
                     </div>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Wallet Balance</dt>
-                      <dd>$ {userState.walletBalance.toFixed(2)}</dd>
+                      <dd>$ {user.walletBalance.toFixed(2)}</dd>
                     </div>
                   </dl>
                 </div>

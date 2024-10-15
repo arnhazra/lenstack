@@ -34,3 +34,16 @@ export type Organization = {
   clientSecret: string,
   createdAt: string
 }
+
+export type User = {
+  _id: string,
+  email: string,
+  name: string,
+  role: string,
+  walletBalance: number,
+  computeTier: string,
+  reduceCarbonEmissions: boolean,
+  activityLog: boolean,
+  createdAt: string,
+  selectedOrgId: string
+}
