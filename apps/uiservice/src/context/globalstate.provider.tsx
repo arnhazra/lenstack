@@ -1,6 +1,7 @@
 "use client"
 import { ReactNode, createContext, useReducer } from "react"
 import { GlobalState, Actions, ActionsMap, GlobalReducer } from "./globalstate.reducer"
+import { generateUUID } from "@/lib/uuid-gen"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(type: Type, payload: ActionsMap[Type]) => void
 
@@ -28,7 +29,7 @@ const initialState: GlobalState = {
     userId: ""
   },
   organizations: [],
-  refreshId: Math.random().toString()
+  refreshId: generateUUID()
 }
 
 export const GlobalContext = createContext<GlobalContextInterface>([initialState, ((): void => undefined)])

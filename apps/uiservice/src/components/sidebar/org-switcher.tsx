@@ -8,6 +8,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { toast } from "../ui/use-toast"
 import { uiConstants } from "@/constants/global-constants"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
+import { generateUUID } from "@/lib/uuid-gen"
 
 export function OrgSwitcher() {
   const [{ user, organizations }, dispatch] = useContext(GlobalContext)
@@ -15,7 +16,7 @@ export function OrgSwitcher() {
   const switchOrg = async (orgId: string) => {
     try {
       await ky.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`, { timeout: FETCH_TIMEOUT })
-      dispatch("setRefreshId", Math.random().toString())
+      dispatch("setRefreshId", generateUUID())
       toast({
         title: uiConstants.notification,
         description: <p className="text-zinc-600">{uiConstants.organizationSwitched}</p>

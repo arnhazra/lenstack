@@ -10,6 +10,7 @@ import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 import Sidebar from "@/components/sidebar"
+import { Organization, User } from "@/types/Types"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)
@@ -19,14 +20,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     const getUserDetails = async () => {
       try {
-        if (!refreshId) {
-          setLoading(true)
-        }
-        const response: any = await ky.get(endPoints.userDetails, { timeout: FETCH_TIMEOUT }).json()
-        const organizations: any = await ky.get(endPoints.organization, { timeout: FETCH_TIMEOUT }).json()
-        const { clientId, clientSecret } = response.organization
-        localStorage.setItem("clientId", clientId)
-        localStorage.setItem("clientSecret", clientSecret)
+        const response: { user: User, organization: Organization } = await ky.get(endPoints.userDetails, { timeout: FETCH_TIMEOUT }).json()
+        const organizations: Organization[] = await ky.get(endPoints.organization, { timeout: FETCH_TIMEOUT }).json()
+        localStorage.setItem("clientId", response.organization.clientId)
+        localStorage.setItem("clientSecret", response.organization.clientSecret)
         dispatch("setUser", response.user)
         dispatch("setSelectedOrg", response.organization)
         dispatch("setOrgs", organizations)

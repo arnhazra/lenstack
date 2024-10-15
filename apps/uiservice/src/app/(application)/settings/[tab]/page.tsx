@@ -25,6 +25,7 @@ import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
 import Link from "next/link"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
+import { generateUUID } from "@/lib/uuid-gen"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -131,7 +132,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     if (hasConfirmed && value) {
       try {
         await ky.post(endPoints.organization, { json: { name: value }, timeout: FETCH_TIMEOUT })
-        dispatch("setRefreshId", Math.random().toString())
+        dispatch("setRefreshId", generateUUID())
         toast({
           title: uiConstants.notification,
           description: <p className="text-zinc-600">{uiConstants.organizationCreated}</p>
@@ -170,7 +171,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     if (response) {
       try {
         await ky.delete(`${endPoints.organization}/${orgId}`, { timeout: FETCH_TIMEOUT })
-        dispatch("setRefreshId", Math.random().toString())
+        dispatch("setRefreshId", generateUUID())
         toast({
           title: uiConstants.notification,
           description: <p className="text-zinc-600">{uiConstants.organizationDeleted}</p>
@@ -191,7 +192,7 @@ export default function Page({ params }: { params: { tab: string } }) {
     if (response) {
       try {
         await ky.patch(`${endPoints.organization}/${orgId}`, { timeout: FETCH_TIMEOUT })
-        dispatch("setRefreshId", Math.random().toString())
+        dispatch("setRefreshId", generateUUID())
         toast({
           title: uiConstants.notification,
           description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
