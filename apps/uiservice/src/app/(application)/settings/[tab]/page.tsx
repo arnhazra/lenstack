@@ -50,10 +50,6 @@ export default function Page({ params }: { params: { tab: string } }) {
     try {
       dispatch("setUser", { reduceCarbonEmissions: updatedSettings })
       await ky.patch(`${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-      })
     }
 
     catch (error) {
@@ -68,10 +64,6 @@ export default function Page({ params }: { params: { tab: string } }) {
     try {
       dispatch("setUser", { computeTier })
       await ky.patch(`${endPoints.updateAttribute}/computeTier/${computeTier}`, { timeout: FETCH_TIMEOUT })
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-      })
     }
 
     catch (error) {
@@ -86,10 +78,6 @@ export default function Page({ params }: { params: { tab: string } }) {
     try {
       dispatch("setUser", { activityLog: updatedSettings })
       await ky.patch(`${endPoints.updateAttribute}/activityLog/${updatedSettings}`, { timeout: FETCH_TIMEOUT })
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-      })
     }
 
     catch (error) {
@@ -193,10 +181,6 @@ export default function Page({ params }: { params: { tab: string } }) {
       try {
         await ky.patch(`${endPoints.organization}/${orgId}`, { timeout: FETCH_TIMEOUT })
         dispatch("setRefreshId", generateUUID())
-        toast({
-          title: uiConstants.notification,
-          description: <p className="text-zinc-600">{uiConstants.toastSuccess}</p>
-        })
       }
 
       catch (error) {

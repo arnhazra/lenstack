@@ -9,7 +9,6 @@ export const uiConstants = {
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Credentials",
   errorMessage: "Not Found",
-  toastSuccess: "Action Success",
   toastError: "Something went wrong",
   notification: "Notification",
   copiedToClipBoard: "Copied to Clipboard",
