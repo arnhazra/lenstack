@@ -23,7 +23,7 @@ export class DatamarketplaceController {
   }
 
   @UseGuards(TokenGuard)
-  @Post("finddatasets")
+  @Post("listings")
   async findDatasets(@Body() findDatasetsDto: FindDatasetsDto) {
     try {
       return await this.datamarketplaceService.findDatasets(findDatasetsDto)

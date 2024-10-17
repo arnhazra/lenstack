@@ -103,7 +103,7 @@ export default function Page() {
                     defaultValue={datasetRequestState.searchQuery}
                     onChange={(e): void => setDatasetRequestState({ ...datasetRequestState, searchQuery: e.target.value })}
                     type="search"
-                    placeholder="Type anything and press enter to find datasets powered by AI"
+                    placeholder="Type anything and press enter to find datasets"
                     className="mb-4 pl-8 w-full h-12 focus:outline-none"
                   />
                   <p className="text-xs text-zinc-500 -mt-2 mb-4 ms-1">{uiConstants.aiSafetyStatement}</p>
@@ -111,25 +111,23 @@ export default function Page() {
               </form>
             </div>
             <section className="grid gap-6 mb-4">
-              <Suspense condition={!datasetRequestState.searchQuery} fallback={null}>
-                <div className="ml-auto flex items-center gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="h-8 gap-1">
-                        <SortAsc className="h-3.5 w-3.5" />
-                        <span>
-                          Sort
-                        </span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Sort</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      {renderSortOptions}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </Suspense>
+              <div className="ml-auto flex items-center gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8 gap-1">
+                      <SortAsc className="h-3.5 w-3.5" />
+                      <span>
+                        Sort
+                      </span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Sort</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {renderSortOptions}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
               <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
                 {renderDatasets}
               </div>
