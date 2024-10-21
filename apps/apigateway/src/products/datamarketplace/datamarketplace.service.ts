@@ -7,8 +7,6 @@ import { FindMetadataByIdQuery } from "./queries/impl/find-metadata.query"
 import { FindDataByIdQuery } from "./queries/impl/find-data.query"
 import { Metadata } from "./schemas/metadata.schema"
 import { Dataset } from "./schemas/dataset.schema"
-import { envConfig } from "src/env.config"
-import { datasetSearchPrompt } from "src/shared/utils/prompts.config"
 
 @Injectable()
 export class DatamarketplaceService {
