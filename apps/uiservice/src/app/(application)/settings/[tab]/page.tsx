@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import Suspense from "@/components/suspense"
 import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
-import { AtSign, CircleArrowRight, CircleUser, Fingerprint, IdCard, Info, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
+import { AtSign, CircleArrowRight, Fingerprint, IdCard, Info, Layers2, Leaf, Orbit, PieChart, PlusCircle, ScanFace, ShieldCheck, User, Wallet } from "lucide-react"
 import { useRouter } from "next/navigation"
 import OrgPanel from "@/components/orgpanel"
 import useQuery from "@/hooks/use-query"
@@ -215,8 +215,8 @@ export default function Page({ params }: { params: { tab: string } }) {
           <div className="mx-auto grid w-full gap-2">
             <div className="flex justify-between">
               <div className="flex gap-4 mb-4">
-                <Button variant="secondary" size="icon" className="rounded-full">
-                  <CircleUser className="h-5 w-5" />
+                <Button variant="outline" size="icon" className="rounded-full">
+                  <User className="scale-75" />
                 </Button>
                 <div>
                   <p className="text-sm  font-semibold">{user.name}</p>
@@ -363,7 +363,7 @@ export default function Page({ params }: { params: { tab: string } }) {
                   <div className="bg-zinc-200 w-24 h-24 rounded-2xl flex items-center justify-center ecosystem">
                     <span className="text-6xl text-white font-bold">16</span>
                   </div>
-                  <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.2.0</p>
+                  <p className="text-xs text-zinc-700 mt-4">{brandName} EcoSystem 16.2.1</p>
                   <Link target="_blank" className="text-xs text-blue-500" href="https://github.com/arnhazra/arcstack/blob/main/CHANGELOG.md">View Changelog</Link>
                 </div>
               </Suspense>
