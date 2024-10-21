@@ -16,7 +16,8 @@ An application that seamlessly integrates with trained LLM with massive data can
 A lightweight analytics provider for web applications. It empowers you to make informed analysis and better decisions.
 
 ### What is the cost of using this platform ?
-Typically, utilizing this platform incurs no cost. There are several paid plans to choose from. Upon successfully creating an account on the application, an Ethereum wallet will be promptly allocated to you. This wallet serves as a designated repository for your funds, allowing you to conveniently deposit the desired amount to cover the charges and enable seamless utilization of the platform"s services.
+Typically, utilizing this platform incurs no cost. We have implemented a test stripe payment gateway to have a more realistic SaaS 
+experience. But as it is test so you can use test card number and use it for free.
 
 ### Tech Stack
 * Nest as a framework on top of Node JS for API

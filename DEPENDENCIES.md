@@ -21,7 +21,6 @@
 * tsconfig-paths: TypeScript path mapping plugin for Node.js, simplifying module resolution with TypeScript.
 * typescript: Typed superset of JavaScript that compiles to plain JavaScript, providing type safety and modern language features.
 * concurrently: Utility for running multiple commands concurrently, simplifying development workflows.
-* @openzeppelin/contracts: Library of secure and community-vetted smart contracts for Ethereum development.
 * @radix-ui/*: Collection of UI components for React applications, providing accessible and customizable UI elements.
 * class-variance-authority: Library for calculating variance and standard deviation in JavaScript classes.
 * clsx: Utility for constructing className strings conditionally in JavaScript and TypeScript.
