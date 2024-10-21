@@ -18,7 +18,7 @@ export const endPoints = {
   activityTrends: `${apiHost}/activity/trends`,
   intelligenceGenerateEndpoint: `${apiHost}/products/intelligence/generate`,
   datamarketplaceFilterAndSortOptions: `${apiHost}/products/datamarketplace/filters-and-sort-options`,
-  datamarketplaceFindDatasets: `${apiHost}/products/datamarketplace/finddatasets`,
+  datamarketplaceFindDatasets: `${apiHost}/products/datamarketplace/listings`,
   datamarketplaceViewDataset: `${apiHost}/products/datamarketplace/viewdataset`,
   datamarketplaceDataApi: `${apiHost}/products/datamarketplace/dataapi`,
   httpnosqlCreateData: `${apiHost}/products/httpnosql/create`,

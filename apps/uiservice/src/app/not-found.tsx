@@ -12,7 +12,7 @@ export default function NotFound() {
         <CardHeader>
           <CardTitle className="text-2xl">Not Found</CardTitle>
           <CardDescription>
-            Seems like there's nothing what you are looking for
+            Seems like there is nothing what you are looking for
           </CardDescription>
         </CardHeader>
         <CardFooter>

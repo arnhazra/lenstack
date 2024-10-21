@@ -12,7 +12,7 @@ export class ActivityRepository extends BaseRepository<Activity> {
   }
 
   async findAllItems(searchKeyword: string) {
-    const regex = new RegExp(searchKeyword, 'i')
+    const regex = new RegExp(searchKeyword, "i")
     const totalUsage = await this.activityModel.find({ apiUri: { $regex: regex } }).countDocuments()
     return { totalUsage }
   }

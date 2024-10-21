@@ -4,8 +4,6 @@ import { CreateActivityDto } from "./dto/create-activity.dto"
 import { EventsUnion } from "../../shared/utils/events.union"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetCountDto } from "./dto/get-count.dto"
-import { TokenGuard } from "src/shared/auth/token.guard"
-import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
 @Controller("activity")
 export class ActivityController {
