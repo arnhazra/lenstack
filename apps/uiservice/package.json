@@ -1,6 +1,6 @@
 {
   "name": "uiservice",
-  "version": "17.0.0",
+  "version": "16.2.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -35,7 +35,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-syntax-highlighter": "^15.6.1",
-    "sass": "^1.80.1",
+    "sass": "^1.80.3",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
   },

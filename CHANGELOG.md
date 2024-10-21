@@ -1,6 +1,8 @@
 # Changelog
 
-## v17.0.0
+## v16.2.1
+* Minor code refactoring
+* Dependency updates
 
 ## v16.2.0
 * Fixed auth layout scroll issue
