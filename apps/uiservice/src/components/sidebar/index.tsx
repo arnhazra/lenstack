@@ -58,7 +58,7 @@ export default function Sidebar() {
 
   const renderSideBarProducts = products?.data?.map((product: Product) => {
     return (
-      <Tooltip>
+      <Tooltip key={product?._id}>
         <TooltipTrigger asChild>
           <Link
             key={product?._id}
