@@ -1,6 +1,6 @@
-import { IsNotEmpty } from "class-validator"
+import { IsNotEmpty } from "class-validator";
 
 export class CreateCheckoutSessionDto {
   @IsNotEmpty()
-  readonly amount: number
+  readonly amount: number;
 }

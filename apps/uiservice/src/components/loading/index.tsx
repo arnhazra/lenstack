@@ -1,6 +1,6 @@
-"use client"
-import { cn } from "@/lib/utils"
-import { LoaderCircle } from "lucide-react"
+"use client";
+import { cn } from "@/lib/utils";
+import { LoaderCircle } from "lucide-react";
 
 export default function LoadingComponent() {
   return (
@@ -14,5 +14,5 @@ export default function LoadingComponent() {
         />
       </div>
     </>
-  )
+  );
 }

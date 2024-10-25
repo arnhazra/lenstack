@@ -3,7 +3,7 @@ export enum AttributeNames {
   SelectedOrgId = "selectedOrgId",
   ActivityLog = "activityLog",
   ComputeTier = "computeTier",
-  Name = "name"
+  Name = "name",
 }
 
 export class UpdateAttributeCommand {
@@ -11,5 +11,5 @@ export class UpdateAttributeCommand {
     public readonly userId: string,
     public readonly attributeName: AttributeNames,
     public readonly attributeValue: string
-  ) { }
+  ) {}
 }

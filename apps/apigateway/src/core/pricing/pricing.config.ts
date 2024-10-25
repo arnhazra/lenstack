@@ -2,22 +2,22 @@ export enum ComputeTier {
   Fabric = "fabric",
   Hyperscale = "hyperscale",
   Quantum = "quantum",
-  Skylake = "skylake"
+  Skylake = "skylake",
 }
 
 export enum Products {
   Intelligence = "intelligence",
   DataMarketplace = "datamarketplace",
   HttpNosql = "httpnosql",
-  WebAnalytics = "webanalytics"
+  WebAnalytics = "webanalytics",
 }
 
 export interface PricingConfig {
-  computeTier: ComputeTier,
-  responseDelay: number,
+  computeTier: ComputeTier;
+  responseDelay: number;
   estimatedRequestCost: {
-    [key in Products]: number
-  }
+    [key in Products]: number;
+  };
 }
 
 export const pricingConfig: PricingConfig[] = [
@@ -28,8 +28,8 @@ export const pricingConfig: PricingConfig[] = [
       intelligence: 0.02,
       datamarketplace: 0.01,
       httpnosql: 0.02,
-      webanalytics: 0.01
-    }
+      webanalytics: 0.01,
+    },
   },
   {
     computeTier: ComputeTier.Hyperscale,
@@ -38,8 +38,8 @@ export const pricingConfig: PricingConfig[] = [
       intelligence: 0.03,
       datamarketplace: 0.02,
       httpnosql: 0.03,
-      webanalytics: 0.02
-    }
+      webanalytics: 0.02,
+    },
   },
   {
     computeTier: ComputeTier.Quantum,
@@ -48,8 +48,8 @@ export const pricingConfig: PricingConfig[] = [
       intelligence: 0.05,
       datamarketplace: 0.03,
       httpnosql: 0.05,
-      webanalytics: 0.03
-    }
+      webanalytics: 0.03,
+    },
   },
   {
     computeTier: ComputeTier.Skylake,
@@ -58,7 +58,7 @@ export const pricingConfig: PricingConfig[] = [
       intelligence: 0.12,
       datamarketplace: 0.06,
       httpnosql: 0.09,
-      webanalytics: 0.08
-    }
+      webanalytics: 0.08,
+    },
   },
-]
+];

@@ -1,26 +1,38 @@
-import ActivityLog from "@/components/activity"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Circle, Medal, Star } from "lucide-react"
+import ActivityLog from "@/components/activity";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Circle, Medal, Star } from "lucide-react";
 
 interface GenericCardProps {
-  id: string
-  title: string
-  desc: string
-  category: string
-  rating: string
-  quality: string
-  handleClick: (id: string) => void
+  id: string;
+  title: string;
+  desc: string;
+  category: string;
+  rating: string;
+  quality: string;
+  handleClick: (id: string) => void;
 }
 
-export function DatasetCard({ id, title, desc, category, rating, quality, handleClick }: GenericCardProps) {
+export function DatasetCard({
+  id,
+  title,
+  desc,
+  category,
+  rating,
+  quality,
+  handleClick,
+}: GenericCardProps) {
   return (
     <Card className="cursor-pointer" onClick={(): void => handleClick(id)}>
       <CardHeader>
         <div className="space-y-1">
           <CardTitle>{title}</CardTitle>
-          <CardDescription>
-            {desc}
-          </CardDescription>
+          <CardDescription>{desc}</CardDescription>
         </div>
       </CardHeader>
       <CardContent>
@@ -41,5 +53,5 @@ export function DatasetCard({ id, title, desc, category, rating, quality, handle
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

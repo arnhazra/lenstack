@@ -1,32 +1,40 @@
-import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
-import { UserRepository } from "../../user.repository"
-import { AttributeNames, UpdateAttributeCommand } from "../impl/update-attribute.command"
-import { Types } from "mongoose"
-import { ComputeTier } from "src/core/pricing/pricing.config"
+import { ICommandHandler, CommandHandler } from "@nestjs/cqrs";
+import { UserRepository } from "../../user.repository";
+import {
+  AttributeNames,
+  UpdateAttributeCommand,
+} from "../impl/update-attribute.command";
+import { Types } from "mongoose";
+import { ComputeTier } from "src/core/pricing/pricing.config";
 
 @CommandHandler(UpdateAttributeCommand)
-export class UpdateAttributeCommandHandler implements ICommandHandler<UpdateAttributeCommand> {
-  constructor(private readonly repository: UserRepository) { }
+export class UpdateAttributeCommandHandler
+  implements ICommandHandler<UpdateAttributeCommand>
+{
+  constructor(private readonly repository: UserRepository) {}
 
   async execute(command: UpdateAttributeCommand) {
-    const { userId, attributeName, attributeValue } = command
+    const { userId, attributeName, attributeValue } = command;
 
-    if (attributeName === AttributeNames.ReduceCarbonEmissions || attributeName === AttributeNames.ActivityLog) {
+    if (
+      attributeName === AttributeNames.ReduceCarbonEmissions ||
+      attributeName === AttributeNames.ActivityLog
+    ) {
       if (attributeValue === "true") {
-        return await this.repository.updateOneById(userId, attributeName, true)
+        return await this.repository.updateOneById(userId, attributeName, true);
       }
 
-      return await this.repository.updateOneById(userId, attributeName, false)
+      return await this.repository.updateOneById(userId, attributeName, false);
     }
 
     if (attributeName === AttributeNames.SelectedOrgId) {
-      const value = new Types.ObjectId(attributeValue)
-      return await this.repository.updateOneById(userId, attributeName, value)
+      const value = new Types.ObjectId(attributeValue);
+      return await this.repository.updateOneById(userId, attributeName, value);
     }
 
     if (attributeName === AttributeNames.ComputeTier) {
-      const value = attributeValue as ComputeTier
-      return await this.repository.updateOneById(userId, attributeName, value)
+      const value = attributeValue as ComputeTier;
+      return await this.repository.updateOneById(userId, attributeName, value);
     }
   }
 }

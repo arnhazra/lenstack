@@ -1,25 +1,25 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document } from "mongoose"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
 
 @Schema({ versionKey: false, collection: "apireferences" })
 export class ApiReference extends Document {
   @Prop({ required: true })
-  productName: string
+  productName: string;
 
   @Prop({ required: true })
-  apiName: string
+  apiName: string;
 
   @Prop({ required: true })
-  apiUri: string
+  apiUri: string;
 
   @Prop({ required: true })
-  apiMethod: string
+  apiMethod: string;
 
   @Prop({ required: true, type: Object })
-  sampleRequestBody: Record<string, any>
+  sampleRequestBody: Record<string, any>;
 
   @Prop({ required: true, type: Object })
-  sampleResponseBody: Record<string, any>
+  sampleResponseBody: Record<string, any>;
 }
 
-export const ApiReferenceSchema = SchemaFactory.createForClass(ApiReference)
+export const ApiReferenceSchema = SchemaFactory.createForClass(ApiReference);

@@ -1,10 +1,10 @@
-import { IsNotEmpty } from "class-validator"
-import { ComputeTier } from "../pricing.config"
+import { IsNotEmpty } from "class-validator";
+import { ComputeTier } from "../pricing.config";
 
 export class SubscribeDto {
   @IsNotEmpty()
-  readonly computeTier: ComputeTier
+  readonly computeTier: ComputeTier;
 
   @IsNotEmpty()
-  readonly transactionHash: string
+  readonly transactionHash: string;
 }

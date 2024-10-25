@@ -1,12 +1,12 @@
-import { IsNotEmpty } from "class-validator"
+import { IsNotEmpty } from "class-validator";
 
 export class CreateActivityDto {
   @IsNotEmpty()
-  userId: string
+  userId: string;
 
   @IsNotEmpty()
-  method: string
+  method: string;
 
   @IsNotEmpty()
-  apiUri: string
+  apiUri: string;
 }

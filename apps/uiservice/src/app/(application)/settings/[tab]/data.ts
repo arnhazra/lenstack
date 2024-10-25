@@ -5,7 +5,7 @@ export enum Tabs {
   Wallet = "wallet",
   Compute = "compute",
   Sustainability = "sustainability",
-  About = "about"
+  About = "about",
 }
 
 export const tabsList: Tabs[] = [
@@ -15,5 +15,5 @@ export const tabsList: Tabs[] = [
   Tabs.Wallet,
   Tabs.Compute,
   Tabs.Sustainability,
-  Tabs.About
-]
+  Tabs.About,
+];

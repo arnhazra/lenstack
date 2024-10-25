@@ -1,19 +1,19 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document } from "mongoose"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
 
 @Schema({ versionKey: false, collection: "metadatas" })
 export class Metadata extends Document {
   @Prop({ required: true })
-  name: string
+  name: string;
 
   @Prop({ required: true })
-  category: string
+  category: string;
 
   @Prop({ required: true })
-  description: string
+  description: string;
 
   @Prop({ required: true })
-  rating: number
+  rating: number;
 }
 
-export const MetadataSchema = SchemaFactory.createForClass(Metadata)
+export const MetadataSchema = SchemaFactory.createForClass(Metadata);

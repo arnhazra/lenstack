@@ -7,4 +7,4 @@ enum HTTPMethods {
   OPTIONS = "OPTIONS",
 }
 
-export default HTTPMethods
+export default HTTPMethods;

@@ -1,7 +1,13 @@
-import { brandName } from "./global-constants"
+import { brandName } from "./global-constants";
 
-export const apiHost = process.env.NODE_ENV === "development" ? "http://localhost:8000" : `https://api-${brandName.toLowerCase()}.vercel.app`
-export const uiHost = process.env.NODE_ENV === "development" ? "http://localhost:3000" : `https://${brandName.toLowerCase()}.vercel.app`
+export const apiHost =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8000"
+    : `https://api-${brandName.toLowerCase()}.vercel.app`;
+export const uiHost =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : `https://${brandName.toLowerCase()}.vercel.app`;
 
 export const endPoints = {
   generateOTP: `${apiHost}/user/generateotp`,
@@ -27,4 +33,4 @@ export const endPoints = {
   httpnosqlDeleteData: `${apiHost}/products/httpnosql/delete`,
   webanalyticsView: `${apiHost}/products/webanalytics/get`,
   webanalyticsCreate: `${apiHost}/products/webanalytics/create`,
-}
+};

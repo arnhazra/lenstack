@@ -1,19 +1,23 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document, Types } from "mongoose";
 
-@Schema({ versionKey: false, collection: "organizations", timestamps: { createdAt: true, updatedAt: false } })
+@Schema({
+  versionKey: false,
+  collection: "organizations",
+  timestamps: { createdAt: true, updatedAt: false },
+})
 export class Organization extends Document {
   @Prop({ required: true })
-  name: string
+  name: string;
 
   @Prop({ type: Types.ObjectId, ref: "user", required: true })
-  userId: Types.ObjectId
+  userId: Types.ObjectId;
 
   @Prop({ required: true })
-  clientId: string
+  clientId: string;
 
   @Prop({ required: true })
-  clientSecret: string
+  clientSecret: string;
 }
 
-export const OrganizationSchema = SchemaFactory.createForClass(Organization)
+export const OrganizationSchema = SchemaFactory.createForClass(Organization);

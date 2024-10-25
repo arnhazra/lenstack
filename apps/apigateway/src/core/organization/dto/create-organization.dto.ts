@@ -1,6 +1,6 @@
-import { IsNotEmpty } from "class-validator"
+import { IsNotEmpty } from "class-validator";
 
 export class CreateOrganizationDto {
   @IsNotEmpty()
-  readonly name: string
+  readonly name: string;
 }

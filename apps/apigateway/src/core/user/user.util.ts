@@ -1,35 +1,37 @@
-import { createHmac, randomInt } from "crypto"
-import { envConfig } from "src/env.config"
-const { otpHashingKey } = envConfig
+import { createHmac, randomInt } from "crypto";
+import { envConfig } from "src/env.config";
+const { otpHashingKey } = envConfig;
 
 function generateRandomOTP(): string {
-  return randomInt(111111, 999999).toString()
+  return randomInt(111111, 999999).toString();
 }
 
 export function generateOTP(email: string) {
-  const otp = generateRandomOTP()
-  const ttl = 5 * 60 * 1000
-  const expires = Date.now() + ttl
-  const data = `${email}.${otp}.${expires}`
-  const hash = createHmac("sha256", otpHashingKey).update(data).digest("hex")
-  const fullHash = `${hash}.${expires}`
-  return { fullHash, otp }
+  const otp = generateRandomOTP();
+  const ttl = 5 * 60 * 1000;
+  const expires = Date.now() + ttl;
+  const data = `${email}.${otp}.${expires}`;
+  const hash = createHmac("sha256", otpHashingKey).update(data).digest("hex");
+  const fullHash = `${hash}.${expires}`;
+  return { fullHash, otp };
 }
 
 export function verifyOTP(email: string, hash: string, otp: string): boolean {
-  let [hashValue, expires] = hash.split(".")
-  let now = Date.now()
-  if (now > parseInt(expires)) return false
-  let data = `${email}.${otp}.${expires}`
-  let newCalculatedHash = createHmac("sha256", otpHashingKey).update(data).digest("hex")
+  let [hashValue, expires] = hash.split(".");
+  let now = Date.now();
+  if (now > parseInt(expires)) return false;
+  let data = `${email}.${otp}.${expires}`;
+  let newCalculatedHash = createHmac("sha256", otpHashingKey)
+    .update(data)
+    .digest("hex");
   if (newCalculatedHash === hashValue) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 export function generateOTPEmailSubject() {
-  return `${envConfig.brandName} OTP`
+  return `${envConfig.brandName} OTP`;
 }
 
 export function generateOTPEmailBody(otp: string) {
@@ -51,5 +53,5 @@ export function generateOTPEmailBody(otp: string) {
         <p>Worldwide</p>
       </div>
     </div>
-  </div>`
+  </div>`;
 }

@@ -1,11 +1,19 @@
-"use client"
-import { ReactNode, createContext, useReducer } from "react"
-import { GlobalState, Actions, ActionsMap, GlobalReducer } from "./globalstate.reducer"
-import { generateUUID } from "@/lib/uuid-gen"
+"use client";
+import { ReactNode, createContext, useReducer } from "react";
+import {
+  GlobalState,
+  Actions,
+  ActionsMap,
+  GlobalReducer,
+} from "./globalstate.reducer";
+import { generateUUID } from "@/lib/uuid-gen";
 
-export type Dispatcher = <Type extends keyof ActionsMap>(type: Type, payload: ActionsMap[Type]) => void
+export type Dispatcher = <Type extends keyof ActionsMap>(
+  type: Type,
+  payload: ActionsMap[Type]
+) => void;
 
-type GlobalContextInterface = readonly [GlobalState, Dispatcher]
+type GlobalContextInterface = readonly [GlobalState, Dispatcher];
 
 const initialState: GlobalState = {
   user: {
@@ -18,7 +26,7 @@ const initialState: GlobalState = {
     reduceCarbonEmissions: true,
     role: "",
     selectedOrgId: "",
-    walletBalance: 0
+    walletBalance: 0,
   },
   selectedOrg: {
     _id: "",
@@ -26,19 +34,24 @@ const initialState: GlobalState = {
     clientSecret: "",
     createdAt: "",
     name: "",
-    userId: ""
+    userId: "",
   },
   organizations: [],
-  refreshId: generateUUID()
-}
+  refreshId: generateUUID(),
+};
 
-export const GlobalContext = createContext<GlobalContextInterface>([initialState, ((): void => undefined)])
+export const GlobalContext = createContext<GlobalContextInterface>([
+  initialState,
+  (): void => undefined,
+]);
 
 export function GlobalStateProvider({ children }: { children: ReactNode }) {
-  const [state, _dispatch] = useReducer(GlobalReducer, initialState)
+  const [state, _dispatch] = useReducer(GlobalReducer, initialState);
   const dispatch: Dispatcher = (type, ...payload) => {
-    _dispatch({ type, payload: payload[0] } as Actions)
-  }
-  const values: GlobalContextInterface = [state, dispatch]
-  return <GlobalContext.Provider value={values}>{children}</GlobalContext.Provider>
+    _dispatch({ type, payload: payload[0] } as Actions);
+  };
+  const values: GlobalContextInterface = [state, dispatch];
+  return (
+    <GlobalContext.Provider value={values}>{children}</GlobalContext.Provider>
+  );
 }

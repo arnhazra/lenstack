@@ -1,6 +1,12 @@
-"use client"
-import { Button } from "../ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "../ui/card"
+"use client";
+import { Button } from "../ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "../ui/card";
 
 export default function ErrorComponent() {
   return (
@@ -13,11 +19,15 @@ export default function ErrorComponent() {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button size="lg" className="w-full" onClick={(): void => window.location.reload()}>
+          <Button
+            size="lg"
+            className="w-full"
+            onClick={(): void => window.location.reload()}
+          >
             Retry
           </Button>
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

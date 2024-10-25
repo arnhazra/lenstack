@@ -1,27 +1,27 @@
 export const getBreadcrumbTitle = (uri: string) => {
   if (uri.includes("apireference")) {
-    return "API Reference"
+    return "API Reference";
   }
 
   if (uri.includes("settings")) {
-    return "Settings"
+    return "Settings";
   }
 
   if (uri.includes("datamarketplace")) {
-    return "Data MarketPlace"
+    return "Data MarketPlace";
   }
 
   if (uri.includes("httpnosql")) {
-    return "HTTP NoSQL"
+    return "HTTP NoSQL";
   }
 
   if (uri.includes("intelligence")) {
-    return "Intelligence"
+    return "Intelligence";
   }
 
   if (uri.includes("webanalytics")) {
-    return "Web Analytics"
+    return "Web Analytics";
   }
 
-  return ""
-}
+  return "";
+};

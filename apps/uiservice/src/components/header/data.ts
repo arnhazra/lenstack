@@ -1,33 +1,33 @@
-import { brandName, uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/constants/global-constants";
 
 interface LinkData {
-  displayName: string,
-  link: string,
-  external?: boolean,
-  mainLink?: boolean
+  displayName: string;
+  link: string;
+  external?: boolean;
+  mainLink?: boolean;
 }
 
 export const generalUserLinks: LinkData[] = [
   {
     displayName: brandName,
     link: "/",
-    mainLink: true
+    mainLink: true,
   },
   {
     displayName: "Solutions",
-    link: "/#solutions"
+    link: "/#solutions",
   },
   {
     displayName: "Products",
-    link: "/#products"
+    link: "/#products",
   },
   {
     displayName: "Pricing",
-    link: "/#pricing"
+    link: "/#pricing",
   },
   {
     displayName: "Developer",
     link: uiConstants.linkedinUri,
-    external: true
-  }
-]
+    external: true,
+  },
+];

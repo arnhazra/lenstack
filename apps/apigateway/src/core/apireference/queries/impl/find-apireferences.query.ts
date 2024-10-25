@@ -1,5 +1,3 @@
 export class FindAPIReferencesQuery {
-  constructor(
-    public readonly productName: string
-  ) { }
+  constructor(public readonly productName: string) {}
 }

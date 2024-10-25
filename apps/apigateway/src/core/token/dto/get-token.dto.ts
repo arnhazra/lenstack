@@ -1,6 +1,6 @@
-import { IsNotEmpty } from "class-validator"
+import { IsNotEmpty } from "class-validator";
 
 export class GetTokenDto {
   @IsNotEmpty()
-  userId: string
+  userId: string;
 }
