@@ -5,12 +5,12 @@ import { Types } from "mongoose"
 
 @QueryHandler(FindDataByIdQuery)
 export class FindDataByIdQueryHandler
-	implements IQueryHandler<FindDataByIdQuery>
+  implements IQueryHandler<FindDataByIdQuery>
 {
-	constructor(private readonly repository: DatamarketplaceRepository) {}
+  constructor(private readonly repository: DatamarketplaceRepository) {}
 
-	async execute(query: FindDataByIdQuery) {
-		const { datasetId } = query
-		return await this.repository.findDataById(new Types.ObjectId(datasetId))
-	}
+  async execute(query: FindDataByIdQuery) {
+    const { datasetId } = query
+    return await this.repository.findDataById(new Types.ObjectId(datasetId))
+  }
 }

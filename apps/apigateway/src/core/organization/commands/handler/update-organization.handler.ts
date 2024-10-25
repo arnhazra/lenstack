@@ -4,12 +4,12 @@ import { OrganizationRepository } from "../../organization.repository"
 
 @CommandHandler(UpdateOrganizationCommand)
 export class UpdateOrganizationCommandHandler
-	implements ICommandHandler<UpdateOrganizationCommand>
+  implements ICommandHandler<UpdateOrganizationCommand>
 {
-	constructor(private readonly repository: OrganizationRepository) {}
+  constructor(private readonly repository: OrganizationRepository) {}
 
-	async execute(command: UpdateOrganizationCommand) {
-		const { userId, orgId } = command
-		return await this.repository.updateById(userId, orgId)
-	}
+  async execute(command: UpdateOrganizationCommand) {
+    const { userId, orgId } = command
+    return await this.repository.updateById(userId, orgId)
+  }
 }

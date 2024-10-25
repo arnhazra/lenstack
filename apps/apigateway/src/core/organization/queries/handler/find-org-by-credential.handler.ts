@@ -4,12 +4,12 @@ import { OrganizationRepository } from "../../organization.repository"
 
 @QueryHandler(FindOrgByCredentialQuery)
 export class FindOrgByCredentialQueryHandler
-	implements IQueryHandler<FindOrgByCredentialQuery>
+  implements IQueryHandler<FindOrgByCredentialQuery>
 {
-	constructor(private readonly repository: OrganizationRepository) {}
+  constructor(private readonly repository: OrganizationRepository) {}
 
-	async execute(query: FindOrgByCredentialQuery) {
-		const { clientId, clientSecret } = query
-		return await this.repository.findOne({ clientId, clientSecret })
-	}
+  async execute(query: FindOrgByCredentialQuery) {
+    const { clientId, clientSecret } = query
+    return await this.repository.findOne({ clientId, clientSecret })
+  }
 }

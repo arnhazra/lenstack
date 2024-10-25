@@ -4,11 +4,11 @@ import { ProductsRepository } from "../../products.repository"
 
 @QueryHandler(GetProductsQuery)
 export class GetProductsQueryHandler
-	implements IQueryHandler<GetProductsQuery>
+  implements IQueryHandler<GetProductsQuery>
 {
-	constructor(private readonly repository: ProductsRepository) {}
+  constructor(private readonly repository: ProductsRepository) {}
 
-	async execute(query: GetProductsQuery) {
-		return await this.repository.findAll()
-	}
+  async execute(query: GetProductsQuery) {
+    return await this.repository.findAll()
+  }
 }

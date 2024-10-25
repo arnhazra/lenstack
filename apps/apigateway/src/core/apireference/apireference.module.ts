@@ -9,18 +9,18 @@ import { FindAPIReferencesQueryHandler } from "./queries/handler/find-apireferen
 import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
-	imports: [
-		CqrsModule,
-		DatabaseModule.forFeature(
-			[{ name: ApiReference.name, schema: ApiReferenceSchema }],
-			DbConnectionMap.Core
-		),
-	],
-	controllers: [ApiReferenceController],
-	providers: [
-		ApiReferenceService,
-		ApiReferenceRepository,
-		FindAPIReferencesQueryHandler,
-	],
+  imports: [
+    CqrsModule,
+    DatabaseModule.forFeature(
+      [{ name: ApiReference.name, schema: ApiReferenceSchema }],
+      DbConnectionMap.Core
+    ),
+  ],
+  controllers: [ApiReferenceController],
+  providers: [
+    ApiReferenceService,
+    ApiReferenceRepository,
+    FindAPIReferencesQueryHandler,
+  ],
 })
 export class ApiReferenceModule {}

@@ -9,14 +9,14 @@ import { CqrsModule } from "@nestjs/cqrs"
 import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
-	imports: [
-		CqrsModule,
-		DatabaseModule.forFeature(
-			[{ name: Product.name, schema: ProductSchema }],
-			DbConnectionMap.Core
-		),
-	],
-	controllers: [ProductsController],
-	providers: [ProductsService, ProductsRepository, GetProductsQueryHandler],
+  imports: [
+    CqrsModule,
+    DatabaseModule.forFeature(
+      [{ name: Product.name, schema: ProductSchema }],
+      DbConnectionMap.Core
+    ),
+  ],
+  controllers: [ProductsController],
+  providers: [ProductsService, ProductsRepository, GetProductsQueryHandler],
 })
 export class ProductsModule {}

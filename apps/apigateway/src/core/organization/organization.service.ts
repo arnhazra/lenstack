@@ -11,61 +11,61 @@ import { UpdateOrganizationCommand } from "./commands/impl/update-organization.c
 
 @Injectable()
 export class OrganizationService {
-	constructor(
-		private readonly queryBus: QueryBus,
-		private readonly commandBus: CommandBus
-	) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus
+  ) {}
 
-	async createOrganization(
-		userId: string,
-		createOrganizationDto: CreateOrganizationDto
-	) {
-		try {
-			const { name } = createOrganizationDto
-			return await this.commandBus.execute<
-				CreateOrganizationCommand,
-				Organization
-			>(new CreateOrganizationCommand(name, userId))
-		} catch (error) {
-			throw new BadRequestException(statusMessages.connectionError)
-		}
-	}
+  async createOrganization(
+    userId: string,
+    createOrganizationDto: CreateOrganizationDto
+  ) {
+    try {
+      const { name } = createOrganizationDto
+      return await this.commandBus.execute<
+        CreateOrganizationCommand,
+        Organization
+      >(new CreateOrganizationCommand(name, userId))
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 
-	async findMyOrganizations(userId: string) {
-		try {
-			return await this.queryBus.execute<FindAllOrgQuery, Organization[]>(
-				new FindAllOrgQuery(userId)
-			)
-		} catch (error) {
-			throw new BadRequestException(statusMessages.connectionError)
-		}
-	}
+  async findMyOrganizations(userId: string) {
+    try {
+      return await this.queryBus.execute<FindAllOrgQuery, Organization[]>(
+        new FindAllOrgQuery(userId)
+      )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 
-	async deleteOrganization(reqUserId: string, orgId: string) {
-		try {
-			const { userId } = await this.queryBus.execute<
-				FindOrgByIdQuery,
-				Organization
-			>(new FindOrgByIdQuery(orgId))
+  async deleteOrganization(reqUserId: string, orgId: string) {
+    try {
+      const { userId } = await this.queryBus.execute<
+        FindOrgByIdQuery,
+        Organization
+      >(new FindOrgByIdQuery(orgId))
 
-			if (userId.toString() === reqUserId) {
-				await this.commandBus.execute(new DeleteOrganizationCommand(orgId))
-				return { success: true }
-			} else {
-				throw new BadRequestException(statusMessages.connectionError)
-			}
-		} catch (error) {
-			throw new BadRequestException(statusMessages.connectionError)
-		}
-	}
+      if (userId.toString() === reqUserId) {
+        await this.commandBus.execute(new DeleteOrganizationCommand(orgId))
+        return { success: true }
+      } else {
+        throw new BadRequestException(statusMessages.connectionError)
+      }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 
-	async updateAttribute(userId: string, orgId: string) {
-		try {
-			await this.commandBus.execute<UpdateOrganizationCommand, Organization>(
-				new UpdateOrganizationCommand(userId, orgId)
-			)
-		} catch (error) {
-			throw new BadRequestException(statusMessages.connectionError)
-		}
-	}
+  async updateAttribute(userId: string, orgId: string) {
+    try {
+      await this.commandBus.execute<UpdateOrganizationCommand, Organization>(
+        new UpdateOrganizationCommand(userId, orgId)
+      )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 }

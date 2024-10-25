@@ -3,39 +3,39 @@ import { envConfig } from "src/env.config"
 const { otpHashingKey } = envConfig
 
 function generateRandomOTP(): string {
-	return randomInt(111111, 999999).toString()
+  return randomInt(111111, 999999).toString()
 }
 
 export function generateOTP(email: string) {
-	const otp = generateRandomOTP()
-	const ttl = 5 * 60 * 1000
-	const expires = Date.now() + ttl
-	const data = `${email}.${otp}.${expires}`
-	const hash = createHmac("sha256", otpHashingKey).update(data).digest("hex")
-	const fullHash = `${hash}.${expires}`
-	return { fullHash, otp }
+  const otp = generateRandomOTP()
+  const ttl = 5 * 60 * 1000
+  const expires = Date.now() + ttl
+  const data = `${email}.${otp}.${expires}`
+  const hash = createHmac("sha256", otpHashingKey).update(data).digest("hex")
+  const fullHash = `${hash}.${expires}`
+  return { fullHash, otp }
 }
 
 export function verifyOTP(email: string, hash: string, otp: string): boolean {
-	let [hashValue, expires] = hash.split(".")
-	let now = Date.now()
-	if (now > parseInt(expires)) return false
-	let data = `${email}.${otp}.${expires}`
-	let newCalculatedHash = createHmac("sha256", otpHashingKey)
-		.update(data)
-		.digest("hex")
-	if (newCalculatedHash === hashValue) {
-		return true
-	}
-	return false
+  let [hashValue, expires] = hash.split(".")
+  let now = Date.now()
+  if (now > parseInt(expires)) return false
+  let data = `${email}.${otp}.${expires}`
+  let newCalculatedHash = createHmac("sha256", otpHashingKey)
+    .update(data)
+    .digest("hex")
+  if (newCalculatedHash === hashValue) {
+    return true
+  }
+  return false
 }
 
 export function generateOTPEmailSubject() {
-	return `${envConfig.brandName} OTP`
+  return `${envConfig.brandName} OTP`
 }
 
 export function generateOTPEmailBody(otp: string) {
-	return `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+  return `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
     <div style="margin:50px auto;width:70%;padding:20px 0">
       <div style="border-bottom:1px solid #f1f3f4">
         <strong>

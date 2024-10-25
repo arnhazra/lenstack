@@ -7,10 +7,10 @@ import { BaseRepository } from "src/shared/database/database.repository"
 
 @Injectable()
 export class ApiReferenceRepository extends BaseRepository<ApiReference> {
-	constructor(
-		@InjectModel(ApiReference.name, DbConnectionMap.Core)
-		private apiReferenceModel: Model<ApiReference>
-	) {
-		super(apiReferenceModel)
-	}
+  constructor(
+    @InjectModel(ApiReference.name, DbConnectionMap.Core)
+    private apiReferenceModel: Model<ApiReference>
+  ) {
+    super(apiReferenceModel)
+  }
 }

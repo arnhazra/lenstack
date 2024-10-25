@@ -14,28 +14,28 @@ import { FindMetaDataByIdQueryHandler } from "./queries/handler/find-metadata.ha
 import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
-	imports: [
-		CqrsModule,
-		DatabaseModule.forRoot(
-			envConfig.productsDatabaseURI,
-			DbConnectionMap.DataMarketplace
-		),
-		DatabaseModule.forFeature(
-			[
-				{ name: Dataset.name, schema: DatasetSchema },
-				{ name: Metadata.name, schema: MetadataSchema },
-			],
-			DbConnectionMap.DataMarketplace
-		),
-	],
-	controllers: [DatamarketplaceController],
-	providers: [
-		DatamarketplaceService,
-		DatamarketplaceRepository,
-		FindCategoriesQueryHandler,
-		FindDataByIdQueryHandler,
-		FindDatasetsQueryHandler,
-		FindMetaDataByIdQueryHandler,
-	],
+  imports: [
+    CqrsModule,
+    DatabaseModule.forRoot(
+      envConfig.productsDatabaseURI,
+      DbConnectionMap.DataMarketplace
+    ),
+    DatabaseModule.forFeature(
+      [
+        { name: Dataset.name, schema: DatasetSchema },
+        { name: Metadata.name, schema: MetadataSchema },
+      ],
+      DbConnectionMap.DataMarketplace
+    ),
+  ],
+  controllers: [DatamarketplaceController],
+  providers: [
+    DatamarketplaceService,
+    DatamarketplaceRepository,
+    FindCategoriesQueryHandler,
+    FindDataByIdQueryHandler,
+    FindDatasetsQueryHandler,
+    FindMetaDataByIdQueryHandler,
+  ],
 })
 export class DatamarketplaceModule {}

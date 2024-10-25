@@ -1,6 +1,6 @@
 export class UpdateOrganizationCommand {
-	constructor(
-		public readonly userId: string,
-		public readonly orgId: string
-	) {}
+  constructor(
+    public readonly userId: string,
+    public readonly orgId: string
+  ) {}
 }

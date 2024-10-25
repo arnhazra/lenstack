@@ -1,16 +1,16 @@
 {
-	"name": "arcstack",
-	"version": "16.2.1",
-	"description": "a saas product",
-	"scripts": {
-		"dev": "concurrently \"npm run dev --prefix apps/apigateway\" \"npm run dev --prefix apps/uiservice\"",
-		"publish": "git add . && git commit -m publish && git push",
-		"pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
-	},
-	"author": "Arnab Hazra",
-	"license": "GNU AFFERO GENERAL PUBLIC LICENSE",
-	"devDependencies": {
-		"concurrently": "^9.0.1",
-		"prettier": "^3.3.3"
-	}
+  "name": "arcstack",
+  "version": "16.2.1",
+  "description": "a saas product",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix apps/apigateway\" \"npm run dev --prefix apps/uiservice\"",
+    "publish": "git add . && git commit -m publish && git push",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
+  },
+  "author": "Arnab Hazra",
+  "license": "GNU AFFERO GENERAL PUBLIC LICENSE",
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "prettier": "^3.3.3"
+  }
 }

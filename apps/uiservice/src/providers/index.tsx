@@ -8,16 +8,16 @@ import { Toaster } from "@/components/ui/toaster"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
 export default function Providers({ children }: { children: ReactNode }) {
-	return (
-		<TooltipProvider>
-			<ReactQueryProvider>
-				<GlobalStateProvider>
-					<ConfirmProvider>
-						<PromptProvider>{children}</PromptProvider>
-					</ConfirmProvider>
-					<Toaster />
-				</GlobalStateProvider>
-			</ReactQueryProvider>
-		</TooltipProvider>
-	)
+  return (
+    <TooltipProvider>
+      <ReactQueryProvider>
+        <GlobalStateProvider>
+          <ConfirmProvider>
+            <PromptProvider>{children}</PromptProvider>
+          </ConfirmProvider>
+          <Toaster />
+        </GlobalStateProvider>
+      </ReactQueryProvider>
+    </TooltipProvider>
+  )
 }

@@ -4,12 +4,12 @@ import { DeleteDataCommand } from "../impl/delete-data.command"
 
 @CommandHandler(DeleteDataCommand)
 export class DeleteDataCommandHandler
-	implements ICommandHandler<DeleteDataCommand>
+  implements ICommandHandler<DeleteDataCommand>
 {
-	constructor(private readonly repository: HttpNosqlRepository) {}
+  constructor(private readonly repository: HttpNosqlRepository) {}
 
-	async execute(command: DeleteDataCommand) {
-		const { orgId, key } = command
-		return await this.repository.deleteValueByKey(orgId, key)
-	}
+  async execute(command: DeleteDataCommand) {
+    const { orgId, key } = command
+    return await this.repository.deleteValueByKey(orgId, key)
+  }
 }

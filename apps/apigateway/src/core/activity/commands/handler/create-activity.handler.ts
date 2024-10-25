@@ -5,17 +5,17 @@ import { Types } from "mongoose"
 
 @CommandHandler(CreateActivityCommand)
 export class CreateActivityCommandHandler
-	implements ICommandHandler<CreateActivityCommand>
+  implements ICommandHandler<CreateActivityCommand>
 {
-	constructor(private readonly repository: ActivityRepository) {}
+  constructor(private readonly repository: ActivityRepository) {}
 
-	async execute(command: CreateActivityCommand) {
-		const { createActivityDto } = command
-		const { userId, method, apiUri } = createActivityDto
-		return await this.repository.create({
-			method,
-			apiUri,
-			userId: new Types.ObjectId(userId),
-		})
-	}
+  async execute(command: CreateActivityCommand) {
+    const { createActivityDto } = command
+    const { userId, method, apiUri } = createActivityDto
+    return await this.repository.create({
+      method,
+      apiUri,
+      userId: new Types.ObjectId(userId),
+    })
+  }
 }

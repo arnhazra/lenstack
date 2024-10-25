@@ -13,17 +13,17 @@ import { EmailModule } from "./email/email.module"
 import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
-	imports: [
-		DatabaseModule.forRoot(envConfig.coreDatabaseURI, DbConnectionMap.Core),
-		ApiReferenceModule,
-		ActivityModule,
-		OrganizationModule,
-		PricingModule,
-		UserModule,
-		ProductsModule,
-		SolutionModule,
-		TokenModule,
-		EmailModule,
-	],
+  imports: [
+    DatabaseModule.forRoot(envConfig.coreDatabaseURI, DbConnectionMap.Core),
+    ApiReferenceModule,
+    ActivityModule,
+    OrganizationModule,
+    PricingModule,
+    UserModule,
+    ProductsModule,
+    SolutionModule,
+    TokenModule,
+    EmailModule,
+  ],
 })
 export class CoreModule {}

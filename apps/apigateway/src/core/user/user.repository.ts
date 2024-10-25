@@ -9,29 +9,29 @@ import { BaseRepository } from "src/shared/database/database.repository"
 
 @Injectable()
 export class UserRepository extends BaseRepository<User> {
-	constructor(
-		@InjectModel(User.name, DbConnectionMap.Core)
-		private userModel: Model<User>
-	) {
-		super(userModel)
-	}
+  constructor(
+    @InjectModel(User.name, DbConnectionMap.Core)
+    private userModel: Model<User>
+  ) {
+    super(userModel)
+  }
 
-	@OnEvent(EventsUnion.GetUserDetails)
-	async find<K extends keyof User>(
-		filter: Pick<User, K>
-	): Promise<User | null> {
-		return await super.findOne(filter as FilterQuery<User>)
-	}
+  @OnEvent(EventsUnion.GetUserDetails)
+  async find<K extends keyof User>(
+    filter: Pick<User, K>
+  ): Promise<User | null> {
+    return await super.findOne(filter as FilterQuery<User>)
+  }
 
-	@OnEvent(EventsUnion.UpdateUserDetails)
-	async updateOneById<K extends keyof User>(
-		userId: string,
-		key: K,
-		value: User[K]
-	): Promise<User | null> {
-		return await super.update(
-			{ _id: new Types.ObjectId(userId) },
-			{ [key]: value }
-		)
-	}
+  @OnEvent(EventsUnion.UpdateUserDetails)
+  async updateOneById<K extends keyof User>(
+    userId: string,
+    key: K,
+    value: User[K]
+  ): Promise<User | null> {
+    return await super.update(
+      { _id: new Types.ObjectId(userId) },
+      { [key]: value }
+    )
+  }
 }

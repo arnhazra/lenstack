@@ -5,12 +5,12 @@ import { Types } from "mongoose"
 
 @QueryHandler(FindOrgByIdQuery)
 export class FindOrgByIdQueryHandler
-	implements IQueryHandler<FindOrgByIdQuery>
+  implements IQueryHandler<FindOrgByIdQuery>
 {
-	constructor(private readonly repository: OrganizationRepository) {}
+  constructor(private readonly repository: OrganizationRepository) {}
 
-	async execute(query: FindOrgByIdQuery) {
-		const { orgId } = query
-		return await this.repository.findOne({ _id: new Types.ObjectId(orgId) })
-	}
+  async execute(query: FindOrgByIdQuery) {
+    const { orgId } = query
+    return await this.repository.findOne({ _id: new Types.ObjectId(orgId) })
+  }
 }

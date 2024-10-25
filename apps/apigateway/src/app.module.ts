@@ -6,13 +6,13 @@ import { DatabaseModule } from "./shared/database/database.module"
 import { AppController } from "./app.controller"
 
 @Module({
-	imports: [
-		EventEmitterModule.forRoot(),
-		CoreModule,
-		ProductsModule,
-		DatabaseModule,
-	],
-	controllers: [AppController],
-	providers: [],
+  imports: [
+    EventEmitterModule.forRoot(),
+    CoreModule,
+    ProductsModule,
+    DatabaseModule,
+  ],
+  controllers: [AppController],
+  providers: [],
 })
 export class AppModule {}

@@ -5,16 +5,16 @@ import { Types } from "mongoose"
 
 @CommandHandler(CreateEventsCommand)
 export class CreateEventsCommandHandler
-	implements ICommandHandler<CreateEventsCommand>
+  implements ICommandHandler<CreateEventsCommand>
 {
-	constructor(private readonly repository: WebAnalyticsRepository) {}
+  constructor(private readonly repository: WebAnalyticsRepository) {}
 
-	async execute(command: CreateEventsCommand) {
-		const { orgId, createEventsDto } = command
-		const { event } = createEventsDto
-		return await this.repository.create({
-			orgId: new Types.ObjectId(orgId),
-			event,
-		})
-	}
+  async execute(command: CreateEventsCommand) {
+    const { orgId, createEventsDto } = command
+    const { event } = createEventsDto
+    return await this.repository.create({
+      orgId: new Types.ObjectId(orgId),
+      event,
+    })
+  }
 }

@@ -5,16 +5,16 @@ import { Types } from "mongoose"
 
 @CommandHandler(CreateQueryCommand)
 export class CreateQueryCommandHandler
-	implements ICommandHandler<CreateQueryCommand>
+  implements ICommandHandler<CreateQueryCommand>
 {
-	constructor(private readonly repository: IntelligenceRepository) {}
+  constructor(private readonly repository: IntelligenceRepository) {}
 
-	async execute(command: CreateQueryCommand) {
-		const { orgId, prompt, response } = command
-		return await this.repository.create({
-			orgId: new Types.ObjectId(orgId),
-			prompt,
-			response,
-		})
-	}
+  async execute(command: CreateQueryCommand) {
+    const { orgId, prompt, response } = command
+    return await this.repository.create({
+      orgId: new Types.ObjectId(orgId),
+      prompt,
+      response,
+    })
+  }
 }

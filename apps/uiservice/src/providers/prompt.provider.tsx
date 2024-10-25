@@ -5,23 +5,23 @@ import usePrompt, { PromptProps } from "@/hooks/use-prompt"
 const PromptContext = createContext<PromptProps | undefined>(undefined)
 
 export const PromptProvider = ({ children }: { children: ReactNode }) => {
-	const { promptDialog, prompt } = usePrompt()
-	const value = { promptDialog, prompt }
+  const { promptDialog, prompt } = usePrompt()
+  const value = { promptDialog, prompt }
 
-	return (
-		<PromptContext.Provider value={value}>
-			{children}
-			{promptDialog()}
-		</PromptContext.Provider>
-	)
+  return (
+    <PromptContext.Provider value={value}>
+      {children}
+      {promptDialog()}
+    </PromptContext.Provider>
+  )
 }
 
 export const usePromptContext = (): PromptProps => {
-	const context = useContext(PromptContext)
+  const context = useContext(PromptContext)
 
-	if (!context) {
-		throw new Error("usePromptContext must be used within a PromptProvider")
-	}
+  if (!context) {
+    throw new Error("usePromptContext must be used within a PromptProvider")
+  }
 
-	return context
+  return context
 }

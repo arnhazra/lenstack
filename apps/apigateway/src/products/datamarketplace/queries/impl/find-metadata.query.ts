@@ -1,3 +1,3 @@
 export class FindMetadataByIdQuery {
-	constructor(public readonly datasetId: string) {}
+  constructor(public readonly datasetId: string) {}
 }

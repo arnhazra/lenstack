@@ -4,12 +4,12 @@ import { CreateUserCommand } from "../impl/create-user.command"
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler
-	implements ICommandHandler<CreateUserCommand>
+  implements ICommandHandler<CreateUserCommand>
 {
-	constructor(private readonly repository: UserRepository) {}
+  constructor(private readonly repository: UserRepository) {}
 
-	async execute(command: CreateUserCommand) {
-		const { email, name, walletBalance } = command
-		return await this.repository.create({ email, name, walletBalance })
-	}
+  async execute(command: CreateUserCommand) {
+    const { email, name, walletBalance } = command
+    return await this.repository.create({ email, name, walletBalance })
+  }
 }

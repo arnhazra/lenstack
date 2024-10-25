@@ -14,23 +14,23 @@ import { UpdateOrganizationCommandHandler } from "./commands/handler/update-orga
 import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
-	imports: [
-		CqrsModule,
-		DatabaseModule.forFeature(
-			[{ name: Organization.name, schema: OrganizationSchema }],
-			DbConnectionMap.Core
-		),
-	],
-	controllers: [OrganizationController],
-	providers: [
-		OrganizationService,
-		OrganizationRepository,
-		CreateOrganizationCommandHandler,
-		DeleteOrganizationCommandHandler,
-		FindAllOrgQueryHandler,
-		FindOrgByCredentialQueryHandler,
-		FindOrgByIdQueryHandler,
-		UpdateOrganizationCommandHandler,
-	],
+  imports: [
+    CqrsModule,
+    DatabaseModule.forFeature(
+      [{ name: Organization.name, schema: OrganizationSchema }],
+      DbConnectionMap.Core
+    ),
+  ],
+  controllers: [OrganizationController],
+  providers: [
+    OrganizationService,
+    OrganizationRepository,
+    CreateOrganizationCommandHandler,
+    DeleteOrganizationCommandHandler,
+    FindAllOrgQueryHandler,
+    FindOrgByCredentialQueryHandler,
+    FindOrgByIdQueryHandler,
+    UpdateOrganizationCommandHandler,
+  ],
 })
 export class OrganizationModule {}

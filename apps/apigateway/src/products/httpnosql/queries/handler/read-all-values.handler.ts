@@ -4,12 +4,12 @@ import { ReadAllValuesQuery } from "../impl/read-all-values.query"
 
 @QueryHandler(ReadAllValuesQuery)
 export class ReadAllDataQueryHandler
-	implements IQueryHandler<ReadAllValuesQuery>
+  implements IQueryHandler<ReadAllValuesQuery>
 {
-	constructor(private readonly repository: HttpNosqlRepository) {}
+  constructor(private readonly repository: HttpNosqlRepository) {}
 
-	async execute(query: ReadAllValuesQuery) {
-		const { orgId } = query
-		return await this.repository.readAllValues(orgId)
-	}
+  async execute(query: ReadAllValuesQuery) {
+    const { orgId } = query
+    return await this.repository.readAllValues(orgId)
+  }
 }

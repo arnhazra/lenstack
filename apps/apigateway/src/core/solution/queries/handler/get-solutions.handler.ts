@@ -4,11 +4,11 @@ import { SolutionsRepository } from "../../solution.repository"
 
 @QueryHandler(GetSolutionsQuery)
 export class GetSolutionsQueryHandler
-	implements IQueryHandler<GetSolutionsQuery>
+  implements IQueryHandler<GetSolutionsQuery>
 {
-	constructor(private readonly repository: SolutionsRepository) {}
+  constructor(private readonly repository: SolutionsRepository) {}
 
-	async execute(query: GetSolutionsQuery) {
-		return await this.repository.findAll()
-	}
+  async execute(query: GetSolutionsQuery) {
+    return await this.repository.findAll()
+  }
 }

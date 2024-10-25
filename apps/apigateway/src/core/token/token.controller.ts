@@ -8,20 +8,20 @@ import { EventsUnion } from "../../shared/utils/events.union"
 
 @Controller("token")
 export class TokenController {
-	constructor(private readonly tokenService: TokenService) {}
+  constructor(private readonly tokenService: TokenService) {}
 
-	@OnEvent(EventsUnion.SetToken)
-	async setToken(setTokenDto: SetTokenDto) {
-		return await this.tokenService.setToken(setTokenDto)
-	}
+  @OnEvent(EventsUnion.SetToken)
+  async setToken(setTokenDto: SetTokenDto) {
+    return await this.tokenService.setToken(setTokenDto)
+  }
 
-	@OnEvent(EventsUnion.GetToken)
-	async getToken(getTokenDto: GetTokenDto) {
-		return await this.tokenService.getToken(getTokenDto)
-	}
+  @OnEvent(EventsUnion.GetToken)
+  async getToken(getTokenDto: GetTokenDto) {
+    return await this.tokenService.getToken(getTokenDto)
+  }
 
-	@OnEvent(EventsUnion.DeleteToken)
-	async deleteToken(deleteTokenDto: DeleteTokenDto) {
-		return await this.tokenService.deleteToken(deleteTokenDto)
-	}
+  @OnEvent(EventsUnion.DeleteToken)
+  async deleteToken(deleteTokenDto: DeleteTokenDto) {
+    return await this.tokenService.deleteToken(deleteTokenDto)
+  }
 }

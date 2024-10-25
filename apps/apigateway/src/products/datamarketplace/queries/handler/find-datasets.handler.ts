@@ -4,12 +4,12 @@ import { DatamarketplaceRepository } from "../../datamarketplace.repository"
 
 @QueryHandler(FindDatasetsQuery)
 export class FindDatasetsQueryHandler
-	implements IQueryHandler<FindDatasetsQuery>
+  implements IQueryHandler<FindDatasetsQuery>
 {
-	constructor(private readonly repository: DatamarketplaceRepository) {}
+  constructor(private readonly repository: DatamarketplaceRepository) {}
 
-	async execute(query: FindDatasetsQuery) {
-		const { findDatasetsDto } = query
-		return await this.repository.findDatasets(findDatasetsDto)
-	}
+  async execute(query: FindDatasetsQuery) {
+    const { findDatasetsDto } = query
+    return await this.repository.findDatasets(findDatasetsDto)
+  }
 }

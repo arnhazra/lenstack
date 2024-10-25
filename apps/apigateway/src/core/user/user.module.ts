@@ -12,21 +12,21 @@ import { UpdateAttributeCommandHandler } from "./commands/handler/update-attribu
 import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
-	imports: [
-		CqrsModule,
-		DatabaseModule.forFeature(
-			[{ name: User.name, schema: UserSchema }],
-			DbConnectionMap.Core
-		),
-	],
-	controllers: [UserController],
-	providers: [
-		UserService,
-		UserRepository,
-		CreateUserCommandHandler,
-		UpdateAttributeCommandHandler,
-		FindUserByEmailQueryHandler,
-		FindUserByIdQueryHandler,
-	],
+  imports: [
+    CqrsModule,
+    DatabaseModule.forFeature(
+      [{ name: User.name, schema: UserSchema }],
+      DbConnectionMap.Core
+    ),
+  ],
+  controllers: [UserController],
+  providers: [
+    UserService,
+    UserRepository,
+    CreateUserCommandHandler,
+    UpdateAttributeCommandHandler,
+    FindUserByEmailQueryHandler,
+    FindUserByIdQueryHandler,
+  ],
 })
 export class UserModule {}

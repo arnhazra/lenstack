@@ -6,15 +6,15 @@ import { Solution } from "./schemas/solutions.schema"
 
 @Injectable()
 export class SolutionService {
-	constructor(private readonly qureryBus: QueryBus) {}
+  constructor(private readonly qureryBus: QueryBus) {}
 
-	async getSolutionConfig() {
-		try {
-			return await this.qureryBus.execute<GetSolutionsQuery, Solution[]>(
-				new GetSolutionsQuery()
-			)
-		} catch (error) {
-			throw new BadRequestException(statusMessages.connectionError)
-		}
-	}
+  async getSolutionConfig() {
+    try {
+      return await this.qureryBus.execute<GetSolutionsQuery, Solution[]>(
+        new GetSolutionsQuery()
+      )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 }

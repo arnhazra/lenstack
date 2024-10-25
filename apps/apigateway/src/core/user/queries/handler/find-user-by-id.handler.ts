@@ -5,12 +5,12 @@ import { Types } from "mongoose"
 
 @QueryHandler(FindUserByIdQuery)
 export class FindUserByIdQueryHandler
-	implements IQueryHandler<FindUserByIdQuery>
+  implements IQueryHandler<FindUserByIdQuery>
 {
-	constructor(private readonly repository: UserRepository) {}
+  constructor(private readonly repository: UserRepository) {}
 
-	async execute(query: FindUserByIdQuery) {
-		const { userId } = query
-		return await this.repository.findOne({ _id: new Types.ObjectId(userId) })
-	}
+  async execute(query: FindUserByIdQuery) {
+    const { userId } = query
+    return await this.repository.findOne({ _id: new Types.ObjectId(userId) })
+  }
 }
