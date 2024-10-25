@@ -1,5 +1,12 @@
 # Changelog
 
+## v17.0.0
+
+- Dependency updates & bug fixes
+- Upgraded to next 15
+- Added prettier code formatter
+- Monorepo architectural changes
+
 ## v16.2.1
 
 - Minor code refactoring
