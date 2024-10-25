@@ -1,16 +1,16 @@
-"use client";
-import { ReactNode } from "react";
+"use client"
+import { ReactNode } from "react"
 
 export interface SuspenseProps {
-  condition: boolean;
-  children: ReactNode;
-  fallback: ReactNode;
+	condition: boolean
+	children: ReactNode
+	fallback: ReactNode
 }
 
 export default function Suspense({
-  condition,
-  children,
-  fallback,
+	condition,
+	children,
+	fallback,
 }: SuspenseProps) {
-  return condition ? <>{children}</> : <>{fallback}</>;
+	return condition ? <>{children}</> : <>{fallback}</>
 }

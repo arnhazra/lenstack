@@ -7,11 +7,16 @@ import { BaseRepository } from "src/shared/database/database.repository"
 
 @Injectable()
 export class WebAnalyticsRepository extends BaseRepository<Events> {
-  constructor(@InjectModel(Events.name, DbConnectionMap.WebAnalytics) private eventsModel: Model<Events>) {
-    super(eventsModel)
-  }
+	constructor(
+		@InjectModel(Events.name, DbConnectionMap.WebAnalytics)
+		private eventsModel: Model<Events>
+	) {
+		super(eventsModel)
+	}
 
-  async find(orgId: string): Promise<Events[]> {
-    return await this.eventsModel.find({ orgId: new Types.ObjectId(orgId) }).sort({ createdAt: -1 })
-  }
+	async find(orgId: string): Promise<Events[]> {
+		return await this.eventsModel
+			.find({ orgId: new Types.ObjectId(orgId) })
+			.sort({ createdAt: -1 })
+	}
 }

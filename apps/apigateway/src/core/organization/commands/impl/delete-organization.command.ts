@@ -1,3 +1,3 @@
 export class DeleteOrganizationCommand {
-  constructor(public readonly orgId: string) {}
+	constructor(public readonly orgId: string) {}
 }

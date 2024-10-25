@@ -14,20 +14,26 @@ import { ReadOneDataQueryHandler } from "./queries/handler/read-value-by-key.han
 import { DatabaseModule } from "src/shared/database/database.module"
 
 @Module({
-  imports: [
-    CqrsModule,
-    DatabaseModule.forRoot(envConfig.productsDatabaseURI, DbConnectionMap.HttpNoSql),
-    DatabaseModule.forFeature([{ name: Data.name, schema: DataSchema }], DbConnectionMap.HttpNoSql),
-  ],
-  controllers: [HttpNosqlController],
-  providers: [
-    HttpNosqlService,
-    HttpNosqlRepository,
-    CreateDataCommandHandler,
-    UpdateDataCommandHandler,
-    DeleteDataCommandHandler,
-    ReadAllDataQueryHandler,
-    ReadOneDataQueryHandler
-  ],
+	imports: [
+		CqrsModule,
+		DatabaseModule.forRoot(
+			envConfig.productsDatabaseURI,
+			DbConnectionMap.HttpNoSql
+		),
+		DatabaseModule.forFeature(
+			[{ name: Data.name, schema: DataSchema }],
+			DbConnectionMap.HttpNoSql
+		),
+	],
+	controllers: [HttpNosqlController],
+	providers: [
+		HttpNosqlService,
+		HttpNosqlRepository,
+		CreateDataCommandHandler,
+		UpdateDataCommandHandler,
+		DeleteDataCommandHandler,
+		ReadAllDataQueryHandler,
+		ReadOneDataQueryHandler,
+	],
 })
-export class HttpnosqlModule { }
+export class HttpnosqlModule {}

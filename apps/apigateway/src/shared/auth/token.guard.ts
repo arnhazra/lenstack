@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common"
+import {
+	CanActivate,
+	ExecutionContext,
+	Injectable,
+	UnauthorizedException,
+} from "@nestjs/common"
 import * as jwt from "jsonwebtoken"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
@@ -11,74 +16,95 @@ import { otherConstants } from "src/shared/utils/constants/other-constants"
 
 @Injectable()
 export class TokenGuard implements CanActivate {
-  constructor(private readonly eventEmitter: EventEmitter2) { }
+	constructor(private readonly eventEmitter: EventEmitter2) {}
 
-  async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request: ModRequest = context.switchToHttp().getRequest()
-    const globalResponse: Response = context.switchToHttp().getResponse()
-    const accessToken = request.headers["authorization"]?.split(" ")[1]
-    const refreshToken = request.headers["refresh_token"]
+	async canActivate(context: ExecutionContext): Promise<boolean> {
+		const request: ModRequest = context.switchToHttp().getRequest()
+		const globalResponse: Response = context.switchToHttp().getResponse()
+		const accessToken = request.headers["authorization"]?.split(" ")[1]
+		const refreshToken = request.headers["refresh_token"]
 
-    try {
-      if (!accessToken || !refreshToken) {
-        throw new UnauthorizedException(statusMessages.unauthorized)
-      }
+		try {
+			if (!accessToken || !refreshToken) {
+				throw new UnauthorizedException(statusMessages.unauthorized)
+			} else {
+				const decodedAccessToken = jwt.verify(
+					accessToken,
+					envConfig.accessTokenPublicKey,
+					{ algorithms: ["RS512"] }
+				)
+				const userId = (decodedAccessToken as any).id
+				const userResponse: User[] = await this.eventEmitter.emitAsync(
+					EventsUnion.GetUserDetails,
+					{ _id: userId }
+				)
 
-      else {
-        const decodedAccessToken = jwt.verify(accessToken, envConfig.accessTokenPublicKey, { algorithms: ["RS512"] })
-        const userId = (decodedAccessToken as any).id
-        const userResponse: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
+				if (!userResponse || !userResponse.length) {
+					throw new UnauthorizedException(statusMessages.unauthorized)
+				} else {
+					const { selectedOrgId, activityLog } = userResponse[0]
+					const orgId = String(selectedOrgId)
+					request.user = { userId, orgId }
 
-        if (!userResponse || !userResponse.length) {
-          throw new UnauthorizedException(statusMessages.unauthorized)
-        }
+					if (activityLog) {
+						const { method, url: apiUri } = request
+						this.eventEmitter.emit(EventsUnion.CreateActivity, {
+							userId,
+							method,
+							apiUri,
+						})
+					}
 
-        else {
-          const { selectedOrgId, activityLog } = userResponse[0]
-          const orgId = String(selectedOrgId)
-          request.user = { userId, orgId }
+					return true
+				}
+			}
+		} catch (error) {
+			if (error instanceof jwt.TokenExpiredError) {
+				const decodedAccessToken = jwt.decode(String(accessToken))
+				const userId = (decodedAccessToken as any).id
+				const refreshTokenFromRedis: String[] =
+					await this.eventEmitter.emitAsync(EventsUnion.GetToken, { userId })
 
-          if (activityLog) {
-            const { method, url: apiUri } = request
-            this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
-          }
+				if (
+					!refreshTokenFromRedis ||
+					!refreshTokenFromRedis.length ||
+					refreshToken !== refreshTokenFromRedis[0]
+				) {
+					throw new UnauthorizedException(statusMessages.unauthorized)
+				} else {
+					const user: User[] = await this.eventEmitter.emitAsync(
+						EventsUnion.GetUserDetails,
+						{ _id: userId }
+					)
+					const { selectedOrgId, activityLog, email } = user[0]
+					const orgId = String(selectedOrgId)
+					request.user = { userId, orgId }
 
-          return true
-        }
-      }
-    }
+					if (activityLog) {
+						const { method, url: apiUri } = request
+						this.eventEmitter.emit(EventsUnion.CreateActivity, {
+							userId,
+							method,
+							apiUri,
+						})
+					}
 
-    catch (error) {
-      if (error instanceof (jwt.TokenExpiredError)) {
-        const decodedAccessToken = jwt.decode(String(accessToken))
-        const userId = (decodedAccessToken as any).id
-        const refreshTokenFromRedis: String[] = await this.eventEmitter.emitAsync(EventsUnion.GetToken, { userId })
-
-        if (!refreshTokenFromRedis || !refreshTokenFromRedis.length || refreshToken !== refreshTokenFromRedis[0]) {
-          throw new UnauthorizedException(statusMessages.unauthorized)
-        }
-
-        else {
-          const user: User[] = await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, { _id: userId })
-          const { selectedOrgId, activityLog, email } = user[0]
-          const orgId = String(selectedOrgId)
-          request.user = { userId, orgId }
-
-          if (activityLog) {
-            const { method, url: apiUri } = request
-            this.eventEmitter.emit(EventsUnion.CreateActivity, { userId, method, apiUri })
-          }
-
-          const tokenPayload = { id: userId, email, iss: otherConstants.tokenIssuer }
-          const newAccessToken = jwt.sign(tokenPayload, envConfig.accessTokenPrivateKey, { algorithm: "RS512", expiresIn: "5m" })
-          globalResponse.setHeader("token", newAccessToken)
-          return true
-        }
-      }
-
-      else {
-        throw new UnauthorizedException(statusMessages.unauthorized)
-      }
-    }
-  }
+					const tokenPayload = {
+						id: userId,
+						email,
+						iss: otherConstants.tokenIssuer,
+					}
+					const newAccessToken = jwt.sign(
+						tokenPayload,
+						envConfig.accessTokenPrivateKey,
+						{ algorithm: "RS512", expiresIn: "5m" }
+					)
+					globalResponse.setHeader("token", newAccessToken)
+					return true
+				}
+			} else {
+				throw new UnauthorizedException(statusMessages.unauthorized)
+			}
+		}
+	}
 }

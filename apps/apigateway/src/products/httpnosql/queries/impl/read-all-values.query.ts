@@ -1,5 +1,3 @@
 export class ReadAllValuesQuery {
-  constructor(
-    public readonly orgId: string
-  ) { }
+	constructor(public readonly orgId: string) {}
 }

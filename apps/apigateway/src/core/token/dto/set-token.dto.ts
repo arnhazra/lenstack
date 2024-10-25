@@ -1,9 +1,9 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from "class-validator"
 
 export class SetTokenDto {
-  @IsNotEmpty()
-  userId: string;
+	@IsNotEmpty()
+	userId: string
 
-  @IsNotEmpty()
-  token: string;
+	@IsNotEmpty()
+	token: string
 }

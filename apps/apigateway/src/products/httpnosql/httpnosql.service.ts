@@ -10,57 +10,60 @@ import { Data } from "./schemas/data.schema"
 
 @Injectable()
 export class HttpNosqlService {
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) { }
+	constructor(
+		private readonly commandBus: CommandBus,
+		private readonly queryBus: QueryBus
+	) {}
 
-  async createKeyValue(orgId: string, createDataDto: CreateDataDto) {
-    try {
-      const { key, value } = createDataDto
-      return await this.commandBus.execute<CreateDataCommand, Data>(new CreateDataCommand(orgId, key, value))
-    }
+	async createKeyValue(orgId: string, createDataDto: CreateDataDto) {
+		try {
+			const { key, value } = createDataDto
+			return await this.commandBus.execute<CreateDataCommand, Data>(
+				new CreateDataCommand(orgId, key, value)
+			)
+		} catch (error) {
+			throw error
+		}
+	}
 
-    catch (error) {
-      throw error
-    }
-  }
+	async readAllValues(orgId: string) {
+		try {
+			return await this.queryBus.execute<ReadAllValuesQuery, Data[]>(
+				new ReadAllValuesQuery(orgId)
+			)
+		} catch (error) {
+			throw error
+		}
+	}
 
-  async readAllValues(orgId: string) {
-    try {
-      return await this.queryBus.execute<ReadAllValuesQuery, Data[]>(new ReadAllValuesQuery(orgId))
-    }
+	async readValueByKey(orgId: string, key: string) {
+		try {
+			return await this.queryBus.execute<ReadValueByKeyQuery, Data>(
+				new ReadValueByKeyQuery(orgId, key)
+			)
+		} catch (error) {
+			throw error
+		}
+	}
 
-    catch (error) {
-      throw error
-    }
-  }
+	async updateValueByKey(orgId: string, updateDataDto: CreateDataDto) {
+		try {
+			const { key, value } = updateDataDto
+			return await this.commandBus.execute<UpdateDataCommand, Data>(
+				new UpdateDataCommand(orgId, key, value)
+			)
+		} catch (error) {
+			throw error
+		}
+	}
 
-  async readValueByKey(orgId: string, key: string) {
-    try {
-      return await this.queryBus.execute<ReadValueByKeyQuery, Data>(new ReadValueByKeyQuery(orgId, key))
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
-  async updateValueByKey(orgId: string, updateDataDto: CreateDataDto) {
-    try {
-      const { key, value } = updateDataDto
-      return await this.commandBus.execute<UpdateDataCommand, Data>(new UpdateDataCommand(orgId, key, value))
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
-
-  async deleteValueByKey(orgId: string, key: string) {
-    try {
-      return await this.commandBus.execute<DeleteDataCommand, Data>(new DeleteDataCommand(orgId, key))
-    }
-
-    catch (error) {
-      throw error
-    }
-  }
+	async deleteValueByKey(orgId: string, key: string) {
+		try {
+			return await this.commandBus.execute<DeleteDataCommand, Data>(
+				new DeleteDataCommand(orgId, key)
+			)
+		} catch (error) {
+			throw error
+		}
+	}
 }

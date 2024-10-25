@@ -1,5 +1,5 @@
-import { FindDatasetsDto } from "../../dto/find-datasets.dto";
+import { FindDatasetsDto } from "../../dto/find-datasets.dto"
 
 export class FindDatasetsQuery {
-  constructor(public readonly findDatasetsDto: FindDatasetsDto) {}
+	constructor(public readonly findDatasetsDto: FindDatasetsDto) {}
 }

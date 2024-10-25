@@ -4,9 +4,9 @@ import { envConfig } from "./env.config"
 
 @Controller()
 export class AppController {
-  @Get("/")
-  @Redirect(envConfig.nodeEnv === "development" ? devUIUri : prodUIUri, 302)
-  redirectToUI() {
-    return
-  }
+	@Get("/")
+	@Redirect(envConfig.nodeEnv === "development" ? devUIUri : prodUIUri, 302)
+	redirectToUI() {
+		return
+	}
 }
