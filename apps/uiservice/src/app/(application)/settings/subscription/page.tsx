@@ -23,6 +23,11 @@ export default function Page() {
     HTTPMethods.GET
   )
 
+  const isSubscriptionActive =
+    subscription &&
+    subscription.xp > 0 &&
+    new Date(subscription.endsAt) > new Date()
+
   const renderPricingTiers = pricing?.data?.map((tier: Subscription) => {
     return (
       <div
@@ -93,16 +98,18 @@ export default function Page() {
           title="Your Subscription"
           content="You do not have an active subscription"
         />
-        <div className="mx-auto mt-4 grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-          {renderPricingTiers}
-        </div>
       </Suspense>
       <Suspense condition={!!subscription} fallback={null}>
         <section className="grid gap-2">
           <SectionPanel
             icon={<Bolt className="scale-75" />}
             title="Your Subscription Tier"
-            content={subscription?.subscriptionTier ?? ""}
+            content={subscription?.subscriptionTier.toUpperCase() ?? ""}
+          />
+          <SectionPanel
+            icon={<Bolt className="scale-75" />}
+            title="Subscription Status"
+            content={isSubscriptionActive ? "Active" : "Inactive"}
           />
           <SectionPanel
             icon={<CalendarClock className="scale-75" />}
@@ -118,9 +125,7 @@ export default function Page() {
             icon={<CalendarClock className="scale-75" />}
             title="Subscription Valid Upto"
             content={format(
-              subscription?.expiresAt
-                ? new Date(subscription.expiresAt)
-                : new Date(),
+              subscription?.endsAt ? new Date(subscription.endsAt) : new Date(),
               "MMM, do yyyy, h:mm a"
             )}
           />
@@ -130,6 +135,11 @@ export default function Page() {
             content={subscription?.xp.toString() ?? "0"}
           />
         </section>
+      </Suspense>
+      <Suspense condition={!isSubscriptionActive} fallback={null}>
+        <div className="mx-auto mt-4 grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+          {renderPricingTiers}
+        </div>
       </Suspense>
     </>
   )

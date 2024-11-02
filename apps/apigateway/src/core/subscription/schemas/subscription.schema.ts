@@ -27,7 +27,7 @@ export class Subscription extends Document {
     type: Date,
     default: () => new Date(Date.now() + 86400 * 30 * 1000),
   })
-  expiresAt: Date
+  endsAt: Date
 }
 
 export const SubscriptionSchema = SchemaFactory.createForClass(Subscription)

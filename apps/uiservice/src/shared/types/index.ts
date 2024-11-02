@@ -35,7 +35,7 @@ export type Subscription = {
   platformDelay: number
   features: string[]
   createdAt: string
-  expiresAt: string
+  endsAt: string
 }
 
 export type Organization = {
