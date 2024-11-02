@@ -10,7 +10,6 @@ import { EventsUnion } from "src/shared/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/user/schemas/user.schema"
 import { Organization } from "src/core/organization/schemas/organization.schema"
-import { subscriptionPricing } from "src/core/subscription/subscription.config"
 import { Subscription } from "src/core/subscription/schemas/subscription.schema"
 
 @Injectable()
@@ -68,6 +67,8 @@ export class CredentialGuard implements CanActivate {
                   setTimeout(resolve, subscription.platformDelay)
                 )
                 request.user = { userId, orgId }
+                subscription.xp -= creditRequired
+                await subscription.save()
 
                 if (user.activityLog) {
                   const { method, url: apiUri } = request
