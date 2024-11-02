@@ -33,6 +33,11 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
     (product: any) => product.productName === productName
   )
 
+  const isSubscriptionActive =
+    subscription &&
+    subscription.xp > 0 &&
+    new Date(subscription.endsAt) > new Date()
+
   const productLayout = (
     <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!products.error} fallback={<ErrorComponent />}>
@@ -59,7 +64,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   )
 
   return (
-    <Suspense condition={!subscription} fallback={productLayout}>
+    <Suspense condition={!isSubscriptionActive} fallback={productLayout}>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm">
           <CardHeader>

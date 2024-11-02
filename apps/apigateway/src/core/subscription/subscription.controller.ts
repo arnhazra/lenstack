@@ -10,10 +10,9 @@ import {
 } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
 import { CreateCheckoutSessionDto } from "./dto/checkout.dto"
-import { envConfig } from "src/env.config"
-import { otherConstants } from "src/shared/utils/constants/other-constants"
 import { TokenGuard } from "src/shared/auth/token.guard"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
+import { getRediretUriUI } from "./utils/redirect-uri"
 
 @Controller("subscription")
 export class SubscriptionController {
@@ -51,35 +50,19 @@ export class SubscriptionController {
     @Res() res: any
   ) {
     if (!sessionId) {
-      res.redirect(
-        envConfig.nodeEnv === "development"
-          ? otherConstants.stripeRedirectUriDev
-          : otherConstants.stripeRedirectUriProd
-      )
+      res.redirect(getRediretUriUI(false))
     } else {
       try {
-        await this.subscriptionService.subscribe(sessionId)
-        res.redirect(
-          envConfig.nodeEnv === "development"
-            ? otherConstants.stripeRedirectUriDev
-            : otherConstants.stripeRedirectUriProd
-        )
+        await this.subscriptionService.handleSubscribe(sessionId)
+        res.redirect(getRediretUriUI(true))
       } catch (error) {
-        res.redirect(
-          envConfig.nodeEnv === "development"
-            ? otherConstants.stripeRedirectUriDev
-            : otherConstants.stripeRedirectUriProd
-        )
+        res.redirect(getRediretUriUI(false))
       }
     }
   }
 
   @Get("cancel")
   handleCancel(@Res() res: any) {
-    res.redirect(
-      envConfig.nodeEnv === "development"
-        ? otherConstants.stripeRedirectUriDev
-        : otherConstants.stripeRedirectUriProd
-    )
+    res.redirect(getRediretUriUI(false))
   }
 }

@@ -12,6 +12,7 @@ export class CreateSubscriptionCommandHandler
   async execute(command: CreateSubscriptionCommand) {
     const { userId, subscriptionTier, xp, platformDelay, purchasePrice } =
       command
+    await this.repository.delete({ userId: new Types.ObjectId(userId) })
     return await this.repository.create({
       userId: new Types.ObjectId(userId),
       subscriptionTier,

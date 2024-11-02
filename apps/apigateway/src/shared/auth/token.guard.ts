@@ -12,7 +12,7 @@ import { EventsUnion } from "src/shared/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core//user/schemas/user.schema"
 import { Response } from "express"
-import { otherConstants } from "src/shared/utils/constants/other-constants"
+import { tokenIssuer } from "src/shared/utils/constants/other-constants"
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -92,7 +92,7 @@ export class TokenGuard implements CanActivate {
           const tokenPayload = {
             id: userId,
             email,
-            iss: otherConstants.tokenIssuer,
+            iss: tokenIssuer,
           }
           const newAccessToken = jwt.sign(
             tokenPayload,

@@ -2,7 +2,6 @@ import Stripe from "stripe"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
-import { otherConstants } from "src/shared/utils/constants/other-constants"
 import { User } from "../user/schemas/user.schema"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"
@@ -10,6 +9,7 @@ import { subscriptionPricing, SubscriptionTier } from "./subscription.config"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
 import { FindSubscriptionByUserIdQuery } from "./queries/impl/find-subscription-by-user-id.query"
+import { getRediretUriAPI } from "./utils/redirect-uri"
 
 @Injectable()
 export class SubscriptionService {
@@ -54,14 +54,8 @@ export class SubscriptionService {
           },
         ],
         mode: "payment",
-        success_url:
-          envConfig.nodeEnv === "development"
-            ? `${otherConstants.stripeConfigBaseUriDev}/subscribe?session_id={CHECKOUT_SESSION_ID}`
-            : `${otherConstants.stripeConfigBaseUriProd}/subscribe?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url:
-          envConfig.nodeEnv === "development"
-            ? `${otherConstants.stripeConfigBaseUriDev}/cancel`
-            : `${otherConstants.stripeConfigBaseUriProd}/cancel`,
+        success_url: `${getRediretUriAPI(true)}?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: getRediretUriAPI(false),
         metadata: {
           userId,
           price,
@@ -75,7 +69,7 @@ export class SubscriptionService {
     }
   }
 
-  async subscribe(sessionId: string) {
+  async handleSubscribe(sessionId: string) {
     try {
       const session = await this.stripe.checkout.sessions.retrieve(sessionId)
       const { userId, price, tier } = session.metadata
@@ -97,6 +91,7 @@ export class SubscriptionService {
           false
         )
       }
+
       const { xp, platformDelay } = subscriptionPricing.find(
         (item) => item.subscriptionTier === tier
       )

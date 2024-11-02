@@ -28,6 +28,13 @@ export default function Page() {
     subscription.xp > 0 &&
     new Date(subscription.endsAt) > new Date()
 
+  const canActivateNewSubscription =
+    !subscription ||
+    (subscription &&
+      (subscription.xp < 2 ||
+        new Date(subscription.endsAt).getTime() - new Date().getTime() <=
+          24 * 60 * 60 * 1000))
+
   const renderPricingTiers = pricing?.data?.map((tier: Subscription) => {
     return (
       <div
@@ -132,11 +139,11 @@ export default function Page() {
           <SectionPanel
             icon={<Coins className="scale-75" />}
             title="Remaining XP"
-            content={subscription?.xp.toString() ?? "0"}
+            content={subscription?.xp.toFixed(2).toString() ?? "0"}
           />
         </section>
       </Suspense>
-      <Suspense condition={!isSubscriptionActive} fallback={null}>
+      <Suspense condition={!!canActivateNewSubscription} fallback={null}>
         <div className="mx-auto mt-4 grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
           {renderPricingTiers}
         </div>

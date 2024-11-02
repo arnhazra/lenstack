@@ -9,7 +9,7 @@ import {
   generateOTPEmailBody,
   generateOTPEmailSubject,
 } from "./user.util"
-import { otherConstants } from "src/shared/utils/constants/other-constants"
+import { tokenIssuer } from "src/shared/utils/constants/other-constants"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"
@@ -79,7 +79,7 @@ export class UserService {
             const tokenPayload = {
               id: user.id,
               email: user.email,
-              iss: otherConstants.tokenIssuer,
+              iss: tokenIssuer,
             }
             const accessToken = jwt.sign(
               tokenPayload,
@@ -91,7 +91,7 @@ export class UserService {
             const tokenPayload = {
               id: user.id,
               email: user.email,
-              iss: otherConstants.tokenIssuer,
+              iss: tokenIssuer,
             }
             const accessToken = jwt.sign(
               tokenPayload,
@@ -125,7 +125,7 @@ export class UserService {
           const tokenPayload = {
             id: newUser.id,
             email: newUser.email,
-            iss: otherConstants.tokenIssuer,
+            iss: tokenIssuer,
           }
           const accessToken = jwt.sign(
             tokenPayload,
