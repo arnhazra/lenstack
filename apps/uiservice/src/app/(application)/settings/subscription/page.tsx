@@ -13,10 +13,38 @@ import { Subscription } from "@/shared/types"
 import { format } from "date-fns"
 import ky from "ky"
 import { Bolt, CalendarClock, CheckCircle2, Coins } from "lucide-react"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 
 export default function Page() {
   const [{ user, subscription }] = useContext(GlobalContext)
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  useEffect(() => {
+    const subscriptionSuccess = searchParams.get("subscriptionSuccess")
+    if (subscriptionSuccess !== null) {
+      if (subscriptionSuccess === "true") {
+        toast({
+          title: uiConstants.notification,
+          description: (
+            <p className="text-zinc-600">Subscription Activation Success</p>
+          ),
+        })
+        router.push("/settings/subscription")
+      }
+
+      if (subscriptionSuccess === "false") {
+        toast({
+          title: uiConstants.notification,
+          description: (
+            <p className="text-zinc-600">Subscription Activation Failure</p>
+          ),
+        })
+        router.push("/settings/subscription")
+      }
+    }
+  }, [searchParams])
   const pricing = useQuery(
     ["pricing"],
     endPoints.getSubscriptionPricing,
