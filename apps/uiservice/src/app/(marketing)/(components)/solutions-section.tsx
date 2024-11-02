@@ -3,7 +3,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { Solution } from "@/types/Types"
+import { Solution } from "@/types"
 
 export default function SolutionsSection() {
   const solutions = useQuery(

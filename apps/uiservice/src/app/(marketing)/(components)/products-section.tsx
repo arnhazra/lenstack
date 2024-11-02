@@ -3,7 +3,7 @@ import { endPoints } from "@/constants/api-endpoints"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
-import { Product } from "@/types/Types"
+import { Product } from "@/types"
 
 export default function ProductsSection() {
   const products = useQuery(

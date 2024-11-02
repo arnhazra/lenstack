@@ -17,7 +17,7 @@ import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
 import { brandName } from "@/constants/global-constants"
-import { Product } from "@/types/Types"
+import { Product } from "@/types"
 import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
@@ -29,7 +29,7 @@ export default function Page() {
     endPoints.getProductConfig,
     HTTPMethods.GET
   )
-  const [{ user, selectedOrg }] = useContext(GlobalContext)
+  const [{ user, selectedOrg, subscription }] = useContext(GlobalContext)
   const router = useRouter()
 
   const renderProducts = products?.data?.map((product: Product) => {
@@ -79,8 +79,10 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>Wallet Balance</CardDescription>
-                  <CardTitle className="text-2xl">$ {0}</CardTitle>
+                  <CardDescription>XP</CardDescription>
+                  <CardTitle className="text-2xl">
+                    {subscription?.xp ?? 0}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -91,14 +93,14 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>Pricing Tier</CardDescription>
+                  <CardDescription>Subscription Tier</CardDescription>
                   <CardTitle className="text-2xl capitalize">
-                    {user.hasTrial}
+                    {subscription?.subscriptionTier ?? "No Subscription"}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
-                    Selected Compute Tier
+                    Selected Tier
                   </div>
                 </CardContent>
                 <CardFooter></CardFooter>
@@ -174,8 +176,8 @@ export default function Page() {
                       </dd>
                     </div>
                     <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Wallet Balance</dt>
-                      <dd>$ {0}</dd>
+                      <dt className="text-muted-foreground">XP</dt>
+                      <dd>{subscription?.xp ?? 0}</dd>
                     </div>
                   </dl>
                 </div>

@@ -1,6 +1,6 @@
 "use client"
 import CopyToClipboard from "@/components/copy"
-import SectionPanel from "@/components/sectionpanel"
+import SectionPanel from "@/app/(application)/settings/(components)/sectionpanel"
 import { Switch } from "@/components/ui/switch"
 import { toast } from "@/components/ui/use-toast"
 import { endPoints } from "@/constants/api-endpoints"

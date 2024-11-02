@@ -5,7 +5,7 @@ import { uiConstants } from "@/constants/global-constants"
 import HTTPMethods from "@/constants/http-methods"
 import useQuery from "@/hooks/use-query"
 import { cn } from "@/lib/utils"
-import { Subscription } from "@/types/Types"
+import { Subscription } from "@/types"
 import { CheckCircle2, Link } from "lucide-react"
 
 export default function PricingSection() {

@@ -1,9 +1,13 @@
 "use client"
 import Link from "next/link"
 import { Book, DraftingCompass, PanelLeft, Settings } from "lucide-react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,12 +21,12 @@ import { brandName } from "@/constants/global-constants"
 import useQuery from "@/hooks/use-query"
 import { endPoints } from "@/constants/api-endpoints"
 import HTTPMethods from "@/constants/http-methods"
-import { Product } from "@/types/Types"
+import { Product } from "@/types"
 import { usePathname } from "next/navigation"
 import { getBreadcrumbTitle } from "./data"
-import Suspense from "../suspense"
-import LoadingComponent from "../loading"
-import ErrorComponent from "../error"
+import Suspense from "@/components/suspense"
+import LoadingComponent from "@/components/loading"
+import ErrorComponent from "@/components/error"
 
 export default function Sidebar() {
   const products = useQuery(

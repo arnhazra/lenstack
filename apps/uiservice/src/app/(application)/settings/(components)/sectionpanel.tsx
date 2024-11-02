@@ -1,7 +1,7 @@
 "use client"
 import { ReactNode } from "react"
-import Suspense from "../suspense"
-import MaskText from "../mask"
+import Suspense from "../../../../components/suspense"
+import MaskText from "../../../../components/mask"
 
 interface SectionPanelProps {
   title: string

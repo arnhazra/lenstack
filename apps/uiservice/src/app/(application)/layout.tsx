@@ -9,8 +9,8 @@ import Suspense from "@/components/suspense"
 import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
-import Sidebar from "@/components/sidebar"
-import { Organization, Subscription, User } from "@/types/Types"
+import Sidebar from "./(components)/sidebar"
+import { Organization, Subscription, User } from "@/types"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)

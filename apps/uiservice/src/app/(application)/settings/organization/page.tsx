@@ -1,5 +1,5 @@
 "use client"
-import OrgPanel from "@/components/orgpanel"
+import OrgPanel from "@/app/(application)/settings/(components)/orgpanel"
 import { toast } from "@/components/ui/use-toast"
 import { endPoints } from "@/constants/api-endpoints"
 import { uiConstants } from "@/constants/global-constants"

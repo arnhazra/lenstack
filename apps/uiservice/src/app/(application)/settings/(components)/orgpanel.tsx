@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { CheckCircle2, Key, Lock, Recycle, Trash } from "lucide-react"
 import { format } from "date-fns"
 import Suspense from "@/components/suspense"
-import SectionPanel from "@/components/sectionpanel"
+import SectionPanel from "@/app/(application)/settings/(components)/sectionpanel"
 import CopyToClipboard from "@/components/copy"
 
 interface OrgPanelProps {

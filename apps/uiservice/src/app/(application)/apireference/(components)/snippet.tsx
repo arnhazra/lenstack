@@ -9,10 +9,10 @@ import {
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter"
 import { Input } from "@/components/ui/input"
 import HTTPMethods from "@/constants/http-methods"
-import { Badge } from "../ui/badge"
-import Suspense from "../suspense"
+import { Badge } from "../../../../components/ui/badge"
+import Suspense from "../../../../components/suspense"
 import { stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
-import CopyToClipboard from "../copy"
+import CopyToClipboard from "../../../../components/copy"
 
 interface SnippetPanelProps {
   title: string

@@ -1,4 +1,4 @@
-import { Organization, Subscription, User } from "@/types/Types"
+import { Organization, Subscription, User } from "@/types"
 
 export type GlobalState = {
   user: User
