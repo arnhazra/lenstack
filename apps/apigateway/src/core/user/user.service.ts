@@ -24,6 +24,7 @@ import {
   UpdateAttributeCommand,
 } from "./commands/impl/update-attribute.command"
 import { randomUUID } from "crypto"
+import { Subscription } from "../subscription/schemas/subscription.schema"
 
 @Injectable()
 export class UserService {
@@ -108,7 +109,7 @@ export class UserService {
           const newUser = await this.commandBus.execute<
             CreateUserCommand,
             User
-          >(new CreateUserCommand(email, name, 100))
+          >(new CreateUserCommand(email, name))
           const organization: Organization[] =
             await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, {
               name: "Default Org",
@@ -157,8 +158,22 @@ export class UserService {
           EventsUnion.GetOrgDetails,
           { _id: orgId }
         )
+        const subscriptionRes: Subscription[] =
+          await this.eventEmitter.emitAsync(
+            EventsUnion.GetSubscriptionDetails,
+            userId
+          )
+
+        let subscription: Subscription | null
+
+        if (!subscriptionRes || !subscriptionRes.length) {
+          subscription = null
+        } else {
+          subscription = subscriptionRes[0]
+        }
+
         const organization = orgResponse[0]
-        return { user, organization }
+        return { user, organization, subscription }
       } else {
         throw new BadRequestException(statusMessages.invalidUser)
       }

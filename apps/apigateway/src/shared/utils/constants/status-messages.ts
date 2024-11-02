@@ -7,8 +7,10 @@ export const statusMessages = {
   invalidUser: "Invalid User",
   invalidCredentials: "Invalid Credentials",
   noCredentialsProvided: "No Credentials Provided",
-  insufficientWalletBalance: "Insufficient Wallet Balance",
+  insufficientXPCredits: "Insufficient XP for this transaction",
   organizationLimitReached: "You can create maximum 10 organizations",
   keyAlreadyExists: "Same Key Exists",
   keyDoesNotExist: "Key does not exist",
+  subscriptionNotFound:
+    "No subscriptions exist, please subscribe to use the product",
 }

@@ -1,7 +1,8 @@
-import { Organization, User } from "@/types/Types"
+import { Organization, Subscription, User } from "@/types/Types"
 
 export type GlobalState = {
   user: User
+  subscription: Subscription | null
   selectedOrg: Organization
   organizations: Organization[]
   refreshId: string
@@ -9,6 +10,7 @@ export type GlobalState = {
 
 export type ActionsMap = {
   setUser: Partial<User>
+  setSubscription: Subscription | null
   setSelectedOrg: Organization
   setOrgs: Organization[]
   setRefreshId: string
@@ -30,6 +32,12 @@ export const GlobalReducer = (
       return {
         ...state,
         user: { ...state.user, ...action.payload },
+      }
+
+    case "setSubscription":
+      return {
+        ...state,
+        subscription: action.payload,
       }
 
     case "setSelectedOrg":

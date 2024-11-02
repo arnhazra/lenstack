@@ -2,33 +2,43 @@ import Stripe from "stripe"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { envConfig } from "src/env.config"
-import { pricingConfig } from "./pricing.config"
 import { otherConstants } from "src/shared/utils/constants/other-constants"
 import { User } from "../user/schemas/user.schema"
-import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"
+import { subscriptionPricing, SubscriptionTier } from "./subscription.config"
+import { CommandBus, QueryBus } from "@nestjs/cqrs"
+import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
+import { FindSubscriptionByUserIdQuery } from "./queries/impl/find-subscription-by-user-id.query"
 
 @Injectable()
-export class PricingService {
+export class SubscriptionService {
   private readonly stripe: Stripe
 
-  constructor(private readonly eventEmitter: EventEmitter2) {
+  constructor(
+    private readonly eventEmitter: EventEmitter2,
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus
+  ) {
     this.stripe = new Stripe(envConfig.stripeSecretKey)
   }
 
-  getPricingConfig() {
+  getSubscriptionPricing() {
     try {
-      return pricingConfig
+      return subscriptionPricing
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
 
   async createCheckoutSession(
-    amount: number,
+    tier: SubscriptionTier,
     userId: string
   ): Promise<Stripe.Checkout.Session> {
     try {
+      const { price } = subscriptionPricing.find(
+        (item) => item.subscriptionTier === tier
+      )
       const session = await this.stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -36,9 +46,9 @@ export class PricingService {
             price_data: {
               currency: "usd",
               product_data: {
-                name: envConfig.brandName + "Wallet",
+                name: `${envConfig.brandName} ${tier.toUpperCase()} subscription`,
               },
-              unit_amount: amount * 100,
+              unit_amount: price * 100,
             },
             quantity: 1,
           },
@@ -54,7 +64,8 @@ export class PricingService {
             : `${otherConstants.stripeConfigBaseUriProd}/cancel`,
         metadata: {
           userId,
-          amount,
+          price,
+          tier,
         },
       })
 
@@ -67,20 +78,50 @@ export class PricingService {
   async subscribe(sessionId: string) {
     try {
       const session = await this.stripe.checkout.sessions.retrieve(sessionId)
-      const { userId, amount } = session.metadata
+      const { userId, price, tier } = session.metadata
       const userResponse: User[] = await this.eventEmitter.emitAsync(
         EventsUnion.GetUserDetails,
         { _id: userId }
       )
       const user = userResponse[0]
-      const walletBalance = user.walletBalance + Number(amount)
-      await this.eventEmitter.emitAsync(
-        EventsUnion.UpdateUserDetails,
-        userId,
-        "walletBalance",
-        walletBalance
+
+      if (tier === SubscriptionTier.Trial) {
+        if (!user.hasTrial) {
+          throw new BadRequestException(statusMessages.connectionError)
+        }
+
+        await this.eventEmitter.emitAsync(
+          EventsUnion.UpdateUserDetails,
+          userId,
+          "hasTrial",
+          false
+        )
+      }
+      const { xp, platformDelay } = subscriptionPricing.find(
+        (item) => item.subscriptionTier === tier
+      )
+
+      await this.commandBus.execute(
+        new CreateSubscriptionCommand(
+          userId,
+          tier as SubscriptionTier,
+          xp,
+          Number(price),
+          platformDelay
+        )
       )
       return { success: true }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @OnEvent(EventsUnion.GetSubscriptionDetails)
+  async getMySubscription(userId: string) {
+    try {
+      return await this.queryBus.execute(
+        new FindSubscriptionByUserIdQuery(userId)
+      )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

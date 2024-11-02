@@ -7,6 +7,6 @@ export const otherConstants = {
   tokenIssuer: devUIUri,
   stripeRedirectUriDev: `${devUIUri}/dashboard`,
   stripeRedirectUriProd: `${prodUIUri}/dashboard`,
-  stripeConfigBaseUriDev: "http://localhost:8000/pricing",
-  stripeConfigBaseUriProd: `https://api-${envConfig.brandName.toLowerCase()}.vercel.app/pricing`,
+  stripeConfigBaseUriDev: "http://localhost:8000/subscription",
+  stripeConfigBaseUriProd: `https://api-${envConfig.brandName.toLowerCase()}.vercel.app/subscription`,
 }

@@ -2,7 +2,7 @@ export enum AttributeNames {
   ReduceCarbonEmissions = "reduceCarbonEmissions",
   SelectedOrgId = "selectedOrgId",
   ActivityLog = "activityLog",
-  ComputeTier = "computeTier",
+  HasTrial = "hasTrial",
   Name = "name",
 }
 

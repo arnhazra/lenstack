@@ -1,20 +1,4 @@
 "use client"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { ReactElement, useContext, useState } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { endPoints } from "@/constants/api-endpoints"
@@ -26,11 +10,14 @@ import { toast } from "@/components/ui/use-toast"
 import { Tabs, tabsList } from "./data"
 import {
   AtSign,
+  Bolt,
+  CalendarClock,
+  CheckCircle2,
   CircleArrowRight,
+  Coins,
   Fingerprint,
   IdCard,
   Info,
-  Layers2,
   Leaf,
   Orbit,
   PieChart,
@@ -38,7 +25,6 @@ import {
   ScanFace,
   ShieldCheck,
   User,
-  Wallet,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import OrgPanel from "@/components/orgpanel"
@@ -48,32 +34,32 @@ import { usePromptContext } from "@/providers/prompt.provider"
 import { useConfirmContext } from "@/providers/confirm.provider"
 import LoadingComponent from "@/components/loading"
 import ErrorComponent from "@/components/error"
-import { TierCardComponent } from "@/components/tiercard"
 import { Switch } from "@/components/ui/switch"
 import SectionPanel from "@/components/sectionpanel"
 import CopyToClipboard from "@/components/copy"
 import Link from "next/link"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 import { generateUUID } from "@/lib/uuid-gen"
+import { Subscription } from "@/types/Types"
+import { format } from "date-fns"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
   privacy: <ShieldCheck />,
   organization: <Orbit />,
-  wallet: <Wallet />,
-  compute: <Layers2 />,
+  subscription: <CalendarClock />,
   sustainability: <Leaf />,
   about: <Info />,
 }
 
 export default function Page({ params }: { params: { tab: string } }) {
-  const [{ user, organizations }, dispatch] = useContext(GlobalContext)
-  const [computeTier, setComputeTier] = useState<string>(user.computeTier)
+  const [{ user, organizations, subscription }, dispatch] =
+    useContext(GlobalContext)
   const selectedTab = params.tab
   const router = useRouter()
   const pricing = useQuery(
     ["pricing"],
-    endPoints.getPricingConfig,
+    endPoints.getSubscriptionPricing,
     HTTPMethods.GET
   )
   const { prompt } = usePromptContext()
@@ -84,21 +70,6 @@ export default function Page({ params }: { params: { tab: string } }) {
       dispatch("setUser", { reduceCarbonEmissions: updatedSettings })
       await ky.patch(
         `${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`,
-        { timeout: FETCH_TIMEOUT }
-      )
-    } catch (error) {
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastError}</p>,
-      })
-    }
-  }
-
-  const saveComputeTier = async () => {
-    try {
-      dispatch("setUser", { computeTier })
-      await ky.patch(
-        `${endPoints.updateAttribute}/computeTier/${computeTier}`,
         { timeout: FETCH_TIMEOUT }
       )
     } catch (error) {
@@ -181,28 +152,20 @@ export default function Page({ params }: { params: { tab: string } }) {
     }
   }
 
-  const addAmountToWallet = async () => {
-    const { hasConfirmed, value } = await prompt(
-      "Amount you want to add in your wallet"
-    )
-
-    if (hasConfirmed && value) {
-      try {
-        const response: any = await ky
-          .post(endPoints.createCheckoutSession, {
-            json: { amount: value },
-            timeout: FETCH_TIMEOUT,
-          })
-          .json()
-        window.location = response.redirectUrl
-      } catch (error) {
-        toast({
-          title: uiConstants.notification,
-          description: (
-            <p className="text-zinc-600">{uiConstants.toastError}</p>
-          ),
+  const activateSubscription = async (tier: string) => {
+    try {
+      const response: any = await ky
+        .post(endPoints.createCheckoutSession, {
+          json: { tier },
+          timeout: FETCH_TIMEOUT,
         })
-      }
+        .json()
+      window.location = response.redirectUrl
+    } catch (error) {
+      toast({
+        title: uiConstants.notification,
+        description: <p className="text-zinc-600">{uiConstants.toastError}</p>,
+      })
     }
   }
 
@@ -265,6 +228,51 @@ export default function Page({ params }: { params: { tab: string } }) {
         onRegenCred={(orgId) => regenerateCreds(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}
       />
+    )
+  })
+
+  const renderPricingTiers = pricing?.data?.map((tier: Subscription) => {
+    return (
+      <div
+        className="relative overflow-hidden rounded-lg border bg-white p-2"
+        key={tier.subscriptionTier}
+      >
+        <div className="flex flex-col justify-between rounded-md p-6">
+          <div className="space-y-2">
+            <h2 className="font-bold text-xl capitalize">
+              {tier.subscriptionTier}
+            </h2>
+            <h2 className="font-bold text-3xl capitalize">$ {tier.price}</h2>
+            <ul className="grid gap-3 text-sm text-muted-foreground">
+              {tier.features.map((feature) => (
+                <li
+                  className="flex text-xs items-center text-zinc-600"
+                  key={feature}
+                >
+                  <CheckCircle2 className="scale-75 me-2" />
+                  {feature}
+                </li>
+              ))}
+              <li
+                className="flex text-xs items-center text-zinc-600"
+                key={tier.xp}
+              >
+                <CheckCircle2 className="scale-75 me-2" />
+                {tier.xp} XP for a month
+              </li>
+            </ul>
+          </div>
+          <Button
+            disabled={
+              tier.subscriptionTier === "trial" && user.hasTrial === false
+            }
+            className="mt-4"
+            onClick={() => activateSubscription(tier.subscriptionTier)}
+          >
+            Activate
+          </Button>
+        </div>
+      </div>
     )
   })
 
@@ -343,23 +351,54 @@ export default function Page({ params }: { params: { tab: string } }) {
                   />
                 </section>
               </Suspense>
-              <Suspense condition={selectedTab === Tabs.Wallet} fallback={null}>
-                <SectionPanel
-                  icon={<Wallet className="scale-75" />}
-                  title="Your Wallet Balance"
-                  content={`$ ${user.walletBalance.toFixed(2)}`}
-                  actionComponent={
-                    <Button
-                      className="rounded-full"
-                      variant="default"
-                      size="icon"
-                      title="Add amount to wallet"
-                      onClick={addAmountToWallet}
-                    >
-                      <PlusCircle className="scale-65" />
-                    </Button>
-                  }
-                />
+              <Suspense
+                condition={selectedTab === Tabs.Subscription}
+                fallback={null}
+              >
+                <Suspense condition={!subscription} fallback={null}>
+                  <SectionPanel
+                    icon={<CalendarClock className="scale-75" />}
+                    title="Your Subscription"
+                    content="You do not have an active subscription"
+                  />
+                  <div className="mx-auto mt-4 grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+                    {renderPricingTiers}
+                  </div>
+                </Suspense>
+                <Suspense condition={!!subscription} fallback={null}>
+                  <section className="grid gap-2">
+                    <SectionPanel
+                      icon={<Bolt className="scale-75" />}
+                      title="Your Subscription Tier"
+                      content={subscription?.subscriptionTier ?? ""}
+                    />
+                    <SectionPanel
+                      icon={<CalendarClock className="scale-75" />}
+                      title="Subscription Start Date"
+                      content={format(
+                        subscription?.createdAt
+                          ? new Date(subscription.createdAt)
+                          : new Date(),
+                        "MMM, do yyyy, h:mm a"
+                      )}
+                    />
+                    <SectionPanel
+                      icon={<CalendarClock className="scale-75" />}
+                      title="Subscription Valid Upto"
+                      content={format(
+                        subscription?.expiresAt
+                          ? new Date(subscription.expiresAt)
+                          : new Date(),
+                        "MMM, do yyyy, h:mm a"
+                      )}
+                    />
+                    <SectionPanel
+                      icon={<Coins className="scale-75" />}
+                      title="Remaining XP"
+                      content={subscription?.xp.toString() ?? "0"}
+                    />
+                  </section>
+                </Suspense>
               </Suspense>
               <Suspense
                 condition={selectedTab === Tabs.Privacy}
@@ -401,62 +440,6 @@ export default function Page({ params }: { params: { tab: string } }) {
                       />
                     }
                   />
-                </section>
-              </Suspense>
-              <Suspense
-                condition={selectedTab === Tabs.Compute}
-                fallback={null}
-              >
-                <section className="grid gap-2">
-                  <TierCardComponent
-                    computeTier={computeTier}
-                    estimatedRequestCost={
-                      pricing?.data?.find(
-                        (item: any) => item.computeTier === computeTier
-                      )?.estimatedRequestCost
-                    }
-                    responseDelay={
-                      pricing?.data?.find(
-                        (item: any) => item.computeTier === computeTier
-                      )?.responseDelay
-                    }
-                  />
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Compute Tier</CardTitle>
-                      <CardDescription>
-                        Select the compute tier based on your performance
-                        requirement. Higher computer tier has higer API request
-                        cost.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Select
-                        defaultValue={user.computeTier}
-                        onValueChange={(value: string) => setComputeTier(value)}
-                      >
-                        <SelectTrigger className="capitalize">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            {pricing?.data?.map((item: any) => (
-                              <SelectItem
-                                className="capitalize"
-                                value={item.computeTier}
-                                key={item.computeTier}
-                              >
-                                {item.computeTier}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </CardContent>
-                    <CardFooter>
-                      <Button onClick={saveComputeTier}>Save Settings</Button>
-                    </CardFooter>
-                  </Card>
                 </section>
               </Suspense>
               <Suspense

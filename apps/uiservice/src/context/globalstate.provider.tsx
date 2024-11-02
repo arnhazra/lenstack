@@ -19,15 +19,15 @@ const initialState: GlobalState = {
   user: {
     _id: "",
     activityLog: true,
-    computeTier: "",
     createdAt: "",
     email: "",
     name: "",
     reduceCarbonEmissions: true,
     role: "",
     selectedOrgId: "",
-    walletBalance: 0,
+    hasTrial: false,
   },
+  subscription: null,
   selectedOrg: {
     _id: "",
     clientId: "",

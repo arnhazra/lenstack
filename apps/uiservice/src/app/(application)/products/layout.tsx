@@ -20,7 +20,7 @@ import ErrorComponent from "@/components/error"
 import { brandName } from "@/constants/global-constants"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
-  const [{ user }] = useContext(GlobalContext)
+  const [{ subscription }] = useContext(GlobalContext)
   const router = useRouter()
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
@@ -59,23 +59,23 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   )
 
   return (
-    <Suspense condition={user.walletBalance < 0.2} fallback={productLayout}>
+    <Suspense condition={!subscription} fallback={productLayout}>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Hold On</CardTitle>
             <CardDescription>
-              Seems like you do not have sufficient wallet balance to use/view
-              this Product
+              Seems like you do not have an active subscription to use/view this
+              product
             </CardDescription>
           </CardHeader>
           <CardFooter>
             <Button
               size="lg"
               className="w-full"
-              onClick={(): void => router.push("/settings/wallet")}
+              onClick={(): void => router.push("/settings/subscription")}
             >
-              Add Money to Wallet
+              Go to Subscriptions
             </Button>
           </CardFooter>
         </Card>

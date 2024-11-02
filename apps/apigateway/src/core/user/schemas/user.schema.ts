@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document, Types } from "mongoose"
-import { ComputeTier } from "../../pricing/pricing.config"
 
 @Schema({
   versionKey: false,
@@ -17,11 +16,8 @@ export class User extends Document {
   @Prop({ default: "user" })
   role: string
 
-  @Prop({ required: true })
-  walletBalance: number
-
-  @Prop({ required: true, default: ComputeTier.Hyperscale })
-  computeTier: ComputeTier
+  @Prop({ type: Boolean, default: true })
+  hasTrial: boolean
 
   @Prop({ type: Boolean, default: true })
   reduceCarbonEmissions: boolean

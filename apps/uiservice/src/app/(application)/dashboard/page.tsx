@@ -80,9 +80,7 @@ export default function Page() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardDescription>Wallet Balance</CardDescription>
-                  <CardTitle className="text-2xl">
-                    $ {user.walletBalance.toFixed(2)}
-                  </CardTitle>
+                  <CardTitle className="text-2xl">$ {0}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
@@ -93,9 +91,9 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>Compute Tier</CardDescription>
+                  <CardDescription>Pricing Tier</CardDescription>
                   <CardTitle className="text-2xl capitalize">
-                    {user.computeTier}
+                    {user.hasTrial}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -177,7 +175,7 @@ export default function Page() {
                     </div>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Wallet Balance</dt>
-                      <dd>$ {user.walletBalance.toFixed(2)}</dd>
+                      <dd>$ {0}</dd>
                     </div>
                   </dl>
                 </div>

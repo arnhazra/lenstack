@@ -10,7 +10,8 @@ import { EventsUnion } from "src/shared/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/user/schemas/user.schema"
 import { Organization } from "src/core/organization/schemas/organization.schema"
-import { pricingConfig, Products } from "src/core/pricing/pricing.config"
+import { subscriptionPricing } from "src/core/subscription/subscription.config"
+import { Subscription } from "src/core/subscription/schemas/subscription.schema"
 
 @Injectable()
 export class CredentialGuard implements CanActivate {
@@ -46,37 +47,39 @@ export class CredentialGuard implements CanActivate {
             throw new ForbiddenException(statusMessages.invalidCredentials)
           } else {
             const user = userResponse[0]
-            const product = request.url.split("/")[2]
-            const { responseDelay, estimatedRequestCost } = pricingConfig.find(
-              (pricing) => pricing.computeTier === user.computeTier
-            )
-            const creditRequired = estimatedRequestCost[product as Products]
-
-            if (creditRequired > user.walletBalance) {
-              throw new ForbiddenException(
-                statusMessages.insufficientWalletBalance
-              )
-            } else {
-              await new Promise((resolve) => setTimeout(resolve, responseDelay))
-              const walletBalance = user.walletBalance - creditRequired
+            const subscriptionRes: Subscription[] =
               await this.eventEmitter.emitAsync(
-                EventsUnion.UpdateUserDetails,
-                userId,
-                "walletBalance",
-                walletBalance
+                EventsUnion.GetSubscriptionDetails,
+                userId
               )
-              request.user = { userId, orgId }
 
-              if (user.activityLog) {
-                const { method, url: apiUri } = request
-                this.eventEmitter.emit(EventsUnion.CreateActivity, {
-                  userId,
-                  method,
-                  apiUri,
-                })
+            if (!subscriptionRes || !subscriptionRes.length) {
+              throw new ForbiddenException(statusMessages.subscriptionNotFound)
+            } else {
+              const subscription = subscriptionRes[0]
+              const product = request.url.split("/")[2]
+              const creditRequired = 0.05 //change later
+              if (creditRequired > subscription.xp) {
+                throw new ForbiddenException(
+                  statusMessages.insufficientXPCredits
+                )
+              } else {
+                await new Promise((resolve) =>
+                  setTimeout(resolve, subscription.platformDelay)
+                )
+                request.user = { userId, orgId }
+
+                if (user.activityLog) {
+                  const { method, url: apiUri } = request
+                  this.eventEmitter.emit(EventsUnion.CreateActivity, {
+                    userId,
+                    method,
+                    apiUri,
+                  })
+                }
+
+                return true
               }
-
-              return true
             }
           }
         }

@@ -10,7 +10,7 @@ import LoadingComponent from "@/components/loading"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
 import Sidebar from "@/components/sidebar"
-import { Organization, User } from "@/types/Types"
+import { Organization, Subscription, User } from "@/types/Types"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)
@@ -20,7 +20,11 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     const getUserDetails = async () => {
       try {
-        const response: { user: User; organization: Organization } = await ky
+        const response: {
+          user: User
+          organization: Organization
+          subscription: Subscription | null
+        } = await ky
           .get(endPoints.userDetails, { timeout: FETCH_TIMEOUT })
           .json()
         const organizations: Organization[] = await ky
@@ -30,6 +34,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         localStorage.setItem("clientSecret", response.organization.clientSecret)
         dispatch("setUser", response.user)
         dispatch("setSelectedOrg", response.organization)
+        dispatch("setSubscription", response.subscription)
         dispatch("setOrgs", organizations)
         setAuthorized(true)
       } catch (error: any) {

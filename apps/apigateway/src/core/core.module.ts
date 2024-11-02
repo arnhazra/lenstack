@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"
 import { ApiReferenceModule } from "./apireference/apireference.module"
 import { OrganizationModule } from "./organization/organization.module"
-import { PricingModule } from "./pricing/pricing.module"
+import { SubscriptionModule } from "./subscription/subscription.module"
 import { UserModule } from "./user/user.module"
 import { ProductsModule } from "./product/products.module"
 import { SolutionModule } from "./solution/solution.module"
@@ -18,7 +18,7 @@ import { DatabaseModule } from "src/shared/database/database.module"
     ApiReferenceModule,
     ActivityModule,
     OrganizationModule,
-    PricingModule,
+    SubscriptionModule,
     UserModule,
     ProductsModule,
     SolutionModule,

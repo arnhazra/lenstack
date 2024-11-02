@@ -5,7 +5,6 @@ import {
   UpdateAttributeCommand,
 } from "../impl/update-attribute.command"
 import { Types } from "mongoose"
-import { ComputeTier } from "src/core/pricing/pricing.config"
 
 @CommandHandler(UpdateAttributeCommand)
 export class UpdateAttributeCommandHandler
@@ -18,7 +17,8 @@ export class UpdateAttributeCommandHandler
 
     if (
       attributeName === AttributeNames.ReduceCarbonEmissions ||
-      attributeName === AttributeNames.ActivityLog
+      attributeName === AttributeNames.ActivityLog ||
+      attributeName === AttributeNames.HasTrial
     ) {
       if (attributeValue === "true") {
         return await this.repository.updateOneById(userId, attributeName, true)
@@ -29,11 +29,6 @@ export class UpdateAttributeCommandHandler
 
     if (attributeName === AttributeNames.SelectedOrgId) {
       const value = new Types.ObjectId(attributeValue)
-      return await this.repository.updateOneById(userId, attributeName, value)
-    }
-
-    if (attributeName === AttributeNames.ComputeTier) {
-      const value = attributeValue as ComputeTier
       return await this.repository.updateOneById(userId, attributeName, value)
     }
   }

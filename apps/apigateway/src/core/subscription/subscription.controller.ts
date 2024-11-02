@@ -8,21 +8,21 @@ import {
   UseGuards,
   Request,
 } from "@nestjs/common"
-import { PricingService } from "./pricing.service"
+import { SubscriptionService } from "./subscription.service"
 import { CreateCheckoutSessionDto } from "./dto/checkout.dto"
 import { envConfig } from "src/env.config"
 import { otherConstants } from "src/shared/utils/constants/other-constants"
 import { TokenGuard } from "src/shared/auth/token.guard"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
-@Controller("pricing")
-export class PricingController {
-  constructor(private readonly pricingService: PricingService) {}
+@Controller("subscription")
+export class SubscriptionController {
+  constructor(private readonly subscriptionService: SubscriptionService) {}
 
-  @Get("config")
-  getPricingConfig() {
+  @Get("pricing")
+  getSubscriptionPricing() {
     try {
-      return this.pricingService.getPricingConfig()
+      return this.subscriptionService.getSubscriptionPricing()
     } catch (error) {
       throw error
     }
@@ -35,8 +35,8 @@ export class PricingController {
     @Body() createCheckoutSessionDto: CreateCheckoutSessionDto
   ) {
     try {
-      const session = await this.pricingService.createCheckoutSession(
-        createCheckoutSessionDto.amount,
+      const session = await this.subscriptionService.createCheckoutSession(
+        createCheckoutSessionDto.tier,
         request.user.userId
       )
       return { redirectUrl: session.url }
@@ -58,7 +58,7 @@ export class PricingController {
       )
     } else {
       try {
-        await this.pricingService.subscribe(sessionId)
+        await this.subscriptionService.subscribe(sessionId)
         res.redirect(
           envConfig.nodeEnv === "development"
             ? otherConstants.stripeRedirectUriDev

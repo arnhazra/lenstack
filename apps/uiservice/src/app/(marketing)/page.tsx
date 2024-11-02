@@ -1,19 +1,21 @@
 "use client"
 import Link from "next/link"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { brandName, uiConstants } from "@/constants/global-constants"
 import { endPoints } from "@/constants/api-endpoints"
 import { CheckCircle2, Github } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Header from "@/components/header"
-import { Pricing, Product, Solution } from "@/types/Types"
+import { Subscription, Product, Solution } from "@/types/Types"
 import useQuery from "@/hooks/use-query"
 import HTTPMethods from "@/constants/http-methods"
+import { useRouter } from "next/navigation"
 
 export default function Page() {
+  const router = useRouter()
   const pricing = useQuery(
     ["pricing"],
-    endPoints.getPricingConfig,
+    endPoints.getSubscriptionPricing,
     HTTPMethods.GET
   )
   const products = useQuery(
@@ -27,39 +29,43 @@ export default function Page() {
     HTTPMethods.GET
   )
 
-  const renderComputeTiers = pricing?.data?.map((tier: Pricing) => {
+  const renderPricingTiers = pricing?.data?.map((tier: Subscription) => {
     return (
       <div
         className="relative overflow-hidden rounded-lg border bg-white p-2"
-        key={tier.computeTier}
+        key={tier.subscriptionTier}
       >
         <div className="flex flex-col justify-between rounded-md p-6">
           <div className="space-y-2">
-            <h2 className="font-bold text-lg capitalize">
-              {tier.computeTier} Tier
+            <h2 className="font-bold text-xl capitalize">
+              {tier.subscriptionTier}
             </h2>
+            <h2 className="font-bold text-3xl capitalize">$ {tier.price}</h2>
             <ul className="grid gap-3 text-sm text-muted-foreground">
-              {Object.entries(tier.estimatedRequestCost).map(([key, value]) => (
+              {tier.features.map((feature) => (
                 <li
                   className="flex text-xs items-center text-zinc-600"
-                  key={key}
+                  key={feature}
                 >
                   <CheckCircle2 className="scale-75 me-2" />
-                  {brandName}{" "}
-                  {
-                    products?.data?.find(
-                      (item: Product) => item?.productName === key
-                    )?.displayName
-                  }{" "}
-                  $ {Number(value).toFixed(2)}/req
+                  {feature}
                 </li>
               ))}
-              <li className="flex text-xs items-center text-zinc-600">
-                <CheckCircle2 className="scale-75 me-2" /> {tier.responseDelay}{" "}
-                ms response delay
+              <li
+                className="flex text-xs items-center text-zinc-600"
+                key={tier.xp}
+              >
+                <CheckCircle2 className="scale-75 me-2" />
+                {tier.xp} XP for a month
               </li>
             </ul>
           </div>
+          <Button
+            className="mt-4"
+            onClick={(): void => router.push("/dashboard")}
+          >
+            Get Started
+          </Button>
         </div>
       </div>
     )
@@ -212,14 +218,14 @@ export default function Page() {
         <section id="pricing" className="container py-8 md:py-12 lg:py-24">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center mb-8">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Compute Tiers
+              Pricing
             </h2>
             <p className="max-w-[85%] leading-normal text-zinc-600 sm:text-lg sm:leading-7">
-              {uiConstants.computeTierHeader}
+              {uiConstants.pricingTierHeader}
             </p>
           </div>
-          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-2 lg:grid-cols-2">
-            {renderComputeTiers}
+          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 lg:grid-cols-3">
+            {renderPricingTiers}
           </div>
         </section>
       </div>

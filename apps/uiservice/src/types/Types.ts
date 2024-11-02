@@ -15,15 +15,27 @@ export type Solution = {
   solutionIcon: string
 }
 
-export type Pricing = {
-  computeTier: string
-  responseDelay: number
-  estimatedRequestCost: {
-    intelligence: number
-    datamarketplace: number
-    httpnosql: number
-    webanalytics: number
-  }
+export type User = {
+  _id: string
+  email: string
+  name: string
+  role: string
+  hasTrial: boolean
+  reduceCarbonEmissions: boolean
+  activityLog: boolean
+  createdAt: string
+  selectedOrgId: string
+}
+
+export type Subscription = {
+  _id: string
+  subscriptionTier: string
+  xp: number
+  price: number
+  platformDelay: number
+  features: string[]
+  createdAt: string
+  expiresAt: string
 }
 
 export type Organization = {
@@ -33,17 +45,4 @@ export type Organization = {
   clientId: string
   clientSecret: string
   createdAt: string
-}
-
-export type User = {
-  _id: string
-  email: string
-  name: string
-  role: string
-  walletBalance: number
-  computeTier: string
-  reduceCarbonEmissions: boolean
-  activityLog: boolean
-  createdAt: string
-  selectedOrgId: string
 }

@@ -3,9 +3,10 @@
 ## v17.0.0
 
 - Dependency updates & bug fixes
-- Upgraded to next 15
 - Added prettier code formatter
 - Monorepo architectural changes
+- Introduced new subscription plans with XP
+- Structural changes to subscription plans and UI
 
 ## v16.2.1
 
@@ -93,7 +94,6 @@
 - Regular dependency updates
 - Removed subscription based payment system and added wallet based pay
 - Added $100 free credits for new users
-- Added compute tiers
 
 ## v14.1.0
 
@@ -199,7 +199,6 @@
 - Regular dependency updates
 - Rebranding of Data Exchange to Data Marketplace
 - Pricing restructure
-- Updated theme from zinc & gray to slate
 - Dependency updates & minor bug fixes
 
 ## v11.0.0

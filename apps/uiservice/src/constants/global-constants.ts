@@ -23,7 +23,7 @@ export const uiConstants = {
   openSourceHeader: `${brandName} is open source and powered by open source software.`,
   productsHeader:
     "Explore products for bringing your vision to life. Access all products for different needs with just a free account.",
-  computeTierHeader: `Choose an ${brandName} compute tier that is right for you. Downgrade, upgrade any time. ${brandName} offers a variety of plans to meet your requirements.`,
+  pricingTierHeader: `Choose an ${brandName} subscription that is right for you. Downgrade, upgrade any time. ${brandName} offers a variety of plans to meet your requirements.`,
   privacyPolicyStatement: `By using ${brandName}, you agree to our Terms of Service and Privacy Policy`,
   verifyEmailStatement: `Please verify your auth by entering the OTP we sent to your email`,
   organizationCreated: "Organization created",
