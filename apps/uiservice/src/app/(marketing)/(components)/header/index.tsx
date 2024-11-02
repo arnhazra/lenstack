@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Equal, DraftingCompass } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/shared/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/shared/components/ui/sheet"
 import { generalUserLinks } from "./data"
 
 export default function Header() {

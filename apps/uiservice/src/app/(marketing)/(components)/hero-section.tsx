@@ -1,6 +1,6 @@
-import { buttonVariants } from "@/components/ui/button"
-import { brandName, uiConstants } from "@/constants/global-constants"
-import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/shared/components/ui/button"
+import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import { cn } from "@/shared/lib/utils"
 import Link from "next/link"
 
 export default function HeroSection() {

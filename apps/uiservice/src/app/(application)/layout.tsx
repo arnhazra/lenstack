@@ -1,16 +1,16 @@
 "use client"
-import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { uiConstants } from "@/shared/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
 import { ReactNode, useContext, useEffect, useState } from "react"
-import { toast } from "@/components/ui/use-toast"
-import Suspense from "@/components/suspense"
-import LoadingComponent from "@/components/loading"
+import { toast } from "@/shared/components/ui/use-toast"
+import Suspense from "@/shared/components/suspense"
+import LoadingComponent from "@/shared/components/loading"
 import AuthProvider from "./auth"
-import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import Sidebar from "./(components)/sidebar"
-import { Organization, Subscription, User } from "@/types"
+import { Organization, Subscription, User } from "@/shared/types"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)

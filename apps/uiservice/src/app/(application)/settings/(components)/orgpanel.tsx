@@ -6,13 +6,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+} from "@/shared/components/ui/card"
+import { Button } from "@/shared/components/ui/button"
 import { CheckCircle2, Key, Lock, Recycle, Trash } from "lucide-react"
 import { format } from "date-fns"
-import Suspense from "@/components/suspense"
+import Suspense from "@/shared/components/suspense"
 import SectionPanel from "@/app/(application)/settings/(components)/sectionpanel"
-import CopyToClipboard from "@/components/copy"
+import CopyToClipboard from "@/shared/components/copy"
 
 interface OrgPanelProps {
   orgId: string

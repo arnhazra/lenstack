@@ -1,11 +1,11 @@
-import ActivityLog from "@/components/activity"
+import ActivityLog from "@/shared/components/activity"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/shared/components/ui/card"
 import { Circle, Medal, Star } from "lucide-react"
 
 interface GenericCardProps {

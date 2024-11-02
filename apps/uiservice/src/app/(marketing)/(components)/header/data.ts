@@ -1,4 +1,4 @@
-import { brandName, uiConstants } from "@/constants/global-constants"
+import { brandName, uiConstants } from "@/shared/constants/global-constants"
 
 interface LinkData {
   displayName: string

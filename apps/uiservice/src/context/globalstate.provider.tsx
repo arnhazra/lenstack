@@ -6,7 +6,7 @@ import {
   ActionsMap,
   GlobalReducer,
 } from "./globalstate.reducer"
-import { generateUUID } from "@/lib/uuid-gen"
+import { generateUUID } from "@/shared/lib/uuid-gen"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(
   type: Type,

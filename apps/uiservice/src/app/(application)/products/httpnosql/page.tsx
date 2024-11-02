@@ -1,14 +1,14 @@
 "use client"
-import ErrorComponent from "@/components/error"
-import LoadingComponent from "@/components/loading"
-import Suspense from "@/components/suspense"
+import ErrorComponent from "@/shared/components/error"
+import LoadingComponent from "@/shared/components/loading"
+import Suspense from "@/shared/components/suspense"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/shared/components/ui/card"
 import {
   Table,
   TableBody,
@@ -16,12 +16,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import useQuery from "@/hooks/use-query"
+} from "@/shared/components/ui/table"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import useQuery from "@/shared/hooks/use-query"
 import { format } from "date-fns"
-import { DataModal } from "@/components/datamodal"
+import { DataModal } from "@/shared/components/datamodal"
 
 export default function Page() {
   const dataList = useQuery(

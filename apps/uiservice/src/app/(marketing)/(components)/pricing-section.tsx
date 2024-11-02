@@ -1,11 +1,11 @@
 "use client"
-import { buttonVariants } from "@/components/ui/button"
-import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
-import HTTPMethods from "@/constants/http-methods"
-import useQuery from "@/hooks/use-query"
-import { cn } from "@/lib/utils"
-import { Subscription } from "@/types"
+import { buttonVariants } from "@/shared/components/ui/button"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { uiConstants } from "@/shared/constants/global-constants"
+import HTTPMethods from "@/shared/constants/http-methods"
+import useQuery from "@/shared/hooks/use-query"
+import { cn } from "@/shared/lib/utils"
+import { Subscription } from "@/shared/types"
 import { CheckCircle2, Link } from "lucide-react"
 
 export default function PricingSection() {

@@ -1,7 +1,7 @@
 "use client"
 import { ReactElement, ReactNode, useContext } from "react"
-import { uiConstants } from "@/constants/global-constants"
-import { Button } from "@/components/ui/button"
+import { uiConstants } from "@/shared/constants/global-constants"
+import { Button } from "@/shared/components/ui/button"
 import {
   CalendarClock,
   Info,
@@ -12,12 +12,12 @@ import {
   User,
 } from "lucide-react"
 import { GlobalContext } from "@/context/globalstate.provider"
-import { usePromptContext } from "@/providers/prompt.provider"
+import { usePromptContext } from "@/shared/providers/prompt.provider"
 import ky from "ky"
-import { endPoints } from "@/constants/api-endpoints"
-import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
-import { toast } from "@/components/ui/use-toast"
-import { generateUUID } from "@/lib/uuid-gen"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
+import { toast } from "@/shared/components/ui/use-toast"
+import { generateUUID } from "@/shared/lib/uuid-gen"
 import { Tabs, tabsList } from "./data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"

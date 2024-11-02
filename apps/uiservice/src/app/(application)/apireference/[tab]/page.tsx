@@ -1,15 +1,15 @@
 "use client"
-import { apiHost, endPoints } from "@/constants/api-endpoints"
-import Suspense from "@/components/suspense"
+import { apiHost, endPoints } from "@/shared/constants/api-endpoints"
+import Suspense from "@/shared/components/suspense"
 import { Book } from "lucide-react"
-import useQuery from "@/hooks/use-query"
-import HTTPMethods from "@/constants/http-methods"
+import useQuery from "@/shared/hooks/use-query"
+import HTTPMethods from "@/shared/constants/http-methods"
 import SnippetPanel from "@/app/(application)/apireference/(components)/snippet"
-import LoadingComponent from "@/components/loading"
-import ErrorComponent from "@/components/error"
+import LoadingComponent from "@/shared/components/loading"
+import ErrorComponent from "@/shared/components/error"
 import { useRouter } from "next/navigation"
-import { uiConstants } from "@/constants/global-constants"
-import ActivityLog from "@/components/activity"
+import { uiConstants } from "@/shared/constants/global-constants"
+import ActivityLog from "@/shared/components/activity"
 
 export default function Page({ params }: { params: { tab: string } }) {
   const router = useRouter()

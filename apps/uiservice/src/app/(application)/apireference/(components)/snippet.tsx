@@ -5,14 +5,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/shared/components/ui/card"
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter"
-import { Input } from "@/components/ui/input"
-import HTTPMethods from "@/constants/http-methods"
-import { Badge } from "../../../../components/ui/badge"
-import Suspense from "../../../../components/suspense"
+import { Input } from "@/shared/components/ui/input"
+import HTTPMethods from "@/shared/constants/http-methods"
+import { Badge } from "@/shared/components/ui/badge"
+import Suspense from "@/shared/components/suspense"
 import { stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
-import CopyToClipboard from "../../../../components/copy"
+import CopyToClipboard from "@/shared/components/copy"
 
 interface SnippetPanelProps {
   title: string

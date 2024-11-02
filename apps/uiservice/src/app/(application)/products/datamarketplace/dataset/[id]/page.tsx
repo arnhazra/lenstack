@@ -1,7 +1,7 @@
 "use client"
 import { BookMarked, Copy, Medal } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/shared/components/ui/badge"
+import { Button } from "@/shared/components/ui/button"
 import {
   Card,
   CardContent,
@@ -9,19 +9,19 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+} from "@/shared/components/ui/card"
+import { Separator } from "@/shared/components/ui/separator"
 import { useRouter } from "next/navigation"
-import useQuery from "@/hooks/use-query"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import Suspense from "@/components/suspense"
-import LoadingComponent from "@/components/loading"
-import { toast } from "@/components/ui/use-toast"
-import { uiConstants } from "@/constants/global-constants"
-import ErrorComponent from "@/components/error"
+import useQuery from "@/shared/hooks/use-query"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import Suspense from "@/shared/components/suspense"
+import LoadingComponent from "@/shared/components/loading"
+import { toast } from "@/shared/components/ui/use-toast"
+import { uiConstants } from "@/shared/constants/global-constants"
+import ErrorComponent from "@/shared/components/error"
 import { DatasetCard } from "../../(components)/dataset-card"
-import ActivityLog from "@/components/activity"
+import ActivityLog from "@/shared/components/activity"
 
 export default function Page({ params }: { params: { id: string } }) {
   const datasetId = params.id

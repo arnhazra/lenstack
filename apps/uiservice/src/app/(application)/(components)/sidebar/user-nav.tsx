@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/shared/components/ui/dropdown-menu"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { User } from "lucide-react"
 import { useRouter } from "next/navigation"

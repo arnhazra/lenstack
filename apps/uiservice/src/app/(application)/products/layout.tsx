@@ -1,23 +1,23 @@
 "use client"
-import Suspense from "@/components/suspense"
+import Suspense from "@/shared/components/suspense"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { ReactNode, useContext } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/shared/components/ui/card"
 import { usePathname, useRouter } from "next/navigation"
-import useQuery from "@/hooks/use-query"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import ActivityLog from "@/components/activity"
-import LoadingComponent from "@/components/loading"
-import ErrorComponent from "@/components/error"
-import { brandName } from "@/constants/global-constants"
+import useQuery from "@/shared/hooks/use-query"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import ActivityLog from "@/shared/components/activity"
+import LoadingComponent from "@/shared/components/loading"
+import ErrorComponent from "@/shared/components/error"
+import { brandName } from "@/shared/constants/global-constants"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
   const [{ subscription }] = useContext(GlobalContext)

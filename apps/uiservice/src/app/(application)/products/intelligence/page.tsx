@@ -1,24 +1,24 @@
 "use client"
 import { CornerDownLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/shared/components/ui/button"
+import { Input } from "@/shared/components/ui/input"
+import { Label } from "@/shared/components/ui/label"
+import { Textarea } from "@/shared/components/ui/textarea"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { endPoints } from "@/constants/api-endpoints"
+} from "@/shared/components/ui/card"
+import { endPoints } from "@/shared/constants/api-endpoints"
 import { useState } from "react"
 import ky from "ky"
-import { toast } from "@/components/ui/use-toast"
-import { brandName, uiConstants } from "@/constants/global-constants"
-import Suspense from "@/components/suspense"
-import LoaderIcon from "@/components/loaderIcon"
-import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
+import { toast } from "@/shared/components/ui/use-toast"
+import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import Suspense from "@/shared/components/suspense"
+import LoaderIcon from "@/shared/components/loaderIcon"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 
 export default function Page() {
   const [requestBody, setRequestBody] = useState({

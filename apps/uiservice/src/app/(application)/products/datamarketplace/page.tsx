@@ -1,11 +1,11 @@
 "use client"
-import ErrorComponent from "@/components/error"
-import LoadingComponent from "@/components/loading"
-import Suspense from "@/components/suspense"
-import { Button } from "@/components/ui/button"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import useQuery from "@/hooks/use-query"
+import ErrorComponent from "@/shared/components/error"
+import LoadingComponent from "@/shared/components/loading"
+import Suspense from "@/shared/components/suspense"
+import { Button } from "@/shared/components/ui/button"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import useQuery from "@/shared/hooks/use-query"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -13,7 +13,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/shared/components/ui/dropdown-menu"
 import {
   ChevronLeft,
   ChevronRight,
@@ -23,8 +23,8 @@ import {
 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Input } from "@/components/ui/input"
-import { uiConstants } from "@/constants/global-constants"
+import { Input } from "@/shared/components/ui/input"
+import { uiConstants } from "@/shared/constants/global-constants"
 import { DatasetCard } from "./(components)/dataset-card"
 
 export interface DatasetRequestState {

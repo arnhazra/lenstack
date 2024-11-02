@@ -5,28 +5,28 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
+} from "@/shared/components/ui/tooltip"
+import { Sheet, SheetContent, SheetTrigger } from "@/shared/components/ui/sheet"
+import { Button } from "@/shared/components/ui/button"
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/shared/components/ui/breadcrumb"
 import { UserNav } from "./user-nav"
 import { OrgSwitcher } from "./org-switcher"
-import { brandName } from "@/constants/global-constants"
-import useQuery from "@/hooks/use-query"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import { Product } from "@/types"
+import { brandName } from "@/shared/constants/global-constants"
+import useQuery from "@/shared/hooks/use-query"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import { Product } from "@/shared/types"
 import { usePathname } from "next/navigation"
 import { getBreadcrumbTitle } from "./data"
-import Suspense from "@/components/suspense"
-import LoadingComponent from "@/components/loading"
-import ErrorComponent from "@/components/error"
+import Suspense from "@/shared/components/suspense"
+import LoadingComponent from "@/shared/components/loading"
+import ErrorComponent from "@/shared/components/error"
 
 export default function Sidebar() {
   const products = useQuery(

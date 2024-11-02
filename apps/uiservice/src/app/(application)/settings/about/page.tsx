@@ -1,4 +1,4 @@
-import { brandName } from "@/constants/global-constants"
+import { brandName } from "@/shared/constants/global-constants"
 import Link from "next/link"
 
 export default function Page() {

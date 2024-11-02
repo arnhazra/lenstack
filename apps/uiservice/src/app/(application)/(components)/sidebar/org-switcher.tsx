@@ -5,16 +5,16 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/shared/components/ui/select"
 import { ChevronsUpDown, Orbit } from "lucide-react"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
-import { endPoints } from "@/constants/api-endpoints"
-import { toast } from "@/components/ui/use-toast"
-import { uiConstants } from "@/constants/global-constants"
-import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
-import { generateUUID } from "@/lib/uuid-gen"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { toast } from "@/shared/components/ui/use-toast"
+import { uiConstants } from "@/shared/constants/global-constants"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
+import { generateUUID } from "@/shared/lib/uuid-gen"
 
 export function OrgSwitcher() {
   const [{ user, organizations }, dispatch] = useContext(GlobalContext)

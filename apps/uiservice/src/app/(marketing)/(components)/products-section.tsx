@@ -1,9 +1,9 @@
 "use client"
-import { endPoints } from "@/constants/api-endpoints"
-import { brandName, uiConstants } from "@/constants/global-constants"
-import HTTPMethods from "@/constants/http-methods"
-import useQuery from "@/hooks/use-query"
-import { Product } from "@/types"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import HTTPMethods from "@/shared/constants/http-methods"
+import useQuery from "@/shared/hooks/use-query"
+import { Product } from "@/shared/types"
 
 export default function ProductsSection() {
   const products = useQuery(

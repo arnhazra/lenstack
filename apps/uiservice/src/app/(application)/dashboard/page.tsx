@@ -1,6 +1,6 @@
 "use client"
 import { Copy, Orbit } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import {
   Card,
   CardContent,
@@ -8,20 +8,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+} from "@/shared/components/ui/card"
+import { Separator } from "@/shared/components/ui/separator"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { useRouter } from "next/navigation"
-import useQuery from "@/hooks/use-query"
-import { endPoints } from "@/constants/api-endpoints"
-import HTTPMethods from "@/constants/http-methods"
-import { brandName } from "@/constants/global-constants"
-import { Product } from "@/types"
-import Suspense from "@/components/suspense"
-import LoadingComponent from "@/components/loading"
-import ErrorComponent from "@/components/error"
-import MaskText from "@/components/mask"
+import useQuery from "@/shared/hooks/use-query"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import { brandName } from "@/shared/constants/global-constants"
+import { Product } from "@/shared/types"
+import Suspense from "@/shared/components/suspense"
+import LoadingComponent from "@/shared/components/loading"
+import ErrorComponent from "@/shared/components/error"
+import MaskText from "@/shared/components/mask"
 
 export default function Page() {
   const products = useQuery(

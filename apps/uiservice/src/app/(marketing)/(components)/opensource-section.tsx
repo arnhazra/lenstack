@@ -1,4 +1,4 @@
-import { uiConstants } from "@/constants/global-constants"
+import { uiConstants } from "@/shared/constants/global-constants"
 import { Github } from "lucide-react"
 import Link from "next/link"
 
