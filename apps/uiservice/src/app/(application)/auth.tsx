@@ -10,7 +10,7 @@ import { Label } from "@/shared/components/ui/label"
 import LoaderIcon from "@/shared/components/loaderIcon"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import Header from "../(marketing)/(components)/header"
+import Header from "../../shared/components/header"
 import {
   Card,
   CardContent,

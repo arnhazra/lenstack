@@ -1,4 +1,4 @@
-import Header from "@/app/(marketing)/(components)/header"
+import Header from "@/shared/components/header"
 import SolutionsSection from "./(components)/solutions-section"
 import ProductsSection from "./(components)/products-section"
 import PricingSection from "./(components)/pricing-section"
