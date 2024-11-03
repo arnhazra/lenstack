@@ -1,6 +1,4 @@
 "use client"
-import Link from "next/link"
-import { DraftingCompass } from "lucide-react"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
 import ky from "ky"
 import { useState } from "react"
@@ -12,6 +10,14 @@ import { Label } from "@/shared/components/ui/label"
 import LoaderIcon from "@/shared/components/loaderIcon"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
+import Header from "../(marketing)/(components)/header"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -89,43 +95,25 @@ export default function AuthenticationPage({
   }
 
   return (
-    <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 overflow-hidden">
-      <div className="relative hidden h-full flex-col bg-zinc-100 p-10 text-white lg:flex dark:border-r">
-        <div className="absolute inset-0 bg-zinc-900" />
-        <Link href="/">
-          <div className="relative z-20 flex items-center text-lg font-medium">
-            <DraftingCompass className="me-2" />
-            {brandName}
-          </div>
-        </Link>
-        <div className="relative z-20 mt-auto">
-          <blockquote className="space-y-2">
-            <p className="text-lg">
-              {uiConstants.homeIntro1}, {uiConstants.homeIntro2}.
-            </p>
-            <footer className="text-sm">{brandName} Inc.</footer>
-          </blockquote>
-        </div>
-      </div>
-      <div className="flex h-full items-center p-4 lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <div className="flex flex-col space-y-2">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              {brandName} Auth
-            </h1>
-            <p className="text-sm text-zinc-600">
+    <>
+      <Header />
+      <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
+        <Card className="mx-auto max-w-sm">
+          <CardHeader>
+            <CardTitle className="text-2xl">{brandName} Auth</CardTitle>
+            <CardDescription>
               <Suspense
                 condition={authStep === 1}
                 fallback="Enter the OTP we sent to your email"
               >
-                Enter your email below to get started
+                Enter your email to get started
               </Suspense>
-            </p>
-          </div>
-          <div>
-            <Suspense condition={authStep === 1} fallback={null}>
-              <form onSubmit={generateOTP}>
-                <div className="grid gap-4">
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4">
+              <Suspense condition={authStep === 1} fallback={null}>
+                <form onSubmit={generateOTP}>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -145,7 +133,7 @@ export default function AuthenticationPage({
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-11"
+                    className="w-full h-11 mt-4"
                     disabled={isAuthLoading}
                   >
                     <Suspense
@@ -156,72 +144,82 @@ export default function AuthenticationPage({
                         </>
                       }
                     >
-                      Continue
+                      Continue with Email
                     </Suspense>
                   </Button>
-                </div>
-              </form>
-            </Suspense>
-            <Suspense condition={authStep === 2} fallback={null}>
-              <form onSubmit={validateOTP}>
-                <div className="grid gap-4">
-                  <Suspense condition={newUser} fallback={null}>
+                </form>
+              </Suspense>
+              <Suspense condition={authStep === 2} fallback={null}>
+                <form onSubmit={validateOTP}>
+                  <div className="grid gap-4">
+                    <Suspense condition={newUser} fallback={null}>
+                      <div className="grid gap-2">
+                        <Label htmlFor="name">Your Name</Label>
+                        <Input
+                          className="h-11"
+                          type="text"
+                          placeholder="Your Name"
+                          required
+                          disabled={isAuthLoading}
+                          onChange={(e) => setName(e.target.value)}
+                          autoComplete={"off"}
+                          maxLength={40}
+                        />
+                      </div>
+                    </Suspense>
                     <div className="grid gap-2">
-                      <Label htmlFor="name">Your Name</Label>
+                      <Label htmlFor="otp">One Time Password</Label>
                       <Input
                         className="h-11"
-                        type="text"
-                        placeholder="Your Name"
+                        type="password"
+                        placeholder="Enter OTP sent to your email"
                         required
                         disabled={isAuthLoading}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) =>
+                          setState({ ...state, otp: e.target.value })
+                        }
                         autoComplete={"off"}
-                        maxLength={40}
+                        minLength={6}
+                        maxLength={6}
                       />
                     </div>
-                  </Suspense>
-                  <div className="grid gap-2">
-                    <Label htmlFor="otp">One Time Password</Label>
-                    <Input
-                      className="h-11"
-                      type="password"
-                      placeholder="Enter OTP sent to your email"
-                      required
+                    <Button
+                      variant="default"
+                      type="submit"
                       disabled={isAuthLoading}
-                      onChange={(e) =>
-                        setState({ ...state, otp: e.target.value })
-                      }
-                      autoComplete={"off"}
-                      minLength={6}
-                      maxLength={6}
-                    />
-                  </div>
-                  <Button
-                    variant="default"
-                    type="submit"
-                    disabled={isAuthLoading}
-                    className="w-full h-11"
-                  >
-                    <Suspense
-                      condition={!isAuthLoading}
-                      fallback={
-                        <>
-                          <LoaderIcon /> {alert}
-                        </>
-                      }
+                      className="w-full h-11"
                     >
-                      Continue
-                    </Suspense>
-                  </Button>
-                </div>
-              </form>
-            </Suspense>
-          </div>
-          <p className="text-sm text-zinc-500 ">
-            {uiConstants.privacyPolicyStatement}
-          </p>
-        </div>
+                      <Suspense
+                        condition={!isAuthLoading}
+                        fallback={
+                          <>
+                            <LoaderIcon /> {alert}
+                          </>
+                        }
+                      >
+                        Continue
+                      </Suspense>
+                    </Button>
+                  </div>
+                </form>
+              </Suspense>
+              <div className="relative flex items-center">
+                <div className="flex-grow border-t border-muted-foreground"></div>
+                <span className="mx-2 bg-background px-2 text-xs uppercase text-zinc-500">
+                  Or continue with
+                </span>
+                <div className="flex-grow border-t border-muted-foreground"></div>
+              </div>
+              <Button variant="outline" className="w-full">
+                Continue with Google SSO
+              </Button>
+            </div>
+            <div className="mt-4 text-center text-sm text-zinc-500">
+              {uiConstants.privacyPolicyStatement}
+            </div>
+          </CardContent>
+        </Card>
       </div>
-    </div>
+    </>
   )
 }
