@@ -7,7 +7,7 @@
 - Monorepo architectural changes
 - Introduced new subscription plans with XP
 - Structural changes to subscription plans and UI
-- Code refactoring - breakdown to smaller components
+- Code refactoring & breakdown into smaller components
 
 ## v16.2.1
 
