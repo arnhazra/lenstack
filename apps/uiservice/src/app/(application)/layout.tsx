@@ -9,7 +9,7 @@ import Suspense from "@/shared/components/suspense"
 import LoadingComponent from "@/shared/components/loading"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import Sidebar from "./(components)/sidebar"
+import Sidebar from "../../shared/components/sidebar"
 import { Organization, Subscription, User } from "@/shared/types"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
