@@ -79,9 +79,11 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>XP</CardDescription>
+                  <CardDescription className="text-lg">
+                    XP Credits
+                  </CardDescription>
                   <CardTitle className="text-2xl">
-                    {subscription?.xp ?? 0}
+                    {subscription ? subscription.xp.toFixed(2) : 0}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -93,7 +95,9 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="pb-2">
-                  <CardDescription>Subscription Tier</CardDescription>
+                  <CardDescription className="text-lg">
+                    Subscription Tier
+                  </CardDescription>
                   <CardTitle className="text-2xl capitalize">
                     {subscription?.subscriptionTier ?? "No Subscription"}
                   </CardTitle>
@@ -177,7 +181,7 @@ export default function Page() {
                     </div>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">XP</dt>
-                      <dd>{subscription?.xp ?? 0}</dd>
+                      <dd>{subscription ? subscription.xp.toFixed(2) : 0}</dd>
                     </div>
                   </dl>
                 </div>
