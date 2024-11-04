@@ -59,6 +59,7 @@ export default function Page() {
     HTTPMethods.POST,
     datasetRequestState
   )
+
   useEffect(() => {
     if (!datasetRequestState.searchQuery) datasets.refetch()
   }, [datasetRequestState.searchQuery])

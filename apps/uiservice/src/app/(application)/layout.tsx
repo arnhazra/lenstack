@@ -3,7 +3,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
-import { ReactNode, useContext, useEffect, useState } from "react"
+import { ReactNode, useContext, useState } from "react"
 import { toast } from "@/shared/components/ui/use-toast"
 import Suspense from "@/shared/components/suspense"
 import LoadingComponent from "@/shared/components/loading"
@@ -11,14 +11,19 @@ import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import Sidebar from "../../shared/components/sidebar"
 import { Organization, Subscription, User } from "@/shared/types"
+import { useQuery } from "@tanstack/react-query"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
-  useEffect(() => {
-    const getUserDetails = async () => {
+  const getUserDetails = async () => {
+    if (!localStorage.getItem("accessToken")) {
+      setAuthorized(false)
+      setLoading(false)
+      return null
+    } else {
       try {
         const response: {
           user: User
@@ -30,8 +35,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         const organizations: Organization[] = await ky
           .get(endPoints.organization, { timeout: FETCH_TIMEOUT })
           .json()
-        localStorage.setItem("clientId", response.organization.clientId)
-        localStorage.setItem("clientSecret", response.organization.clientSecret)
+        localStorage.setItem(
+          "orgAccessToken",
+          response.organization.accessToken
+        )
         dispatch("setUser", response.user)
         dispatch("setSelectedOrg", response.organization)
         dispatch("setSubscription", response.subscription)
@@ -63,16 +70,16 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         }
       } finally {
         setLoading(false)
+        return null
       }
     }
+  }
 
-    if (localStorage.getItem("accessToken")) {
-      getUserDetails()
-    } else {
-      setAuthorized(false)
-      setLoading(false)
-    }
-  }, [refreshId, isAuthorized])
+  useQuery({
+    queryKey: ["user-details", refreshId, isAuthorized],
+    enabled: true,
+    queryFn: getUserDetails,
+  })
 
   const appLayout = (
     <>

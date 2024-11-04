@@ -15,10 +15,9 @@ interceptor.on("request", ({ request }) => {
     "refresh_token",
     `${localStorage.getItem("refreshToken")}`
   )
-  request.headers.set("client_id", `${localStorage.getItem("clientId")}`)
   request.headers.set(
-    "client_secret",
-    `${localStorage.getItem("clientSecret")}`
+    "access_token",
+    `${localStorage.getItem("orgAccessToken")}`
   )
 })
 

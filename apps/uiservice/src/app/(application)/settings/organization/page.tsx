@@ -9,6 +9,7 @@ import { generateUUID } from "@/shared/lib/uuid-gen"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import ky from "ky"
 import { useContext } from "react"
+import { Organization } from "@/shared/types"
 
 export default function Page() {
   const [{ user, organizations }, dispatch] = useContext(GlobalContext)
@@ -60,15 +61,14 @@ export default function Page() {
     }
   }
 
-  const renderOrgs = organizations?.map((organization: any) => {
+  const renderOrgs = organizations?.map((organization: Organization) => {
     return (
       <OrgPanel
         key={organization?._id}
         orgId={organization?._id}
         isSelected={organization._id === user.selectedOrgId}
         displayName={organization?.name}
-        clientId={organization?.clientId}
-        clientSecret={organization?.clientSecret}
+        accessToken={organization?.accessToken}
         createdAt={organization?.createdAt}
         onRegenCred={(orgId) => regenerateCreds(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}

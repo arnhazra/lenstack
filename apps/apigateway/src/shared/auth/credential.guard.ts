@@ -18,17 +18,16 @@ export class CredentialGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: ModRequest = context.switchToHttp().getRequest()
-    const clientId = request.headers["client_id"] || request.query.client_id
-    const clientSecret =
-      request.headers["client_secret"] || request.query.client_secret
+    const accessToken =
+      request.headers["access_token"] || request.query.access_token
 
     try {
-      if (!clientId || !clientSecret) {
+      if (!accessToken) {
         throw new ForbiddenException(statusMessages.noCredentialsProvided)
       } else {
         const orgResponse: Organization[] = await this.eventEmitter.emitAsync(
           EventsUnion.GetOrgDetails,
-          { clientId, clientSecret }
+          { accessToken }
         )
 
         if (!orgResponse || !orgResponse.length) {

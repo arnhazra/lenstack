@@ -150,17 +150,11 @@ export default function Page() {
                   <div className="font-semibold">Org Information</div>
                   <ul className="grid gap-3">
                     <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Client Id</span>
-                      <span>
-                        <MaskText value={selectedOrg.clientId} />
-                      </span>
-                    </li>
-                    <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
-                        Client Secret
+                        Org Access Token
                       </span>
                       <span>
-                        <MaskText value={selectedOrg.clientSecret} />
+                        <MaskText value={selectedOrg.accessToken} />
                       </span>
                     </li>
                   </ul>

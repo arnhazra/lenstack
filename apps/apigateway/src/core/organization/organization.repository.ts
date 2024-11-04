@@ -25,8 +25,7 @@ export class OrganizationRepository {
     return await new this.model({
       name,
       userId: new Types.ObjectId(userId),
-      clientId: randomUUID(),
-      clientSecret: randomUUID(),
+      accessToken: randomUUID(),
     }).save()
   }
 
@@ -55,8 +54,7 @@ export class OrganizationRepository {
       _id: new Types.ObjectId(orgId),
       userId: new Types.ObjectId(userId),
     })
-    org.clientId = randomUUID()
-    org.clientSecret = randomUUID()
+    org.accessToken = randomUUID()
     return await org.save()
   }
 }

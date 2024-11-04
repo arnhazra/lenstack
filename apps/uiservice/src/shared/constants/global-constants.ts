@@ -30,6 +30,6 @@ export const uiConstants = {
   organizationSwitched: "Organization switched",
   organizationDeleted: "Organization deleted",
   apiRefreneceStatement:
-    "You must send client_id & client_secret in headers to authenticate with your organization",
+    "You must send access_token in headers to authenticate with your organization",
   aiSafetyStatement: `As an AI LLM ${brandName} Intelligence can make mistakes. Please be aware.`,
 }
