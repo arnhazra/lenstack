@@ -40,7 +40,7 @@ export default function SnippetPanel({
         <CopyToClipboard value={url} />
       </CardContent>
       <CardFooter className="block">
-        <Suspense condition={!!request} fallback={null}>
+        <Suspense condition={!!request}>
           <p className="text-sm mb-3">Sample Request</p>
           <SyntaxHighlighter
             language="json"
@@ -50,7 +50,7 @@ export default function SnippetPanel({
             {JSON.stringify(request, null, 2)}
           </SyntaxHighlighter>
         </Suspense>
-        <Suspense condition={!!response} fallback={null}>
+        <Suspense condition={!!response}>
           <p className="text-sm mt-3 mb-3">Sample Response</p>
           <SyntaxHighlighter
             wrapLongLines

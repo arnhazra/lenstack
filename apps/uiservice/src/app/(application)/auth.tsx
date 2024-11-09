@@ -112,7 +112,7 @@ export default function AuthenticationPage({
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-              <Suspense condition={authStep === 1} fallback={null}>
+              <Suspense condition={authStep === 1}>
                 <form onSubmit={generateOTP}>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -149,10 +149,10 @@ export default function AuthenticationPage({
                   </Button>
                 </form>
               </Suspense>
-              <Suspense condition={authStep === 2} fallback={null}>
+              <Suspense condition={authStep === 2}>
                 <form onSubmit={validateOTP}>
                   <div className="grid gap-4">
-                    <Suspense condition={newUser} fallback={null}>
+                    <Suspense condition={newUser}>
                       <div className="grid gap-2">
                         <Label htmlFor="name">Your Name</Label>
                         <Input

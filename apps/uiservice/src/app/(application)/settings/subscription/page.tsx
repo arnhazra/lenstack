@@ -127,14 +127,14 @@ export default function Page() {
 
   return (
     <>
-      <Suspense condition={!subscription} fallback={null}>
+      <Suspense condition={!subscription}>
         <SectionPanel
           icon={<CalendarClock className="scale-75" />}
           title="Your Subscription"
           content="You do not have an active subscription"
         />
       </Suspense>
-      <Suspense condition={!!subscription} fallback={null}>
+      <Suspense condition={!!subscription}>
         <section className="grid gap-2">
           <SectionPanel
             icon={<Bolt className="scale-75" />}
@@ -171,7 +171,7 @@ export default function Page() {
           />
         </section>
       </Suspense>
-      <Suspense condition={!!canActivateNewSubscription} fallback={null}>
+      <Suspense condition={!!canActivateNewSubscription}>
         <div className="mx-auto mt-4 grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
           {renderPricingTiers}
         </div>

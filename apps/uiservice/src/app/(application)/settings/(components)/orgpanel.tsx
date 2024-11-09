@@ -38,7 +38,7 @@ export default function OrgPanel({
       <CardHeader>
         <CardTitle className="text-md flex gap-2">
           {displayName}
-          <Suspense condition={isSelected} fallback={null}>
+          <Suspense condition={isSelected}>
             <CheckCircle2 className="scale-75" />
           </Suspense>
         </CardTitle>

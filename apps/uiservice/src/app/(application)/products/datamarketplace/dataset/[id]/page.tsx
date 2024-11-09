@@ -191,7 +191,6 @@ export default function Page({ params }: { params: { id: string } }) {
                     <span>
                       <Suspense
                         condition={dataset?.data?.metaData?.rating >= 4.5}
-                        fallback={null}
                       >
                         <Badge variant="default" key={"gold"}>
                           <Medal className="scale-50" />
@@ -203,7 +202,6 @@ export default function Page({ params }: { params: { id: string } }) {
                           dataset?.data?.metaData?.rating >= 4.0 &&
                           dataset?.data?.metaData?.rating < 4.5
                         }
-                        fallback={null}
                       >
                         <Badge variant="secondary" key={"silver"}>
                           <Medal className="scale-50" />
@@ -212,7 +210,6 @@ export default function Page({ params }: { params: { id: string } }) {
                       </Suspense>
                       <Suspense
                         condition={dataset?.data?.metaData?.rating < 4.0}
-                        fallback={null}
                       >
                         <Badge variant="outline" key={"bronze"}>
                           <Medal className="scale-50" />

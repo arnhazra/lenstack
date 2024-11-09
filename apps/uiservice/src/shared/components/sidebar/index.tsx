@@ -182,10 +182,7 @@ export default function Sidebar() {
                     <Link href="/dashboard">Dashboard</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <Suspense
-                  condition={!!getBreadcrumbTitle(pathName)}
-                  fallback={null}
-                >
+                <Suspense condition={!!getBreadcrumbTitle(pathName)}>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
                     <BreadcrumbLink asChild>

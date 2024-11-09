@@ -21,6 +21,7 @@ import { generateUUID } from "@/shared/lib/uuid-gen"
 import { Tabs, tabsList } from "./data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import Suspense from "@/shared/components/suspense"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -34,7 +35,7 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
 export default function SetingsLayout({ children }: { children: ReactNode }) {
   const [{ user }, dispatch] = useContext(GlobalContext)
   const { prompt } = usePromptContext()
-  const route = usePathname()
+  const pathname = usePathname()
 
   const createOrg = async () => {
     const { hasConfirmed, value } = await prompt("Create New Organization")
@@ -68,7 +69,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
       <Link
         key={tab}
         className={`cursor-pointer flex capitalize ${
-          route.includes(tab) ? "" : "text-zinc-500"
+          pathname.includes(tab) ? "" : "text-zinc-500"
         }`}
         href={`/settings/${tab}`}
       >
@@ -93,14 +94,16 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
               </p>
             </div>
           </div>
-          <Button
-            size="icon"
-            className="rounded-full"
-            onClick={createOrg}
-            title="Create Org"
-          >
-            <PlusCircle className="scale-65" />
-          </Button>
+          <Suspense condition={pathname.includes("organization")}>
+            <Button
+              size="icon"
+              className="rounded-full"
+              onClick={createOrg}
+              title="Create Org"
+            >
+              <PlusCircle className="scale-65" />
+            </Button>
+          </Suspense>
         </div>
       </div>
       <div className="mx-auto grid w-full items-start gap-4 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">

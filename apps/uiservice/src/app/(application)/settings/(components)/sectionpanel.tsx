@@ -33,9 +33,7 @@ export default function SectionPanel({
           </div>
         </div>
         <div>
-          <Suspense condition={!!actionComponent} fallback={null}>
-            {actionComponent}
-          </Suspense>
+          <Suspense condition={!!actionComponent}>{actionComponent}</Suspense>
         </div>
       </div>
     </section>

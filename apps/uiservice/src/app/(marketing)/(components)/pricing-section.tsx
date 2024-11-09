@@ -6,7 +6,8 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { cn } from "@/shared/lib/utils"
 import { Subscription } from "@/shared/types"
-import { CheckCircle2, Link } from "lucide-react"
+import { CheckCircle2 } from "lucide-react"
+import Link from "next/link"
 
 export default function PricingSection() {
   const pricing = useQuery(

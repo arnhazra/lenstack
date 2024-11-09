@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 export interface SuspenseProps {
   condition: boolean
   children: ReactNode
-  fallback: ReactNode
+  fallback?: ReactNode
 }
 
 export default function Suspense({
@@ -12,5 +12,5 @@ export default function Suspense({
   children,
   fallback,
 }: SuspenseProps) {
-  return condition ? <>{children}</> : <>{fallback}</>
+  return condition ? <>{children}</> : <>{fallback ?? null}</>
 }

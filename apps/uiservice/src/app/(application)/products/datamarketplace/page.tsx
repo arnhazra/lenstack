@@ -205,10 +205,7 @@ export default function Page() {
                 {renderDatasets}
               </div>
             </section>
-            <Suspense
-              condition={!datasetRequestState.searchQuery}
-              fallback={null}
-            >
+            <Suspense condition={!datasetRequestState.searchQuery}>
               <Button
                 disabled={datasetRequestState.offset === 0}
                 variant="outline"
