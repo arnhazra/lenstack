@@ -15,10 +15,7 @@ interceptor.on("request", ({ request }) => {
     "refresh_token",
     `${localStorage.getItem("refreshToken")}`
   )
-  request.headers.set(
-    "access_token",
-    `${localStorage.getItem("orgAccessToken")}`
-  )
+  request.headers.set("access_key", `${localStorage.getItem("accessKey")}`)
 })
 
 interceptor.on("response", ({ response }) => {

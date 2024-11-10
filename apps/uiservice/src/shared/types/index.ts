@@ -42,6 +42,6 @@ export type Organization = {
   _id: string
   name: string
   userId: string
-  accessToken: string
+  accessKey: string
   createdAt: string
 }

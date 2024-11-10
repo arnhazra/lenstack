@@ -68,7 +68,7 @@ export default function Page() {
         orgId={organization?._id}
         isSelected={organization._id === user.selectedOrgId}
         displayName={organization?.name}
-        accessToken={organization?.accessToken}
+        accessKey={organization?.accessKey}
         createdAt={organization?.createdAt}
         onRegenCred={(orgId) => regenerateCreds(orgId)}
         onDelete={(orgId) => deleteOrg(orgId)}

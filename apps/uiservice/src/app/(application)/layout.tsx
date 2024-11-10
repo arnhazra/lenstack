@@ -35,10 +35,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         const organizations: Organization[] = await ky
           .get(endPoints.organization, { timeout: FETCH_TIMEOUT })
           .json()
-        localStorage.setItem(
-          "orgAccessToken",
-          response.organization.accessToken
-        )
+        localStorage.setItem("accessKey", response.organization.accessKey)
         dispatch("setUser", response.user)
         dispatch("setSelectedOrg", response.organization)
         dispatch("setSubscription", response.subscription)

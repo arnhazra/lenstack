@@ -9,7 +9,7 @@ export class FindOrgByCredentialQueryHandler
   constructor(private readonly repository: OrganizationRepository) {}
 
   async execute(query: FindOrgByCredentialQuery) {
-    const { accessToken } = query
-    return await this.repository.findOne({ accessToken })
+    const { accessKey } = query
+    return await this.repository.findOne({ accessKey })
   }
 }

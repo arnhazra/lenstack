@@ -14,7 +14,7 @@ export class Organization extends Document {
   userId: Types.ObjectId
 
   @Prop({ required: true })
-  accessToken: string
+  accessKey: string
 }
 
 export const OrganizationSchema = SchemaFactory.createForClass(Organization)

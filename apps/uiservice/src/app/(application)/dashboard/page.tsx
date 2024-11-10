@@ -151,10 +151,10 @@ export default function Page() {
                   <ul className="grid gap-3">
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
-                        Org Access Token
+                        Org Access Key
                       </span>
                       <span>
-                        <MaskText value={selectedOrg.accessToken} />
+                        <MaskText value={selectedOrg.accessKey} />
                       </span>
                     </li>
                   </ul>

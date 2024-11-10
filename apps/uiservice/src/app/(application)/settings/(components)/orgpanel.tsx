@@ -19,7 +19,7 @@ interface OrgPanelProps {
   isSelected: boolean
   displayName: string
   createdAt: string
-  accessToken: string
+  accessKey: string
   onRegenCred: (orgId: string) => void
   onDelete: (orgId: string) => void
 }
@@ -29,7 +29,7 @@ export default function OrgPanel({
   isSelected,
   displayName,
   createdAt,
-  accessToken,
+  accessKey,
   onRegenCred,
   onDelete,
 }: OrgPanelProps) {
@@ -49,10 +49,10 @@ export default function OrgPanel({
       <CardContent className="grid gap-2">
         <SectionPanel
           icon={<Lock className="scale-75" />}
-          title="Access Token"
-          content={accessToken}
+          title="Access Key"
+          content={accessKey}
           masked
-          actionComponent={<CopyToClipboard value={accessToken} />}
+          actionComponent={<CopyToClipboard value={accessKey} />}
         />
       </CardContent>
       <CardFooter className="flex justify-end gap-2">

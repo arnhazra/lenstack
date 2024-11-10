@@ -1,3 +1,3 @@
 export class FindOrgByCredentialQuery {
-  constructor(public readonly accessToken: string) {}
+  constructor(public readonly accessKey: string) {}
 }

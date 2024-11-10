@@ -30,7 +30,7 @@ const initialState: GlobalState = {
   subscription: null,
   selectedOrg: {
     _id: "",
-    accessToken: "",
+    accessKey: "",
     createdAt: "",
     name: "",
     userId: "",
