@@ -11,6 +11,7 @@ import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/user/schemas/user.schema"
 import { Organization } from "src/core/organization/schemas/organization.schema"
 import { Subscription } from "src/core/subscription/schemas/subscription.schema"
+import { subscriptionPricing } from "src/core/subscription/subscription.config"
 
 @Injectable()
 export class CredentialGuard implements CanActivate {
@@ -30,7 +31,11 @@ export class CredentialGuard implements CanActivate {
           { accessToken }
         )
 
-        if (!orgResponse || !orgResponse.length) {
+        if (
+          !orgResponse ||
+          !orgResponse.length ||
+          (orgResponse && orgResponse.length && orgResponse[0] === null)
+        ) {
           throw new ForbiddenException(statusMessages.invalidCredentials)
         } else {
           const organization = orgResponse[0]
@@ -55,9 +60,11 @@ export class CredentialGuard implements CanActivate {
               throw new ForbiddenException(statusMessages.subscriptionNotFound)
             } else {
               const subscription = subscriptionRes[0]
-              const product = request.url.split("/")[2]
-              const creditRequired = 0.05 //change later
-              if (creditRequired > subscription.xp) {
+              const requestCost = subscriptionPricing.find(
+                (item) =>
+                  item.subscriptionTier === subscription.subscriptionTier
+              ).requestCost
+              if (requestCost > subscription.xp) {
                 throw new ForbiddenException(
                   statusMessages.insufficientXPCredits
                 )
@@ -66,7 +73,7 @@ export class CredentialGuard implements CanActivate {
                   setTimeout(resolve, subscription.platformDelay)
                 )
                 request.user = { userId, orgId }
-                subscription.xp -= creditRequired
+                subscription.xp -= requestCost
                 await subscription.save()
 
                 if (user.activityLog) {

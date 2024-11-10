@@ -74,6 +74,21 @@ export class UserService {
             { userId: user.id }
           )
 
+          if (user.selectedOrgId === null) {
+            const organization: Organization[] =
+              await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, {
+                name: "Default Org",
+                userId: user.id,
+              })
+            await this.commandBus.execute<UpdateAttributeCommand, User>(
+              new UpdateAttributeCommand(
+                user.id,
+                AttributeNames.SelectedOrgId,
+                organization[0].id
+              )
+            )
+          }
+
           if (refreshTokenFromRedis.toString()) {
             const refreshToken = refreshTokenFromRedis.toString()
             const tokenPayload = {

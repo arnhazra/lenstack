@@ -27,7 +27,7 @@ export default function PricingSection() {
             <h2 className="font-bold text-xl capitalize">
               {tier.subscriptionTier}
             </h2>
-            <h2 className="font-bold text-3xl capitalize">$ {tier.price}</h2>
+            <h2 className="font-bold text-2xl capitalize">$ {tier.price}</h2>
             <ul className="grid gap-3 text-sm text-muted-foreground">
               {tier.features.map((feature) => (
                 <li
@@ -60,7 +60,7 @@ export default function PricingSection() {
 
   return (
     <section id="pricing" className="container py-8 md:py-12 lg:py-24">
-      <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center mb-8">
+      <div className="mx-auto flex max-w-[70rem] flex-col items-center justify-center gap-4 text-center mb-8">
         <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
           Pricing
         </h2>
@@ -68,7 +68,7 @@ export default function PricingSection() {
           {uiConstants.pricingTierHeader}
         </p>
       </div>
-      <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 lg:grid-cols-3">
+      <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[70rem] md:grid-cols-2 lg:grid-cols-4">
         {renderPricingTiers}
       </div>
     </section>
