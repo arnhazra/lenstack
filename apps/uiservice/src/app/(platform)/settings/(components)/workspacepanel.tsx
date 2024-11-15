@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Button } from "@/shared/components/ui/button"
-import { CheckCircle2, Lock, Recycle, Trash } from "lucide-react"
+import { CheckCircle2, Key, Recycle, Trash } from "lucide-react"
 import { format } from "date-fns"
 import Suspense from "@/shared/components/suspense"
 import SectionPanel from "./sectionpanel"
@@ -48,7 +48,7 @@ export default function WorkspacePanel({
       </CardHeader>
       <CardContent className="grid gap-2">
         <SectionPanel
-          icon={<Lock className="scale-75" />}
+          icon={<Key className="scale-75" />}
           title="Access Key"
           content={accessKey}
           masked
