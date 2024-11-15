@@ -24,29 +24,35 @@ export default function PricingSection() {
       >
         <div className="flex flex-col justify-between rounded-md p-6">
           <div className="space-y-2">
-            <h2 className="font-bold text-xl capitalize">
+            <h2 className="font-bold text-md capitalize text-slate-700">
               {tier.subscriptionTier}
             </h2>
-            <h2 className="font-bold text-2xl capitalize">$ {tier.price}</h2>
-            <ul className="grid gap-3 text-sm text-muted-foreground">
-              {tier.features.map((feature) => (
-                <li
-                  className="flex text-xs items-center text-slate-600"
-                  key={feature}
-                >
-                  <CheckCircle2 className="scale-75 me-2" />
-                  {feature}
-                </li>
-              ))}
+            <div className="flex">
+              <h2 className="font-bold text-3xl capitalize">${tier.price}</h2>
+              <span className="flex flex-col justify-end text-sm mb-1">
+                /month
+              </span>
+            </div>
+          </div>
+          <p className="text-slate-600 text-sm mt-4 mb-4">{tier.features[0]}</p>
+          <ul className="grid gap-3 text-sm text-muted-foreground">
+            {tier.features.slice(1).map((feature) => (
               <li
                 className="flex text-xs items-center text-slate-600"
-                key={tier.xp}
+                key={feature}
               >
                 <CheckCircle2 className="scale-75 me-2" />
-                {tier.xp} XP for a month
+                {feature}
               </li>
-            </ul>
-          </div>
+            ))}
+            <li
+              className="flex text-xs items-center text-slate-600"
+              key={tier.xp}
+            >
+              <CheckCircle2 className="scale-75 me-2" />
+              {tier.xp} XP for a month
+            </li>
+          </ul>
           <Link
             className={`${cn(buttonVariants({ variant: "default" }))} mt-4`}
             href="/dashboard"

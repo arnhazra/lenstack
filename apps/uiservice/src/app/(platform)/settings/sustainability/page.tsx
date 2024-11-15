@@ -1,5 +1,5 @@
 "use client"
-import SectionPanel from "@/app/(application)/settings/(components)/sectionpanel"
+import SectionPanel from "../(components)/sectionpanel"
 import { Switch } from "@/shared/components/ui/switch"
 import { toast } from "@/shared/components/ui/use-toast"
 import { endPoints } from "@/shared/constants/api-endpoints"

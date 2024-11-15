@@ -73,7 +73,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }
 
   useQuery({
-    queryKey: ["user-details", refreshId, isAuthorized],
+    queryKey: ["user-details", refreshId, isAuthorized, isLoading],
     enabled: true,
     queryFn: getUserDetails,
   })

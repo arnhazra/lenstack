@@ -1,5 +1,5 @@
 "use client"
-import WorkspacePanel from "@/app/(application)/settings/(components)/workspacepanel"
+import WorkspacePanel from "../(components)/workspacepanel"
 import { toast } from "@/shared/components/ui/use-toast"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"

@@ -8,10 +8,10 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Button } from "@/shared/components/ui/button"
-import { CheckCircle2, Key, Lock, Recycle, Trash } from "lucide-react"
+import { CheckCircle2, Lock, Recycle, Trash } from "lucide-react"
 import { format } from "date-fns"
 import Suspense from "@/shared/components/suspense"
-import SectionPanel from "@/app/(application)/settings/(components)/sectionpanel"
+import SectionPanel from "./sectionpanel"
 import CopyToClipboard from "@/shared/components/copy"
 
 interface WorkspacePanelProps {
