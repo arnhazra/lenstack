@@ -1,5 +1,11 @@
 # Changelog
 
+## v17.1.0
+
+- Dependency updates & bug fixes
+- Migrated base color to slate from zinc
+- UI home page updates
+
 ## v17.0.0
 
 - Dependency updates & bug fixes
