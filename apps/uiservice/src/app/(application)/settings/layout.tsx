@@ -26,7 +26,7 @@ import Suspense from "@/shared/components/suspense"
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
   privacy: <ShieldCheck />,
-  organization: <Orbit />,
+  workspace: <Orbit />,
   subscription: <CalendarClock />,
   sustainability: <Leaf />,
   about: <Info />,
@@ -37,12 +37,12 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
   const { prompt } = usePromptContext()
   const pathname = usePathname()
 
-  const createOrg = async () => {
-    const { hasConfirmed, value } = await prompt("Create New Organization")
+  const createWorkspace = async () => {
+    const { hasConfirmed, value } = await prompt("Create New Workspace")
 
     if (hasConfirmed && value) {
       try {
-        await ky.post(endPoints.organization, {
+        await ky.post(endPoints.workspace, {
           json: { name: value },
           timeout: FETCH_TIMEOUT,
         })
@@ -50,7 +50,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">{uiConstants.organizationCreated}</p>
+            <p className="text-zinc-600">{uiConstants.workspaceCreated}</p>
           ),
         })
       } catch (error) {
@@ -94,12 +94,12 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
               </p>
             </div>
           </div>
-          <Suspense condition={pathname.includes("organization")}>
+          <Suspense condition={pathname.includes("workspace")}>
             <Button
               size="icon"
               className="rounded-full"
-              onClick={createOrg}
-              title="Create Org"
+              onClick={createWorkspace}
+              title="Create Workspace"
             >
               <PlusCircle className="scale-65" />
             </Button>

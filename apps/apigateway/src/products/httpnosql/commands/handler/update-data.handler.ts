@@ -9,7 +9,7 @@ export class UpdateDataCommandHandler
   constructor(private readonly repository: HttpNosqlRepository) {}
 
   async execute(command: UpdateDataCommand) {
-    const { orgId, key, value } = command
-    return await this.repository.updateValueByKey(orgId, key, value)
+    const { workspaceId, key, value } = command
+    return await this.repository.updateValueByKey(workspaceId, key, value)
   }
 }

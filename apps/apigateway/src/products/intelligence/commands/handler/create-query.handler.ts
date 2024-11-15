@@ -10,9 +10,9 @@ export class CreateQueryCommandHandler
   constructor(private readonly repository: IntelligenceRepository) {}
 
   async execute(command: CreateQueryCommand) {
-    const { orgId, prompt, response } = command
+    const { workspaceId, prompt, response } = command
     return await this.repository.create({
-      orgId: new Types.ObjectId(orgId),
+      workspaceId: new Types.ObjectId(workspaceId),
       prompt,
       response,
     })

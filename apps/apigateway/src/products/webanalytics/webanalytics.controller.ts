@@ -24,7 +24,7 @@ export class WebAnalyticsController {
   ) {
     try {
       return await this.webanalyticsService.createEvent(
-        request.user.orgId,
+        request.user.workspaceId,
         createEventsDto
       )
     } catch (error) {
@@ -36,7 +36,7 @@ export class WebAnalyticsController {
   @Get("get")
   async getEvents(@Request() request: ModRequest) {
     try {
-      return await this.webanalyticsService.getEvents(request.user.orgId)
+      return await this.webanalyticsService.getEvents(request.user.workspaceId)
     } catch (error) {
       throw new BadRequestException()
     }

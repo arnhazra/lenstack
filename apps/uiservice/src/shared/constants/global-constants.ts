@@ -26,10 +26,10 @@ export const uiConstants = {
   pricingTierHeader: `Choose an ${brandName} subscription that is right for you. Downgrade, upgrade any time. ${brandName} offers a variety of plans to meet your requirements.`,
   privacyPolicyStatement: `By using ${brandName}, you agree to our Terms of Service and Privacy Policy`,
   verifyEmailStatement: `Please verify your auth by entering the OTP we sent to your email`,
-  organizationCreated: "Organization created",
-  organizationSwitched: "Organization switched",
-  organizationDeleted: "Organization deleted",
+  workspaceCreated: "Workspace created",
+  workspaceSwitched: "Workspace switched",
+  workspaceDeleted: "Workspace deleted",
   apiRefreneceStatement:
-    "You must send access_key in headers to authenticate with your organization",
+    "You must send access_key in headers to authenticate with your workspace",
   aiSafetyStatement: `As an AI LLM ${brandName} Intelligence can make mistakes. Please be aware.`,
 }

@@ -27,7 +27,7 @@ export class UpdateAttributeCommandHandler
       return await this.repository.updateOneById(userId, attributeName, false)
     }
 
-    if (attributeName === AttributeNames.SelectedOrgId) {
+    if (attributeName === AttributeNames.selectedWorkspaceId) {
       const value = new Types.ObjectId(attributeValue)
       return await this.repository.updateOneById(userId, attributeName, value)
     }

@@ -13,14 +13,14 @@ export class HttpNosqlRepository {
   ) {}
 
   async createKeyValue(
-    orgId: string,
+    workspaceId: string,
     key: string,
     value: Record<string, any> | Record<string, any>[] | string | string[]
   ): Promise<Data | null> {
     try {
       const data = await this.model.find({
         key,
-        orgId: new Types.ObjectId(orgId),
+        workspaceId: new Types.ObjectId(workspaceId),
       })
 
       if (data.length > 0) {
@@ -28,7 +28,7 @@ export class HttpNosqlRepository {
       }
 
       const doc = new this.model({
-        orgId: new Types.ObjectId(orgId),
+        workspaceId: new Types.ObjectId(workspaceId),
         key,
         value,
       })
@@ -39,18 +39,20 @@ export class HttpNosqlRepository {
     }
   }
 
-  async readAllValues(orgId: string): Promise<Data[] | null> {
+  async readAllValues(workspaceId: string): Promise<Data[] | null> {
     try {
-      return await this.model.find({ orgId: new Types.ObjectId(orgId) })
+      return await this.model.find({
+        workspaceId: new Types.ObjectId(workspaceId),
+      })
     } catch (error) {
       throw error
     }
   }
 
-  async readValueByKey(orgId: string, key: string): Promise<Data | null> {
+  async readValueByKey(workspaceId: string, key: string): Promise<Data | null> {
     try {
       const data = await this.model.findOne({
-        orgId: new Types.ObjectId(orgId),
+        workspaceId: new Types.ObjectId(workspaceId),
         key,
       })
 
@@ -65,14 +67,14 @@ export class HttpNosqlRepository {
   }
 
   async updateValueByKey(
-    orgId: string,
+    workspaceId: string,
     key: string,
     value: Record<string, any> | Record<string, any>[] | string | string[]
   ): Promise<Data | null> {
     try {
       const data = await this.model.findOne({
         key,
-        orgId: new Types.ObjectId(orgId),
+        workspaceId: new Types.ObjectId(workspaceId),
       })
 
       if (!data) {
@@ -87,11 +89,14 @@ export class HttpNosqlRepository {
     }
   }
 
-  async deleteValueByKey(orgId: string, key: string): Promise<Data | null> {
+  async deleteValueByKey(
+    workspaceId: string,
+    key: string
+  ): Promise<Data | null> {
     try {
       const data = await this.model.find({
         key,
-        orgId: new Types.ObjectId(orgId),
+        workspaceId: new Types.ObjectId(workspaceId),
       })
 
       if (data.length === 0) {
@@ -99,7 +104,7 @@ export class HttpNosqlRepository {
       }
 
       return await this.model.findOneAndDelete({
-        orgId: new Types.ObjectId(orgId),
+        workspaceId: new Types.ObjectId(workspaceId),
         key,
       })
     } catch (error) {

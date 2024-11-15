@@ -25,8 +25,8 @@ export class User extends Document {
   @Prop({ type: Boolean, default: true })
   activityLog: boolean
 
-  @Prop({ type: Types.ObjectId, ref: "organization" })
-  selectedOrgId: Types.ObjectId
+  @Prop({ type: Types.ObjectId, ref: "workspace" })
+  selectedWorkspaceId: Types.ObjectId
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

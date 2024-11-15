@@ -29,7 +29,7 @@ export default function Page() {
     endPoints.getProductConfig,
     HTTPMethods.GET
   )
-  const [{ user, selectedOrg, subscription }] = useContext(GlobalContext)
+  const [{ user, selectedWorkspace, subscription }] = useContext(GlobalContext)
   const router = useRouter()
 
   const renderProducts = products?.data?.map((product: Product) => {
@@ -71,9 +71,9 @@ export default function Page() {
                 </CardHeader>
                 <CardFooter>
                   <Button
-                    onClick={(): void => router.push("/settings/organization")}
+                    onClick={(): void => router.push("/settings/workspace")}
                   >
-                    View Organizations
+                    View Workspaces
                   </Button>
                 </CardFooter>
               </Card>
@@ -119,7 +119,7 @@ export default function Page() {
               <CardHeader className="flex flex-row items-start bg-zinc-50">
                 <div className="grid gap-0.5">
                   <CardTitle className="group flex items-center gap-2 text-lg">
-                    Organization
+                    Workspace
                     <Button
                       size="icon"
                       variant="outline"
@@ -129,32 +129,32 @@ export default function Page() {
                       <span className="sr-only">Copy Order ID</span>
                     </Button>
                   </CardTitle>
-                  <CardDescription>{selectedOrg.name}</CardDescription>
+                  <CardDescription>{selectedWorkspace.name}</CardDescription>
                 </div>
                 <div className="ml-auto flex items-center gap-1">
                   <Button
                     size="sm"
                     variant="outline"
                     className="h-8 gap-1"
-                    onClick={(): void => router.push("/settings/organization")}
+                    onClick={(): void => router.push("/settings/workspace")}
                   >
                     <Orbit className="h-3.5 w-3.5" />
                     <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                      Open Org
+                      Open Workspace
                     </span>
                   </Button>
                 </div>
               </CardHeader>
               <CardContent className="p-6 text-sm">
                 <div className="grid gap-3">
-                  <div className="font-semibold">Org Information</div>
+                  <div className="font-semibold">Workspace Information</div>
                   <ul className="grid gap-3">
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
-                        Org Access Key
+                        Workspace Access Key
                       </span>
                       <span>
-                        <MaskText value={selectedOrg.accessKey} />
+                        <MaskText value={selectedWorkspace.accessKey} />
                       </span>
                     </li>
                   </ul>

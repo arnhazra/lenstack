@@ -14,25 +14,25 @@ import Suspense from "@/shared/components/suspense"
 import SectionPanel from "@/app/(application)/settings/(components)/sectionpanel"
 import CopyToClipboard from "@/shared/components/copy"
 
-interface OrgPanelProps {
-  orgId: string
+interface WorkspacePanelProps {
+  workspaceId: string
   isSelected: boolean
   displayName: string
   createdAt: string
   accessKey: string
-  onRegenCred: (orgId: string) => void
-  onDelete: (orgId: string) => void
+  onRegenCred: (workspaceId: string) => void
+  onDelete: (workspaceId: string) => void
 }
 
-export default function OrgPanel({
-  orgId,
+export default function WorkspacePanel({
+  workspaceId,
   isSelected,
   displayName,
   createdAt,
   accessKey,
   onRegenCred,
   onDelete,
-}: OrgPanelProps) {
+}: WorkspacePanelProps) {
   return (
     <Card>
       <CardHeader>
@@ -60,7 +60,7 @@ export default function OrgPanel({
           variant="default"
           size="icon"
           className="rounded-full"
-          onClick={() => onRegenCred(orgId)}
+          onClick={() => onRegenCred(workspaceId)}
         >
           <Recycle className="scale-75" />
         </Button>
@@ -69,7 +69,7 @@ export default function OrgPanel({
           size="icon"
           className="rounded-full"
           disabled={isSelected}
-          onClick={() => onDelete(orgId)}
+          onClick={() => onDelete(workspaceId)}
         >
           <Trash className="scale-75" />
         </Button>

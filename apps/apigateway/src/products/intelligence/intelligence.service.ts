@@ -10,7 +10,7 @@ export class IntelligenceService {
   constructor(private readonly commandBus: CommandBus) {}
 
   async generateRecommendation(
-    orgId: string,
+    workspaceId: string,
     prompt: string,
     temperature: number,
     topP: number,
@@ -31,7 +31,7 @@ export class IntelligenceService {
       const result = await model.generateContent(prompt)
       const response = result.response.text()
       await this.commandBus.execute<CreateQueryCommand, Query>(
-        new CreateQueryCommand(orgId, prompt, response)
+        new CreateQueryCommand(workspaceId, prompt, response)
       )
       return { response }
     } catch (error) {

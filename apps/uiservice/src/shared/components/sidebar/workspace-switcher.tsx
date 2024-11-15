@@ -16,19 +16,22 @@ import { uiConstants } from "@/shared/constants/global-constants"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { generateUUID } from "@/shared/lib/uuid-gen"
 
-export function OrgSwitcher() {
-  const [{ user, organizations }, dispatch] = useContext(GlobalContext)
+export function WorkspaceSwitcher() {
+  const [{ user, workspaces }, dispatch] = useContext(GlobalContext)
 
-  const switchOrg = async (orgId: string) => {
+  const switchWorkspace = async (workspaceId: string) => {
     try {
-      await ky.patch(`${endPoints.updateAttribute}/selectedOrgId/${orgId}`, {
-        timeout: FETCH_TIMEOUT,
-      })
+      await ky.patch(
+        `${endPoints.updateAttribute}/selectedWorkspaceId/${workspaceId}`,
+        {
+          timeout: FETCH_TIMEOUT,
+        }
+      )
       dispatch("setRefreshId", generateUUID())
       toast({
         title: uiConstants.notification,
         description: (
-          <p className="text-zinc-600">{uiConstants.organizationSwitched}</p>
+          <p className="text-zinc-600">{uiConstants.workspaceSwitched}</p>
         ),
       })
     } catch (error) {
@@ -41,27 +44,31 @@ export function OrgSwitcher() {
 
   return (
     <Select
-      defaultValue={user.selectedOrgId}
-      onValueChange={(value: string) => switchOrg(value)}
+      defaultValue={user.selectedWorkspaceId}
+      onValueChange={(value: string) => switchWorkspace(value)}
     >
       <SelectTrigger
-        className="shadow-sm org-switcher pl-4 sm:w-[200px] md:w-[200px] lg:w-[250px] flex items-center gap-2 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"
-        aria-label="Select org"
+        className="shadow-sm workspace-switcher pl-4 sm:w-[200px] md:w-[200px] lg:w-[250px] flex items-center gap-2 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0"
+        aria-label="Select workspace"
       >
-        <SelectValue placeholder="Select an org">
+        <SelectValue placeholder="Select an workspace">
           <Orbit />
           <span className="ml-2">
-            {organizations.find((org) => org._id === user.selectedOrgId)?.name}
+            {
+              workspaces.find(
+                (workspace) => workspace._id === user.selectedWorkspaceId
+              )?.name
+            }
           </span>
         </SelectValue>
         <ChevronsUpDown />
       </SelectTrigger>
       <SelectContent>
-        {organizations.map((org) => (
-          <SelectItem key={org._id} value={org._id}>
+        {workspaces.map((workspace) => (
+          <SelectItem key={workspace._id} value={workspace._id}>
             <div className="flex items-center gap-3 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0 [&_svg]:text-foreground">
               <Orbit />
-              {org.name}
+              {workspace.name}
             </div>
           </SelectItem>
         ))}

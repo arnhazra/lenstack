@@ -12,20 +12,20 @@ export class WebAnalyticsService {
     private readonly queryBus: QueryBus
   ) {}
 
-  async createEvent(orgId: string, createEventsDto: CreateEventsDto) {
+  async createEvent(workspaceId: string, createEventsDto: CreateEventsDto) {
     try {
       return await this.commandBus.execute<CreateEventsCommand, Events>(
-        new CreateEventsCommand(orgId, createEventsDto)
+        new CreateEventsCommand(workspaceId, createEventsDto)
       )
     } catch (error) {
       throw error
     }
   }
 
-  async getEvents(orgId: string) {
+  async getEvents(workspaceId: string) {
     try {
       return await this.queryBus.execute<GetEventsQuery, Events[]>(
-        new GetEventsQuery(orgId)
+        new GetEventsQuery(workspaceId)
       )
     } catch (error) {
       throw error

@@ -54,7 +54,7 @@ export default function Page() {
           <CardHeader className="px-7">
             <CardTitle>Web Analytics</CardTitle>
             <CardDescription>
-              Your Web Analytics in this organization
+              Your Web Analytics in this workspace
             </CardDescription>
           </CardHeader>
           <CardContent>

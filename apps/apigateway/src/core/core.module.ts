@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common"
 import { ApiReferenceModule } from "./apireference/apireference.module"
-import { OrganizationModule } from "./organization/organization.module"
+import { WorkspaceModule } from "./workspace/workspace.module"
 import { SubscriptionModule } from "./subscription/subscription.module"
 import { UserModule } from "./user/user.module"
 import { ProductsModule } from "./product/products.module"
@@ -17,7 +17,7 @@ import { DatabaseModule } from "src/shared/database/database.module"
     DatabaseModule.forRoot(envConfig.coreDatabaseURI, DbConnectionMap.Core),
     ApiReferenceModule,
     ActivityModule,
-    OrganizationModule,
+    WorkspaceModule,
     SubscriptionModule,
     UserModule,
     ProductsModule,

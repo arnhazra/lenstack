@@ -1,3 +1,3 @@
-export class FindAllOrgQuery {
+export class FindAllWorkspaceQuery {
   constructor(public readonly userId: string) {}
 }

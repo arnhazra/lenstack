@@ -9,7 +9,7 @@ export class CreateDataCommandHandler
   constructor(private readonly repository: HttpNosqlRepository) {}
 
   async execute(command: CreateDataCommand) {
-    const { orgId, key, value } = command
-    return await this.repository.createKeyValue(orgId, key, value)
+    const { workspaceId, key, value } = command
+    return await this.repository.createKeyValue(workspaceId, key, value)
   }
 }

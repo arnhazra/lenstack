@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator"
 
-export class CreateOrganizationDto {
+export class CreateWorkspaceDto {
   @IsNotEmpty()
   readonly name: string
 }

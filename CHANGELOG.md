@@ -8,6 +8,7 @@
 - Introduced new subscription plans with XP
 - Structural changes to subscription plans and UI
 - Code refactoring & breakdown into smaller components
+- Introduced workspaces and deprecated organizations
 
 ## v16.2.1
 

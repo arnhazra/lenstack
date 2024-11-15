@@ -15,52 +15,52 @@ export class HttpNosqlService {
     private readonly queryBus: QueryBus
   ) {}
 
-  async createKeyValue(orgId: string, createDataDto: CreateDataDto) {
+  async createKeyValue(workspaceId: string, createDataDto: CreateDataDto) {
     try {
       const { key, value } = createDataDto
       return await this.commandBus.execute<CreateDataCommand, Data>(
-        new CreateDataCommand(orgId, key, value)
+        new CreateDataCommand(workspaceId, key, value)
       )
     } catch (error) {
       throw error
     }
   }
 
-  async readAllValues(orgId: string) {
+  async readAllValues(workspaceId: string) {
     try {
       return await this.queryBus.execute<ReadAllValuesQuery, Data[]>(
-        new ReadAllValuesQuery(orgId)
+        new ReadAllValuesQuery(workspaceId)
       )
     } catch (error) {
       throw error
     }
   }
 
-  async readValueByKey(orgId: string, key: string) {
+  async readValueByKey(workspaceId: string, key: string) {
     try {
       return await this.queryBus.execute<ReadValueByKeyQuery, Data>(
-        new ReadValueByKeyQuery(orgId, key)
+        new ReadValueByKeyQuery(workspaceId, key)
       )
     } catch (error) {
       throw error
     }
   }
 
-  async updateValueByKey(orgId: string, updateDataDto: CreateDataDto) {
+  async updateValueByKey(workspaceId: string, updateDataDto: CreateDataDto) {
     try {
       const { key, value } = updateDataDto
       return await this.commandBus.execute<UpdateDataCommand, Data>(
-        new UpdateDataCommand(orgId, key, value)
+        new UpdateDataCommand(workspaceId, key, value)
       )
     } catch (error) {
       throw error
     }
   }
 
-  async deleteValueByKey(orgId: string, key: string) {
+  async deleteValueByKey(workspaceId: string, key: string) {
     try {
       return await this.commandBus.execute<DeleteDataCommand, Data>(
-        new DeleteDataCommand(orgId, key)
+        new DeleteDataCommand(workspaceId, key)
       )
     } catch (error) {
       throw error

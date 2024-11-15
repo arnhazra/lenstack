@@ -7,8 +7,8 @@ import { Document, Types } from "mongoose"
   timestamps: { createdAt: true, updatedAt: false },
 })
 export class Data extends Document {
-  @Prop({ type: Types.ObjectId, ref: "organization", required: true })
-  orgId: Types.ObjectId
+  @Prop({ type: Types.ObjectId, ref: "workspace", required: true })
+  workspaceId: Types.ObjectId
 
   @Prop({ required: true })
   key: string

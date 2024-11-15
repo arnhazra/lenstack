@@ -10,10 +10,10 @@ export class CreateEventsCommandHandler
   constructor(private readonly repository: WebAnalyticsRepository) {}
 
   async execute(command: CreateEventsCommand) {
-    const { orgId, createEventsDto } = command
+    const { workspaceId, createEventsDto } = command
     const { event } = createEventsDto
     return await this.repository.create({
-      orgId: new Types.ObjectId(orgId),
+      workspaceId: new Types.ObjectId(workspaceId),
       event,
     })
   }

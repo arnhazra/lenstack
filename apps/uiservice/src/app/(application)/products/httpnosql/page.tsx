@@ -53,7 +53,7 @@ export default function Page() {
           <CardHeader className="px-7">
             <CardTitle>Database</CardTitle>
             <CardDescription>
-              Your Datalist list in this organization
+              Your Datalist list in this workspace
             </CardDescription>
           </CardHeader>
           <CardContent>

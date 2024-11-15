@@ -7,8 +7,8 @@ import { Document, Types } from "mongoose"
   timestamps: { createdAt: true, updatedAt: false },
 })
 export class Events extends Document {
-  @Prop({ type: Types.ObjectId, ref: "organization", required: true })
-  readonly orgId: Types.ObjectId
+  @Prop({ type: Types.ObjectId, ref: "workspace", required: true })
+  readonly workspaceId: Types.ObjectId
 
   @Prop({ required: true, type: Object })
   readonly event:

@@ -14,9 +14,9 @@ export class WebAnalyticsRepository extends BaseRepository<Events> {
     super(eventsModel)
   }
 
-  async find(orgId: string): Promise<Events[]> {
+  async find(workspaceId: string): Promise<Events[]> {
     return await this.eventsModel
-      .find({ orgId: new Types.ObjectId(orgId) })
+      .find({ workspaceId: new Types.ObjectId(workspaceId) })
       .sort({ createdAt: -1 })
   }
 }

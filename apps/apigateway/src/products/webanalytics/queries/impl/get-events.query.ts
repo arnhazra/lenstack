@@ -1,3 +1,3 @@
 export class GetEventsQuery {
-  constructor(public readonly orgId: string) {}
+  constructor(public readonly workspaceId: string) {}
 }

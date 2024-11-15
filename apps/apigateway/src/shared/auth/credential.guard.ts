@@ -9,7 +9,7 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "src/core/user/schemas/user.schema"
-import { Organization } from "src/core/organization/schemas/organization.schema"
+import { Workspace } from "src/core/workspace/schemas/workspace.schema"
 import { Subscription } from "src/core/subscription/schemas/subscription.schema"
 import { subscriptionPricing } from "src/core/subscription/subscription.config"
 
@@ -25,21 +25,23 @@ export class CredentialGuard implements CanActivate {
       if (!accessKey) {
         throw new ForbiddenException(statusMessages.noCredentialsProvided)
       } else {
-        const orgResponse: Organization[] = await this.eventEmitter.emitAsync(
-          EventsUnion.GetOrgDetails,
-          { accessKey }
-        )
+        const workspaceResponse: Workspace[] =
+          await this.eventEmitter.emitAsync(EventsUnion.GetWorkspaceDetails, {
+            accessKey,
+          })
 
         if (
-          !orgResponse ||
-          !orgResponse.length ||
-          (orgResponse && orgResponse.length && orgResponse[0] === null)
+          !workspaceResponse ||
+          !workspaceResponse.length ||
+          (workspaceResponse &&
+            workspaceResponse.length &&
+            workspaceResponse[0] === null)
         ) {
           throw new ForbiddenException(statusMessages.invalidCredentials)
         } else {
-          const organization = orgResponse[0]
-          const userId = String(organization.userId)
-          const orgId = String(organization.id)
+          const workspace = workspaceResponse[0]
+          const userId = String(workspace.userId)
+          const workspaceId = String(workspace.id)
           const userResponse: User[] = await this.eventEmitter.emitAsync(
             EventsUnion.GetUserDetails,
             { _id: userId }
@@ -71,7 +73,7 @@ export class CredentialGuard implements CanActivate {
                 await new Promise((resolve) =>
                   setTimeout(resolve, subscription.platformDelay)
                 )
-                request.user = { userId, orgId }
+                request.user = { userId, workspaceId }
                 subscription.xp -= requestCost
                 await subscription.save()
 

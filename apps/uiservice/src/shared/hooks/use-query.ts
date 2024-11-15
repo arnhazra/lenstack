@@ -26,7 +26,7 @@ export default function useQuery(
   }
 
   const { error, data, isLoading, refetch, isRefetching } = useReactQuery({
-    queryKey: [...queryKey, user.selectedOrgId],
+    queryKey: [...queryKey, user.selectedWorkspaceId],
     queryFn: fetchDataFunction,
     refetchOnWindowFocus: !user.reduceCarbonEmissions,
     refetchInterval: user.reduceCarbonEmissions ? false : 30000,

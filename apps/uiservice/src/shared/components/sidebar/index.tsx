@@ -16,7 +16,7 @@ import {
   BreadcrumbSeparator,
 } from "@/shared/components/ui/breadcrumb"
 import { UserNav } from "./user-nav"
-import { OrgSwitcher } from "./org-switcher"
+import { WorkspaceSwitcher } from "./workspace-switcher"
 import { brandName } from "@/shared/constants/global-constants"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
@@ -195,7 +195,7 @@ export default function Sidebar() {
               </BreadcrumbList>
             </Breadcrumb>
             <div className="relative ml-auto flex-1 md:grow-0">
-              <OrgSwitcher />
+              <WorkspaceSwitcher />
             </div>
             <UserNav />
           </header>

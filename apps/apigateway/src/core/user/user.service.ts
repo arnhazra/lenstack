@@ -18,7 +18,7 @@ import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
-import { Organization } from "../organization/schemas/organization.schema"
+import { Workspace } from "../workspace/schemas/workspace.schema"
 import {
   AttributeNames,
   UpdateAttributeCommand,
@@ -74,17 +74,19 @@ export class UserService {
             { userId: user.id }
           )
 
-          if (user.selectedOrgId === null) {
-            const organization: Organization[] =
-              await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, {
-                name: "Default Org",
+          if (user.selectedWorkspaceId === null) {
+            const workspace: Workspace[] = await this.eventEmitter.emitAsync(
+              EventsUnion.CreateWorkspace,
+              {
+                name: "Default Workspace",
                 userId: user.id,
-              })
+              }
+            )
             await this.commandBus.execute<UpdateAttributeCommand, User>(
               new UpdateAttributeCommand(
                 user.id,
-                AttributeNames.SelectedOrgId,
-                organization[0].id
+                AttributeNames.selectedWorkspaceId,
+                workspace[0].id
               )
             )
           }
@@ -125,16 +127,18 @@ export class UserService {
             CreateUserCommand,
             User
           >(new CreateUserCommand(email, name))
-          const organization: Organization[] =
-            await this.eventEmitter.emitAsync(EventsUnion.CreateOrg, {
-              name: "Default Org",
+          const workspace: Workspace[] = await this.eventEmitter.emitAsync(
+            EventsUnion.CreateWorkspace,
+            {
+              name: "Default Workspace",
               userId: newUser.id,
-            })
+            }
+          )
           await this.commandBus.execute<UpdateAttributeCommand, User>(
             new UpdateAttributeCommand(
               newUser.id,
-              AttributeNames.SelectedOrgId,
-              organization[0].id
+              AttributeNames.selectedWorkspaceId,
+              workspace[0].id
             )
           )
           const tokenPayload = {
@@ -162,17 +166,17 @@ export class UserService {
     }
   }
 
-  async getUserDetails(userId: string, orgId: string) {
+  async getUserDetails(userId: string, workspaceId: string) {
     try {
       const user = await this.queryBus.execute<FindUserByIdQuery, User>(
         new FindUserByIdQuery(userId)
       )
 
       if (user) {
-        const orgResponse: Organization[] = await this.eventEmitter.emitAsync(
-          EventsUnion.GetOrgDetails,
-          { _id: orgId }
-        )
+        const workspaceResponse: Workspace[] =
+          await this.eventEmitter.emitAsync(EventsUnion.GetWorkspaceDetails, {
+            _id: workspaceId,
+          })
         const subscriptionRes: Subscription[] =
           await this.eventEmitter.emitAsync(
             EventsUnion.GetSubscriptionDetails,
@@ -187,8 +191,8 @@ export class UserService {
           subscription = subscriptionRes[0]
         }
 
-        const organization = orgResponse[0]
-        return { user, organization, subscription }
+        const workspace = workspaceResponse[0]
+        return { user, workspace, subscription }
       } else {
         throw new BadRequestException(statusMessages.invalidUser)
       }

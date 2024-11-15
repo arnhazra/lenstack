@@ -26,7 +26,7 @@ export class HttpNosqlController {
   ) {
     try {
       return await this.httpNosqlService.createKeyValue(
-        request.user.orgId,
+        request.user.workspaceId,
         createDataDto
       )
     } catch (error) {
@@ -38,7 +38,7 @@ export class HttpNosqlController {
   @Get("read")
   async readAllValues(@Request() request: ModRequest) {
     try {
-      return await this.httpNosqlService.readAllValues(request.user.orgId)
+      return await this.httpNosqlService.readAllValues(request.user.workspaceId)
     } catch (error) {
       throw error
     }
@@ -49,7 +49,7 @@ export class HttpNosqlController {
   async readValueByKey(@Request() request: ModRequest, @Param() params: any) {
     try {
       return await this.httpNosqlService.readValueByKey(
-        request.user.orgId,
+        request.user.workspaceId,
         params.key
       )
     } catch (error) {
@@ -65,7 +65,7 @@ export class HttpNosqlController {
   ) {
     try {
       return await this.httpNosqlService.updateValueByKey(
-        request.user.orgId,
+        request.user.workspaceId,
         updateDataDto
       )
     } catch (error) {
@@ -78,7 +78,7 @@ export class HttpNosqlController {
   async deleteValueByKey(@Request() request: ModRequest, @Param() params: any) {
     try {
       return await this.httpNosqlService.deleteValueByKey(
-        request.user.orgId,
+        request.user.workspaceId,
         params.key
       )
     } catch (error) {

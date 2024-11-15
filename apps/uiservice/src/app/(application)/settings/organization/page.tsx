@@ -1,5 +1,5 @@
 "use client"
-import OrgPanel from "@/app/(application)/settings/(components)/orgpanel"
+import WorkspacePanel from "@/app/(application)/settings/(components)/workspacepanel"
 import { toast } from "@/shared/components/ui/use-toast"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
@@ -9,19 +9,19 @@ import { generateUUID } from "@/shared/lib/uuid-gen"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import ky from "ky"
 import { useContext } from "react"
-import { Organization } from "@/shared/types"
+import { Workspace } from "@/shared/types"
 
 export default function Page() {
-  const [{ user, organizations }, dispatch] = useContext(GlobalContext)
+  const [{ user, workspaces }, dispatch] = useContext(GlobalContext)
   const { confirm } = useConfirmContext()
 
-  const regenerateCreds = async (orgId: string) => {
+  const regenerateCreds = async (workspaceId: string) => {
     const response = await confirm(
-      "Are you sure to regenerate credentials for this org ?"
+      "Are you sure to regenerate credentials for this workspace ?"
     )
     if (response) {
       try {
-        await ky.patch(`${endPoints.organization}/${orgId}`, {
+        await ky.patch(`${endPoints.workspace}/${workspaceId}`, {
           timeout: FETCH_TIMEOUT,
         })
         dispatch("setRefreshId", generateUUID())
@@ -36,18 +36,18 @@ export default function Page() {
     }
   }
 
-  const deleteOrg = async (orgId: string) => {
-    const response = await confirm("Are you sure to delete this org ?")
+  const deleteWorkspace = async (workspaceId: string) => {
+    const response = await confirm("Are you sure to delete this workspace ?")
     if (response) {
       try {
-        await ky.delete(`${endPoints.organization}/${orgId}`, {
+        await ky.delete(`${endPoints.workspace}/${workspaceId}`, {
           timeout: FETCH_TIMEOUT,
         })
         dispatch("setRefreshId", generateUUID())
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">{uiConstants.organizationDeleted}</p>
+            <p className="text-zinc-600">{uiConstants.workspaceDeleted}</p>
           ),
         })
       } catch (error) {
@@ -61,20 +61,20 @@ export default function Page() {
     }
   }
 
-  const renderOrgs = organizations?.map((organization: Organization) => {
+  const renderWorkspaces = workspaces?.map((workspace: Workspace) => {
     return (
-      <OrgPanel
-        key={organization?._id}
-        orgId={organization?._id}
-        isSelected={organization._id === user.selectedOrgId}
-        displayName={organization?.name}
-        accessKey={organization?.accessKey}
-        createdAt={organization?.createdAt}
-        onRegenCred={(orgId) => regenerateCreds(orgId)}
-        onDelete={(orgId) => deleteOrg(orgId)}
+      <WorkspacePanel
+        key={workspace?._id}
+        workspaceId={workspace?._id}
+        isSelected={workspace._id === user.selectedWorkspaceId}
+        displayName={workspace?.name}
+        accessKey={workspace?.accessKey}
+        createdAt={workspace?.createdAt}
+        onRegenCred={(workspaceId) => regenerateCreds(workspaceId)}
+        onDelete={(workspaceId) => deleteWorkspace(workspaceId)}
       />
     )
   })
 
-  return <section className="grid gap-2">{renderOrgs}</section>
+  return <section className="grid gap-2">{renderWorkspaces}</section>
 }

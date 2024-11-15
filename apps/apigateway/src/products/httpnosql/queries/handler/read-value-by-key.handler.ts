@@ -9,7 +9,7 @@ export class ReadOneDataQueryHandler
   constructor(private readonly repository: HttpNosqlRepository) {}
 
   async execute(query: ReadValueByKeyQuery) {
-    const { orgId, key } = query
-    return await this.repository.readValueByKey(orgId, key)
+    const { workspaceId, key } = query
+    return await this.repository.readValueByKey(workspaceId, key)
   }
 }

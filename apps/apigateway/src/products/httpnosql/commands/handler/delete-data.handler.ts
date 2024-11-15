@@ -9,7 +9,7 @@ export class DeleteDataCommandHandler
   constructor(private readonly repository: HttpNosqlRepository) {}
 
   async execute(command: DeleteDataCommand) {
-    const { orgId, key } = command
-    return await this.repository.deleteValueByKey(orgId, key)
+    const { workspaceId, key } = command
+    return await this.repository.deleteValueByKey(workspaceId, key)
   }
 }

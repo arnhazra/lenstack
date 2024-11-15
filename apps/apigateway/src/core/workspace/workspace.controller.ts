@@ -10,26 +10,26 @@ import {
   Param,
   Patch,
 } from "@nestjs/common"
-import { OrganizationService } from "./organization.service"
-import { CreateOrganizationDto } from "./dto/create-organization.dto"
+import { WorkspaceService } from "./workspace.service"
+import { CreateWorkspaceDto } from "./dto/create-workspace.dto"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
 import { TokenGuard } from "src/shared/auth/token.guard"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
-@Controller("organization")
-export class OrganizationController {
-  constructor(private readonly organizationService: OrganizationService) {}
+@Controller("workspace")
+export class WorkspaceController {
+  constructor(private readonly workspaceService: WorkspaceService) {}
 
   @UseGuards(TokenGuard)
   @Post()
-  async createOrganization(
+  async createWorkspace(
     @Request() request: ModRequest,
-    @Body() createOrganizationDto: CreateOrganizationDto
+    @Body() createWorkspaceDto: CreateWorkspaceDto
   ) {
     try {
-      return await this.organizationService.createOrganization(
+      return await this.workspaceService.createWorkspace(
         request.user.userId,
-        createOrganizationDto
+        createWorkspaceDto
       )
     } catch (error) {
       throw error
@@ -38,26 +38,21 @@ export class OrganizationController {
 
   @UseGuards(TokenGuard)
   @Get()
-  async findMyOrganizations(@Request() request: ModRequest) {
+  async findMyWorkspaces(@Request() request: ModRequest) {
     try {
-      return await this.organizationService.findMyOrganizations(
-        request.user.userId
-      )
+      return await this.workspaceService.findMyWorkspaces(request.user.userId)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
 
   @UseGuards(TokenGuard)
-  @Delete("/:orgId")
-  async deleteOrganization(
-    @Request() request: ModRequest,
-    @Param() params: any
-  ) {
+  @Delete("/:workspaceId")
+  async deleteWorkspace(@Request() request: ModRequest, @Param() params: any) {
     try {
-      return await this.organizationService.deleteOrganization(
+      return await this.workspaceService.deleteWorkspace(
         request.user.userId,
-        params.orgId
+        params.workspaceId
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
@@ -65,12 +60,12 @@ export class OrganizationController {
   }
 
   @UseGuards(TokenGuard)
-  @Patch("/:orgId")
+  @Patch("/:workspaceId")
   async updateAttribute(@Request() request: ModRequest, @Param() params: any) {
     try {
-      return await this.organizationService.updateAttribute(
+      return await this.workspaceService.updateAttribute(
         request.user.userId,
-        params.orgId
+        params.workspaceId
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.invalidUser)

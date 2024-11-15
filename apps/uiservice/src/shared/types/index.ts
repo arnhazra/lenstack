@@ -24,7 +24,7 @@ export type User = {
   reduceCarbonEmissions: boolean
   activityLog: boolean
   createdAt: string
-  selectedOrgId: string
+  selectedWorkspaceId: string
 }
 
 export type Subscription = {
@@ -38,7 +38,7 @@ export type Subscription = {
   endsAt: string
 }
 
-export type Organization = {
+export type Workspace = {
   _id: string
   name: string
   userId: string
