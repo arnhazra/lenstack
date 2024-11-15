@@ -199,13 +199,19 @@ export default function AuthenticationPage({
                           </>
                         }
                       >
-                        Continue
+                        <Suspense condition={newUser} fallback="Login">
+                          Create new account
+                        </Suspense>
                       </Suspense>
                     </Button>
                   </div>
                 </form>
               </Suspense>
-              <Suspense condition={process.env.NODE_ENV === "development"}>
+              <Suspense
+                condition={
+                  process.env.NODE_ENV === "development" && authStep === 1
+                }
+              >
                 <div className="relative flex items-center">
                   <div className="flex-grow border-t border-muted-foreground"></div>
                   <span className="mx-2 bg-background px-2 text-xs uppercase text-slate-500">
