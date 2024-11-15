@@ -43,11 +43,6 @@ export default function AuthenticationPage({
         .post(endPoints.generateOTP, { json: state, timeout: FETCH_TIMEOUT })
         .json()
       setState({ ...state, hash: response.hash })
-      toast({
-        title: uiConstants.notification,
-        description: <p className="text-slate-600">{response.message}</p>,
-      })
-
       setNewUser(response.newUser)
       setAuthStep(2)
     } catch (error) {
@@ -76,14 +71,6 @@ export default function AuthenticationPage({
         .json()
       localStorage.setItem("accessToken", response.accessToken)
       localStorage.setItem("refreshToken", response.refreshToken)
-      toast({
-        title: uiConstants.notification,
-        description: (
-          <p className="text-slate-600">
-            {uiConstants.authVerificationSuccess}
-          </p>
-        ),
-      })
       onAuthorized(true)
     } catch (error: any) {
       toast({
