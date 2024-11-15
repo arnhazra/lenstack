@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { Equal, DraftingCompass } from "lucide-react"
+import { DraftingCompass, PanelLeft } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/components/ui/sheet"
 import { generalUserLinks } from "./data"
 
 export default function Header() {
   return (
-    <header className="top-0 flex h-16 items-center gap-4 border-b sticky bg-white px-4 md:px-6 z-50">
+    <header className="top-0 flex h-16 items-center gap-4 sticky bg-white px-4 md:px-6 z-50">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
           key="home"
@@ -32,7 +32,7 @@ export default function Header() {
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Equal className="h-5 w-5" />
+            <PanelLeft className="h-5 w-5" />
           </Button>
         </SheetTrigger>
         <SheetContent side="left">

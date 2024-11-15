@@ -70,7 +70,7 @@ export default function Page() {
         <div
           key={item}
           className={`cursor-pointer flex capitalize ${
-            datasetRequestState.selectedFilter === item ? "" : "text-zinc-500"
+            datasetRequestState.selectedFilter === item ? "" : "text-slate-500"
           }`}
           onClick={(): void =>
             setDatasetRequestState({
@@ -179,7 +179,7 @@ export default function Page() {
                     placeholder="Type anything and press enter to find datasets"
                     className="mb-4 pl-8 w-full h-12 focus:outline-none"
                   />
-                  <p className="text-xs text-zinc-500 -mt-2 mb-4 ms-1">
+                  <p className="text-xs text-slate-500 -mt-2 mb-4 ms-1">
                     {uiConstants.aiSafetyStatement}
                   </p>
                 </div>

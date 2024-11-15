@@ -50,14 +50,14 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">{uiConstants.workspaceCreated}</p>
+            <p className="text-slate-600">{uiConstants.workspaceCreated}</p>
           ),
         })
       } catch (error) {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">{uiConstants.toastError}</p>
+            <p className="text-slate-600">{uiConstants.toastError}</p>
           ),
         })
       }
@@ -69,7 +69,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
       <Link
         key={tab}
         className={`cursor-pointer flex capitalize ${
-          pathname.includes(tab) ? "" : "text-zinc-500"
+          pathname.includes(tab) ? "" : "text-slate-500"
         }`}
         href={`/settings/${tab}`}
       >
@@ -89,7 +89,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
             </Button>
             <div>
               <p className="text-sm  font-semibold">{user.name}</p>
-              <p className="text-sm text-zinc-600 font-semibold">
+              <p className="text-sm text-slate-600 font-semibold">
                 {user.email}
               </p>
             </div>

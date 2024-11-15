@@ -48,7 +48,7 @@ export default function Page() {
             <h3 className="font-bold">
               {brandName} {product?.displayName}
             </h3>
-            <p className="text-sm text-zinc-600">{product?.description}</p>
+            <p className="text-sm text-slate-600">{product?.description}</p>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@ export default function Page() {
           </div>
           <div>
             <Card className="overflow-hidden">
-              <CardHeader className="flex flex-row items-start bg-zinc-50">
+              <CardHeader className="flex flex-row items-start bg-slate-50">
                 <div className="grid gap-0.5">
                   <CardTitle className="group flex items-center gap-2 text-lg">
                     Workspace

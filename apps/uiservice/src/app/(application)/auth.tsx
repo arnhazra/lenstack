@@ -45,7 +45,7 @@ export default function AuthenticationPage({
       setState({ ...state, hash: response.hash })
       toast({
         title: uiConstants.notification,
-        description: <p className="text-zinc-600">{response.message}</p>,
+        description: <p className="text-slate-600">{response.message}</p>,
       })
 
       setNewUser(response.newUser)
@@ -54,7 +54,7 @@ export default function AuthenticationPage({
       toast({
         title: uiConstants.notification,
         description: (
-          <p className="text-zinc-600">{uiConstants.connectionErrorMessage}</p>
+          <p className="text-slate-600">{uiConstants.connectionErrorMessage}</p>
         ),
       })
     } finally {
@@ -79,14 +79,16 @@ export default function AuthenticationPage({
       toast({
         title: uiConstants.notification,
         description: (
-          <p className="text-zinc-600">{uiConstants.authVerificationSuccess}</p>
+          <p className="text-slate-600">
+            {uiConstants.authVerificationSuccess}
+          </p>
         ),
       })
       onAuthorized(true)
     } catch (error: any) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.invalidOTP}</p>,
+        description: <p className="text-slate-600">{uiConstants.invalidOTP}</p>,
       })
       onAuthorized(false)
     } finally {
@@ -206,7 +208,7 @@ export default function AuthenticationPage({
               <Suspense condition={process.env.NODE_ENV === "development"}>
                 <div className="relative flex items-center">
                   <div className="flex-grow border-t border-muted-foreground"></div>
-                  <span className="mx-2 bg-background px-2 text-xs uppercase text-zinc-500">
+                  <span className="mx-2 bg-background px-2 text-xs uppercase text-slate-500">
                     Or continue with
                   </span>
                   <div className="flex-grow border-t border-muted-foreground"></div>
@@ -216,7 +218,7 @@ export default function AuthenticationPage({
                 </Button>
               </Suspense>
             </div>
-            <div className="mt-4 text-center text-sm text-zinc-500">
+            <div className="mt-4 text-center text-sm text-slate-500">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>

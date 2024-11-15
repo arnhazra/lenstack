@@ -31,7 +31,7 @@ export default function PricingSection() {
             <ul className="grid gap-3 text-sm text-muted-foreground">
               {tier.features.map((feature) => (
                 <li
-                  className="flex text-xs items-center text-zinc-600"
+                  className="flex text-xs items-center text-slate-600"
                   key={feature}
                 >
                   <CheckCircle2 className="scale-75 me-2" />
@@ -39,7 +39,7 @@ export default function PricingSection() {
                 </li>
               ))}
               <li
-                className="flex text-xs items-center text-zinc-600"
+                className="flex text-xs items-center text-slate-600"
                 key={tier.xp}
               >
                 <CheckCircle2 className="scale-75 me-2" />
@@ -62,9 +62,9 @@ export default function PricingSection() {
     <section id="pricing" className="container py-8 md:py-12 lg:py-24">
       <div className="mx-auto flex max-w-[70rem] flex-col items-center justify-center gap-4 text-center mb-8">
         <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-          Pricing
+          Simple, transparent pricing
         </h2>
-        <p className="max-w-[85%] leading-normal text-zinc-600 sm:text-lg sm:leading-7">
+        <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
           {uiConstants.pricingTierHeader}
         </p>
       </div>

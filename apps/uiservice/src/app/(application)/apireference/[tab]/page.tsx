@@ -30,7 +30,7 @@ export default function Page({ params }: { params: { tab: string } }) {
       <div
         key={product?._id}
         className={`cursor-pointer flex capitalize ${
-          product?.productName === selectedTab ? "" : "text-zinc-500"
+          product?.productName === selectedTab ? "" : "text-slate-500"
         }`}
         onClick={(): void =>
           router.push(`/apireference/${product?.productName}`)

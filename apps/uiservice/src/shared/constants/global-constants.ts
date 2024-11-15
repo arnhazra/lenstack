@@ -2,10 +2,10 @@ export const brandName = "ArcStack"
 
 export const uiConstants = {
   homeBadge: "Invent with Purpose",
-  homeHeader: "Build, Ship & Scale",
-  homeIntro1: "Rely on a flexible, industry-leading platform to build",
-  homeIntro2: "Start with trial, Upgrade on demand",
-  homeIntro3: "Create a free account to get started",
+  homeHeader: "Build, Ship & Analyze your apps from a single platform",
+  homeIntro1:
+    "Rely on a flexible, industry-leading platform to build your projects",
+  homeIntro2: "Create an account & Start with free trial, Upgrade on demand",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Credentials",
   errorMessage: "Not Found",

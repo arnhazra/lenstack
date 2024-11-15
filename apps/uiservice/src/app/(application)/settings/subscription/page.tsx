@@ -28,7 +28,7 @@ export default function Page() {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">Subscription Activation Success</p>
+            <p className="text-slate-600">Subscription Activation Success</p>
           ),
         })
         router.push("/settings/subscription")
@@ -38,7 +38,7 @@ export default function Page() {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">Subscription Activation Failure</p>
+            <p className="text-slate-600">Subscription Activation Failure</p>
           ),
         })
         router.push("/settings/subscription")
@@ -78,7 +78,7 @@ export default function Page() {
             <ul className="grid gap-3 text-sm text-muted-foreground">
               {tier.features.map((feature) => (
                 <li
-                  className="flex text-xs items-center text-zinc-600"
+                  className="flex text-xs items-center text-slate-600"
                   key={feature}
                 >
                   <CheckCircle2 className="scale-75 me-2" />
@@ -86,7 +86,7 @@ export default function Page() {
                 </li>
               ))}
               <li
-                className="flex text-xs items-center text-zinc-600"
+                className="flex text-xs items-center text-slate-600"
                 key={tier.xp}
               >
                 <CheckCircle2 className="scale-75 me-2" />
@@ -120,7 +120,7 @@ export default function Page() {
     } catch (error) {
       toast({
         title: uiConstants.notification,
-        description: <p className="text-zinc-600">{uiConstants.toastError}</p>,
+        description: <p className="text-slate-600">{uiConstants.toastError}</p>,
       })
     }
   }

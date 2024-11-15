@@ -9,7 +9,7 @@ export default function OpenSourceSection() {
         <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
           Open Source
         </h2>
-        <p className="max-w-[85%] leading-normal text-zinc-600 sm:text-lg sm:leading-7">
+        <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
           {uiConstants.openSourceHeader} <br /> The code is available on{" "}
           <Link
             href={uiConstants.githubRepoUri}

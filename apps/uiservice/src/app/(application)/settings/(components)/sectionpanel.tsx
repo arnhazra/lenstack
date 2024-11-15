@@ -25,7 +25,7 @@ export default function SectionPanel({
           {icon}
           <div className="space-y-0.5">
             <p className="text-sm">{title}</p>
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-slate-500">
               <Suspense condition={!!masked} fallback={content}>
                 <MaskText value={content} />
               </Suspense>

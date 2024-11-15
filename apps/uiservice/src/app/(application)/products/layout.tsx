@@ -51,7 +51,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
               <p className="text-sm font-semibold">
                 {brandName} {selectedProduct?.displayName}
               </p>
-              <p className="text-sm text-zinc-600 font-semibold">
+              <p className="text-sm text-slate-600 font-semibold">
                 {selectedProduct?.description}
               </p>
             </div>

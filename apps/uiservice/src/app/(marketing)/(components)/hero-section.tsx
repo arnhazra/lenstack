@@ -5,35 +5,23 @@ import Link from "next/link"
 
 export default function HeroSection() {
   return (
-    <section
-      id="hero"
-      className="hero space-y-6 pb-8 pt-8 sm:pt-16 sm:py-16 md:pt-16 md:py-16 lg:pt-32 lg:py-32"
-    >
-      <div className="container flex flex-col gap-4">
-        <Link href="" rel="noopener noreferrer">
-          <p className="text-sm text-white tracking-normal uppercase">
-            {brandName}. {uiConstants.homeBadge}
-          </p>
+    <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
+      <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
+        <Link
+          href=""
+          className="rounded-2xl bg-slate-100 px-4 py-1.5 text-sm font-medium"
+        >
+          {uiConstants.homeBadge}
         </Link>
-        <h1 className="font-heading text-white text-3xl sm:text-4xl md:text-4xl lg:text-5xl tracking-tight">
+        <h1 className="font-heading text-2xl sm:text-4xl md:text-5xl lg:text-7xl tracking-tight">
           {uiConstants.homeHeader}
         </h1>
-        <p className="leading-normal text-white text-xs md:text-md lg:text-lg">
-          {uiConstants.homeIntro1}
-          <br />
-          {uiConstants.homeIntro2}
-          <br />
-          {uiConstants.homeIntro3}
-          <br />
+        <p className="max-w-[42rem] leading-normal text-slate-700 sm:text-xl sm:leading-8">
+          {uiConstants.homeIntro1}. {uiConstants.homeIntro2}
         </p>
-        <div className="space-x-4 space-y-4 mt-2">
-          <Link
-            className={cn(buttonVariants({ variant: "default" }))}
-            href="/dashboard"
-          >
-            Get Started with {brandName}
-          </Link>
-        </div>
+        <Link href="/dashboard" className={cn(buttonVariants({ size: "lg" }))}>
+          Get Started with {brandName}
+        </Link>
       </div>
     </section>
   )

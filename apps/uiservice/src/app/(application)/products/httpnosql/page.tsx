@@ -36,10 +36,10 @@ export default function Page() {
         <TableCell>
           <div className="font-medium">{data?.key}</div>
         </TableCell>
-        <TableCell className="text-zinc-500">
+        <TableCell className="text-slate-500">
           <DataModal dataObj={data} />
         </TableCell>
-        <TableCell className="text-right text-zinc-500 hidden md:table-cell">
+        <TableCell className="text-right text-slate-500 hidden md:table-cell">
           {format(new Date(data.createdAt), "MMM, do yyyy, h:mm a")}
         </TableCell>
       </TableRow>

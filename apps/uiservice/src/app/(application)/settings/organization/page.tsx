@@ -29,7 +29,7 @@ export default function Page() {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">{uiConstants.toastError}</p>
+            <p className="text-slate-600">{uiConstants.toastError}</p>
           ),
         })
       }
@@ -47,14 +47,14 @@ export default function Page() {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">{uiConstants.workspaceDeleted}</p>
+            <p className="text-slate-600">{uiConstants.workspaceDeleted}</p>
           ),
         })
       } catch (error) {
         toast({
           title: uiConstants.notification,
           description: (
-            <p className="text-zinc-600">{uiConstants.toastError}</p>
+            <p className="text-slate-600">{uiConstants.toastError}</p>
           ),
         })
       }
