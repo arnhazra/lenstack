@@ -22,9 +22,9 @@ export const subscriptionPricing: SubscriptionConfig[] = [
     platformDelay: 1000,
     requestCost: 0.01,
     features: [
+      "Good for exploration",
       "One month free trial",
       "Basic API response delay",
-      "Good for exploration",
     ],
   },
   {
@@ -34,9 +34,9 @@ export const subscriptionPricing: SubscriptionConfig[] = [
     platformDelay: 500,
     requestCost: 0.015,
     features: [
+      "Good for exploration",
       "One month free trial",
       "Basic API response delay",
-      "Good for exploration",
     ],
   },
   {
@@ -46,9 +46,9 @@ export const subscriptionPricing: SubscriptionConfig[] = [
     platformDelay: 200,
     requestCost: 0.025,
     features: [
+      "Good for developers",
       "Valid for a month",
       "Standard API response",
-      "Good for developers",
     ],
   },
   {
@@ -58,9 +58,9 @@ export const subscriptionPricing: SubscriptionConfig[] = [
     platformDelay: 0,
     requestCost: 0.03,
     features: [
+      "Good for creators",
       "Valid for a month",
       "Priority API response",
-      "Good for creators",
     ],
   },
 ]

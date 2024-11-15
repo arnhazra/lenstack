@@ -9,7 +9,7 @@ export default function LoadingComponent() {
         <LoaderCircle
           width="40"
           height="40"
-          className={cn("animate-spin", "text-zinc-600")}
+          className={cn("animate-spin", "text-slate-600")}
           style={{ animation: "spin 1s linear infinite" }}
         />
       </div>

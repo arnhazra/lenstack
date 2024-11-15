@@ -27,7 +27,7 @@ export default function ProductsSection() {
             <h3 className="font-bold">
               {brandName} {product?.displayName}
             </h3>
-            <p className="text-sm text-zinc-600">{product?.description}</p>
+            <p className="text-sm text-slate-600">{product?.description}</p>
           </div>
         </div>
       </div>
@@ -37,13 +37,13 @@ export default function ProductsSection() {
   return (
     <section
       id="products"
-      className="container space-y-6 bg-zinc-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg"
+      className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24 lg:rounded-lg"
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
         <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
           Products
         </h2>
-        <p className="max-w-[85%] leading-normal text-zinc-600 sm:text-lg sm:leading-7">
+        <p className="max-w-[85%] leading-normal text-slate-600 sm:text-lg sm:leading-7">
           {uiConstants.productsHeader}
         </p>
       </div>
