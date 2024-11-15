@@ -203,16 +203,18 @@ export default function AuthenticationPage({
                   </div>
                 </form>
               </Suspense>
-              <div className="relative flex items-center">
-                <div className="flex-grow border-t border-muted-foreground"></div>
-                <span className="mx-2 bg-background px-2 text-xs uppercase text-zinc-500">
-                  Or continue with
-                </span>
-                <div className="flex-grow border-t border-muted-foreground"></div>
-              </div>
-              <Button variant="outline" className="w-full">
-                Continue with Google SSO
-              </Button>
+              <Suspense condition={process.env.NODE_ENV === "development"}>
+                <div className="relative flex items-center">
+                  <div className="flex-grow border-t border-muted-foreground"></div>
+                  <span className="mx-2 bg-background px-2 text-xs uppercase text-zinc-500">
+                    Or continue with
+                  </span>
+                  <div className="flex-grow border-t border-muted-foreground"></div>
+                </div>
+                <Button variant="outline" className="w-full">
+                  Continue with Google SSO
+                </Button>
+              </Suspense>
             </div>
             <div className="mt-4 text-center text-sm text-zinc-500">
               {uiConstants.privacyPolicyStatement}
