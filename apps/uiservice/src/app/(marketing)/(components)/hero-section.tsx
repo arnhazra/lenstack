@@ -13,7 +13,7 @@ export default function HeroSection() {
         >
           {uiConstants.homeBadge}
         </Link>
-        <h1 className="font-heading text-2xl sm:text-4xl md:text-5xl lg:text-7xl tracking-tight">
+        <h1 className="text-slate-800 text-2xl sm:text-4xl md:text-5xl lg:text-7xl tracking-tight">
           {uiConstants.homeHeader}
         </h1>
         <p className="max-w-[42rem] leading-normal text-slate-700 sm:text-xl sm:leading-8">
