@@ -1,8 +1,6 @@
 "use client"
-import LoadingComponent from "@/components/loading"
+import LoadingComponent from "@/shared/components/loading"
 
 export default function Loading() {
-  return (
-    <LoadingComponent />
-  )
+  return <LoadingComponent />
 }

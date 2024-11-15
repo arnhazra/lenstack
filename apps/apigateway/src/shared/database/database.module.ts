@@ -4,17 +4,23 @@ import { ModelDefinition, MongooseModule } from "@nestjs/mongoose"
 
 @Module({})
 export class DatabaseModule {
-  static forRoot(uri: string, dbConnectionName: DbConnectionMap): DynamicModule {
+  static forRoot(
+    uri: string,
+    dbConnectionName: DbConnectionMap
+  ): DynamicModule {
     return MongooseModule.forRootAsync({
       useFactory: () => ({
         uri,
-        dbName: dbConnectionName
+        dbName: dbConnectionName,
       }),
-      connectionName: dbConnectionName
+      connectionName: dbConnectionName,
     })
   }
 
-  static forFeature(models: ModelDefinition[], dbConnectionName: DbConnectionMap): DynamicModule {
+  static forFeature(
+    models: ModelDefinition[],
+    dbConnectionName: DbConnectionMap
+  ): DynamicModule {
     return MongooseModule.forFeature(models, dbConnectionName)
   }
 }

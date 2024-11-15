@@ -1,8 +1,6 @@
 "use client"
-import ErrorComponent from "@/components/error"
+import ErrorComponent from "@/shared/components/error"
 
 export default function Error() {
-  return (
-    <ErrorComponent />
-  )
+  return <ErrorComponent />
 }

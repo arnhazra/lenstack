@@ -12,10 +12,20 @@ import { DatabaseModule } from "src/shared/database/database.module"
 @Module({
   imports: [
     CqrsModule,
-    DatabaseModule.forRoot(envConfig.productsDatabaseURI, DbConnectionMap.Intelligence),
-    DatabaseModule.forFeature([{ name: Query.name, schema: QuerySchema }], DbConnectionMap.Intelligence),
+    DatabaseModule.forRoot(
+      envConfig.productsDatabaseURI,
+      DbConnectionMap.Intelligence
+    ),
+    DatabaseModule.forFeature(
+      [{ name: Query.name, schema: QuerySchema }],
+      DbConnectionMap.Intelligence
+    ),
   ],
   controllers: [IntelligenceController],
-  providers: [IntelligenceService, IntelligenceRepository, CreateQueryCommandHandler],
+  providers: [
+    IntelligenceService,
+    IntelligenceRepository,
+    CreateQueryCommandHandler,
+  ],
 })
-export class IntelligenceModule { }
+export class IntelligenceModule {}

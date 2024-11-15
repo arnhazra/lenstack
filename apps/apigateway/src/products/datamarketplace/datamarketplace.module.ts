@@ -16,11 +16,17 @@ import { DatabaseModule } from "src/shared/database/database.module"
 @Module({
   imports: [
     CqrsModule,
-    DatabaseModule.forRoot(envConfig.productsDatabaseURI, DbConnectionMap.DataMarketplace),
-    DatabaseModule.forFeature([
-      { name: Dataset.name, schema: DatasetSchema },
-      { name: Metadata.name, schema: MetadataSchema }
-    ], DbConnectionMap.DataMarketplace),
+    DatabaseModule.forRoot(
+      envConfig.productsDatabaseURI,
+      DbConnectionMap.DataMarketplace
+    ),
+    DatabaseModule.forFeature(
+      [
+        { name: Dataset.name, schema: DatasetSchema },
+        { name: Metadata.name, schema: MetadataSchema },
+      ],
+      DbConnectionMap.DataMarketplace
+    ),
   ],
   controllers: [DatamarketplaceController],
   providers: [
@@ -29,7 +35,7 @@ import { DatabaseModule } from "src/shared/database/database.module"
     FindCategoriesQueryHandler,
     FindDataByIdQueryHandler,
     FindDatasetsQueryHandler,
-    FindMetaDataByIdQueryHandler
+    FindMetaDataByIdQueryHandler,
   ],
 })
-export class DatamarketplaceModule { }
+export class DatamarketplaceModule {}

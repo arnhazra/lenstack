@@ -21,7 +21,9 @@ export function verifyOTP(email: string, hash: string, otp: string): boolean {
   let now = Date.now()
   if (now > parseInt(expires)) return false
   let data = `${email}.${otp}.${expires}`
-  let newCalculatedHash = createHmac("sha256", otpHashingKey).update(data).digest("hex")
+  let newCalculatedHash = createHmac("sha256", otpHashingKey)
+    .update(data)
+    .digest("hex")
   if (newCalculatedHash === hashValue) {
     return true
   }

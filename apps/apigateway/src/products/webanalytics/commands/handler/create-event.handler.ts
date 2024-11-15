@@ -4,12 +4,17 @@ import { WebAnalyticsRepository } from "../../webanalytics.repository"
 import { Types } from "mongoose"
 
 @CommandHandler(CreateEventsCommand)
-export class CreateEventsCommandHandler implements ICommandHandler<CreateEventsCommand> {
-  constructor(private readonly repository: WebAnalyticsRepository) { }
+export class CreateEventsCommandHandler
+  implements ICommandHandler<CreateEventsCommand>
+{
+  constructor(private readonly repository: WebAnalyticsRepository) {}
 
   async execute(command: CreateEventsCommand) {
-    const { orgId, createEventsDto } = command
+    const { workspaceId, createEventsDto } = command
     const { event } = createEventsDto
-    return await this.repository.create({ orgId: new Types.ObjectId(orgId), event })
+    return await this.repository.create({
+      workspaceId: new Types.ObjectId(workspaceId),
+      event,
+    })
   }
 }

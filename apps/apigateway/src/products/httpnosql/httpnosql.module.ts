@@ -16,8 +16,14 @@ import { DatabaseModule } from "src/shared/database/database.module"
 @Module({
   imports: [
     CqrsModule,
-    DatabaseModule.forRoot(envConfig.productsDatabaseURI, DbConnectionMap.HttpNoSql),
-    DatabaseModule.forFeature([{ name: Data.name, schema: DataSchema }], DbConnectionMap.HttpNoSql),
+    DatabaseModule.forRoot(
+      envConfig.productsDatabaseURI,
+      DbConnectionMap.HttpNoSql
+    ),
+    DatabaseModule.forFeature(
+      [{ name: Data.name, schema: DataSchema }],
+      DbConnectionMap.HttpNoSql
+    ),
   ],
   controllers: [HttpNosqlController],
   providers: [
@@ -27,7 +33,7 @@ import { DatabaseModule } from "src/shared/database/database.module"
     UpdateDataCommandHandler,
     DeleteDataCommandHandler,
     ReadAllDataQueryHandler,
-    ReadOneDataQueryHandler
+    ReadOneDataQueryHandler,
   ],
 })
-export class HttpnosqlModule { }
+export class HttpnosqlModule {}

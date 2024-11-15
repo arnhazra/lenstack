@@ -1,9 +1,9 @@
 export enum AttributeNames {
   ReduceCarbonEmissions = "reduceCarbonEmissions",
-  SelectedOrgId = "selectedOrgId",
+  selectedWorkspaceId = "selectedWorkspaceId",
   ActivityLog = "activityLog",
-  ComputeTier = "computeTier",
-  Name = "name"
+  HasTrial = "hasTrial",
+  Name = "name",
 }
 
 export class UpdateAttributeCommand {
@@ -11,5 +11,5 @@ export class UpdateAttributeCommand {
     public readonly userId: string,
     public readonly attributeName: AttributeNames,
     public readonly attributeValue: string
-  ) { }
+  ) {}
 }

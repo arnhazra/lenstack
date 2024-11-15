@@ -4,8 +4,10 @@ import { FindUserByIdQuery } from "../impl/find-user-by-id.query"
 import { Types } from "mongoose"
 
 @QueryHandler(FindUserByIdQuery)
-export class FindUserByIdQueryHandler implements IQueryHandler<FindUserByIdQuery> {
-  constructor(private readonly repository: UserRepository) { }
+export class FindUserByIdQueryHandler
+  implements IQueryHandler<FindUserByIdQuery>
+{
+  constructor(private readonly repository: UserRepository) {}
 
   async execute(query: FindUserByIdQuery) {
     const { userId } = query

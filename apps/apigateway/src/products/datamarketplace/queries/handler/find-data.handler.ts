@@ -4,8 +4,10 @@ import { DatamarketplaceRepository } from "../../datamarketplace.repository"
 import { Types } from "mongoose"
 
 @QueryHandler(FindDataByIdQuery)
-export class FindDataByIdQueryHandler implements IQueryHandler<FindDataByIdQuery> {
-  constructor(private readonly repository: DatamarketplaceRepository) { }
+export class FindDataByIdQueryHandler
+  implements IQueryHandler<FindDataByIdQuery>
+{
+  constructor(private readonly repository: DatamarketplaceRepository) {}
 
   async execute(query: FindDataByIdQuery) {
     const { datasetId } = query

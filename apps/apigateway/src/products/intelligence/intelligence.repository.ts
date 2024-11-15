@@ -7,7 +7,10 @@ import { BaseRepository } from "src/shared/database/database.repository"
 
 @Injectable()
 export class IntelligenceRepository extends BaseRepository<Query> {
-  constructor(@InjectModel(Query.name, DbConnectionMap.Intelligence) private queryModel: Model<Query>) {
+  constructor(
+    @InjectModel(Query.name, DbConnectionMap.Intelligence)
+    private queryModel: Model<Query>
+  ) {
     super(queryModel)
   }
 }

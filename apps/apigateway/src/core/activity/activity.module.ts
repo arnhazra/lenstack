@@ -12,10 +12,17 @@ import { GetActivityQueryHandler } from "./queries/handler/get-activity-count.ha
 @Module({
   imports: [
     CqrsModule,
-    DatabaseModule.forFeature([{ name: Activity.name, schema: ActivitySchema }], DbConnectionMap.Core),
+    DatabaseModule.forFeature(
+      [{ name: Activity.name, schema: ActivitySchema }],
+      DbConnectionMap.Core
+    ),
   ],
   controllers: [ActivityController],
-  providers: [ActivityService, ActivityRepository, CreateActivityCommandHandler, GetActivityQueryHandler],
+  providers: [
+    ActivityService,
+    ActivityRepository,
+    CreateActivityCommandHandler,
+    GetActivityQueryHandler,
+  ],
 })
-
-export class ActivityModule { }
+export class ActivityModule {}

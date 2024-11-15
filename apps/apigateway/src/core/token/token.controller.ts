@@ -8,7 +8,7 @@ import { EventsUnion } from "../../shared/utils/events.union"
 
 @Controller("token")
 export class TokenController {
-  constructor(private readonly tokenService: TokenService) { }
+  constructor(private readonly tokenService: TokenService) {}
 
   @OnEvent(EventsUnion.SetToken)
   async setToken(setTokenDto: SetTokenDto) {

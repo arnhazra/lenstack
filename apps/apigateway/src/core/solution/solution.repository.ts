@@ -7,7 +7,10 @@ import { BaseRepository } from "src/shared/database/database.repository"
 
 @Injectable()
 export class SolutionsRepository extends BaseRepository<Solution> {
-  constructor(@InjectModel(Solution.name, DbConnectionMap.Core) private solutionModel: Model<Solution>) {
+  constructor(
+    @InjectModel(Solution.name, DbConnectionMap.Core)
+    private solutionModel: Model<Solution>
+  ) {
     super(solutionModel)
   }
 }

@@ -1,4 +1,14 @@
-import { Controller, Post, Body, BadRequestException, Get, Patch, Request, UseGuards, Param } from "@nestjs/common"
+import {
+  Controller,
+  Post,
+  Body,
+  BadRequestException,
+  Get,
+  Patch,
+  Request,
+  UseGuards,
+  Param,
+} from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateOTPDto } from "./dto/generate-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
@@ -8,17 +18,16 @@ import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 
 @Controller("user")
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Post("generateotp")
   async generateOTP(@Body() generateOTPDto: GenerateOTPDto) {
     try {
       const { user, hash } = await this.userService.generateOTP(generateOTPDto)
-      if (!user) return { hash, message: statusMessages.otpEmail, newUser: true }
+      if (!user)
+        return { hash, message: statusMessages.otpEmail, newUser: true }
       return { hash, message: statusMessages.otpEmail, newUser: false }
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
@@ -31,14 +40,10 @@ export class UserController {
 
       if (response.success) {
         return { accessToken, refreshToken, user }
-      }
-
-      else {
+      } else {
         throw new BadRequestException(statusMessages.invalidOTP)
       }
-    }
-
-    catch (error) {
+    } catch (error) {
       throw error
     }
   }
@@ -47,18 +52,18 @@ export class UserController {
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
-      const { user, organization } = await this.userService.getUserDetails(request.user.userId, request.user.orgId)
+      const { user, workspace, subscription } =
+        await this.userService.getUserDetails(
+          request.user.userId,
+          request.user.workspaceId
+        )
 
       if (user) {
-        return { user, organization }
-      }
-
-      else {
+        return { user, workspace, subscription }
+      } else {
         throw new BadRequestException(statusMessages.invalidUser)
       }
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException(statusMessages.invalidUser)
     }
   }
@@ -69,9 +74,7 @@ export class UserController {
     try {
       await this.userService.signOut(request.user.userId)
       return { message: statusMessages.signOutSuccess }
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
@@ -81,10 +84,12 @@ export class UserController {
   async updateAttribute(@Request() request: ModRequest, @Param() params: any) {
     try {
       const { attributeName, attributeValue } = params
-      return await this.userService.updateAttribute(request.user.userId, attributeName, attributeValue)
-    }
-
-    catch (error) {
+      return await this.userService.updateAttribute(
+        request.user.userId,
+        attributeName,
+        attributeValue
+      )
+    } catch (error) {
       throw new BadRequestException(statusMessages.invalidUser)
     }
   }

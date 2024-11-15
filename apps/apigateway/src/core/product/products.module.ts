@@ -11,10 +11,12 @@ import { DatabaseModule } from "src/shared/database/database.module"
 @Module({
   imports: [
     CqrsModule,
-    DatabaseModule.forFeature([{ name: Product.name, schema: ProductSchema }], DbConnectionMap.Core),
+    DatabaseModule.forFeature(
+      [{ name: Product.name, schema: ProductSchema }],
+      DbConnectionMap.Core
+    ),
   ],
   controllers: [ProductsController],
-  providers: [ProductsService, ProductsRepository, GetProductsQueryHandler]
+  providers: [ProductsService, ProductsRepository, GetProductsQueryHandler],
 })
-
-export class ProductsModule { }
+export class ProductsModule {}

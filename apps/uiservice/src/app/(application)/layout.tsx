@@ -1,80 +1,89 @@
 "use client"
-import { endPoints } from "@/constants/api-endpoints"
-import { uiConstants } from "@/constants/global-constants"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { uiConstants } from "@/shared/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
-import { ReactNode, useContext, useEffect, useState } from "react"
-import { toast } from "@/components/ui/use-toast"
-import Suspense from "@/components/suspense"
-import LoadingComponent from "@/components/loading"
+import { ReactNode, useContext, useState } from "react"
+import { toast } from "@/shared/components/ui/use-toast"
+import Suspense from "@/shared/components/suspense"
+import LoadingComponent from "@/shared/components/loading"
 import AuthProvider from "./auth"
-import { FETCH_TIMEOUT } from "@/lib/fetch-timeout"
-import Sidebar from "@/components/sidebar"
-import { Organization, User } from "@/types/Types"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
+import Sidebar from "../../shared/components/sidebar"
+import { Workspace, Subscription, User } from "@/shared/types"
+import { useQuery } from "@tanstack/react-query"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
-  useEffect(() => {
-    const getUserDetails = async () => {
+  const getUserDetails = async () => {
+    if (!localStorage.getItem("accessToken")) {
+      setAuthorized(false)
+      setLoading(false)
+      return null
+    } else {
       try {
-        const response: { user: User, organization: Organization } = await ky.get(endPoints.userDetails, { timeout: FETCH_TIMEOUT }).json()
-        const organizations: Organization[] = await ky.get(endPoints.organization, { timeout: FETCH_TIMEOUT }).json()
-        localStorage.setItem("clientId", response.organization.clientId)
-        localStorage.setItem("clientSecret", response.organization.clientSecret)
+        const response: {
+          user: User
+          workspace: Workspace
+          subscription: Subscription | null
+        } = await ky
+          .get(endPoints.userDetails, { timeout: FETCH_TIMEOUT })
+          .json()
+        const workspaces: Workspace[] = await ky
+          .get(endPoints.workspace, { timeout: FETCH_TIMEOUT })
+          .json()
+        localStorage.setItem("accessKey", response.workspace.accessKey)
         dispatch("setUser", response.user)
-        dispatch("setSelectedOrg", response.organization)
-        dispatch("setOrgs", organizations)
+        dispatch("setSelectedWorkspace", response.workspace)
+        dispatch("setSubscription", response.subscription)
+        dispatch("setWorkspaces", workspaces)
         setAuthorized(true)
-      }
-
-      catch (error: any) {
+      } catch (error: any) {
         if (error.response) {
           if (error.response.status === 401) {
             setAuthorized(false)
-          }
-
-          else {
+          } else {
             toast({
               title: uiConstants.notification,
-              description: <p className="text-zinc-600">{uiConstants.connectionErrorMessage}</p>
+              description: (
+                <p className="text-zinc-600">
+                  {uiConstants.connectionErrorMessage}
+                </p>
+              ),
             })
           }
-        }
-
-        else {
+        } else {
           toast({
             title: uiConstants.notification,
-            description: <p className="text-zinc-600">{uiConstants.connectionErrorMessage}</p>
+            description: (
+              <p className="text-zinc-600">
+                {uiConstants.connectionErrorMessage}
+              </p>
+            ),
           })
         }
-      }
-
-      finally {
+      } finally {
         setLoading(false)
+        return null
       }
     }
+  }
 
-    if (localStorage.getItem("accessToken")) {
-      getUserDetails()
-    }
-
-    else {
-      setAuthorized(false)
-      setLoading(false)
-    }
-  }, [refreshId, isAuthorized])
+  useQuery({
+    queryKey: ["user-details", refreshId, isAuthorized],
+    enabled: true,
+    queryFn: getUserDetails,
+  })
 
   const appLayout = (
     <>
       <Sidebar />
       <div className="flex min-h-screen w-full flex-col">
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-          <div className="p-4 sm:px-6 sm:py-0">
-            {children}
-          </div>
+          <div className="p-4 sm:px-6 sm:py-0">{children}</div>
         </div>
       </div>
     </>
@@ -84,7 +93,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <Suspense condition={!isLoading} fallback={<LoadingComponent />}>
       <Suspense condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
-      </Suspense >
-    </Suspense >
+      </Suspense>
+    </Suspense>
   )
 }

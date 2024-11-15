@@ -7,24 +7,27 @@ import { Events } from "./schemas/event.schema"
 
 @Injectable()
 export class WebAnalyticsService {
-  constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) { }
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus
+  ) {}
 
-  async createEvent(orgId: string, createEventsDto: CreateEventsDto) {
+  async createEvent(workspaceId: string, createEventsDto: CreateEventsDto) {
     try {
-      return await this.commandBus.execute<CreateEventsCommand, Events>(new CreateEventsCommand(orgId, createEventsDto))
-    }
-
-    catch (error) {
+      return await this.commandBus.execute<CreateEventsCommand, Events>(
+        new CreateEventsCommand(workspaceId, createEventsDto)
+      )
+    } catch (error) {
       throw error
     }
   }
 
-  async getEvents(orgId: string) {
+  async getEvents(workspaceId: string) {
     try {
-      return await this.queryBus.execute<GetEventsQuery, Events[]>(new GetEventsQuery(orgId))
-    }
-
-    catch (error) {
+      return await this.queryBus.execute<GetEventsQuery, Events[]>(
+        new GetEventsQuery(workspaceId)
+      )
+    } catch (error) {
       throw error
     }
   }

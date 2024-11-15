@@ -6,15 +6,14 @@ import { Product } from "./schemas/products.schema"
 
 @Injectable()
 export class ProductsService {
-  constructor(private readonly queryBus: QueryBus) { }
+  constructor(private readonly queryBus: QueryBus) {}
 
   async getProductConfig() {
     try {
-      return await this.queryBus.execute<GetProductsQuery, Product[]>(new GetProductsQuery())
-    }
-
-
-    catch (error) {
+      return await this.queryBus.execute<GetProductsQuery, Product[]>(
+        new GetProductsQuery()
+      )
+    } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

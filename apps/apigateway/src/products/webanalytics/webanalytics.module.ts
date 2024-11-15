@@ -13,10 +13,21 @@ import { DatabaseModule } from "src/shared/database/database.module"
 @Module({
   imports: [
     CqrsModule,
-    DatabaseModule.forRoot(envConfig.productsDatabaseURI, DbConnectionMap.WebAnalytics),
-    DatabaseModule.forFeature([{ name: Events.name, schema: EventsSchema }], DbConnectionMap.WebAnalytics),
+    DatabaseModule.forRoot(
+      envConfig.productsDatabaseURI,
+      DbConnectionMap.WebAnalytics
+    ),
+    DatabaseModule.forFeature(
+      [{ name: Events.name, schema: EventsSchema }],
+      DbConnectionMap.WebAnalytics
+    ),
   ],
   controllers: [WebAnalyticsController],
-  providers: [WebAnalyticsService, WebAnalyticsRepository, GetEventsQueryHandler, CreateEventsCommandHandler],
+  providers: [
+    WebAnalyticsService,
+    WebAnalyticsRepository,
+    GetEventsQueryHandler,
+    CreateEventsCommandHandler,
+  ],
 })
-export class WebAnalyticsModule { }
+export class WebAnalyticsModule {}

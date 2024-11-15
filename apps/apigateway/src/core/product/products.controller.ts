@@ -3,15 +3,13 @@ import { ProductsService } from "./products.service"
 
 @Controller("products")
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) { }
+  constructor(private readonly productsService: ProductsService) {}
 
   @Get("config")
   async getProductConfig() {
     try {
       return await this.productsService.getProductConfig()
-    }
-
-    catch (error) {
+    } catch (error) {
       throw error
     }
   }

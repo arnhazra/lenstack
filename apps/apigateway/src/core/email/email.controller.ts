@@ -6,7 +6,7 @@ import { EventsUnion } from "src/shared/utils/events.union"
 
 @Controller()
 export class EmailController {
-  constructor(private readonly service: EmailService) { }
+  constructor(private readonly service: EmailService) {}
 
   @OnEvent(EventsUnion.SendEmail)
   async sendEmail(sendEmailDto: SendEmailDto) {

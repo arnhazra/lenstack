@@ -6,15 +6,13 @@ import Redis from "ioredis"
 
 @Injectable()
 export class TokenService {
-  constructor(@Inject("REDIS_CLIENT") private readonly redisClient: Redis) { }
+  constructor(@Inject("REDIS_CLIENT") private readonly redisClient: Redis) {}
 
   async setToken(setTokenDto: SetTokenDto) {
     try {
       const { userId, token } = setTokenDto
       return await this.redisClient.set(userId, token)
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException()
     }
   }
@@ -23,9 +21,7 @@ export class TokenService {
     try {
       const { userId } = getTokenDto
       return await this.redisClient.get(userId)
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException()
     }
   }
@@ -34,9 +30,7 @@ export class TokenService {
     try {
       const { userId } = deleteTokenDto
       return this.redisClient.del(userId)
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException()
     }
   }

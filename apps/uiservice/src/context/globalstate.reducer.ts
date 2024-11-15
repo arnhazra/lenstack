@@ -1,17 +1,19 @@
-import { Organization, User } from "@/types/Types"
+import { Workspace, Subscription, User } from "@/shared/types"
 
 export type GlobalState = {
-  user: User,
-  selectedOrg: Organization,
-  organizations: Organization[],
-  refreshId: string,
+  user: User
+  subscription: Subscription | null
+  selectedWorkspace: Workspace
+  workspaces: Workspace[]
+  refreshId: string
 }
 
 export type ActionsMap = {
-  setUser: Partial<User>,
-  setSelectedOrg: Organization,
-  setOrgs: Organization[],
-  setRefreshId: string,
+  setUser: Partial<User>
+  setSubscription: Subscription | null
+  setSelectedWorkspace: Workspace
+  setWorkspaces: Workspace[]
+  setRefreshId: string
 }
 
 export type Actions = {
@@ -21,26 +23,39 @@ export type Actions = {
   }
 }[keyof ActionsMap]
 
-export const GlobalReducer = (state: GlobalState, action: Actions): GlobalState => {
+export const GlobalReducer = (
+  state: GlobalState,
+  action: Actions
+): GlobalState => {
   switch (action.type) {
     case "setUser":
       return {
-        ...state, user: { ...state.user, ...action.payload }
+        ...state,
+        user: { ...state.user, ...action.payload },
       }
 
-    case "setSelectedOrg":
+    case "setSubscription":
       return {
-        ...state, selectedOrg: action.payload
+        ...state,
+        subscription: action.payload,
       }
 
-    case "setOrgs":
+    case "setSelectedWorkspace":
       return {
-        ...state, organizations: action.payload
+        ...state,
+        selectedWorkspace: action.payload,
+      }
+
+    case "setWorkspaces":
+      return {
+        ...state,
+        workspaces: action.payload,
       }
 
     case "setRefreshId":
       return {
-        ...state, refreshId: action.payload
+        ...state,
+        refreshId: action.payload,
       }
 
     default:

@@ -9,9 +9,11 @@ import { FindDatasetsDto } from "./dto/find-datasets.dto"
 @Injectable()
 export class DatamarketplaceRepository {
   constructor(
-    @InjectModel(Metadata.name, DbConnectionMap.DataMarketplace) private metadataModel: Model<Metadata>,
-    @InjectModel(Dataset.name, DbConnectionMap.DataMarketplace) private datasetModel: Model<Dataset>
-  ) { }
+    @InjectModel(Metadata.name, DbConnectionMap.DataMarketplace)
+    private metadataModel: Model<Metadata>,
+    @InjectModel(Dataset.name, DbConnectionMap.DataMarketplace)
+    private datasetModel: Model<Dataset>
+  ) {}
 
   async findUniqueCategories(): Promise<string[]> {
     const filters = await this.metadataModel.find().distinct("category")
@@ -22,24 +24,33 @@ export class DatamarketplaceRepository {
 
   async findDatasets(findDatasetsDto: FindDatasetsDto) {
     const searchQuery = findDatasetsDto.searchQuery || ""
-    const selectedFilterCategory = findDatasetsDto.selectedFilter === "All" ? "" : findDatasetsDto.selectedFilter
+    const selectedFilterCategory =
+      findDatasetsDto.selectedFilter === "All"
+        ? ""
+        : findDatasetsDto.selectedFilter
     const selectedSortOption = findDatasetsDto.selectedSortOption || "name"
     const offset = findDatasetsDto.offset || 0
     const limit = findDatasetsDto.limit || 30
-    return await this.metadataModel.find({
-      $or: [
-        { name: { $regex: searchQuery, $options: "i" } },
-        { description: { $regex: searchQuery, $options: "i" } }
-      ],
-      category: { $regex: selectedFilterCategory }
-    }).sort(selectedSortOption)
+    return await this.metadataModel
+      .find({
+        $or: [
+          { name: { $regex: searchQuery, $options: "i" } },
+          { description: { $regex: searchQuery, $options: "i" } },
+        ],
+        category: { $regex: selectedFilterCategory },
+      })
+      .sort(selectedSortOption)
       .skip(offset)
       .limit(limit)
   }
 
-  async findMetaDataById(datasetId: Types.ObjectId): Promise<{ metaData: Metadata, dataLength: number }> {
+  async findMetaDataById(
+    datasetId: Types.ObjectId
+  ): Promise<{ metaData: Metadata; dataLength: number }> {
     const metaData = await this.metadataModel.findById(datasetId)
-    const dataLength = (await this.datasetModel.findOne({ datasetRelationId: datasetId })).data.length
+    const dataLength = (
+      await this.datasetModel.findOne({ datasetRelationId: datasetId })
+    ).data.length
     return { metaData, dataLength }
   }
 

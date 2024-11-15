@@ -10,6 +10,6 @@ import { WebAnalyticsModule } from "./webanalytics/webanalytics.module"
     DatamarketplaceModule,
     HttpnosqlModule,
     WebAnalyticsModule,
-  ]
+  ],
 })
-export class ProductsModule { }
+export class ProductsModule {}

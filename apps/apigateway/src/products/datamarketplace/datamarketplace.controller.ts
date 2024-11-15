@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, BadRequestException, UseGuards, Param } from "@nestjs/common"
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  BadRequestException,
+  UseGuards,
+  Param,
+} from "@nestjs/common"
 import { DatamarketplaceService } from "./datamarketplace.service"
 import { FindDatasetsDto } from "./dto/find-datasets.dto"
 import { TokenGuard } from "src/shared/auth/token.guard"
@@ -7,7 +15,9 @@ import { sortOptions } from "./data/dataset-sort-options"
 
 @Controller("products/datamarketplace")
 export class DatamarketplaceController {
-  constructor(private readonly datamarketplaceService: DatamarketplaceService) { }
+  constructor(
+    private readonly datamarketplaceService: DatamarketplaceService
+  ) {}
 
   @UseGuards(TokenGuard)
   @Get("filters-and-sort-options")
@@ -15,9 +25,7 @@ export class DatamarketplaceController {
     try {
       const filters = await this.datamarketplaceService.getDatasetFilters()
       return { filters, sortOptions }
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException()
     }
   }
@@ -27,9 +35,7 @@ export class DatamarketplaceController {
   async findDatasets(@Body() findDatasetsDto: FindDatasetsDto) {
     try {
       return await this.datamarketplaceService.findDatasets(findDatasetsDto)
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException()
     }
   }
@@ -39,9 +45,7 @@ export class DatamarketplaceController {
   async viewDataset(@Param() params: any) {
     try {
       return await this.datamarketplaceService.viewDataset(params.datasetId)
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException()
     }
   }
@@ -51,9 +55,7 @@ export class DatamarketplaceController {
   async getData(@Param() params: any) {
     try {
       return await this.datamarketplaceService.getData(params.datasetId)
-    }
-
-    catch (error) {
+    } catch (error) {
       throw new BadRequestException()
     }
   }

@@ -11,9 +11,16 @@ import { DatabaseModule } from "src/shared/database/database.module"
 @Module({
   imports: [
     CqrsModule,
-    DatabaseModule.forFeature([{ name: ApiReference.name, schema: ApiReferenceSchema }], DbConnectionMap.Core),
+    DatabaseModule.forFeature(
+      [{ name: ApiReference.name, schema: ApiReferenceSchema }],
+      DbConnectionMap.Core
+    ),
   ],
   controllers: [ApiReferenceController],
-  providers: [ApiReferenceService, ApiReferenceRepository, FindAPIReferencesQueryHandler],
+  providers: [
+    ApiReferenceService,
+    ApiReferenceRepository,
+    FindAPIReferencesQueryHandler,
+  ],
 })
-export class ApiReferenceModule { }
+export class ApiReferenceModule {}

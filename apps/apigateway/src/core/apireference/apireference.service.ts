@@ -5,19 +5,20 @@ import { ApiReference } from "./schemas/apireference.schema"
 
 @Injectable()
 export class ApiReferenceService {
-  constructor(private readonly queryBus: QueryBus) { }
+  constructor(private readonly queryBus: QueryBus) {}
 
   async getApiReferenceByProductName(productName: string) {
     try {
-      const data = await this.queryBus.execute<FindAPIReferencesQuery, ApiReference[]>(new FindAPIReferencesQuery(productName))
+      const data = await this.queryBus.execute<
+        FindAPIReferencesQuery,
+        ApiReference[]
+      >(new FindAPIReferencesQuery(productName))
       if (!data.length) {
         throw new BadRequestException()
       }
 
       return data
-    }
-
-    catch (error) {
+    } catch (error) {
       throw error
     }
   }

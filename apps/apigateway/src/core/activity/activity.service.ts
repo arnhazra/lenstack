@@ -11,24 +11,24 @@ export class ActivityService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus
-  ) { }
+  ) {}
 
   createActivity(createActivityDto: CreateActivityDto) {
     try {
-      this.commandBus.execute<CreateActivityCommand, Activity>(new CreateActivityCommand(createActivityDto))
-    }
-
-    catch (error) {
+      this.commandBus.execute<CreateActivityCommand, Activity>(
+        new CreateActivityCommand(createActivityDto)
+      )
+    } catch (error) {
       return false
     }
   }
 
   async getActivityCount(getCountDto: GetCountDto) {
     try {
-      return this.queryBus.execute<GetActivityQuery, { totalUsage: number }>(new GetActivityQuery(getCountDto))
-    }
-
-    catch (error) {
+      return this.queryBus.execute<GetActivityQuery, { totalUsage: number }>(
+        new GetActivityQuery(getCountDto)
+      )
+    } catch (error) {
       throw new BadRequestException()
     }
   }

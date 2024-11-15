@@ -16,4 +16,4 @@ import { envConfig } from "src/env.config"
     TokenService,
   ],
 })
-export class TokenModule { }
+export class TokenModule {}
