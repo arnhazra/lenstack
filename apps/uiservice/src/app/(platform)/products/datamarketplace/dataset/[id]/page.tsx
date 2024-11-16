@@ -12,7 +12,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Separator } from "@/shared/components/ui/separator"
 import { useRouter } from "nextjs-toploader/app"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import Show from "@/shared/components/show"
@@ -25,12 +25,12 @@ import { use } from "react"
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: datasetId } = use(params)
   const router = useRouter()
-  const dataset = useQuery(
+  const dataset = useQueryWithSuspense(
     ["dataset", datasetId ?? ""],
     `${endPoints.datamarketplaceViewDataset}/${datasetId}`,
     HTTPMethods.GET
   )
-  const relatedDatasets = useQuery(
+  const relatedDatasets = useQueryWithSuspense(
     ["relateddatasets"],
     endPoints.datamarketplaceFindDatasets,
     HTTPMethods.POST,

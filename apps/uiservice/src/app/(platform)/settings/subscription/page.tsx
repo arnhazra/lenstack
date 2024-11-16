@@ -7,7 +7,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { Subscription } from "@/shared/types"
 import { format } from "date-fns"
@@ -21,6 +21,12 @@ export default function Page() {
   const [{ user, subscription }] = useContext(GlobalContext)
   const searchParams = useSearchParams()
   const router = useRouter()
+
+  const pricing = useQueryWithSuspense(
+    ["pricing"],
+    endPoints.getSubscriptionPricing,
+    HTTPMethods.GET
+  )
 
   useEffect(() => {
     const subscriptionSuccess = searchParams.get("subscriptionSuccess")
@@ -46,11 +52,6 @@ export default function Page() {
       }
     }
   }, [searchParams])
-  const pricing = useQuery(
-    ["pricing"],
-    endPoints.getSubscriptionPricing,
-    HTTPMethods.GET
-  )
 
   const isSubscriptionActive =
     subscription &&

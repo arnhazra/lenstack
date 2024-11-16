@@ -1,10 +1,10 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQuery from "../../hooks/use-query"
 import { Activity } from "lucide-react"
+import useGeneralQuery from "@/shared/hooks/use-general-query"
 
 export default function ActivityLog({ keyword }: { keyword: string }) {
-  const activityCount = useQuery(
+  const activityCount = useGeneralQuery(
     ["activity-search", keyword],
     endPoints.activityTrends,
     HTTPMethods.POST,

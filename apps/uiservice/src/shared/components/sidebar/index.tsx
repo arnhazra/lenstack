@@ -18,7 +18,7 @@ import {
 import { UserNav } from "./user-nav"
 import { WorkspaceSwitcher } from "./workspace-switcher"
 import { brandName } from "@/shared/constants/global-constants"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Product } from "@/shared/types"
@@ -27,7 +27,7 @@ import { getBreadcrumbTitle } from "./data"
 import Show from "@/shared/components/show"
 
 export default function Sidebar() {
-  const products = useQuery(
+  const products = useQueryWithSuspense(
     ["products"],
     endPoints.getProductConfig,
     HTTPMethods.GET

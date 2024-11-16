@@ -3,7 +3,7 @@ import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -41,12 +41,12 @@ export default function Page() {
       selectedSortOption: "name",
       offset: 0,
     })
-  const filtersAndSortOptions = useQuery(
+  const filtersAndSortOptions = useQueryWithSuspense(
     ["filters-and-sorts"],
     endPoints.datamarketplaceFilterAndSortOptions,
     HTTPMethods.GET
   )
-  const datasets = useQuery(
+  const datasets = useQueryWithSuspense(
     [
       "datasets",
       datasetRequestState.selectedFilter,

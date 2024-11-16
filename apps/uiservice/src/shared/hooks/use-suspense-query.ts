@@ -6,7 +6,7 @@ import { GlobalContext } from "@/context/globalstate.provider"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 
-export default function useQuery(
+export default function useQueryWithSuspense(
   queryKey: string[],
   queryUrl: string,
   method: HTTPMethods,

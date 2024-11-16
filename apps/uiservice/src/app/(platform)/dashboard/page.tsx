@@ -13,7 +13,7 @@ import { Separator } from "@/shared/components/ui/separator"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { useRouter } from "nextjs-toploader/app"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { brandName } from "@/shared/constants/global-constants"
@@ -21,7 +21,7 @@ import { Product } from "@/shared/types"
 import MaskText from "@/shared/components/mask"
 
 export default function Page() {
-  const products = useQuery(
+  const products = useQueryWithSuspense(
     ["products"],
     endPoints.getProductConfig,
     HTTPMethods.GET
