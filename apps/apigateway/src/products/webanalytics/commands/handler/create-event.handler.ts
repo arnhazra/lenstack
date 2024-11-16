@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { CreateEventsCommand } from "../impl/create-events.command"
 import { WebAnalyticsRepository } from "../../webanalytics.repository"
-import { Types } from "mongoose"
+import objectId from "src/shared/utils/convert-objectid"
 
 @CommandHandler(CreateEventsCommand)
 export class CreateEventsCommandHandler
@@ -13,7 +13,7 @@ export class CreateEventsCommandHandler
     const { workspaceId, createEventsDto } = command
     const { event } = createEventsDto
     return await this.repository.create({
-      workspaceId: new Types.ObjectId(workspaceId),
+      workspaceId: objectId(workspaceId),
       event,
     })
   }

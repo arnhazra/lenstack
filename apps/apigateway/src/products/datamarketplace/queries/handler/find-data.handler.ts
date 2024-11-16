@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindDataByIdQuery } from "../impl/find-data.query"
 import { DatamarketplaceRepository } from "../../datamarketplace.repository"
-import { Types } from "mongoose"
+import objectId from "src/shared/utils/convert-objectid"
 
 @QueryHandler(FindDataByIdQuery)
 export class FindDataByIdQueryHandler
@@ -11,6 +11,6 @@ export class FindDataByIdQueryHandler
 
   async execute(query: FindDataByIdQuery) {
     const { datasetId } = query
-    return await this.repository.findDataById(new Types.ObjectId(datasetId))
+    return await this.repository.findDataById(objectId(datasetId))
   }
 }

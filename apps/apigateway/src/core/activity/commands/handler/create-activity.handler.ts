@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { CreateActivityCommand } from "../impl/create-activity.command"
 import { ActivityRepository } from "../../activity.repository"
-import { Types } from "mongoose"
+import objectId from "src/shared/utils/convert-objectid"
 
 @CommandHandler(CreateActivityCommand)
 export class CreateActivityCommandHandler
@@ -15,7 +15,7 @@ export class CreateActivityCommandHandler
     return await this.repository.create({
       method,
       apiUri,
-      userId: new Types.ObjectId(userId),
+      userId: objectId(userId),
     })
   }
 }

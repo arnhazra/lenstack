@@ -4,7 +4,7 @@ import {
   AttributeNames,
   UpdateAttributeCommand,
 } from "../impl/update-attribute.command"
-import { Types } from "mongoose"
+import objectId from "src/shared/utils/convert-objectid"
 
 @CommandHandler(UpdateAttributeCommand)
 export class UpdateAttributeCommandHandler
@@ -28,7 +28,7 @@ export class UpdateAttributeCommandHandler
     }
 
     if (attributeName === AttributeNames.selectedWorkspaceId) {
-      const value = new Types.ObjectId(attributeValue)
+      const value = objectId(attributeValue)
       return await this.repository.updateOneById(userId, attributeName, value)
     }
   }

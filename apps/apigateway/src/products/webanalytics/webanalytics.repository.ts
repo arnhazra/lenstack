@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
-import { Model, Types } from "mongoose"
+import { Model } from "mongoose"
 import { Events } from "./schemas/event.schema"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { BaseRepository } from "src/shared/database/database.repository"
+import objectId from "src/shared/utils/convert-objectid"
 
 @Injectable()
 export class WebAnalyticsRepository extends BaseRepository<Events> {
@@ -16,7 +17,7 @@ export class WebAnalyticsRepository extends BaseRepository<Events> {
 
   async find(workspaceId: string): Promise<Events[]> {
     return await this.eventsModel
-      .find({ workspaceId: new Types.ObjectId(workspaceId) })
+      .find({ workspaceId: objectId(workspaceId) })
       .sort({ createdAt: -1 })
   }
 }

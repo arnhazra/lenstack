@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindAllWorkspaceQuery } from "../impl/find-all-workspaces.query"
 import { WorkspaceRepository } from "../../workspace.repository"
-import { Types } from "mongoose"
+import objectId from "src/shared/utils/convert-objectid"
 
 @QueryHandler(FindAllWorkspaceQuery)
 export class FindAllWorkspaceQueryHandler
@@ -12,7 +12,7 @@ export class FindAllWorkspaceQueryHandler
   async execute(query: FindAllWorkspaceQuery) {
     const { userId } = query
     return await this.repository.findAll({
-      userId: new Types.ObjectId(userId),
+      userId: objectId(userId),
     })
   }
 }

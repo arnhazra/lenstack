@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindSubscriptionByUserIdQuery } from "../impl/find-subscription-by-user-id.query"
 import { SubscriptionRepository } from "../../subscription.repository"
-import { Types } from "mongoose"
+import objectId from "src/shared/utils/convert-objectid"
 
 @QueryHandler(FindSubscriptionByUserIdQuery)
 export class FindSubscriptionByUserIdQueryHandler
@@ -11,6 +11,6 @@ export class FindSubscriptionByUserIdQueryHandler
 
   async execute(query: FindSubscriptionByUserIdQuery) {
     const { userId } = query
-    return await this.repository.findOne({ userId: new Types.ObjectId(userId) })
+    return await this.repository.findOne({ userId: objectId(userId) })
   }
 }
