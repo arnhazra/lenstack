@@ -18,18 +18,16 @@ import {
 import { UserNav } from "./user-nav"
 import { WorkspaceSwitcher } from "./workspace-switcher"
 import { brandName } from "@/shared/constants/global-constants"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Product } from "@/shared/types"
 import { usePathname } from "next/navigation"
 import { getBreadcrumbTitle } from "./data"
-import Suspense from "@/shared/components/suspense"
-import LoadingComponent from "@/shared/components/loading"
-import ErrorComponent from "@/shared/components/error"
+import Show from "@/shared/components/show"
 
 export default function Sidebar() {
-  const products = useQuery(
+  const products = useQueryWithSuspense(
     ["products"],
     endPoints.getProductConfig,
     HTTPMethods.GET
@@ -86,121 +84,117 @@ export default function Sidebar() {
   })
 
   return (
-    <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!products.error} fallback={<ErrorComponent />}>
-        <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-white sm:flex">
-          <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-            <Link
-              href="/dashboard"
-              className={generateLinkClassName("dashboard")}
-            >
-              <DraftingCompass className="h-4 w-4 transition-all group-hover:scale-110" />
-              <span className="sr-only">Dashboard</span>
-            </Link>
-            {renderSideBarProducts}
-          </nav>
-          <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-            <Tooltip>
-              <TooltipTrigger asChild>
+    <>
+      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-white sm:flex">
+        <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Link
+            href="/dashboard"
+            className={generateLinkClassName("dashboard")}
+          >
+            <DraftingCompass className="h-4 w-4 transition-all group-hover:scale-110" />
+            <span className="sr-only">Dashboard</span>
+          </Link>
+          {renderSideBarProducts}
+        </nav>
+        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="/apireference/datamarketplace"
+                className={generateLinkClassName("apireference")}
+              >
+                <Book className="scale-75" />
+                <span className="sr-only">API Reference</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">API Reference</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="/settings/user"
+                className={generateLinkClassName("settings")}
+              >
+                <Settings className="scale-75" />
+                <span className="sr-only">Settings</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Settings</TooltipContent>
+          </Tooltip>
+        </nav>
+      </aside>
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 lg:-mb-4">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="outline" className="sm:hidden">
+                <PanelLeft className="scale-75" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="sm:max-w-xs">
+              <nav className="grid gap-6 text-lg font-medium">
+                <Link
+                  href="/dashboard"
+                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
+                >
+                  <DraftingCompass className="scale-75" />
+                  <span className="sr-only">{brandName}</span>
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <DraftingCompass className="scale-75" />
+                  Dashboard
+                </Link>
+                {renderSheetProducts}
                 <Link
                   href="/apireference/datamarketplace"
-                  className={generateLinkClassName("apireference")}
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Book className="scale-75" />
-                  <span className="sr-only">API Reference</span>
+                  API Reference
                 </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">API Reference</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
                 <Link
                   href="/settings/user"
-                  className={generateLinkClassName("settings")}
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Settings className="scale-75" />
-                  <span className="sr-only">Settings</span>
+                  Settings
                 </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Settings</TooltipContent>
-            </Tooltip>
-          </nav>
-        </aside>
-        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 lg:-mb-4">
-          <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button size="icon" variant="outline" className="sm:hidden">
-                  <PanelLeft className="scale-75" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="sm:max-w-xs">
-                <nav className="grid gap-6 text-lg font-medium">
-                  <Link
-                    href="/dashboard"
-                    className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-                  >
-                    <DraftingCompass className="scale-75" />
-                    <span className="sr-only">{brandName}</span>
-                  </Link>
-                  <Link
-                    href="/dashboard"
-                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  >
-                    <DraftingCompass className="scale-75" />
-                    Dashboard
-                  </Link>
-                  {renderSheetProducts}
-                  <Link
-                    href="/apireference/datamarketplace"
-                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  >
-                    <Book className="scale-75" />
-                    API Reference
-                  </Link>
-                  <Link
-                    href="/settings/user"
-                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  >
-                    <Settings className="scale-75" />
-                    Settings
-                  </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
-            <Breadcrumb className="hidden md:flex">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href="/dashboard">{brandName}</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
+              </nav>
+            </SheetContent>
+          </Sheet>
+          <Breadcrumb className="hidden md:flex">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/dashboard">{brandName}</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <Show condition={!!getBreadcrumbTitle(pathName)}>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link href={pathName}>{getBreadcrumbTitle(pathName)}</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <Suspense condition={!!getBreadcrumbTitle(pathName)}>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <Link href={pathName}>
-                        {getBreadcrumbTitle(pathName)}
-                      </Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                </Suspense>
-              </BreadcrumbList>
-            </Breadcrumb>
-            <div className="relative ml-auto flex-1 md:grow-0">
-              <WorkspaceSwitcher />
-            </div>
-            <UserNav />
-          </header>
-        </div>
-      </Suspense>
-    </Suspense>
+              </Show>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div className="relative ml-auto flex-1 md:grow-0">
+            <WorkspaceSwitcher />
+          </div>
+          <UserNav />
+        </header>
+      </div>
+    </>
   )
 }

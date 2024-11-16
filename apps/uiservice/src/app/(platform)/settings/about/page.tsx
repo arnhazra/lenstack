@@ -1,4 +1,4 @@
-import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import { brandName } from "@/shared/constants/global-constants"
 import SectionPanel from "../(components)/sectionpanel"
 import { InfoIcon } from "lucide-react"
 
@@ -7,7 +7,7 @@ export default function Page() {
     <SectionPanel
       icon={<InfoIcon className="scale-75" />}
       title={`${brandName} Ecosystem Version`}
-      content="17.2"
+      content="17.3"
     />
   )
 }

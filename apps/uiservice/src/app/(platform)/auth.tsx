@@ -3,7 +3,7 @@ import { brandName, uiConstants } from "@/shared/constants/global-constants"
 import ky from "ky"
 import { useState } from "react"
 import { toast } from "@/shared/components/ui/use-toast"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
@@ -91,17 +91,17 @@ export default function AuthenticationPage({
           <CardHeader>
             <CardTitle className="text-2xl">{brandName} Auth</CardTitle>
             <CardDescription>
-              <Suspense
+              <Show
                 condition={authStep === 1}
                 fallback="Enter the OTP we sent to your email"
               >
                 Enter your email to get started
-              </Suspense>
+              </Show>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-              <Suspense condition={authStep === 1}>
+              <Show condition={authStep === 1}>
                 <form onSubmit={generateOTP}>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -125,7 +125,7 @@ export default function AuthenticationPage({
                     className="w-full h-11 mt-4"
                     disabled={isAuthLoading}
                   >
-                    <Suspense
+                    <Show
                       condition={!isAuthLoading}
                       fallback={
                         <>
@@ -134,14 +134,14 @@ export default function AuthenticationPage({
                       }
                     >
                       Continue with Email
-                    </Suspense>
+                    </Show>
                   </Button>
                 </form>
-              </Suspense>
-              <Suspense condition={authStep === 2}>
+              </Show>
+              <Show condition={authStep === 2}>
                 <form onSubmit={validateOTP}>
                   <div className="grid gap-4">
-                    <Suspense condition={newUser}>
+                    <Show condition={newUser}>
                       <div className="grid gap-2">
                         <Label htmlFor="name">Your Name</Label>
                         <Input
@@ -155,7 +155,7 @@ export default function AuthenticationPage({
                           maxLength={40}
                         />
                       </div>
-                    </Suspense>
+                    </Show>
                     <div className="grid gap-2">
                       <Label htmlFor="otp">One Time Password</Label>
                       <Input
@@ -178,7 +178,7 @@ export default function AuthenticationPage({
                       disabled={isAuthLoading}
                       className="w-full h-11"
                     >
-                      <Suspense
+                      <Show
                         condition={!isAuthLoading}
                         fallback={
                           <>
@@ -186,14 +186,14 @@ export default function AuthenticationPage({
                           </>
                         }
                       >
-                        <Suspense condition={newUser} fallback="Login">
+                        <Show condition={newUser} fallback="Login">
                           Create new account
-                        </Suspense>
-                      </Suspense>
+                        </Show>
+                      </Show>
                     </Button>
                   </div>
                 </form>
-              </Suspense>
+              </Show>
             </div>
             <div className="mt-4 text-center text-sm text-slate-600">
               {uiConstants.privacyPolicyStatement}

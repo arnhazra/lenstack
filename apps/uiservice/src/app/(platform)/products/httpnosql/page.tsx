@@ -1,7 +1,5 @@
 "use client"
-import ErrorComponent from "@/shared/components/error"
-import LoadingComponent from "@/shared/components/loading"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import {
   Card,
   CardContent,
@@ -19,12 +17,12 @@ import {
 } from "@/shared/components/ui/table"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { format } from "date-fns"
 import { DataModal } from "@/shared/components/datamodal"
 
 export default function Page() {
-  const dataList = useQuery(
+  const dataList = useQueryWithSuspense(
     ["datalist"],
     `${endPoints.httpnosqlReadData}`,
     HTTPMethods.GET
@@ -47,36 +45,30 @@ export default function Page() {
   })
 
   return (
-    <Suspense condition={!dataList.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!dataList.error} fallback={<ErrorComponent />}>
-        <Card>
-          <CardHeader className="px-7">
-            <CardTitle>Database</CardTitle>
-            <CardDescription>
-              Your Datalist list in this workspace
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Suspense
-              condition={dataList?.data?.length > 0}
-              fallback={<p className="text-center">No data to display</p>}
-            >
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Key</TableHead>
-                    <TableHead>Value</TableHead>
-                    <TableHead className="text-right hidden md:table-cell">
-                      Created At
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>{renderData}</TableBody>
-              </Table>
-            </Suspense>
-          </CardContent>
-        </Card>
-      </Suspense>
-    </Suspense>
+    <Card>
+      <CardHeader className="px-7">
+        <CardTitle>Database</CardTitle>
+        <CardDescription>Your Datalist list in this workspace</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Show
+          condition={dataList?.data?.length > 0}
+          fallback={<p className="text-center">No data to display</p>}
+        >
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Key</TableHead>
+                <TableHead>Value</TableHead>
+                <TableHead className="text-right hidden md:table-cell">
+                  Created At
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>{renderData}</TableBody>
+          </Table>
+        </Show>
+      </CardContent>
+    </Card>
   )
 }

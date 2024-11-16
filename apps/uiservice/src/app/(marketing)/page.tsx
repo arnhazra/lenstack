@@ -1,3 +1,4 @@
+"use client"
 import Header from "@/shared/components/header"
 import SolutionsSection from "./(components)/solutions-section"
 import ProductsSection from "./(components)/products-section"

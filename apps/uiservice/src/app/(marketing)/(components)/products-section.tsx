@@ -2,11 +2,11 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { Product } from "@/shared/types"
 
 export default function ProductsSection() {
-  const products = useQuery(
+  const products = useQueryWithSuspense(
     ["products"],
     endPoints.getProductConfig,
     HTTPMethods.GET

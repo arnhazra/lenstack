@@ -1,13 +1,13 @@
 "use client"
 import SectionPanel from "../(components)/sectionpanel"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { toast } from "@/shared/components/ui/use-toast"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { GlobalContext } from "@/context/globalstate.provider"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { Subscription } from "@/shared/types"
 import { format } from "date-fns"
@@ -21,6 +21,12 @@ export default function Page() {
   const [{ user, subscription }] = useContext(GlobalContext)
   const searchParams = useSearchParams()
   const router = useRouter()
+
+  const pricing = useQueryWithSuspense(
+    ["pricing"],
+    endPoints.getSubscriptionPricing,
+    HTTPMethods.GET
+  )
 
   useEffect(() => {
     const subscriptionSuccess = searchParams.get("subscriptionSuccess")
@@ -46,11 +52,6 @@ export default function Page() {
       }
     }
   }, [searchParams])
-  const pricing = useQuery(
-    ["pricing"],
-    endPoints.getSubscriptionPricing,
-    HTTPMethods.GET
-  )
 
   const isSubscriptionActive =
     subscription &&
@@ -134,14 +135,14 @@ export default function Page() {
 
   return (
     <>
-      <Suspense condition={!subscription}>
+      <Show condition={!subscription}>
         <SectionPanel
           icon={<CalendarClock className="scale-75" />}
           title="Your Subscription"
           content="You do not have an active subscription"
         />
-      </Suspense>
-      <Suspense condition={!!subscription}>
+      </Show>
+      <Show condition={!!subscription}>
         <section className="grid gap-2">
           <SectionPanel
             icon={<Bolt className="scale-75" />}
@@ -177,12 +178,12 @@ export default function Page() {
             content={subscription?.xp.toFixed(2).toString() ?? "0"}
           />
         </section>
-      </Suspense>
-      <Suspense condition={!!canActivateNewSubscription}>
+      </Show>
+      <Show condition={!!canActivateNewSubscription}>
         <div className="mx-auto mt-4 grid justify-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
           {renderPricingTiers}
         </div>
-      </Suspense>
+      </Show>
     </>
   )
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## v17.3
+
+- Major changes in the way of fetching data
+- Integrated suspense with react query to automaticallyb handle loading state
+- Integrated suspense with react query to automaticallyb handle error state
+- Changed conditional rendering component name
+
 ## v17.2
 
 - Dependency updates & bug fixes

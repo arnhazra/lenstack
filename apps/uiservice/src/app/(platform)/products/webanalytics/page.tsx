@@ -1,7 +1,5 @@
 "use client"
-import ErrorComponent from "@/shared/components/error"
-import LoadingComponent from "@/shared/components/loading"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import {
   Card,
   CardContent,
@@ -19,12 +17,12 @@ import {
 } from "@/shared/components/ui/table"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { format } from "date-fns"
 import { DataModal } from "@/shared/components/datamodal"
 
 export default function Page() {
-  const webAnalytics = useQuery(
+  const webAnalytics = useQueryWithSuspense(
     ["webanalytics"],
     endPoints.webanalyticsView,
     HTTPMethods.GET
@@ -45,39 +43,28 @@ export default function Page() {
   })
 
   return (
-    <Suspense
-      condition={!webAnalytics.isLoading}
-      fallback={<LoadingComponent />}
-    >
-      <Suspense condition={!webAnalytics.error} fallback={<ErrorComponent />}>
-        <Card className="xl:col-span-2">
-          <CardHeader className="px-7">
-            <CardTitle>Web Analytics</CardTitle>
-            <CardDescription>
-              Your Web Analytics in this workspace
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Suspense
-              condition={webAnalytics?.data?.length > 0}
-              fallback={<p className="text-center">No data to display</p>}
-            >
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Event No</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead className="text-right md:table-cell">
-                      View
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>{renderAnalytics}</TableBody>
-              </Table>
-            </Suspense>
-          </CardContent>
-        </Card>
-      </Suspense>
-    </Suspense>
+    <Card className="xl:col-span-2">
+      <CardHeader className="px-7">
+        <CardTitle>Web Analytics</CardTitle>
+        <CardDescription>Your Web Analytics in this workspace</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Show
+          condition={webAnalytics?.data?.length > 0}
+          fallback={<p className="text-center">No data to display</p>}
+        >
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Event No</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead className="text-right md:table-cell">View</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>{renderAnalytics}</TableBody>
+          </Table>
+        </Show>
+      </CardContent>
+    </Card>
   )
 }

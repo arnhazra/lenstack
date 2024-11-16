@@ -1,5 +1,5 @@
 "use client"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { ReactNode, useContext } from "react"
 import { Button } from "@/shared/components/ui/button"
@@ -12,12 +12,10 @@ import {
 } from "@/shared/components/ui/card"
 import { usePathname } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import ActivityLog from "@/shared/components/activity"
-import LoadingComponent from "@/shared/components/loading"
-import ErrorComponent from "@/shared/components/error"
 import { brandName } from "@/shared/constants/global-constants"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
@@ -25,7 +23,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
-  const products = useQuery(
+  const products = useQueryWithSuspense(
     ["products", pathName],
     endPoints.getProductConfig,
     HTTPMethods.GET
@@ -40,32 +38,30 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
     new Date(subscription.endsAt) > new Date()
 
   const productLayout = (
-    <Suspense condition={!products.isLoading} fallback={<LoadingComponent />}>
-      <Suspense condition={!products.error} fallback={<ErrorComponent />}>
-        <div className="bg-white flex justify-between items-center mb-4 p-2 border rounded-md ps-4 pe-4">
-          <div className="flex gap-4 items-center">
-            <div
-              className="scale-75"
-              dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }}
-            />
-            <div>
-              <p className="text-sm font-semibold">
-                {brandName} {selectedProduct?.displayName}
-              </p>
-              <p className="text-sm text-slate-600 font-semibold">
-                {selectedProduct?.description}
-              </p>
-            </div>
+    <>
+      <div className="bg-white flex justify-between items-center mb-4 p-2 border rounded-md ps-4 pe-4">
+        <div className="flex gap-4 items-center">
+          <div
+            className="scale-75"
+            dangerouslySetInnerHTML={{ __html: selectedProduct?.productIcon }}
+          />
+          <div>
+            <p className="text-sm font-semibold">
+              {brandName} {selectedProduct?.displayName}
+            </p>
+            <p className="text-sm text-slate-600 font-semibold">
+              {selectedProduct?.description}
+            </p>
           </div>
-          <ActivityLog keyword={productName} />
         </div>
-        {children}
-      </Suspense>
-    </Suspense>
+        <ActivityLog keyword={productName} />
+      </div>
+      {children}
+    </>
   )
 
   return (
-    <Suspense condition={!isSubscriptionActive} fallback={productLayout}>
+    <Show condition={!isSubscriptionActive} fallback={productLayout}>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm">
           <CardHeader>
@@ -86,6 +82,6 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
           </CardFooter>
         </Card>
       </div>
-    </Suspense>
+    </Show>
   )
 }

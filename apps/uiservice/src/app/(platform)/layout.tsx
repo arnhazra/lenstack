@@ -3,14 +3,14 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
-import { ReactNode, useContext, useEffect, useState } from "react"
+import { ReactNode, useContext, useState } from "react"
 import { toast } from "@/shared/components/ui/use-toast"
-import Suspense from "@/shared/components/suspense"
-import LoadingComponent from "@/shared/components/loading"
+import Show from "@/shared/components/show"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import Sidebar from "../../shared/components/sidebar"
 import { Workspace, Subscription, User } from "@/shared/types"
+import Loading from "../loading"
 import { useQuery } from "@tanstack/react-query"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -76,6 +76,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     retry: 3,
     retryDelay: 1500,
     staleTime: 0,
+    refetchOnWindowFocus: false,
   })
 
   const appLayout = (
@@ -90,13 +91,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   )
 
   return (
-    <Suspense
-      condition={!isLoading && !isFetching}
-      fallback={<LoadingComponent />}
-    >
-      <Suspense condition={!isAuthorized} fallback={appLayout}>
+    <Show condition={!isLoading && !isFetching} fallback={<Loading />}>
+      <Show condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
-      </Suspense>
-    </Suspense>
+      </Show>
+    </Show>
   )
 }

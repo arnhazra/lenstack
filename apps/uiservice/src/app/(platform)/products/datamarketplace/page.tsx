@@ -1,11 +1,9 @@
 "use client"
-import ErrorComponent from "@/shared/components/error"
-import LoadingComponent from "@/shared/components/loading"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQuery from "@/shared/hooks/use-query"
+import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -43,12 +41,12 @@ export default function Page() {
       selectedSortOption: "name",
       offset: 0,
     })
-  const filtersAndSortOptions = useQuery(
+  const filtersAndSortOptions = useQueryWithSuspense(
     ["filters-and-sorts"],
     endPoints.datamarketplaceFilterAndSortOptions,
     HTTPMethods.GET
   )
-  const datasets = useQuery(
+  const datasets = useQueryWithSuspense(
     [
       "datasets",
       datasetRequestState.selectedFilter,
@@ -147,86 +145,76 @@ export default function Page() {
   }
 
   return (
-    <Suspense
-      condition={!datasets.isLoading && !filtersAndSortOptions.isLoading}
-      fallback={<LoadingComponent />}
-    >
-      <Suspense
-        condition={!datasets.error && !filtersAndSortOptions.error}
-        fallback={<ErrorComponent />}
-      >
-        <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-          <nav className="grid gap-4 text-sm">{renderFilterTabs}</nav>
-          <div>
-            <div className="w-full">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  datasets.refetch()
-                }}
-              >
-                <div className="relative">
-                  <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    defaultValue={datasetRequestState.searchQuery}
-                    onChange={(e): void =>
-                      setDatasetRequestState({
-                        ...datasetRequestState,
-                        searchQuery: e.target.value,
-                      })
-                    }
-                    type="search"
-                    placeholder="Type anything and press enter to find datasets"
-                    className="mb-4 pl-8 w-full h-12 focus:outline-none"
-                  />
-                  <p className="text-xs text-slate-500 -mt-2 mb-4 ms-1">
-                    {uiConstants.aiSafetyStatement}
-                  </p>
-                </div>
-              </form>
+    <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+      <nav className="grid gap-4 text-sm">{renderFilterTabs}</nav>
+      <div>
+        <div className="w-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              datasets.refetch()
+            }}
+          >
+            <div className="relative">
+              <Sparkles className="absolute left-3 top-4 h-4 w-4 text-muted-foreground" />
+              <Input
+                defaultValue={datasetRequestState.searchQuery}
+                onChange={(e): void =>
+                  setDatasetRequestState({
+                    ...datasetRequestState,
+                    searchQuery: e.target.value,
+                  })
+                }
+                type="search"
+                placeholder="Type anything and press enter to find datasets"
+                className="mb-4 pl-8 w-full h-12 focus:outline-none"
+              />
+              <p className="text-xs text-slate-500 -mt-2 mb-4 ms-1">
+                {uiConstants.aiSafetyStatement}
+              </p>
             </div>
-            <section className="grid gap-6 mb-4">
-              <div className="ml-auto flex items-center gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="h-8 gap-1">
-                      <SortAsc className="h-3.5 w-3.5" />
-                      <span>Sort</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Sort</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {renderSortOptions}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
-                {renderDatasets}
-              </div>
-            </section>
-            <Suspense condition={!datasetRequestState.searchQuery}>
-              <Button
-                disabled={datasetRequestState.offset === 0}
-                variant="outline"
-                onClick={prevPage}
-                size="icon"
-                className="me-2"
-              >
-                <ChevronLeft className="scale-75" />
-              </Button>
-              <Button
-                disabled={datasets?.data?.length !== 30}
-                variant="outline"
-                onClick={nextPage}
-                size="icon"
-              >
-                <ChevronRight className="scale-75" />
-              </Button>
-            </Suspense>
-          </div>
+          </form>
         </div>
-      </Suspense>
-    </Suspense>
+        <section className="grid gap-6 mb-4">
+          <div className="ml-auto flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-8 gap-1">
+                  <SortAsc className="h-3.5 w-3.5" />
+                  <span>Sort</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Sort</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {renderSortOptions}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+            {renderDatasets}
+          </div>
+        </section>
+        <Show condition={!datasetRequestState.searchQuery}>
+          <Button
+            disabled={datasetRequestState.offset === 0}
+            variant="outline"
+            onClick={prevPage}
+            size="icon"
+            className="me-2"
+          >
+            <ChevronLeft className="scale-75" />
+          </Button>
+          <Button
+            disabled={datasets?.data?.length !== 30}
+            variant="outline"
+            onClick={nextPage}
+            size="icon"
+          >
+            <ChevronRight className="scale-75" />
+          </Button>
+        </Show>
+      </div>
+    </div>
   )
 }
