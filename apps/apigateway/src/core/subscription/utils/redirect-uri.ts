@@ -1,4 +1,4 @@
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 import {
   devAPIUri,
   devUIUri,

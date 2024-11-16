@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { SendEmailDto } from "./dto/send-email.dto"
 import * as nodemailer from "nodemailer"
 import { google } from "googleapis"
-import { envConfig } from "../../env.config"
+import { envConfig } from "../../config"
 import SMTPTransport from "nodemailer/lib/smtp-transport"
 
 @Injectable()

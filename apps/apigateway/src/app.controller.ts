@@ -1,6 +1,6 @@
 import { Controller, Get, Redirect } from "@nestjs/common"
 import { devUIUri, prodUIUri } from "./shared/utils/constants/other-constants"
-import { envConfig } from "./env.config"
+import { envConfig } from "./config"
 
 @Controller()
 export class AppController {
