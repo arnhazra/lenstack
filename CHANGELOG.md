@@ -3,6 +3,7 @@
 ## v17.2
 
 - Dependency updates & bug fixes
+- Removal of unused code
 
 ## v17.1
 
