@@ -6,10 +6,10 @@ import {
   CalendarClock,
   Info,
   Leaf,
-  Orbit,
   PlusCircle,
   ShieldCheck,
   User,
+  Workflow,
 } from "lucide-react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
@@ -26,7 +26,7 @@ import Suspense from "@/shared/components/suspense"
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
   privacy: <ShieldCheck />,
-  workspace: <Orbit />,
+  workspace: <Workflow />,
   subscription: <CalendarClock />,
   sustainability: <Leaf />,
   about: <Info />,

@@ -1,5 +1,5 @@
 "use client"
-import { Copy, Orbit } from "lucide-react"
+import { Copy, Workflow } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -138,7 +138,7 @@ export default function Page() {
                     className="h-8 gap-1"
                     onClick={(): void => router.push("/settings/workspace")}
                   >
-                    <Orbit className="h-3.5 w-3.5" />
+                    <Workflow className="h-3.5 w-3.5" />
                     <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
                       Open Workspace
                     </span>
