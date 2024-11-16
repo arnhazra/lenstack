@@ -10,7 +10,7 @@ import {
 import { Button } from "@/shared/components/ui/button"
 import { CheckCircle2, Key, Recycle, Trash } from "lucide-react"
 import { format } from "date-fns"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import SectionPanel from "./sectionpanel"
 import CopyToClipboard from "@/shared/components/copy"
 
@@ -38,9 +38,9 @@ export default function WorkspacePanel({
       <CardHeader>
         <CardTitle className="text-md flex gap-2">
           {displayName}
-          <Suspense condition={isSelected}>
+          <Show condition={isSelected}>
             <CheckCircle2 className="scale-75" />
-          </Suspense>
+          </Show>
         </CardTitle>
         <CardDescription className="text-sm">
           {format(new Date(createdAt), "MMM, do yyyy")}

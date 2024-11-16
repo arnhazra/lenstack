@@ -16,7 +16,7 @@ import { useState } from "react"
 import ky from "ky"
 import { toast } from "@/shared/components/ui/use-toast"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import LoaderIcon from "@/shared/components/loaderIcon"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 
@@ -144,7 +144,7 @@ export default function Page() {
                       type="submit"
                       disabled={isLoading}
                     >
-                      <Suspense
+                      <Show
                         condition={!isLoading}
                         fallback={
                           <>
@@ -155,7 +155,7 @@ export default function Page() {
                       >
                         Send Message
                         <CornerDownLeft className="scale-75" />
-                      </Suspense>
+                      </Show>
                     </Button>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter"
 import { Input } from "@/shared/components/ui/input"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Badge } from "@/shared/components/ui/badge"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import { stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import CopyToClipboard from "@/shared/components/copy"
 
@@ -40,7 +40,7 @@ export default function SnippetPanel({
         <CopyToClipboard value={url} />
       </CardContent>
       <CardFooter className="block">
-        <Suspense condition={!!request}>
+        <Show condition={!!request}>
           <p className="text-sm mb-3">Sample Request</p>
           <SyntaxHighlighter
             language="json"
@@ -49,8 +49,8 @@ export default function SnippetPanel({
           >
             {JSON.stringify(request, null, 2)}
           </SyntaxHighlighter>
-        </Suspense>
-        <Suspense condition={!!response}>
+        </Show>
+        <Show condition={!!response}>
           <p className="text-sm mt-3 mb-3">Sample Response</p>
           <SyntaxHighlighter
             wrapLongLines
@@ -60,7 +60,7 @@ export default function SnippetPanel({
           >
             {JSON.stringify(response, null, 2)}
           </SyntaxHighlighter>
-        </Suspense>
+        </Show>
       </CardFooter>
     </Card>
   )

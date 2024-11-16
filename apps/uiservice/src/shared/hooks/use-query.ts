@@ -1,10 +1,8 @@
 "use client"
 import ky from "ky"
-import { useQuery as useReactQuery } from "@tanstack/react-query"
-import { uiConstants } from "@/shared/constants/global-constants"
+import { useSuspenseQuery } from "@tanstack/react-query"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
-import { toast } from "@/shared/components/ui/use-toast"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 
@@ -25,19 +23,10 @@ export default function useQuery(
     return data
   }
 
-  const { error, data, isLoading, refetch, isRefetching } = useReactQuery({
+  return useSuspenseQuery({
     queryKey: [...queryKey, user.selectedWorkspaceId],
     queryFn: fetchDataFunction,
     refetchOnWindowFocus: !user.reduceCarbonEmissions,
     refetchInterval: user.reduceCarbonEmissions ? false : 30000,
   })
-
-  if (error) {
-    toast({
-      title: uiConstants.notification,
-      description: `${uiConstants.toastError} fetching ${queryKey[0]}`,
-    })
-  }
-
-  return { error, data, isLoading, refetch, isRefetching }
 }

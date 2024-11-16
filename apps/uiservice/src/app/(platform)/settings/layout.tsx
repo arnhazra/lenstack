@@ -21,7 +21,7 @@ import { generateUUID } from "@/shared/lib/uuid-gen"
 import { Tabs, tabsList } from "./data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -94,7 +94,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
               </p>
             </div>
           </div>
-          <Suspense condition={pathname.includes("workspace")}>
+          <Show condition={pathname.includes("workspace")}>
             <Button
               size="icon"
               className="rounded-full"
@@ -103,7 +103,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
             >
               <PlusCircle className="scale-65" />
             </Button>
-          </Suspense>
+          </Show>
         </div>
       </div>
       <div className="mx-auto grid w-full items-start gap-4 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">

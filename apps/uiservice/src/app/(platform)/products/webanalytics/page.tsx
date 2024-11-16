@@ -1,7 +1,5 @@
 "use client"
-import ErrorComponent from "@/shared/components/error"
-import LoadingComponent from "@/shared/components/loading"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import {
   Card,
   CardContent,
@@ -45,39 +43,28 @@ export default function Page() {
   })
 
   return (
-    <Suspense
-      condition={!webAnalytics.isLoading}
-      fallback={<LoadingComponent />}
-    >
-      <Suspense condition={!webAnalytics.error} fallback={<ErrorComponent />}>
-        <Card className="xl:col-span-2">
-          <CardHeader className="px-7">
-            <CardTitle>Web Analytics</CardTitle>
-            <CardDescription>
-              Your Web Analytics in this workspace
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Suspense
-              condition={webAnalytics?.data?.length > 0}
-              fallback={<p className="text-center">No data to display</p>}
-            >
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Event No</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead className="text-right md:table-cell">
-                      View
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>{renderAnalytics}</TableBody>
-              </Table>
-            </Suspense>
-          </CardContent>
-        </Card>
-      </Suspense>
-    </Suspense>
+    <Card className="xl:col-span-2">
+      <CardHeader className="px-7">
+        <CardTitle>Web Analytics</CardTitle>
+        <CardDescription>Your Web Analytics in this workspace</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Show
+          condition={webAnalytics?.data?.length > 0}
+          fallback={<p className="text-center">No data to display</p>}
+        >
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Event No</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead className="text-right md:table-cell">View</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>{renderAnalytics}</TableBody>
+          </Table>
+        </Show>
+      </CardContent>
+    </Card>
   )
 }

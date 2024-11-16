@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode } from "react"
-import Suspense from "@/shared/components/suspense"
+import Show from "@/shared/components/show"
 import MaskText from "@/shared/components/mask"
 
 interface SectionPanelProps {
@@ -26,14 +26,14 @@ export default function SectionPanel({
           <div className="space-y-0.5">
             <p className="text-sm">{title}</p>
             <p className="text-sm text-slate-500">
-              <Suspense condition={!!masked} fallback={content}>
+              <Show condition={!!masked} fallback={content}>
                 <MaskText value={content} />
-              </Suspense>
+              </Show>
             </p>
           </div>
         </div>
         <div>
-          <Suspense condition={!!actionComponent}>{actionComponent}</Suspense>
+          <Show condition={!!actionComponent}>{actionComponent}</Show>
         </div>
       </div>
     </section>
