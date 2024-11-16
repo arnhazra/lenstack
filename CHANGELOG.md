@@ -1,5 +1,9 @@
 # Changelog
 
+## v17.2
+
+- Dependency updates & bug fixes
+
 ## v17.1
 
 - Dependency updates & bug fixes

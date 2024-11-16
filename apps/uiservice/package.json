@@ -1,6 +1,6 @@
 {
   "name": "uiservice",
-  "version": "17.1",
+  "version": "17.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
