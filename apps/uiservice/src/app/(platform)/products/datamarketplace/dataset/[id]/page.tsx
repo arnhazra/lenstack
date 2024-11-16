@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Separator } from "@/shared/components/ui/separator"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"

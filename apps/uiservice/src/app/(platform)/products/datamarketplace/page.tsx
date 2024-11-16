@@ -22,7 +22,7 @@ import {
   Sparkles,
 } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { Input } from "@/shared/components/ui/input"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { DatasetCard } from "./(components)/dataset-card"

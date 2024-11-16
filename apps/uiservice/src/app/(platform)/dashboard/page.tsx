@@ -12,7 +12,7 @@ import {
 import { Separator } from "@/shared/components/ui/separator"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
