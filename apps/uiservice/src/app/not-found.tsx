@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Button } from "@/shared/components/ui/button"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 
 export default function NotFound() {
   const router = useRouter()

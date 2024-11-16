@@ -2,8 +2,9 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Data } from "./schemas/data.schema"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
-import { Model, Types } from "mongoose"
+import { Model } from "mongoose"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
+import objectId from "src/shared/utils/convert-objectid"
 
 @Injectable()
 export class HttpNosqlRepository {
@@ -20,7 +21,7 @@ export class HttpNosqlRepository {
     try {
       const data = await this.model.find({
         key,
-        workspaceId: new Types.ObjectId(workspaceId),
+        workspaceId: objectId(workspaceId),
       })
 
       if (data.length > 0) {
@@ -28,7 +29,7 @@ export class HttpNosqlRepository {
       }
 
       const doc = new this.model({
-        workspaceId: new Types.ObjectId(workspaceId),
+        workspaceId: objectId(workspaceId),
         key,
         value,
       })
@@ -42,7 +43,7 @@ export class HttpNosqlRepository {
   async readAllValues(workspaceId: string): Promise<Data[] | null> {
     try {
       return await this.model.find({
-        workspaceId: new Types.ObjectId(workspaceId),
+        workspaceId: objectId(workspaceId),
       })
     } catch (error) {
       throw error
@@ -52,7 +53,7 @@ export class HttpNosqlRepository {
   async readValueByKey(workspaceId: string, key: string): Promise<Data | null> {
     try {
       const data = await this.model.findOne({
-        workspaceId: new Types.ObjectId(workspaceId),
+        workspaceId: objectId(workspaceId),
         key,
       })
 
@@ -74,7 +75,7 @@ export class HttpNosqlRepository {
     try {
       const data = await this.model.findOne({
         key,
-        workspaceId: new Types.ObjectId(workspaceId),
+        workspaceId: objectId(workspaceId),
       })
 
       if (!data) {
@@ -96,7 +97,7 @@ export class HttpNosqlRepository {
     try {
       const data = await this.model.find({
         key,
-        workspaceId: new Types.ObjectId(workspaceId),
+        workspaceId: objectId(workspaceId),
       })
 
       if (data.length === 0) {
@@ -104,7 +105,7 @@ export class HttpNosqlRepository {
       }
 
       return await this.model.findOneAndDelete({
-        workspaceId: new Types.ObjectId(workspaceId),
+        workspaceId: objectId(workspaceId),
         key,
       })
     } catch (error) {

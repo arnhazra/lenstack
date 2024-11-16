@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
 import { INestApplication, ValidationPipe } from "@nestjs/common"
-import { envConfig } from "./env.config"
+import { envConfig } from "./config"
 
 async function bootstrap(): Promise<void> {
   const app: INestApplication = await NestFactory.create(AppModule)

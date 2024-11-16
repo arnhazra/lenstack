@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { GenerateOTPDto } from "./dto/generate-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import * as jwt from "jsonwebtoken"
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 import {
   generateOTP,
   verifyOTP,

@@ -2,10 +2,11 @@ import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { User } from "./schemas/user.schema"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
-import { FilterQuery, Model, Types } from "mongoose"
+import { FilterQuery, Model } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"
 import { BaseRepository } from "src/shared/database/database.repository"
+import objectId from "src/shared/utils/convert-objectid"
 
 @Injectable()
 export class UserRepository extends BaseRepository<User> {
@@ -29,9 +30,6 @@ export class UserRepository extends BaseRepository<User> {
     key: K,
     value: User[K]
   ): Promise<User | null> {
-    return await super.update(
-      { _id: new Types.ObjectId(userId) },
-      { [key]: value }
-    )
+    return await super.update({ _id: objectId(userId) }, { [key]: value })
   }
 }

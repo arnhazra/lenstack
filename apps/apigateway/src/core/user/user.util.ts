@@ -1,5 +1,5 @@
 import { createHmac, randomInt } from "crypto"
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 const { otpHashingKey } = envConfig
 
 function generateRandomOTP(): string {

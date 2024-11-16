@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Separator } from "@/shared/components/ui/separator"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
@@ -22,9 +22,10 @@ import { uiConstants } from "@/shared/constants/global-constants"
 import ErrorComponent from "@/shared/components/error"
 import { DatasetCard } from "../../(components)/dataset-card"
 import ActivityLog from "@/shared/components/activity"
+import { use } from "react"
 
-export default function Page({ params }: { params: { id: string } }) {
-  const datasetId = params.id
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id: datasetId } = use(params)
   const router = useRouter()
   const dataset = useQuery(
     ["dataset", datasetId ?? ""],

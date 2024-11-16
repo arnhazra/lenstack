@@ -6,6 +6,7 @@ import { FilterQuery, Model, Types } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"
 import { randomUUID } from "crypto"
+import objectId from "src/shared/utils/convert-objectid"
 
 @Injectable()
 export class WorkspaceRepository {
@@ -24,7 +25,7 @@ export class WorkspaceRepository {
   }): Promise<Workspace | null> {
     return await new this.model({
       name,
-      userId: new Types.ObjectId(userId),
+      userId: objectId(userId),
       accessKey: randomUUID(),
     }).save()
   }
@@ -51,8 +52,8 @@ export class WorkspaceRepository {
     workspaceId: string
   ): Promise<Workspace | null> {
     const workspace = await this.model.findOne({
-      _id: new Types.ObjectId(workspaceId),
-      userId: new Types.ObjectId(userId),
+      _id: objectId(workspaceId),
+      userId: objectId(userId),
     })
     workspace.accessKey = randomUUID()
     return await workspace.save()

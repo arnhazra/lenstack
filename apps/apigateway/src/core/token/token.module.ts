@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common"
 import { TokenService } from "./token.service"
 import { TokenController } from "./token.controller"
 import Redis from "ioredis"
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 
 @Module({
   controllers: [TokenController],

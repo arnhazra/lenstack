@@ -1,4 +1,4 @@
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 
 export const devUIUri = "http://localhost:3000"
 export const prodUIUri = `https://${envConfig.brandName.toLowerCase()}.vercel.app`

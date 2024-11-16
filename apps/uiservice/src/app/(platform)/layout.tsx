@@ -3,7 +3,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
-import { ReactNode, useContext, useState } from "react"
+import { ReactNode, useContext, useEffect, useState } from "react"
 import { toast } from "@/shared/components/ui/use-toast"
 import Suspense from "@/shared/components/suspense"
 import LoadingComponent from "@/shared/components/loading"
@@ -15,13 +15,11 @@ import { useQuery } from "@tanstack/react-query"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)
-  const [isLoading, setLoading] = useState<boolean>(true)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   const getUserDetails = async () => {
     if (!localStorage.getItem("accessToken")) {
       setAuthorized(false)
-      setLoading(false)
       return null
     } else {
       try {
@@ -66,16 +64,18 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           })
         }
       } finally {
-        setLoading(false)
         return null
       }
     }
   }
 
-  useQuery({
-    queryKey: ["user-details", refreshId, isAuthorized, isLoading],
+  const { isLoading, isFetching } = useQuery({
+    queryKey: ["user-details", refreshId, isAuthorized],
     enabled: true,
     queryFn: getUserDetails,
+    retry: 3,
+    retryDelay: 1500,
+    staleTime: 0,
   })
 
   const appLayout = (
@@ -90,7 +90,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   )
 
   return (
-    <Suspense condition={!isLoading} fallback={<LoadingComponent />}>
+    <Suspense
+      condition={!isLoading && !isFetching}
+      fallback={<LoadingComponent />}
+    >
       <Suspense condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Suspense>

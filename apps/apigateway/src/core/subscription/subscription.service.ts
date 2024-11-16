@@ -1,7 +1,7 @@
 import Stripe from "stripe"
 import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 import { User } from "../user/schemas/user.schema"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"

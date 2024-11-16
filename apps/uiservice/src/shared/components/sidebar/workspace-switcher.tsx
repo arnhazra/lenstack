@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
-import { ChevronsUpDown, Orbit } from "lucide-react"
+import { ChevronsUpDown, Workflow } from "lucide-react"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import ky from "ky"
@@ -52,7 +52,7 @@ export function WorkspaceSwitcher() {
         aria-label="Select workspace"
       >
         <SelectValue placeholder="Select an workspace">
-          <Orbit />
+          <Workflow />
           <span className="ml-2">
             {
               workspaces.find(
@@ -67,7 +67,7 @@ export function WorkspaceSwitcher() {
         {workspaces.map((workspace) => (
           <SelectItem key={workspace._id} value={workspace._id}>
             <div className="flex items-center gap-3 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0 [&_svg]:text-foreground">
-              <Orbit />
+              <Workflow />
               {workspace.name}
             </div>
           </SelectItem>

@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common"
 import * as jwt from "jsonwebtoken"
 import { statusMessages } from "src/shared/utils/constants/status-messages"
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventsUnion } from "src/shared/utils/events.union"
 import { ModRequest } from "./types/mod-request.interface"

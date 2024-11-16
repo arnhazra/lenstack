@@ -14,7 +14,8 @@ import { format } from "date-fns"
 import ky from "ky"
 import { Bolt, CalendarClock, CheckCircle2, Coins } from "lucide-react"
 import { useContext, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 
 export default function Page() {
   const [{ user, subscription }] = useContext(GlobalContext)

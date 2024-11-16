@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { GenerationConfig, GoogleGenerativeAI } from "@google/generative-ai"
-import { envConfig } from "src/env.config"
+import { envConfig } from "src/config"
 import { CommandBus } from "@nestjs/cqrs"
 import { CreateQueryCommand } from "./commands/impl/create-query.command"
 import { Query } from "./schemas/query.schema"
