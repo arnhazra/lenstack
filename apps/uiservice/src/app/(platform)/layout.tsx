@@ -76,6 +76,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     retry: 3,
     retryDelay: 1500,
     staleTime: 0,
+    refetchOnWindowFocus: false,
   })
 
   const appLayout = (
