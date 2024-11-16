@@ -10,18 +10,19 @@ import ErrorComponent from "@/shared/components/error"
 import { useRouter } from "next/navigation"
 import { uiConstants } from "@/shared/constants/global-constants"
 import ActivityLog from "@/shared/components/activity"
+import { use } from "react"
 
-export default function Page({ params }: { params: { tab: string } }) {
+export default function Page({ params }: { params: Promise<{ tab: string }> }) {
   const router = useRouter()
-  const selectedTab = params.tab
+  const { tab } = use(params)
   const products = useQuery(
     ["products"],
     endPoints.getProductConfig,
     HTTPMethods.GET
   )
   const apiReference = useQuery(
-    ["apireference", selectedTab ?? ""],
-    `${endPoints.getapireference}/${selectedTab?.toLowerCase()}`,
+    ["apireference", tab ?? ""],
+    `${endPoints.getapireference}/${tab?.toLowerCase()}`,
     HTTPMethods.GET
   )
 
@@ -30,7 +31,7 @@ export default function Page({ params }: { params: { tab: string } }) {
       <div
         key={product?._id}
         className={`cursor-pointer flex capitalize ${
-          product?.productName === selectedTab ? "" : "text-slate-500"
+          product?.productName === tab ? "" : "text-slate-500"
         }`}
         onClick={(): void =>
           router.push(`/apireference/${product?.productName}`)
