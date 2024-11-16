@@ -3,14 +3,14 @@ import { buttonVariants } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useGeneralQuery from "@/shared/hooks/use-general-query"
 import { cn } from "@/shared/lib/utils"
 import { Subscription } from "@/shared/types"
 import { CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 
 export default function PricingSection() {
-  const pricing = useQueryWithSuspense(
+  const pricing = useGeneralQuery(
     ["pricing"],
     endPoints.getSubscriptionPricing,
     HTTPMethods.GET

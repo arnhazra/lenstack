@@ -2,11 +2,11 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useGeneralQuery from "@/shared/hooks/use-general-query"
 import { Solution } from "@/shared/types"
 
 export default function SolutionsSection() {
-  const solutions = useQueryWithSuspense(
+  const solutions = useGeneralQuery(
     ["solutions"],
     endPoints.getSolutionConfig,
     HTTPMethods.GET
