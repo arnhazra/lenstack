@@ -4,6 +4,7 @@
 
 - Dependency updates & bug fixes
 - Removal of unused code
+- Added custom top bar loading animation
 
 ## v17.1
 
