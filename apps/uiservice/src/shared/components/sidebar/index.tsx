@@ -18,7 +18,7 @@ import {
 import { UserNav } from "./user-nav"
 import { WorkspaceSwitcher } from "./workspace-switcher"
 import { brandName } from "@/shared/constants/global-constants"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Product } from "@/shared/types"
@@ -27,12 +27,13 @@ import { getBreadcrumbTitle } from "./data"
 import Show from "@/shared/components/show"
 
 export default function Sidebar() {
-  const products = useQueryWithSuspense(
-    ["products"],
-    endPoints.getProductConfig,
-    HTTPMethods.GET
-  )
   const pathName = usePathname()
+  const products = useSWRQuery({
+    queryKey: ["products"],
+    queryUrl: endPoints.getProductConfig,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
 
   const generateLinkClassName = (uri: string) => {
     if (pathName.includes(uri)) {

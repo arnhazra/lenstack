@@ -1,7 +1,7 @@
 "use client"
 import { apiHost, endPoints } from "@/shared/constants/api-endpoints"
 import { Book } from "lucide-react"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import HTTPMethods from "@/shared/constants/http-methods"
 import SnippetPanel from "../(components)/snippet"
 import { useRouter } from "nextjs-toploader/app"
@@ -12,16 +12,18 @@ import { use } from "react"
 export default function Page({ params }: { params: Promise<{ tab: string }> }) {
   const router = useRouter()
   const { tab } = use(params)
-  const products = useQueryWithSuspense(
-    ["products"],
-    endPoints.getProductConfig,
-    HTTPMethods.GET
-  )
-  const apiReference = useQueryWithSuspense(
-    ["apireference", tab ?? ""],
-    `${endPoints.getapireference}/${tab?.toLowerCase()}`,
-    HTTPMethods.GET
-  )
+  const products = useSWRQuery({
+    queryKey: ["products"],
+    queryUrl: endPoints.getProductConfig,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
+  const apiReference = useSWRQuery({
+    queryKey: ["apireference", tab ?? ""],
+    queryUrl: `${endPoints.getapireference}/${tab?.toLowerCase()}`,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
 
   const renderTabs = products?.data?.map((product: any) => {
     return (

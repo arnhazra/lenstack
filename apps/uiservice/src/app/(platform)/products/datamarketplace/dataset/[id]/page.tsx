@@ -12,7 +12,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Separator } from "@/shared/components/ui/separator"
 import { useRouter } from "nextjs-toploader/app"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import Show from "@/shared/components/show"
@@ -25,22 +25,24 @@ import { use } from "react"
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: datasetId } = use(params)
   const router = useRouter()
-  const dataset = useQueryWithSuspense(
-    ["dataset", datasetId ?? ""],
-    `${endPoints.datamarketplaceViewDataset}/${datasetId}`,
-    HTTPMethods.GET
-  )
-  const relatedDatasets = useQueryWithSuspense(
-    ["relateddatasets"],
-    endPoints.datamarketplaceFindDatasets,
-    HTTPMethods.POST,
-    {
+  const dataset = useSWRQuery({
+    queryKey: ["dataset", datasetId ?? ""],
+    queryUrl: `${endPoints.datamarketplaceViewDataset}/${datasetId}`,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
+  const relatedDatasets = useSWRQuery({
+    queryKey: ["relateddatasets"],
+    queryUrl: endPoints.datamarketplaceFindDatasets,
+    method: HTTPMethods.POST,
+    suspense: true,
+    requestBody: {
       searchQuery: "",
       selectedFilter: dataset?.data?.metaData?.category ?? "",
       selectedSortOption: "",
       offset: 0,
-    }
-  )
+    },
+  })
 
   const renderDatasetTags = dataset?.data?.metaData?.description
     ?.split(" ")

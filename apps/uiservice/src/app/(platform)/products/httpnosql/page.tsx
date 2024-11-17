@@ -17,16 +17,17 @@ import {
 } from "@/shared/components/ui/table"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import { format } from "date-fns"
 import { DataModal } from "@/shared/components/datamodal"
 
 export default function Page() {
-  const dataList = useQueryWithSuspense(
-    ["datalist"],
-    `${endPoints.httpnosqlReadData}`,
-    HTTPMethods.GET
-  )
+  const dataList = useSWRQuery({
+    queryKey: ["datalist"],
+    queryUrl: `${endPoints.httpnosqlReadData}`,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
 
   const renderData = dataList?.data?.map((data: any) => {
     return (

@@ -12,7 +12,7 @@ import {
 } from "@/shared/components/ui/card"
 import { usePathname } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import ActivityLog from "@/shared/components/activity"
@@ -23,11 +23,12 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
-  const products = useQueryWithSuspense(
-    ["products", pathName],
-    endPoints.getProductConfig,
-    HTTPMethods.GET
-  )
+  const products = useSWRQuery({
+    queryKey: ["products", pathName],
+    queryUrl: endPoints.getProductConfig,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
   const selectedProduct = products?.data?.find(
     (product: any) => product.productName === productName
   )

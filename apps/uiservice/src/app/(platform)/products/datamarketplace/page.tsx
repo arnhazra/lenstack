@@ -3,7 +3,7 @@ import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -40,22 +40,24 @@ export default function Page() {
       selectedSortOption: "name",
       offset: 0,
     })
-  const filtersAndSortOptions = useQueryWithSuspense(
-    ["filters-and-sorts"],
-    endPoints.datamarketplaceFilterAndSortOptions,
-    HTTPMethods.GET
-  )
-  const datasets = useQueryWithSuspense(
-    [
+  const filtersAndSortOptions = useSWRQuery({
+    queryKey: ["filters-and-sorts"],
+    queryUrl: endPoints.datamarketplaceFilterAndSortOptions,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
+  const datasets = useSWRQuery({
+    queryKey: [
       "datasets",
       datasetRequestState.selectedFilter,
       datasetRequestState.selectedSortOption,
       String(datasetRequestState.offset),
     ],
-    endPoints.datamarketplaceFindDatasets,
-    HTTPMethods.POST,
-    datasetRequestState
-  )
+    queryUrl: endPoints.datamarketplaceFindDatasets,
+    method: HTTPMethods.POST,
+    requestBody: datasetRequestState,
+    suspense: true,
+  })
 
   useEffect(() => {
     if (!datasetRequestState.searchQuery) datasets.mutate()

@@ -13,7 +13,7 @@ import { Separator } from "@/shared/components/ui/separator"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { useRouter } from "nextjs-toploader/app"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { brandName } from "@/shared/constants/global-constants"
@@ -21,13 +21,14 @@ import { Product } from "@/shared/types"
 import MaskText from "@/shared/components/mask"
 
 export default function Page() {
-  const products = useQueryWithSuspense(
-    ["products"],
-    endPoints.getProductConfig,
-    HTTPMethods.GET
-  )
   const [{ user, selectedWorkspace, subscription }] = useContext(GlobalContext)
   const router = useRouter()
+  const products = useSWRQuery({
+    queryKey: ["products"],
+    queryUrl: endPoints.getProductConfig,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
 
   const renderProducts = products?.data?.map((product: Product) => {
     return (

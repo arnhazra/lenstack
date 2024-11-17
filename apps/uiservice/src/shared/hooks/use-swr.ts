@@ -6,15 +6,24 @@ import { GlobalContext } from "@/context/globalstate.provider"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 
-export default function useQueryWithSuspense(
-  queryKey: string[],
-  queryUrl: string,
-  method: HTTPMethods,
+interface QueryType {
+  queryKey: string[]
+  queryUrl: string
+  method: HTTPMethods
+  suspense: boolean
   requestBody?: object
-) {
+}
+
+export default function useSWRQuery({
+  queryKey,
+  queryUrl,
+  method,
+  suspense,
+  requestBody,
+}: QueryType) {
   const [{ user }] = useContext(GlobalContext)
 
-  const fetchDataFunction = async () => {
+  const queryFunction = async () => {
     const data: any = await ky(queryUrl, {
       method,
       json: requestBody,
@@ -23,9 +32,9 @@ export default function useQueryWithSuspense(
     return data
   }
 
-  return useSWR([...queryKey, user.selectedWorkspaceId], fetchDataFunction, {
+  return useSWR([...queryKey, user.selectedWorkspaceId], queryFunction, {
     refreshWhenHidden: !user.reduceCarbonEmissions,
     refreshInterval: user.reduceCarbonEmissions ? 0 : 30000,
-    suspense: true,
+    suspense,
   })
 }

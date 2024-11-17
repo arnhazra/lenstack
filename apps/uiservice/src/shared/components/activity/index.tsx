@@ -1,15 +1,16 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Activity } from "lucide-react"
-import useGeneralQuery from "@/shared/hooks/use-general-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 
 export default function ActivityLog({ keyword }: { keyword: string }) {
-  const activityCount = useGeneralQuery(
-    ["activity-search", keyword],
-    endPoints.activityTrends,
-    HTTPMethods.POST,
-    { searchKeyword: keyword }
-  )
+  const activityCount = useSWRQuery({
+    queryKey: ["activity-search", keyword],
+    queryUrl: endPoints.activityTrends,
+    method: HTTPMethods.POST,
+    suspense: false,
+    requestBody: { searchKeyword: keyword },
+  })
 
   return (
     <div className="flex gap-4">

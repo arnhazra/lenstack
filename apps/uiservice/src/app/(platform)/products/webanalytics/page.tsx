@@ -17,16 +17,17 @@ import {
 } from "@/shared/components/ui/table"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useQueryWithSuspense from "@/shared/hooks/use-suspense-query"
+import useSWRQuery from "@/shared/hooks/use-swr"
 import { format } from "date-fns"
 import { DataModal } from "@/shared/components/datamodal"
 
 export default function Page() {
-  const webAnalytics = useQueryWithSuspense(
-    ["webanalytics"],
-    endPoints.webanalyticsView,
-    HTTPMethods.GET
-  )
+  const webAnalytics = useSWRQuery({
+    queryKey: ["webanalytics"],
+    queryUrl: endPoints.webanalyticsView,
+    method: HTTPMethods.GET,
+    suspense: true,
+  })
 
   const renderAnalytics = webAnalytics?.data?.map((event: any, id: number) => {
     return (
