@@ -29,7 +29,7 @@ import Show from "@/shared/components/show"
 export default function Sidebar() {
   const pathName = usePathname()
   const products = useFetch({
-    queryKey: ["products"],
+    queryKey: ["products-sidebar"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: true,

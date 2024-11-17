@@ -24,7 +24,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
   const products = useFetch({
-    queryKey: ["products", pathName],
+    queryKey: ["products-layout", pathName],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: true,

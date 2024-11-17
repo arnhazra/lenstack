@@ -23,7 +23,7 @@ export default function Page() {
   const router = useRouter()
 
   const pricing = useFetch({
-    queryKey: ["pricing"],
+    queryKey: ["pricing-settings"],
     queryUrl: endPoints.getSubscriptionPricing,
     method: HTTPMethods.GET,
     suspense: true,

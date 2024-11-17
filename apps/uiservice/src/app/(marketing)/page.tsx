@@ -24,7 +24,7 @@ export default function Page() {
   })
 
   const products = useFetch({
-    queryKey: ["products"],
+    queryKey: ["products-marketing"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: false,

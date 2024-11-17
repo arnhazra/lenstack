@@ -24,7 +24,7 @@ export default function Page() {
   const [{ user, selectedWorkspace, subscription }] = useContext(GlobalContext)
   const router = useRouter()
   const products = useFetch({
-    queryKey: ["products"],
+    queryKey: ["products-dashboard"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: true,

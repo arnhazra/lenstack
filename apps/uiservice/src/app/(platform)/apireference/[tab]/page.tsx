@@ -12,7 +12,7 @@ export default function Page({ params }: { params: { tab: string } }) {
   const router = useRouter()
   const { tab } = params
   const products = useFetch({
-    queryKey: ["products"],
+    queryKey: ["products-apireference"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: true,
