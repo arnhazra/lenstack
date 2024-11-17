@@ -12,7 +12,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Separator } from "@/shared/components/ui/separator"
 import { useRouter } from "nextjs-toploader/app"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import Show from "@/shared/components/show"
@@ -24,13 +24,13 @@ import ActivityLog from "@/shared/components/activity"
 export default function Page({ params }: { params: { id: string } }) {
   const { id: datasetId = "" } = params
   const router = useRouter()
-  const dataset = useSWRQuery({
+  const dataset = useFetch({
     queryKey: ["dataset", datasetId ?? ""],
     queryUrl: `${endPoints.datamarketplaceViewDataset}/${datasetId}`,
     method: HTTPMethods.GET,
     suspense: true,
   })
-  const relatedDatasets = useSWRQuery({
+  const relatedDatasets = useFetch({
     queryKey: ["relateddatasets", dataset?.data?.metaData],
     queryUrl: endPoints.datamarketplaceFindDatasets,
     method: HTTPMethods.POST,

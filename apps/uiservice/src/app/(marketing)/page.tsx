@@ -13,24 +13,24 @@ import { cn } from "@/shared/lib/utils"
 import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 
 export default function Page() {
-  const solutions = useSWRQuery({
+  const solutions = useFetch({
     queryKey: ["solutions"],
     queryUrl: endPoints.getSolutionConfig,
     method: HTTPMethods.GET,
     suspense: false,
   })
 
-  const products = useSWRQuery({
+  const products = useFetch({
     queryKey: ["products"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: false,
   })
 
-  const pricing = useSWRQuery({
+  const pricing = useFetch({
     queryKey: ["pricing"],
     queryUrl: endPoints.getSubscriptionPricing,
     method: HTTPMethods.GET,

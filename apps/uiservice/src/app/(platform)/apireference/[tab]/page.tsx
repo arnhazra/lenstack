@@ -1,7 +1,7 @@
 "use client"
 import { apiHost, endPoints } from "@/shared/constants/api-endpoints"
 import { Book } from "lucide-react"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 import HTTPMethods from "@/shared/constants/http-methods"
 import SnippetPanel from "../(components)/snippet"
 import { useRouter } from "nextjs-toploader/app"
@@ -11,13 +11,13 @@ import ActivityLog from "@/shared/components/activity"
 export default function Page({ params }: { params: { tab: string } }) {
   const router = useRouter()
   const { tab } = params
-  const products = useSWRQuery({
+  const products = useFetch({
     queryKey: ["products"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: true,
   })
-  const apiReference = useSWRQuery({
+  const apiReference = useFetch({
     queryKey: ["apireference", tab ?? ""],
     queryUrl: `${endPoints.getapireference}/${tab?.toLowerCase()}`,
     method: HTTPMethods.GET,

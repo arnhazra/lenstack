@@ -3,7 +3,7 @@ import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -40,13 +40,13 @@ export default function Page() {
       selectedSortOption: "name",
       offset: 0,
     })
-  const filtersAndSortOptions = useSWRQuery({
+  const filtersAndSortOptions = useFetch({
     queryKey: ["filters-and-sorts"],
     queryUrl: endPoints.datamarketplaceFilterAndSortOptions,
     method: HTTPMethods.GET,
     suspense: true,
   })
-  const datasets = useSWRQuery({
+  const datasets = useFetch({
     queryKey: [
       "datasets",
       datasetRequestState.selectedFilter,
@@ -60,7 +60,7 @@ export default function Page() {
   })
 
   useEffect(() => {
-    if (!datasetRequestState.searchQuery) datasets.mutate()
+    if (!datasetRequestState.searchQuery) datasets.refetch()
   }, [datasetRequestState.searchQuery])
 
   const renderFilterTabs = filtersAndSortOptions?.data?.filters?.map(
@@ -153,7 +153,7 @@ export default function Page() {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              datasets.mutate()
+              datasets.refetch()
             }}
           >
             <div className="relative">

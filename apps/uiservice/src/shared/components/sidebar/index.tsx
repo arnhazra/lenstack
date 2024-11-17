@@ -18,7 +18,7 @@ import {
 import { UserNav } from "./user-nav"
 import { WorkspaceSwitcher } from "./workspace-switcher"
 import { brandName } from "@/shared/constants/global-constants"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Product } from "@/shared/types"
@@ -28,7 +28,7 @@ import Show from "@/shared/components/show"
 
 export default function Sidebar() {
   const pathName = usePathname()
-  const products = useSWRQuery({
+  const products = useFetch({
     queryKey: ["products"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,

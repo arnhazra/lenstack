@@ -1,6 +1,6 @@
 "use client"
 import ky from "ky"
-import useSWR from "swr"
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import HTTPMethods from "@/shared/constants/http-methods"
@@ -14,7 +14,7 @@ interface QueryType {
   requestBody?: object
 }
 
-export default function useSWRQuery({
+export default function useFetch({
   queryKey,
   queryUrl,
   method,
@@ -23,7 +23,7 @@ export default function useSWRQuery({
 }: QueryType) {
   const [{ user }] = useContext(GlobalContext)
 
-  const queryFunction = async () => {
+  const queryFn = async () => {
     const data: any = await ky(queryUrl, {
       method,
       json: requestBody,
@@ -32,9 +32,17 @@ export default function useSWRQuery({
     return data
   }
 
-  return useSWR([...queryKey, user.selectedWorkspaceId], queryFunction, {
-    refreshWhenHidden: !user.reduceCarbonEmissions,
-    refreshInterval: user.reduceCarbonEmissions ? 0 : 30000,
-    suspense,
-  })
+  return suspense
+    ? useSuspenseQuery({
+        queryKey,
+        queryFn,
+        refetchOnWindowFocus: !user.reduceCarbonEmissions,
+        refetchInterval: user.reduceCarbonEmissions ? false : 30000,
+      })
+    : useQuery({
+        queryKey,
+        queryFn,
+        refetchOnWindowFocus: !user.reduceCarbonEmissions,
+        refetchInterval: user.reduceCarbonEmissions ? false : 30000,
+      })
 }

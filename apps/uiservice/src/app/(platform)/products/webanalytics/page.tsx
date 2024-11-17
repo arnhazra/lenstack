@@ -17,12 +17,12 @@ import {
 } from "@/shared/components/ui/table"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 import { format } from "date-fns"
 import { DataModal } from "@/shared/components/datamodal"
 
 export default function Page() {
-  const webAnalytics = useSWRQuery({
+  const webAnalytics = useFetch({
     queryKey: ["webanalytics"],
     queryUrl: endPoints.webanalyticsView,
     method: HTTPMethods.GET,

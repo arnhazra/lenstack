@@ -11,7 +11,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import Sidebar from "../../shared/components/sidebar"
 import { Workspace, Subscription, User } from "@/shared/types"
 import Loading from "../loading"
-import useSWR from "swr"
+import { useQuery } from "@tanstack/react-query"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)
@@ -69,14 +69,13 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     }
   }
 
-  const { isLoading } = useSWR(
-    ["user-details", refreshId, isAuthorized],
-    getUserDetails,
-    {
-      refreshWhenHidden: false,
-      suspense: false,
-    }
-  )
+  const { isLoading } = useQuery({
+    queryKey: ["user-details", refreshId, isAuthorized],
+    queryFn: getUserDetails,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+    enabled: true,
+  })
 
   const appLayout = (
     <>

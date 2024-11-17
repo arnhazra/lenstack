@@ -12,7 +12,7 @@ import {
 } from "@/shared/components/ui/card"
 import { usePathname } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import ActivityLog from "@/shared/components/activity"
@@ -23,7 +23,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
   const pathName = usePathname()
   const productName = pathName.split("/")[2]
-  const products = useSWRQuery({
+  const products = useFetch({
     queryKey: ["products", pathName],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,

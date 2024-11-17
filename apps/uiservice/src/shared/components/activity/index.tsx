@@ -1,10 +1,10 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Activity } from "lucide-react"
-import useSWRQuery from "@/shared/hooks/use-swr"
+import useFetch from "@/shared/hooks/use-fetch"
 
 export default function ActivityLog({ keyword }: { keyword: string }) {
-  const activityCount = useSWRQuery({
+  const activityCount = useFetch({
     queryKey: ["activity-search", keyword],
     queryUrl: endPoints.activityTrends,
     method: HTTPMethods.POST,
