@@ -11,7 +11,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import Sidebar from "../../shared/components/sidebar"
 import { Workspace, Subscription, User } from "@/shared/types"
 import Loading from "../loading"
-import { useQuery } from "@tanstack/react-query"
+import useSWR from "swr"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(GlobalContext)
@@ -69,15 +69,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     }
   }
 
-  const { isLoading, isFetching } = useQuery({
-    queryKey: ["user-details", refreshId, isAuthorized],
-    enabled: true,
-    queryFn: getUserDetails,
-    retry: 3,
-    retryDelay: 1500,
-    staleTime: 0,
-    refetchOnWindowFocus: false,
-  })
+  const { isLoading } = useSWR(
+    ["user-details", refreshId, isAuthorized],
+    getUserDetails,
+    {
+      refreshWhenHidden: false,
+      suspense: false,
+    }
+  )
 
   const appLayout = (
     <>
@@ -91,7 +90,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   )
 
   return (
-    <Show condition={!isLoading && !isFetching} fallback={<Loading />}>
+    <Show condition={!isLoading} fallback={<Loading />}>
       <Show condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Show>

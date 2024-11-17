@@ -1,6 +1,6 @@
 "use client"
 import ky from "ky"
-import { useQuery } from "@tanstack/react-query"
+import useSWR from "swr"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import HTTPMethods from "@/shared/constants/http-methods"
@@ -23,10 +23,9 @@ export default function useGeneralQuery(
     return data
   }
 
-  return useQuery({
-    queryKey: [...queryKey, user.selectedWorkspaceId],
-    queryFn: fetchDataFunction,
-    refetchOnWindowFocus: !user.reduceCarbonEmissions,
-    refetchInterval: user.reduceCarbonEmissions ? false : 30000,
+  return useSWR([...queryKey, user.selectedWorkspaceId], fetchDataFunction, {
+    refreshWhenHidden: !user.reduceCarbonEmissions,
+    refreshInterval: user.reduceCarbonEmissions ? 0 : 30000,
+    suspense: false,
   })
 }

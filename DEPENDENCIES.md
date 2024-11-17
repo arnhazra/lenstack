@@ -1,7 +1,7 @@
 # Dependencies
 
 - @google/generative-ai: Gen AI library for generating artificial intelligence content from Google.
-- @nestjs/\*: Fast backend framework for Node.js to build APIs, providing a robust structure for web applications.
+- @nestjs: Fast backend framework for Node.js to build APIs, providing a robust structure for web applications.
 - ky: Promise-based fetch client for the browser and Node.js, simplifying asynchronous fetch requests.
 - @mswjs/interceptors: Global interceptors to intercept fetch request & response.
 - class-transformer: Library for transforming plain JavaScript objects to class constructors and vice versa.
@@ -21,10 +21,10 @@
 - tsconfig-paths: TypeScript path mapping plugin for Node.js, simplifying module resolution with TypeScript.
 - typescript: Typed superset of JavaScript that compiles to plain JavaScript, providing type safety and modern language features.
 - concurrently: Utility for running multiple commands concurrently, simplifying development workflows.
-- @radix-ui/\*: Collection of UI components for React applications, providing accessible and customizable UI elements.
+- @radix-ui: Collection of UI components for React applications, providing accessible and customizable UI elements.
 - class-variance-authority: Library for calculating variance and standard deviation in JavaScript classes.
 - clsx: Utility for constructing className strings conditionally in JavaScript and TypeScript.
-- @tanstack/react-query: Query client for React data fetching, providing a powerful and efficient data fetching solution.
+- swr: Query client for React data fetching, providing a powerful and efficient data fetching solution.
 - date-fns: Lightweight JavaScript date library for parsing, validating, and formatting dates and times.
 - lucide-react: Library of SVG icon components for React applications.
 - next: Popular JS framework for building user interfaces based on React.
