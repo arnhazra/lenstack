@@ -24,7 +24,7 @@
 - @radix-ui: Collection of UI components for React applications, providing accessible and customizable UI elements.
 - class-variance-authority: Library for calculating variance and standard deviation in JavaScript classes.
 - clsx: Utility for constructing className strings conditionally in JavaScript and TypeScript.
-- @tanstack/react-query: Query client for React data fetching, providing a powerful and efficient data fetching solution.
+- swr: Query client for React data fetching, providing a powerful and efficient data fetching solution.
 - date-fns: Lightweight JavaScript date library for parsing, validating, and formatting dates and times.
 - lucide-react: Library of SVG icon components for React applications.
 - next: Popular JS framework for building user interfaces based on React.

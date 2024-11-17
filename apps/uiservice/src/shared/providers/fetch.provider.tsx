@@ -1,5 +1,5 @@
 "use client"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { SWRConfig, SWRConfiguration } from "swr"
 import { ReactNode } from "react"
 import { FetchInterceptor } from "@mswjs/interceptors/fetch"
 
@@ -32,20 +32,10 @@ interceptor.on("response", ({ response }) => {
 })
 
 export function FetchProvider({ children }: { children: ReactNode }) {
-  const client = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 5000,
-        retry: 2,
-        retryDelay: 2500,
-        enabled: true,
-      },
-      mutations: {
-        retry: 2,
-        retryDelay: 2500,
-      },
-    },
-  })
+  const config: SWRConfiguration = {
+    errorRetryCount: 2,
+    errorRetryInterval: 2500,
+  }
 
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>
+  return <SWRConfig value={config}>{children}</SWRConfig>
 }

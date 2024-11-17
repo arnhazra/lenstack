@@ -60,7 +60,7 @@ export default function Page() {
   })
 
   useEffect(() => {
-    if (!datasetRequestState.searchQuery) datasets.refetch()
+    if (!datasetRequestState.searchQuery) datasets.mutate()
   }, [datasetRequestState.searchQuery])
 
   const renderFilterTabs = filtersAndSortOptions?.data?.filters?.map(
@@ -153,7 +153,7 @@ export default function Page() {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              datasets.refetch()
+              datasets.mutate()
             }}
           >
             <div className="relative">
