@@ -31,11 +31,7 @@ interceptor.on("response", ({ response }) => {
   }
 })
 
-export default function ReactQueryProvider({
-  children,
-}: {
-  children: ReactNode
-}) {
+export function FetchProvider({ children }: { children: ReactNode }) {
   const swrOptions: SWRConfiguration = {
     errorRetryCount: 2,
     errorRetryInterval: 2500,

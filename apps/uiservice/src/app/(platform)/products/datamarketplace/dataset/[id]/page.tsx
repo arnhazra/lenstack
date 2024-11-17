@@ -20,10 +20,9 @@ import { toast } from "@/shared/components/ui/use-toast"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { DatasetCard } from "../../(components)/dataset-card"
 import ActivityLog from "@/shared/components/activity"
-import { use } from "react"
 
-export default function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id: datasetId } = use(params)
+export default function Page({ params }: { params: { id: string } }) {
+  const { id: datasetId = "" } = params
   const router = useRouter()
   const dataset = useSWRQuery({
     queryKey: ["dataset", datasetId ?? ""],
@@ -32,7 +31,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     suspense: true,
   })
   const relatedDatasets = useSWRQuery({
-    queryKey: ["relateddatasets"],
+    queryKey: ["relateddatasets", dataset?.data?.metaData],
     queryUrl: endPoints.datamarketplaceFindDatasets,
     method: HTTPMethods.POST,
     suspense: true,

@@ -101,7 +101,7 @@ export default function Sidebar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/apireference/datamarketplace"
+                href="/apireference/webanalytics"
                 className={generateLinkClassName("apireference")}
               >
                 <Book className="scale-75" />
@@ -151,7 +151,7 @@ export default function Sidebar() {
                 </Link>
                 {renderSheetProducts}
                 <Link
-                  href="/apireference/datamarketplace"
+                  href="/apireference/webanalytics"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Book className="scale-75" />
