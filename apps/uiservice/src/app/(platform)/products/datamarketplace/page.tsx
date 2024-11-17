@@ -22,7 +22,6 @@ import {
 import { useEffect, useState } from "react"
 import { useRouter } from "nextjs-toploader/app"
 import { Input } from "@/shared/components/ui/input"
-import { uiConstants } from "@/shared/constants/global-constants"
 import { DatasetCard } from "./(components)/dataset-card"
 
 export interface DatasetRequestState {
@@ -59,7 +58,7 @@ export default function Page() {
   )
 
   useEffect(() => {
-    if (!datasetRequestState.searchQuery) datasets.refetch()
+    if (!datasetRequestState.searchQuery) datasets.mutate()
   }, [datasetRequestState.searchQuery])
 
   const renderFilterTabs = filtersAndSortOptions?.data?.filters?.map(
@@ -152,7 +151,7 @@ export default function Page() {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              datasets.refetch()
+              datasets.mutate()
             }}
           >
             <div className="relative">
@@ -169,9 +168,6 @@ export default function Page() {
                 placeholder="Type anything and press enter to find datasets"
                 className="mb-4 pl-8 w-full h-12 focus:outline-none"
               />
-              <p className="text-xs text-slate-500 -mt-2 mb-4 ms-1">
-                {uiConstants.aiSafetyStatement}
-              </p>
             </div>
           </form>
         </div>
