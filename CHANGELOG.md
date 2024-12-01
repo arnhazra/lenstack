@@ -3,6 +3,7 @@
 ## v2.11.0 [Dec 2024]
 
 - Dependency updates across apps
+- Minor bug fixes & performance improvements
 
 ## v2.10.1 [Nov 2024]
 
