@@ -69,7 +69,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     }
   }
 
-  const { isLoading } = useSWR(
+  const { isLoading, isValidating } = useSWR(
     ["user-details", refreshId, isAuthorized],
     getUserDetails,
     {
@@ -90,7 +90,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   )
 
   return (
-    <Show condition={!isLoading} fallback={<Loading />}>
+    <Show condition={!isLoading && !isValidating} fallback={<Loading />}>
       <Show condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Show>

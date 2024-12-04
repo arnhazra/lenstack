@@ -7,7 +7,7 @@ export default function Page() {
     <SectionPanel
       icon={<InfoIcon className="scale-75" />}
       title={`${brandName} Ecosystem Version`}
-      content="17.3"
+      content="2.11.0"
     />
   )
 }

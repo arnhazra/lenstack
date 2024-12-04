@@ -1,6 +1,6 @@
 {
   "name": "arcstack",
-  "version": "17.3",
+  "version": "2.11.0",
   "description": "a saas product",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix apps/apigateway\" \"npm run dev --prefix apps/uiservice\"",
@@ -11,6 +11,6 @@
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE",
   "devDependencies": {
     "concurrently": "^9.1.0",
-    "prettier": "^3.3.3"
+    "prettier": "^3.4.1"
   }
 }
