@@ -6,12 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card"
-import { Button } from "@/shared/components/ui/button"
-import { useRouter } from "nextjs-toploader/app"
+import { buttonVariants } from "@/shared/components/ui/button"
+import Link from "next/link"
+import { cn } from "@/shared/lib/utils"
 
 export default function NotFound() {
-  const router = useRouter()
-
   return (
     <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
       <Card className="mx-auto max-w-sm">
@@ -22,13 +21,12 @@ export default function NotFound() {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button
-            size="lg"
-            className="w-full"
-            onClick={(): void => router.push("/dashboard")}
+          <Link
+            href="/dashboard"
+            className={`w-full ${cn(buttonVariants({ variant: "default" }))}`}
           >
             Go Back
-          </Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

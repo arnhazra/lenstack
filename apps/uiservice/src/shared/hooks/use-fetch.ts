@@ -1,6 +1,6 @@
 "use client"
 import ky from "ky"
-import useSWR from "swr"
+import { useSuspenseQuery, useQuery } from "@tanstack/react-query"
 import { useContext } from "react"
 import { GlobalContext } from "@/context/globalstate.provider"
 import HTTPMethods from "@/shared/constants/http-methods"
@@ -32,9 +32,15 @@ export default function useFetch({
     return data
   }
 
-  return useSWR(queryKey, queryFn, {
-    suspense,
-    refreshWhenHidden: !user.reduceCarbonEmissions,
-    refreshInterval: user.reduceCarbonEmissions ? 0 : 30000,
-  })
+  return suspense
+    ? useSuspenseQuery({
+        queryKey,
+        queryFn,
+        refetchInterval: user.reduceCarbonEmissions ? 0 : 30000,
+      })
+    : useQuery({
+        queryKey,
+        queryFn,
+        refetchInterval: user.reduceCarbonEmissions ? 0 : 30000,
+      })
 }
