@@ -20,9 +20,10 @@ import { toast } from "@/shared/components/ui/use-toast"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { DatasetCard } from "../../(components)/dataset-card"
 import ActivityLog from "@/shared/components/activity"
+import { use } from "react"
 
-export default function Page({ params }: { params: { id: string } }) {
-  const { id: datasetId = "" } = params
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id: datasetId = "" } = use(params)
   const router = useRouter()
   const dataset = useFetch({
     queryKey: ["dataset", datasetId ?? ""],

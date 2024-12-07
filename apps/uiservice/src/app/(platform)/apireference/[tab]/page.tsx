@@ -7,10 +7,11 @@ import SnippetPanel from "../(components)/snippet"
 import { useRouter } from "nextjs-toploader/app"
 import { uiConstants } from "@/shared/constants/global-constants"
 import ActivityLog from "@/shared/components/activity"
+import { use } from "react"
 
-export default function Page({ params }: { params: { tab: string } }) {
+export default function Page({ params }: { params: Promise<{ tab: string }> }) {
   const router = useRouter()
-  const { tab } = params
+  const { tab } = use(params)
   const products = useFetch({
     queryKey: ["products"],
     queryUrl: endPoints.getProductConfig,
