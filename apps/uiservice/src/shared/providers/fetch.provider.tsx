@@ -32,11 +32,6 @@ interceptor.on("response", ({ response }) => {
 })
 
 export function FetchProvider({ children }: { children: ReactNode }) {
-  const config = {
-    errorRetryCount: 2,
-    errorRetryInterval: 2500,
-  }
-
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

@@ -32,7 +32,7 @@ export default function Sidebar() {
     queryKey: ["products"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
-    suspense: true,
+    suspense: false,
   })
 
   const generateLinkClassName = (uri: string) => {
