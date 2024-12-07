@@ -24,14 +24,13 @@
 - @radix-ui: Collection of UI components for React applications, providing accessible and customizable UI elements.
 - class-variance-authority: Library for calculating variance and standard deviation in JavaScript classes.
 - clsx: Utility for constructing className strings conditionally in JavaScript and TypeScript.
-- swr: Query client for React data fetching, providing a powerful and efficient data fetching solution.
+- @tanstack/react-query: Query client for React data fetching, providing a powerful and efficient data fetching solution.
 - date-fns: Lightweight JavaScript date library for parsing, validating, and formatting dates and times.
 - lucide-react: Library of SVG icon components for React applications.
 - next: Popular JS framework for building user interfaces based on React.
 - prop-types: Runtime type checking for React props, ensuring data integrity in React components.
 - react: Popular JavaScript library for building user interfaces, facilitating component-based UI development.
 - react-dom: React package for working with the DOM, enabling React components to interact with the browser.
-- react-cache-buster: Cache busting library for React applications, ensuring updated resources are loaded by browsers.
 - sass: CSS preprocessor that adds power and elegance to traditional CSS, providing features like variables, nesting, and mixins.
 - react-syntax-highlighter: Simple JSON View library for React JS, facilitating JSON data visualization in React applications.
 - tailwind-merge: Utility for merging Tailwind CSS classes, enabling dynamic class composition in Tailwind CSS projects.

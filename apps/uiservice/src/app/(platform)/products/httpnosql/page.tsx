@@ -20,13 +20,13 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import useFetch from "@/shared/hooks/use-fetch"
 import { format } from "date-fns"
 import { DataModal } from "@/shared/components/datamodal"
+import Loading from "@/app/loading"
 
 export default function Page() {
   const dataList = useFetch({
     queryKey: ["datalist"],
     queryUrl: `${endPoints.httpnosqlReadData}`,
     method: HTTPMethods.GET,
-    suspense: true,
   })
 
   const renderData = dataList?.data?.map((data: any) => {
@@ -46,30 +46,34 @@ export default function Page() {
   })
 
   return (
-    <Card>
-      <CardHeader className="px-7">
-        <CardTitle>Database</CardTitle>
-        <CardDescription>Your Datalist list in this workspace</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Show
-          condition={dataList?.data?.length > 0}
-          fallback={<p className="text-center">No data to display</p>}
-        >
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Key</TableHead>
-                <TableHead>Value</TableHead>
-                <TableHead className="text-right hidden md:table-cell">
-                  Created At
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>{renderData}</TableBody>
-          </Table>
-        </Show>
-      </CardContent>
-    </Card>
+    <Show condition={!dataList.isLoading} fallback={<Loading />}>
+      <Card>
+        <CardHeader className="px-7">
+          <CardTitle>Database</CardTitle>
+          <CardDescription>
+            Your Datalist list in this workspace
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Show
+            condition={dataList?.data?.length > 0}
+            fallback={<p className="text-center">No data to display</p>}
+          >
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Key</TableHead>
+                  <TableHead>Value</TableHead>
+                  <TableHead className="text-right hidden md:table-cell">
+                    Created At
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>{renderData}</TableBody>
+            </Table>
+          </Show>
+        </CardContent>
+      </Card>
+    </Show>
   )
 }

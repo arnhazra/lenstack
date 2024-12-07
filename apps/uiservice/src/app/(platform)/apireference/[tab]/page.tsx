@@ -4,10 +4,12 @@ import { Book } from "lucide-react"
 import useFetch from "@/shared/hooks/use-fetch"
 import HTTPMethods from "@/shared/constants/http-methods"
 import SnippetPanel from "../(components)/snippet"
-import { useRouter } from "nextjs-toploader/app"
+import { useRouter } from "next/navigation"
 import { uiConstants } from "@/shared/constants/global-constants"
 import ActivityLog from "@/shared/components/activity"
 import { use } from "react"
+import Show from "@/shared/components/show"
+import Loading from "@/app/loading"
 
 export default function Page({ params }: { params: Promise<{ tab: string }> }) {
   const router = useRouter()
@@ -16,13 +18,11 @@ export default function Page({ params }: { params: Promise<{ tab: string }> }) {
     queryKey: ["products"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
-    suspense: true,
   })
   const apiReference = useFetch({
     queryKey: ["apireference", tab ?? ""],
     queryUrl: `${endPoints.getapireference}/${tab?.toLowerCase()}`,
     method: HTTPMethods.GET,
-    suspense: true,
   })
 
   const renderTabs = products?.data?.map((product: any) => {
@@ -59,7 +59,10 @@ export default function Page({ params }: { params: Promise<{ tab: string }> }) {
   })
 
   return (
-    <>
+    <Show
+      condition={!products.isLoading && !apiReference.isLoading}
+      fallback={<Loading />}
+    >
       <div className="bg-white flex justify-between items-center mb-4 p-2 border rounded-md ps-4 pe-4">
         <div className="flex gap-4 items-center">
           <Book className="h-5 w-5" />
@@ -78,6 +81,6 @@ export default function Page({ params }: { params: Promise<{ tab: string }> }) {
           <section className="grid gap-6">{renderAPIReferences}</section>
         </div>
       </div>
-    </>
+    </Show>
   )
 }

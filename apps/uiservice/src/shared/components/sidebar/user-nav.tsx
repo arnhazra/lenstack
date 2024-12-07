@@ -11,7 +11,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu"
 import { GlobalContext } from "@/context/globalstate.provider"
 import { User } from "lucide-react"
-import { useRouter } from "nextjs-toploader/app"
+import { useRouter } from "next/navigation"
 import { useContext } from "react"
 
 export function UserNav() {

@@ -15,7 +15,8 @@ import ky from "ky"
 import { Bolt, CalendarClock, CheckCircle2, Coins } from "lucide-react"
 import { useContext, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
-import { useRouter } from "nextjs-toploader/app"
+import { useRouter } from "next/navigation"
+import Loading from "@/app/loading"
 
 export default function Page() {
   const [{ user, subscription }] = useContext(GlobalContext)
@@ -26,7 +27,6 @@ export default function Page() {
     queryKey: ["pricing-settings"],
     queryUrl: endPoints.getSubscriptionPricing,
     method: HTTPMethods.GET,
-    suspense: true,
   })
 
   useEffect(() => {
@@ -135,7 +135,7 @@ export default function Page() {
   }
 
   return (
-    <>
+    <Show condition={!pricing.isLoading} fallback={<Loading />}>
       <Show condition={!subscription}>
         <SectionPanel
           icon={<CalendarClock className="scale-75" />}
@@ -185,6 +185,6 @@ export default function Page() {
           {renderPricingTiers}
         </div>
       </Show>
-    </>
+    </Show>
   )
 }

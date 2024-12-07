@@ -8,7 +8,6 @@ export default function ActivityLog({ keyword }: { keyword: string }) {
     queryKey: ["activity-search", keyword],
     queryUrl: endPoints.activityTrends,
     method: HTTPMethods.POST,
-    suspense: false,
     requestBody: { searchKeyword: keyword },
   })
 

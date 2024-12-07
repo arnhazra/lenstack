@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { usePathname } from "next/navigation"
-import { useRouter } from "nextjs-toploader/app"
+import { useRouter } from "next/navigation"
 import useFetch from "@/shared/hooks/use-fetch"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
@@ -28,7 +28,6 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
     queryKey: ["products", pathName],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
-    suspense: false,
   })
   const selectedProduct = products?.data?.find(
     (product: any) => product.productName === productName

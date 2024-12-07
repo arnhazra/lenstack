@@ -20,21 +20,18 @@ export default function Page() {
     queryKey: ["solutions"],
     queryUrl: endPoints.getSolutionConfig,
     method: HTTPMethods.GET,
-    suspense: false,
   })
 
   const products = useFetch({
     queryKey: ["products-marketing"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
-    suspense: false,
   })
 
   const pricing = useFetch({
     queryKey: ["pricing"],
     queryUrl: endPoints.getSubscriptionPricing,
     method: HTTPMethods.GET,
-    suspense: false,
   })
 
   const renderProducts = products?.data?.map((product: Product) => {

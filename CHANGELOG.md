@@ -8,8 +8,6 @@
 ## v2.10.1 [Nov 2024]
 
 - Major changes in the way of fetching data
-- Integrated suspense with react query to automaticallyb handle loading state
-- Integrated suspense with react query to automaticallyb handle error state
 - Changed conditional rendering component name
 
 ## v2.10.0 [Nov 2024]
@@ -415,7 +413,6 @@
 
 ## v1.5.4 [Nov 2023]
 
-- Better error handlings with suspense
 - Minor changes & performance improvements
 - Rebranding of Pay as Wallet
 - Rebranding & Redesigned UI
@@ -443,15 +440,13 @@
 - Migrated some more components to RSC Architecture
 - Introduction of useCallback and useMemo hook for rendering lists and cards in all components
 - New Card Component
-- Introduction of new Suspense Component
 - Introduction of Tanstack query default options
 - Component new naming convention
 
 ## v1.5.0 [Nov 2023]
 
 - Tanstack query dependency modifications
-- Introduction of new suspense component with fallback ui
-- Deprecated Show component
+- Introduction of new Show component with fallback ui
 - Added strict types to functions, constants, returns
 - Fix resubscribe issue
 
