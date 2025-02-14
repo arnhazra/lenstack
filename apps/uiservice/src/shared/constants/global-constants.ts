@@ -1,4 +1,4 @@
-export const brandName = "ArcStack"
+export const brandName = "LenStack"
 
 export const uiConstants = {
   homeBadge: "Invent with Purpose",
