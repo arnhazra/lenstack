@@ -1,4 +1,4 @@
-## ArcStack
+## LenStack
 
 This Software-as-a-Service (SaaS) platform offers an extensive array of applications catering to diverse needs. Its ecosystem hosts a multifaceted suite of tools and services, each designed to streamline and enhance various aspects of operations across industries.
 
